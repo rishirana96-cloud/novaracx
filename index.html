@@ -933,26 +933,45 @@
             align-items: center;
             margin-top: 40px;
         }
+
         .founder-img {
             width: 100%;
             border-radius: var(--radius);
             border: 1px solid var(--border-subtle);
-            background: var(--bg-card);
             aspect-ratio: 1/1;
+            object-fit: cover;
+            background: var(--bg-card);
+        }
+
+        .founder-placeholder {
+            width: 100%;
+            aspect-ratio: 1/1;
+            border-radius: var(--radius);
+            border: 1px solid var(--border-subtle);
+            background: var(--accent-gradient);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 6rem;
-            font-weight: 800;
-            color: var(--accent);
-            font-family: 'Gilroy ExtraBold', 'Inter', sans-serif;
+            position: relative;
+            overflow: hidden;
         }
+
+        .founder-placeholder .placeholder-text {
+            font-family: 'Gilroy ExtraBold', 'Inter', sans-serif;
+            font-size: 6rem;
+            font-weight: 900;
+            color: var(--bg-primary);
+            opacity: 0.8;
+            letter-spacing: 2px;
+        }
+
         .founder-stats {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 16px;
             margin: 20px 0;
         }
+
         .founder-stats .number {
             font-size: 1.8rem;
             font-weight: 800;
@@ -963,15 +982,18 @@
             display: block;
             line-height: 1.2;
         }
+
         .founder-stats .label {
             font-size: 0.75rem;
             color: var(--text-muted);
         }
+
         .founder-bio {
             font-size: 0.95rem;
             color: var(--text-secondary);
             line-height: 1.7;
         }
+
         .founder-awards {
             margin-top: 16px;
             padding: 14px 18px;
@@ -1117,6 +1139,14 @@
                 grid-template-columns: 1fr;
                 gap: 32px;
             }
+            .founder-placeholder {
+                max-width: 300px;
+                margin: 0 auto;
+            }
+            .founder-img {
+                max-width: 300px;
+                margin: 0 auto;
+            }
         }
 
         @media (max-width: 768px) {
@@ -1184,6 +1214,9 @@
             footer .links {
                 justify-content: center;
             }
+            .founder-placeholder .placeholder-text {
+                font-size: 4rem;
+            }
         }
 
         @media (max-width: 480px) {
@@ -1226,6 +1259,15 @@
                 flex-direction: column;
                 text-align: center;
                 padding: 12px;
+            }
+            .founder-placeholder .placeholder-text {
+                font-size: 3rem;
+            }
+            .founder-placeholder {
+                max-width: 200px;
+            }
+            .founder-img {
+                max-width: 200px;
             }
         }
     </style>
@@ -1586,7 +1628,7 @@
     ========================================== -->
     <section id="founder">
         <div class="container founder-grid">
-            <img src="assets/founder-photo.jpg" alt="Rishi Rana, Founder of Novara CX" class="founder-img" />
+<img src="assets/founder-photo.jpg" alt="Rishi Rana, Founder of Novara CX" class="founder-img" />
             <div>
                 <span class="section-label">About The Founder</span>
                 <h2 class="section-title">Rishi Rana — CX leader <span class="highlight">turned founder</span></h2>
