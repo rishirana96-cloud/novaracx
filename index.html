@@ -9,6 +9,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
     <style>
+        /* ==========================================
+           RESET & BASE
+           ========================================== */
         * {
             margin: 0;
             padding: 0;
@@ -24,12 +27,20 @@
             --text-secondary: rgba(255, 255, 255, 0.65);
             --text-muted: rgba(255, 255, 255, 0.35);
             --accent: #7C9B8A;
-            --accent-glow: rgba(124, 155, 138, 0.2);
+            --accent-glow: rgba(124, 155, 138, 0.15);
             --accent-gradient: linear-gradient(135deg, #7C9B8A 0%, #5A7A6A 100%);
             --radius: 16px;
             --radius-sm: 10px;
-            --shadow-glow: 0 8px 40px rgba(124, 155, 138, 0.1);
+            --shadow-glow: 0 8px 40px rgba(124, 155, 138, 0.08);
+            --shadow-hover: 0 12px 56px rgba(124, 155, 138, 0.12);
             --transition: 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        @font-face {
+            font-family: 'Gilroy ExtraBold';
+            src: local('Gilroy ExtraBold'), local('Gilroy-ExtraBold');
+            font-weight: 900;
+            font-display: swap;
         }
 
         html {
@@ -62,6 +73,9 @@
             border-radius: 10px;
         }
 
+        /* ==========================================
+           BUTTONS
+           ========================================== */
         .btn {
             display: inline-block;
             padding: 13px 36px;
@@ -89,13 +103,15 @@
             background: rgba(255, 255, 255, 0.06);
             color: var(--text-primary);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(8px);
         }
         .btn-secondary:hover {
             background: rgba(255, 255, 255, 0.12);
             transform: translateY(-3px);
         }
 
+        /* ==========================================
+           SECTION HEADERS
+           ========================================== */
         .section-label {
             display: inline-block;
             font-size: 0.7rem;
@@ -151,7 +167,7 @@
             padding: 14px 0;
             transition: var(--transition);
             background: rgba(10, 10, 15, 0.5);
-            backdrop-filter: blur(16px) saturate(1.2);
+            backdrop-filter: blur(16px);
             border-bottom: 1px solid rgba(255, 255, 255, 0.04);
         }
         header.scrolled {
@@ -190,7 +206,7 @@
         .nav-links {
             display: flex;
             align-items: center;
-            gap: 32px;
+            gap: 16px;
             list-style: none;
         }
         .nav-links a {
@@ -199,27 +215,21 @@
             font-weight: 500;
             font-size: 0.9rem;
             transition: var(--transition);
-            position: relative;
-        }
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -4px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--accent-gradient);
-            transition: var(--transition);
+            padding: 4px 10px;
+            border-radius: 6px;
         }
         .nav-links a:hover {
             color: var(--text-primary);
+            background: rgba(124, 155, 138, 0.08);
         }
-        .nav-links a:hover::after {
-            width: 100%;
+
+        .nav-links a.active {
+            color: var(--text-primary);
+            background: rgba(124, 155, 138, 0.18);
         }
 
         .nav-cta {
-            padding: 8px 24px;
+            padding: 8px 20px;
             background: var(--accent-gradient);
             color: var(--bg-primary);
             border-radius: 50px;
@@ -263,17 +273,6 @@
                 radial-gradient(ellipse at 70% 60%, rgba(124, 155, 138, 0.03) 0%, transparent 50%),
                 var(--bg-primary);
         }
-        .hero::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.015'/%3E%3C/svg%3E");
-            pointer-events: none;
-            opacity: 0.2;
-        }
 
         .hero-grid {
             display: grid;
@@ -305,15 +304,8 @@
             animation: pulse-dot 2s infinite;
         }
         @keyframes pulse-dot {
-            0%,
-            100% {
-                opacity: 1;
-                transform: scale(1);
-            }
-            50% {
-                opacity: 0.3;
-                transform: scale(0.8);
-            }
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.3; transform: scale(0.8); }
         }
 
         .hero .tagline {
@@ -338,6 +330,7 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
+
         .hero .sub-tagline {
             font-size: 0.85rem;
             color: var(--text-muted);
@@ -418,7 +411,6 @@
         .hero-card .flow-item:hover {
             background: rgba(255, 255, 255, 0.02);
         }
-
         .hero-card .flow-item .icon {
             font-size: 1.2rem;
             width: 34px;
@@ -458,25 +450,38 @@
         }
 
         /* ==========================================
-           OFFERINGS
+           OFFERINGS — PRICING CARDS
            ========================================== */
-        .offerings-grid {
+        .pricing-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
+            gap: 24px;
             margin-top: 40px;
         }
 
-        .offering-card {
+        .pricing-card {
             background: var(--bg-card);
             border: 1px solid var(--border-subtle);
             border-radius: var(--radius);
-            padding: 28px 24px;
+            padding: 32px 28px;
             transition: var(--transition);
             position: relative;
-            overflow: hidden;
+            display: flex;
+            flex-direction: column;
         }
-        .offering-card::before {
+
+        .pricing-card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(124, 155, 138, 0.15);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .pricing-card.featured {
+            border-color: var(--accent);
+            box-shadow: 0 8px 40px rgba(124, 155, 138, 0.12);
+        }
+
+        .pricing-card.featured::before {
             content: '';
             position: absolute;
             top: 0;
@@ -484,56 +489,85 @@
             right: 0;
             height: 2px;
             background: var(--accent-gradient);
-            opacity: 0;
-            transition: var(--transition);
+            border-radius: var(--radius) var(--radius) 0 0;
         }
-        .offering-card:hover {
-            transform: translateY(-6px);
-            border-color: rgba(124, 155, 138, 0.15);
-            box-shadow: var(--shadow-glow);
+
+        .pricing-badge {
+            position: absolute;
+            top: -12px;
+            right: 20px;
+            background: var(--accent-gradient);
+            color: var(--bg-primary);
+            font-size: 0.6rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 4px 18px;
+            border-radius: 50px;
         }
-        .offering-card:hover::before {
-            opacity: 1;
-        }
-        .offering-card .icon {
-            font-size: 2rem;
-            margin-bottom: 8px;
-            display: block;
-        }
-        .offering-card h4 {
+
+        .pricing-name {
             font-size: 1.1rem;
             font-weight: 700;
             margin-bottom: 2px;
         }
-        .offering-card .price {
-            font-size: 1rem;
-            font-weight: 800;
-            color: var(--accent);
-            margin-bottom: 6px;
-            display: block;
+
+        .pricing-price {
+            font-size: 2.2rem;
+            font-weight: 900;
+            margin: 8px 0 2px;
+            line-height: 1.2;
         }
-        .offering-card .price span {
-            font-size: 0.8rem;
+
+        .pricing-price span {
+            font-size: 1rem;
             font-weight: 400;
             color: var(--text-muted);
         }
-        .offering-card p {
-            font-size: 0.85rem;
+
+        .pricing-desc {
             color: var(--text-secondary);
-            line-height: 1.6;
+            font-size: 0.9rem;
+            margin-bottom: 16px;
         }
-        .offering-card .pill {
-            display: inline-block;
-            margin-top: 12px;
-            font-size: 0.55rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.6px;
-            padding: 3px 14px;
-            border-radius: 50px;
-            background: rgba(124, 155, 138, 0.06);
+
+        .pricing-features {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 24px;
+            flex: 1;
+        }
+
+        .pricing-features li {
+            padding: 6px 0;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+        }
+
+        .pricing-features li:last-child {
+            border-bottom: none;
+        }
+
+        .pricing-features li::before {
+            content: '✓';
             color: var(--accent);
-            border: 1px solid rgba(124, 155, 138, 0.06);
+            font-weight: 700;
+        }
+
+        .pricing-btn {
+            width: 100%;
+            text-align: center;
+        }
+
+        .pricing-note {
+            text-align: center;
+            margin-top: 32px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
         }
 
         /* ==========================================
@@ -555,7 +589,7 @@
         }
         .result-card:hover {
             border-color: rgba(124, 155, 138, 0.15);
-            box-shadow: var(--shadow-glow);
+            box-shadow: var(--shadow-hover);
         }
         .result-card h3 {
             font-size: 1.2rem;
@@ -570,7 +604,7 @@
 
         .result-stats {
             display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-columns: repeat(3, 1fr);
             gap: 10px;
         }
         .result-stat {
@@ -606,12 +640,12 @@
         }
 
         /* ==========================================
-           DIFFERENTIATORS
+           WHY US — REDESIGNED
            ========================================== */
         .diff-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
+            gap: 24px;
             margin-top: 40px;
         }
 
@@ -619,59 +653,348 @@
             background: var(--bg-card);
             border: 1px solid var(--border-subtle);
             border-radius: var(--radius);
-            padding: 26px 22px;
+            padding: 32px 24px;
             text-align: center;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+        .diff-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 50% 0%, rgba(124, 155, 138, 0.05) 0%, transparent 70%);
+            opacity: 0;
             transition: var(--transition);
         }
         .diff-card:hover {
-            transform: translateY(-4px);
+            transform: translateY(-8px);
+            border-color: rgba(124, 155, 138, 0.2);
+            box-shadow: var(--shadow-hover);
+        }
+        .diff-card:hover::before {
+            opacity: 1;
+        }
+
+        .diff-card .icon-wrap {
+            width: 60px;
+            height: 60px;
+            background: rgba(124, 155, 138, 0.06);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+            font-size: 1.8rem;
+            transition: var(--transition);
+            border: 1px solid rgba(124, 155, 138, 0.06);
+        }
+        .diff-card:hover .icon-wrap {
+            background: rgba(124, 155, 138, 0.12);
             border-color: rgba(124, 155, 138, 0.15);
-            box-shadow: var(--shadow-glow);
         }
-        .diff-card .icon {
-            font-size: 2rem;
-            display: block;
-            margin-bottom: 8px;
-        }
-        .diff-card h4 {
-            font-size: 1rem;
+
+        .diff-card .number {
+            font-size: 0.7rem;
             font-weight: 700;
+            color: var(--accent);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            display: block;
             margin-bottom: 4px;
         }
+
+        .diff-card h4 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
         .diff-card p {
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             color: var(--text-secondary);
             line-height: 1.6;
         }
 
+        .diff-card .pill-highlight {
+            display: inline-block;
+            margin-top: 14px;
+            font-size: 0.6rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            padding: 4px 16px;
+            border-radius: 50px;
+            background: rgba(124, 155, 138, 0.06);
+            color: var(--accent);
+            border: 1px solid rgba(124, 155, 138, 0.06);
+        }
+
         /* ==========================================
-           CTA
+           PROBLEM
+           ========================================== */
+        .problem-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .problem-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius);
+            padding: 24px 20px;
+            transition: var(--transition);
+            text-align: center;
+        }
+        .problem-card:hover {
+            border-color: rgba(124, 155, 138, 0.15);
+            transform: translateY(-3px);
+        }
+        .problem-card .stat {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: #E7A98C;
+            display: block;
+            margin-bottom: 6px;
+        }
+        .problem-card h4 {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+        .problem-card p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        /* ==========================================
+           PROBLEM — NARRATIVE
+           ========================================== */
+        .problem-narrative {
+            margin-top: 60px;
+            padding-top: 50px;
+            border-top: 1px solid var(--border-subtle);
+        }
+
+        .narrative-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 48px;
+            align-items: start;
+        }
+
+        /* LEFT — Pain */
+        .narrative-pain h3 {
+            font-size: 1.6rem;
+            font-weight: 800;
+            margin-bottom: 12px;
+        }
+
+        .narrative-pain > p {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            margin-bottom: 24px;
+            line-height: 1.7;
+        }
+
+        .pain-list {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .pain-item {
+            display: flex;
+            gap: 14px;
+            align-items: flex-start;
+            padding: 14px 16px;
+            background: var(--bg-card);
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-subtle);
+            transition: var(--transition);
+        }
+
+        .pain-item:hover {
+            border-color: rgba(124, 155, 138, 0.15);
+            transform: translateX(4px);
+        }
+
+        .pain-item .pain-icon {
+            font-size: 1.3rem;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .pain-item strong {
+            font-size: 0.95rem;
+            display: block;
+            color: var(--text-primary);
+        }
+
+        .pain-item p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        /* RIGHT — Solution */
+        .narrative-solution .solution-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius);
+            padding: 36px 32px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .narrative-solution .solution-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--accent-gradient);
+        }
+
+        .solution-badge {
+            display: inline-block;
+            font-size: 0.6rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--accent);
+            background: rgba(124, 155, 138, 0.06);
+            padding: 3px 14px;
+            border-radius: 50px;
+            border: 1px solid rgba(124, 155, 138, 0.06);
+            margin-bottom: 12px;
+        }
+
+        .solution-card h4 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .solution-card > p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .solution-features {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .sf-item {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            padding: 10px 14px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: var(--radius-sm);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+        }
+
+        .sf-item .sf-icon {
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .sf-item strong {
+            font-size: 0.9rem;
+            display: block;
+            color: var(--text-primary);
+        }
+
+        .sf-item span {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        /* ==========================================
+           FOUNDER
+           ========================================== */
+        .founder-grid {
+            display: grid;
+            grid-template-columns: 0.85fr 1.15fr;
+            gap: 48px;
+            align-items: center;
+            margin-top: 40px;
+        }
+        .founder-img {
+            width: 100%;
+            border-radius: var(--radius);
+            border: 1px solid var(--border-subtle);
+            background: var(--bg-card);
+            aspect-ratio: 1/1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 6rem;
+            font-weight: 800;
+            color: var(--accent);
+            font-family: 'Gilroy ExtraBold', 'Inter', sans-serif;
+        }
+        .founder-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin: 20px 0;
+        }
+        .founder-stats .number {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: block;
+            line-height: 1.2;
+        }
+        .founder-stats .label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+        .founder-bio {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+        .founder-awards {
+            margin-top: 16px;
+            padding: 14px 18px;
+            background: rgba(124, 155, 138, 0.04);
+            border-left: 3px solid var(--accent);
+            border-radius: var(--radius-sm);
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        /* ==========================================
+           CTA — CALENDLY WIDGET
            ========================================== */
         .cta {
             text-align: center;
             padding: 80px 0;
             background: radial-gradient(ellipse at 50% 30%, rgba(124, 155, 138, 0.05) 0%, transparent 70%), var(--bg-primary);
-            position: relative;
-            overflow: hidden;
         }
-        .cta::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -20%;
-            width: 400px;
-            height: 400px;
-            background: radial-gradient(circle, rgba(124, 155, 138, 0.04) 0%, transparent 70%);
-            border-radius: 50%;
-            pointer-events: none;
-        }
-
         .cta h2 {
             font-size: 2.6rem;
             font-weight: 900;
             letter-spacing: -1.5px;
             margin-bottom: 12px;
-            position: relative;
         }
         .cta h2 .highlight {
             background: var(--accent-gradient);
@@ -685,27 +1008,25 @@
             max-width: 480px;
             margin: 0 auto 28px;
             line-height: 1.7;
-            position: relative;
         }
 
-        .calendly-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            padding: 14px 48px;
-            background: var(--accent-gradient);
-            color: var(--bg-primary);
-            border-radius: 50px;
-            font-weight: 700;
-            font-size: 1.05rem;
-            text-decoration: none;
-            box-shadow: 0 4px 32px var(--accent-glow);
-            transition: var(--transition);
-            position: relative;
+        .calendly-wrapper {
+            margin-top: 32px;
+            border-radius: var(--radius);
+            overflow: hidden;
+            border: 1px solid var(--border-subtle);
+            background: var(--bg-card);
+            padding: 6px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
         }
-        .calendly-btn:hover {
-            transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 8px 56px var(--accent-glow);
+        .calendly-wrapper iframe {
+            width: 100%;
+            height: 700px;
+            border: none;
+            border-radius: var(--radius-sm);
+            display: block;
         }
 
         /* ==========================================
@@ -749,83 +1070,24 @@
             font-size: 0.75rem;
         }
 
-        /* ==========================================
-           PROBLEM
-           ========================================== */
-        .problem-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 16px;
-            margin-top: 40px;
+        footer .legal-links {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid var(--border-subtle);
+            width: 100%;
+            justify-content: center;
         }
-        .problem-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-subtle);
-            border-radius: var(--radius);
-            padding: 24px;
+        footer .legal-links a {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-decoration: none;
             transition: var(--transition);
         }
-        .problem-card:hover {
-            border-color: rgba(124, 155, 138, 0.18);
-            transform: translateY(-3px);
-        }
-        .problem-card .stat {
-            font-size: 1.5rem;
-            font-weight: 800;
-            color: #E7A98C;
-            margin-bottom: 8px;
-            display: block;
-        }
-        .problem-card h4 {
-            font-size: 1rem;
-            font-weight: 700;
-            margin-bottom: 6px;
-        }
-        .problem-card p {
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-            line-height: 1.6;
-        }
-
-        /* ==========================================
-           FOUNDER
-           ========================================== */
-        .founder-grid {
-            display: grid;
-            grid-template-columns: 0.85fr 1.15fr;
-            gap: 48px;
-            align-items: center;
-            margin-top: 40px;
-        }
-        .founder-grid img {
-            width: 100%;
-            border-radius: var(--radius);
-            border: 1px solid var(--border-subtle);
-        }
-        .founder-stats {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            margin: 24px 0;
-        }
-        .founder-stats .number {
-            font-size: 1.9rem;
-            font-weight: 800;
-            background: var(--accent-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            display: block;
-            line-height: 1.2;
-        }
-        .founder-stats .label {
-            font-size: 0.78rem;
-            color: var(--text-muted);
-        }
-        .founder-bio {
-            font-size: 0.95rem;
-            color: var(--text-secondary);
-            line-height: 1.7;
+        footer .legal-links a:hover {
+            color: var(--text-primary);
         }
 
         /* ==========================================
@@ -839,13 +1101,21 @@
             .hero h1 {
                 font-size: 2.8rem;
             }
-            .offerings-grid,
+            .pricing-grid,
             .diff-grid,
             .problem-grid {
                 grid-template-columns: 1fr 1fr;
             }
             .founder-grid {
                 grid-template-columns: 1fr;
+                text-align: center;
+            }
+            .founder-stats {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            .narrative-grid {
+                grid-template-columns: 1fr;
+                gap: 32px;
             }
         }
 
@@ -853,14 +1123,14 @@
             .nav-links {
                 display: none;
                 flex-direction: column;
-                gap: 14px;
+                gap: 10px;
                 background: var(--bg-card);
-                padding: 24px;
+                padding: 20px;
                 border-radius: var(--radius);
                 position: absolute;
                 top: 64px;
                 right: 16px;
-                min-width: 180px;
+                min-width: 160px;
                 border: 1px solid var(--border-subtle);
             }
             .nav-links.open {
@@ -880,17 +1150,31 @@
                 font-size: 2rem;
             }
 
-            .offerings-grid,
+            .pricing-grid,
             .diff-grid,
             .results-grid,
             .problem-grid {
                 grid-template-columns: 1fr;
             }
             .result-stats {
-                grid-template-columns: 1fr 1fr 1fr;
+                grid-template-columns: repeat(3, 1fr);
             }
             .hero-stats {
-                grid-template-columns: 1fr 1fr 1fr;
+                grid-template-columns: repeat(3, 1fr);
+            }
+            .pricing-card.featured {
+                order: -1;
+            }
+
+            .narrative-pain h3 {
+                font-size: 1.3rem;
+            }
+            .solution-card {
+                padding: 24px 20px;
+            }
+
+            .calendly-wrapper iframe {
+                height: 500px;
             }
 
             footer .container {
@@ -919,22 +1203,38 @@
             .result-stats {
                 grid-template-columns: 1fr 1fr;
             }
+            .founder-stats {
+                grid-template-columns: 1fr 1fr;
+            }
             .container {
                 padding: 0 16px;
             }
             .cta h2 {
                 font-size: 1.8rem;
             }
-            .calendly-btn {
-                width: 100%;
-                justify-content: center;
+            .calendly-wrapper iframe {
+                height: 450px;
+            }
+            .pain-item {
+                flex-direction: column;
+                gap: 6px;
+            }
+            .solution-features {
+                gap: 10px;
+            }
+            .sf-item {
+                flex-direction: column;
+                text-align: center;
+                padding: 12px;
             }
         }
     </style>
 </head>
 <body>
 
-    <!-- ===== HEADER ===== -->
+    <!-- ==========================================
+    HEADER
+    ========================================== -->
     <header id="header">
         <div class="container nav">
             <a href="#" class="logo">
@@ -942,11 +1242,11 @@
                 <span class="logo-text">Novara<span>CX</span></span>
             </a>
             <ul class="nav-links" id="navLinks">
-                <li><a href="#problem">Problem</a></li>
-                <li><a href="#offerings">Offerings</a></li>
-                <li><a href="#results">Results</a></li>
-                <li><a href="#diff">Why Us</a></li>
-                <li><a href="#founder">Founder</a></li>
+                <li><a href="#problem" class="nav-link">Problem</a></li>
+                <li><a href="#offerings" class="nav-link">Offerings</a></li>
+                <li><a href="#results" class="nav-link">Results</a></li>
+                <li><a href="#diff" class="nav-link">Why Us</a></li>
+                <li><a href="#founder" class="nav-link">Founder</a></li>
                 <li><a href="#contact" class="nav-cta">Book a Meeting</a></li>
             </ul>
             <button class="hamburger" id="hamburger" aria-label="Menu">
@@ -955,7 +1255,9 @@
         </div>
     </header>
 
-    <!-- ===== HERO ===== -->
+    <!-- ==========================================
+    HERO
+    ========================================== -->
     <section class="hero" id="home">
         <div class="container hero-grid">
             <div>
@@ -986,72 +1288,201 @@
         </div>
     </section>
 
-    <!-- ===== PROBLEM ===== -->
+    <!-- ==========================================
+    PROBLEM
+    ========================================== -->
     <section id="problem">
         <div class="container">
             <div class="text-center">
                 <span class="section-label">The Problem</span>
                 <h2 class="section-title">What D2C brands <span class="highlight">actually face</span></h2>
+                <p class="section-sub mx-auto">Behind every refund and complaint is a founder losing time, a brand losing trust, and a team burning out.</p>
             </div>
+
+            <!-- === STAT CARDS === -->
             <div class="problem-grid">
-                <div class="problem-card"><span class="stat">15–30%</span><h4>Refund rates</h4><p>Draining revenue and inventory before it ever has a chance to become repeat business.</p></div>
-                <div class="problem-card"><span class="stat">&lt;3.5</span><h4>CSAT scores</h4><p>Consistently low satisfaction, quietly compounding into churn you won't see coming.</p></div>
-                <div class="problem-card"><span class="stat">4–12h</span><h4>First response time</h4><p>Slow enough that customers have decided how they feel before you even reply.</p></div>
-                <div class="problem-card"><span class="stat">Zero</span><h4>SOPs or governance</h4><p>No strategy or process infrastructure — every agent handles issues differently.</p></div>
-                <div class="problem-card"><span class="stat">20+ hrs</span><h4>On escalations weekly</h4><p>Founders pulled into support daily instead of building the business.</p></div>
-                <div class="problem-card"><span class="stat">High</span><h4>Agent churn</h4><p>No training, no feedback loops — good hires don't stay long enough to get good.</p></div>
+                <div class="problem-card">
+                    <span class="stat">15–30%</span>
+                    <h4>Refund rates</h4>
+                    <p>Draining revenue and inventory before it ever has a chance to become repeat business.</p>
+                </div>
+                <div class="problem-card">
+                    <span class="stat">&lt;3.5</span>
+                    <h4>CSAT scores</h4>
+                    <p>Consistently low satisfaction, quietly compounding into churn you won't see coming.</p>
+                </div>
+                <div class="problem-card">
+                    <span class="stat">4–12h</span>
+                    <h4>First response time</h4>
+                    <p>Slow enough that customers have decided how they feel before you even reply.</p>
+                </div>
+                <div class="problem-card">
+                    <span class="stat">Zero</span>
+                    <h4>SOPs or governance</h4>
+                    <p>No strategy or process infrastructure — every agent handles issues differently.</p>
+                </div>
+                <div class="problem-card">
+                    <span class="stat">20+ hrs</span>
+                    <h4>On escalations weekly</h4>
+                    <p>Founders pulled into support daily instead of building the business.</p>
+                </div>
+                <div class="problem-card">
+                    <span class="stat">High</span>
+                    <h4>Agent churn</h4>
+                    <p>No training, no feedback loops — good hires don't stay long enough to get good.</p>
+                </div>
+            </div>
+
+            <!-- === THE REAL COST — NARRATIVE === -->
+            <div class="problem-narrative">
+                <div class="narrative-grid">
+                    <!-- Left: The Pain -->
+                    <div class="narrative-pain">
+                        <h3>The hidden cost of broken CX</h3>
+                        <p>When CX is broken, it's not just tickets. It's a cascade of risks that hit your brand where it hurts most.</p>
+
+                        <div class="pain-list">
+                            <div class="pain-item">
+                                <span class="pain-icon">🔥</span>
+                                <div>
+                                    <strong>Escalations</strong>
+                                    <p>Founders spend 20+ hours a week firefighting escalations that shouldn't reach them. Every hour spent on a refund is an hour not spent on strategy.</p>
+                                </div>
+                            </div>
+                            <div class="pain-item">
+                                <span class="pain-icon">📱</span>
+                                <div>
+                                    <strong>Social Media Damage</strong>
+                                    <p>One angry customer goes viral. One screenshot on Twitter. One negative review on Amazon. Your brand reputation takes a hit that takes months to repair.</p>
+                                </div>
+                            </div>
+                            <div class="pain-item">
+                                <span class="pain-icon">⚖️</span>
+                                <div>
+                                    <strong>Legal Risks</strong>
+                                    <p>Missed SLAs, broken promises, misleading communication — all can lead to consumer complaints, regulatory scrutiny, and legal exposure.</p>
+                                </div>
+                            </div>
+                            <div class="pain-item">
+                                <span class="pain-icon">⏳</span>
+                                <div>
+                                    <strong>Founder Time Drain</strong>
+                                    <p>When you're in the weeds of customer support, you're not building product, fundraising, or scaling. CX becomes a distraction, not a growth engine.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right: The Solution -->
+                    <div class="narrative-solution">
+                        <div class="solution-card">
+                            <span class="solution-badge">How we fix it</span>
+                            <h4>We do CX for you — so you can focus on growth.</h4>
+                            <p>Novara CX takes the entire customer experience function off your plate. We build the systems, deploy the AI, train the agents, and manage the escalations — so you don't have to.</p>
+
+                            <div class="solution-features">
+                                <div class="sf-item">
+                                    <span class="sf-icon">🤖</span>
+                                    <div>
+                                        <strong>AI handles the noise</strong>
+                                        <span>70–80% of repetitive queries resolved instantly</span>
+                                    </div>
+                                </div>
+                                <div class="sf-item">
+                                    <span class="sf-icon">🧑‍💻</span>
+                                    <div>
+                                        <strong>Experts manage escalations</strong>
+                                        <span>Founder‑level issues handled by trained leaders</span>
+                                    </div>
+                                </div>
+                                <div class="sf-item">
+                                    <span class="sf-icon">📋</span>
+                                    <div>
+                                        <strong>Strategy protects your brand</strong>
+                                        <span>SOPs, governance, and proactive communication</span>
+                                    </div>
+                                </div>
+                                <div class="sf-item">
+                                    <span class="sf-icon">📊</span>
+                                    <div>
+                                        <strong>Data drives decisions</strong>
+                                        <span>Dashboards that show exactly what's working</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <a href="#contact" class="btn btn-primary" style="margin-top:8px;">👋 Let's talk about your CX</a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- ===== OFFERINGS ===== -->
+    <!-- ==========================================
+    OFFERINGS — PRICING CARDS
+    ========================================== -->
     <section class="bg-secondary" id="offerings">
         <div class="container">
             <div class="text-center">
-                <span class="section-label">What We Offer</span>
-                <h2 class="section-title">Flexible solutions — <span class="highlight">start small, scale up</span></h2>
+                <span class="section-label">Pricing</span>
+                <h2 class="section-title">Flexible packages for <span class="highlight">every stage</span></h2>
+                <p class="section-sub mx-auto">Start with a diagnostic. Scale to a full suite. No lock-in, no hidden costs.</p>
             </div>
-            <div class="offerings-grid">
-                <div class="offering-card">
-                    <span class="icon">🔍</span>
-                    <h4>CX Diagnostic Audit</h4>
-                    <span class="price">₹75K <span>one-time</span></span>
-                    <p>2–3 week CX health assessment + 90-day roadmap.</p>
-                    <span class="pill">Entry Point</span>
+
+            <div class="pricing-grid">
+                <!-- Card 1: CX Diagnostic -->
+                <div class="pricing-card">
+                    <div class="pricing-name">CX Diagnostic</div>
+                    <div class="pricing-price">₹75K <span>one-time</span></div>
+                    <div class="pricing-desc">2–3 week deep audit of your CX operations.</div>
+                    <ul class="pricing-features">
+                        <li>Refund rate analysis</li>
+                        <li>AI opportunity mapping</li>
+                        <li>Process gap identification</li>
+                        <li>90-day roadmap</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-secondary pricing-btn">Get Started</a>
                 </div>
-                <div class="offering-card">
-                    <span class="icon">🤖</span>
-                    <h4>AI Chatbot</h4>
-                    <span class="price">₹40K–55K <span>/mo</span></span>
-                    <p>WhatsApp + Web chatbot. Deflects 70–80% of repetitive queries.</p>
-                    <span class="pill">AI Automation</span>
+
+                <!-- Card 2: AI Chatbot (Featured) -->
+                <div class="pricing-card featured">
+                    <span class="pricing-badge">Most Popular</span>
+                    <div class="pricing-name">AI Chatbot</div>
+                    <div class="pricing-price">₹40K–55K <span>/mo</span></div>
+                    <div class="pricing-desc">WhatsApp + Web chatbot with continuous training and tuning.</div>
+                    <ul class="pricing-features">
+                        <li>70–80% query deflection</li>
+                        <li>WhatsApp + Website</li>
+                        <li>Continuous tuning &amp; optimization</li>
+                        <li>Sentiment detection &amp; escalation</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-primary pricing-btn">Book a Demo</a>
                 </div>
-                <div class="offering-card">
-                    <span class="icon">🧠</span>
-                    <h4>Fractional Head of CX</h4>
-                    <span class="price">₹80K–1.5L <span>/mo</span></span>
-                    <p>Strategic CX leadership — KPI frameworks, SOPs, founder syncs.</p>
-                    <span class="pill">Leadership</span>
-                </div>
-                <div class="offering-card">
-                    <span class="icon">🧑‍💻</span>
-                    <h4>Managed Agents</h4>
-                    <span class="price">₹40K–60K <span>/mo per agent</span></span>
-                    <p>Trained, AI-assisted agents for escalations and high-empathy support.</p>
-                    <span class="pill">Human Agents</span>
-                </div>
-                <div class="offering-card">
-                    <span class="icon">🎯</span>
-                    <h4>AI Pre-Trained Staffing</h4>
-                    <span class="price">15–20% <span>of CTC</span></span>
-                    <p>Vetted, pre-trained CX candidates. 90-day replacement guarantee.</p>
-                    <span class="pill">Staffing</span>
+
+                <!-- Card 3: Fractional Head of CX -->
+                <div class="pricing-card">
+                    <div class="pricing-name">Fractional Head of CX</div>
+                    <div class="pricing-price">₹80K–1.5L <span>/mo</span></div>
+                    <div class="pricing-desc">Strategic CX leadership without the full-time cost.</div>
+                    <ul class="pricing-features">
+                        <li>Weekly founder syncs</li>
+                        <li>KPI &amp; dashboard setup</li>
+                        <li>Team training &amp; SOPs</li>
+                        <li>Escalation management</li>
+                        <li>Month-to-month</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-secondary pricing-btn">Learn More</a>
                 </div>
             </div>
+
+            <p class="pricing-note">All packages include a 30-day satisfaction guarantee.</p>
         </div>
     </section>
 
-    <!-- ===== RESULTS ===== -->
+    <!-- ==========================================
+    RESULTS
+    ========================================== -->
     <section id="results">
         <div class="container">
             <div class="text-center">
@@ -1093,52 +1524,69 @@
         </div>
     </section>
 
-    <!-- ===== DIFFERENTIATORS ===== -->
+    <!-- ==========================================
+    WHY US
+    ========================================== -->
     <section class="bg-secondary" id="diff">
         <div class="container">
             <div class="text-center">
                 <span class="section-label">Why We're Different</span>
                 <h2 class="section-title">AI built on the right <span class="highlight">foundation</span></h2>
+                <p class="section-sub mx-auto">Most AI chatbots are bolt-on solutions. We build from the ground up — with your brand, your customers, and your outcomes in mind.</p>
             </div>
             <div class="diff-grid">
                 <div class="diff-card">
-                    <span class="icon">🧠</span>
+                    <div class="icon-wrap">🧠</div>
+                    <span class="number">01</span>
                     <h4>Knowledge-Grounded</h4>
                     <p>Built on your actual product catalogue, policies, and brand tone — not generic training data.</p>
+                    <span class="pill-highlight">Your brand, not generic</span>
                 </div>
                 <div class="diff-card">
-                    <span class="icon">🎯</span>
+                    <div class="icon-wrap">🎯</div>
+                    <span class="number">02</span>
                     <h4>True Resolution</h4>
                     <p>Built on a knowledge-base-first methodology — proven to reduce support workload at BrightChamps.</p>
+                    <span class="pill-highlight">Proven methodology</span>
                 </div>
                 <div class="diff-card">
-                    <span class="icon">💬</span>
+                    <div class="icon-wrap">💬</div>
+                    <span class="number">03</span>
                     <h4>Empathetic Tuning</h4>
                     <p>We train your bot to match your brand's tone. No robotic replies. No copy-paste scripts.</p>
+                    <span class="pill-highlight">Human-like conversations</span>
                 </div>
                 <div class="diff-card">
-                    <span class="icon">📊</span>
+                    <div class="icon-wrap">📊</div>
+                    <span class="number">04</span>
                     <h4>Outcome Measurement</h4>
                     <p>Continuous CSAT tracking — satisfied / somewhat satisfied / not satisfied. Not just ticket counts.</p>
+                    <span class="pill-highlight">Real outcomes, not vanity</span>
                 </div>
                 <div class="diff-card">
-                    <span class="icon">🤝</span>
+                    <div class="icon-wrap">🤝</div>
+                    <span class="number">05</span>
                     <h4>Human Backup</h4>
                     <p>Complex queries route to a real person seamlessly — automation with a safety net.</p>
+                    <span class="pill-highlight">Automation with empathy</span>
                 </div>
                 <div class="diff-card">
-                    <span class="icon">📈</span>
+                    <div class="icon-wrap">📈</div>
+                    <span class="number">06</span>
                     <h4>Measurable Impact</h4>
                     <p>Resolution improvement tracked with data from day one — not just vague responses.</p>
+                    <span class="pill-highlight">Data-driven, not guesswork</span>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ===== FOUNDER ===== -->
+    <!-- ==========================================
+    FOUNDER
+    ========================================== -->
     <section id="founder">
         <div class="container founder-grid">
-            <img src="assets/founder-photo.jpg" alt="Rishi Rana, Founder of Novara CX">
+            <div class="founder-img">RR</div>
             <div>
                 <span class="section-label">About The Founder</span>
                 <h2 class="section-title">Rishi Rana — CX leader <span class="highlight">turned founder</span></h2>
@@ -1148,21 +1596,35 @@
                     <div><span class="number">100K+</span><span class="label">Customers served</span></div>
                 </div>
                 <p class="founder-bio">Leading teams at high-growth EdTech D2C brands, across BrightCHAMPS and Byju's. Awarded the BrightSTAR Award (CEO-selected from 500+ employees), the Visionary Award, and the Eureka Award for innovation. Built Novara CX to solve the CX problems he saw firsthand.</p>
+                <div class="founder-awards">
+                    🏆 BrightSTAR Award · 🏆 Visionary Award · 🏆 Eureka Award
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- ===== CTA ===== -->
+    <!-- ==========================================
+    CTA — CALENDLY WIDGET
+    ========================================== -->
     <section class="cta" id="contact">
         <div class="container">
             <span class="section-label">Let's Talk</span>
             <h2>Ready to <span class="highlight">transform</span> your CX?</h2>
             <p>Book a personalized consultation. We'll show you exactly where AI can save your team time and cost — no commitment, just insights.</p>
-            <a href="https://calendly.com/novaracx/new-meeting" target="_blank" class="calendly-btn">📅 Book a Meeting on Calendly</a>
+
+            <div class="calendly-wrapper">
+                <iframe
+                    src="https://calendly.com/novaracx/new-meeting"
+                    title="Book a meeting with Novara CX"
+                    allow="camera; microphone; fullscreen"
+                ></iframe>
+            </div>
         </div>
     </section>
 
-    <!-- ===== FOOTER ===== -->
+    <!-- ==========================================
+    FOOTER
+    ========================================== -->
     <footer>
         <div class="container">
             <a href="#" class="logo">
@@ -1170,9 +1632,14 @@
                 <span class="logo-text">Novara<span>CX</span></span>
             </a>
             <div class="links">
+                <a href="#problem">Problem</a>
                 <a href="#offerings">Offerings</a>
                 <a href="#results">Results</a>
                 <a href="#contact">Book a Meeting</a>
+            </div>
+            <div class="legal-links">
+                <a href="terms.html">Terms &amp; Conditions</a>
+                <a href="privacy.html">Privacy Policy</a>
             </div>
             <span class="copy">© 2026 Novara CX</span>
         </div>
@@ -1196,6 +1663,29 @@
         window.addEventListener('scroll', () => {
             header.classList.toggle('scrolled', window.scrollY > 50);
         });
+
+        // Active navigation highlighting — SAGE GREEN BACKGROUND
+        const sections = document.querySelectorAll('section[id]');
+        const navLinkItems = document.querySelectorAll('.nav-link');
+
+        function highlightNav() {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 120;
+                if (window.scrollY >= sectionTop) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinkItems.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', highlightNav);
 
         // Smooth scroll
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
