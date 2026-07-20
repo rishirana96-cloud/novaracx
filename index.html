@@ -523,6 +523,51 @@
         }
 
         /* ==========================================
+           OFFERINGS — TOGGLE
+           ========================================== */
+        .offerings-toggle-wrap {
+            display: flex;
+            justify-content: center;
+            margin-top: 32px;
+        }
+        .offerings-toggle {
+            display: inline-flex;
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 50px;
+            padding: 4px;
+            gap: 4px;
+        }
+        .offerings-toggle button {
+            font-family: inherit;
+            font-size: 0.85rem;
+            font-weight: 600;
+            padding: 10px 24px;
+            border-radius: 50px;
+            border: none;
+            background: transparent;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: var(--transition);
+            white-space: nowrap;
+        }
+        .offerings-toggle button.active {
+            background: var(--accent-gradient);
+            color: var(--bg-primary);
+            box-shadow: 0 4px 20px var(--accent-glow);
+        }
+        .offerings-toggle button:not(.active):hover {
+            color: var(--text-primary);
+        }
+
+        .pricing-panel {
+            display: none;
+        }
+        .pricing-panel.active {
+            display: block;
+        }
+
+        /* ==========================================
            OFFERINGS — PRICING CARDS
            ========================================== */
         .pricing-grid {
@@ -1624,53 +1669,97 @@
                 <p class="section-sub mx-auto">Start with a diagnostic. Scale to a full suite. No lock-in, no hidden costs.</p>
             </div>
 
-            <div class="pricing-grid">
-                <!-- Card 1: CX Diagnostic -->
-                <div class="pricing-card">
-                    <div class="pricing-name">CX Diagnostic</div>
-                    <div class="pricing-price">₹75K <span>one-time</span></div>
-                    <div class="pricing-desc">2–3 week deep audit of your CX operations.</div>
-                    <ul class="pricing-features">
-                        <li>Refund rate analysis</li>
-                        <li>AI opportunity mapping</li>
-                        <li>Process gap identification</li>
-                        <li>90-day roadmap</li>
-                    </ul>
-                    <a href="#contact" class="btn btn-secondary pricing-btn">Get Started</a>
-                </div>
-
-                <!-- Card 2: AI Chatbot (Featured) -->
-                <div class="pricing-card featured">
-                    <span class="pricing-badge">Most Popular</span>
-                    <div class="pricing-name">AI Chatbot</div>
-                    <div class="pricing-price">₹40K–55K <span>/mo</span></div>
-                    <div class="pricing-desc">WhatsApp + Web chatbot with continuous training and tuning.</div>
-                    <ul class="pricing-features">
-                        <li>70–80% query deflection</li>
-                        <li>WhatsApp + Website</li>
-                        <li>Continuous tuning &amp; optimization</li>
-                        <li>Sentiment detection &amp; escalation</li>
-                    </ul>
-                    <a href="#contact" class="btn btn-primary pricing-btn">Book a Demo</a>
-                </div>
-
-                <!-- Card 3: Fractional Head of CX -->
-                <div class="pricing-card">
-                    <div class="pricing-name">Fractional Head of CX</div>
-                    <div class="pricing-price">₹80K–1.5L <span>/mo</span></div>
-                    <div class="pricing-desc">Strategic CX leadership without the full-time cost.</div>
-                    <ul class="pricing-features">
-                        <li>Weekly founder syncs</li>
-                        <li>KPI &amp; dashboard setup</li>
-                        <li>Team training &amp; SOPs</li>
-                        <li>Escalation management</li>
-                        <li>Month-to-month</li>
-                    </ul>
-                    <a href="#contact" class="btn btn-secondary pricing-btn">Learn More</a>
+            <div class="offerings-toggle-wrap">
+                <div class="offerings-toggle" role="tablist" aria-label="Offering categories">
+                    <button type="button" class="active" id="toggle-ai-leadership" role="tab" aria-selected="true" aria-controls="panel-ai-leadership" onclick="switchOfferingsPanel('ai-leadership')">AI + Leadership</button>
+                    <button type="button" id="toggle-cx-staffing" role="tab" aria-selected="false" aria-controls="panel-cx-staffing" onclick="switchOfferingsPanel('cx-staffing')">CX Staffing</button>
                 </div>
             </div>
 
-            <p class="pricing-note">All packages include a 30-day satisfaction guarantee.</p>
+            <!-- Panel 1: AI + Leadership -->
+            <div class="pricing-panel active" id="panel-ai-leadership" role="tabpanel" aria-labelledby="toggle-ai-leadership">
+                <div class="pricing-grid">
+                    <!-- Card 1: CX Diagnostic -->
+                    <div class="pricing-card">
+                        <div class="pricing-name">CX Diagnostic</div>
+                        <div class="pricing-price">₹75K <span>one-time</span></div>
+                        <div class="pricing-desc">2–3 week deep audit of your CX operations.</div>
+                        <ul class="pricing-features">
+                            <li>Refund rate analysis</li>
+                            <li>AI opportunity mapping</li>
+                            <li>Process gap identification</li>
+                            <li>90-day roadmap</li>
+                        </ul>
+                        <a href="#contact" class="btn btn-secondary pricing-btn">Get Started</a>
+                    </div>
+
+                    <!-- Card 2: AI Chatbot (Featured) -->
+                    <div class="pricing-card featured">
+                        <span class="pricing-badge">Most Popular</span>
+                        <div class="pricing-name">AI Chatbot</div>
+                        <div class="pricing-price">₹40K–55K <span>/mo</span></div>
+                        <div class="pricing-desc">WhatsApp + Web chatbot with continuous training and tuning.</div>
+                        <ul class="pricing-features">
+                            <li>70–80% query deflection</li>
+                            <li>WhatsApp + Website</li>
+                            <li>Continuous tuning &amp; optimization</li>
+                            <li>Sentiment detection &amp; escalation</li>
+                        </ul>
+                        <a href="#contact" class="btn btn-primary pricing-btn">Book a Demo</a>
+                    </div>
+
+                    <!-- Card 3: Fractional Head of CX -->
+                    <div class="pricing-card">
+                        <div class="pricing-name">Fractional Head of CX</div>
+                        <div class="pricing-price">₹80K–1.5L <span>/mo</span></div>
+                        <div class="pricing-desc">Strategic CX leadership without the full-time cost.</div>
+                        <ul class="pricing-features">
+                            <li>Weekly founder syncs</li>
+                            <li>KPI &amp; dashboard setup</li>
+                            <li>Team training &amp; SOPs</li>
+                            <li>Escalation management</li>
+                            <li>Month-to-month</li>
+                        </ul>
+                        <a href="#contact" class="btn btn-secondary pricing-btn">Learn More</a>
+                    </div>
+                </div>
+                <p class="pricing-note">All packages include a 30-day satisfaction guarantee.</p>
+            </div>
+
+            <!-- Panel 2: CX Staffing -->
+            <div class="pricing-panel" id="panel-cx-staffing" role="tabpanel" aria-labelledby="toggle-cx-staffing">
+                <div class="pricing-grid" style="grid-template-columns: repeat(2, 1fr); max-width: 760px; margin-left: auto; margin-right: auto;">
+                    <!-- Card 1: Managed Services -->
+                    <div class="pricing-card">
+                        <div class="pricing-name">Managed Services</div>
+                        <div class="pricing-price">Custom <span>pricing</span></div>
+                        <div class="pricing-desc">Trained human agents, AI-assisted, managing your support day to day.</div>
+                        <ul class="pricing-features">
+                            <li>Dedicated trained agents</li>
+                            <li>AI co-pilot for faster resolution</li>
+                            <li>SOPs &amp; quality monitoring</li>
+                            <li>Scales with order volume</li>
+                            <li>3-month minimum</li>
+                        </ul>
+                        <a href="#contact" class="btn btn-secondary pricing-btn">Get a Quote</a>
+                    </div>
+
+                    <!-- Card 2: AI Pre-Trained Staffing -->
+                    <div class="pricing-card featured">
+                        <div class="pricing-name">AI Pre-Trained Staffing</div>
+                        <div class="pricing-price">15–20% <span>of CTC</span></div>
+                        <div class="pricing-desc">Vetted CX hires, pre-trained on AI tools, placed directly on your team.</div>
+                        <ul class="pricing-features">
+                            <li>Pre-vetted CX talent</li>
+                            <li>AI-tool trained on day one</li>
+                            <li>One-time placement fee</li>
+                            <li>Faster ramp-up than open hiring</li>
+                        </ul>
+                        <a href="#contact" class="btn btn-primary pricing-btn">Get a Quote</a>
+                    </div>
+                </div>
+                <p class="pricing-note">All packages include a 30-day satisfaction guarantee.</p>
+            </div>
         </div>
     </section>
 
@@ -1788,7 +1877,7 @@
                         </div>
                         <div class="result-awards">
                             <span class="award"><img src="assets/award.svg" class="icon-img" alt=""> Eureka Award — Innovation</span>
-                            <span class="award"><img src="assets/award.svg" class="icon-img" alt=""> Star Performer</span>
+                            <span class="award"><img src="assets/award.svg" class="icon-img" alt=""> Performer of the Quarter</span>
                         </div>
                     </div>
                 </div>
@@ -1839,6 +1928,24 @@
     </footer>
 
     <script>
+        // Offerings toggle (AI + Leadership vs CX Staffing)
+        function switchOfferingsPanel(target) {
+            const panels = {
+                'ai-leadership': document.getElementById('panel-ai-leadership'),
+                'cx-staffing': document.getElementById('panel-cx-staffing')
+            };
+            const toggles = {
+                'ai-leadership': document.getElementById('toggle-ai-leadership'),
+                'cx-staffing': document.getElementById('toggle-cx-staffing')
+            };
+            Object.keys(panels).forEach(key => {
+                const isActive = key === target;
+                panels[key].classList.toggle('active', isActive);
+                toggles[key].classList.toggle('active', isActive);
+                toggles[key].setAttribute('aria-selected', isActive ? 'true' : 'false');
+            });
+        }
+
         // Hamburger
         const hamburger = document.getElementById('hamburger');
         const navLinks = document.getElementById('navLinks');
