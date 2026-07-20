@@ -644,20 +644,20 @@
         }
 
         /* ==========================================
-           RESULTS
+           RESULTS (now embedded in Founder)
            ========================================== */
         .results-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 30px;
-            margin-top: 40px;
+            gap: 24px;
+            margin-top: 28px;
         }
 
         .result-card {
             background: var(--bg-card);
             border: 1px solid var(--border-subtle);
             border-radius: var(--radius);
-            padding: 28px 24px;
+            padding: 26px 22px;
             transition: var(--transition);
         }
         .result-card:hover {
@@ -665,12 +665,12 @@
             box-shadow: var(--shadow-hover);
         }
         .result-card h3 {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             font-weight: 700;
             margin-bottom: 2px;
         }
         .result-card .sub {
-            font-size: 0.8rem;
+            font-size: 0.78rem;
             color: var(--text-secondary);
             margin-bottom: 16px;
         }
@@ -687,13 +687,13 @@
             text-align: center;
         }
         .result-stat .number {
-            font-size: 1.4rem;
+            font-size: 1.3rem;
             font-weight: 900;
             color: var(--accent);
             display: block;
         }
         .result-stat .label {
-            font-size: 0.7rem;
+            font-size: 0.68rem;
             color: var(--text-secondary);
         }
 
@@ -999,7 +999,7 @@
         /* ==========================================
            FOUNDER
            ========================================== */
-        .founder-grid {
+        .founder-intro-grid {
             display: grid;
             grid-template-columns: 0.85fr 1.15fr;
             gap: 48px;
@@ -1075,6 +1075,36 @@
             border-radius: var(--radius-sm);
             font-size: 0.85rem;
             color: var(--text-secondary);
+        }
+
+        .founder-track-record {
+            margin-top: 56px;
+            padding-top: 44px;
+            border-top: 1px solid var(--border-subtle);
+        }
+
+        .founder-track-record .track-label {
+            display: inline-block;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--accent);
+            margin-bottom: 10px;
+        }
+
+        .founder-track-record h3 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+
+        .founder-track-record .track-intro {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            max-width: 620px;
+            line-height: 1.7;
+            margin-bottom: 8px;
         }
 
         /* ==========================================
@@ -1201,7 +1231,7 @@
             .problem-grid {
                 grid-template-columns: 1fr 1fr;
             }
-            .founder-grid {
+            .founder-intro-grid {
                 grid-template-columns: 1fr;
                 text-align: center;
             }
@@ -1359,7 +1389,6 @@
             <ul class="nav-links" id="navLinks">
                 <li><a href="#problem" class="nav-link">Problem</a></li>
                 <li><a href="#offerings" class="nav-link">Offerings</a></li>
-                <li><a href="#results" class="nav-link">Results</a></li>
                 <li><a href="#diff" class="nav-link">Why Us</a></li>
                 <li><a href="#founder" class="nav-link">Founder</a></li>
                 <li><a href="#contact" class="nav-cta">Book a Meeting</a></li>
@@ -1599,7 +1628,7 @@
                 <!-- Card 1: CX Diagnostic -->
                 <div class="pricing-card">
                     <div class="pricing-name">CX Diagnostic</div>
-                    <div class="pricing-price">. <span>.</span></div>
+                    <div class="pricing-price">₹75K <span>one-time</span></div>
                     <div class="pricing-desc">2–3 week deep audit of your CX operations.</div>
                     <ul class="pricing-features">
                         <li>Refund rate analysis</li>
@@ -1614,7 +1643,7 @@
                 <div class="pricing-card featured">
                     <span class="pricing-badge">Most Popular</span>
                     <div class="pricing-name">AI Chatbot</div>
-                    <div class="pricing-price">.<span>.</span></div>
+                    <div class="pricing-price">₹40K–55K <span>/mo</span></div>
                     <div class="pricing-desc">WhatsApp + Web chatbot with continuous training and tuning.</div>
                     <ul class="pricing-features">
                         <li>70–80% query deflection</li>
@@ -1628,7 +1657,7 @@
                 <!-- Card 3: Fractional Head of CX -->
                 <div class="pricing-card">
                     <div class="pricing-name">Fractional Head of CX</div>
-                    <div class="pricing-price">. <span>.</span></div>
+                    <div class="pricing-price">₹80K–1.5L <span>/mo</span></div>
                     <div class="pricing-desc">Strategic CX leadership without the full-time cost.</div>
                     <ul class="pricing-features">
                         <li>Weekly founder syncs</li>
@@ -1642,50 +1671,6 @@
             </div>
 
             <p class="pricing-note">All packages include a 30-day satisfaction guarantee.</p>
-        </div>
-    </section>
-
-    <!-- ==========================================
-    RESULTS
-    ========================================== -->
-    <section id="results">
-        <div class="container">
-            <div class="text-center">
-                <span class="section-label">Track Record</span>
-                <h2 class="section-title">Proven results at <span class="highlight">BrightChamps & Byju's</span></h2>
-            </div>
-            <div class="results-grid">
-                <div class="result-card">
-                    <h3><img src="assets/award.svg" class="icon-img" alt=""> BrightChamps</h3>
-                    <div class="sub">Senior Manager, CX · 18-member team · 15,000+ students</div>
-                    <div class="result-stats">
-                        <div class="result-stat"><span class="number">77%</span><span class="label">Refund Reduction</span></div>
-                        <div class="result-stat"><span class="number">88%</span><span class="label">FRT Improvement</span></div>
-                        <div class="result-stat"><span class="number">45%</span><span class="label">ART Reduction</span></div>
-                        <div class="result-stat"><span class="number">98%</span><span class="label">Monthly Resolution</span></div>
-                        <div class="result-stat"><span class="number">68%</span><span class="label">SLA Breach Reduction</span></div>
-                        <div class="result-stat"><span class="number">40%</span><span class="label">Retention Boost</span></div>
-                    </div>
-                    <div class="result-awards">
-                        <span class="award"><img src="assets/award.svg" class="icon-img" alt=""> BrightSTAR Award</span>
-                        <span class="award"><img src="assets/award.svg" class="icon-img" alt=""> Visionary Award</span>
-                    </div>
-                </div>
-                <div class="result-card">
-                    <h3><img src="assets/award.svg" class="icon-img" alt=""> Byju's</h3>
-                    <div class="sub">Assistant Manager, CX · 23 CX Associates · 15,000+ students</div>
-                    <div class="result-stats">
-                        <div class="result-stat"><span class="number">90%+</span><span class="label">Engagement</span></div>
-                        <div class="result-stat"><span class="number">10%</span><span class="label">Weekly Refund Reduction</span></div>
-                        <div class="result-stat"><span class="number">100%</span><span class="label">CEO Escalations Resolved</span></div>
-                        <div class="result-stat"><span class="number">4.5+</span><span class="label">CSAT Score</span></div>
-                    </div>
-                    <div class="result-awards">
-                        <span class="award"><img src="assets/award.svg" class="icon-img" alt=""> Eureka Award — Innovation</span>
-                        <span class="award"><img src="assets/award.svg" class="icon-img" alt=""> Performer of the Quarter</span>
-                    </div>
-                </div>
-            </div>
         </div>
     </section>
 
@@ -1747,22 +1732,65 @@
     </section>
 
     <!-- ==========================================
-    FOUNDER
+    FOUNDER (now includes track record — merged from
+    the former standalone "Results" section)
     ========================================== -->
     <section id="founder">
-        <div class="container founder-grid">
-            <img src="assets/founder-photo.jpg" alt="Rishi Rana, Founder of Novara CX" class="founder-img" style="background: linear-gradient(135deg, #7C9B8A 0%, #5A7A6A 100%);" />
-            <div>
-                <span class="section-label">About The Founder</span>
-                <h2 class="section-title">Rishi Rana — CX leader <span class="highlight">turned founder</span></h2>
-                <div class="founder-stats">
-                    <div><span class="number">6+</span><span class="label">Years of CX experience</span></div>
-                    <div><span class="number">23+</span><span class="label">Team members managed</span></div>
-                    <div><span class="number">100K+</span><span class="label">Customers served</span></div>
+        <div class="container">
+            <div class="founder-intro-grid">
+                <img src="assets/founder-photo.jpg" alt="Rishi Rana, Founder of Novara CX" class="founder-img" style="background: linear-gradient(135deg, #7C9B8A 0%, #5A7A6A 100%);" />
+                <div>
+                    <span class="section-label">About The Founder</span>
+                    <h2 class="section-title">Rishi Rana — CX leader <span class="highlight">turned founder</span></h2>
+                    <div class="founder-stats">
+                        <div><span class="number">6+</span><span class="label">Years of CX experience</span></div>
+                        <div><span class="number">23+</span><span class="label">Team members managed</span></div>
+                        <div><span class="number">100K+</span><span class="label">Customers served</span></div>
+                    </div>
+                    <p class="founder-bio">Leading teams at high-growth EdTech D2C brands, across BrightCHAMPS and Byju's. Awarded the BrightSTAR Award (CEO-selected from 500+ employees), the Visionary Award, and the Eureka Award for innovation. Built Novara CX to solve the CX problems he saw firsthand.</p>
+                    <div class="founder-awards">
+                        <img src="assets/award.svg" class="icon-img" alt=""> BrightSTAR Award · <img src="assets/award.svg" class="icon-img" alt=""> Visionary Award · <img src="assets/award.svg" class="icon-img" alt=""> Eureka Award
+                    </div>
                 </div>
-                <p class="founder-bio">Leading teams at high-growth EdTech D2C brands, across BrightCHAMPS and Byju's. Awarded the BrightSTAR Award (CEO-selected from 500+ employees), the Visionary Award, and the Eureka Award for innovation. Built Novara CX to solve the CX problems he saw firsthand.</p>
-                <div class="founder-awards">
-                    <img src="assets/award.svg" class="icon-img" alt=""> BrightSTAR Award · <img src="assets/award.svg" class="icon-img" alt=""> Visionary Award · <img src="assets/award.svg" class="icon-img" alt=""> Eureka Award
+            </div>
+
+            <!-- Track record, now framed explicitly as the founder's personal results -->
+            <div class="founder-track-record">
+                <span class="track-label">The Track Record Behind Novara</span>
+                <h3>Proven results at <span class="highlight" style="background: var(--accent-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">BrightChamps &amp; Byju's</span></h3>
+                <p class="track-intro">These are Rishi's personal results from his time leading CX at BrightChamps and Byju's — the same playbook Novara CX now applies for D2C brands.</p>
+
+                <div class="results-grid">
+                    <div class="result-card">
+                        <h3><img src="assets/award.svg" class="icon-img" alt=""> BrightChamps</h3>
+                        <div class="sub">Senior Manager, CX</div>
+                        <div class="result-stats">
+                            <div class="result-stat"><span class="number">77%</span><span class="label">Refund Reduction</span></div>
+                            <div class="result-stat"><span class="number">88%</span><span class="label">FRT Improvement</span></div>
+                            <div class="result-stat"><span class="number">45%</span><span class="label">ART Reduction</span></div>
+                            <div class="result-stat"><span class="number">98%</span><span class="label">Monthly Resolution</span></div>
+                            <div class="result-stat"><span class="number">68%</span><span class="label">SLA Breach Reduction</span></div>
+                            <div class="result-stat"><span class="number">40%</span><span class="label">Retention Boost</span></div>
+                        </div>
+                        <div class="result-awards">
+                            <span class="award"><img src="assets/award.svg" class="icon-img" alt=""> BrightSTAR Award</span>
+                            <span class="award"><img src="assets/award.svg" class="icon-img" alt=""> Visionary Award</span>
+                        </div>
+                    </div>
+                    <div class="result-card">
+                        <h3><img src="assets/award.svg" class="icon-img" alt=""> Byju's</h3>
+                        <div class="sub">Assistant Manager, CX</div>
+                        <div class="result-stats">
+                            <div class="result-stat"><span class="number">90%+</span><span class="label">Engagement</span></div>
+                            <div class="result-stat"><span class="number">10%</span><span class="label">Weekly Refund Reduction</span></div>
+                            <div class="result-stat"><span class="number">100%</span><span class="label">CEO Escalations Resolved</span></div>
+                            <div class="result-stat"><span class="number">4.5+</span><span class="label">CSAT Score</span></div>
+                        </div>
+                        <div class="result-awards">
+                            <span class="award"><img src="assets/award.svg" class="icon-img" alt=""> Eureka Award — Innovation</span>
+                            <span class="award"><img src="assets/award.svg" class="icon-img" alt=""> Star Performer</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1799,7 +1827,7 @@
             <div class="links">
                 <a href="#problem">Problem</a>
                 <a href="#offerings">Offerings</a>
-                <a href="#results">Results</a>
+                <a href="#founder">Founder</a>
                 <a href="#contact">Book a Meeting</a>
             </div>
             <div class="legal-links">
