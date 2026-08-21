@@ -2293,30 +2293,30 @@
             chatWindow.classList.remove('open');
         });
 
-        // === Sanitize HTML (for safety) ===
-        function sanitizeHTML(text) {
-            // Allow only <b>, <strong>, <i>, <em>, <br>, <p>, <ul>, <li>, and <a> tags
-            const allowedTags = ['b', 'strong', 'i', 'em', 'br', 'p', 'ul', 'li', 'a'];
-            const tempDiv = document.createElement('div');
-            tempDiv.textContent = text; // First, escape everything
-            const sanitized = tempDiv.innerHTML;
-
-            // Then, selectively allow certain tags
-            const regex = /<(\/)?(b|strong|i|em|br|p|ul|li|a)(\s[^>]*)?>/gi;
-            return sanitized.replace(/&lt;(\/)?(b|strong|i|em|br|p|ul|li|a)(\s[^>]*)?&gt;/gi, '<$1$2$3>');
-        }
-
-        // Render message — NOW WITH HTML SUPPORT
+        // ==========================================
+        // RENDER MESSAGE — CONVERTS **bold** TO <b>bold</b>
+        // ==========================================
         function renderMessage(text, sender) {
             const div = document.createElement('div');
             div.classList.add('msg', sender);
-            // Use innerHTML with sanitization
-            div.innerHTML = sanitizeHTML(text);
+
+            // Convert **bold** to <b>bold</b>
+            let html = text.replace(/\*\*(.*?)\*\*/g, '<b>$1</b>');
+
+            // Convert [text](url) to <a href="url">text</a>
+            html = html.replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2" target="_blank">$1</a>');
+
+            // Convert \n to <br>
+            html = html.replace(/\n/g, '<br>');
+
+            div.innerHTML = html;
             chatMessages.appendChild(div);
             chatMessages.scrollTop = chatMessages.scrollHeight;
         }
 
-        // Typing indicator
+        // ==========================================
+        // TYPING INDICATOR
+        // ==========================================
         function showTyping() {
             const div = document.createElement('div');
             div.classList.add('msg', 'bot');
@@ -2331,7 +2331,9 @@
             if (typing) typing.remove();
         }
 
-        // Send message to Worker
+        // ==========================================
+        // SEND MESSAGE
+        // ==========================================
         async function sendMessage(message) {
             if (!message || message.trim() === '') return;
 
@@ -2361,7 +2363,9 @@
             }
         }
 
-        // Events
+        // ==========================================
+        // EVENTS
+        // ==========================================
         chatSend.addEventListener('click', () => {
             const msg = chatInput.value.trim();
             if (msg) sendMessage(msg);
@@ -2381,7 +2385,9 @@
             });
         });
 
-        // Welcome message
+        // ==========================================
+        // WELCOME MESSAGE
+        // ==========================================
         window.addEventListener('load', () => {
             setTimeout(() => {
                 renderMessage("👋 Hi there! I'm Novara CX's AI assistant. How can I help you today? You can ask about our services, pricing, or book a discovery call.", 'bot');
