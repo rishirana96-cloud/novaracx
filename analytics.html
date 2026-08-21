@@ -59,9 +59,6 @@
             margin: 0 auto;
         }
 
-        /* ==========================================
-           HEADER
-           ========================================== */
         .header {
             display: flex;
             justify-content: space-between;
@@ -148,12 +145,9 @@
             color: var(--bg-primary);
         }
 
-        /* ==========================================
-           KPI CARDS
-           ========================================== */
         .kpi-grid {
             display: grid;
-            grid-template-columns: repeat(5, 1fr);
+            grid-template-columns: repeat(6, 1fr);
             gap: 16px;
             margin-bottom: 32px;
         }
@@ -215,9 +209,6 @@
             opacity: 0.15;
         }
 
-        /* ==========================================
-           CHARTS
-           ========================================== */
         .charts-grid {
             display: grid;
             grid-template-columns: 2fr 1fr 1fr;
@@ -255,9 +246,6 @@
             width: 100% !important;
         }
 
-        /* ==========================================
-           BOTTOM SECTION
-           ========================================== */
         .bottom-grid {
             display: grid;
             grid-template-columns: 2fr 1fr;
@@ -385,9 +373,31 @@
             color: var(--text-muted);
         }
 
-        /* ==========================================
-           INTENTS CARD
-           ========================================== */
+        /* Sentiment Badges */
+        .badge-sentiment {
+            display: inline-block;
+            padding: 1px 10px;
+            border-radius: 50px;
+            font-size: 0.6rem;
+            font-weight: 500;
+        }
+        .badge-sentiment.positive {
+            background: rgba(46, 204, 113, 0.15);
+            color: #2ECC71;
+        }
+        .badge-sentiment.neutral {
+            background: rgba(241, 196, 15, 0.15);
+            color: #F1C40F;
+        }
+        .badge-sentiment.negative {
+            background: rgba(231, 76, 60, 0.15);
+            color: #E74C3C;
+        }
+        .badge-sentiment.unknown {
+            background: rgba(255,255,255,0.04);
+            color: var(--text-muted);
+        }
+
         .intents-card {
             background: var(--bg-card);
             border: 1px solid var(--border-subtle);
@@ -434,9 +444,6 @@
             transition: width 0.6s ease;
         }
 
-        /* ==========================================
-           EMPTY STATE
-           ========================================== */
         .empty-state {
             text-align: center;
             padding: 40px 0;
@@ -451,9 +458,6 @@
             font-size: 0.9rem;
         }
 
-        /* ==========================================
-           FOOTER
-           ========================================== */
         .footer {
             margin-top: 40px;
             padding-top: 24px;
@@ -482,9 +486,6 @@
             font-size: 0.75rem;
         }
 
-        /* ==========================================
-           RESPONSIVE
-           ========================================== */
         @media (max-width: 1200px) {
             .kpi-grid {
                 grid-template-columns: repeat(3, 1fr);
@@ -622,6 +623,12 @@
                 <div class="value" id="avgRating">—</div>
                 <div class="sub" id="ratingSub">Based on user feedback</div>
             </div>
+            <div class="kpi-card">
+                <span class="trend-icon">😊</span>
+                <div class="label">Sentiment Score</div>
+                <div class="value" id="sentimentScore">—</div>
+                <div class="sub" id="sentimentSub">Positive / Neutral / Negative</div>
+            </div>
         </div>
 
         <!-- ===== CHARTS ===== -->
@@ -642,10 +649,10 @@
             </div>
             <div class="chart-card">
                 <div class="chart-header">
-                    <h3>⭐ User Ratings</h3>
-                    <span class="chart-sub">Feedback distribution</span>
+                    <h3>😊 Sentiment Distribution</h3>
+                    <span class="chart-sub">User sentiment analysis</span>
                 </div>
-                <canvas id="ratingChart"></canvas>
+                <canvas id="sentimentChart"></canvas>
             </div>
         </div>
 
@@ -667,12 +674,13 @@
                                 <th>Query</th>
                                 <th>Intent</th>
                                 <th>Rating</th>
+                                <th>Sentiment</th>
                                 <th>Status</th>
                             </tr>
                         </thead>
                         <tbody id="conversationsBody">
                             <tr>
-                                <td colspan="6" style="text-align:center;color:var(--text-muted);padding:30px 0;">
+                                <td colspan="7" style="text-align:center;color:var(--text-muted);padding:30px 0;">
                                     <div class="empty-state">
                                         <div class="icon">🤖</div>
                                         <p>No conversations yet.<br>Send a test message to get started.</p>
@@ -720,7 +728,7 @@
         let currentPeriod = 30;
         let trendChart = null;
         let breakdownChart = null;
-        let ratingChart = null;
+        let sentimentChart = null;
 
         // ==========================================
         // API CONFIG
@@ -785,32 +793,43 @@
             }
         }
 
+        async function fetchSentiment(period) {
+            try {
+                const response = await fetch(`${API_URL}/sentiment?period=${period}`);
+                if (!response.ok) throw new Error('Failed to fetch');
+                return await response.json();
+            } catch (error) {
+                console.error('Error fetching sentiment:', error);
+                return [];
+            }
+        }
+
         // ==========================================
         // UPDATE DASHBOARD
         // ==========================================
         async function updateDashboard(period) {
             currentPeriod = period;
 
-            // Update active period button
             document.querySelectorAll('#periodSelector button').forEach(btn => {
                 btn.classList.toggle('active', parseInt(btn.dataset.period) === period);
             });
 
-            // Show loading state
             document.getElementById('totalConversations').textContent = '…';
             document.getElementById('deflectionRate').textContent = '…';
             document.getElementById('resolutionRate').textContent = '…';
             document.getElementById('escalationRate').textContent = '…';
             document.getElementById('avgRating').textContent = '…';
+            document.getElementById('sentimentScore').textContent = '…';
             document.getElementById('totalSub').textContent = 'Loading...';
 
             try {
-                const [analyticsData, conversationsData, intentsData, ratingsData, resolutionData] = await Promise.all([
+                const [analyticsData, conversationsData, intentsData, ratingsData, resolutionData, sentimentData] = await Promise.all([
                     fetchAnalytics(period),
                     fetchConversations(10),
                     fetchIntents(period),
                     fetchRatings(period),
-                    fetchResolution(period)
+                    fetchResolution(period),
+                    fetchSentiment(period)
                 ]);
 
                 // --- Calculate KPIs ---
@@ -821,7 +840,6 @@
                     return acc;
                 }, { total: 0, resolved: 0, escalated: 0 });
 
-                // Resolution from resolutionData (user-confirmed)
                 const resolutionTotals = resolutionData.reduce((acc, day) => {
                     acc.total += parseInt(day.total) || 0;
                     acc.resolved += parseInt(day.resolved_count) || 0;
@@ -842,37 +860,49 @@
                 });
                 avgRating = ratingCount > 0 ? (avgRating / ratingCount).toFixed(1) : '—';
 
+                // Calculate sentiment distribution
+                let positiveCount = 0, neutralCount = 0, negativeCount = 0;
+                let totalSentiment = 0;
+                let sentimentCount = 0;
+                sentimentData.forEach(s => {
+                    if (s.sentiment === 'positive') positiveCount += parseInt(s.count) || 0;
+                    else if (s.sentiment === 'neutral') neutralCount += parseInt(s.count) || 0;
+                    else if (s.sentiment === 'negative') negativeCount += parseInt(s.count) || 0;
+                    
+                    if (s.avg_score) {
+                        totalSentiment += parseFloat(s.avg_score) * parseInt(s.count);
+                        sentimentCount += parseInt(s.count);
+                    }
+                });
+                const totalSentimentCount = positiveCount + neutralCount + negativeCount;
+                const avgSentiment = sentimentCount > 0 ? (totalSentiment / sentimentCount).toFixed(2) : '—';
+
                 // --- Update KPIs ---
                 document.getElementById('totalConversations').textContent = totals.total;
                 document.getElementById('deflectionRate').textContent = deflectionRate + '%';
                 document.getElementById('resolutionRate').textContent = resolutionRate + '%';
                 document.getElementById('escalationRate').textContent = escalationRate + '%';
                 document.getElementById('avgRating').textContent = avgRating !== '—' ? avgRating + ' ★' : '—';
+                document.getElementById('sentimentScore').textContent = avgSentiment !== '—' ? avgSentiment : '—';
 
                 document.getElementById('totalSub').textContent = `Last ${period} days`;
 
-                // --- Update Last Updated ---
                 document.getElementById('lastUpdated').textContent = `Last updated: ${new Date().toLocaleTimeString()}`;
 
-                // --- Update Trend Chart ---
+                // --- Update Charts ---
                 const labels = analyticsData.map(d => d.date);
                 const resolvedData = analyticsData.map(d => parseInt(d.resolved) || 0);
                 const escalatedData = analyticsData.map(d => parseInt(d.escalated) || 0);
                 updateTrendChart(labels, resolvedData, escalatedData);
 
-                // --- Update Breakdown Chart ---
                 const totalResolved = totals.resolved;
                 const totalEscalated = totals.escalated;
                 const totalPending = Math.max(0, totals.total - totalResolved - totalEscalated);
                 updateBreakdownChart(totalResolved, totalEscalated, totalPending);
 
-                // --- Update Rating Chart ---
-                updateRatingChart(ratingsData);
+                updateSentimentChart(positiveCount, neutralCount, negativeCount);
 
-                // --- Update Conversations Table (with IST timezone fix) ---
                 updateConversationsTable(conversationsData);
-
-                // --- Update Intents ---
                 updateIntents(intentsData);
 
             } catch (error) {
@@ -977,32 +1007,24 @@
         }
 
         // ==========================================
-        // RATING CHART
+        // SENTIMENT CHART
         // ==========================================
-        function updateRatingChart(ratingsData) {
-            if (ratingChart) ratingChart.destroy();
+        function updateSentimentChart(positive, neutral, negative) {
+            if (sentimentChart) sentimentChart.destroy();
 
-            const ctx = document.getElementById('ratingChart').getContext('2d');
+            const ctx = document.getElementById('sentimentChart').getContext('2d');
+            
+            const total = positive + neutral + negative;
+            const hasData = total > 0;
 
-            const ratingMap = {
-                'yes': '✅ Yes',
-                'no': '❌ No',
-                'partial': '🔄 Partial'
-            };
-
-            const labels = ratingsData.map(r => ratingMap[r.rating] || r.rating);
-            const data = ratingsData.map(r => parseInt(r.count) || 0);
-            const colors = ['rgba(46, 204, 113, 0.6)', 'rgba(231, 76, 60, 0.6)', 'rgba(241, 196, 15, 0.6)'];
-            const borderColors = ['#2ECC71', '#E74C3C', '#F1C40F'];
-
-            ratingChart = new Chart(ctx, {
+            sentimentChart = new Chart(ctx, {
                 type: 'doughnut',
                 data: {
-                    labels: labels,
+                    labels: ['😊 Positive', '😐 Neutral', '😞 Negative'],
                     datasets: [{
-                        data: data,
-                        backgroundColor: colors,
-                        borderColor: borderColors,
+                        data: hasData ? [positive, neutral, negative] : [1],
+                        backgroundColor: hasData ? ['rgba(46, 204, 113, 0.6)', 'rgba(241, 196, 15, 0.6)', 'rgba(231, 76, 60, 0.6)'] : ['rgba(255,255,255,0.08)'],
+                        borderColor: hasData ? ['#2ECC71', '#F1C40F', '#E74C3C'] : ['rgba(255,255,255,0.02)'],
                         borderWidth: 2,
                     }]
                 },
@@ -1026,7 +1048,7 @@
         }
 
         // ==========================================
-        // CONVERSATIONS TABLE (FIXED WITH IST TIMEZONE)
+        // CONVERSATIONS TABLE
         // ==========================================
         function updateConversationsTable(conversations) {
             const tbody = document.getElementById('conversationsBody');
@@ -1034,7 +1056,7 @@
             if (!conversations || conversations.length === 0) {
                 tbody.innerHTML = `
                     <tr>
-                        <td colspan="6" style="text-align:center;color:var(--text-muted);padding:30px 0;">
+                        <td colspan="7" style="text-align:center;color:var(--text-muted);padding:30px 0;">
                             <div class="empty-state">
                                 <div class="icon">🤖</div>
                                 <p>No conversations yet.<br>Send a test message to get started.</p>
@@ -1049,9 +1071,6 @@
                 const statusClass = conv.resolution_status || 'pending';
                 const statusLabel = statusClass.charAt(0).toUpperCase() + statusClass.slice(1);
                 
-                // ==========================================
-                // FIX: Convert UTC to IST (+5:30)
-                // ==========================================
                 const utcDate = new Date(conv.started_at);
                 const istDate = new Date(utcDate.getTime() + (5.5 * 60 * 60 * 1000));
                 
@@ -1070,7 +1089,6 @@
                 const intent = conv.intent || 'general';
                 const intentLabel = intent.charAt(0).toUpperCase() + intent.slice(1);
 
-                // Rating display
                 const rating = conv.rating || 'unknown';
                 const ratingLabels = {
                     'yes': '✅ Yes',
@@ -1080,6 +1098,15 @@
                 };
                 const ratingClass = rating === 'unknown' ? 'unknown' : rating;
 
+                const sentiment = conv.sentiment || 'unknown';
+                const sentimentLabels = {
+                    'positive': '😊 Positive',
+                    'neutral': '😐 Neutral',
+                    'negative': '😞 Negative',
+                    'unknown': '—'
+                };
+                const sentimentClass = sentiment === 'unknown' ? 'unknown' : sentiment;
+
                 return `
                     <tr>
                         <td><span class="session-id">${conv.session_id.substring(0, 8)}</span></td>
@@ -1087,6 +1114,7 @@
                         <td class="query" title="${query}">${truncatedQuery}</td>
                         <td><span class="badge-intent">${intentLabel}</span></td>
                         <td><span class="badge-rating ${ratingClass}">${ratingLabels[rating] || '—'}</span></td>
+                        <td><span class="badge-sentiment ${sentimentClass}">${sentimentLabels[sentiment] || '—'}</span></td>
                         <td><span class="status ${statusClass}">${statusLabel}</span></td>
                     </tr>
                 `;
