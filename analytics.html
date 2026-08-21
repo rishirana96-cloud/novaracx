@@ -56,7 +56,6 @@
             margin: 0 auto;
         }
 
-        /* ===== HEADER ===== */
         .header {
             display: flex;
             justify-content: space-between;
@@ -192,7 +191,6 @@
             color: var(--bg-primary);
         }
 
-        /* ===== TAB SWITCHER ===== */
         .tab-switcher {
             display: flex;
             justify-content: center;
@@ -229,7 +227,6 @@
             box-shadow: 0 4px 20px var(--accent-glow);
         }
 
-        /* ===== VIEW PANELS ===== */
         .view-panel {
             display: none;
         }
@@ -237,7 +234,6 @@
             display: block;
         }
 
-        /* ===== KPI CARDS ===== */
         .kpi-grid {
             display: grid;
             grid-template-columns: repeat(6, 1fr);
@@ -296,7 +292,6 @@
             margin-top: 4px;
         }
 
-        /* ===== CHARTS ===== */
         .charts-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -334,7 +329,6 @@
             width: 100% !important;
         }
 
-        /* ===== INTENTS CARD ===== */
         .intents-card {
             background: var(--bg-card);
             border: 1px solid var(--border-subtle);
@@ -382,7 +376,6 @@
             transition: width 0.6s ease;
         }
 
-        /* ===== ESCALATION REASONS ===== */
         .escalation-card {
             background: var(--bg-card);
             border: 1px solid var(--border-subtle);
@@ -430,7 +423,6 @@
             transition: width 0.6s ease;
         }
 
-        /* ===== CONVERSATIONS TABLE ===== */
         .conversations-card {
             background: var(--bg-card);
             border: 1px solid var(--border-subtle);
@@ -528,6 +520,53 @@
             color: var(--text-muted);
             border: 1px solid var(--border-subtle);
         }
+        .badge-rating {
+            display: inline-block;
+            padding: 2px 12px;
+            border-radius: 50px;
+            font-size: 0.6rem;
+            font-weight: 600;
+        }
+        .badge-rating.yes {
+            background: rgba(46, 204, 113, 0.15);
+            color: #2ECC71;
+        }
+        .badge-rating.no {
+            background: rgba(231, 76, 60, 0.15);
+            color: #E74C3C;
+        }
+        .badge-rating.partial {
+            background: rgba(241, 196, 15, 0.15);
+            color: #F1C40F;
+        }
+        .badge-rating.unknown {
+            background: rgba(255,255,255,0.04);
+            color: var(--text-muted);
+        }
+
+        .badge-sentiment {
+            display: inline-block;
+            padding: 2px 12px;
+            border-radius: 50px;
+            font-size: 0.6rem;
+            font-weight: 500;
+        }
+        .badge-sentiment.positive {
+            background: rgba(46, 204, 113, 0.15);
+            color: #2ECC71;
+        }
+        .badge-sentiment.neutral {
+            background: rgba(241, 196, 15, 0.15);
+            color: #F1C40F;
+        }
+        .badge-sentiment.negative {
+            background: rgba(231, 76, 60, 0.15);
+            color: #E74C3C;
+        }
+        .badge-sentiment.unknown {
+            background: rgba(255,255,255,0.04);
+            color: var(--text-muted);
+        }
 
         .empty-state {
             text-align: center;
@@ -538,7 +577,6 @@
             font-size: 0.9rem;
         }
 
-        /* ===== FOOTER ===== */
         .footer {
             margin-top: 40px;
             padding-top: 24px;
@@ -567,9 +605,6 @@
             font-size: 0.75rem;
         }
 
-        /* ==========================================
-           RESPONSIVE
-           ========================================== */
         @media (max-width: 1200px) {
             .kpi-grid {
                 grid-template-columns: repeat(3, 1fr);
@@ -946,17 +981,14 @@
         // ==========================================
         document.querySelectorAll('#tabSwitcher button').forEach(btn => {
             btn.addEventListener('click', function() {
-                // Update tab button states
                 document.querySelectorAll('#tabSwitcher button').forEach(b => b.classList.remove('active'));
                 this.classList.add('active');
 
-                // Update panel visibility
                 const tab = this.dataset.tab;
                 currentTab = tab;
                 document.querySelectorAll('.view-panel').forEach(p => p.classList.remove('active'));
                 document.getElementById(`panel-${tab}`).classList.add('active');
 
-                // Refresh data for the new tab
                 updateDashboard(currentPeriod);
             });
         });
@@ -1130,8 +1162,12 @@
                 updateEscalationReasons(ratingsData);
 
                 // --- Update Conversations Tables ---
+                // AI conversations: all conversations
                 updateConversationsTable(conversationsData, 'aiConversationsBody');
-                updateConversationsTable(conversationsData.filter(c => c.resolution_status === 'escalated'), 'humanConversationsBody');
+                
+                // Human conversations: only escalated ones
+                const humanConversations = conversationsData.filter(c => c.resolution_status === 'escalated');
+                updateConversationsTable(humanConversations, 'humanConversationsBody');
 
             } catch (error) {
                 console.error('Dashboard error:', error);
@@ -1399,7 +1435,7 @@
         }
 
         // ==========================================
-        // CONVERSATIONS TABLE
+        // CONVERSATIONS TABLE (FIXED)
         // ==========================================
         function updateConversationsTable(conversations, containerId) {
             const tbody = document.getElementById(containerId);
@@ -1421,18 +1457,29 @@
                 const statusClass = conv.resolution_status || 'pending';
                 const statusLabel = statusClass.charAt(0).toUpperCase() + statusClass.slice(1);
                 
-                const utcDate = new Date(conv.started_at);
-                const istDate = new Date(utcDate.getTime() + (5.5 * 60 * 60 * 1000));
+                // Handle date safely
+                let date = '—';
+                let time = '—';
                 
-                const date = istDate.toLocaleDateString('en-IN', {
-                    day: '2-digit',
-                    month: 'short',
-                    year: 'numeric',
-                });
-                const time = istDate.toLocaleTimeString('en-IN', {
-                    hour: '2-digit',
-                    minute: '2-digit',
-                });
+                if (conv.started_at) {
+                    try {
+                        const utcDate = new Date(conv.started_at);
+                        if (!isNaN(utcDate.getTime())) {
+                            const istDate = new Date(utcDate.getTime() + (5.5 * 60 * 60 * 1000));
+                            date = istDate.toLocaleDateString('en-IN', {
+                                day: '2-digit',
+                                month: 'short',
+                                year: 'numeric',
+                            });
+                            time = istDate.toLocaleTimeString('en-IN', {
+                                hour: '2-digit',
+                                minute: '2-digit',
+                            });
+                        }
+                    } catch (e) {
+                        console.error('Date parsing error:', e);
+                    }
+                }
                 
                 const query = conv.first_query || '—';
                 const truncatedQuery = query.length > 35 ? query.substring(0, 35) + '…' : query;
@@ -1459,7 +1506,7 @@
 
                 return `
                     <tr>
-                        <td><span class="session-id">${conv.session_id.substring(0, 8)}</span></td>
+                        <td><span class="session-id">${conv.session_id ? conv.session_id.substring(0, 8) : '—'}</span></td>
                         <td style="font-size:0.7rem;color:var(--text-muted);">${date}<br>${time}</td>
                         <td class="query" title="${query}">${truncatedQuery}</td>
                         <td><span class="badge-intent">${intentLabel}</span></td>
