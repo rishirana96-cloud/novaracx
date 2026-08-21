@@ -398,12 +398,14 @@
             color: var(--text-muted);
             border: 1px solid var(--border-subtle);
         }
-        .conv-table .badge-rating {
+
+        /* Rating Badge */
+        .badge-rating {
             display: inline-block;
-            padding: 1px 10px;
+            padding: 2px 12px;
             border-radius: 50px;
             font-size: 0.6rem;
-            font-weight: 500;
+            font-weight: 600;
         }
         .badge-rating.yes {
             background: rgba(46, 204, 113, 0.15);
@@ -422,9 +424,10 @@
             color: var(--text-muted);
         }
 
+        /* Sentiment Badge */
         .badge-sentiment {
             display: inline-block;
-            padding: 1px 10px;
+            padding: 2px 12px;
             border-radius: 50px;
             font-size: 0.6rem;
             font-weight: 500;
@@ -444,6 +447,42 @@
         .badge-sentiment.unknown {
             background: rgba(255,255,255,0.04);
             color: var(--text-muted);
+        }
+
+        /* Rating Scale */
+        .rating-scale {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 8px;
+            padding: 8px 12px;
+            background: var(--bg-secondary);
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-subtle);
+        }
+        .rating-scale .label {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+        .rating-scale .pill {
+            display: inline-block;
+            padding: 2px 10px;
+            border-radius: 50px;
+            font-size: 0.65rem;
+            font-weight: 600;
+        }
+        .rating-scale .pill.yes {
+            background: rgba(46, 204, 113, 0.15);
+            color: #2ECC71;
+        }
+        .rating-scale .pill.no {
+            background: rgba(231, 76, 60, 0.15);
+            color: #E74C3C;
+        }
+        .rating-scale .pill.partial {
+            background: rgba(241, 196, 15, 0.15);
+            color: #F1C40F;
         }
 
         .intents-card {
@@ -697,21 +736,21 @@
         <div class="charts-grid">
             <div class="chart-card">
                 <div class="chart-header">
-                    <h3>📈 Daily Conversations</h3>
+                    <h3>Daily Conversations</h3>
                     <span class="chart-sub">Resolved vs Escalated</span>
                 </div>
                 <canvas id="trendChart"></canvas>
             </div>
             <div class="chart-card">
                 <div class="chart-header">
-                    <h3>📊 Resolution Breakdown</h3>
+                    <h3>Resolution Breakdown</h3>
                     <span class="chart-sub">Overall distribution</span>
                 </div>
                 <canvas id="breakdownChart"></canvas>
             </div>
             <div class="chart-card">
                 <div class="chart-header">
-                    <h3>😊 Sentiment Distribution</h3>
+                    <h3>Sentiment Distribution</h3>
                     <span class="chart-sub">User sentiment analysis</span>
                 </div>
                 <canvas id="sentimentChart"></canvas>
@@ -724,7 +763,7 @@
             <!-- Recent Conversations -->
             <div class="conversations-card">
                 <div class="card-header">
-                    <h3>💬 Recent Conversations</h3>
+                    <h3>Recent Conversations</h3>
                     <a href="#" class="view-all">View all →</a>
                 </div>
                 <div style="overflow-x:auto;">
@@ -756,7 +795,7 @@
 
             <!-- Top Intents -->
             <div class="intents-card">
-                <h3>🎯 Top User Intents</h3>
+                <h3>Top User Intents</h3>
                 <div id="intentsList">
                     <div style="text-align:center;color:var(--text-muted);padding:20px 0;font-size:0.85rem;">
                         Loading intents...
@@ -1084,7 +1123,7 @@
             sentimentChart = new Chart(ctx, {
                 type: 'doughnut',
                 data: {
-                    labels: ['😊 Positive', '😐 Neutral', '😞 Negative'],
+                    labels: ['Positive', 'Neutral', 'Negative'],
                     datasets: [{
                         data: hasData ? [positive, neutral, negative] : [1],
                         backgroundColor: hasData ? ['rgba(46, 204, 113, 0.6)', 'rgba(241, 196, 15, 0.6)', 'rgba(231, 76, 60, 0.6)'] : ['rgba(255,255,255,0.08)'],
@@ -1155,18 +1194,18 @@
 
                 const rating = conv.rating || 'unknown';
                 const ratingLabels = {
-                    'yes': '✅ Yes',
-                    'no': '❌ No',
-                    'partial': '🔄 Partial',
+                    'yes': 'Yes',
+                    'no': 'No',
+                    'partial': 'Partial',
                     'unknown': '—'
                 };
                 const ratingClass = rating === 'unknown' ? 'unknown' : rating;
 
                 const sentiment = conv.sentiment || 'unknown';
                 const sentimentLabels = {
-                    'positive': '😊 Positive',
-                    'neutral': '😐 Neutral',
-                    'negative': '😞 Negative',
+                    'positive': 'Positive',
+                    'neutral': 'Neutral',
+                    'negative': 'Negative',
                     'unknown': '—'
                 };
                 const sentimentClass = sentiment === 'unknown' ? 'unknown' : sentiment;
@@ -1223,11 +1262,9 @@
         async function refreshDashboard() {
             const refreshBtn = document.getElementById('refreshBtn');
             
-            // Prevent multiple clicks
             if (isRefreshing) return;
             isRefreshing = true;
             
-            // Add spinning animation
             refreshBtn.classList.add('spinning');
             
             try {
@@ -1235,7 +1272,6 @@
             } catch (error) {
                 console.error('Refresh error:', error);
             } finally {
-                // Remove spinning animation
                 refreshBtn.classList.remove('spinning');
                 isRefreshing = false;
             }
