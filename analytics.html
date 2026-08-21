@@ -153,7 +153,7 @@
            ========================================== */
         .kpi-grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: repeat(5, 1fr);
             gap: 16px;
             margin-bottom: 32px;
         }
@@ -220,7 +220,7 @@
            ========================================== */
         .charts-grid {
             display: grid;
-            grid-template-columns: 2fr 1fr;
+            grid-template-columns: 2fr 1fr 1fr;
             gap: 24px;
             margin-bottom: 32px;
         }
@@ -251,7 +251,7 @@
             color: var(--text-muted);
         }
         .chart-card canvas {
-            max-height: 220px;
+            max-height: 200px;
             width: 100% !important;
         }
 
@@ -361,6 +361,29 @@
             color: var(--text-muted);
             border: 1px solid var(--border-subtle);
         }
+        .conv-table .badge-rating {
+            display: inline-block;
+            padding: 1px 10px;
+            border-radius: 50px;
+            font-size: 0.6rem;
+            font-weight: 500;
+        }
+        .badge-rating.yes {
+            background: rgba(46, 204, 113, 0.15);
+            color: #2ECC71;
+        }
+        .badge-rating.no {
+            background: rgba(231, 76, 60, 0.15);
+            color: #E74C3C;
+        }
+        .badge-rating.partial {
+            background: rgba(241, 196, 15, 0.15);
+            color: #F1C40F;
+        }
+        .badge-rating.unknown {
+            background: rgba(255,255,255,0.04);
+            color: var(--text-muted);
+        }
 
         /* ==========================================
            INTENTS CARD
@@ -464,10 +487,10 @@
            ========================================== */
         @media (max-width: 1200px) {
             .kpi-grid {
-                grid-template-columns: repeat(2, 1fr);
+                grid-template-columns: repeat(3, 1fr);
             }
             .charts-grid {
-                grid-template-columns: 1fr;
+                grid-template-columns: 1fr 1fr;
             }
             .bottom-grid {
                 grid-template-columns: 1fr;
@@ -494,6 +517,9 @@
             .kpi-grid {
                 grid-template-columns: 1fr 1fr;
                 gap: 12px;
+            }
+            .charts-grid {
+                grid-template-columns: 1fr;
             }
             .kpi-card .value {
                 font-size: 1.6rem;
@@ -579,16 +605,22 @@
                 <div class="sub" id="deflectionSub">Resolved by AI</div>
             </div>
             <div class="kpi-card">
-                <span class="trend-icon">⚡</span>
-                <div class="label">Avg Resolution Time</div>
-                <div class="value" id="avgResolutionTime">—</div>
-                <div class="sub" id="timeSub">Seconds per conversation</div>
+                <span class="trend-icon">✅</span>
+                <div class="label">Resolution Rate</div>
+                <div class="value" id="resolutionRate">—</div>
+                <div class="sub" id="resolutionSub">User confirmed resolved</div>
             </div>
             <div class="kpi-card">
                 <span class="trend-icon">📊</span>
                 <div class="label">Escalation Rate</div>
                 <div class="value" id="escalationRate">—</div>
                 <div class="sub" id="escalationSub">Handled by humans</div>
+            </div>
+            <div class="kpi-card">
+                <span class="trend-icon">⭐</span>
+                <div class="label">Avg Rating</div>
+                <div class="value" id="avgRating">—</div>
+                <div class="sub" id="ratingSub">Based on user feedback</div>
             </div>
         </div>
 
@@ -607,6 +639,13 @@
                     <span class="chart-sub">Overall distribution</span>
                 </div>
                 <canvas id="breakdownChart"></canvas>
+            </div>
+            <div class="chart-card">
+                <div class="chart-header">
+                    <h3>⭐ User Ratings</h3>
+                    <span class="chart-sub">Feedback distribution</span>
+                </div>
+                <canvas id="ratingChart"></canvas>
             </div>
         </div>
 
@@ -627,12 +666,13 @@
                                 <th>Date</th>
                                 <th>Query</th>
                                 <th>Intent</th>
+                                <th>Rating</th>
                                 <th>Status</th>
                             </tr>
                         </thead>
                         <tbody id="conversationsBody">
                             <tr>
-                                <td colspan="5" style="text-align:center;color:var(--text-muted);padding:30px 0;">
+                                <td colspan="6" style="text-align:center;color:var(--text-muted);padding:30px 0;">
                                     <div class="empty-state">
                                         <div class="icon">🤖</div>
                                         <p>No conversations yet.<br>Send a test message to get started.</p>
@@ -680,6 +720,7 @@
         let currentPeriod = 30;
         let trendChart = null;
         let breakdownChart = null;
+        let ratingChart = null;
 
         // ==========================================
         // API CONFIG
@@ -722,6 +763,28 @@
             }
         }
 
+        async function fetchRatings(period) {
+            try {
+                const response = await fetch(`${API_URL}/ratings?period=${period}`);
+                if (!response.ok) throw new Error('Failed to fetch');
+                return await response.json();
+            } catch (error) {
+                console.error('Error fetching ratings:', error);
+                return [];
+            }
+        }
+
+        async function fetchResolution(period) {
+            try {
+                const response = await fetch(`${API_URL}/resolution?period=${period}`);
+                if (!response.ok) throw new Error('Failed to fetch');
+                return await response.json();
+            } catch (error) {
+                console.error('Error fetching resolution:', error);
+                return [];
+            }
+        }
+
         // ==========================================
         // UPDATE DASHBOARD
         // ==========================================
@@ -736,15 +799,18 @@
             // Show loading state
             document.getElementById('totalConversations').textContent = '…';
             document.getElementById('deflectionRate').textContent = '…';
-            document.getElementById('avgResolutionTime').textContent = '…';
+            document.getElementById('resolutionRate').textContent = '…';
             document.getElementById('escalationRate').textContent = '…';
+            document.getElementById('avgRating').textContent = '…';
             document.getElementById('totalSub').textContent = 'Loading...';
 
             try {
-                const [analyticsData, conversationsData, intentsData] = await Promise.all([
+                const [analyticsData, conversationsData, intentsData, ratingsData, resolutionData] = await Promise.all([
                     fetchAnalytics(period),
                     fetchConversations(10),
-                    fetchIntents(period)
+                    fetchIntents(period),
+                    fetchRatings(period),
+                    fetchResolution(period)
                 ]);
 
                 // --- Calculate KPIs ---
@@ -752,23 +818,38 @@
                     acc.total += parseInt(day.total_conversations) || 0;
                     acc.resolved += parseInt(day.resolved) || 0;
                     acc.escalated += parseInt(day.escalated) || 0;
-                    acc.time += parseInt(day.avg_resolution_time_seconds) || 0;
-                    acc.count += day.avg_resolution_time_seconds ? 1 : 0;
                     return acc;
-                }, { total: 0, resolved: 0, escalated: 0, time: 0, count: 0 });
+                }, { total: 0, resolved: 0, escalated: 0 });
 
-                const avgTime = totals.count > 0 ? Math.round(totals.time / totals.count) : 0;
+                // Resolution from resolutionData (user-confirmed)
+                const resolutionTotals = resolutionData.reduce((acc, day) => {
+                    acc.total += parseInt(day.total) || 0;
+                    acc.resolved += parseInt(day.resolved_count) || 0;
+                    return acc;
+                }, { total: 0, resolved: 0 });
+
                 const deflectionRate = totals.total > 0 ? Math.round((totals.resolved / totals.total) * 100) : 0;
                 const escalationRate = totals.total > 0 ? Math.round((totals.escalated / totals.total) * 100) : 0;
+                const resolutionRate = resolutionTotals.total > 0 ? Math.round((resolutionTotals.resolved / resolutionTotals.total) * 100) : 0;
+
+                // Calculate average rating
+                let avgRating = 0;
+                let ratingCount = 0;
+                ratingsData.forEach(r => {
+                    if (r.rating === 'yes') { avgRating += 5; ratingCount++; }
+                    else if (r.rating === 'partial') { avgRating += 3; ratingCount++; }
+                    else if (r.rating === 'no') { avgRating += 1; ratingCount++; }
+                });
+                avgRating = ratingCount > 0 ? (avgRating / ratingCount).toFixed(1) : '—';
 
                 // --- Update KPIs ---
                 document.getElementById('totalConversations').textContent = totals.total;
                 document.getElementById('deflectionRate').textContent = deflectionRate + '%';
-                document.getElementById('avgResolutionTime').textContent = avgTime > 0 ? avgTime + 's' : '—';
+                document.getElementById('resolutionRate').textContent = resolutionRate + '%';
                 document.getElementById('escalationRate').textContent = escalationRate + '%';
+                document.getElementById('avgRating').textContent = avgRating !== '—' ? avgRating + ' ★' : '—';
 
                 document.getElementById('totalSub').textContent = `Last ${period} days`;
-                document.getElementById('escalationSub').textContent = 'Handled by humans';
 
                 // --- Update Last Updated ---
                 document.getElementById('lastUpdated').textContent = `Last updated: ${new Date().toLocaleTimeString()}`;
@@ -784,6 +865,9 @@
                 const totalEscalated = totals.escalated;
                 const totalPending = Math.max(0, totals.total - totalResolved - totalEscalated);
                 updateBreakdownChart(totalResolved, totalEscalated, totalPending);
+
+                // --- Update Rating Chart ---
+                updateRatingChart(ratingsData);
 
                 // --- Update Conversations Table ---
                 updateConversationsTable(conversationsData);
@@ -893,6 +977,55 @@
         }
 
         // ==========================================
+        // RATING CHART
+        // ==========================================
+        function updateRatingChart(ratingsData) {
+            if (ratingChart) ratingChart.destroy();
+
+            const ctx = document.getElementById('ratingChart').getContext('2d');
+
+            const ratingMap = {
+                'yes': '✅ Yes',
+                'no': '❌ No',
+                'partial': '🔄 Partial'
+            };
+
+            const labels = ratingsData.map(r => ratingMap[r.rating] || r.rating);
+            const data = ratingsData.map(r => parseInt(r.count) || 0);
+            const colors = ['rgba(46, 204, 113, 0.6)', 'rgba(231, 76, 60, 0.6)', 'rgba(241, 196, 15, 0.6)'];
+            const borderColors = ['#2ECC71', '#E74C3C', '#F1C40F'];
+
+            ratingChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        data: data,
+                        backgroundColor: colors,
+                        borderColor: borderColors,
+                        borderWidth: 2,
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                color: 'rgba(255,255,255,0.6)',
+                                font: { size: 11 },
+                                padding: 16,
+                                boxWidth: 12,
+                            }
+                        }
+                    },
+                    cutout: '65%',
+                }
+            });
+        }
+
+        // ==========================================
         // CONVERSATIONS TABLE
         // ==========================================
         function updateConversationsTable(conversations) {
@@ -901,7 +1034,7 @@
             if (!conversations || conversations.length === 0) {
                 tbody.innerHTML = `
                     <tr>
-                        <td colspan="5" style="text-align:center;color:var(--text-muted);padding:30px 0;">
+                        <td colspan="6" style="text-align:center;color:var(--text-muted);padding:30px 0;">
                             <div class="empty-state">
                                 <div class="icon">🤖</div>
                                 <p>No conversations yet.<br>Send a test message to get started.</p>
@@ -929,12 +1062,23 @@
                 const intent = conv.intent || 'general';
                 const intentLabel = intent.charAt(0).toUpperCase() + intent.slice(1);
 
+                // Rating display
+                const rating = conv.rating || 'unknown';
+                const ratingLabels = {
+                    'yes': '✅ Yes',
+                    'no': '❌ No',
+                    'partial': '🔄 Partial',
+                    'unknown': '—'
+                };
+                const ratingClass = rating === 'unknown' ? 'unknown' : rating;
+
                 return `
                     <tr>
                         <td><span class="session-id">${conv.session_id.substring(0, 8)}</span></td>
                         <td style="font-size:0.7rem;color:var(--text-muted);">${date}<br>${time}</td>
                         <td class="query" title="${query}">${truncatedQuery}</td>
                         <td><span class="badge-intent">${intentLabel}</span></td>
+                        <td><span class="badge-rating ${ratingClass}">${ratingLabels[rating] || '—'}</span></td>
                         <td><span class="status ${statusClass}">${statusLabel}</span></td>
                     </tr>
                 `;
