@@ -1261,7 +1261,7 @@
         }
 
         /* ==========================================
-           CHATBOT — FLOATING WIDGET (v2)
+           CHATBOT — FLOATING WIDGET (v2 with Rating Buttons)
            ========================================== */
         .chatbot-toggle {
             position: fixed;
@@ -1441,8 +1441,7 @@
             display: flex;
             flex-direction: column;
             gap: 14px;
-            background:
-                radial-gradient(ellipse at 15% 0%, rgba(124, 155, 138, 0.05) 0%, transparent 45%);
+            background: radial-gradient(ellipse at 15% 0%, rgba(124, 155, 138, 0.05) 0%, transparent 45%);
         }
         .chatbot-messages-window::-webkit-scrollbar {
             width: 4px;
@@ -1517,6 +1516,61 @@
         .msg.user strong {
             color: var(--bg-primary);
             font-weight: 700;
+        }
+
+        /* ==========================================
+           RATING BUTTONS (inside bot message)
+           ========================================== */
+        .rating-buttons {
+            display: flex;
+            gap: 8px;
+            margin-top: 8px;
+            flex-wrap: wrap;
+        }
+
+        .rating-btn {
+            padding: 8px 18px;
+            border-radius: 50px;
+            border: 1px solid var(--border-subtle);
+            background: var(--bg-card);
+            color: var(--text-secondary);
+            font-family: inherit;
+            font-size: 0.82rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .rating-btn:hover {
+            background: rgba(124, 155, 138, 0.12);
+            border-color: var(--accent);
+            color: var(--text-primary);
+            transform: translateY(-2px);
+        }
+
+        .rating-btn:active {
+            transform: scale(0.95);
+        }
+
+        .rating-btn.yes:hover {
+            background: rgba(46, 204, 113, 0.15);
+            border-color: #2ECC71;
+            color: #2ECC71;
+        }
+
+        .rating-btn.no:hover {
+            background: rgba(231, 76, 60, 0.15);
+            border-color: #E74C3C;
+            color: #E74C3C;
+        }
+
+        .rating-btn.partial:hover {
+            background: rgba(241, 196, 15, 0.15);
+            border-color: #F1C40F;
+            color: #F1C40F;
         }
 
         .chatbot-footer {
@@ -2450,7 +2504,14 @@
         });
 
         // ==========================================
-        // CHATBOT — AI INTEGRATION (WITH BOLD SUPPORT)
+        // SESSION ID
+        // ==========================================
+        let sessionId = localStorage.getItem('novara_session_id') ||
+                        `session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+        localStorage.setItem('novara_session_id', sessionId);
+
+        // ==========================================
+        // CHATBOT — AI INTEGRATION WITH RATING BUTTONS
         // ==========================================
         const WORKER_URL = "https://novara-cx-ai.rishi-rana96.workers.dev/";
 
@@ -2476,7 +2537,7 @@
         });
 
         // ==========================================
-        // RENDER MESSAGE — CONVERTS **bold** TO <b>bold</b>
+        // RENDER MESSAGE — WITH RATING BUTTONS
         // ==========================================
         function renderMessage(text, sender) {
             const row = document.createElement('div');
@@ -2492,19 +2553,61 @@
             const div = document.createElement('div');
             div.classList.add('msg', sender);
 
-            // Convert **bold** to <b>bold</b>
-            let html = text.replace(/\*\*(.*?)\*\*/g, '<b>$1</b>');
+            // Check if this is a bot message with rating buttons
+            const hasRating = sender === 'bot' && text.includes('[✅ Yes]');
 
-            // Convert [text](url) to <a href="url">text</a>
+            let displayText = text;
+            let ratingHtml = '';
+
+            if (hasRating) {
+                // Extract the question part (everything before the rating buttons)
+                const parts = text.split('[✅ Yes]');
+                displayText = parts[0].trim();
+
+                // Build rating buttons HTML
+                ratingHtml = `
+                    <div class="rating-buttons">
+                        <button class="rating-btn yes" data-rating="yes">✅ Yes</button>
+                        <button class="rating-btn no" data-rating="no">❌ No</button>
+                        <button class="rating-btn partial" data-rating="partial">🔄 Not really</button>
+                    </div>
+                `;
+            }
+
+            // Convert **bold** to <b>
+            let html = displayText.replace(/\*\*(.*?)\*\*/g, '<b>$1</b>');
+
+            // Convert [text](url) to <a>
             html = html.replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2" target="_blank">$1</a>');
 
             // Convert \n to <br>
             html = html.replace(/\n/g, '<br>');
 
             div.innerHTML = html;
+
+            // Add rating buttons if present
+            if (ratingHtml) {
+                const tempDiv = document.createElement('div');
+                tempDiv.innerHTML = ratingHtml;
+                while (tempDiv.firstChild) {
+                    div.appendChild(tempDiv.firstChild);
+                }
+            }
+
             row.appendChild(div);
             chatMessages.appendChild(row);
             chatMessages.scrollTop = chatMessages.scrollHeight;
+
+            // Add event listeners to rating buttons
+            if (hasRating) {
+                div.querySelectorAll('.rating-btn').forEach(btn => {
+                    btn.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        const rating = this.dataset.rating;
+                        sendMessage(rating);
+                    });
+                });
+            }
         }
 
         // ==========================================
@@ -2532,13 +2635,18 @@
 
             renderMessage(message, 'user');
             chatInput.value = '';
+            chatInput.disabled = true;
+            chatSend.disabled = true;
             showTyping();
 
             try {
                 const response = await fetch(WORKER_URL, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ message: message })
+                    body: JSON.stringify({
+                        message: message,
+                        sessionId: sessionId
+                    })
                 });
 
                 const data = await response.json();
@@ -2553,6 +2661,10 @@
                 hideTyping();
                 console.error('Chatbot error:', error);
                 renderMessage("Something went wrong. Please try again or book a discovery call directly.", 'bot');
+            } finally {
+                chatInput.disabled = false;
+                chatSend.disabled = false;
+                chatInput.focus();
             }
         }
 
@@ -2566,6 +2678,7 @@
 
         chatInput.addEventListener('keydown', (e) => {
             if (e.key === 'Enter') {
+                e.preventDefault();
                 const msg = chatInput.value.trim();
                 if (msg) sendMessage(msg);
             }
@@ -2585,6 +2698,16 @@
             setTimeout(() => {
                 renderMessage("👋 Hi there! I'm Novara CX's AI assistant. How can I help you today? You can ask about our services, pricing, or book a discovery call.", 'bot');
             }, 600);
+        });
+
+        // Click outside to close
+        document.addEventListener('click', (e) => {
+            if (chatWindow.classList.contains('open') &&
+                !chatWindow.contains(e.target) &&
+                !chatToggle.contains(e.target)) {
+                chatWindow.classList.remove('open');
+                chatToggle.classList.remove('is-open');
+            }
         });
     </script>
 
