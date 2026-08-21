@@ -14,9 +14,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-        /* ==========================================
-           RESET & BASE
-           ========================================== */
         * {
             margin: 0;
             padding: 0;
@@ -209,6 +206,7 @@
             transition: var(--transition);
             position: relative;
             overflow: hidden;
+            text-align: center;
         }
         .kpi-card::before {
             content: '';
@@ -250,17 +248,47 @@
             color: var(--text-muted);
             margin-top: 4px;
         }
-        .kpi-card .trend-icon {
-            position: absolute;
-            top: 16px;
-            right: 16px;
-            font-size: 1.6rem;
-            opacity: 0.15;
+
+        .rating-scale {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 8px;
+            padding: 6px 12px;
+            background: var(--bg-secondary);
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-subtle);
+        }
+        .rating-scale .label {
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .rating-scale .pill {
+            display: inline-block;
+            padding: 2px 10px;
+            border-radius: 50px;
+            font-size: 0.6rem;
+            font-weight: 600;
+        }
+        .rating-scale .pill.yes {
+            background: rgba(46, 204, 113, 0.15);
+            color: #2ECC71;
+        }
+        .rating-scale .pill.no {
+            background: rgba(231, 76, 60, 0.15);
+            color: #E74C3C;
+        }
+        .rating-scale .pill.partial {
+            background: rgba(241, 196, 15, 0.15);
+            color: #F1C40F;
         }
 
         .charts-grid {
             display: grid;
-            grid-template-columns: 2fr 1fr 1fr;
+            grid-template-columns: 1fr 1fr;
             gap: 24px;
             margin-bottom: 32px;
         }
@@ -399,7 +427,6 @@
             border: 1px solid var(--border-subtle);
         }
 
-        /* Rating Badge */
         .badge-rating {
             display: inline-block;
             padding: 2px 12px;
@@ -424,7 +451,6 @@
             color: var(--text-muted);
         }
 
-        /* Sentiment Badge */
         .badge-sentiment {
             display: inline-block;
             padding: 2px 12px;
@@ -447,42 +473,6 @@
         .badge-sentiment.unknown {
             background: rgba(255,255,255,0.04);
             color: var(--text-muted);
-        }
-
-        /* Rating Scale */
-        .rating-scale {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            margin-top: 8px;
-            padding: 8px 12px;
-            background: var(--bg-secondary);
-            border-radius: var(--radius-sm);
-            border: 1px solid var(--border-subtle);
-        }
-        .rating-scale .label {
-            font-size: 0.7rem;
-            color: var(--text-muted);
-            font-weight: 500;
-        }
-        .rating-scale .pill {
-            display: inline-block;
-            padding: 2px 10px;
-            border-radius: 50px;
-            font-size: 0.65rem;
-            font-weight: 600;
-        }
-        .rating-scale .pill.yes {
-            background: rgba(46, 204, 113, 0.15);
-            color: #2ECC71;
-        }
-        .rating-scale .pill.no {
-            background: rgba(231, 76, 60, 0.15);
-            color: #E74C3C;
-        }
-        .rating-scale .pill.partial {
-            background: rgba(241, 196, 15, 0.15);
-            color: #F1C40F;
         }
 
         .intents-card {
@@ -536,11 +526,6 @@
             padding: 40px 0;
             color: var(--text-muted);
         }
-        .empty-state .icon {
-            font-size: 3rem;
-            margin-bottom: 12px;
-            opacity: 0.5;
-        }
         .empty-state p {
             font-size: 0.9rem;
         }
@@ -578,7 +563,7 @@
                 grid-template-columns: repeat(3, 1fr);
             }
             .charts-grid {
-                grid-template-columns: 1fr 1fr;
+                grid-template-columns: 1fr;
             }
             .bottom-grid {
                 grid-template-columns: 1fr;
@@ -613,9 +598,6 @@
             .kpi-grid {
                 grid-template-columns: 1fr 1fr;
                 gap: 12px;
-            }
-            .charts-grid {
-                grid-template-columns: 1fr;
             }
             .kpi-card .value {
                 font-size: 1.6rem;
@@ -695,41 +677,43 @@
         <!-- ===== KPI CARDS ===== -->
         <div class="kpi-grid" id="kpiGrid">
             <div class="kpi-card">
-                <span class="trend-icon">💬</span>
                 <div class="label">Total Conversations</div>
                 <div class="value" id="totalConversations">—</div>
                 <div class="sub" id="totalSub">Loading...</div>
             </div>
             <div class="kpi-card">
-                <span class="trend-icon">🎯</span>
                 <div class="label">Deflection Rate</div>
                 <div class="value" id="deflectionRate">—</div>
                 <div class="sub" id="deflectionSub">Resolved by AI</div>
             </div>
             <div class="kpi-card">
-                <span class="trend-icon">✅</span>
                 <div class="label">Resolution Rate</div>
                 <div class="value" id="resolutionRate">—</div>
                 <div class="sub" id="resolutionSub">User confirmed resolved</div>
             </div>
             <div class="kpi-card">
-                <span class="trend-icon">📊</span>
                 <div class="label">Escalation Rate</div>
                 <div class="value" id="escalationRate">—</div>
                 <div class="sub" id="escalationSub">Handled by humans</div>
             </div>
             <div class="kpi-card">
-                <span class="trend-icon">⭐</span>
                 <div class="label">Avg Rating</div>
                 <div class="value" id="avgRating">—</div>
                 <div class="sub" id="ratingSub">Based on user feedback</div>
             </div>
             <div class="kpi-card">
-                <span class="trend-icon">😊</span>
                 <div class="label">Sentiment Score</div>
                 <div class="value" id="sentimentScore">—</div>
                 <div class="sub" id="sentimentSub">Positive / Neutral / Negative</div>
             </div>
+        </div>
+
+        <!-- ===== RATING SCALE INDICATOR ===== -->
+        <div class="rating-scale">
+            <span class="label">Rating Scale:</span>
+            <span class="pill yes">Yes</span>
+            <span class="pill no">No</span>
+            <span class="pill partial">Partial</span>
         </div>
 
         <!-- ===== CHARTS ===== -->
@@ -754,6 +738,13 @@
                     <span class="chart-sub">User sentiment analysis</span>
                 </div>
                 <canvas id="sentimentChart"></canvas>
+            </div>
+            <div class="chart-card">
+                <div class="chart-header">
+                    <h3>Ratings Distribution</h3>
+                    <span class="chart-sub">User feedback breakdown</span>
+                </div>
+                <canvas id="ratingChart"></canvas>
             </div>
         </div>
 
@@ -783,7 +774,6 @@
                             <tr>
                                 <td colspan="7" style="text-align:center;color:var(--text-muted);padding:30px 0;">
                                     <div class="empty-state">
-                                        <div class="icon">🤖</div>
                                         <p>No conversations yet.<br>Send a test message to get started.</p>
                                     </div>
                                 </td>
@@ -830,6 +820,7 @@
         let trendChart = null;
         let breakdownChart = null;
         let sentimentChart = null;
+        let ratingChart = null;
         let isRefreshing = false;
 
         // ==========================================
@@ -1004,6 +995,7 @@
                 updateBreakdownChart(totalResolved, totalEscalated, totalPending);
 
                 updateSentimentChart(positiveCount, neutralCount, negativeCount);
+                updateRatingChart(ratingsData);
 
                 updateConversationsTable(conversationsData);
                 updateIntents(intentsData);
@@ -1151,6 +1143,55 @@
         }
 
         // ==========================================
+        // RATING CHART
+        // ==========================================
+        function updateRatingChart(ratingsData) {
+            if (ratingChart) ratingChart.destroy();
+
+            const ctx = document.getElementById('ratingChart').getContext('2d');
+
+            const ratingMap = {
+                'yes': 'Yes',
+                'no': 'No',
+                'partial': 'Partial'
+            };
+
+            const labels = ratingsData.map(r => ratingMap[r.rating] || r.rating);
+            const data = ratingsData.map(r => parseInt(r.count) || 0);
+            const colors = ['rgba(46, 204, 113, 0.6)', 'rgba(231, 76, 60, 0.6)', 'rgba(241, 196, 15, 0.6)'];
+            const borderColors = ['#2ECC71', '#E74C3C', '#F1C40F'];
+
+            ratingChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        data: data,
+                        backgroundColor: colors,
+                        borderColor: borderColors,
+                        borderWidth: 2,
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                color: 'rgba(255,255,255,0.6)',
+                                font: { size: 11 },
+                                padding: 16,
+                                boxWidth: 12,
+                            }
+                        }
+                    },
+                    cutout: '65%',
+                }
+            });
+        }
+
+        // ==========================================
         // CONVERSATIONS TABLE
         // ==========================================
         function updateConversationsTable(conversations) {
@@ -1161,7 +1202,6 @@
                     <tr>
                         <td colspan="7" style="text-align:center;color:var(--text-muted);padding:30px 0;">
                             <div class="empty-state">
-                                <div class="icon">🤖</div>
                                 <p>No conversations yet.<br>Send a test message to get started.</p>
                             </div>
                         </td>
