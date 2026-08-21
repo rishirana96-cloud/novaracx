@@ -98,14 +98,22 @@
             font-size: 0.85rem;
             color: var(--text-muted);
         }
-        .header .last-updated {
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .last-updated {
             font-size: 0.7rem;
             color: var(--text-muted);
             display: flex;
             align-items: center;
             gap: 6px;
         }
-        .header .last-updated .dot {
+        .last-updated .dot {
             width: 6px;
             height: 6px;
             background: var(--accent);
@@ -115,6 +123,47 @@
         @keyframes pulse-dot {
             0%, 100% { opacity: 1; }
             50% { opacity: 0.3; }
+        }
+
+        .refresh-btn {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 18px;
+            border-radius: 50px;
+            border: 1px solid var(--border-subtle);
+            background: var(--bg-card);
+            color: var(--text-secondary);
+            font-family: inherit;
+            font-size: 0.75rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .refresh-btn:hover {
+            background: rgba(124, 155, 138, 0.1);
+            border-color: var(--accent);
+            color: var(--text-primary);
+        }
+        .refresh-btn:active {
+            transform: scale(0.95);
+        }
+        .refresh-btn svg {
+            width: 14px;
+            height: 14px;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            transition: var(--transition);
+        }
+        .refresh-btn.spinning svg {
+            animation: spin 0.8s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
         .period-selector {
@@ -373,7 +422,6 @@
             color: var(--text-muted);
         }
 
-        /* Sentiment Badges */
         .badge-sentiment {
             display: inline-block;
             padding: 1px 10px;
@@ -504,8 +552,12 @@
                 flex-direction: column;
                 align-items: flex-start;
             }
-            .period-selector {
+            .header-right {
                 width: 100%;
+                flex-wrap: wrap;
+            }
+            .period-selector {
+                flex: 1;
                 overflow-x: auto;
                 padding: 4px;
                 border-radius: var(--radius-sm);
@@ -514,6 +566,10 @@
                 padding: 6px 14px;
                 font-size: 0.7rem;
                 white-space: nowrap;
+            }
+            .refresh-btn {
+                padding: 6px 14px;
+                font-size: 0.7rem;
             }
             .kpi-grid {
                 grid-template-columns: 1fr 1fr;
@@ -577,11 +633,17 @@
                     <div class="meta">AI Chatbot Analytics</div>
                 </div>
             </div>
-            <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
+            <div class="header-right">
                 <div class="last-updated">
                     <span class="dot"></span>
                     <span id="lastUpdated">Last updated: —</span>
                 </div>
+                <button class="refresh-btn" id="refreshBtn" title="Refresh data">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M21 12a9 9 0 0 1-9 9m9-9a9 9 0 0 0-9-9m9 9h-4m-9 9A9 9 0 0 1 3 12m9 9v-4"/>
+                    </svg>
+                    <span>Refresh</span>
+                </button>
                 <div class="period-selector" id="periodSelector">
                     <button data-period="7">7d</button>
                     <button data-period="14">14d</button>
@@ -729,6 +791,7 @@
         let trendChart = null;
         let breakdownChart = null;
         let sentimentChart = null;
+        let isRefreshing = false;
 
         // ==========================================
         // API CONFIG
@@ -807,20 +870,22 @@
         // ==========================================
         // UPDATE DASHBOARD
         // ==========================================
-        async function updateDashboard(period) {
+        async function updateDashboard(period, showLoading = true) {
             currentPeriod = period;
 
             document.querySelectorAll('#periodSelector button').forEach(btn => {
                 btn.classList.toggle('active', parseInt(btn.dataset.period) === period);
             });
 
-            document.getElementById('totalConversations').textContent = '…';
-            document.getElementById('deflectionRate').textContent = '…';
-            document.getElementById('resolutionRate').textContent = '…';
-            document.getElementById('escalationRate').textContent = '…';
-            document.getElementById('avgRating').textContent = '…';
-            document.getElementById('sentimentScore').textContent = '…';
-            document.getElementById('totalSub').textContent = 'Loading...';
+            if (showLoading) {
+                document.getElementById('totalConversations').textContent = '…';
+                document.getElementById('deflectionRate').textContent = '…';
+                document.getElementById('resolutionRate').textContent = '…';
+                document.getElementById('escalationRate').textContent = '…';
+                document.getElementById('avgRating').textContent = '…';
+                document.getElementById('sentimentScore').textContent = '…';
+                document.getElementById('totalSub').textContent = 'Loading...';
+            }
 
             try {
                 const [analyticsData, conversationsData, intentsData, ratingsData, resolutionData, sentimentData] = await Promise.all([
@@ -874,7 +939,6 @@
                         sentimentCount += parseInt(s.count);
                     }
                 });
-                const totalSentimentCount = positiveCount + neutralCount + negativeCount;
                 const avgSentiment = sentimentCount > 0 ? (totalSentiment / sentimentCount).toFixed(2) : '—';
 
                 // --- Update KPIs ---
@@ -1154,6 +1218,30 @@
         }
 
         // ==========================================
+        // REFRESH FUNCTION
+        // ==========================================
+        async function refreshDashboard() {
+            const refreshBtn = document.getElementById('refreshBtn');
+            
+            // Prevent multiple clicks
+            if (isRefreshing) return;
+            isRefreshing = true;
+            
+            // Add spinning animation
+            refreshBtn.classList.add('spinning');
+            
+            try {
+                await updateDashboard(currentPeriod, true);
+            } catch (error) {
+                console.error('Refresh error:', error);
+            } finally {
+                // Remove spinning animation
+                refreshBtn.classList.remove('spinning');
+                isRefreshing = false;
+            }
+        }
+
+        // ==========================================
         // PERIOD SELECTOR EVENTS
         // ==========================================
         document.querySelectorAll('#periodSelector button').forEach(btn => {
@@ -1164,10 +1252,15 @@
         });
 
         // ==========================================
+        // REFRESH BUTTON EVENT
+        // ==========================================
+        document.getElementById('refreshBtn').addEventListener('click', refreshDashboard);
+
+        // ==========================================
         // AUTO-REFRESH (every 30 seconds)
         // ==========================================
-        setInterval(() => {
-            updateDashboard(currentPeriod);
+        let autoRefreshInterval = setInterval(() => {
+            refreshDashboard();
         }, 30000);
 
         // ==========================================
