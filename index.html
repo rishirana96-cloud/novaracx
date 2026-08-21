@@ -17,6 +17,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
     <style>
         /* ==========================================
            RESET & BASE
@@ -907,7 +908,6 @@
             align-items: start;
         }
 
-        /* LEFT — Pain */
         .narrative-pain h3 {
             font-size: 1.6rem;
             font-weight: 800;
@@ -962,7 +962,6 @@
             margin: 0;
         }
 
-        /* RIGHT — Solution */
         .narrative-solution .solution-card {
             background: var(--bg-card);
             border: 1px solid var(--border-subtle);
@@ -1454,7 +1453,6 @@
             border-radius: 10px;
         }
 
-        /* === CHAT MESSAGES — WITH AVATAR + BOLD SUPPORT === */
         .msg-row {
             display: flex;
             align-items: flex-end;
@@ -1519,7 +1517,7 @@
         }
 
         /* ==========================================
-           RATING BUTTONS (inside bot message)
+           RATING BUTTONS
            ========================================== */
         .rating-buttons {
             display: flex;
@@ -1585,6 +1583,7 @@
             gap: 8px;
             align-items: center;
         }
+
         .chatbot-input-window input {
             flex: 1;
             padding: 11px 16px;
@@ -1597,14 +1596,17 @@
             outline: none;
             transition: var(--transition);
         }
+
         .chatbot-input-window input::placeholder {
             color: var(--text-muted);
         }
+
         .chatbot-input-window input:focus {
             border-color: var(--accent);
             background: rgba(124, 155, 138, 0.05);
             box-shadow: 0 0 0 3px var(--accent-glow);
         }
+
         .chatbot-input-window .send-btn {
             width: 42px;
             height: 42px;
@@ -1620,6 +1622,7 @@
             align-items: center;
             justify-content: center;
         }
+
         .chatbot-input-window .send-btn svg {
             width: 18px;
             height: 18px;
@@ -1630,10 +1633,12 @@
             stroke-linejoin: round;
             transform: translateX(-1px);
         }
+
         .chatbot-input-window .send-btn:hover {
             transform: scale(1.07);
             box-shadow: 0 6px 20px var(--accent-glow);
         }
+
         .chatbot-input-window .send-btn:active {
             transform: scale(0.96);
         }
@@ -1644,6 +1649,7 @@
             flex-wrap: wrap;
             gap: 6px;
         }
+
         .quick-replies-window .qr-btn {
             padding: 6px 14px;
             border-radius: 50px;
@@ -1656,6 +1662,7 @@
             transition: var(--transition);
             font-family: inherit;
         }
+
         .quick-replies-window .qr-btn:hover {
             background: rgba(124, 155, 138, 0.16);
             border-color: var(--accent);
@@ -1674,11 +1681,13 @@
             color: var(--text-muted);
             letter-spacing: 0.2px;
         }
+
         .chatbot-powered-by img {
             width: 13px;
             height: 13px;
             opacity: 0.85;
         }
+
         .chatbot-powered-by strong {
             color: var(--text-secondary);
             font-weight: 600;
@@ -1689,6 +1698,7 @@
             gap: 4px;
             padding: 8px 2px;
         }
+
         .typing-indicator span {
             width: 6px;
             height: 6px;
@@ -1697,11 +1707,25 @@
             border-radius: 50%;
             animation: typingBounce 1.4s infinite;
         }
-        .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
-        .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
+
+        .typing-indicator span:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .typing-indicator span:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
         @keyframes typingBounce {
-            0%, 60%, 100% { opacity: 0.25; transform: translateY(0); }
-            30% { opacity: 1; transform: translateY(-6px); }
+            0%, 60%, 100% {
+                opacity: 0.25;
+                transform: translateY(0);
+            }
+
+            30% {
+                opacity: 1;
+                transform: translateY(-6px);
+            }
         }
 
         /* ==========================================
@@ -1755,9 +1779,11 @@
                 min-width: 160px;
                 border: 1px solid var(--border-subtle);
             }
+
             .nav-links.open {
                 display: flex;
             }
+
             .hamburger {
                 display: flex;
             }
@@ -1765,9 +1791,11 @@
             .hero {
                 padding: 110px 0 50px;
             }
+
             .hero h1 {
                 font-size: 2.2rem;
             }
+
             .section-title {
                 font-size: 2rem;
             }
@@ -1778,12 +1806,15 @@
             .problem-grid {
                 grid-template-columns: 1fr;
             }
+
             .result-stats {
                 grid-template-columns: repeat(3, 1fr);
             }
+
             .hero-stats {
                 grid-template-columns: repeat(3, 1fr);
             }
+
             .pricing-card.featured {
                 order: -1;
             }
@@ -1791,6 +1822,7 @@
             .narrative-pain h3 {
                 font-size: 1.3rem;
             }
+
             .solution-card {
                 padding: 24px 20px;
             }
@@ -1803,9 +1835,11 @@
                 flex-direction: column;
                 text-align: center;
             }
+
             footer .links {
                 justify-content: center;
             }
+
             .founder-placeholder .placeholder-text {
                 font-size: 4rem;
             }
@@ -1823,56 +1857,72 @@
             .hero h1 {
                 font-size: 1.8rem;
             }
+
             .hero p {
                 font-size: 1rem;
             }
+
             .hero-buttons .btn {
                 width: 100%;
                 text-align: center;
             }
+
             .hero-stats {
                 grid-template-columns: 1fr 1fr;
             }
+
             .result-stats {
                 grid-template-columns: 1fr 1fr;
             }
+
             .founder-stats {
                 grid-template-columns: 1fr 1fr;
             }
+
             .container {
                 padding: 0 16px;
             }
+
             .cta h2 {
                 font-size: 1.8rem;
             }
+
             .calendly-wrapper iframe {
                 height: 450px;
             }
+
             .pain-item {
                 flex-direction: column;
                 gap: 6px;
             }
+
             .solution-features {
                 gap: 10px;
             }
+
             .sf-item {
                 flex-direction: column;
                 text-align: center;
                 padding: 12px;
             }
+
             .founder-placeholder .placeholder-text {
                 font-size: 3rem;
             }
+
             .founder-placeholder {
                 max-width: 200px;
             }
+
             .founder-img {
                 max-width: 200px;
             }
+
             .chatbot-window {
                 height: 420px;
                 bottom: 84px;
             }
+
             .chatbot-toggle {
                 width: 54px;
                 height: 54px;
@@ -1882,6 +1932,7 @@
         }
     </style>
 </head>
+
 <body>
 
     <!-- ==========================================
@@ -1893,6 +1944,7 @@
                 <img src="assets/logo-mark.png" alt="Novara CX logo">
                 <span class="logo-text">Novara <span>CX</span></span>
             </a>
+
             <ul class="nav-links" id="navLinks">
                 <li><a href="#problem" class="nav-link">Problem</a></li>
                 <li><a href="#offerings" class="nav-link">Offerings</a></li>
@@ -1900,8 +1952,11 @@
                 <li><a href="#founder" class="nav-link">Founder</a></li>
                 <li><a href="#contact" class="nav-cta">Book a Meeting</a></li>
             </ul>
+
             <button class="hamburger" id="hamburger" aria-label="Menu">
-                <span></span><span></span><span></span>
+                <span></span>
+                <span></span>
+                <span></span>
             </button>
         </div>
     </header>
@@ -1911,81 +1966,310 @@
     ========================================== -->
     <section class="hero" id="home">
         <div class="container hero-grid">
+
             <div>
-                <div class="hero-badge"><span class="dot"></span> AI-Powered CX for D2C Brands</div>
-                <div class="tagline">Done-for-you CX</div>
-                <h1>Save yourself <span class="highlight">full time</span> cost.</h1>
-                <div class="sub-tagline">D2C Specialists</div>
-                <p>AI chatbots, human agents, and process consulting — all in one subscription. Built for India's fastest-growing D2C brands.</p>
+
+                <div class="hero-badge">
+                    <span class="dot"></span>
+                    AI-Powered CX for D2C Brands
+                </div>
+
+                <div class="tagline">
+                    Done-for-you CX
+                </div>
+
+                <h1>
+                    Save yourself
+                    <span class="highlight">full time</span>
+                    cost.
+                </h1>
+
+                <div class="sub-tagline">
+                    D2C Specialists
+                </div>
+
+                <p>
+                    AI chatbots, human agents, and process consulting —
+                    all in one subscription. Built for India's fastest-growing
+                    D2C brands.
+                </p>
+
                 <div class="hero-buttons">
-                    <a href="#contact" class="btn btn-primary"><img src="assets/calendar.svg" class="icon-img" alt=""> Book a Consultation</a>
-                    <a href="#offerings" class="btn btn-secondary">Explore →</a>
+
+                    <a
+                        href="#contact"
+                        class="btn btn-primary"
+                    >
+                        <img
+                            src="assets/calendar.svg"
+                            class="icon-img"
+                            alt=""
+                        >
+                        Book a Consultation
+                    </a>
+
+                    <a
+                        href="#offerings"
+                        class="btn btn-secondary"
+                    >
+                        Explore →
+                    </a>
+
                 </div>
+
                 <div class="hero-stats">
-                    <div class="hero-stats-item"><span class="number">77%</span><span class="label">Refund reduction</span></div>
-                    <div class="hero-stats-item"><span class="number">88%</span><span class="label">Faster first response</span></div>
-                    <div class="hero-stats-item"><span class="number">98%+</span><span class="label">Resolution rate</span></div>
+
+                    <div class="hero-stats-item">
+                        <span class="number">77%</span>
+                        <span class="label">Refund reduction</span>
+                    </div>
+
+                    <div class="hero-stats-item">
+                        <span class="number">88%</span>
+                        <span class="label">Faster first response</span>
+                    </div>
+
+                    <div class="hero-stats-item">
+                        <span class="number">98%+</span>
+                        <span class="label">Resolution rate</span>
+                    </div>
+
                 </div>
+
             </div>
+
             <div class="hero-visual">
+
                 <div class="hero-card">
+
                     <div class="flow-item">
+
                         <span class="icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="8" width="14" height="11" rx="3"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/><circle cx="9.5" cy="13.5" r="1"/><circle cx="14.5" cy="13.5" r="1"/><path d="M3 12h2M19 12h2"/></svg>
+
+                            <svg
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke-width="1.8"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            >
+                                <rect
+                                    x="5"
+                                    y="8"
+                                    width="14"
+                                    height="11"
+                                    rx="3"
+                                />
+                                <path d="M9 8V6a3 3 0 0 1 6 0v2"/>
+                                <circle cx="9.5" cy="13.5" r="1"/>
+                                <circle cx="14.5" cy="13.5" r="1"/>
+                                <path d="M3 12h2M19 12h2"/>
+                            </svg>
+
                         </span>
+
                         <span class="body">
-                            <span class="title">AI Chatbot</span>
-                            <span class="subtitle">24/7 WhatsApp &amp; web</span>
-                            <span class="desc">Intelligent AI chatbots that engage, assist and resolve — round the clock.</span>
+
+                            <span class="title">
+                                AI Chatbot
+                            </span>
+
+                            <span class="subtitle">
+                                24/7 WhatsApp &amp; web
+                            </span>
+
+                            <span class="desc">
+                                Intelligent AI chatbots that engage,
+                                assist and resolve — round the clock.
+                            </span>
+
                         </span>
-                        <span class="tag">AI</span>
+
+                        <span class="tag">
+                            AI
+                        </span>
+
                     </div>
+
+
                     <div class="flow-item">
+
                         <span class="icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10a8 8 0 0 1 16 0v5"/><path d="M20 15a2 2 0 0 1-2 2h-1v-5h1a2 2 0 0 1 2 2Z"/><path d="M4 15a2 2 0 0 0 2 2h1v-5H6a2 2 0 0 0-2 2Z"/><path d="M9 20h4a2 2 0 0 0 2-2v-1"/></svg>
+
+                            <svg
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke-width="1.8"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            >
+                                <path d="M4 10a8 8 0 0 1 16 0v5"/>
+                                <path d="M20 15a2 2 0 0 1-2 2h-1v-5h1a2 2 0 0 1 2 2Z"/>
+                                <path d="M4 15a2 2 0 0 0 2 2h1v-5H6a2 2 0 0 0-2 2Z"/>
+                                <path d="M9 20h4a2 2 0 0 0 2-2v-1"/>
+                            </svg>
+
                         </span>
+
                         <span class="body">
-                            <span class="title">Human Agents</span>
-                            <span class="subtitle">AI-assisted, 2x faster</span>
-                            <span class="desc">Empower your support team with an AI co-pilot to resolve faster and better.</span>
+
+                            <span class="title">
+                                Human Agents
+                            </span>
+
+                            <span class="subtitle">
+                                AI-assisted, 2x faster
+                            </span>
+
+                            <span class="desc">
+                                Empower your support team with an AI co-pilot
+                                to resolve faster and better.
+                            </span>
+
                         </span>
-                        <span class="tag">Human</span>
+
+                        <span class="tag">
+                            Human
+                        </span>
+
                     </div>
+
+
                     <div class="flow-item">
+
                         <span class="icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="4" width="12" height="16" rx="2"/><path d="M9 4V3a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v1"/><path d="M9 10l1.5 1.5L14 8"/><path d="M9 15h6"/></svg>
+
+                            <svg
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke-width="1.8"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            >
+                                <rect
+                                    x="6"
+                                    y="4"
+                                    width="12"
+                                    height="16"
+                                    rx="2"
+                                />
+                                <path d="M9 4V3a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v1"/>
+                                <path d="M9 10l1.5 1.5L14 8"/>
+                                <path d="M9 15h6"/>
+                            </svg>
+
                         </span>
+
                         <span class="body">
-                            <span class="title">Process Consulting</span>
-                            <span class="subtitle">Strategy &amp; SOPs</span>
-                            <span class="desc">Streamline operations with proven frameworks, SOPs and best-in-class processes.</span>
+
+                            <span class="title">
+                                Process Consulting
+                            </span>
+
+                            <span class="subtitle">
+                                Strategy &amp; SOPs
+                            </span>
+
+                            <span class="desc">
+                                Streamline operations with proven frameworks,
+                                SOPs and best-in-class processes.
+                            </span>
+
                         </span>
-                        <span class="tag">Process</span>
+
+                        <span class="tag">
+                            Process
+                        </span>
+
                     </div>
+
+
                     <div class="flow-item">
+
                         <span class="icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+
+                            <svg
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke-width="1.8"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            >
+                                <circle cx="12" cy="8" r="4"/>
+                                <path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"/>
+                            </svg>
+
                         </span>
+
                         <span class="body">
-                            <span class="title">Fractional Head of CX</span>
-                            <span class="subtitle">Strategic leadership</span>
-                            <span class="desc">Senior CX leadership without the full-time overhead. Strategy, team, and results.</span>
+
+                            <span class="title">
+                                Fractional Head of CX
+                            </span>
+
+                            <span class="subtitle">
+                                Strategic leadership
+                            </span>
+
+                            <span class="desc">
+                                Senior CX leadership without the full-time
+                                overhead. Strategy, team, and results.
+                            </span>
+
                         </span>
-                        <span class="tag">Leadership</span>
+
+                        <span class="tag">
+                            Leadership
+                        </span>
+
                     </div>
+
+
                     <div class="flow-item">
+
                         <span class="icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M20 20l-4.8-4.8"/><path d="M8 11l1.5 1.5L13 9"/></svg>
+
+                            <svg
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke-width="1.8"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            >
+                                <circle cx="10.5" cy="10.5" r="6.5"/>
+                                <path d="M20 20l-4.8-4.8"/>
+                                <path d="M8 11l1.5 1.5L13 9"/>
+                            </svg>
+
                         </span>
+
                         <span class="body">
-                            <span class="title">CX Diagnostic</span>
-                            <span class="subtitle">90-day roadmap</span>
-                            <span class="desc">Deep dive into your CX to uncover gaps, opportunities and a 90-day action plan.</span>
+
+                            <span class="title">
+                                CX Diagnostic
+                            </span>
+
+                            <span class="subtitle">
+                                90-day roadmap
+                            </span>
+
+                            <span class="desc">
+                                Deep dive into your CX to uncover gaps,
+                                opportunities and a 90-day action plan.
+                            </span>
+
                         </span>
-                        <span class="tag">Entry Point</span>
+
+                        <span class="tag">
+                            Entry Point
+                        </span>
+
                     </div>
+
                 </div>
+
             </div>
+
         </div>
     </section>
 
@@ -1993,185 +2277,507 @@
     PROBLEM
     ========================================== -->
     <section id="problem">
+
         <div class="container">
+
             <div class="text-center">
-                <span class="section-label">The Problem</span>
-                <h2 class="section-title">What D2C brands <span class="highlight">actually face</span></h2>
-                <p class="section-sub mx-auto">Behind every refund and complaint is a founder losing time, a brand losing trust, and a team burning out.</p>
+
+                <span class="section-label">
+                    The Problem
+                </span>
+
+                <h2 class="section-title">
+                    What D2C brands
+                    <span class="highlight">
+                        actually face
+                    </span>
+                </h2>
+
+                <p class="section-sub mx-auto">
+                    Behind every refund and complaint is a founder
+                    losing time, a brand losing trust, and a team burning out.
+                </p>
+
             </div>
 
-            <!-- === STAT CARDS === -->
+
             <div class="problem-grid">
+
                 <div class="problem-card">
                     <span class="stat">15–30%</span>
                     <h4>Refund rates</h4>
-                    <p>Draining revenue and inventory before it ever has a chance to become repeat business.</p>
+                    <p>
+                        Draining revenue and inventory before it ever
+                        has a chance to become repeat business.
+                    </p>
                 </div>
+
                 <div class="problem-card">
                     <span class="stat">&lt;3.5</span>
                     <h4>CSAT scores</h4>
-                    <p>Consistently low satisfaction, quietly compounding into churn you won't see coming.</p>
+                    <p>
+                        Consistently low satisfaction, quietly compounding
+                        into churn you won't see coming.
+                    </p>
                 </div>
+
                 <div class="problem-card">
                     <span class="stat">4–12h</span>
                     <h4>First response time</h4>
-                    <p>Slow enough that customers have decided how they feel before you even reply.</p>
+                    <p>
+                        Slow enough that customers have decided how
+                        they feel before you even reply.
+                    </p>
                 </div>
+
                 <div class="problem-card">
                     <span class="stat">Zero</span>
                     <h4>SOPs or governance</h4>
-                    <p>No strategy or process infrastructure — every agent handles issues differently.</p>
+                    <p>
+                        No strategy or process infrastructure —
+                        every agent handles issues differently.
+                    </p>
                 </div>
+
                 <div class="problem-card">
                     <span class="stat">20+ hrs</span>
                     <h4>On escalations weekly</h4>
-                    <p>Founders pulled into support daily instead of building the business.</p>
+                    <p>
+                        Founders pulled into support daily instead
+                        of building the business.
+                    </p>
                 </div>
+
                 <div class="problem-card">
                     <span class="stat">High</span>
                     <h4>Agent churn</h4>
-                    <p>No training, no feedback loops — good hires don't stay long enough to get good.</p>
+                    <p>
+                        No training, no feedback loops — good hires
+                        don't stay long enough to get good.
+                    </p>
                 </div>
+
             </div>
 
-            <!-- === THE REAL COST — NARRATIVE === -->
+
             <div class="problem-narrative">
+
                 <div class="narrative-grid">
-                    <!-- Left: The Pain -->
+
                     <div class="narrative-pain">
-                        <h3>The hidden cost of broken CX</h3>
-                        <p>When CX is broken, it's not just tickets. It's a cascade of risks that hit your brand where it hurts most.</p>
+
+                        <h3>
+                            The hidden cost of broken CX
+                        </h3>
+
+                        <p>
+                            When CX is broken, it's not just tickets.
+                            It's a cascade of risks that hit your brand
+                            where it hurts most.
+                        </p>
 
                         <div class="pain-list">
+
                             <div class="pain-item">
-                                <img src="assets/flame.svg" class="pain-icon icon-img" alt="">
+
+                                <img
+                                    src="assets/flame.svg"
+                                    class="pain-icon icon-img"
+                                    alt=""
+                                >
+
                                 <div>
-                                    <strong>Escalations</strong>
-                                    <p>Founders spend 20+ hours a week firefighting escalations that shouldn't reach them. Every hour spent on a refund is an hour not spent on strategy.</p>
+
+                                    <strong>
+                                        Escalations
+                                    </strong>
+
+                                    <p>
+                                        Founders spend 20+ hours a week
+                                        firefighting escalations that shouldn't
+                                        reach them. Every hour spent on a refund
+                                        is an hour not spent on strategy.
+                                    </p>
+
                                 </div>
+
                             </div>
+
+
                             <div class="pain-item">
-                                <img src="assets/smartphone.svg" class="pain-icon icon-img" alt="">
+
+                                <img
+                                    src="assets/smartphone.svg"
+                                    class="pain-icon icon-img"
+                                    alt=""
+                                >
+
                                 <div>
-                                    <strong>Social Media Damage</strong>
-                                    <p>One angry customer goes viral. One screenshot on Twitter. One negative review on Amazon. Your brand reputation takes a hit that takes months to repair.</p>
+
+                                    <strong>
+                                        Social Media Damage
+                                    </strong>
+
+                                    <p>
+                                        One angry customer goes viral.
+                                        One screenshot on Twitter. One negative
+                                        review on Amazon. Your brand reputation
+                                        takes a hit that takes months to repair.
+                                    </p>
+
                                 </div>
+
                             </div>
+
+
                             <div class="pain-item">
-                                <img src="assets/scale.svg" class="pain-icon icon-img" alt="">
+
+                                <img
+                                    src="assets/scale.svg"
+                                    class="pain-icon icon-img"
+                                    alt=""
+                                >
+
                                 <div>
-                                    <strong>Legal Risks</strong>
-                                    <p>Missed SLAs, broken promises, misleading communication — all can lead to consumer complaints, regulatory scrutiny, and legal exposure.</p>
+
+                                    <strong>
+                                        Legal Risks
+                                    </strong>
+
+                                    <p>
+                                        Missed SLAs, broken promises, misleading
+                                        communication — all can lead to consumer
+                                        complaints, regulatory scrutiny, and
+                                        legal exposure.
+                                    </p>
+
                                 </div>
+
                             </div>
+
+
                             <div class="pain-item">
-                                <img src="assets/hourglass.svg" class="pain-icon icon-img" alt="">
+
+                                <img
+                                    src="assets/hourglass.svg"
+                                    class="pain-icon icon-img"
+                                    alt=""
+                                >
+
                                 <div>
-                                    <strong>Founder Time Drain</strong>
-                                    <p>When you're in the weeds of customer support, you're not building product, fundraising, or scaling. CX becomes a distraction, not a growth engine.</p>
+
+                                    <strong>
+                                        Founder Time Drain
+                                    </strong>
+
+                                    <p>
+                                        When you're in the weeds of customer
+                                        support, you're not building product,
+                                        fundraising, or scaling. CX becomes a
+                                        distraction, not a growth engine.
+                                    </p>
+
                                 </div>
+
                             </div>
+
                         </div>
+
                     </div>
 
-                    <!-- Right: The Solution -->
+
                     <div class="narrative-solution">
+
                         <div class="solution-card">
-                            <span class="solution-badge">How we fix it</span>
-                            <h4>We do CX for you — so you can focus on growth.</h4>
-                            <p>Novara CX takes the entire customer experience function off your plate. We build the systems, deploy the AI, train the agents, and manage the escalations — so you don't have to.</p>
+
+                            <span class="solution-badge">
+                                How we fix it
+                            </span>
+
+                            <h4>
+                                We do CX for you — so you can focus on growth.
+                            </h4>
+
+                            <p>
+                                Novara CX takes the entire customer experience
+                                function off your plate. We build the systems,
+                                deploy the AI, train the agents, and manage the
+                                escalations — so you don't have to.
+                            </p>
 
                             <div class="solution-features">
+
                                 <div class="sf-item">
-                                    <img src="assets/bot.svg" class="sf-icon icon-img" alt="">
+
+                                    <img
+                                        src="assets/bot.svg"
+                                        class="sf-icon icon-img"
+                                        alt=""
+                                    >
+
                                     <div>
-                                        <strong>AI handles the noise</strong>
-                                        <span>70–80% of repetitive queries resolved instantly</span>
+
+                                        <strong>
+                                            AI handles the noise
+                                        </strong>
+
+                                        <span>
+                                            70–80% of repetitive queries
+                                            resolved instantly
+                                        </span>
+
                                     </div>
+
                                 </div>
+
+
                                 <div class="sf-item">
-                                    <img src="assets/headset.svg" class="sf-icon icon-img" alt="">
+
+                                    <img
+                                        src="assets/headset.svg"
+                                        class="sf-icon icon-img"
+                                        alt=""
+                                    >
+
                                     <div>
-                                        <strong>Experts manage escalations</strong>
-                                        <span>Founder‑level issues handled by trained leaders</span>
+
+                                        <strong>
+                                            Experts manage escalations
+                                        </strong>
+
+                                        <span>
+                                            Founder-level issues handled
+                                            by trained leaders
+                                        </span>
+
                                     </div>
+
                                 </div>
+
+
                                 <div class="sf-item">
-                                    <img src="assets/clipboard.svg" class="sf-icon icon-img" alt="">
+
+                                    <img
+                                        src="assets/clipboard.svg"
+                                        class="sf-icon icon-img"
+                                        alt=""
+                                    >
+
                                     <div>
-                                        <strong>Strategy protects your brand</strong>
-                                        <span>SOPs, governance, and proactive communication</span>
+
+                                        <strong>
+                                            Strategy protects your brand
+                                        </strong>
+
+                                        <span>
+                                            SOPs, governance, and proactive
+                                            communication
+                                        </span>
+
                                     </div>
+
                                 </div>
+
+
                                 <div class="sf-item">
-                                    <img src="assets/bar-chart.svg" class="sf-icon icon-img" alt="">
+
+                                    <img
+                                        src="assets/bar-chart.svg"
+                                        class="sf-icon icon-img"
+                                        alt=""
+                                    >
+
                                     <div>
-                                        <strong>Data drives decisions</strong>
-                                        <span>Dashboards that show exactly what's working</span>
+
+                                        <strong>
+                                            Data drives decisions
+                                        </strong>
+
+                                        <span>
+                                            Dashboards that show exactly
+                                            what's working
+                                        </span>
+
                                     </div>
+
                                 </div>
+
                             </div>
 
-                            <a href="#contact" class="btn btn-primary" style="margin-top:8px;"><img src="assets/message-circle.svg" class="icon-img" alt=""> Let's talk about your CX</a>
+
+                            <a
+                                href="#contact"
+                                class="btn btn-primary"
+                                style="margin-top:8px;"
+                            >
+
+                                <img
+                                    src="assets/message-circle.svg"
+                                    class="icon-img"
+                                    alt=""
+                                >
+
+                                Let's talk about your CX
+
+                            </a>
+
                         </div>
+
                     </div>
+
                 </div>
+
             </div>
+
         </div>
+
     </section>
 
     <!-- ==========================================
-    OFFERINGS — PRICING CARDS
+    OFFERINGS
     ========================================== -->
-    <section class="bg-secondary" id="offerings">
+    <section
+        class="bg-secondary"
+        id="offerings"
+    >
+
         <div class="container">
+
             <div class="text-center">
-                <span class="section-label">Offerings</span>
-                <h2 class="section-title">Flexible packages for <span class="highlight">every stage</span></h2>
-                <p class="section-sub mx-auto">Start with a diagnostic. Scale to a full suite. No lock-in, no hidden costs.</p>
+
+                <span class="section-label">
+                    Offerings
+                </span>
+
+                <h2 class="section-title">
+                    Flexible packages for
+                    <span class="highlight">
+                        every stage
+                    </span>
+                </h2>
+
+                <p class="section-sub mx-auto">
+                    Start with a diagnostic. Scale to a full suite.
+                    No lock-in, no hidden costs.
+                </p>
+
             </div>
+
 
             <div class="offerings-toggle-wrap">
-                <div class="offerings-toggle" role="tablist" aria-label="Offering categories">
-                    <button type="button" class="active" id="toggle-ai-leadership" role="tab" aria-selected="true" aria-controls="panel-ai-leadership" onclick="switchOfferingsPanel('ai-leadership')">AI + Leadership</button>
-                    <button type="button" id="toggle-cx-staffing" role="tab" aria-selected="false" aria-controls="panel-cx-staffing" onclick="switchOfferingsPanel('cx-staffing')">CX Staffing</button>
+
+                <div
+                    class="offerings-toggle"
+                    role="tablist"
+                    aria-label="Offering categories"
+                >
+
+                    <button
+                        type="button"
+                        class="active"
+                        id="toggle-ai-leadership"
+                        role="tab"
+                        aria-selected="true"
+                        aria-controls="panel-ai-leadership"
+                        onclick="switchOfferingsPanel('ai-leadership')"
+                    >
+                        AI + Leadership
+                    </button>
+
+                    <button
+                        type="button"
+                        id="toggle-cx-staffing"
+                        role="tab"
+                        aria-selected="false"
+                        aria-controls="panel-cx-staffing"
+                        onclick="switchOfferingsPanel('cx-staffing')"
+                    >
+                        CX Staffing
+                    </button>
+
                 </div>
+
             </div>
 
-            <!-- Panel 1: AI + Leadership -->
-            <div class="pricing-panel active" id="panel-ai-leadership" role="tabpanel" aria-labelledby="toggle-ai-leadership">
+
+            <div
+                class="pricing-panel active"
+                id="panel-ai-leadership"
+                role="tabpanel"
+                aria-labelledby="toggle-ai-leadership"
+            >
+
                 <div class="pricing-grid">
-                    <!-- Card 1: CX Diagnostic -->
+
                     <div class="pricing-card">
-                        <div class="pricing-name">CX Diagnostic</div>
-                        <div class="pricing-desc">2–3 week deep audit of your CX operations.</div>
+
+                        <div class="pricing-name">
+                            CX Diagnostic
+                        </div>
+
+                        <div class="pricing-desc">
+                            2–3 week deep audit of your CX operations.
+                        </div>
+
                         <ul class="pricing-features">
                             <li>Refund rate analysis</li>
                             <li>AI opportunity mapping</li>
                             <li>Process gap identification</li>
                             <li>90-day roadmap</li>
                         </ul>
-                        <a href="#contact" class="btn btn-secondary pricing-btn">Get Started</a>
+
+                        <a
+                            href="#contact"
+                            class="btn btn-secondary pricing-btn"
+                        >
+                            Get Started
+                        </a>
+
                     </div>
 
-                    <!-- Card 2: AI Chatbot (Featured) -->
+
                     <div class="pricing-card featured">
-                        <span class="pricing-badge">Most Popular</span>
-                        <div class="pricing-name">AI Chatbot</div>
-                        <div class="pricing-desc">WhatsApp + Web chatbot with continuous training and tuning.</div>
+
+                        <span class="pricing-badge">
+                            Most Popular
+                        </span>
+
+                        <div class="pricing-name">
+                            AI Chatbot
+                        </div>
+
+                        <div class="pricing-desc">
+                            WhatsApp + Web chatbot with continuous
+                            training and tuning.
+                        </div>
+
                         <ul class="pricing-features">
                             <li>70–80% query deflection</li>
                             <li>WhatsApp + Website</li>
                             <li>Continuous tuning &amp; optimization</li>
                             <li>Sentiment detection &amp; escalation</li>
                         </ul>
-                        <a href="#contact" class="btn btn-primary pricing-btn">Get a Quote</a>
+
+                        <a
+                            href="#contact"
+                            class="btn btn-primary pricing-btn"
+                        >
+                            Get a Quote
+                        </a>
+
                     </div>
 
-                    <!-- Card 3: Fractional Head of CX -->
+
                     <div class="pricing-card">
-                        <div class="pricing-name">Fractional Head of CX</div>
-                        <div class="pricing-desc">Strategic CX leadership without the full-time cost.</div>
+
+                        <div class="pricing-name">
+                            Fractional Head of CX
+                        </div>
+
+                        <div class="pricing-desc">
+                            Strategic CX leadership without the full-time cost.
+                        </div>
+
                         <ul class="pricing-features">
                             <li>Weekly founder syncs</li>
                             <li>KPI &amp; dashboard setup</li>
@@ -2179,19 +2785,49 @@
                             <li>Escalation management</li>
                             <li>Month-to-month</li>
                         </ul>
-                        <a href="#contact" class="btn btn-secondary pricing-btn">Learn More</a>
+
+                        <a
+                            href="#contact"
+                            class="btn btn-secondary pricing-btn"
+                        >
+                            Learn More
+                        </a>
+
                     </div>
+
                 </div>
-                <p class="pricing-note">AI Chatbot and Fractional Head of CX include a 30-day satisfaction guarantee.</p>
+
+                <p class="pricing-note">
+                    AI Chatbot and Fractional Head of CX include
+                    a 30-day satisfaction guarantee.
+                </p>
+
             </div>
 
-            <!-- Panel 2: CX Staffing -->
-            <div class="pricing-panel" id="panel-cx-staffing" role="tabpanel" aria-labelledby="toggle-cx-staffing">
-                <div class="pricing-grid" style="grid-template-columns: repeat(2, 1fr); max-width: 760px; margin-left: auto; margin-right: auto;">
-                    <!-- Card 1: Managed Services -->
+
+            <div
+                class="pricing-panel"
+                id="panel-cx-staffing"
+                role="tabpanel"
+                aria-labelledby="toggle-cx-staffing"
+            >
+
+                <div
+                    class="pricing-grid"
+                    style="grid-template-columns: repeat(2, 1fr); max-width: 760px; margin-left: auto; margin-right: auto;"
+                >
+
                     <div class="pricing-card">
-                        <div class="pricing-name">Managed Services</div>
-                        <div class="pricing-desc">Trained human agents, AI-assisted, managing your support day to day.</div>
+
+                        <div class="pricing-name">
+                            Managed Services
+                        </div>
+
+                        <div class="pricing-desc">
+                            Trained human agents, AI-assisted,
+                            managing your support day to day.
+                        </div>
+
                         <ul class="pricing-features">
                             <li>Dedicated trained agents</li>
                             <li>AI co-pilot for faster resolution</li>
@@ -2199,524 +2835,2012 @@
                             <li>Scales with order volume</li>
                             <li>3-month minimum</li>
                         </ul>
-                        <a href="#contact" class="btn btn-secondary pricing-btn">Get a Quote</a>
+
+                        <a
+                            href="#contact"
+                            class="btn btn-secondary pricing-btn"
+                        >
+                            Get a Quote
+                        </a>
+
                     </div>
 
-                    <!-- Card 2: AI Pre-Trained Staffing -->
+
                     <div class="pricing-card featured">
-                        <div class="pricing-name">AI Pre-Trained Staffing</div>
-                        <div class="pricing-desc">Vetted CX hires, pre-trained on AI tools, placed directly on your team.</div>
+
+                        <div class="pricing-name">
+                            AI Pre-Trained Staffing
+                        </div>
+
+                        <div class="pricing-desc">
+                            Vetted CX hires, pre-trained on AI tools,
+                            placed directly on your team.
+                        </div>
+
                         <ul class="pricing-features">
                             <li>Pre-vetted CX talent</li>
                             <li>AI-tool trained on day one</li>
                             <li>One-time placement fee</li>
                             <li>Faster ramp-up than open hiring</li>
                         </ul>
-                        <a href="#contact" class="btn btn-primary pricing-btn">Get a Quote</a>
+
+                        <a
+                            href="#contact"
+                            class="btn btn-primary pricing-btn"
+                        >
+                            Get a Quote
+                        </a>
+
                     </div>
+
                 </div>
-                <p class="pricing-note">All packages include a 30-day satisfaction guarantee.</p>
+
+                <p class="pricing-note">
+                    All packages include a 30-day satisfaction guarantee.
+                </p>
+
             </div>
+
         </div>
+
     </section>
 
     <!-- ==========================================
     WHY US
     ========================================== -->
-    <section class="bg-secondary" id="diff">
+    <section
+        class="bg-secondary"
+        id="diff"
+    >
+
         <div class="container">
+
             <div class="text-center">
-                <span class="section-label">Why We're Different</span>
-                <h2 class="section-title">AI built on the right <span class="highlight">foundation</span></h2>
-                <p class="section-sub mx-auto">Most AI chatbots are bolt-on solutions. We build from the ground up — with your brand, your customers, and your outcomes in mind.</p>
+
+                <span class="section-label">
+                    Why We're Different
+                </span>
+
+                <h2 class="section-title">
+                    AI built on the right
+                    <span class="highlight">
+                        foundation
+                    </span>
+                </h2>
+
+                <p class="section-sub mx-auto">
+                    Most AI chatbots are bolt-on solutions.
+                    We build from the ground up — with your brand,
+                    your customers, and your outcomes in mind.
+                </p>
+
             </div>
+
+
             <div class="diff-grid">
+
                 <div class="diff-card">
-                    <div class="icon-wrap"><img src="assets/brain.svg" alt=""></div>
-                    <span class="number">01</span>
-                    <h4>Knowledge-Grounded</h4>
-                    <p>Built on your actual product catalogue, policies, and brand tone — not generic training data.</p>
-                    <span class="pill-highlight">Your brand, not generic</span>
+
+                    <div class="icon-wrap">
+                        <img src="assets/brain.svg" alt="">
+                    </div>
+
+                    <span class="number">
+                        01
+                    </span>
+
+                    <h4>
+                        Knowledge-Grounded
+                    </h4>
+
+                    <p>
+                        Built on your actual product catalogue,
+                        policies, and brand tone — not generic training data.
+                    </p>
+
+                    <span class="pill-highlight">
+                        Your brand, not generic
+                    </span>
+
                 </div>
+
+
                 <div class="diff-card">
-                    <div class="icon-wrap"><img src="assets/target.svg" alt=""></div>
-                    <span class="number">02</span>
-                    <h4>True Resolution</h4>
-                    <p>Built on a knowledge-base-first methodology — proven to reduce support workload at BrightChamps.</p>
-                    <span class="pill-highlight">Proven methodology</span>
+
+                    <div class="icon-wrap">
+                        <img src="assets/target.svg" alt="">
+                    </div>
+
+                    <span class="number">
+                        02
+                    </span>
+
+                    <h4>
+                        True Resolution
+                    </h4>
+
+                    <p>
+                        Built on a knowledge-base-first methodology —
+                        proven to reduce support workload at BrightChamps.
+                    </p>
+
+                    <span class="pill-highlight">
+                        Proven methodology
+                    </span>
+
                 </div>
+
+
                 <div class="diff-card">
-                    <div class="icon-wrap"><img src="assets/message-circle.svg" alt=""></div>
-                    <span class="number">03</span>
-                    <h4>Empathetic Tuning</h4>
-                    <p>We train your bot to match your brand's tone. No robotic replies. No copy-paste scripts.</p>
-                    <span class="pill-highlight">Human-like conversations</span>
+
+                    <div class="icon-wrap">
+                        <img src="assets/message-circle.svg" alt="">
+                    </div>
+
+                    <span class="number">
+                        03
+                    </span>
+
+                    <h4>
+                        Empathetic Tuning
+                    </h4>
+
+                    <p>
+                        We train your bot to match your brand's tone.
+                        No robotic replies. No copy-paste scripts.
+                    </p>
+
+                    <span class="pill-highlight">
+                        Human-like conversations
+                    </span>
+
                 </div>
+
+
                 <div class="diff-card">
-                    <div class="icon-wrap"><img src="assets/bar-chart.svg" alt=""></div>
-                    <span class="number">04</span>
-                    <h4>Outcome Measurement</h4>
-                    <p>Continuous CSAT tracking — satisfied / somewhat satisfied / not satisfied. Not just ticket counts.</p>
-                    <span class="pill-highlight">Real outcomes, not vanity</span>
+
+                    <div class="icon-wrap">
+                        <img src="assets/bar-chart.svg" alt="">
+                    </div>
+
+                    <span class="number">
+                        04
+                    </span>
+
+                    <h4>
+                        Outcome Measurement
+                    </h4>
+
+                    <p>
+                        Continuous CSAT tracking —
+                        satisfied / somewhat satisfied /
+                        not satisfied. Not just ticket counts.
+                    </p>
+
+                    <span class="pill-highlight">
+                        Real outcomes, not vanity
+                    </span>
+
                 </div>
+
+
                 <div class="diff-card">
-                    <div class="icon-wrap"><img src="assets/handshake.svg" alt=""></div>
-                    <span class="number">05</span>
-                    <h4>Human Backup</h4>
-                    <p>Complex queries route to a real person seamlessly — automation with a safety net.</p>
-                    <span class="pill-highlight">Automation with empathy</span>
+
+                    <div class="icon-wrap">
+                        <img src="assets/handshake.svg" alt="">
+                    </div>
+
+                    <span class="number">
+                        05
+                    </span>
+
+                    <h4>
+                        Human Backup
+                    </h4>
+
+                    <p>
+                        Complex queries route to a real person
+                        seamlessly — automation with a safety net.
+                    </p>
+
+                    <span class="pill-highlight">
+                        Automation with empathy
+                    </span>
+
                 </div>
+
+
                 <div class="diff-card">
-                    <div class="icon-wrap"><img src="assets/trending-up.svg" alt=""></div>
-                    <span class="number">06</span>
-                    <h4>Measurable Impact</h4>
-                    <p>Resolution improvement tracked with data from day one — not just vague responses.</p>
-                    <span class="pill-highlight">Data-driven, not guesswork</span>
+
+                    <div class="icon-wrap">
+                        <img src="assets/trending-up.svg" alt="">
+                    </div>
+
+                    <span class="number">
+                        06
+                    </span>
+
+                    <h4>
+                        Measurable Impact
+                    </h4>
+
+                    <p>
+                        Resolution improvement tracked with data
+                        from day one — not just vague responses.
+                    </p>
+
+                    <span class="pill-highlight">
+                        Data-driven, not guesswork
+                    </span>
+
                 </div>
+
             </div>
+
         </div>
+
     </section>
 
     <!-- ==========================================
     FOUNDER
     ========================================== -->
     <section id="founder">
+
         <div class="container">
+
             <div class="founder-intro-grid">
-                <img src="assets/founder-photo.jpg" alt="Rishi Rana, Founder of Novara CX" class="founder-img" style="background: linear-gradient(135deg, #7C9B8A 0%, #5A7A6A 100%);" />
+
+                <img
+                    src="assets/founder-photo.jpg"
+                    alt="Rishi Rana, Founder of Novara CX"
+                    class="founder-img"
+                    style="background: linear-gradient(135deg, #7C9B8A 0%, #5A7A6A 100%);"
+                />
+
                 <div>
-                    <span class="section-label">About The Founder</span>
-                    <h2 class="section-title">Rishi Rana — CX leader <span class="highlight">turned founder</span></h2>
+
+                    <span class="section-label">
+                        About The Founder
+                    </span>
+
+                    <h2 class="section-title">
+                        Rishi Rana — CX leader
+                        <span class="highlight">
+                            turned founder
+                        </span>
+                    </h2>
+
                     <div class="founder-stats">
-                        <div><span class="number">6+</span><span class="label">Years of CX experience</span></div>
-                        <div><span class="number">100K+</span><span class="label">Customers served</span></div>
+
+                        <div>
+                            <span class="number">6+</span>
+                            <span class="label">
+                                Years of CX experience
+                            </span>
+                        </div>
+
+                        <div>
+                            <span class="number">100K+</span>
+                            <span class="label">
+                                Customers served
+                            </span>
+                        </div>
+
                     </div>
-                    <p class="founder-bio">Leading teams at high-growth EdTech D2C brands, across BrightCHAMPS and Byju's. Awarded the BrightSTAR Award (CEO-selected from 500+ employees), the Visionary Award, and the Eureka Award for innovation. Built Novara CX to solve the CX problems he saw firsthand.</p>
+
+                    <p class="founder-bio">
+                        Leading teams at high-growth EdTech D2C brands,
+                        across BrightCHAMPS and Byju's. Awarded the
+                        BrightSTAR Award (CEO-selected from 500+ employees),
+                        the Visionary Award, and the Eureka Award for innovation.
+                        Built Novara CX to solve the CX problems he saw firsthand.
+                    </p>
+
                     <div class="founder-awards">
-                        <img src="assets/award.svg" class="icon-img" alt=""> BrightSTAR Award · <img src="assets/award.svg" class="icon-img" alt=""> Visionary Award · <img src="assets/award.svg" class="icon-img" alt=""> Eureka Award
+
+                        <img
+                            src="assets/award.svg"
+                            class="icon-img"
+                            alt=""
+                        >
+                        BrightSTAR Award ·
+
+                        <img
+                            src="assets/award.svg"
+                            class="icon-img"
+                            alt=""
+                        >
+                        Visionary Award ·
+
+                        <img
+                            src="assets/award.svg"
+                            class="icon-img"
+                            alt=""
+                        >
+                        Eureka Award
+
                     </div>
+
                 </div>
+
             </div>
 
-            <!-- Track record -->
+
             <div class="founder-track-record">
-                <span class="track-label">The Track Record Behind Novara</span>
-                <h3>Proven results at <span class="highlight" style="background: var(--accent-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">BrightChamps &amp; Byju's</span></h3>
-                <p class="track-intro">These are Rishi's personal results from his time leading CX at BrightChamps and Byju's — the same playbook Novara CX now applies for D2C brands.</p>
+
+                <span class="track-label">
+                    The Track Record Behind Novara
+                </span>
+
+                <h3>
+                    Proven results at
+
+                    <span
+                        class="highlight"
+                        style="background: var(--accent-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;"
+                    >
+                        BrightChamps &amp; Byju's
+                    </span>
+
+                </h3>
+
+                <p class="track-intro">
+                    These are Rishi's personal results from his time leading
+                    CX at BrightChamps and Byju's — the same playbook Novara
+                    CX now applies for D2C brands.
+                </p>
+
 
                 <div class="results-grid">
+
                     <div class="result-card">
-                        <h3><img src="assets/award.svg" class="icon-img" alt=""> BrightChamps</h3>
-                        <div class="sub">Manager turned Senior Manager of CX</div>
+
+                        <h3>
+                            <img
+                                src="assets/award.svg"
+                                class="icon-img"
+                                alt=""
+                            >
+                            BrightChamps
+                        </h3>
+
+                        <div class="sub">
+                            Manager turned Senior Manager of CX
+                        </div>
+
                         <div class="result-stats">
-                            <div class="result-stat"><span class="number">77%</span><span class="label">Refund Reduction</span></div>
-                            <div class="result-stat"><span class="number">88%</span><span class="label">FRT Improvement</span></div>
-                            <div class="result-stat"><span class="number">45%</span><span class="label">ART Reduction</span></div>
-                            <div class="result-stat"><span class="number">68%</span><span class="label">SLA Breach Reduction</span></div>
-                            <div class="result-stat"><span class="number">40%</span><span class="label">Retention Boost</span></div>
+
+                            <div class="result-stat">
+                                <span class="number">77%</span>
+                                <span class="label">
+                                    Refund Reduction
+                                </span>
+                            </div>
+
+                            <div class="result-stat">
+                                <span class="number">88%</span>
+                                <span class="label">
+                                    FRT Improvement
+                                </span>
+                            </div>
+
+                            <div class="result-stat">
+                                <span class="number">45%</span>
+                                <span class="label">
+                                    ART Reduction
+                                </span>
+                            </div>
+
+                            <div class="result-stat">
+                                <span class="number">68%</span>
+                                <span class="label">
+                                    SLA Breach Reduction
+                                </span>
+                            </div>
+
+                            <div class="result-stat">
+                                <span class="number">40%</span>
+                                <span class="label">
+                                    Retention Boost
+                                </span>
+                            </div>
+
                         </div>
+
                         <div class="result-awards">
-                            <span class="award"><img src="assets/award.svg" class="icon-img" alt=""> BrightSTAR Award</span>
-                            <span class="award"><img src="assets/award.svg" class="icon-img" alt=""> Visionary Award</span>
+
+                            <span class="award">
+                                <img
+                                    src="assets/award.svg"
+                                    class="icon-img"
+                                    alt=""
+                                >
+                                BrightSTAR Award
+                            </span>
+
+                            <span class="award">
+                                <img
+                                    src="assets/award.svg"
+                                    class="icon-img"
+                                    alt=""
+                                >
+                                Visionary Award
+                            </span>
+
                         </div>
+
                     </div>
+
+
                     <div class="result-card">
-                        <h3><img src="assets/award.svg" class="icon-img" alt=""> Byju's</h3>
-                        <div class="sub">Associate turned Sr.Associate turned Assistant Manager of CX</div>
+
+                        <h3>
+
+                            <img
+                                src="assets/award.svg"
+                                class="icon-img"
+                                alt=""
+                            >
+
+                            Byju's
+
+                        </h3>
+
+                        <div class="sub">
+                            Associate turned Sr.Associate turned
+                            Assistant Manager of CX
+                        </div>
+
                         <div class="result-stats">
-                            <div class="result-stat"><span class="number">90%+</span><span class="label">Engagement</span></div>
-                            <div class="result-stat"><span class="number">10%</span><span class="label">Weekly Refund Reduction</span></div>
-                            <div class="result-stat"><span class="number">100%</span><span class="label">CEO Escalations Resolved</span></div>
-                            <div class="result-stat"><span class="number">4.5+</span><span class="label">CSAT Score</span></div>
-                            <div class="result-stat"><span class="number">98–100%</span><span class="label">Monthly Resolution Rate</span></div>
+
+                            <div class="result-stat">
+                                <span class="number">90%+</span>
+                                <span class="label">
+                                    Engagement
+                                </span>
+                            </div>
+
+                            <div class="result-stat">
+                                <span class="number">10%</span>
+                                <span class="label">
+                                    Weekly Refund Reduction
+                                </span>
+                            </div>
+
+                            <div class="result-stat">
+                                <span class="number">100%</span>
+                                <span class="label">
+                                    CEO Escalations Resolved
+                                </span>
+                            </div>
+
+                            <div class="result-stat">
+                                <span class="number">4.5+</span>
+                                <span class="label">
+                                    CSAT Score
+                                </span>
+                            </div>
+
+                            <div class="result-stat">
+                                <span class="number">98–100%</span>
+                                <span class="label">
+                                    Monthly Resolution Rate
+                                </span>
+                            </div>
+
                         </div>
+
                         <div class="result-awards">
-                            <span class="award"><img src="assets/award.svg" class="icon-img" alt=""> Eureka Award — Innovation</span>
-                            <span class="award"><img src="assets/award.svg" class="icon-img" alt=""> Star Performer</span>
+
+                            <span class="award">
+                                <img
+                                    src="assets/award.svg"
+                                    class="icon-img"
+                                    alt=""
+                                >
+                                Eureka Award — Innovation
+                            </span>
+
+                            <span class="award">
+                                <img
+                                    src="assets/award.svg"
+                                    class="icon-img"
+                                    alt=""
+                                >
+                                Star Performer
+                            </span>
+
                         </div>
+
                     </div>
+
                 </div>
+
             </div>
+
         </div>
+
     </section>
 
     <!-- ==========================================
-    CTA — CALENDLY WIDGET
+    CTA
     ========================================== -->
-    <section class="cta" id="contact">
+    <section
+        class="cta"
+        id="contact"
+    >
+
         <div class="container">
-            <span class="section-label">Let's Talk</span>
-            <h2>Ready to <span class="highlight">transform</span> your CX?</h2>
-            <p>Book a personalized consultation. We'll show you exactly where AI can save your team time and cost — no commitment, just insights.</p>
+
+            <span class="section-label">
+                Let's Talk
+            </span>
+
+            <h2>
+                Ready to
+                <span class="highlight">
+                    transform
+                </span>
+                your CX?
+            </h2>
+
+            <p>
+                Book a personalized consultation. We'll show you exactly
+                where AI can save your team time and cost — no commitment,
+                just insights.
+            </p>
 
             <div class="calendly-wrapper">
+
                 <iframe
                     src="https://calendly.com/novaracx/new-meeting"
                     title="Book a meeting with Novara CX"
                     allow="camera; microphone; fullscreen"
                 ></iframe>
+
             </div>
+
         </div>
+
     </section>
 
     <!-- ==========================================
     FOOTER
     ========================================== -->
     <footer>
+
         <div class="container">
-            <a href="#" class="logo">
-                <img src="assets/logo-mark.png" alt="Novara CX logo">
-                <span class="logo-text">Novara <span>CX</span></span>
+
+            <a
+                href="#"
+                class="logo"
+            >
+
+                <img
+                    src="assets/logo-mark.png"
+                    alt="Novara CX logo"
+                >
+
+                <span class="logo-text">
+                    Novara <span>CX</span>
+                </span>
+
             </a>
+
+
             <div class="links">
-                <a href="#problem">Problem</a>
-                <a href="#offerings">Offerings</a>
-                <a href="#founder">Founder</a>
-                <a href="#contact">Book a Meeting</a>
+
+                <a href="#problem">
+                    Problem
+                </a>
+
+                <a href="#offerings">
+                    Offerings
+                </a>
+
+                <a href="#founder">
+                    Founder
+                </a>
+
+                <a href="#contact">
+                    Book a Meeting
+                </a>
+
             </div>
+
+
             <div class="legal-links">
-                <a href="terms.html">Terms &amp; Conditions</a>
-                <a href="privacy.html">Privacy Policy</a>
+
+                <a href="terms.html">
+                    Terms &amp; Conditions
+                </a>
+
+                <a href="privacy.html">
+                    Privacy Policy
+                </a>
+
             </div>
-            <span class="copy">© 2026 Novara CX</span>
+
+
+            <span class="copy">
+                © 2026 Novara CX
+            </span>
+
         </div>
+
     </footer>
 
     <!-- ==========================================
-    CHATBOT TOGGLE + WINDOW
+    CHATBOT
     ========================================== -->
-    <button class="chatbot-toggle" id="chatbotToggle" aria-label="Open chat">
-        <svg class="icon-chat" viewBox="0 0 24 24" stroke="currentColor">
+
+    <button
+        class="chatbot-toggle"
+        id="chatbotToggle"
+        aria-label="Open chat"
+    >
+
+        <svg
+            class="icon-chat"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+        >
+
             <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+
             <path d="M8 10h.01"/>
             <path d="M12 10h.01"/>
             <path d="M16 10h.01"/>
+
         </svg>
-        <svg class="icon-close" viewBox="0 0 24 24">
+
+
+        <svg
+            class="icon-close"
+            viewBox="0 0 24 24"
+        >
+
             <path d="M18 6 6 18"/>
             <path d="M6 6l12 12"/>
+
         </svg>
+
     </button>
 
-    <div class="chatbot-window" id="chatbotWindow">
+
+    <div
+        class="chatbot-window"
+        id="chatbotWindow"
+    >
+
         <div class="chatbot-header-window">
+
             <div class="header-id">
-                <span class="avatar"><img src="assets/logo-mark.png" alt=""></span>
+
+                <span class="avatar">
+                    <img
+                        src="assets/logo-mark.png"
+                        alt=""
+                    >
+                </span>
+
                 <div>
-                    <div class="title">Novara <span>CX</span> AI</div>
-                    <div class="status"><span class="status-dot"></span>  Online & Live - 24/7</div>
+
+                    <div class="title">
+                        Novara <span>CX</span> AI
+                    </div>
+
+                    <div class="status">
+
+                        <span class="status-dot"></span>
+
+                        Online & Live - 24/7
+
+                    </div>
+
                 </div>
+
             </div>
-            <button class="close-btn" id="chatbotClose" aria-label="Close chat">✕</button>
+
+
+            <button
+                class="close-btn"
+                id="chatbotClose"
+                aria-label="Close chat"
+            >
+                ✕
+            </button>
+
         </div>
-        <div class="chatbot-messages-window" id="chatMessages">
-            <!-- Messages will be inserted here -->
-        </div>
+
+
+        <div
+            class="chatbot-messages-window"
+            id="chatMessages"
+        ></div>
+
+
         <div class="chatbot-footer">
-            <div class="quick-replies-window" id="quickReplies">
-                <button class="qr-btn" data-question="What services do you offer?">What services?</button>
-                <button class="qr-btn" data-question="How much does the AI Chatbot cost?">Pricing</button>
-                <button class="qr-btn" data-question="How do I book a discovery call?">Book a call</button>
-                <button class="qr-btn" data-question="Can you help reduce refunds?">Reduce refunds</button>
-            </div>
-            <div class="chatbot-input-window">
-                <input type="text" id="chatInput" placeholder="Ask about Novara CX..." />
-                <button class="send-btn" id="chatSend" aria-label="Send message">
-                    <svg viewBox="0 0 24 24"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4 20-7z"/></svg>
+
+            <div
+                class="quick-replies-window"
+                id="quickReplies"
+            >
+
+                <button
+                    class="qr-btn"
+                    data-question="What services do you offer?"
+                >
+                    What services?
                 </button>
+
+                <button
+                    class="qr-btn"
+                    data-question="How much does the AI Chatbot cost?"
+                >
+                    Pricing
+                </button>
+
+                <button
+                    class="qr-btn"
+                    data-question="How do I book a discovery call?"
+                >
+                    Book a call
+                </button>
+
+                <button
+                    class="qr-btn"
+                    data-question="Can you help reduce refunds?"
+                >
+                    Reduce refunds
+                </button>
+
             </div>
+
+
+            <div class="chatbot-input-window">
+
+                <input
+                    type="text"
+                    id="chatInput"
+                    placeholder="Ask about Novara CX..."
+                />
+
+                <button
+                    class="send-btn"
+                    id="chatSend"
+                    aria-label="Send message"
+                >
+
+                    <svg viewBox="0 0 24 24">
+
+                        <path d="M22 2 11 13"/>
+                        <path d="M22 2 15 22l-4-9-9-4 20-7z"/>
+
+                    </svg>
+
+                </button>
+
+            </div>
+
+
             <div class="chatbot-powered-by">
-                <img src="assets/logo-mark.png" alt=""> Powered by <strong>Novara CX AI</strong>
+
+                <img
+                    src="assets/logo-mark.png"
+                    alt=""
+                >
+
+                Powered by
+                <strong>
+                    Novara CX AI
+                </strong>
+
             </div>
+
         </div>
+
     </div>
 
+
     <script>
+
         // ==========================================
         // OFFERINGS TOGGLE
         // ==========================================
-        function switchOfferingsPanel(target) {
+
+        function switchOfferingsPanel(
+            target
+        ) {
+
             const panels = {
-                'ai-leadership': document.getElementById('panel-ai-leadership'),
-                'cx-staffing': document.getElementById('panel-cx-staffing')
+
+                "ai-leadership":
+                    document.getElementById(
+                        "panel-ai-leadership"
+                    ),
+
+                "cx-staffing":
+                    document.getElementById(
+                        "panel-cx-staffing"
+                    )
+
             };
+
+
             const toggles = {
-                'ai-leadership': document.getElementById('toggle-ai-leadership'),
-                'cx-staffing': document.getElementById('toggle-cx-staffing')
+
+                "ai-leadership":
+                    document.getElementById(
+                        "toggle-ai-leadership"
+                    ),
+
+                "cx-staffing":
+                    document.getElementById(
+                        "toggle-cx-staffing"
+                    )
+
             };
-            Object.keys(panels).forEach(key => {
-                const isActive = key === target;
-                panels[key].classList.toggle('active', isActive);
-                toggles[key].classList.toggle('active', isActive);
-                toggles[key].setAttribute('aria-selected', isActive ? 'true' : 'false');
-            });
+
+
+            Object.keys(panels)
+                .forEach(key => {
+
+                    const isActive =
+                        key === target;
+
+
+                    panels[key]
+                        .classList
+                        .toggle(
+                            "active",
+                            isActive
+                        );
+
+
+                    toggles[key]
+                        .classList
+                        .toggle(
+                            "active",
+                            isActive
+                        );
+
+
+                    toggles[key]
+                        .setAttribute(
+                            "aria-selected",
+                            isActive
+                                ? "true"
+                                : "false"
+                        );
+
+                });
+
         }
+
 
         // ==========================================
         // HEADER
         // ==========================================
-        const hamburger = document.getElementById('hamburger');
-        const navLinks = document.getElementById('navLinks');
-        hamburger.addEventListener('click', () => {
-            navLinks.classList.toggle('open');
-        });
-        document.querySelectorAll('.nav-links a').forEach(link => {
-            link.addEventListener('click', () => {
-                navLinks.classList.remove('open');
-            });
-        });
 
-        const header = document.getElementById('header');
-        window.addEventListener('scroll', () => {
-            header.classList.toggle('scrolled', window.scrollY > 50);
-        });
+        const hamburger =
+            document.getElementById(
+                "hamburger"
+            );
 
-        const sections = document.querySelectorAll('section[id]');
-        const navLinkItems = document.querySelectorAll('.nav-link');
+
+        const navLinks =
+            document.getElementById(
+                "navLinks"
+            );
+
+
+        hamburger.addEventListener(
+            "click",
+            () => {
+
+                navLinks.classList.toggle(
+                    "open"
+                );
+
+            }
+        );
+
+
+        document
+            .querySelectorAll(
+                ".nav-links a"
+            )
+            .forEach(
+                link => {
+
+                    link.addEventListener(
+                        "click",
+                        () => {
+
+                            navLinks.classList.remove(
+                                "open"
+                            );
+
+                        }
+                    );
+
+                }
+            );
+
+
+        const header =
+            document.getElementById(
+                "header"
+            );
+
+
+        window.addEventListener(
+            "scroll",
+            () => {
+
+                header.classList.toggle(
+                    "scrolled",
+                    window.scrollY > 50
+                );
+
+            }
+        );
+
+
+        // ==========================================
+        // NAV HIGHLIGHT
+        // ==========================================
+
+        const sections =
+            document.querySelectorAll(
+                "section[id]"
+            );
+
+
+        const navLinkItems =
+            document.querySelectorAll(
+                ".nav-link"
+            );
+
 
         function highlightNav() {
-            let current = '';
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop - 120;
-                if (window.scrollY >= sectionTop) {
-                    current = section.getAttribute('id');
-                }
-            });
-            navLinkItems.forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('href') === '#' + current) {
-                    link.classList.add('active');
-                }
-            });
-        }
-        window.addEventListener('scroll', highlightNav);
 
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                const href = this.getAttribute('href');
-                if (href === '#') return;
-                e.preventDefault();
-                const target = document.querySelector(href);
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            let current = "";
+
+
+            sections.forEach(
+                section => {
+
+                    const sectionTop =
+                        section.offsetTop - 120;
+
+
+                    if (
+                        window.scrollY >=
+                        sectionTop
+                    ) {
+
+                        current =
+                            section.getAttribute(
+                                "id"
+                            );
+
+                    }
+
                 }
-            });
-        });
+            );
+
+
+            navLinkItems.forEach(
+                link => {
+
+                    link.classList.remove(
+                        "active"
+                    );
+
+
+                    if (
+                        link.getAttribute(
+                            "href"
+                        ) ===
+                        "#" + current
+                    ) {
+
+                        link.classList.add(
+                            "active"
+                        );
+
+                    }
+
+                }
+            );
+
+        }
+
+
+        window.addEventListener(
+            "scroll",
+            highlightNav
+        );
+
+
+        // ==========================================
+        // SMOOTH SCROLL
+        // ==========================================
+
+        document
+            .querySelectorAll(
+                'a[href^="#"]'
+            )
+            .forEach(
+                anchor => {
+
+                    anchor.addEventListener(
+                        "click",
+                        function(e) {
+
+                            const href =
+                                this.getAttribute(
+                                    "href"
+                                );
+
+
+                            if (
+                                href === "#"
+                            ) {
+
+                                return;
+
+                            }
+
+
+                            e.preventDefault();
+
+
+                            const target =
+                                document.querySelector(
+                                    href
+                                );
+
+
+                            if (
+                                target
+                            ) {
+
+                                target.scrollIntoView({
+
+                                    behavior:
+                                        "smooth",
+
+                                    block:
+                                        "start"
+
+                                });
+
+                            }
+
+                        }
+                    );
+
+                }
+            );
+
 
         // ==========================================
         // SESSION ID
         // ==========================================
-        let sessionId = localStorage.getItem('novara_session_id') ||
-                        `session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
-        localStorage.setItem('novara_session_id', sessionId);
+        // CHANGE FROM ORIGINAL:
+        // Supports analytics links like:
+        // index.html?session=session_123
+        // ==========================================
+
+        const urlParams =
+            new URLSearchParams(
+                window.location.search
+            );
+
+
+        const sessionFromUrl =
+            urlParams.get(
+                "session"
+            );
+
+
+        let sessionId =
+
+            sessionFromUrl ||
+
+            localStorage.getItem(
+                "novara_session_id"
+            ) ||
+
+            `session_${Date.now()}_${Math.random()
+                .toString(36)
+                .substr(2, 9)}`;
+
+
+        localStorage.setItem(
+            "novara_session_id",
+            sessionId
+        );
+
 
         // ==========================================
-        // CHATBOT — AI INTEGRATION WITH RATING BUTTONS
+        // CHATBOT
         // ==========================================
-        const WORKER_URL = "https://novara-cx-ai.rishi-rana96.workers.dev/";
 
-        const chatToggle = document.getElementById('chatbotToggle');
-        const chatWindow = document.getElementById('chatbotWindow');
-        const chatClose = document.getElementById('chatbotClose');
-        const chatMessages = document.getElementById('chatMessages');
-        const chatInput = document.getElementById('chatInput');
-        const chatSend = document.getElementById('chatSend');
-        const quickReplyBtns = document.querySelectorAll('.qr-btn');
+        const WORKER_URL =
+            "https://novara-cx-ai.rishi-rana96.workers.dev/";
 
-        // Open/Close
-        chatToggle.addEventListener('click', () => {
-            chatWindow.classList.toggle('open');
-            chatToggle.classList.toggle('is-open', chatWindow.classList.contains('open'));
-            if (chatWindow.classList.contains('open')) {
-                chatInput.focus();
-            }
-        });
-        chatClose.addEventListener('click', () => {
-            chatWindow.classList.remove('open');
-            chatToggle.classList.remove('is-open');
-        });
+
+        const chatToggle =
+            document.getElementById(
+                "chatbotToggle"
+            );
+
+
+        const chatWindow =
+            document.getElementById(
+                "chatbotWindow"
+            );
+
+
+        const chatClose =
+            document.getElementById(
+                "chatbotClose"
+            );
+
+
+        const chatMessages =
+            document.getElementById(
+                "chatMessages"
+            );
+
+
+        const chatInput =
+            document.getElementById(
+                "chatInput"
+            );
+
+
+        const chatSend =
+            document.getElementById(
+                "chatSend"
+            );
+
+
+        const quickReplyBtns =
+            document.querySelectorAll(
+                ".qr-btn"
+            );
+
 
         // ==========================================
-        // RENDER MESSAGE — FULL MARKDOWN SUPPORT
+        // OPEN / CLOSE
         // ==========================================
-        function renderMessage(text, sender) {
-            const row = document.createElement('div');
-            row.classList.add('msg-row', sender);
 
-            if (sender === 'bot') {
-                const avatar = document.createElement('span');
-                avatar.classList.add('msg-avatar');
-                avatar.innerHTML = '<img src="assets/logo-mark.png" alt="">';
-                row.appendChild(avatar);
-            }
+        chatToggle.addEventListener(
+            "click",
+            () => {
 
-            const div = document.createElement('div');
-            div.classList.add('msg', sender);
+                chatWindow.classList.toggle(
+                    "open"
+                );
 
-            // Check if this is a bot message with rating buttons
-            const hasRating = sender === 'bot' && text.includes('[✅ Yes]');
 
-            let displayText = text;
-            let ratingHtml = '';
+                chatToggle.classList.toggle(
+                    "is-open",
+                    chatWindow.classList.contains(
+                        "open"
+                    )
+                );
 
-            if (hasRating) {
-                // Extract the question part (everything before the rating buttons)
-                const parts = text.split('[✅ Yes]');
-                displayText = parts[0].trim();
 
-                // Build rating buttons HTML
-                ratingHtml = `
-                    <div class="rating-buttons">
-                        <button class="rating-btn yes" data-rating="yes">✅ Yes</button>
-                        <button class="rating-btn no" data-rating="no">❌ No</button>
-                        <button class="rating-btn partial" data-rating="partial">🔄 Not really</button>
-                    </div>
-                `;
-            }
+                if (
+                    chatWindow.classList.contains(
+                        "open"
+                    )
+                ) {
 
-            let html = displayText;
+                    chatInput.focus();
 
-            // 1. Convert ***bold and italic*** to <b><i>
-            html = html.replace(/\*\*\*(.*?)\*\*\*/g, '<b><i>$1</i></b>');
-
-            // 2. Convert **bold** to <b>
-            html = html.replace(/\*\*(.*?)\*\*/g, '<b>$1</b>');
-
-            // 3. Convert *italic* to <i>
-            html = html.replace(/\*(.*?)\*/g, '<i>$1</i>');
-
-            // 4. Convert [text](url) to <a>
-            html = html.replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2" target="_blank" style="color:var(--accent);text-decoration:underline;">$1</a>');
-
-            // 5. Convert \n to <br>
-            html = html.replace(/\n/g, '<br>');
-
-            div.innerHTML = html;
-
-            // Add rating buttons if present
-            if (ratingHtml) {
-                const tempDiv = document.createElement('div');
-                tempDiv.innerHTML = ratingHtml;
-                while (tempDiv.firstChild) {
-                    div.appendChild(tempDiv.firstChild);
                 }
+
+            }
+        );
+
+
+        chatClose.addEventListener(
+            "click",
+            () => {
+
+                chatWindow.classList.remove(
+                    "open"
+                );
+
+
+                chatToggle.classList.remove(
+                    "is-open"
+                );
+
+            }
+        );
+
+
+        // ==========================================
+        // RENDER MESSAGE
+        // CHANGE FROM ORIGINAL:
+        // allowRating allows restored messages to
+        // display without duplicate rating buttons.
+        // ==========================================
+
+        function renderMessage(
+            text,
+            sender,
+            allowRating = true
+        ) {
+
+            const row =
+                document.createElement(
+                    "div"
+                );
+
+
+            row.classList.add(
+                "msg-row",
+                sender
+            );
+
+
+            if (
+                sender === "bot"
+            ) {
+
+                const avatar =
+                    document.createElement(
+                        "span"
+                    );
+
+
+                avatar.classList.add(
+                    "msg-avatar"
+                );
+
+
+                avatar.innerHTML =
+                    '<img src="assets/logo-mark.png" alt="">';
+
+
+                row.appendChild(
+                    avatar
+                );
+
             }
 
-            row.appendChild(div);
-            chatMessages.appendChild(row);
-            chatMessages.scrollTop = chatMessages.scrollHeight;
 
-            // Add event listeners to rating buttons
-            if (hasRating) {
-                div.querySelectorAll('.rating-btn').forEach(btn => {
-                    btn.addEventListener('click', function(e) {
-                        e.stopPropagation();
-                        const rating = this.dataset.rating;
-                        sendMessage(rating);
-                    });
-                });
+            const div =
+                document.createElement(
+                    "div"
+                );
+
+
+            div.classList.add(
+                "msg",
+                sender
+            );
+
+
+            const hasRating =
+
+                sender === "bot" &&
+
+                allowRating &&
+
+                text.includes(
+                    "[✅ Yes]"
+                );
+
+
+            let displayText =
+                text;
+
+
+            let ratingHtml =
+                "";
+
+
+            if (
+                hasRating
+            ) {
+
+                const parts =
+                    text.split(
+                        "[✅ Yes]"
+                    );
+
+
+                displayText =
+                    parts[0].trim();
+
+
+                ratingHtml = `
+
+                    <div class="rating-buttons">
+
+                        <button
+                            class="rating-btn yes"
+                            data-rating="yes"
+                        >
+                            ✅ Yes
+                        </button>
+
+                        <button
+                            class="rating-btn no"
+                            data-rating="no"
+                        >
+                            ❌ No
+                        </button>
+
+                        <button
+                            class="rating-btn partial"
+                            data-rating="partial"
+                        >
+                            🔄 Not really
+                        </button>
+
+                    </div>
+
+                `;
+
             }
+
+
+            let html =
+                displayText;
+
+
+            html =
+                html.replace(
+                    /\*\*\*(.*?)\*\*\*/g,
+                    "<b><i>$1</i></b>"
+                );
+
+
+            html =
+                html.replace(
+                    /\*\*(.*?)\*\*/g,
+                    "<b>$1</b>"
+                );
+
+
+            html =
+                html.replace(
+                    /\*(.*?)\*/g,
+                    "<i>$1</i>"
+                );
+
+
+            html =
+                html.replace(
+                    /\[(.*?)\]\((.*?)\)/g,
+                    '<a href="$2" target="_blank" style="color:var(--accent);text-decoration:underline;">$1</a>'
+                );
+
+
+            html =
+                html.replace(
+                    /\n/g,
+                    "<br>"
+                );
+
+
+            div.innerHTML =
+                html;
+
+
+            if (
+                ratingHtml
+            ) {
+
+                const tempDiv =
+                    document.createElement(
+                        "div"
+                    );
+
+
+                tempDiv.innerHTML =
+                    ratingHtml;
+
+
+                while (
+                    tempDiv.firstChild
+                ) {
+
+                    div.appendChild(
+                        tempDiv.firstChild
+                    );
+
+                }
+
+            }
+
+
+            row.appendChild(
+                div
+            );
+
+
+            chatMessages.appendChild(
+                row
+            );
+
+
+            chatMessages.scrollTop =
+                chatMessages.scrollHeight;
+
+
+            if (
+                hasRating
+            ) {
+
+                div
+                    .querySelectorAll(
+                        ".rating-btn"
+                    )
+                    .forEach(
+                        btn => {
+
+                            btn.addEventListener(
+                                "click",
+                                function(e) {
+
+                                    e.stopPropagation();
+
+                                    sendMessage(
+                                        this.dataset.rating
+                                    );
+
+                                }
+                            );
+
+                        }
+                    );
+
+            }
+
         }
 
+
         // ==========================================
-        // TYPING INDICATOR
+        // TYPING
         // ==========================================
+
         function showTyping() {
-            const row = document.createElement('div');
-            row.classList.add('msg-row', 'bot');
-            row.id = 'typingIndicator';
-            row.innerHTML = `<span class="msg-avatar"><img src="assets/logo-mark.png" alt=""></span><div class="msg bot"><div class="typing-indicator"><span></span><span></span><span></span></div></div>`;
-            chatMessages.appendChild(row);
-            chatMessages.scrollTop = chatMessages.scrollHeight;
+
+            const row =
+                document.createElement(
+                    "div"
+                );
+
+
+            row.classList.add(
+                "msg-row",
+                "bot"
+            );
+
+
+            row.id =
+                "typingIndicator";
+
+
+            row.innerHTML = `
+
+                <span class="msg-avatar">
+
+                    <img
+                        src="assets/logo-mark.png"
+                        alt=""
+                    >
+
+                </span>
+
+                <div class="msg bot">
+
+                    <div class="typing-indicator">
+
+                        <span></span>
+                        <span></span>
+                        <span></span>
+
+                    </div>
+
+                </div>
+
+            `;
+
+
+            chatMessages.appendChild(
+                row
+            );
+
+
+            chatMessages.scrollTop =
+                chatMessages.scrollHeight;
+
         }
+
 
         function hideTyping() {
-            const typing = document.getElementById('typingIndicator');
-            if (typing) typing.remove();
+
+            const typing =
+                document.getElementById(
+                    "typingIndicator"
+                );
+
+
+            if (
+                typing
+            ) {
+
+                typing.remove();
+
+            }
+
         }
+
 
         // ==========================================
         // SEND MESSAGE
         // ==========================================
-        async function sendMessage(message) {
-            if (!message || message.trim() === '') return;
 
-            renderMessage(message, 'user');
-            chatInput.value = '';
-            chatInput.disabled = true;
-            chatSend.disabled = true;
+        async function sendMessage(
+            message
+        ) {
+
+            if (
+                !message ||
+                message.trim() === ""
+            ) {
+
+                return;
+
+            }
+
+
+            renderMessage(
+                message,
+                "user"
+            );
+
+
+            chatInput.value =
+                "";
+
+
+            chatInput.disabled =
+                true;
+
+
+            chatSend.disabled =
+                true;
+
+
             showTyping();
 
+
             try {
-                const response = await fetch(WORKER_URL, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        message: message,
-                        sessionId: sessionId
-                    })
-                });
 
-                const data = await response.json();
+                const response =
+                    await fetch(
+                        WORKER_URL,
+                        {
+
+                            method:
+                                "POST",
+
+                            headers:
+                            {
+                                "Content-Type":
+                                    "application/json"
+                            },
+
+                            body:
+                                JSON.stringify({
+
+                                    message:
+                                        message,
+
+                                    sessionId:
+                                        sessionId
+
+                                })
+
+                        }
+                    );
+
+
+                const data =
+                    await response.json();
+
+
                 hideTyping();
 
-                if (data.reply) {
-                    renderMessage(data.reply, 'bot');
-                } else {
-                    renderMessage("I'm not sure how to answer that. Would you like to book a discovery call?", 'bot');
+
+                if (
+                    data.sessionId
+                ) {
+
+                    sessionId =
+                        data.sessionId;
+
+
+                    localStorage.setItem(
+                        "novara_session_id",
+                        sessionId
+                    );
+
                 }
+
+
+                if (
+                    data.reply
+                ) {
+
+                    renderMessage(
+                        data.reply,
+                        "bot"
+                    );
+
+                }
+
+                else {
+
+                    renderMessage(
+                        "I'm not sure how to answer that. Would you like to book a discovery call?",
+                        "bot"
+                    );
+
+                }
+
             } catch (error) {
+
                 hideTyping();
-                console.error('Chatbot error:', error);
-                renderMessage("Something went wrong. Please try again or book a discovery call directly.", 'bot');
+
+
+                console.error(
+                    "Chatbot error:",
+                    error
+                );
+
+
+                renderMessage(
+                    "Something went wrong. Please try again or book a discovery call directly.",
+                    "bot"
+                );
+
             } finally {
-                chatInput.disabled = false;
-                chatSend.disabled = false;
+
+                chatInput.disabled =
+                    false;
+
+
+                chatSend.disabled =
+                    false;
+
+
                 chatInput.focus();
+
             }
+
         }
+
+
+        // ==========================================
+        // LOAD EXISTING CONVERSATION
+        // NEW
+        //
+        // Called only when Analytics opens:
+        //
+        // index.html?session=XXXXX
+        // ==========================================
+
+        async function loadExistingConversation() {
+
+            if (
+                !sessionFromUrl
+            ) {
+
+                return false;
+
+            }
+
+
+            try {
+
+                const response =
+                    await fetch(
+
+                        `${WORKER_URL}conversation?session=${encodeURIComponent(
+                            sessionFromUrl
+                        )}`
+
+                    );
+
+
+                if (
+                    !response.ok
+                ) {
+
+                    console.error(
+                        "Conversation restore failed:",
+                        response.status
+                    );
+
+                    return false;
+
+                }
+
+
+                const messages =
+                    await response.json();
+
+
+                if (
+                    !Array.isArray(
+                        messages
+                    ) ||
+                    messages.length === 0
+                ) {
+
+                    return false;
+
+                }
+
+
+                chatMessages.innerHTML =
+                    "";
+
+
+                messages.forEach(
+                    conversation => {
+
+                        if (
+                            conversation.user_message
+                        ) {
+
+                            renderMessage(
+
+                                conversation.user_message,
+
+                                "user",
+
+                                false
+
+                            );
+
+                        }
+
+
+                        if (
+                            conversation.bot_reply
+                        ) {
+
+                            renderMessage(
+
+                                conversation.bot_reply,
+
+                                "bot",
+
+                                false
+
+                            );
+
+                        }
+
+                    }
+                );
+
+
+                return true;
+
+            } catch (error) {
+
+                console.error(
+                    "Conversation restore error:",
+                    error
+                );
+
+
+                return false;
+
+            }
+
+        }
+
 
         // ==========================================
         // EVENTS
         // ==========================================
-        chatSend.addEventListener('click', () => {
-            const msg = chatInput.value.trim();
-            if (msg) sendMessage(msg);
-        });
 
-        chatInput.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter') {
-                e.preventDefault();
-                const msg = chatInput.value.trim();
-                if (msg) sendMessage(msg);
+        chatSend.addEventListener(
+            "click",
+            () => {
+
+                const msg =
+                    chatInput.value.trim();
+
+
+                if (
+                    msg
+                ) {
+
+                    sendMessage(
+                        msg
+                    );
+
+                }
+
             }
-        });
+        );
 
-        quickReplyBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                const q = btn.getAttribute('data-question');
-                sendMessage(q);
-            });
-        });
+
+        chatInput.addEventListener(
+            "keydown",
+            e => {
+
+                if (
+                    e.key === "Enter"
+                ) {
+
+                    e.preventDefault();
+
+
+                    const msg =
+                        chatInput.value.trim();
+
+
+                    if (
+                        msg
+                    ) {
+
+                        sendMessage(
+                            msg
+                        );
+
+                    }
+
+                }
+
+            }
+        );
+
+
+        quickReplyBtns.forEach(
+            btn => {
+
+                btn.addEventListener(
+                    "click",
+                    () => {
+
+                        const q =
+                            btn.getAttribute(
+                                "data-question"
+                            );
+
+
+                        sendMessage(
+                            q
+                        );
+
+                    }
+                );
+
+            }
+        );
+
 
         // ==========================================
-        // WELCOME MESSAGE
+        // INITIAL CHAT LOAD
+        // CHANGE FROM ORIGINAL:
+        //
+        // Normal visitor:
+        // show original welcome message.
+        //
+        // Ticket visitor:
+        // restore exact conversation and open
+        // chatbot automatically.
         // ==========================================
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                renderMessage("👋 Hi there! I'm Novara CX's AI assistant. How can I help you today? You can ask about our services, pricing, or book a discovery call.", 'bot');
-            }, 600);
-        });
 
-        // Click outside to close
-        document.addEventListener('click', (e) => {
-            if (chatWindow.classList.contains('open') &&
-                !chatWindow.contains(e.target) &&
-                !chatToggle.contains(e.target)) {
-                chatWindow.classList.remove('open');
-                chatToggle.classList.remove('is-open');
+        window.addEventListener(
+            "load",
+            async () => {
+
+                const restored =
+                    await loadExistingConversation();
+
+
+                if (
+                    restored
+                ) {
+
+                    chatWindow.classList.add(
+                        "open"
+                    );
+
+
+                    chatToggle.classList.add(
+                        "is-open"
+                    );
+
+
+                    chatInput.focus();
+
+
+                    return;
+
+                }
+
+
+                setTimeout(
+                    () => {
+
+                        renderMessage(
+
+                            "👋 Hi there! I'm Novara CX's AI assistant. How can I help you today? You can ask about our services, pricing, or book a discovery call.",
+
+                            "bot"
+
+                        );
+
+                    },
+
+                    600
+
+                );
+
             }
-        });
+        );
+
+
+        // ==========================================
+        // CLICK OUTSIDE
+        // ==========================================
+
+        document.addEventListener(
+            "click",
+            e => {
+
+                if (
+
+                    chatWindow.classList.contains(
+                        "open"
+                    ) &&
+
+                    !chatWindow.contains(
+                        e.target
+                    ) &&
+
+                    !chatToggle.contains(
+                        e.target
+                    )
+
+                ) {
+
+                    chatWindow.classList.remove(
+                        "open"
+                    );
+
+
+                    chatToggle.classList.remove(
+                        "is-open"
+                    );
+
+                }
+
+            }
+        );
+
     </script>
 
 </body>
