@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Novara CX — Analytics Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        /* ==========================================
+           RESET & BASE
+           ========================================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #0A0A0F;
+            --bg-secondary: #111118;
+            --bg-card: #181820;
+            --bg-card-hover: #20202A;
+            --border-subtle: rgba(255, 255, 255, 0.06);
+            --border-hover: rgba(255, 255, 255, 0.12);
+            --text-primary: #FFFFFF;
+            --text-secondary: rgba(255, 255, 255, 0.65);
+            --text-muted: rgba(255, 255, 255, 0.35);
+            --accent: #7C9B8A;
+            --accent-light: #A8C4B5;
+            --accent-dark: #5A7A6A;
+            --accent-glow: rgba(124, 155, 138, 0.15);
+            --accent-gradient: linear-gradient(135deg, #7C9B8A 0%, #5A7A6A 100%);
+            --radius: 16px;
+            --radius-sm: 10px;
+            --shadow-glow: 0 8px 40px rgba(124, 155, 138, 0.08);
+            --transition: 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            padding: 24px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* ==========================================
+           HEADER
+           ========================================== */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0 30px;
+            border-bottom: 1px solid var(--border-subtle);
+            margin-bottom: 32px;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        .header-left .logo-icon {
+            width: 44px;
+            height: 44px;
+            background: var(--accent-gradient);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            font-weight: 900;
+            color: var(--bg-primary);
+        }
+        .header h1 {
+            font-size: 1.6rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+        .header h1 span {
+            color: var(--accent);
+        }
+        .header .meta {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+        .header .last-updated {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .header .last-updated .dot {
+            width: 6px;
+            height: 6px;
+            background: var(--accent);
+            border-radius: 50%;
+            animation: pulse-dot 2s infinite;
+        }
+        @keyframes pulse-dot {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        .period-selector {
+            display: flex;
+            gap: 6px;
+            background: var(--bg-card);
+            padding: 4px;
+            border-radius: 50px;
+            border: 1px solid var(--border-subtle);
+        }
+        .period-selector button {
+            padding: 7px 18px;
+            border-radius: 50px;
+            border: none;
+            background: transparent;
+            color: var(--text-secondary);
+            font-family: inherit;
+            font-size: 0.75rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .period-selector button:hover {
+            color: var(--text-primary);
+        }
+        .period-selector button.active {
+            background: var(--accent-gradient);
+            color: var(--bg-primary);
+        }
+
+        /* ==========================================
+           KPI CARDS
+           ========================================== */
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+
+        .kpi-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius);
+            padding: 20px 22px;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+        .kpi-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--accent-gradient);
+            opacity: 0;
+            transition: var(--transition);
+        }
+        .kpi-card:hover {
+            border-color: var(--border-hover);
+            transform: translateY(-2px);
+        }
+        .kpi-card:hover::before {
+            opacity: 1;
+        }
+        .kpi-card .label {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            font-weight: 600;
+        }
+        .kpi-card .value {
+            font-size: 2.2rem;
+            font-weight: 900;
+            margin-top: 4px;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.2;
+        }
+        .kpi-card .change {
+            font-size: 0.7rem;
+            margin-top: 6px;
+            display: inline-block;
+            padding: 2px 10px;
+            border-radius: 50px;
+            background: rgba(46, 204, 113, 0.1);
+            color: var(--accent);
+        }
+        .kpi-card .sub {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+        .kpi-card .trend-icon {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            font-size: 1.6rem;
+            opacity: 0.15;
+        }
+
+        /* ==========================================
+           CHARTS
+           ========================================== */
+        .charts-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+
+        .chart-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius);
+            padding: 24px;
+            transition: var(--transition);
+        }
+        .chart-card:hover {
+            border-color: var(--border-hover);
+        }
+        .chart-card .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+        .chart-card h3 {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+        .chart-card .chart-sub {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+        }
+        .chart-card canvas {
+            max-height: 220px;
+            width: 100% !important;
+        }
+
+        /* ==========================================
+           BOTTOM SECTION
+           ========================================== */
+        .bottom-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 24px;
+        }
+
+        .conversations-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius);
+            padding: 24px;
+        }
+        .conversations-card .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+        .conversations-card h3 {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+        .conversations-card .view-all {
+            font-size: 0.7rem;
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+        .conversations-card .view-all:hover {
+            color: var(--accent-light);
+        }
+
+        .conv-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.82rem;
+        }
+        .conv-table th {
+            text-align: left;
+            padding: 8px 12px;
+            color: var(--text-muted);
+            font-weight: 600;
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+        .conv-table td {
+            padding: 10px 12px;
+            color: var(--text-secondary);
+            border-bottom: 1px solid var(--border-subtle);
+            vertical-align: middle;
+        }
+        .conv-table tr:last-child td {
+            border-bottom: none;
+        }
+        .conv-table tr:hover td {
+            background: rgba(255,255,255,0.02);
+        }
+        .conv-table .status {
+            display: inline-block;
+            padding: 2px 12px;
+            border-radius: 50px;
+            font-size: 0.65rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+        .status.resolved {
+            background: rgba(124, 155, 138, 0.15);
+            color: var(--accent);
+        }
+        .status.escalated {
+            background: rgba(231, 169, 140, 0.15);
+            color: #E7A98C;
+        }
+        .status.pending {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-muted);
+        }
+        .conv-table .session-id {
+            font-family: monospace;
+            font-size: 0.7rem;
+            color: var(--text-muted);
+        }
+        .conv-table .query {
+            max-width: 180px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .conv-table .badge-intent {
+            display: inline-block;
+            padding: 1px 10px;
+            border-radius: 50px;
+            font-size: 0.6rem;
+            font-weight: 500;
+            background: rgba(255,255,255,0.04);
+            color: var(--text-muted);
+            border: 1px solid var(--border-subtle);
+        }
+
+        /* ==========================================
+           SIDEBAR CARD - TOP INTENTS
+           ========================================== */
+        .intents-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius);
+            padding: 24px;
+        }
+        .intents-card h3 {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+        }
+        .intent-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+        .intent-item:last-child {
+            border-bottom: none;
+        }
+        .intent-item .name {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+        .intent-item .count {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        .intent-item .bar {
+            flex: 1;
+            height: 4px;
+            background: var(--border-subtle);
+            border-radius: 10px;
+            margin: 0 12px;
+            overflow: hidden;
+        }
+        .intent-item .bar .fill {
+            height: 100%;
+            background: var(--accent-gradient);
+            border-radius: 10px;
+            transition: width 0.6s ease;
+        }
+
+        /* ==========================================
+           EMPTY STATE
+           ========================================== */
+        .empty-state {
+            text-align: center;
+            padding: 40px 0;
+            color: var(--text-muted);
+        }
+        .empty-state .icon {
+            font-size: 3rem;
+            margin-bottom: 12px;
+            opacity: 0.5;
+        }
+        .empty-state p {
+            font-size: 0.9rem;
+        }
+
+        /* ==========================================
+           RESPONSIVE
+           ========================================== */
+        @media (max-width: 1200px) {
+            .kpi-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .charts-grid {
+                grid-template-columns: 1fr;
+            }
+            .bottom-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body { padding: 16px; }
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .period-selector {
+                width: 100%;
+                overflow-x: auto;
+                padding: 4px;
+                border-radius: var(--radius-sm);
+            }
+            .period-selector button {
+                padding: 6px 14px;
+                font-size: 0.7rem;
+                white-space: nowrap;
+            }
+            .kpi-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 12px;
+            }
+            .kpi-card .value {
+                font-size: 1.6rem;
+            }
+            .conv-table {
+                font-size: 0.7rem;
+            }
+            .conv-table .query {
+                max-width: 80px;
+            }
+            .conv-table th,
+            .conv-table td {
+                padding: 6px 8px;
+            }
+            .header-left .logo-icon {
+                width: 36px;
+                height: 36px;
+                font-size: 1rem;
+            }
+            .header h1 {
+                font-size: 1.3rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .kpi-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 8px;
+            }
+            .kpi-card {
+                padding: 14px 16px;
+            }
+            .kpi-card .value {
+                font-size: 1.3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <!-- ===== HEADER ===== -->
+        <div class="header">
+            <div class="header-left">
+                <div class="logo-icon">N</div>
+                <div>
+                    <h1>Novara <span>CX</span></h1>
+                    <div class="meta">AI Chatbot Analytics</div>
+                </div>
+            </div>
+            <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
+                <div class="last-updated">
+                    <span class="dot"></span>
+                    <span id="lastUpdated">Last updated: —</span>
+                </div>
+                <div class="period-selector" id="periodSelector">
+                    <button data-period="7">7d</button>
+                    <button data-period="14">14d</button>
+                    <button data-period="30" class="active">30d</button>
+                    <button data-period="90">90d</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== KPI CARDS ===== -->
+        <div class="kpi-grid" id="kpiGrid">
+            <div class="kpi-card">
+                <span class="trend-icon">💬</span>
+                <div class="label">Total Conversations</div>
+                <div class="value" id="totalConversations">—</div>
+                <div class="sub" id="totalSub">Loading...</div>
+            </div>
+            <div class="kpi-card">
+                <span class="trend-icon">🎯</span>
+                <div class="label">Deflection Rate</div>
+                <div class="value" id="deflectionRate">—</div>
+                <div class="sub" id="deflectionSub">Resolved by AI</div>
+            </div>
+            <div class="kpi-card">
+                <span class="trend-icon">⚡</span>
+                <div class="label">Avg Resolution Time</div>
+                <div class="value" id="avgResolutionTime">—</div>
+                <div class="sub" id="timeSub">Seconds per conversation</div>
+            </div>
+            <div class="kpi-card">
+                <span class="trend-icon">📊</span>
+                <div class="label">Escalation Rate</div>
+                <div class="value" id="escalationRate">—</div>
+                <div class="sub" id="escalationSub">Handled by humans</div>
+            </div>
+        </div>
+
+        <!-- ===== CHARTS ===== -->
+        <div class="charts-grid">
+            <div class="chart-card">
+                <div class="chart-header">
+                    <h3>📈 Daily Conversations</h3>
+                    <span class="chart-sub">Resolved vs Escalated</span>
+                </div>
+                <canvas id="trendChart"></canvas>
+            </div>
+            <div class="chart-card">
+                <div class="chart-header">
+                    <h3>📊 Resolution Breakdown</h3>
+                    <span class="chart-sub">Overall distribution</span>
+                </div>
+                <canvas id="breakdownChart"></canvas>
+            </div>
+        </div>
+
+        <!-- ===== BOTTOM GRID ===== -->
+        <div class="bottom-grid">
+
+            <!-- Recent Conversations -->
+            <div class="conversations-card">
+                <div class="card-header">
+                    <h3>💬 Recent Conversations</h3>
+                    <a href="#" class="view-all">View all →</a>
+                </div>
+                <div style="overflow-x:auto;">
+                    <table class="conv-table">
+                        <thead>
+                            <tr>
+                                <th>Session</th>
+                                <th>Date</th>
+                                <th>Query</th>
+                                <th>Intent</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="conversationsBody">
+                            <tr>
+                                <td colspan="5" style="text-align:center;color:var(--text-muted);padding:30px 0;">
+                                    <div class="empty-state">
+                                        <div class="icon">🤖</div>
+                                        <p>No conversations yet.<br>Send a test message to get started.</p>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Top Intents -->
+            <div class="intents-card">
+                <h3>🎯 Top User Intents</h3>
+                <div id="intentsList">
+                    <div style="text-align:center;color:var(--text-muted);padding:20px 0;font-size:0.85rem;">
+                        Loading intents...
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script>
+        // ==========================================
+        // STATE
+        // ==========================================
+        let currentPeriod = 30;
+        let trendChart = null;
+        let breakdownChart = null;
+
+        // ==========================================
+        // API CONFIG
+        // ==========================================
+        const API_URL = 'https://novara-cx-ai.rishi-rana96.workers.dev';
+
+        // ==========================================
+        // FETCH ANALYTICS
+        // ==========================================
+        async function fetchAnalytics(period) {
+            try {
+                const response = await fetch(`${API_URL}/analytics?period=${period}`);
+                if (!response.ok) throw new Error('Failed to fetch');
+                return await response.json();
+            } catch (error) {
+                console.error('Error fetching analytics:', error);
+                return [];
+            }
+        }
+
+        async function fetchConversations(limit = 10) {
+            try {
+                const response = await fetch(`${API_URL}/conversations?limit=${limit}`);
+                if (!response.ok) throw new Error('Failed to fetch');
+                return await response.json();
+            } catch (error) {
+                console.error('Error fetching conversations:', error);
+                return [];
+            }
+        }
+
+        async function fetchIntents(period) {
+            try {
+                const response = await fetch(`${API_URL}/intents?period=${period}`);
+                if (!response.ok) throw new Error('Failed to fetch');
+                return await response.json();
+            } catch (error) {
+                console.error('Error fetching intents:', error);
+                return [];
+            }
+        }
+
+        // ==========================================
+        // UPDATE DASHBOARD
+        // ==========================================
+        async function updateDashboard(period) {
+            currentPeriod = period;
+
+            // Update active period button
+            document.querySelectorAll('#periodSelector button').forEach(btn => {
+                btn.classList.toggle('active', parseInt(btn.dataset.period) === period);
+            });
+
+            // Show loading state
+            document.getElementById('totalConversations').textContent = '…';
+            document.getElementById('deflectionRate').textContent = '…';
+            document.getElementById('avgResolutionTime').textContent = '…';
+            document.getElementById('escalationRate').textContent = '…';
+            document.getElementById('totalSub').textContent = 'Loading...';
+
+            try {
+                const [analyticsData, conversationsData, intentsData] = await Promise.all([
+                    fetchAnalytics(period),
+                    fetchConversations(10),
+                    fetchIntents(period)
+                ]);
+
+                // --- Calculate KPIs ---
+                const totals = analyticsData.reduce((acc, day) => {
+                    acc.total += parseInt(day.total_conversations) || 0;
+                    acc.resolved += parseInt(day.resolved) || 0;
+                    acc.escalated += parseInt(day.escalated) || 0;
+                    acc.time += parseInt(day.avg_resolution_time_seconds) || 0;
+                    acc.count += day.avg_resolution_time_seconds ? 1 : 0;
+                    return acc;
+                }, { total: 0, resolved: 0, escalated: 0, time: 0, count: 0 });
+
+                const avgTime = totals.count > 0 ? Math.round(totals.time / totals.count) : 0;
+                const deflectionRate = totals.total > 0 ? Math.round((totals.resolved / totals.total) * 100) : 0;
+                const escalationRate = totals.total > 0 ? Math.round((totals.escalated / totals.total) * 100) : 0;
+
+                // --- Update KPIs ---
+                document.getElementById('totalConversations').textContent = totals.total;
+                document.getElementById('deflectionRate').textContent = deflectionRate + '%';
+                document.getElementById('avgResolutionTime').textContent = avgTime > 0 ? avgTime + 's' : '—';
+                document.getElementById('escalationRate').textContent = escalationRate + '%';
+
+                document.getElementById('totalSub').textContent = `Last ${period} days`;
+                document.getElementById('escalationSub').textContent = 'Handled by humans';
+
+                // --- Update Last Updated ---
+                document.getElementById('lastUpdated').textContent = `Last updated: ${new Date().toLocaleTimeString()}`;
+
+                // --- Update Trend Chart ---
+                const labels = analyticsData.map(d => d.date);
+                const resolvedData = analyticsData.map(d => parseInt(d.resolved) || 0);
+                const escalatedData = analyticsData.map(d => parseInt(d.escalated) || 0);
+                updateTrendChart(labels, resolvedData, escalatedData);
+
+                // --- Update Breakdown Chart ---
+                const totalResolved = totals.resolved;
+                const totalEscalated = totals.escalated;
+                const totalPending = Math.max(0, totals.total - totalResolved - totalEscalated);
+                updateBreakdownChart(totalResolved, totalEscalated, totalPending);
+
+                // --- Update Conversations Table ---
+                updateConversationsTable(conversationsData);
+
+                // --- Update Intents ---
+                updateIntents(intentsData);
+
+            } catch (error) {
+                console.error('Dashboard error:', error);
+                document.getElementById('totalConversations').textContent = 'Error';
+            }
+        }
+
+        // ==========================================
+        // TREND CHART
+        // ==========================================
+        function updateTrendChart(labels, resolved, escalated) {
+            if (trendChart) trendChart.destroy();
+
+            const ctx = document.getElementById('trendChart').getContext('2d');
+            trendChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: 'Resolved',
+                            data: resolved,
+                            backgroundColor: 'rgba(124, 155, 138, 0.6)',
+                            borderColor: '#7C9B8A',
+                            borderWidth: 1,
+                            borderRadius: 4,
+                        },
+                        {
+                            label: 'Escalated',
+                            data: escalated,
+                            backgroundColor: 'rgba(231, 169, 140, 0.5)',
+                            borderColor: '#E7A98C',
+                            borderWidth: 1,
+                            borderRadius: 4,
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    plugins: {
+                        legend: {
+                            labels: {
+                                color: 'rgba(255,255,255,0.6)',
+                                font: { size: 11 },
+                                boxWidth: 12,
+                                padding: 12,
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: { color: 'rgba(255,255,255,0.03)' },
+                            ticks: { color: 'rgba(255,255,255,0.4)', font: { size: 9 } }
+                        },
+                        y: {
+                            grid: { color: 'rgba(255,255,255,0.03)' },
+                            ticks: { color: 'rgba(255,255,255,0.4)', font: { size: 9 } },
+                            beginAtZero: true,
+                        }
+                    }
+                }
+            });
+        }
+
+        // ==========================================
+        // BREAKDOWN CHART
+        // ==========================================
+        function updateBreakdownChart(resolved, escalated, pending) {
+            if (breakdownChart) breakdownChart.destroy();
+
+            const ctx = document.getElementById('breakdownChart').getContext('2d');
+            breakdownChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Resolved', 'Escalated', 'Pending'],
+                    datasets: [{
+                        data: [resolved, escalated, pending],
+                        backgroundColor: ['#7C9B8A', '#E7A98C', 'rgba(255,255,255,0.08)'],
+                        borderColor: ['#5A7A6A', '#D48A6A', 'rgba(255,255,255,0.02)'],
+                        borderWidth: 2,
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                color: 'rgba(255,255,255,0.6)',
+                                font: { size: 11 },
+                                padding: 16,
+                                boxWidth: 12,
+                            }
+                        }
+                    },
+                    cutout: '65%',
+                }
+            });
+        }
+
+        // ==========================================
+        // CONVERSATIONS TABLE
+        // ==========================================
+        function updateConversationsTable(conversations) {
+            const tbody = document.getElementById('conversationsBody');
+
+            if (!conversations || conversations.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="5" style="text-align:center;color:var(--text-muted);padding:30px 0;">
+                            <div class="empty-state">
+                                <div class="icon">🤖</div>
+                                <p>No conversations yet.<br>Send a test message to get started.</p>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            tbody.innerHTML = conversations.map(conv => {
+                const statusClass = conv.resolution_status || 'pending';
+                const statusLabel = statusClass.charAt(0).toUpperCase() + statusClass.slice(1);
+                const date = new Date(conv.started_at).toLocaleDateString('en-IN', {
+                    day: '2-digit',
+                    month: 'short',
+                    year: 'numeric',
+                });
+                const time = new Date(conv.started_at).toLocaleTimeString('en-IN', {
+                    hour: '2-digit',
+                    minute: '2-digit',
+                });
+                const query = conv.first_query || '—';
+                const truncatedQuery = query.length > 35 ? query.substring(0, 35) + '…' : query;
+                const intent = conv.intent || 'general';
+                const intentLabel = intent.charAt(0).toUpperCase() + intent.slice(1);
+
+                return `
+                    <tr>
+                        <td><span class="session-id">${conv.session_id.substring(0, 8)}</span></td>
+                        <td style="font-size:0.7rem;color:var(--text-muted);">${date}<br>${time}</td>
+                        <td class="query" title="${query}">${truncatedQuery}</td>
+                        <td><span class="badge-intent">${intentLabel}</span></td>
+                        <td><span class="status ${statusClass}">${statusLabel}</span></td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        // ==========================================
+        // INTENTS
+        // ==========================================
+        function updateIntents(intents) {
+            const container = document.getElementById('intentsList');
+
+            if (!intents || intents.length === 0) {
+                container.innerHTML = `
+                    <div style="text-align:center;color:var(--text-muted);padding:20px 0;font-size:0.85rem;">
+                        No intent data yet.
+                    </div>
+                `;
+                return;
+            }
+
+            const maxCount = intents[0]?.count || 1;
+
+            container.innerHTML = intents.map(item => {
+                const percentage = Math.round((item.count / maxCount) * 100);
+                const label = item.intent.charAt(0).toUpperCase() + item.intent.slice(1);
+                return `
+                    <div class="intent-item">
+                        <span class="name">${label}</span>
+                        <div class="bar">
+                            <div class="fill" style="width:${percentage}%;"></div>
+                        </div>
+                        <span class="count">${item.count}</span>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // ==========================================
+        // PERIOD SELECTOR EVENTS
+        // ==========================================
+        document.querySelectorAll('#periodSelector button').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const period = parseInt(btn.dataset.period);
+                updateDashboard(period);
+            });
+        });
+
+        // ==========================================
+        // AUTO-REFRESH (every 30 seconds)
+        // ==========================================
+        setInterval(() => {
+            updateDashboard(currentPeriod);
+        }, 30000);
+
+        // ==========================================
+        // INIT
+        // ==========================================
+        document.addEventListener('DOMContentLoaded', () => {
+            updateDashboard(30);
+        });
+    </script>
+
+</body>
+</html>
