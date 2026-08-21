@@ -1368,6 +1368,7 @@
             border-radius: 10px;
         }
 
+        /* === CHAT MESSAGES — WITH BOLD SUPPORT === */
         .msg {
             max-width: 85%;
             padding: 10px 14px;
@@ -1382,11 +1383,21 @@
             align-self: flex-start;
             border-bottom-left-radius: 4px;
         }
+        .msg.bot b,
+        .msg.bot strong {
+            color: var(--text-primary);
+            font-weight: 700;
+        }
         .msg.user {
             background: var(--accent-gradient);
             color: var(--bg-primary);
             align-self: flex-end;
             border-bottom-right-radius: 4px;
+        }
+        .msg.user b,
+        .msg.user strong {
+            color: var(--bg-primary);
+            font-weight: 700;
         }
 
         .chatbot-input-window {
@@ -2050,8 +2061,7 @@
     </section>
 
     <!-- ==========================================
-    FOUNDER (now includes track record — merged from
-    the former standalone "Results" section)
+    FOUNDER
     ========================================== -->
     <section id="founder">
         <div class="container">
@@ -2071,7 +2081,7 @@
                 </div>
             </div>
 
-            <!-- Track record, now framed explicitly as the founder's personal results -->
+            <!-- Track record -->
             <div class="founder-track-record">
                 <span class="track-label">The Track Record Behind Novara</span>
                 <h3>Proven results at <span class="highlight" style="background: var(--accent-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">BrightChamps &amp; Byju's</span></h3>
@@ -2260,7 +2270,7 @@
         });
 
         // ==========================================
-        // CHATBOT — AI INTEGRATION
+        // CHATBOT — AI INTEGRATION (WITH BOLD SUPPORT)
         // ==========================================
         const WORKER_URL = "https://novara-cx-ai.rishi-rana96.workers.dev/";
 
@@ -2283,11 +2293,25 @@
             chatWindow.classList.remove('open');
         });
 
-        // Render message
+        // === Sanitize HTML (for safety) ===
+        function sanitizeHTML(text) {
+            // Allow only <b>, <strong>, <i>, <em>, <br>, <p>, <ul>, <li>, and <a> tags
+            const allowedTags = ['b', 'strong', 'i', 'em', 'br', 'p', 'ul', 'li', 'a'];
+            const tempDiv = document.createElement('div');
+            tempDiv.textContent = text; // First, escape everything
+            const sanitized = tempDiv.innerHTML;
+
+            // Then, selectively allow certain tags
+            const regex = /<(\/)?(b|strong|i|em|br|p|ul|li|a)(\s[^>]*)?>/gi;
+            return sanitized.replace(/&lt;(\/)?(b|strong|i|em|br|p|ul|li|a)(\s[^>]*)?&gt;/gi, '<$1$2$3>');
+        }
+
+        // Render message — NOW WITH HTML SUPPORT
         function renderMessage(text, sender) {
             const div = document.createElement('div');
             div.classList.add('msg', sender);
-            div.textContent = text;
+            // Use innerHTML with sanitization
+            div.innerHTML = sanitizeHTML(text);
             chatMessages.appendChild(div);
             chatMessages.scrollTop = chatMessages.scrollHeight;
         }
