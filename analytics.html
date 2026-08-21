@@ -56,6 +56,7 @@
             margin: 0 auto;
         }
 
+        /* ===== HEADER ===== */
         .header {
             display: flex;
             justify-content: space-between;
@@ -191,6 +192,52 @@
             color: var(--bg-primary);
         }
 
+        /* ===== TAB SWITCHER ===== */
+        .tab-switcher {
+            display: flex;
+            justify-content: center;
+            margin-top: 8px;
+            margin-bottom: 32px;
+        }
+        .tab-switcher-inner {
+            display: inline-flex;
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 50px;
+            padding: 4px;
+            gap: 4px;
+        }
+        .tab-switcher-inner button {
+            font-family: inherit;
+            font-size: 0.85rem;
+            font-weight: 600;
+            padding: 10px 28px;
+            border-radius: 50px;
+            border: none;
+            background: transparent;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: var(--transition);
+            white-space: nowrap;
+        }
+        .tab-switcher-inner button:hover {
+            color: var(--text-primary);
+        }
+        .tab-switcher-inner button.active {
+            background: var(--accent-gradient);
+            color: var(--bg-primary);
+            box-shadow: 0 4px 20px var(--accent-glow);
+        }
+
+        /* ===== VIEW PANELS ===== */
+        .view-panel {
+            display: none;
+        }
+        .view-panel.active {
+            display: block;
+        }
+
+        /* ===== KPI CARDS ===== */
         .kpi-grid {
             display: grid;
             grid-template-columns: repeat(6, 1fr);
@@ -249,43 +296,7 @@
             margin-top: 4px;
         }
 
-        .rating-scale {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-top: 8px;
-            padding: 6px 12px;
-            background: var(--bg-secondary);
-            border-radius: var(--radius-sm);
-            border: 1px solid var(--border-subtle);
-        }
-        .rating-scale .label {
-            font-size: 0.65rem;
-            color: var(--text-muted);
-            font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-        .rating-scale .pill {
-            display: inline-block;
-            padding: 2px 10px;
-            border-radius: 50px;
-            font-size: 0.6rem;
-            font-weight: 600;
-        }
-        .rating-scale .pill.yes {
-            background: rgba(46, 204, 113, 0.15);
-            color: #2ECC71;
-        }
-        .rating-scale .pill.no {
-            background: rgba(231, 76, 60, 0.15);
-            color: #E74C3C;
-        }
-        .rating-scale .pill.partial {
-            background: rgba(241, 196, 15, 0.15);
-            color: #F1C40F;
-        }
-
+        /* ===== CHARTS ===== */
         .charts-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -323,12 +334,103 @@
             width: 100% !important;
         }
 
-        .bottom-grid {
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 24px;
+        /* ===== INTENTS CARD ===== */
+        .intents-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius);
+            padding: 24px;
+            margin-bottom: 32px;
+        }
+        .intents-card h3 {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+        }
+        .intent-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+        .intent-item:last-child {
+            border-bottom: none;
+        }
+        .intent-item .name {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+        .intent-item .count {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        .intent-item .bar {
+            flex: 1;
+            height: 4px;
+            background: var(--border-subtle);
+            border-radius: 10px;
+            margin: 0 12px;
+            overflow: hidden;
+        }
+        .intent-item .bar .fill {
+            height: 100%;
+            background: var(--accent-gradient);
+            border-radius: 10px;
+            transition: width 0.6s ease;
         }
 
+        /* ===== ESCALATION REASONS ===== */
+        .escalation-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius);
+            padding: 24px;
+            margin-bottom: 32px;
+        }
+        .escalation-card h3 {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+        }
+        .escalation-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+        .escalation-item:last-child {
+            border-bottom: none;
+        }
+        .escalation-item .name {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+        .escalation-item .count {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        .escalation-item .bar {
+            flex: 1;
+            height: 4px;
+            background: var(--border-subtle);
+            border-radius: 10px;
+            margin: 0 12px;
+            overflow: hidden;
+        }
+        .escalation-item .bar .fill {
+            height: 100%;
+            background: #E7A98C;
+            border-radius: 10px;
+            transition: width 0.6s ease;
+        }
+
+        /* ===== CONVERSATIONS TABLE ===== */
         .conversations-card {
             background: var(--bg-card);
             border: 1px solid var(--border-subtle);
@@ -427,100 +529,6 @@
             border: 1px solid var(--border-subtle);
         }
 
-        .badge-rating {
-            display: inline-block;
-            padding: 2px 12px;
-            border-radius: 50px;
-            font-size: 0.6rem;
-            font-weight: 600;
-        }
-        .badge-rating.yes {
-            background: rgba(46, 204, 113, 0.15);
-            color: #2ECC71;
-        }
-        .badge-rating.no {
-            background: rgba(231, 76, 60, 0.15);
-            color: #E74C3C;
-        }
-        .badge-rating.partial {
-            background: rgba(241, 196, 15, 0.15);
-            color: #F1C40F;
-        }
-        .badge-rating.unknown {
-            background: rgba(255,255,255,0.04);
-            color: var(--text-muted);
-        }
-
-        .badge-sentiment {
-            display: inline-block;
-            padding: 2px 12px;
-            border-radius: 50px;
-            font-size: 0.6rem;
-            font-weight: 500;
-        }
-        .badge-sentiment.positive {
-            background: rgba(46, 204, 113, 0.15);
-            color: #2ECC71;
-        }
-        .badge-sentiment.neutral {
-            background: rgba(241, 196, 15, 0.15);
-            color: #F1C40F;
-        }
-        .badge-sentiment.negative {
-            background: rgba(231, 76, 60, 0.15);
-            color: #E74C3C;
-        }
-        .badge-sentiment.unknown {
-            background: rgba(255,255,255,0.04);
-            color: var(--text-muted);
-        }
-
-        .intents-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-subtle);
-            border-radius: var(--radius);
-            padding: 24px;
-        }
-        .intents-card h3 {
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: var(--text-secondary);
-            margin-bottom: 16px;
-        }
-        .intent-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 0;
-            border-bottom: 1px solid var(--border-subtle);
-        }
-        .intent-item:last-child {
-            border-bottom: none;
-        }
-        .intent-item .name {
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-        }
-        .intent-item .count {
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: var(--text-primary);
-        }
-        .intent-item .bar {
-            flex: 1;
-            height: 4px;
-            background: var(--border-subtle);
-            border-radius: 10px;
-            margin: 0 12px;
-            overflow: hidden;
-        }
-        .intent-item .bar .fill {
-            height: 100%;
-            background: var(--accent-gradient);
-            border-radius: 10px;
-            transition: width 0.6s ease;
-        }
-
         .empty-state {
             text-align: center;
             padding: 40px 0;
@@ -530,6 +538,7 @@
             font-size: 0.9rem;
         }
 
+        /* ===== FOOTER ===== */
         .footer {
             margin-top: 40px;
             padding-top: 24px;
@@ -558,14 +567,14 @@
             font-size: 0.75rem;
         }
 
+        /* ==========================================
+           RESPONSIVE
+           ========================================== */
         @media (max-width: 1200px) {
             .kpi-grid {
                 grid-template-columns: repeat(3, 1fr);
             }
             .charts-grid {
-                grid-template-columns: 1fr;
-            }
-            .bottom-grid {
                 grid-template-columns: 1fr;
             }
         }
@@ -595,9 +604,16 @@
                 padding: 6px 14px;
                 font-size: 0.7rem;
             }
+            .tab-switcher-inner button {
+                padding: 8px 16px;
+                font-size: 0.75rem;
+            }
             .kpi-grid {
                 grid-template-columns: 1fr 1fr;
                 gap: 12px;
+            }
+            .charts-grid {
+                grid-template-columns: 1fr;
             }
             .kpi-card .value {
                 font-size: 1.6rem;
@@ -636,6 +652,15 @@
             .kpi-card .value {
                 font-size: 1.3rem;
             }
+            .tab-switcher-inner {
+                width: 100%;
+            }
+            .tab-switcher-inner button {
+                flex: 1;
+                text-align: center;
+                padding: 8px 12px;
+                font-size: 0.7rem;
+            }
         }
     </style>
 </head>
@@ -651,7 +676,7 @@
                     <span class="logo-text">Novara <span>CX</span></span>
                 </a>
                 <div>
-                    <div class="meta">AI Chatbot Analytics</div>
+                    <div class="meta">Analytics Dashboard</div>
                 </div>
             </div>
             <div class="header-right">
@@ -674,87 +699,85 @@
             </div>
         </div>
 
-        <!-- ===== KPI CARDS ===== -->
-        <div class="kpi-grid" id="kpiGrid">
-            <div class="kpi-card">
-                <div class="label">Total Conversations</div>
-                <div class="value" id="totalConversations">—</div>
-                <div class="sub" id="totalSub">Loading...</div>
-            </div>
-            <div class="kpi-card">
-                <div class="label">Deflection Rate</div>
-                <div class="value" id="deflectionRate">—</div>
-                <div class="sub" id="deflectionSub">Resolved by AI</div>
-            </div>
-            <div class="kpi-card">
-                <div class="label">Resolution Rate</div>
-                <div class="value" id="resolutionRate">—</div>
-                <div class="sub" id="resolutionSub">User confirmed resolved</div>
-            </div>
-            <div class="kpi-card">
-                <div class="label">Escalation Rate</div>
-                <div class="value" id="escalationRate">—</div>
-                <div class="sub" id="escalationSub">Handled by humans</div>
-            </div>
-            <div class="kpi-card">
-                <div class="label">Avg Rating</div>
-                <div class="value" id="avgRating">—</div>
-                <div class="sub" id="ratingSub">Based on user feedback</div>
-            </div>
-            <div class="kpi-card">
-                <div class="label">Sentiment Score</div>
-                <div class="value" id="sentimentScore">—</div>
-                <div class="sub" id="sentimentSub">Positive / Neutral / Negative</div>
+        <!-- ===== TAB SWITCHER ===== -->
+        <div class="tab-switcher">
+            <div class="tab-switcher-inner" id="tabSwitcher">
+                <button class="active" data-tab="ai">AI Agent</button>
+                <button data-tab="human">Human Agent</button>
             </div>
         </div>
 
-        <!-- ===== RATING SCALE INDICATOR ===== -->
-        <div class="rating-scale">
-            <span class="label">Rating Scale:</span>
-            <span class="pill yes">Yes</span>
-            <span class="pill no">No</span>
-            <span class="pill partial">Partial</span>
-        </div>
+        <!-- ==========================================
+        AI AGENT VIEW
+        ========================================== -->
+        <div class="view-panel active" id="panel-ai">
 
-        <!-- ===== CHARTS ===== -->
-        <div class="charts-grid">
-            <div class="chart-card">
-                <div class="chart-header">
-                    <h3>Daily Conversations</h3>
-                    <span class="chart-sub">Resolved vs Escalated</span>
+            <!-- KPI CARDS -->
+            <div class="kpi-grid" id="aiKpiGrid">
+                <div class="kpi-card">
+                    <div class="label">Total Conversations</div>
+                    <div class="value" id="aiTotalConversations">—</div>
+                    <div class="sub" id="aiTotalSub">Last 30 days</div>
                 </div>
-                <canvas id="trendChart"></canvas>
-            </div>
-            <div class="chart-card">
-                <div class="chart-header">
-                    <h3>Resolution Breakdown</h3>
-                    <span class="chart-sub">Overall distribution</span>
+                <div class="kpi-card">
+                    <div class="label">Deflection Rate</div>
+                    <div class="value" id="aiDeflectionRate">—</div>
+                    <div class="sub" id="aiDeflectionSub">Resolved by AI</div>
                 </div>
-                <canvas id="breakdownChart"></canvas>
-            </div>
-            <div class="chart-card">
-                <div class="chart-header">
-                    <h3>Sentiment Distribution</h3>
-                    <span class="chart-sub">User sentiment analysis</span>
+                <div class="kpi-card">
+                    <div class="label">Avg Response Time</div>
+                    <div class="value" id="aiAvgResponseTime">—</div>
+                    <div class="sub" id="aiResponseSub">Seconds</div>
                 </div>
-                <canvas id="sentimentChart"></canvas>
-            </div>
-            <div class="chart-card">
-                <div class="chart-header">
-                    <h3>Ratings Distribution</h3>
-                    <span class="chart-sub">User feedback breakdown</span>
+                <div class="kpi-card">
+                    <div class="label">Resolution Rate</div>
+                    <div class="value" id="aiResolutionRate">—</div>
+                    <div class="sub" id="aiResolutionSub">User confirmed resolved</div>
                 </div>
-                <canvas id="ratingChart"></canvas>
+                <div class="kpi-card">
+                    <div class="label">Sentiment Score</div>
+                    <div class="value" id="aiSentimentScore">—</div>
+                    <div class="sub" id="aiSentimentSub">Positive / Neutral / Negative</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="label">Avg Messages</div>
+                    <div class="value" id="aiAvgMessages">—</div>
+                    <div class="sub" id="aiMessagesSub">Per conversation</div>
+                </div>
             </div>
-        </div>
 
-        <!-- ===== BOTTOM GRID ===== -->
-        <div class="bottom-grid">
+            <!-- CHARTS -->
+            <div class="charts-grid">
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3>Daily AI Conversations</h3>
+                        <span class="chart-sub">Resolved vs Escalated</span>
+                    </div>
+                    <canvas id="aiTrendChart"></canvas>
+                </div>
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3>Sentiment Distribution</h3>
+                        <span class="chart-sub">User sentiment analysis</span>
+                    </div>
+                    <canvas id="aiSentimentChart"></canvas>
+                </div>
+            </div>
 
-            <!-- Recent Conversations -->
+            <!-- TOP INTENTS -->
+            <div class="intents-card">
+                <h3>Top User Intents (AI)</h3>
+                <div id="aiIntentsList">
+                    <div style="text-align:center;color:var(--text-muted);padding:20px 0;font-size:0.85rem;">
+                        Loading intents...
+                    </div>
+                </div>
+            </div>
+
+            <!-- RECENT CONVERSATIONS -->
             <div class="conversations-card">
                 <div class="card-header">
-                    <h3>Recent Conversations</h3>
+                    <h3>Recent AI Conversations</h3>
                     <a href="#" class="view-all">View all →</a>
                 </div>
                 <div style="overflow-x:auto;">
@@ -770,7 +793,7 @@
                                 <th>Status</th>
                             </tr>
                         </thead>
-                        <tbody id="conversationsBody">
+                        <tbody id="aiConversationsBody">
                             <tr>
                                 <td colspan="7" style="text-align:center;color:var(--text-muted);padding:30px 0;">
                                     <div class="empty-state">
@@ -782,17 +805,106 @@
                     </table>
                 </div>
             </div>
+        </div>
 
-            <!-- Top Intents -->
-            <div class="intents-card">
-                <h3>Top User Intents</h3>
-                <div id="intentsList">
+        <!-- ==========================================
+        HUMAN AGENT VIEW
+        ========================================== -->
+        <div class="view-panel" id="panel-human">
+
+            <!-- KPI CARDS -->
+            <div class="kpi-grid" id="humanKpiGrid">
+                <div class="kpi-card">
+                    <div class="label">Total Escalations</div>
+                    <div class="value" id="humanTotalEscalations">—</div>
+                    <div class="sub" id="humanTotalSub">Last 30 days</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="label">Escalation Rate</div>
+                    <div class="value" id="humanEscalationRate">—</div>
+                    <div class="sub" id="humanEscalationSub">% of total conversations</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="label">Avg Handling Time</div>
+                    <div class="value" id="humanAvgHandlingTime">—</div>
+                    <div class="sub" id="humanHandlingSub">Minutes</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="label">Human CSAT</div>
+                    <div class="value" id="humanCsatScore">—</div>
+                    <div class="sub" id="humanCsatSub">User satisfaction</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="label">Resolution Rate</div>
+                    <div class="value" id="humanResolutionRate">—</div>
+                    <div class="sub" id="humanResolutionSub">Resolved by humans</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="label">Active Agents</div>
+                    <div class="value" id="humanActiveAgents">—</div>
+                    <div class="sub" id="humanAgentsSub">Currently online</div>
+                </div>
+            </div>
+
+            <!-- CHARTS -->
+            <div class="charts-grid">
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3>Escalation Trends</h3>
+                        <span class="chart-sub">Daily escalation volume</span>
+                    </div>
+                    <canvas id="humanTrendChart"></canvas>
+                </div>
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3>Escalation Reasons</h3>
+                        <span class="chart-sub">Why conversations escalate</span>
+                    </div>
+                    <canvas id="humanReasonsChart"></canvas>
+                </div>
+            </div>
+
+            <!-- ESCALATION REASONS -->
+            <div class="escalation-card">
+                <h3>Escalation Reasons Breakdown</h3>
+                <div id="humanReasonsList">
                     <div style="text-align:center;color:var(--text-muted);padding:20px 0;font-size:0.85rem;">
-                        Loading intents...
+                        Loading escalation reasons...
                     </div>
                 </div>
             </div>
 
+            <!-- RECENT CONVERSATIONS -->
+            <div class="conversations-card">
+                <div class="card-header">
+                    <h3>Recent Human Conversations</h3>
+                    <a href="#" class="view-all">View all →</a>
+                </div>
+                <div style="overflow-x:auto;">
+                    <table class="conv-table">
+                        <thead>
+                            <tr>
+                                <th>Session</th>
+                                <th>Date</th>
+                                <th>Query</th>
+                                <th>Intent</th>
+                                <th>Rating</th>
+                                <th>Sentiment</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="humanConversationsBody">
+                            <tr>
+                                <td colspan="7" style="text-align:center;color:var(--text-muted);padding:30px 0;">
+                                    <div class="empty-state">
+                                        <p>No human conversations yet.<br>Escalations will appear here.</p>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
 
         <!-- ===== FOOTER ===== -->
@@ -817,10 +929,11 @@
         // STATE
         // ==========================================
         let currentPeriod = 30;
-        let trendChart = null;
-        let breakdownChart = null;
-        let sentimentChart = null;
-        let ratingChart = null;
+        let currentTab = 'ai';
+        let aiTrendChart = null;
+        let aiSentimentChart = null;
+        let humanTrendChart = null;
+        let humanReasonsChart = null;
         let isRefreshing = false;
 
         // ==========================================
@@ -829,7 +942,27 @@
         const API_URL = 'https://novara-cx-ai.rishi-rana96.workers.dev';
 
         // ==========================================
-        // FETCH ANALYTICS
+        // TAB SWITCHER
+        // ==========================================
+        document.querySelectorAll('#tabSwitcher button').forEach(btn => {
+            btn.addEventListener('click', function() {
+                // Update tab button states
+                document.querySelectorAll('#tabSwitcher button').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+
+                // Update panel visibility
+                const tab = this.dataset.tab;
+                currentTab = tab;
+                document.querySelectorAll('.view-panel').forEach(p => p.classList.remove('active'));
+                document.getElementById(`panel-${tab}`).classList.add('active');
+
+                // Refresh data for the new tab
+                updateDashboard(currentPeriod);
+            });
+        });
+
+        // ==========================================
+        // FETCH FUNCTIONS
         // ==========================================
         async function fetchAnalytics(period) {
             try {
@@ -907,16 +1040,6 @@
                 btn.classList.toggle('active', parseInt(btn.dataset.period) === period);
             });
 
-            if (showLoading) {
-                document.getElementById('totalConversations').textContent = '…';
-                document.getElementById('deflectionRate').textContent = '…';
-                document.getElementById('resolutionRate').textContent = '…';
-                document.getElementById('escalationRate').textContent = '…';
-                document.getElementById('avgRating').textContent = '…';
-                document.getElementById('sentimentScore').textContent = '…';
-                document.getElementById('totalSub').textContent = 'Loading...';
-            }
-
             try {
                 const [analyticsData, conversationsData, intentsData, ratingsData, resolutionData, sentimentData] = await Promise.all([
                     fetchAnalytics(period),
@@ -971,49 +1094,58 @@
                 });
                 const avgSentiment = sentimentCount > 0 ? (totalSentiment / sentimentCount).toFixed(2) : '—';
 
-                // --- Update KPIs ---
-                document.getElementById('totalConversations').textContent = totals.total;
-                document.getElementById('deflectionRate').textContent = deflectionRate + '%';
-                document.getElementById('resolutionRate').textContent = resolutionRate + '%';
-                document.getElementById('escalationRate').textContent = escalationRate + '%';
-                document.getElementById('avgRating').textContent = avgRating !== '—' ? avgRating + ' ★' : '—';
-                document.getElementById('sentimentScore').textContent = avgSentiment !== '—' ? avgSentiment : '—';
+                // --- Update AI View ---
+                document.getElementById('aiTotalConversations').textContent = totals.total;
+                document.getElementById('aiDeflectionRate').textContent = deflectionRate + '%';
+                document.getElementById('aiAvgResponseTime').textContent = '—';
+                document.getElementById('aiResolutionRate').textContent = resolutionRate + '%';
+                document.getElementById('aiSentimentScore').textContent = avgSentiment !== '—' ? avgSentiment : '—';
+                document.getElementById('aiAvgMessages').textContent = '—';
 
-                document.getElementById('totalSub').textContent = `Last ${period} days`;
+                // --- Update Human View ---
+                document.getElementById('humanTotalEscalations').textContent = totals.escalated;
+                document.getElementById('humanEscalationRate').textContent = escalationRate + '%';
+                document.getElementById('humanAvgHandlingTime').textContent = '—';
+                document.getElementById('humanCsatScore').textContent = avgRating !== '—' ? avgRating : '—';
+                document.getElementById('humanResolutionRate').textContent = resolutionRate + '%';
+                document.getElementById('humanActiveAgents').textContent = '—';
 
                 document.getElementById('lastUpdated').textContent = `Last updated: ${new Date().toLocaleTimeString()}`;
 
-                // --- Update Charts ---
+                // --- Update AI Charts ---
                 const labels = analyticsData.map(d => d.date);
                 const resolvedData = analyticsData.map(d => parseInt(d.resolved) || 0);
                 const escalatedData = analyticsData.map(d => parseInt(d.escalated) || 0);
-                updateTrendChart(labels, resolvedData, escalatedData);
+                updateAITrendChart(labels, resolvedData, escalatedData);
+                updateAISentimentChart(positiveCount, neutralCount, negativeCount);
 
-                const totalResolved = totals.resolved;
-                const totalEscalated = totals.escalated;
-                const totalPending = Math.max(0, totals.total - totalResolved - totalEscalated);
-                updateBreakdownChart(totalResolved, totalEscalated, totalPending);
+                // --- Update Human Charts ---
+                updateHumanTrendChart(labels, escalatedData);
+                updateHumanReasonsChart(ratingsData);
 
-                updateSentimentChart(positiveCount, neutralCount, negativeCount);
-                updateRatingChart(ratingsData);
+                // --- Update AI Intents ---
+                updateIntents(intentsData, 'aiIntentsList');
 
-                updateConversationsTable(conversationsData);
-                updateIntents(intentsData);
+                // --- Update Escalation Reasons ---
+                updateEscalationReasons(ratingsData);
+
+                // --- Update Conversations Tables ---
+                updateConversationsTable(conversationsData, 'aiConversationsBody');
+                updateConversationsTable(conversationsData.filter(c => c.resolution_status === 'escalated'), 'humanConversationsBody');
 
             } catch (error) {
                 console.error('Dashboard error:', error);
-                document.getElementById('totalConversations').textContent = 'Error';
             }
         }
 
         // ==========================================
-        // TREND CHART
+        // AI TREND CHART
         // ==========================================
-        function updateTrendChart(labels, resolved, escalated) {
-            if (trendChart) trendChart.destroy();
+        function updateAITrendChart(labels, resolved, escalated) {
+            if (aiTrendChart) aiTrendChart.destroy();
 
-            const ctx = document.getElementById('trendChart').getContext('2d');
-            trendChart = new Chart(ctx, {
+            const ctx = document.getElementById('aiTrendChart').getContext('2d');
+            aiTrendChart = new Chart(ctx, {
                 type: 'bar',
                 data: {
                     labels: labels,
@@ -1065,54 +1197,17 @@
         }
 
         // ==========================================
-        // BREAKDOWN CHART
+        // AI SENTIMENT CHART
         // ==========================================
-        function updateBreakdownChart(resolved, escalated, pending) {
-            if (breakdownChart) breakdownChart.destroy();
+        function updateAISentimentChart(positive, neutral, negative) {
+            if (aiSentimentChart) aiSentimentChart.destroy();
 
-            const ctx = document.getElementById('breakdownChart').getContext('2d');
-            breakdownChart = new Chart(ctx, {
-                type: 'doughnut',
-                data: {
-                    labels: ['Resolved', 'Escalated', 'Pending'],
-                    datasets: [{
-                        data: [resolved, escalated, pending],
-                        backgroundColor: ['#7C9B8A', '#E7A98C', 'rgba(255,255,255,0.08)'],
-                        borderColor: ['#5A7A6A', '#D48A6A', 'rgba(255,255,255,0.02)'],
-                        borderWidth: 2,
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: true,
-                    plugins: {
-                        legend: {
-                            position: 'bottom',
-                            labels: {
-                                color: 'rgba(255,255,255,0.6)',
-                                font: { size: 11 },
-                                padding: 16,
-                                boxWidth: 12,
-                            }
-                        }
-                    },
-                    cutout: '65%',
-                }
-            });
-        }
-
-        // ==========================================
-        // SENTIMENT CHART
-        // ==========================================
-        function updateSentimentChart(positive, neutral, negative) {
-            if (sentimentChart) sentimentChart.destroy();
-
-            const ctx = document.getElementById('sentimentChart').getContext('2d');
+            const ctx = document.getElementById('aiSentimentChart').getContext('2d');
             
             const total = positive + neutral + negative;
             const hasData = total > 0;
 
-            sentimentChart = new Chart(ctx, {
+            aiSentimentChart = new Chart(ctx, {
                 type: 'doughnut',
                 data: {
                     labels: ['Positive', 'Neutral', 'Negative'],
@@ -1143,32 +1238,80 @@
         }
 
         // ==========================================
-        // RATING CHART
+        // HUMAN TREND CHART
         // ==========================================
-        function updateRatingChart(ratingsData) {
-            if (ratingChart) ratingChart.destroy();
+        function updateHumanTrendChart(labels, escalated) {
+            if (humanTrendChart) humanTrendChart.destroy();
 
-            const ctx = document.getElementById('ratingChart').getContext('2d');
-
-            const ratingMap = {
-                'yes': 'Yes',
-                'no': 'No',
-                'partial': 'Partial'
-            };
-
-            const labels = ratingsData.map(r => ratingMap[r.rating] || r.rating);
-            const data = ratingsData.map(r => parseInt(r.count) || 0);
-            const colors = ['rgba(46, 204, 113, 0.6)', 'rgba(231, 76, 60, 0.6)', 'rgba(241, 196, 15, 0.6)'];
-            const borderColors = ['#2ECC71', '#E74C3C', '#F1C40F'];
-
-            ratingChart = new Chart(ctx, {
-                type: 'doughnut',
+            const ctx = document.getElementById('humanTrendChart').getContext('2d');
+            humanTrendChart = new Chart(ctx, {
+                type: 'bar',
                 data: {
                     labels: labels,
                     datasets: [{
-                        data: data,
-                        backgroundColor: colors,
-                        borderColor: borderColors,
+                        label: 'Escalations',
+                        data: escalated,
+                        backgroundColor: 'rgba(231, 169, 140, 0.6)',
+                        borderColor: '#E7A98C',
+                        borderWidth: 1,
+                        borderRadius: 4,
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    plugins: {
+                        legend: {
+                            labels: {
+                                color: 'rgba(255,255,255,0.6)',
+                                font: { size: 11 },
+                                boxWidth: 12,
+                                padding: 12,
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: { color: 'rgba(255,255,255,0.03)' },
+                            ticks: { color: 'rgba(255,255,255,0.4)', font: { size: 9 } }
+                        },
+                        y: {
+                            grid: { color: 'rgba(255,255,255,0.03)' },
+                            ticks: { color: 'rgba(255,255,255,0.4)', font: { size: 9 } },
+                            beginAtZero: true,
+                        }
+                    }
+                }
+            });
+        }
+
+        // ==========================================
+        // HUMAN REASONS CHART
+        // ==========================================
+        function updateHumanReasonsChart(ratingsData) {
+            if (humanReasonsChart) humanReasonsChart.destroy();
+
+            const ctx = document.getElementById('humanReasonsChart').getContext('2d');
+
+            const reasons = {
+                'yes': 'Resolved by Agent',
+                'no': 'Unresolved',
+                'partial': 'Partially Resolved'
+            };
+
+            const labels = ratingsData.map(r => reasons[r.rating] || r.rating);
+            const data = ratingsData.map(r => parseInt(r.count) || 0);
+            const colors = ['rgba(124, 155, 138, 0.6)', 'rgba(231, 76, 60, 0.6)', 'rgba(241, 196, 15, 0.6)'];
+            const borderColors = ['#7C9B8A', '#E74C3C', '#F1C40F'];
+
+            humanReasonsChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: labels.length > 0 ? labels : ['No Data'],
+                    datasets: [{
+                        data: data.length > 0 ? data : [1],
+                        backgroundColor: data.length > 0 ? colors : ['rgba(255,255,255,0.08)'],
+                        borderColor: data.length > 0 ? borderColors : ['rgba(255,255,255,0.02)'],
                         borderWidth: 2,
                     }]
                 },
@@ -1192,17 +1335,81 @@
         }
 
         // ==========================================
+        // UPDATE INTENTS
+        // ==========================================
+        function updateIntents(intents, containerId) {
+            const container = document.getElementById(containerId);
+
+            if (!intents || intents.length === 0) {
+                container.innerHTML = `
+                    <div style="text-align:center;color:var(--text-muted);padding:20px 0;font-size:0.85rem;">
+                        No intent data yet.
+                    </div>
+                `;
+                return;
+            }
+
+            const maxCount = intents[0]?.count || 1;
+
+            container.innerHTML = intents.map(item => {
+                const percentage = Math.round((item.count / maxCount) * 100);
+                const label = item.intent.charAt(0).toUpperCase() + item.intent.slice(1);
+                return `
+                    <div class="intent-item">
+                        <span class="name">${label}</span>
+                        <div class="bar">
+                            <div class="fill" style="width:${percentage}%;"></div>
+                        </div>
+                        <span class="count">${item.count}</span>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // ==========================================
+        // UPDATE ESCALATION REASONS
+        // ==========================================
+        function updateEscalationReasons(ratingsData) {
+            const container = document.getElementById('humanReasonsList');
+
+            if (!ratingsData || ratingsData.length === 0) {
+                container.innerHTML = `
+                    <div style="text-align:center;color:var(--text-muted);padding:20px 0;font-size:0.85rem;">
+                        No escalation data yet.
+                    </div>
+                `;
+                return;
+            }
+
+            const maxCount = ratingsData[0]?.count || 1;
+
+            container.innerHTML = ratingsData.map(item => {
+                const percentage = Math.round((item.count / maxCount) * 100);
+                const label = item.rating.charAt(0).toUpperCase() + item.rating.slice(1);
+                return `
+                    <div class="escalation-item">
+                        <span class="name">${label}</span>
+                        <div class="bar">
+                            <div class="fill" style="width:${percentage}%;"></div>
+                        </div>
+                        <span class="count">${item.count}</span>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // ==========================================
         // CONVERSATIONS TABLE
         // ==========================================
-        function updateConversationsTable(conversations) {
-            const tbody = document.getElementById('conversationsBody');
+        function updateConversationsTable(conversations, containerId) {
+            const tbody = document.getElementById(containerId);
 
             if (!conversations || conversations.length === 0) {
                 tbody.innerHTML = `
                     <tr>
                         <td colspan="7" style="text-align:center;color:var(--text-muted);padding:30px 0;">
                             <div class="empty-state">
-                                <p>No conversations yet.<br>Send a test message to get started.</p>
+                                <p>No conversations yet.</p>
                             </div>
                         </td>
                     </tr>
@@ -1260,38 +1467,6 @@
                         <td><span class="badge-sentiment ${sentimentClass}">${sentimentLabels[sentiment] || '—'}</span></td>
                         <td><span class="status ${statusClass}">${statusLabel}</span></td>
                     </tr>
-                `;
-            }).join('');
-        }
-
-        // ==========================================
-        // INTENTS
-        // ==========================================
-        function updateIntents(intents) {
-            const container = document.getElementById('intentsList');
-
-            if (!intents || intents.length === 0) {
-                container.innerHTML = `
-                    <div style="text-align:center;color:var(--text-muted);padding:20px 0;font-size:0.85rem;">
-                        No intent data yet.
-                    </div>
-                `;
-                return;
-            }
-
-            const maxCount = intents[0]?.count || 1;
-
-            container.innerHTML = intents.map(item => {
-                const percentage = Math.round((item.count / maxCount) * 100);
-                const label = item.intent.charAt(0).toUpperCase() + item.intent.slice(1);
-                return `
-                    <div class="intent-item">
-                        <span class="name">${label}</span>
-                        <div class="bar">
-                            <div class="fill" style="width:${percentage}%;"></div>
-                        </div>
-                        <span class="count">${item.count}</span>
-                    </div>
                 `;
             }).join('');
         }
