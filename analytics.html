@@ -869,7 +869,7 @@
                 // --- Update Rating Chart ---
                 updateRatingChart(ratingsData);
 
-                // --- Update Conversations Table ---
+                // --- Update Conversations Table (with IST timezone fix) ---
                 updateConversationsTable(conversationsData);
 
                 // --- Update Intents ---
@@ -1026,7 +1026,7 @@
         }
 
         // ==========================================
-        // CONVERSATIONS TABLE
+        // CONVERSATIONS TABLE (FIXED WITH IST TIMEZONE)
         // ==========================================
         function updateConversationsTable(conversations) {
             const tbody = document.getElementById('conversationsBody');
@@ -1048,15 +1048,23 @@
             tbody.innerHTML = conversations.map(conv => {
                 const statusClass = conv.resolution_status || 'pending';
                 const statusLabel = statusClass.charAt(0).toUpperCase() + statusClass.slice(1);
-                const date = new Date(conv.started_at).toLocaleDateString('en-IN', {
+                
+                // ==========================================
+                // FIX: Convert UTC to IST (+5:30)
+                // ==========================================
+                const utcDate = new Date(conv.started_at);
+                const istDate = new Date(utcDate.getTime() + (5.5 * 60 * 60 * 1000));
+                
+                const date = istDate.toLocaleDateString('en-IN', {
                     day: '2-digit',
                     month: 'short',
                     year: 'numeric',
                 });
-                const time = new Date(conv.started_at).toLocaleTimeString('en-IN', {
+                const time = istDate.toLocaleTimeString('en-IN', {
                     hour: '2-digit',
                     minute: '2-digit',
                 });
+                
                 const query = conv.first_query || '—';
                 const truncatedQuery = query.length > 35 ? query.substring(0, 35) + '…' : query;
                 const intent = conv.intent || 'general';
