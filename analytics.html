@@ -2332,7 +2332,7 @@
         .layout-editing .layout-card::after { content:"Drag or resize"; position:absolute; right:9px; top:8px; padding:3px 5px; border-radius:5px; background:rgba(136,169,152,.16); color:var(--accent-light); font-size:8px; pointer-events:none; }
         .layout-card { position:relative; }
         .layout-card.layout-dragging { opacity:.42; }
-        .agent-assist-panel { position:absolute; top:0; bottom:0; left:var(--sidebar-width); right:min(780px,100%); width:auto; z-index:2; display:flex; flex-direction:column; padding:24px 28px; overflow-y:auto; background:#f4f6f2; color:#17201b; border-right:1px solid #dce3dd; box-shadow:-18px 0 50px rgba(0,0,0,.18); transition:transform .2s ease; }
+        .agent-assist-panel { position:absolute; top:0; bottom:0; left:var(--sidebar-width); right:min(900px,100%); width:auto; z-index:2; display:flex; flex-direction:column; padding:24px 28px; overflow-y:auto; background:#f4f6f2; color:#17201b; border-right:1px solid #dce3dd; box-shadow:-18px 0 50px rgba(0,0,0,.18); transition:transform .2s ease; }
         .agent-assist-panel.collapsed { transform:translateX(100%); pointer-events:none; }
         .agent-assist-head { display:flex; align-items:center; justify-content:space-between; margin-bottom:18px; }
         .agent-assist-title { font-size:21px; font-weight:800; letter-spacing:-.02em; }
@@ -2374,45 +2374,50 @@
         .ticket-markdown a { color:inherit; text-decoration:underline; }
         .ticket-drawer-backdrop { position:fixed; inset:0; z-index:1000; display:none; background:rgba(0,0,0,.62); backdrop-filter:blur(3px); }
         .ticket-drawer-backdrop.open { display:block; }
-        .ticket-drawer { position:absolute; top:0; right:0; bottom:0; width:min(780px,100%); display:flex; flex-direction:column; background:#0b0e0c; border-left:1px solid var(--border); box-shadow:-24px 0 70px rgba(0,0,0,.35); }
-        .ticket-drawer-head { flex:0 0 auto; display:flex; align-items:center; justify-content:space-between; gap:16px; padding:18px 22px; border-bottom:1px solid var(--border); background:rgba(11,14,12,.96); }
+        .ticket-drawer { position:absolute; top:0; right:0; bottom:0; width:min(900px,100%); display:flex; flex-direction:column; background:#0b0e0c; border-left:1px solid var(--border); box-shadow:-24px 0 70px rgba(0,0,0,.35); }
+        .ticket-drawer-head { flex:0 0 auto; display:flex; align-items:flex-start; justify-content:space-between; gap:20px; padding:22px 28px 20px; border-bottom:1px solid var(--border); background:rgba(11,14,12,.98); }
         .ticket-heading-row { display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
-        .ticket-drawer-title { font-size:19px; font-weight:750; }
-        .ticket-drawer-meta { color:var(--text-muted); font-size:10px; margin-top:4px; }
+        .ticket-drawer-title { font-size:22px; font-weight:780; letter-spacing:-.02em; }
+        .ticket-drawer-customer { margin-top:9px; color:var(--text); font-size:13px; font-weight:650; }
+        .ticket-drawer-customer span { margin-left:8px; color:var(--accent-light); font-weight:500; }
+        .ticket-drawer-meta { color:var(--text-muted); font-size:10px; margin-top:3px; }
         .ticket-chip { padding:5px 8px; border-radius:999px; font-size:9px; font-weight:700; text-transform:uppercase; letter-spacing:.06em; background:rgba(136,169,152,.12); color:var(--accent-light); }
         .ticket-chip.priority-high { background:rgba(223,141,130,.12); color:var(--danger); }
         .ticket-close { border:1px solid var(--border); background:var(--bg-card); color:var(--text); border-radius:9px; width:36px; height:36px; cursor:pointer; }
-        .ticket-workspace-scroll { flex:1 1 auto; overflow-y:auto; padding:18px 22px 22px; }
-        .ticket-context { padding:14px 16px; margin-bottom:13px; border:1px solid var(--border); border-radius:12px; background:var(--bg-card); }
-        .ticket-context-top { display:flex; justify-content:space-between; gap:16px; margin-bottom:12px; }
-        .ticket-context-name { font-size:15px; font-weight:700; }
-        .ticket-context-phone { color:var(--accent-light); font-size:13px; margin-top:3px; }
-        .ticket-context-grid { display:grid; grid-template-columns:1.5fr 1fr 1fr; gap:12px; }
+        .ticket-workspace-scroll { flex:1 1 auto; min-height:0; overflow-y:auto; padding:18px 28px 26px; }
+        .ticket-context { padding:15px 0 17px; margin-bottom:12px; border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
+        .ticket-context-grid { display:grid; grid-template-columns:minmax(0,1.65fr) minmax(150px,1fr) minmax(110px,.65fr); gap:0; }
+        .ticket-context-item + .ticket-context-item { padding-left:20px; border-left:1px solid var(--border); }
+        .ticket-context-item:not(:last-child) { padding-right:20px; }
         .ticket-context-item span { display:block; margin-bottom:4px; color:var(--text-muted); font-size:10px; text-transform:uppercase; letter-spacing:.08em; }
         .ticket-context-item { color:var(--text); font-size:13px; line-height:1.45; }
-        .ticket-ai-details { margin-bottom:13px; border:1px solid var(--border); border-radius:11px; background:rgba(255,255,255,.018); }
-        .ticket-ai-details summary { padding:11px 14px; cursor:pointer; color:var(--text-secondary); font-size:12px; font-weight:650; }
-        .ticket-ai-transcript { max-height:260px; overflow-y:auto; padding:0 13px 12px; }
-        .ticket-thread-label { margin:14px 2px 8px; color:var(--text-muted); font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; }
-        .ticket-thread { min-height:210px; padding:14px; background:var(--bg-card); border:1px solid var(--border); border-radius:12px; }
-        .ticket-thread-message { width:fit-content; max-width:76%; margin:0 0 9px; padding:9px 11px; border-radius:11px; font-size:13px; line-height:1.48; }
-        .ticket-thread-message.customer { margin-left:auto; background:#a7c8b8; color:#0a120e; border-bottom-right-radius:3px; }
-        .ticket-thread-message.agent { background:rgba(136,169,152,.10); border:1px solid rgba(136,169,152,.24); border-bottom-left-radius:3px; }
+        .ticket-ai-details { margin-bottom:18px; border:1px solid var(--border); border-radius:10px; background:rgba(255,255,255,.012); }
+        .ticket-ai-details summary { display:flex; align-items:center; justify-content:space-between; gap:12px; padding:10px 13px; cursor:pointer; color:var(--text-secondary); font-size:11px; font-weight:650; list-style:none; }
+        .ticket-ai-details summary::-webkit-details-marker { display:none; }
+        .ticket-ai-details summary::after { content:"⌄"; color:var(--text-muted); font-size:14px; transition:transform .16s ease; }
+        .ticket-ai-details[open] summary::after { transform:rotate(180deg); }
+        .ticket-ai-count { margin-left:auto; color:var(--text-muted); font-size:9px; font-weight:500; }
+        .ticket-ai-transcript { max-height:280px; overflow-y:auto; padding:5px 14px 14px; }
+        .ticket-thread-label { margin:4px 2px 14px; color:var(--text-muted); font-size:10px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; }
+        .ticket-thread { min-height:240px; padding:0 2px 12px; background:transparent; border:0; }
+        .ticket-thread-message { width:fit-content; max-width:68%; margin:0 0 12px; padding:11px 14px; border-radius:15px; font-size:13px; line-height:1.52; box-shadow:0 5px 16px rgba(0,0,0,.08); }
+        .ticket-thread-message.customer { margin-left:auto; background:#abcbbb; color:#0a120e; border-bottom-right-radius:5px; }
+        .ticket-thread-message.agent { background:#151e19; border:1px solid rgba(136,169,152,.24); border-bottom-left-radius:5px; }
         .ticket-thread-message.ai { max-width:90%; background:rgba(255,255,255,.025); border:1px solid var(--border); color:var(--text-secondary); }
-        .ticket-thread-name { display:block; font-size:10px; opacity:.65; margin-bottom:3px; text-transform:uppercase; }
-        .ticket-composer { flex:0 0 auto; padding:12px 22px 16px; border-top:1px solid var(--border); background:#0b0e0c; }
-        .ticket-composer-tabs { display:flex; gap:4px; margin-bottom:8px; }
+        .ticket-thread-name { display:block; font-size:9px; opacity:.62; margin-bottom:5px; text-transform:uppercase; letter-spacing:.025em; }
+        .ticket-composer { flex:0 0 auto; padding:11px 28px 16px; border-top:1px solid var(--border); background:#0b0e0c; box-shadow:0 -12px 30px rgba(0,0,0,.13); }
+        .ticket-composer-tabs { display:flex; gap:5px; margin-bottom:9px; }
         .ticket-composer-tab { padding:6px 9px; border:0; border-radius:7px; background:transparent; color:var(--text-muted); font-size:11px; cursor:pointer; }
         .ticket-composer-tab.active { background:rgba(136,169,152,.12); color:var(--accent-light); }
         .ticket-composer-box { position:relative; }
-        .ticket-composer textarea { width:100%; min-height:68px; max-height:150px; resize:vertical; padding:11px 52px 11px 12px; color:var(--text); background:var(--bg-card); border:1px solid var(--border); border-radius:11px; outline:none; font:inherit; font-size:13px; }
+        .ticket-composer textarea { width:100%; height:76px; min-height:76px; max-height:240px; overflow-y:hidden; resize:none; padding:13px 54px 13px 14px; color:var(--text); background:var(--bg-card); border:1px solid var(--border); border-radius:12px; outline:none; font:inherit; font-size:13px; line-height:1.5; transition:border-color .16s ease,box-shadow .16s ease; }
         .ticket-composer textarea:focus { border-color:rgba(136,169,152,.45); }
         .ticket-send-arrow { position:absolute; right:9px; bottom:10px; width:34px; height:34px; display:grid; place-items:center; border:0; border-radius:9px; background:var(--accent); color:#07110d; cursor:pointer; }
         .ticket-send-arrow:disabled { opacity:.35; cursor:not-allowed; }
         .ticket-send-arrow svg { width:17px; height:17px; fill:none; stroke:currentColor; stroke-width:2; }
-        .ticket-action-row { display:flex; align-items:center; gap:7px; margin-top:8px; }
+        .ticket-action-row { display:flex; align-items:center; gap:8px; margin-top:9px; }
         .ticket-action-btn { padding:8px 10px; border:1px solid var(--border); border-radius:8px; background:transparent; color:var(--text-secondary); font-size:11px; cursor:pointer; }
-        .ticket-action-btn.resolve { margin-left:auto; color:var(--accent-light); border-color:rgba(136,169,152,.3); }
+        .ticket-action-btn.resolve { margin-left:auto; padding:8px 13px; color:#07110d; background:var(--accent); border-color:var(--accent); font-weight:700; }
         .ticket-note-pane { display:none; }
         .ticket-note-pane.active, .ticket-reply-pane.active { display:block; }
         .ticket-reply-pane { display:none; }
@@ -2429,9 +2434,9 @@
         .ticket-resolution-dialog p { margin:0 0 12px; color:var(--text-muted); font-size:10px; }
         .ticket-resolution-dialog textarea { width:100%; min-height:90px; padding:10px; resize:vertical; color:var(--text); background:#0b0e0c; border:1px solid var(--border); border-radius:9px; }
         .ticket-table tbody tr { cursor:pointer; }
-        @media (max-width:1180px) { .agent-assist-panel { left:0; right:auto; width:min(640px,calc(100% - 42px)); box-shadow:18px 0 55px rgba(0,0,0,.35); } .agent-assist-panel.collapsed { transform:translateX(-100%); } .agent-assist-reopen { left:auto; right:-38px; border-radius:0 9px 9px 0; } }
+        @media (max-width:1600px) { .agent-assist-panel { left:0; right:auto; width:min(640px,calc(100% - 42px)); box-shadow:18px 0 55px rgba(0,0,0,.35); } .agent-assist-panel.collapsed { transform:translateX(-100%); } .agent-assist-reopen { left:auto; right:-38px; border-radius:0 9px 9px 0; } }
         @media (max-width:768px) { .layout-controls { display:none; } }
-        @media (max-width:620px) { .ticket-drawer-head,.ticket-workspace-scroll,.ticket-composer { padding-left:14px; padding-right:14px; } .ticket-context-grid { grid-template-columns:1fr; } .ticket-thread-message { max-width:88%; } .agent-assist-panel { width:min(340px,calc(100% - 42px)); } }
+        @media (max-width:620px) { .ticket-drawer-head,.ticket-workspace-scroll,.ticket-composer { padding-left:14px; padding-right:14px; } .ticket-context-grid { grid-template-columns:1fr; gap:13px; } .ticket-context-item + .ticket-context-item { padding-left:0; border-left:0; } .ticket-context-item:not(:last-child) { padding-right:0; } .ticket-thread-message { max-width:88%; } .agent-assist-panel { width:min(340px,calc(100% - 42px)); padding:18px; } }
     </style>
 
 </head>
@@ -2567,40 +2572,6 @@
 
                 <span>
                     Tickets
-                </span>
-
-            </a>
-
-
-            <!-- Website -->
-
-            <a
-                href="/"
-                class="nav-item"
-            >
-
-                <svg
-                    viewBox="0 0 24 24"
-                    fill="none"
-                >
-
-                    <path
-                        d="M3 11.5 12 4l9 7.5"
-                        stroke="currentColor"
-                        stroke-width="1.8"
-                        stroke-linecap="round"
-                    />
-
-                    <path
-                        d="M5.5 10v9.5h13V10"
-                        stroke="currentColor"
-                        stroke-width="1.8"
-                    />
-
-                </svg>
-
-                <span>
-                    Website
                 </span>
 
             </a>
@@ -3868,6 +3839,9 @@
         <div class="agent-assist-section">
             <div class="agent-assist-section-head">
                 <div><div class="agent-assist-label">Improve your draft</div><div class="agent-assist-hint">Type or paste the message you want AI to refine</div></div>
+                <button id="agentCopyDraft" class="agent-assist-copy" type="button" aria-label="Copy current draft" title="Copy current draft">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="8" width="11" height="11" rx="2"></rect><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"></path></svg><span>Copied</span>
+                </button>
             </div>
             <textarea id="agentDraftInput" class="agent-draft-input" placeholder="Type or paste your draft here…"></textarea>
             <div class="agent-tone-actions">
@@ -3879,18 +3853,9 @@
             </div>
             <button id="agentOriginalToggle" class="agent-original-toggle" type="button">Show original</button>
             <div id="agentOriginalBox" class="agent-original-box"></div>
-            <div id="agentImprovedWrap" class="agent-improved-wrap">
-                <div class="agent-assist-section-head">
-                    <div><div class="agent-assist-label">Improved version</div><div class="agent-assist-hint">You can edit this result before inserting it</div></div>
-                    <button id="agentCopyImproved" class="agent-assist-copy" type="button" aria-label="Copy improved draft" title="Copy improved draft">
-                        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="8" width="11" height="11" rx="2"></rect><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"></path></svg><span>Copied</span>
-                    </button>
-                </div>
-                <textarea id="agentImprovedInput" class="agent-improved-input" placeholder="The improved draft will appear here…"></textarea>
-            </div>
             <div class="agent-draft-footer">
                 <button id="agentClearDraft" class="agent-clear-btn" type="button">Clear</button>
-                <button id="agentInsertImproved" class="agent-assist-btn primary" type="button" disabled>Insert into reply</button>
+                <button id="agentInsertDraft" class="agent-assist-btn primary" type="button" disabled>Insert into reply</button>
             </div>
             <div id="agentAssistStatus" class="agent-assist-status"></div>
         </div>
@@ -3903,6 +3868,7 @@
                     <span id="ticketStatusChip" class="ticket-chip">Open</span>
                     <span id="ticketPriorityChip" class="ticket-chip">Normal</span>
                 </div>
+                <div id="ticketDrawerCustomer" class="ticket-drawer-customer"></div>
                 <div id="ticketDrawerMeta" class="ticket-drawer-meta"></div>
             </div>
             <button id="ticketDrawerClose" class="ticket-close" type="button" aria-label="Close ticket">✕</button>
@@ -3911,7 +3877,7 @@
         <div class="ticket-workspace-scroll">
             <div id="ticketContext" class="ticket-context"></div>
             <details class="ticket-ai-details">
-                <summary>View AI conversation before handoff</summary>
+                <summary><span>AI conversation before handoff</span><span id="ticketAiCount" class="ticket-ai-count">0 messages</span></summary>
                 <div id="ticketAiTranscript" class="ticket-ai-transcript"></div>
             </details>
             <div class="ticket-thread-label">Human support conversation</div>
@@ -6901,15 +6867,13 @@
         document.getElementById("agentAssistSuggestion").className = "agent-suggestion empty";
         document.getElementById("agentAssistSuggestion").textContent = "Generate a reply suggestion using the ticket context.";
         document.getElementById("agentDraftInput").value = "";
-        document.getElementById("agentImprovedInput").value = "";
-        document.getElementById("agentImprovedWrap").classList.remove("visible");
         document.getElementById("agentOriginalToggle").classList.remove("visible");
         document.getElementById("agentOriginalBox").classList.remove("visible");
         document.getElementById("agentOriginalToggle").textContent = "Show original";
         document.getElementById("agentAssistStatus").textContent = "";
         document.getElementById("agentRegenerate").disabled = true;
         document.getElementById("agentInsertSuggestion").disabled = true;
-        document.getElementById("agentInsertImproved").disabled = true;
+        document.getElementById("agentInsertDraft").disabled = true;
         await loadOpenTicket();
     }
 
@@ -6932,6 +6896,7 @@
 
             const ticket = data.ticket;
             document.getElementById("ticketDrawerTitle").textContent = ticket.ticket_number || `NX-${String(ticket.id).padStart(4, "0")}`;
+            document.getElementById("ticketDrawerCustomer").innerHTML = `${escapeHtml(ticket.customer_name || "Customer details unavailable")}<span>${escapeHtml(ticket.customer_phone || "No phone number")}</span>`;
             document.getElementById("ticketDrawerMeta").textContent = `Created ${ticketDateText(ticket.created_at)} · ${ticket.agent_name || "Novara CX Support"}`;
 
             const statusChip = document.getElementById("ticketStatusChip");
@@ -6941,9 +6906,6 @@
             priorityChip.className = `ticket-chip ${ticket.priority === "high" ? "priority-high" : ""}`;
 
             document.getElementById("ticketContext").innerHTML = `
-                <div class="ticket-context-top">
-                    <div><div class="ticket-context-name">${escapeHtml(ticket.customer_name || "Customer details unavailable")}</div><div class="ticket-context-phone">${escapeHtml(ticket.customer_phone || "No phone number")}</div></div>
-                </div>
                 <div class="ticket-context-grid">
                     <div class="ticket-context-item"><span>Original query</span>${escapeHtml(ticket.customer_query || "—")}</div>
                     <div class="ticket-context-item"><span>Escalation reason</span>${escapeHtml((ticket.escalation_reason || "—").replaceAll("_", " "))}</div>
@@ -6963,6 +6925,7 @@
             });
 
             const aiElement = document.getElementById("ticketAiTranscript");
+            document.getElementById("ticketAiCount").textContent = `${aiThread.length} ${aiThread.length === 1 ? "message" : "messages"}`;
             aiElement.innerHTML = aiThread.length ? aiThread.map(item => `
                 <div class="ticket-thread-message ${item.type}">
                     <span class="ticket-thread-name">${escapeHtml(item.name)} · ${escapeHtml(ticketDateText(item.created_at))}</span><div class="ticket-markdown">${renderSafeMarkdown(item.message)}</div>
@@ -7010,19 +6973,28 @@
     let lastAssistSuggestion = "";
     let originalAssistDraft = "";
 
+    function autoResizeTextarea(textarea) {
+        if (!textarea) return;
+        const minimum = textarea.id === "ticketReplyText" ? 76 : 96;
+        const maximum = textarea.id === "ticketReplyText" ? 240 : 250;
+        textarea.style.height = "auto";
+        const nextHeight = Math.max(minimum, Math.min(textarea.scrollHeight, maximum));
+        textarea.style.height = `${nextHeight}px`;
+        textarea.style.overflowY = textarea.scrollHeight > maximum ? "auto" : "hidden";
+    }
+
     function setAssistBusy(isBusy) {
         document.getElementById("agentSuggestReply").disabled = isBusy;
         document.getElementById("agentRegenerate").disabled = isBusy || !lastAssistSuggestion;
         document.getElementById("agentInsertSuggestion").disabled = isBusy || !lastAssistSuggestion;
         document.querySelectorAll("[data-assist-mode]").forEach(button => button.disabled = isBusy);
-        document.getElementById("agentInsertImproved").disabled = isBusy || !document.getElementById("agentImprovedInput").value.trim();
+        document.getElementById("agentInsertDraft").disabled = isBusy || !document.getElementById("agentDraftInput").value.trim();
     }
 
     async function runAgentAssist(mode, target) {
         const status = document.getElementById("agentAssistStatus");
         const draftInput = document.getElementById("agentDraftInput");
-        const improvedInput = document.getElementById("agentImprovedInput");
-        const draft = target === "draft" ? (improvedInput.value.trim() || draftInput.value.trim()) : "";
+        const draft = target === "draft" ? draftInput.value.trim() : "";
         if (target === "draft" && !draft) {
             status.textContent = "Type or paste a draft first.";
             draftInput.focus();
@@ -7043,8 +7015,8 @@
                 suggestionBox.innerHTML = `<div class="ticket-markdown">${renderSafeMarkdown(data.suggestion)}</div>`;
                 status.textContent = "Suggested reply ready. Review it before inserting.";
             } else {
-                improvedInput.value = data.suggestion;
-                document.getElementById("agentImprovedWrap").classList.add("visible");
+                draftInput.value = data.suggestion;
+                autoResizeTextarea(draftInput);
                 document.getElementById("agentOriginalToggle").classList.add("visible");
                 status.textContent = "Draft improved. You can edit it or apply another option.";
             }
@@ -7070,7 +7042,7 @@
     document.getElementById("agentRegenerate").addEventListener("click", () => runAgentAssist("suggest", "suggestion"));
     document.querySelectorAll("[data-assist-mode]").forEach(button => button.addEventListener("click", () => runAgentAssist(button.dataset.assistMode, "draft")));
     document.getElementById("agentCopySuggestion").addEventListener("click", event => copyAssistText(event.currentTarget, lastAssistSuggestion));
-    document.getElementById("agentCopyImproved").addEventListener("click", event => copyAssistText(event.currentTarget, document.getElementById("agentImprovedInput").value.trim()));
+    document.getElementById("agentCopyDraft").addEventListener("click", event => copyAssistText(event.currentTarget, document.getElementById("agentDraftInput").value.trim()));
     document.getElementById("agentInsertSuggestion").addEventListener("click", () => {
         if (!lastAssistSuggestion) return;
         const reply = document.getElementById("ticketReplyText");
@@ -7079,17 +7051,18 @@
         setComposerMode("reply");
         reply.focus();
     });
-    document.getElementById("agentInsertImproved").addEventListener("click", () => {
-        const improved = document.getElementById("agentImprovedInput").value.trim();
-        if (!improved) return;
+    document.getElementById("agentInsertDraft").addEventListener("click", () => {
+        const draft = document.getElementById("agentDraftInput").value.trim();
+        if (!draft) return;
         const reply = document.getElementById("ticketReplyText");
-        reply.value = improved;
+        reply.value = draft;
         reply.dispatchEvent(new Event("input"));
         setComposerMode("reply");
         reply.focus();
     });
-    document.getElementById("agentImprovedInput").addEventListener("input", event => {
-        document.getElementById("agentInsertImproved").disabled = !event.target.value.trim();
+    document.getElementById("agentDraftInput").addEventListener("input", event => {
+        autoResizeTextarea(event.target);
+        document.getElementById("agentInsertDraft").disabled = !event.target.value.trim();
     });
     document.getElementById("agentOriginalToggle").addEventListener("click", event => {
         const box = document.getElementById("agentOriginalBox");
@@ -7099,13 +7072,12 @@
     document.getElementById("agentClearDraft").addEventListener("click", () => {
         originalAssistDraft = "";
         document.getElementById("agentDraftInput").value = "";
-        document.getElementById("agentImprovedInput").value = "";
+        autoResizeTextarea(document.getElementById("agentDraftInput"));
         document.getElementById("agentOriginalBox").textContent = "";
         document.getElementById("agentOriginalBox").classList.remove("visible");
         document.getElementById("agentOriginalToggle").classList.remove("visible");
         document.getElementById("agentOriginalToggle").textContent = "Show original";
-        document.getElementById("agentImprovedWrap").classList.remove("visible");
-        document.getElementById("agentInsertImproved").disabled = true;
+        document.getElementById("agentInsertDraft").disabled = true;
         document.getElementById("agentAssistStatus").textContent = "";
     });
     document.getElementById("agentAssistCollapse").addEventListener("click", () => document.getElementById("agentAssistPanel").classList.add("collapsed"));
@@ -7148,6 +7120,7 @@
         try {
             await postTicketAction({ route: "agent-message", body: { ticketId: openTicketId, message: reply } });
             document.getElementById("ticketReplyText").value = "";
+            autoResizeTextarea(document.getElementById("ticketReplyText"));
             await loadOpenTicket();
             await updateDashboard(currentPeriod);
         } catch (error) { errorBox.textContent = error.message; }
@@ -7157,6 +7130,7 @@
     const ticketSendReply = document.getElementById("ticketSendReply");
     ticketSendReply.addEventListener("click", sendAgentReply);
     ticketReplyText.addEventListener("input", () => {
+        autoResizeTextarea(ticketReplyText);
         ticketSendReply.disabled = ticketReplyText.disabled || !ticketReplyText.value.trim();
     });
     ticketReplyText.addEventListener("keydown", event => {
