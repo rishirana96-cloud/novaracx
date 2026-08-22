@@ -1262,7 +1262,7 @@
         }
 
         /* ==========================================
-           CHATBOT — FLOATING WIDGET (v2 with Escalation)
+           CHATBOT — FLOATING WIDGET
            ========================================== */
         .chatbot-toggle {
             position: fixed;
@@ -1519,7 +1519,7 @@
         }
 
         /* ==========================================
-           ESCALATION BADGE (NEW)
+           ESCALATION BADGE
            ========================================== */
         .escalation-badge {
             display: inline-block;
@@ -1537,9 +1537,6 @@
             margin-right: 4px;
         }
 
-        /* ==========================================
-           ESCALATION STATUS (NEW)
-           ========================================== */
         .escalation-status {
             display: flex;
             align-items: center;
@@ -1770,6 +1767,11 @@
                 opacity: 1;
                 transform: translateY(-6px);
             }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         /* ==========================================
@@ -4109,7 +4111,7 @@
 
 
         // ==========================================
-        // RENDER MESSAGE (WITH ESCALATION SUPPORT)
+        // RENDER MESSAGE (FIXED)
         // ==========================================
 
         function renderMessage(
@@ -4277,78 +4279,61 @@
                 html;
 
 
-// ==========================================
-// ESCALATION BADGE (FIXED - Only if not already in text)
-// ==========================================
+            // ==========================================
+            // ESCALATION BADGE (FIXED)
+            // ==========================================
 
-if (
-  escalationData &&
-  escalationData.escalatedToHuman === 1 &&
-  escalationData.escalationMessage
-) {
+            if (
+                escalationData &&
+                escalationData.escalatedToHuman === 1 &&
+                escalationData.escalationMessage
+            ) {
 
-  // Check if the reply already mentions human/agent (so we don't duplicate)
-  const alreadyMentionsHuman = displayText.toLowerCase().includes('human') ||
-                               displayText.toLowerCase().includes('agent') ||
-                               displayText.toLowerCase().includes('speak') ||
-                               displayText.toLowerCase().includes('contact') ||
-                               displayText.toLowerCase().includes('call') ||
-                               displayText.toLowerCase().includes('team') ||
-                               displayText.toLowerCase().includes('connect');
+                // Check if the reply already mentions human/agent
+                const alreadyMentionsHuman =
+                    displayText.toLowerCase().includes('human') ||
+                    displayText.toLowerCase().includes('agent') ||
+                    displayText.toLowerCase().includes('speak') ||
+                    displayText.toLowerCase().includes('contact') ||
+                    displayText.toLowerCase().includes('call') ||
+                    displayText.toLowerCase().includes('team') ||
+                    displayText.toLowerCase().includes('connect') ||
+                    displayText.toLowerCase().includes('someone');
 
-  // Only show badge if the AI didn't already mention it
-  if (!alreadyMentionsHuman) {
-    const badge =
-      document.createElement(
-        "div"
-      );
+                // Only show badge if the AI didn't already mention it
+                if (!alreadyMentionsHuman) {
 
-    badge.className =
-      "escalation-badge";
+                    const badge =
+                        document.createElement(
+                            "div"
+                        );
 
-    badge.innerHTML =
-      `<span class="icon">👤</span> Human Agent Notified`;
+                    badge.className =
+                        "escalation-badge";
 
-    div.appendChild(
-      badge
-    );
+                    badge.innerHTML =
+                        `<span class="icon">👤</span> Human Agent Notified`;
 
-    // Add escalation status
-    const status =
-      document.createElement(
-        "div"
-      );
-
-    status.className =
-      "escalation-status";
-
-    status.innerHTML =
-      `<span class="pulse"></span> Waiting for agent response...`;
-
-    div.appendChild(
-      status
-    );
-  }
-
-}
-                // Add escalation status
-                const status =
-                    document.createElement(
-                        "div"
+                    div.appendChild(
+                        badge
                     );
 
+                    const status =
+                        document.createElement(
+                            "div"
+                        );
 
-                status.className =
-                    "escalation-status";
+                    status.className =
+                        "escalation-status";
 
+                    status.innerHTML =
+                        `<span class="pulse"></span> Waiting for agent response...`;
 
-                status.innerHTML =
-                    `<span class="pulse"></span> Waiting for agent response...`;
+                    div.appendChild(
+                        status
+                    );
 
-
-                div.appendChild(
-                    status
-                );
+                }
 
             }
 
@@ -4412,7 +4397,8 @@ if (
                                     e.stopPropagation();
 
                                     sendMessage(
-                                        this.dataset.rating                                    );
+                                        this.dataset.rating
+                                    );
 
                                 }
                             );
@@ -4504,7 +4490,7 @@ if (
 
 
         // ==========================================
-        // SEND MESSAGE (WITH ESCALATION HANDLING)
+        // SEND MESSAGE
         // ==========================================
 
         async function sendMessage(
@@ -4597,7 +4583,7 @@ if (
 
 
                 // ==========================================
-                // CHECK FOR ESCALATION (NEW)
+                // ESCALATION DATA
                 // ==========================================
 
                 const escalationData = {
@@ -4749,7 +4735,6 @@ if (
                             conversation.bot_reply
                         ) {
 
-                            // Check if this conversation was escalated
                             const isEscalated =
                                 conversation.escalated_to_human === 1;
 
