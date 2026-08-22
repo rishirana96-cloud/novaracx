@@ -2030,6 +2030,17 @@
             color: var(--accent-light);
             font-size: 11px;
         }
+        .ticket-choice-card {
+            margin: 9px 0 4px 38px; padding: 13px;
+            border: 1px solid rgba(136,169,152,.28); border-radius: 13px;
+            background: rgba(136,169,152,.08); font-size: 12px; line-height: 1.5;
+        }
+        .ticket-choice-actions { display:flex; gap:8px; margin-top:10px; flex-wrap:wrap; }
+        .ticket-choice-btn {
+            padding:9px 11px; border-radius:9px; border:1px solid var(--border);
+            background:var(--bg-card); color:var(--text); font-weight:600; cursor:pointer;
+        }
+        .ticket-choice-btn.primary { background:var(--accent); border-color:var(--accent); color:#07110d; }
     </style>
 </head>
 
@@ -4043,23 +4054,38 @@
             );
 
 
+        const SESSION_TIMEOUT_MS = 15 * 60 * 1000;
+
+        const createSessionId = () =>
+            `session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+
+        const createBrowserId = () =>
+            `browser_${Date.now()}_${Math.random().toString(36).substr(2, 12)}`;
+
+        const browserId =
+            localStorage.getItem("novara_browser_id") || createBrowserId();
+
+        localStorage.setItem("novara_browser_id", browserId);
+
+        const storedSessionId = localStorage.getItem("novara_session_id");
+        const lastActivity = Number(localStorage.getItem("novara_last_activity") || 0);
+        const sessionExpired = !lastActivity || (Date.now() - lastActivity) > SESSION_TIMEOUT_MS;
+
         let sessionId =
-
             sessionFromUrl ||
-
-            localStorage.getItem(
-                "novara_session_id"
-            ) ||
-
-            `session_${Date.now()}_${Math.random()
-                .toString(36)
-                .substr(2, 9)}`;
+            (!sessionExpired && storedSessionId ? storedSessionId : createSessionId());
 
 
         localStorage.setItem(
             "novara_session_id",
             sessionId
         );
+
+        localStorage.setItem("novara_last_activity", String(Date.now()));
+
+        function touchSessionActivity() {
+            localStorage.setItem("novara_last_activity", String(Date.now()));
+        }
 
 
         // ==========================================
@@ -4115,6 +4141,8 @@
         let activeTicket = null;
         let lastTicketMessageId = 0;
         let lastTicketStatus = null;
+        let unresolvedBrowserTicket = null;
+        let unresolvedReminderShown = false;
 
 
         // ==========================================
@@ -4144,6 +4172,7 @@
                     )
                 ) {
 
+                    unresolvedReminderShown = false;
                     chatInput.focus();
 
                 }
@@ -4517,7 +4546,7 @@
                 const response = await fetch(`${WORKER_URL}ticket/create`, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ sessionId, name, phone, consent })
+                    body: JSON.stringify({ sessionId, browserId, name, phone, consent })
                 });
                 const data = await response.json();
                 if (!response.ok) throw new Error(data.error || "Could not create ticket.");
@@ -4564,6 +4593,111 @@
         }
 
 
+        function startFreshAiSession() {
+            sessionId = createSessionId();
+            localStorage.setItem("novara_session_id", sessionId);
+            touchSessionActivity();
+            activeTicket = null;
+            lastTicketStatus = null;
+            lastTicketMessageId = 0;
+            unresolvedBrowserTicket = null;
+            document.getElementById("humanChatStatus")?.remove();
+            document.getElementById("ticketResolutionChoices")?.remove();
+            chatInput.disabled = false;
+            chatSend.disabled = false;
+            renderMessage("You’re now chatting with Novara CX AI. How can I help?", "bot", false);
+            chatInput.focus();
+        }
+
+
+        function showResolutionChoices(ticket) {
+            if (document.getElementById("ticketResolutionChoices")) return;
+
+            const card = document.createElement("div");
+            card.id = "ticketResolutionChoices";
+            card.className = "ticket-choice-card";
+            card.innerHTML = `
+                <strong>${ticket.ticket_number || "Your ticket"} has been resolved.</strong><br>
+                What would you like to do?
+                <div class="ticket-choice-actions">
+                    <button id="continueWithAi" class="ticket-choice-btn primary" type="button">Continue chatting with AI</button>
+                    <button id="reopenResolvedTicket" class="ticket-choice-btn" type="button">Reopen ticket</button>
+                </div>
+            `;
+            chatMessages.appendChild(card);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+            chatInput.disabled = true;
+            chatSend.disabled = true;
+
+            document.getElementById("continueWithAi").addEventListener("click", startFreshAiSession);
+            document.getElementById("reopenResolvedTicket").addEventListener("click", async () => {
+                try {
+                    const response = await fetch(`${WORKER_URL}ticket/update`, {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ ticketId: ticket.id, action: "reopen" })
+                    });
+                    const data = await response.json();
+                    if (!response.ok) throw new Error(data.error || "Could not reopen ticket.");
+                    activeTicket = data.ticket;
+                    lastTicketStatus = data.ticket.status;
+                    card.remove();
+                    chatInput.disabled = false;
+                    chatSend.disabled = false;
+                    renderMessage("Your ticket has been reopened. Continue your conversation with Novara CX Support here.", "agent", false);
+                    updateHumanChatStatus();
+                    chatInput.focus();
+                } catch (error) {
+                    renderMessage(error.message || "Could not reopen the ticket.", "agent", false);
+                }
+            });
+        }
+
+
+        async function findUnresolvedBrowserTicket() {
+            try {
+                const response = await fetch(`${WORKER_URL}browser-ticket?browser=${encodeURIComponent(browserId)}`);
+                if (!response.ok) return;
+                const data = await response.json();
+                if (data.ticket && (!activeTicket || Number(data.ticket.id) !== Number(activeTicket.id))) {
+                    unresolvedBrowserTicket = data.ticket;
+                }
+            } catch (error) {
+                console.error("Past ticket lookup error:", error);
+            }
+        }
+
+
+        function showUnresolvedTicketReminder() {
+            if (!unresolvedBrowserTicket || unresolvedReminderShown || activeTicket) return;
+            unresolvedReminderShown = true;
+
+            const card = document.createElement("div");
+            card.className = "ticket-choice-card";
+            card.innerHTML = `
+                You still have an unresolved support request: <strong>${unresolvedBrowserTicket.ticket_number}</strong>.
+                <div class="ticket-choice-actions">
+                    <button class="ticket-choice-btn primary" type="button">Continue chat with human</button>
+                </div>
+            `;
+            chatMessages.appendChild(card);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+
+            card.querySelector("button").addEventListener("click", async () => {
+                sessionId = unresolvedBrowserTicket.session_id;
+                localStorage.setItem("novara_session_id", sessionId);
+                touchSessionActivity();
+                activeTicket = unresolvedBrowserTicket;
+                lastTicketStatus = unresolvedBrowserTicket.status;
+                lastTicketMessageId = 0;
+                card.remove();
+                await pollTicketMessages();
+                updateHumanChatStatus();
+                chatInput.focus();
+            });
+        }
+
+
         async function pollTicketMessages() {
             try {
                 const response = await fetch(`${WORKER_URL}ticket-status?session=${encodeURIComponent(sessionId)}&after=${lastTicketMessageId}`);
@@ -4580,12 +4714,13 @@
                     renderMessage(item.message, item.sender_type === "agent" ? "agent" : "user", false);
                 });
 
-                if (data.ticket.status === "resolved" && previousStatus && previousStatus !== "resolved") {
+                if (data.ticket.status === "resolved" && previousStatus !== "resolved") {
                     renderMessage(
-                        `This ticket has been resolved. ${data.ticket.resolution_note ? `Resolution: ${data.ticket.resolution_note}` : ""}\n\nIf the issue remains, type **reopen ticket**.`,
+                        `This ticket has been resolved. ${data.ticket.resolution_note ? `Resolution: ${data.ticket.resolution_note}` : ""}`,
                         "agent",
                         false
                     );
+                    showResolutionChoices(data.ticket);
                 }
 
                 updateHumanChatStatus();
@@ -4596,24 +4731,8 @@
 
 
         async function sendCustomerTicketMessage(message) {
-            const isReopen = activeTicket?.status === "resolved" && message.toLowerCase() === "reopen ticket";
-            if (isReopen) {
-                const response = await fetch(`${WORKER_URL}ticket/update`, {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ ticketId: activeTicket.id, action: "reopen" })
-                });
-                const data = await response.json();
-                if (!response.ok) throw new Error(data.error || "Could not reopen ticket.");
-                activeTicket = data.ticket;
-                lastTicketStatus = data.ticket.status;
-                renderMessage("Your ticket has been reopened.", "agent", false);
-                updateHumanChatStatus();
-                return;
-            }
-
             if (activeTicket?.status === "resolved") {
-                renderMessage("Type **reopen ticket** if you still need help with this issue.", "agent", false);
+                showResolutionChoices(activeTicket);
                 return;
             }
 
@@ -4723,6 +4842,8 @@
 
             }
 
+            touchSessionActivity();
+
 
             renderMessage(
                 message,
@@ -4742,7 +4863,7 @@
                 true;
 
 
-            if (activeTicket) {
+            if (activeTicket && activeTicket.status !== "resolved") {
                 try {
                     await sendCustomerTicketMessage(message);
                 } catch (error) {
@@ -4834,13 +4955,7 @@
                         escalationData
                     );
 
-                }
-
-                if (escalationData.escalatedToHuman === 1) {
-                    showTicketContactForm();
-                }
-
-                else {
+                } else {
 
                     renderMessage(
                         "I'm not sure how to answer that. Would you like to book a discovery call?",
@@ -4849,6 +4964,12 @@
                         escalationData
                     );
 
+                }
+
+                if (escalationData.escalatedToHuman === 1) {
+                    showTicketContactForm();
+                } else {
+                    showUnresolvedTicketReminder();
                 }
 
             } catch (error) {
@@ -5113,6 +5234,8 @@
                     chatInput.focus();
                     return;
                 }
+
+                await findUnresolvedBrowserTicket();
 
                 const restored =
                     await loadExistingConversation();
