@@ -1674,6 +1674,229 @@
 
 
         /* =====================================================
+           TICKETS WORKSPACE
+        ====================================================== */
+
+        .ticket-kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px;
+            margin-bottom: 22px;
+        }
+
+        .ticket-kpi-card {
+            position: relative;
+            min-height: 148px;
+            padding: 22px;
+            overflow: hidden;
+            background: linear-gradient(145deg, rgba(255,255,255,0.026), rgba(255,255,255,0.008));
+            border: 1px solid var(--border);
+            border-radius: var(--radius-large);
+            transition: var(--transition);
+        }
+
+        .ticket-kpi-card:hover {
+            transform: translateY(-2px);
+            border-color: var(--border-strong);
+        }
+
+        .ticket-kpi-label {
+            color: var(--text-muted);
+            font-size: 11px;
+            font-weight: 650;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+        }
+
+        .ticket-kpi-value {
+            margin-top: 11px;
+            color: var(--text);
+            font-size: 35px;
+            line-height: 1;
+            font-weight: 750;
+            letter-spacing: -1.5px;
+        }
+
+        .ticket-kpi-value.accent { color: var(--accent-light); }
+        .ticket-kpi-value.warning { color: var(--warning); }
+        .ticket-kpi-value.danger { color: var(--danger); }
+
+        .ticket-kpi-sub {
+            margin-top: 9px;
+            color: var(--text-muted);
+            font-size: 10px;
+        }
+
+        .ticket-status-grid {
+            display: grid;
+            grid-template-columns: 1.15fr 1fr;
+            gap: 18px;
+            margin-bottom: 22px;
+        }
+
+        .ticket-status-card {
+            min-height: 380px;
+            padding: 24px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-large);
+            box-shadow: var(--shadow);
+        }
+
+        .ticket-status-list {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            margin-top: 24px;
+        }
+
+        .ticket-status-row {
+            display: grid;
+            grid-template-columns: minmax(145px, 190px) 1fr 48px;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .ticket-status-name {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-secondary);
+            font-size: 12px;
+            min-width: 0;
+        }
+
+        .ticket-status-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            flex-shrink: 0;
+            background: var(--accent);
+            box-shadow: 0 0 0 4px rgba(136,169,152,0.07);
+        }
+
+        .ticket-status-dot.warning { background: var(--warning); box-shadow: 0 0 0 4px rgba(228,181,116,0.07); }
+        .ticket-status-dot.danger { background: var(--danger); box-shadow: 0 0 0 4px rgba(223,141,130,0.07); }
+        .ticket-status-dot.success { background: var(--success); box-shadow: 0 0 0 4px rgba(121,195,154,0.07); }
+
+        .ticket-status-name span:last-child {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .ticket-status-bar {
+            height: 7px;
+            overflow: hidden;
+            border-radius: 99px;
+            background: rgba(255,255,255,0.05);
+        }
+
+        .ticket-status-fill {
+            height: 100%;
+            border-radius: inherit;
+            background: linear-gradient(90deg, var(--accent-dark), var(--accent));
+            transition: width 0.5s ease;
+        }
+
+        .ticket-status-count {
+            text-align: right;
+            color: var(--text-secondary);
+            font-size: 12px;
+            font-weight: 650;
+        }
+
+        .ticket-agent-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-top: 22px;
+        }
+
+        .ticket-agent-row {
+            display: grid;
+            grid-template-columns: 145px 1fr 70px;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .ticket-agent-name {
+            color: var(--text-secondary);
+            font-size: 12px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .ticket-agent-meta {
+            text-align: right;
+            color: var(--text-muted);
+            font-size: 10px;
+        }
+
+        .ticket-table {
+            min-width: 1050px;
+        }
+
+        .ticket-id {
+            font-family: monospace;
+            color: var(--text-muted);
+            font-size: 10px;
+        }
+
+        .ticket-customer {
+            color: var(--text);
+            font-weight: 600;
+        }
+
+        .ticket-assignee {
+            color: var(--text-secondary);
+            font-size: 11px;
+        }
+
+        .ticket-age {
+            color: var(--text-muted);
+            font-size: 10px;
+        }
+
+        .ticket-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            min-height: 25px;
+            padding: 4px 10px;
+            border-radius: 999px;
+            font-size: 10px;
+            font-weight: 600;
+            white-space: nowrap;
+            background: rgba(255,255,255,0.035);
+            color: var(--text-secondary);
+            border: 1px solid var(--border);
+        }
+
+        .ticket-badge.resolved { color: var(--success); background: rgba(121,195,154,0.10); border-color: transparent; }
+        .ticket-badge.pending { color: var(--warning); background: rgba(228,181,116,0.10); border-color: transparent; }
+        .ticket-badge.open { color: var(--danger); background: rgba(223,141,130,0.10); border-color: transparent; }
+        .ticket-badge.progress { color: var(--accent-light); background: rgba(136,169,152,0.10); border-color: transparent; }
+        .ticket-badge.reopened { color: var(--yellow); background: rgba(215,194,118,0.10); border-color: transparent; }
+
+        @media (max-width: 1200px) {
+            .ticket-kpi-grid { grid-template-columns: repeat(2, 1fr); }
+            .ticket-status-grid { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 720px) {
+            .ticket-kpi-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+            .ticket-kpi-card { min-height: 132px; padding: 17px; }
+            .ticket-kpi-value { font-size: 28px; }
+            .ticket-status-card { min-height: 350px; padding: 19px; }
+            .ticket-status-row { grid-template-columns: 105px 1fr 38px; gap: 9px; }
+            .ticket-status-name, .ticket-status-count { font-size: 10px; }
+            .ticket-agent-row { grid-template-columns: 100px 1fr 50px; gap: 9px; }
+            .ticket-agent-name { font-size: 10px; }
+        }
+
+        /* =====================================================
            FOOTER
         ====================================================== */
 
@@ -2193,6 +2416,43 @@
             </a>
 
 
+            <!-- Tickets -->
+
+            <a
+                href="#tickets"
+                class="nav-item"
+                id="sidebarTickets"
+                data-tab="tickets"
+            >
+
+                <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                >
+
+                    <path
+                        d="M5 4.5h14v15H5z"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linejoin="round"
+                    />
+
+                    <path
+                        d="M8 8h8M8 12h8M8 16h5"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linecap="round"
+                    />
+
+                </svg>
+
+                <span>
+                    Tickets
+                </span>
+
+            </a>
+
+
             <!-- Website -->
 
             <a
@@ -2384,6 +2644,7 @@
                     >
                         Human Agent
                     </button>
+
 
                 </div>
 
@@ -3293,6 +3554,143 @@
 
 
             <!-- =================================================
+                 TICKETS
+            ================================================== -->
+
+            <section
+                id="panel-tickets"
+                class="view-panel"
+            >
+
+                <div class="ticket-kpi-grid">
+
+                    <div class="ticket-kpi-card">
+                        <div class="ticket-kpi-label">Total Tickets</div>
+                        <div id="ticketTotal" class="ticket-kpi-value">—</div>
+                        <div class="ticket-kpi-sub">AI escalations in selected period</div>
+                    </div>
+
+                    <div class="ticket-kpi-card">
+                        <div class="ticket-kpi-label">Open</div>
+                        <div id="ticketOpen" class="ticket-kpi-value danger">—</div>
+                        <div class="ticket-kpi-sub">Awaiting agent action</div>
+                    </div>
+
+                    <div class="ticket-kpi-card">
+                        <div class="ticket-kpi-label">Pending Revert</div>
+                        <div id="ticketPending" class="ticket-kpi-value warning">—</div>
+                        <div class="ticket-kpi-sub">Waiting for customer / internal revert</div>
+                    </div>
+
+                    <div class="ticket-kpi-card">
+                        <div class="ticket-kpi-label">Resolved</div>
+                        <div id="ticketResolved" class="ticket-kpi-value accent">—</div>
+                        <div class="ticket-kpi-sub">Closed by human agent</div>
+                    </div>
+
+                    <div class="ticket-kpi-card">
+                        <div class="ticket-kpi-label">Avg. Resolution Time</div>
+                        <div id="ticketAvgResolution" class="ticket-kpi-value">—</div>
+                        <div class="ticket-kpi-sub">Hours</div>
+                    </div>
+
+                    <div class="ticket-kpi-card">
+                        <div class="ticket-kpi-label">Reopened</div>
+                        <div id="ticketReopened" class="ticket-kpi-value">—</div>
+                        <div class="ticket-kpi-sub">Tickets reopened after resolution</div>
+                    </div>
+
+                </div>
+
+                <div class="charts-grid">
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <div>
+                                <div class="chart-title">Ticket Volume</div>
+                                <div class="chart-subtitle">AI escalations converted into human tickets</div>
+                            </div>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="ticketTrendChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <div>
+                                <div class="chart-title">Ticket Status</div>
+                                <div class="chart-subtitle">Current outcome of escalated tickets</div>
+                            </div>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="ticketStatusChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ticket-status-grid">
+                    <div class="ticket-status-card">
+                        <div class="panel-header">
+                            <div>
+                                <div class="panel-title">Status Breakdown</div>
+                                <div class="panel-subtitle">Where the escalated queue currently stands</div>
+                            </div>
+                        </div>
+                        <div id="ticketStatusList" class="ticket-status-list">
+                            <div class="empty-state">Loading ticket statuses...</div>
+                        </div>
+                    </div>
+
+                    <div class="ticket-status-card">
+                        <div class="panel-header">
+                            <div>
+                                <div class="panel-title">Agent Resolution Performance</div>
+                                <div class="panel-subtitle">Tickets resolved by each human agent</div>
+                            </div>
+                        </div>
+                        <div id="ticketAgentList" class="ticket-agent-list">
+                            <div class="empty-state">Loading agent performance...</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="table-card">
+                    <div class="table-header">
+                        <div>
+                            <div class="table-title">Recent Escalated Tickets</div>
+                            <div class="table-subtitle">Tickets created when the AI agent transferred a conversation to a human</div>
+                        </div>
+                        <button class="view-all" type="button">View all →</button>
+                    </div>
+
+                    <div class="table-wrapper">
+                        <table class="conversation-table ticket-table">
+                            <thead>
+                                <tr>
+                                    <th>Ticket</th>
+                                    <th>Created</th>
+                                    <th>Customer / Query</th>
+                                    <th>Assigned To</th>
+                                    <th>Status</th>
+                                    <th>Age</th>
+                                    <th>Resolution</th>
+                                </tr>
+                            </thead>
+                            <tbody id="ticketsBody">
+                                <tr>
+                                    <td colspan="7">
+                                        <div class="empty-state">No escalated tickets yet.</div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
                  FOOTER
             ================================================== -->
 
@@ -3351,6 +3749,10 @@
     let humanTrendChart = null;
 
     let humanReasonsChart = null;
+
+    let ticketTrendChart = null;
+
+    let ticketStatusChart = null;
 
     let isRefreshing = false;
 
@@ -3458,6 +3860,15 @@
     }
 
 
+    async function fetchTickets(period) {
+
+        return fetchJSON(
+            `/tickets?period=${period}`
+        );
+
+    }
+
+
     /* =====================================================
        TAB SWITCHING
     ====================================================== */
@@ -3495,6 +3906,22 @@
 
 
                     document
+                        .querySelectorAll(".sidebar .nav-item")
+                        .forEach(item => {
+                            item.classList.remove("active");
+                        });
+
+                    const analyticsNav =
+                        document.querySelector(
+                            '.sidebar .nav-item[href="#"]'
+                        );
+
+                    if (analyticsNav) {
+                        analyticsNav.classList.add("active");
+                    }
+
+
+                    document
                         .querySelectorAll(
                             ".view-panel"
                         )
@@ -3524,6 +3951,58 @@
             );
 
         });
+
+
+    /* =====================================================
+       SIDEBAR TICKETS NAVIGATION
+    ====================================================== */
+
+    const sidebarTickets =
+        document.getElementById("sidebarTickets");
+
+    if (sidebarTickets) {
+
+        sidebarTickets.addEventListener(
+            "click",
+            event => {
+
+                event.preventDefault();
+
+                document
+                    .querySelectorAll(".sidebar .nav-item")
+                    .forEach(item => {
+                        item.classList.remove("active");
+                    });
+
+                sidebarTickets.classList.add("active");
+
+                currentTab = "tickets";
+
+                document
+                    .querySelectorAll("#tabSwitcher .tab")
+                    .forEach(tab => {
+                        tab.classList.remove("active");
+                    });
+
+                document
+                    .querySelectorAll(".view-panel")
+                    .forEach(panel => {
+                        panel.classList.remove("active");
+                    });
+
+                const ticketsPanel =
+                    document.getElementById("panel-tickets");
+
+                if (ticketsPanel) {
+                    ticketsPanel.classList.add("active");
+                }
+
+                updateDashboard(currentPeriod);
+
+            }
+        );
+
+    }
 
 
     /* =====================================================
@@ -3563,7 +4042,8 @@
                 intentsData,
                 ratingsData,
                 resolutionData,
-                sentimentData
+                sentimentData,
+                ticketsData
 
             ] = await Promise.all([
 
@@ -3588,6 +4068,10 @@
                 ),
 
                 fetchSentiment(
+                    period
+                ),
+
+                fetchTickets(
                     period
                 )
 
@@ -4172,6 +4656,30 @@
                 "humanConversationsBody"
             );
 
+
+            /* =================================================
+               TICKETS
+            ================================================== */
+
+            const escalatedConversations =
+                conversationsData.filter(
+                    conversation =>
+                        conversation.resolution_status ===
+                        "escalated"
+                );
+
+            const ticketRecords =
+                Array.isArray(ticketsData) &&
+                ticketsData.length > 0
+                    ? ticketsData
+                    : escalatedConversations;
+
+            updateTicketsDashboard(
+                ticketRecords,
+                analyticsData,
+                period
+            );
+
         }
 
         catch (error) {
@@ -4183,6 +4691,276 @@
 
         }
 
+    }
+
+
+    /* =====================================================
+       TICKETS WORKSPACE
+    ====================================================== */
+
+    function normalizeTicket(ticket, index) {
+
+        const rawStatus = String(
+            ticket.status ||
+            ticket.ticket_status ||
+            ticket.resolution_status ||
+            "open"
+        ).toLowerCase().trim();
+
+        let status = "open";
+        if (rawStatus.includes("pending") || rawStatus.includes("revert") || rawStatus.includes("waiting")) status = "pending";
+        else if (rawStatus.includes("reopen")) status = "reopened";
+        else if (rawStatus.includes("progress") || rawStatus.includes("assigned") || rawStatus.includes("working")) status = "progress";
+        else if (rawStatus.includes("resolved") || rawStatus.includes("closed")) status = "resolved";
+
+        const agent =
+            ticket.assigned_agent ||
+            ticket.agent_name ||
+            ticket.assignee ||
+            ticket.resolved_by ||
+            ticket.agent ||
+            "Unassigned";
+
+        const createdAt =
+            ticket.created_at ||
+            ticket.started_at ||
+            ticket.escalated_at ||
+            ticket.timestamp ||
+            null;
+
+        const resolvedAt =
+            ticket.resolved_at ||
+            ticket.closed_at ||
+            null;
+
+        return {
+            id: ticket.ticket_id || ticket.id || `TKT-${String(index + 1).padStart(4, "0")}`,
+            session: ticket.session_id || "",
+            customer: ticket.customer_name || ticket.customer || ticket.email || "Customer",
+            query: ticket.subject || ticket.issue || ticket.first_query || ticket.query || "Escalated conversation",
+            agent,
+            status,
+            rawStatus,
+            createdAt,
+            resolvedAt,
+            resolutionTime: parseFloat(ticket.resolution_time_hours ?? ticket.resolution_hours ?? ticket.handle_time_hours ?? 0) || 0
+        };
+    }
+
+
+    function ticketStatusLabel(status, agent) {
+
+        const labels = {
+            resolved: agent && agent !== "Unassigned" ? `Resolved by ${agent}` : "Resolved",
+            pending: "Pending Revert",
+            open: "Open",
+            progress: "In Progress",
+            reopened: "Reopened"
+        };
+
+        return labels[status] || "Open";
+    }
+
+
+    function ticketStatusClass(status) {
+        return {
+            resolved: "resolved",
+            pending: "pending",
+            open: "open",
+            progress: "progress",
+            reopened: "reopened"
+        }[status] || "open";
+    }
+
+
+    function formatTicketDate(value) {
+        if (!value) return "—";
+        const date = new Date(value);
+        if (isNaN(date.getTime())) return "—";
+        return `${date.toLocaleDateString("en-IN", { day: "2-digit", month: "short" })}<br><span style="color:var(--text-muted);font-size:10px;">${date.toLocaleTimeString("en-IN", { hour: "2-digit", minute: "2-digit" })}</span>`;
+    }
+
+
+    function formatTicketAge(createdAt, resolvedAt) {
+        if (!createdAt) return "—";
+        const start = new Date(createdAt);
+        const end = resolvedAt ? new Date(resolvedAt) : new Date();
+        if (isNaN(start.getTime()) || isNaN(end.getTime())) return "—";
+        const hours = Math.max(0, (end - start) / 3600000);
+        if (hours < 1) return `${Math.round(hours * 60)}m`;
+        if (hours < 48) return `${hours.toFixed(1)}h`;
+        return `${Math.floor(hours / 24)}d`;
+    }
+
+
+    function updateTicketsDashboard(tickets, analyticsData, period) {
+
+        const normalized = (tickets || []).map(normalizeTicket);
+        const total = normalized.length;
+        const open = normalized.filter(t => t.status === "open").length;
+        const pending = normalized.filter(t => t.status === "pending").length;
+        const resolved = normalized.filter(t => t.status === "resolved").length;
+        const reopened = normalized.filter(t => t.status === "reopened").length;
+
+        const resolvedWithTime = normalized.filter(t => t.status === "resolved" && t.resolutionTime > 0);
+        const avgResolution = resolvedWithTime.length
+            ? (resolvedWithTime.reduce((sum, t) => sum + t.resolutionTime, 0) / resolvedWithTime.length).toFixed(1)
+            : "—";
+
+        document.getElementById("ticketTotal").textContent = total;
+        document.getElementById("ticketOpen").textContent = open;
+        document.getElementById("ticketPending").textContent = pending;
+        document.getElementById("ticketResolved").textContent = resolved;
+        document.getElementById("ticketAvgResolution").textContent = avgResolution;
+        document.getElementById("ticketReopened").textContent = reopened;
+
+        const statusCounts = {
+            resolved,
+            pending,
+            open,
+            progress: normalized.filter(t => t.status === "progress").length,
+            reopened
+        };
+
+        const statusEntries = Object.entries(statusCounts).filter(([, count]) => count > 0);
+        const maxStatus = Math.max(...statusEntries.map(([, count]) => count), 1);
+        const statusLabels = { resolved: "Resolved", pending: "Pending Revert", open: "Open", progress: "In Progress", reopened: "Reopened" };
+        const dotClass = { resolved: "success", pending: "warning", open: "danger", progress: "", reopened: "warning" };
+
+        const statusList = document.getElementById("ticketStatusList");
+        statusList.innerHTML = statusEntries.length
+            ? statusEntries.map(([status, count]) => `
+                <div class="ticket-status-row">
+                    <div class="ticket-status-name"><span class="ticket-status-dot ${dotClass[status] || ""}"></span><span>${statusLabels[status]}</span></div>
+                    <div class="ticket-status-bar"><div class="ticket-status-fill" style="width:${Math.round((count / maxStatus) * 100)}%"></div></div>
+                    <div class="ticket-status-count">${count}</div>
+                </div>
+            `).join("")
+            : `<div class="empty-state">No escalated tickets in this period.</div>`;
+
+        const agents = {};
+        normalized.forEach(ticket => {
+            if (!agents[ticket.agent]) agents[ticket.agent] = { total: 0, resolved: 0 };
+            agents[ticket.agent].total += 1;
+            if (ticket.status === "resolved") agents[ticket.agent].resolved += 1;
+        });
+
+        const agentEntries = Object.entries(agents).sort((a, b) => b[1].resolved - a[1].resolved || b[1].total - a[1].total);
+        const maxAgent = Math.max(...agentEntries.map(([, data]) => data.resolved), 1);
+        const agentList = document.getElementById("ticketAgentList");
+        agentList.innerHTML = agentEntries.length
+            ? agentEntries.slice(0, 8).map(([agent, data]) => `
+                <div class="ticket-agent-row">
+                    <span class="ticket-agent-name">${escapeHtml(agent)}</span>
+                    <div class="data-bar"><div class="data-fill" style="width:${Math.round((data.resolved / maxAgent) * 100)}%"></div></div>
+                    <span class="ticket-agent-meta">${data.resolved}/${data.total}</span>
+                </div>
+            `).join("")
+            : `<div class="empty-state">No agent assignment data yet.</div>`;
+
+        updateTicketTrendChart(analyticsData || [], period);
+        updateTicketStatusChart(statusCounts);
+        updateTicketsTable(normalized);
+    }
+
+
+    function updateTicketsTable(tickets) {
+        const tbody = document.getElementById("ticketsBody");
+        if (!tickets.length) {
+            tbody.innerHTML = `<tr><td colspan="7"><div class="empty-state">No escalated tickets yet.</div></td></tr>`;
+            return;
+        }
+
+        tbody.innerHTML = tickets.slice(0, 20).map(ticket => {
+            const query = String(ticket.query || "—");
+            const shortQuery = query.length > 52 ? `${query.substring(0, 52)}…` : query;
+            const label = ticketStatusLabel(ticket.status, ticket.agent);
+            return `
+                <tr>
+                    <td><span class="ticket-id">${escapeHtml(String(ticket.id))}</span></td>
+                    <td>${formatTicketDate(ticket.createdAt)}</td>
+                    <td class="query" title="${escapeHtml(query)}"><span class="ticket-customer">${escapeHtml(ticket.customer)}</span><br><span style="color:var(--text-muted);font-size:10px;">${escapeHtml(shortQuery)}</span></td>
+                    <td><span class="ticket-assignee">${escapeHtml(ticket.agent)}</span></td>
+                    <td><span class="ticket-badge ${ticketStatusClass(ticket.status)}">${escapeHtml(label)}</span></td>
+                    <td><span class="ticket-age">${formatTicketAge(ticket.createdAt, ticket.resolvedAt)}</span></td>
+                    <td>${ticket.status === "resolved" ? `<span class="ticket-age">${ticket.resolutionTime > 0 ? `${ticket.resolutionTime.toFixed(1)}h` : "Resolved"}</span>` : `<span class="ticket-age">—</span>`}</td>
+                </tr>
+            `;
+        }).join("");
+    }
+
+
+    function updateTicketTrendChart(analyticsData, period) {
+        if (ticketTrendChart) ticketTrendChart.destroy();
+        const labels = analyticsData.map(day => {
+            const date = new Date(day.date);
+            return isNaN(date.getTime()) ? day.date : date.toLocaleDateString("en-IN", { day: "numeric", month: "short" });
+        });
+        const values = analyticsData.map(day => parseInt(day.escalated) || 0);
+        const ctx = document.getElementById("ticketTrendChart");
+        if (!ctx) return;
+
+        ticketTrendChart = new Chart(ctx, {
+            type: "line",
+            data: {
+                labels,
+                datasets: [{
+                    label: "Tickets",
+                    data: values,
+                    borderColor: "#88a998",
+                    backgroundColor: "rgba(136,169,152,0.08)",
+                    fill: true,
+                    tension: 0.35,
+                    borderWidth: 2,
+                    pointRadius: 2.5,
+                    pointHoverRadius: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: {
+                    x: { grid: { color: chartGrid }, ticks: { color: chartText, maxTicksLimit: period <= 14 ? 7 : 10, font: { size: 10 } } },
+                    y: { beginAtZero: true, grid: { color: chartGrid }, ticks: { color: chartText, precision: 0, font: { size: 10 } } }
+                }
+            }
+        });
+    }
+
+
+    function updateTicketStatusChart(statusCounts) {
+        if (ticketStatusChart) ticketStatusChart.destroy();
+        const entries = [
+            ["Resolved", statusCounts.resolved],
+            ["Pending Revert", statusCounts.pending],
+            ["Open", statusCounts.open],
+            ["In Progress", statusCounts.progress],
+            ["Reopened", statusCounts.reopened]
+        ].filter(([, value]) => value > 0);
+
+        const ctx = document.getElementById("ticketStatusChart");
+        if (!ctx) return;
+
+        ticketStatusChart = new Chart(ctx, {
+            type: "doughnut",
+            data: {
+                labels: entries.length ? entries.map(([label]) => label) : ["No tickets"],
+                datasets: [{
+                    data: entries.length ? entries.map(([, value]) => value) : [1],
+                    backgroundColor: entries.length ? ["#79c39a", "#e4b574", "#df8d82", "#88a998", "#d7c276"] : ["rgba(255,255,255,0.06)"],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                cutout: "66%",
+                plugins: {
+                    legend: { position: "bottom", labels: { color: chartText, usePointStyle: true, pointStyle: "circle", padding: 14, font: { size: 10 } } }
+                }
+            }
+        });
     }
 
 
