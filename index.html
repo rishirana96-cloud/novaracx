@@ -4277,34 +4277,60 @@
                 html;
 
 
-            // ==========================================
-            // ESCALATION BADGE (NEW)
-            // ==========================================
+// ==========================================
+// ESCALATION BADGE (FIXED - Only if not already in text)
+// ==========================================
 
-            if (
-                escalationData &&
-                escalationData.escalatedToHuman === 1
-            ) {
+if (
+  escalationData &&
+  escalationData.escalatedToHuman === 1 &&
+  escalationData.escalationMessage
+) {
 
-                const badge =
-                    document.createElement(
-                        "div"
-                    );
+  // Check if the reply already mentions human/agent (so we don't duplicate)
+  const alreadyMentionsHuman = displayText.toLowerCase().includes('human') ||
+                               displayText.toLowerCase().includes('agent') ||
+                               displayText.toLowerCase().includes('speak') ||
+                               displayText.toLowerCase().includes('contact') ||
+                               displayText.toLowerCase().includes('call') ||
+                               displayText.toLowerCase().includes('team') ||
+                               displayText.toLowerCase().includes('connect');
 
+  // Only show badge if the AI didn't already mention it
+  if (!alreadyMentionsHuman) {
+    const badge =
+      document.createElement(
+        "div"
+      );
 
-                badge.className =
-                    "escalation-badge";
+    badge.className =
+      "escalation-badge";
 
+    badge.innerHTML =
+      `<span class="icon">👤</span> Human Agent Notified`;
 
-                badge.innerHTML =
-                    `<span class="icon">👤</span> Human Agent Notified`;
+    div.appendChild(
+      badge
+    );
 
+    // Add escalation status
+    const status =
+      document.createElement(
+        "div"
+      );
 
-                div.appendChild(
-                    badge
-                );
+    status.className =
+      "escalation-status";
 
+    status.innerHTML =
+      `<span class="pulse"></span> Waiting for agent response...`;
 
+    div.appendChild(
+      status
+    );
+  }
+
+}
                 // Add escalation status
                 const status =
                     document.createElement(
