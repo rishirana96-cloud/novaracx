@@ -2317,31 +2317,59 @@
     </style>
 
     <style>
-        .ticket-drawer-backdrop { position:fixed; inset:0; z-index:1000; display:none; background:rgba(0,0,0,.58); }
+        .ticket-drawer-backdrop { position:fixed; inset:0; z-index:1000; display:none; background:rgba(0,0,0,.62); backdrop-filter:blur(3px); }
         .ticket-drawer-backdrop.open { display:block; }
-        .ticket-drawer { position:absolute; top:0; right:0; bottom:0; width:min(720px,100%); overflow-y:auto; padding:24px; background:var(--bg); border-left:1px solid var(--border); }
-        .ticket-drawer-head { display:flex; justify-content:space-between; gap:16px; margin-bottom:18px; }
-        .ticket-drawer-title { font-size:20px; font-weight:700; }
-        .ticket-drawer-meta { color:var(--text-muted); font-size:11px; margin-top:5px; }
+        .ticket-drawer { position:absolute; top:0; right:0; bottom:0; width:min(780px,100%); display:flex; flex-direction:column; background:#0b0e0c; border-left:1px solid var(--border); box-shadow:-24px 0 70px rgba(0,0,0,.35); }
+        .ticket-drawer-head { flex:0 0 auto; display:flex; align-items:center; justify-content:space-between; gap:16px; padding:18px 22px; border-bottom:1px solid var(--border); background:rgba(11,14,12,.96); }
+        .ticket-heading-row { display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+        .ticket-drawer-title { font-size:19px; font-weight:750; }
+        .ticket-drawer-meta { color:var(--text-muted); font-size:10px; margin-top:4px; }
+        .ticket-chip { padding:5px 8px; border-radius:999px; font-size:9px; font-weight:700; text-transform:uppercase; letter-spacing:.06em; background:rgba(136,169,152,.12); color:var(--accent-light); }
+        .ticket-chip.priority-high { background:rgba(223,141,130,.12); color:var(--danger); }
         .ticket-close { border:1px solid var(--border); background:var(--bg-card); color:var(--text); border-radius:9px; width:36px; height:36px; cursor:pointer; }
-        .ticket-detail-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:10px; margin-bottom:16px; }
-        .ticket-detail-item { padding:12px; background:var(--bg-card); border:1px solid var(--border); border-radius:10px; }
-        .ticket-detail-item span { display:block; color:var(--text-muted); font-size:9px; text-transform:uppercase; letter-spacing:.08em; margin-bottom:5px; }
-        .ticket-thread { min-height:260px; max-height:430px; overflow-y:auto; padding:14px; background:var(--bg-card); border:1px solid var(--border); border-radius:12px; }
-        .ticket-thread-message { max-width:84%; margin:0 0 10px; padding:10px 12px; border-radius:11px; font-size:12px; line-height:1.5; white-space:pre-wrap; }
-        .ticket-thread-message.customer { margin-left:auto; background:var(--accent); color:#07110d; }
-        .ticket-thread-message.agent { background:rgba(136,169,152,.12); border:1px solid rgba(136,169,152,.24); }
-        .ticket-thread-message.ai { background:rgba(255,255,255,.035); border:1px solid var(--border); }
-        .ticket-thread-name { display:block; font-size:9px; opacity:.7; margin-bottom:4px; text-transform:uppercase; }
-        .ticket-reply { margin-top:12px; }
-        .ticket-reply textarea, .ticket-note-input { width:100%; min-height:82px; resize:vertical; padding:11px; color:var(--text); background:var(--bg-card); border:1px solid var(--border); border-radius:10px; outline:none; }
-        .ticket-note-input { min-height:62px; margin-top:10px; }
-        .ticket-action-row { display:flex; flex-wrap:wrap; gap:8px; margin-top:10px; }
-        .ticket-action-btn { padding:9px 13px; border:1px solid var(--border); border-radius:9px; background:var(--bg-card); color:var(--text); cursor:pointer; }
-        .ticket-action-btn.primary { background:var(--accent); color:#07110d; border-color:var(--accent); font-weight:700; }
-        .ticket-action-error { min-height:17px; color:var(--danger); font-size:11px; margin-top:8px; }
+        .ticket-workspace-scroll { flex:1 1 auto; overflow-y:auto; padding:18px 22px 22px; }
+        .ticket-context { padding:14px 16px; margin-bottom:13px; border:1px solid var(--border); border-radius:12px; background:var(--bg-card); }
+        .ticket-context-top { display:flex; justify-content:space-between; gap:16px; margin-bottom:12px; }
+        .ticket-context-name { font-size:15px; font-weight:700; }
+        .ticket-context-phone { color:var(--accent-light); font-size:11px; margin-top:3px; }
+        .ticket-context-grid { display:grid; grid-template-columns:1.5fr 1fr 1fr; gap:12px; }
+        .ticket-context-item span { display:block; margin-bottom:4px; color:var(--text-muted); font-size:8px; text-transform:uppercase; letter-spacing:.08em; }
+        .ticket-context-item { color:var(--text); font-size:11px; line-height:1.45; }
+        .ticket-ai-details { margin-bottom:13px; border:1px solid var(--border); border-radius:11px; background:rgba(255,255,255,.018); }
+        .ticket-ai-details summary { padding:11px 14px; cursor:pointer; color:var(--text-secondary); font-size:11px; font-weight:650; }
+        .ticket-ai-transcript { max-height:260px; overflow-y:auto; padding:0 13px 12px; }
+        .ticket-thread-label { margin:14px 2px 8px; color:var(--text-muted); font-size:9px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; }
+        .ticket-thread { min-height:210px; padding:14px; background:var(--bg-card); border:1px solid var(--border); border-radius:12px; }
+        .ticket-thread-message { width:fit-content; max-width:76%; margin:0 0 9px; padding:9px 11px; border-radius:11px; font-size:11px; line-height:1.48; white-space:pre-wrap; }
+        .ticket-thread-message.customer { margin-left:auto; background:#a7c8b8; color:#0a120e; border-bottom-right-radius:3px; }
+        .ticket-thread-message.agent { background:rgba(136,169,152,.10); border:1px solid rgba(136,169,152,.24); border-bottom-left-radius:3px; }
+        .ticket-thread-message.ai { max-width:90%; background:rgba(255,255,255,.025); border:1px solid var(--border); color:var(--text-secondary); }
+        .ticket-thread-name { display:block; font-size:8px; opacity:.65; margin-bottom:3px; text-transform:uppercase; }
+        .ticket-composer { flex:0 0 auto; padding:12px 22px 16px; border-top:1px solid var(--border); background:#0b0e0c; }
+        .ticket-composer-tabs { display:flex; gap:4px; margin-bottom:8px; }
+        .ticket-composer-tab { padding:6px 9px; border:0; border-radius:7px; background:transparent; color:var(--text-muted); font-size:10px; cursor:pointer; }
+        .ticket-composer-tab.active { background:rgba(136,169,152,.12); color:var(--accent-light); }
+        .ticket-composer-box { position:relative; }
+        .ticket-composer textarea { width:100%; min-height:68px; max-height:150px; resize:vertical; padding:11px 52px 11px 12px; color:var(--text); background:var(--bg-card); border:1px solid var(--border); border-radius:11px; outline:none; font:inherit; font-size:12px; }
+        .ticket-composer textarea:focus { border-color:rgba(136,169,152,.45); }
+        .ticket-send-arrow { position:absolute; right:9px; bottom:10px; width:34px; height:34px; display:grid; place-items:center; border:0; border-radius:9px; background:var(--accent); color:#07110d; cursor:pointer; }
+        .ticket-send-arrow:disabled { opacity:.35; cursor:not-allowed; }
+        .ticket-send-arrow svg { width:17px; height:17px; fill:none; stroke:currentColor; stroke-width:2; }
+        .ticket-action-row { display:flex; align-items:center; gap:7px; margin-top:8px; }
+        .ticket-action-btn { padding:8px 10px; border:1px solid var(--border); border-radius:8px; background:transparent; color:var(--text-secondary); font-size:10px; cursor:pointer; }
+        .ticket-action-btn.resolve { margin-left:auto; color:var(--accent-light); border-color:rgba(136,169,152,.3); }
+        .ticket-note-pane { display:none; }
+        .ticket-note-pane.active, .ticket-reply-pane.active { display:block; }
+        .ticket-reply-pane { display:none; }
+        .ticket-action-error { min-height:15px; color:var(--danger); font-size:10px; margin-top:6px; }
+        .ticket-resolution-overlay { position:absolute; inset:0; z-index:4; display:none; place-items:center; padding:20px; background:rgba(0,0,0,.62); }
+        .ticket-resolution-overlay.open { display:grid; }
+        .ticket-resolution-dialog { width:min(420px,100%); padding:18px; border:1px solid var(--border); border-radius:13px; background:#111612; box-shadow:0 18px 55px rgba(0,0,0,.45); }
+        .ticket-resolution-dialog h3 { margin:0 0 5px; font-size:16px; }
+        .ticket-resolution-dialog p { margin:0 0 12px; color:var(--text-muted); font-size:10px; }
+        .ticket-resolution-dialog textarea { width:100%; min-height:90px; padding:10px; resize:vertical; color:var(--text); background:#0b0e0c; border:1px solid var(--border); border-radius:9px; }
         .ticket-table tbody tr { cursor:pointer; }
-        @media (max-width:620px) { .ticket-detail-grid { grid-template-columns:1fr; } .ticket-drawer { padding:17px; } }
+        @media (max-width:620px) { .ticket-drawer-head,.ticket-workspace-scroll,.ticket-composer { padding-left:14px; padding-right:14px; } .ticket-context-grid { grid-template-columns:1fr; } .ticket-thread-message { max-width:88%; } }
     </style>
 
 </head>
@@ -2388,6 +2416,7 @@
             <a
                 href="#"
                 class="nav-item active"
+                id="sidebarAnalytics"
             >
 
                 <svg
@@ -2587,11 +2616,11 @@
 
                 <div class="page-title">
 
-                    <h1>
+                    <h1 id="pageHeading">
                         Analytics
                     </h1>
 
-                    <p>
+                    <p id="pageSubtitle">
                         Monitor customer conversations and
                         CX performance.
                     </p>
@@ -3764,26 +3793,69 @@
     <aside class="ticket-drawer" role="dialog" aria-modal="true" aria-labelledby="ticketDrawerTitle">
         <div class="ticket-drawer-head">
             <div>
-                <div id="ticketDrawerTitle" class="ticket-drawer-title">Ticket</div>
+                <div class="ticket-heading-row">
+                    <div id="ticketDrawerTitle" class="ticket-drawer-title">Ticket</div>
+                    <span id="ticketStatusChip" class="ticket-chip">Open</span>
+                    <span id="ticketPriorityChip" class="ticket-chip">Normal</span>
+                </div>
                 <div id="ticketDrawerMeta" class="ticket-drawer-meta"></div>
             </div>
             <button id="ticketDrawerClose" class="ticket-close" type="button" aria-label="Close ticket">✕</button>
         </div>
-        <div id="ticketDetailGrid" class="ticket-detail-grid"></div>
-        <div id="ticketThread" class="ticket-thread"><div class="empty-state">Loading ticket…</div></div>
-        <div class="ticket-reply">
-            <textarea id="ticketReplyText" placeholder="Reply to customer…"></textarea>
-            <div class="ticket-action-row">
-                <button id="ticketSendReply" class="ticket-action-btn primary" type="button">Send reply</button>
-                <button id="ticketMarkPending" class="ticket-action-btn" type="button">Mark pending</button>
-                <button id="ticketResolve" class="ticket-action-btn" type="button">Resolve</button>
-                <button id="ticketReopen" class="ticket-action-btn" type="button">Reopen</button>
+
+        <div class="ticket-workspace-scroll">
+            <div id="ticketContext" class="ticket-context"></div>
+            <details class="ticket-ai-details">
+                <summary>View AI conversation before handoff</summary>
+                <div id="ticketAiTranscript" class="ticket-ai-transcript"></div>
+            </details>
+            <div class="ticket-thread-label">Human support conversation</div>
+            <div id="ticketThread" class="ticket-thread"><div class="empty-state">Loading ticket…</div></div>
+        </div>
+
+        <div class="ticket-composer">
+            <div class="ticket-composer-tabs">
+                <button id="ticketReplyTab" class="ticket-composer-tab active" type="button">Customer reply</button>
+                <button id="ticketNoteTab" class="ticket-composer-tab" type="button">Internal note</button>
             </div>
-            <textarea id="ticketNoteText" class="ticket-note-input" placeholder="Internal note or resolution note…"></textarea>
-            <div class="ticket-action-row">
-                <button id="ticketSaveNote" class="ticket-action-btn" type="button">Save internal note</button>
+
+            <div id="ticketReplyPane" class="ticket-reply-pane active">
+                <div class="ticket-composer-box">
+                    <textarea id="ticketReplyText" placeholder="Reply to customer…"></textarea>
+                    <button id="ticketSendReply" class="ticket-send-arrow" type="button" aria-label="Send reply" disabled>
+                        <svg viewBox="0 0 24 24"><path d="M22 2 11 13"></path><path d="m22 2-7 20-4-9-9-4Z"></path></svg>
+                    </button>
+                </div>
+                <div class="ticket-action-row">
+                    <button id="ticketMarkPending" class="ticket-action-btn" type="button">Mark pending</button>
+                    <button id="ticketReopen" class="ticket-action-btn" type="button">Reopen</button>
+                    <button id="ticketResolve" class="ticket-action-btn resolve" type="button">Resolve ticket</button>
+                </div>
             </div>
+
+            <div id="ticketNotePane" class="ticket-note-pane">
+                <div class="ticket-composer-box">
+                    <textarea id="ticketNoteText" placeholder="Add a private internal note…"></textarea>
+                </div>
+                <div class="ticket-action-row">
+                    <button id="ticketSaveNote" class="ticket-action-btn" type="button">Save internal note</button>
+                </div>
+            </div>
+
             <div id="ticketActionError" class="ticket-action-error"></div>
+        </div>
+
+        <div id="ticketResolutionOverlay" class="ticket-resolution-overlay">
+            <div class="ticket-resolution-dialog">
+                <h3>Resolve ticket</h3>
+                <p>Add a resolution note. The customer will see this note.</p>
+                <textarea id="ticketResolutionText" placeholder="How was the issue resolved?"></textarea>
+                <div id="ticketResolutionError" class="ticket-action-error"></div>
+                <div class="ticket-action-row">
+                    <button id="ticketCancelResolution" class="ticket-action-btn" type="button">Cancel</button>
+                    <button id="ticketConfirmResolution" class="ticket-action-btn resolve" type="button">Resolve ticket</button>
+                </div>
+            </div>
         </div>
     </aside>
 </div>
@@ -3931,6 +4003,14 @@
        TAB SWITCHING
     ====================================================== */
 
+    function setAnalyticsPageMode(isTickets) {
+        document.getElementById("pageHeading").textContent = isTickets ? "Tickets" : "Analytics";
+        document.getElementById("pageSubtitle").textContent = isTickets
+            ? "Manage escalated customer requests and resolutions."
+            : "Monitor customer conversations and CX performance.";
+        document.getElementById("tabSwitcher").style.display = isTickets ? "none" : "flex";
+    }
+
     document
         .querySelectorAll(
             "#tabSwitcher .tab"
@@ -3940,6 +4020,8 @@
             button.addEventListener(
                 "click",
                 () => {
+
+                    setAnalyticsPageMode(false);
 
                     document
                         .querySelectorAll(
@@ -4018,6 +4100,24 @@
     const sidebarTickets =
         document.getElementById("sidebarTickets");
 
+    const sidebarAnalytics =
+        document.getElementById("sidebarAnalytics");
+
+    if (sidebarAnalytics) {
+        sidebarAnalytics.addEventListener("click", event => {
+            event.preventDefault();
+            setAnalyticsPageMode(false);
+            document.querySelectorAll(".sidebar .nav-item").forEach(item => item.classList.remove("active"));
+            sidebarAnalytics.classList.add("active");
+            const selectedTab = document.querySelector("#tabSwitcher .tab.active") || document.querySelector("#tabSwitcher .tab[data-tab='ai']");
+            selectedTab?.classList.add("active");
+            currentTab = selectedTab?.dataset.tab || "ai";
+            document.querySelectorAll(".view-panel").forEach(panel => panel.classList.remove("active"));
+            document.getElementById(`panel-${currentTab}`)?.classList.add("active");
+            updateDashboard(currentPeriod);
+        });
+    }
+
     if (sidebarTickets) {
 
         sidebarTickets.addEventListener(
@@ -4033,6 +4133,8 @@
                     });
 
                 sidebarTickets.classList.add("active");
+
+                setAnalyticsPageMode(true);
 
                 currentTab = "tickets";
 
@@ -6597,6 +6699,7 @@
         backdrop.classList.add("open");
         backdrop.setAttribute("aria-hidden", "false");
         document.body.style.overflow = "hidden";
+        setComposerMode("reply");
         await loadOpenTicket();
     }
 
@@ -6607,6 +6710,7 @@
         backdrop.setAttribute("aria-hidden", "true");
         document.body.style.overflow = "";
         document.getElementById("ticketActionError").textContent = "";
+        document.getElementById("ticketResolutionOverlay").classList.remove("open");
     }
 
     async function loadOpenTicket() {
@@ -6618,22 +6722,44 @@
 
             const ticket = data.ticket;
             document.getElementById("ticketDrawerTitle").textContent = ticket.ticket_number || `NX-${String(ticket.id).padStart(4, "0")}`;
-            document.getElementById("ticketDrawerMeta").textContent = `${ticket.status.replaceAll("_", " ")} · Created ${ticketDateText(ticket.created_at)}`;
-            document.getElementById("ticketDetailGrid").innerHTML = `
-                <div class="ticket-detail-item"><span>Customer</span>${escapeHtml(ticket.customer_name || "—")}</div>
-                <div class="ticket-detail-item"><span>Phone</span>${escapeHtml(ticket.customer_phone || "—")}</div>
-                <div class="ticket-detail-item"><span>Priority</span>${escapeHtml(ticket.priority || "normal")}</div>
-                <div class="ticket-detail-item"><span>Reason</span>${escapeHtml((ticket.escalation_reason || "—").replaceAll("_", " "))}</div>
-                <div class="ticket-detail-item"><span>Original query</span>${escapeHtml(ticket.customer_query || "—")}</div>
-                <div class="ticket-detail-item"><span>Agent</span>${escapeHtml(ticket.agent_name || "Novara CX Support")}</div>
+            document.getElementById("ticketDrawerMeta").textContent = `Created ${ticketDateText(ticket.created_at)} · ${ticket.agent_name || "Novara CX Support"}`;
+
+            const statusChip = document.getElementById("ticketStatusChip");
+            statusChip.textContent = String(ticket.status || "open").replaceAll("_", " ");
+            const priorityChip = document.getElementById("ticketPriorityChip");
+            priorityChip.textContent = ticket.priority || "normal";
+            priorityChip.className = `ticket-chip ${ticket.priority === "high" ? "priority-high" : ""}`;
+
+            document.getElementById("ticketContext").innerHTML = `
+                <div class="ticket-context-top">
+                    <div><div class="ticket-context-name">${escapeHtml(ticket.customer_name || "Customer details unavailable")}</div><div class="ticket-context-phone">${escapeHtml(ticket.customer_phone || "No phone number")}</div></div>
+                </div>
+                <div class="ticket-context-grid">
+                    <div class="ticket-context-item"><span>Original query</span>${escapeHtml(ticket.customer_query || "—")}</div>
+                    <div class="ticket-context-item"><span>Escalation reason</span>${escapeHtml((ticket.escalation_reason || "—").replaceAll("_", " "))}</div>
+                    <div class="ticket-context-item"><span>Sentiment</span>${escapeHtml(ticket.sentiment || "—")}</div>
+                </div>
             `;
 
-            const thread = [];
+            const cleanTicketText = value => String(value || "")
+                .replace(/\[✅ Yes\]\s*\[❌ No\]\s*\[🔄 Not really\]/g, "")
+                .replace(/Did I answer your question\?\s*$/i, "")
+                .trim();
+
+            const aiThread = [];
             (data.conversation || []).forEach(turn => {
-                if (turn.user_message) thread.push({ type: "customer", name: "Customer", message: turn.user_message, created_at: turn.created_at });
-                if (turn.bot_reply) thread.push({ type: "ai", name: "Novara CX AI", message: turn.bot_reply, created_at: turn.created_at });
+                if (turn.user_message) aiThread.push({ type: "customer", name: "Customer", message: turn.user_message, created_at: turn.created_at });
+                if (turn.bot_reply) aiThread.push({ type: "ai", name: "Novara CX AI", message: cleanTicketText(turn.bot_reply), created_at: turn.created_at });
             });
-            (data.messages || []).forEach(message => thread.push({
+
+            const aiElement = document.getElementById("ticketAiTranscript");
+            aiElement.innerHTML = aiThread.length ? aiThread.map(item => `
+                <div class="ticket-thread-message ${item.type}">
+                    <span class="ticket-thread-name">${escapeHtml(item.name)} · ${escapeHtml(ticketDateText(item.created_at))}</span>${escapeHtml(item.message)}
+                </div>
+            `).join("") : `<div class="empty-state">No AI conversation available.</div>`;
+
+            const humanThread = (data.messages || []).map(message => ({
                 type: message.sender_type === "agent" ? "agent" : "customer",
                 name: message.sender_name || message.sender_type,
                 message: message.message,
@@ -6641,16 +6767,21 @@
             }));
 
             const threadElement = document.getElementById("ticketThread");
-            threadElement.innerHTML = thread.length ? thread.map(item => `
+            threadElement.innerHTML = humanThread.length ? humanThread.map(item => `
                 <div class="ticket-thread-message ${item.type}">
                     <span class="ticket-thread-name">${escapeHtml(item.name)} · ${escapeHtml(ticketDateText(item.created_at))}</span>${escapeHtml(item.message)}
                 </div>
-            `).join("") : `<div class="empty-state">No messages yet.</div>`;
+            `).join("") : `<div class="empty-state">No human-support messages yet. Send the first reply below.</div>`;
             threadElement.scrollTop = threadElement.scrollHeight;
             const noteInput = document.getElementById("ticketNoteText");
             if (document.activeElement !== noteInput) noteInput.value = ticket.internal_note || "";
             document.getElementById("ticketReopen").style.display = ticket.status === "resolved" ? "inline-block" : "none";
             document.getElementById("ticketResolve").style.display = ticket.status === "resolved" ? "none" : "inline-block";
+            document.getElementById("ticketMarkPending").style.display = ticket.status === "resolved" ? "none" : "inline-block";
+            const replyInput = document.getElementById("ticketReplyText");
+            replyInput.disabled = ticket.status === "resolved";
+            replyInput.placeholder = ticket.status === "resolved" ? "Reopen this ticket before replying" : "Reply to customer…";
+            document.getElementById("ticketSendReply").disabled = ticket.status === "resolved" || !replyInput.value.trim();
         } catch (error) {
             document.getElementById("ticketActionError").textContent = error.message;
         }
@@ -6671,8 +6802,19 @@
         const errorBox = document.getElementById("ticketActionError");
         errorBox.textContent = "";
         try {
-            const note = document.getElementById("ticketNoteText").value.trim();
+            const note = action === "resolve"
+                ? document.getElementById("ticketResolutionText").value.trim()
+                : document.getElementById("ticketNoteText").value.trim();
+            if (action === "resolve" && !note) {
+                document.getElementById("ticketResolutionError").textContent = "Add a resolution note first.";
+                return;
+            }
             await postTicketAction({ route: "update", body: { ticketId: openTicketId, action, note } });
+            if (action === "resolve") {
+                document.getElementById("ticketResolutionOverlay").classList.remove("open");
+                document.getElementById("ticketResolutionText").value = "";
+                document.getElementById("ticketResolutionError").textContent = "";
+            }
             await loadOpenTicket();
             await updateDashboard(currentPeriod);
         } catch (error) {
@@ -6684,7 +6826,7 @@
     document.getElementById("ticketDrawerBackdrop").addEventListener("click", event => {
         if (event.target.id === "ticketDrawerBackdrop") closeTicket();
     });
-    document.getElementById("ticketSendReply").addEventListener("click", async () => {
+    async function sendAgentReply() {
         const errorBox = document.getElementById("ticketActionError");
         const reply = document.getElementById("ticketReplyText").value.trim();
         errorBox.textContent = "";
@@ -6695,9 +6837,42 @@
             await loadOpenTicket();
             await updateDashboard(currentPeriod);
         } catch (error) { errorBox.textContent = error.message; }
+    }
+
+    const ticketReplyText = document.getElementById("ticketReplyText");
+    const ticketSendReply = document.getElementById("ticketSendReply");
+    ticketSendReply.addEventListener("click", sendAgentReply);
+    ticketReplyText.addEventListener("input", () => {
+        ticketSendReply.disabled = ticketReplyText.disabled || !ticketReplyText.value.trim();
     });
+    ticketReplyText.addEventListener("keydown", event => {
+        if (event.key === "Enter" && !event.shiftKey) {
+            event.preventDefault();
+            if (!ticketSendReply.disabled) sendAgentReply();
+        }
+    });
+
+    function setComposerMode(mode) {
+        const replyMode = mode === "reply";
+        document.getElementById("ticketReplyTab").classList.toggle("active", replyMode);
+        document.getElementById("ticketNoteTab").classList.toggle("active", !replyMode);
+        document.getElementById("ticketReplyPane").classList.toggle("active", replyMode);
+        document.getElementById("ticketNotePane").classList.toggle("active", !replyMode);
+        (replyMode ? ticketReplyText : document.getElementById("ticketNoteText")).focus();
+    }
+
+    document.getElementById("ticketReplyTab").addEventListener("click", () => setComposerMode("reply"));
+    document.getElementById("ticketNoteTab").addEventListener("click", () => setComposerMode("note"));
     document.getElementById("ticketMarkPending").addEventListener("click", () => runTicketAction("pending"));
-    document.getElementById("ticketResolve").addEventListener("click", () => runTicketAction("resolve"));
+    document.getElementById("ticketResolve").addEventListener("click", () => {
+        document.getElementById("ticketResolutionError").textContent = "";
+        document.getElementById("ticketResolutionOverlay").classList.add("open");
+        document.getElementById("ticketResolutionText").focus();
+    });
+    document.getElementById("ticketCancelResolution").addEventListener("click", () => {
+        document.getElementById("ticketResolutionOverlay").classList.remove("open");
+    });
+    document.getElementById("ticketConfirmResolution").addEventListener("click", () => runTicketAction("resolve"));
     document.getElementById("ticketReopen").addEventListener("click", () => runTicketAction("reopen"));
     document.getElementById("ticketSaveNote").addEventListener("click", () => runTicketAction("note"));
     setInterval(() => { if (openTicketId) loadOpenTicket(); }, 3000);
