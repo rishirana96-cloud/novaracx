@@ -2317,6 +2317,43 @@
     </style>
 
     <style>
+        .toolbar-right { margin-left:auto; position:relative; }
+        .custom-date-popover { position:absolute; z-index:30; top:calc(100% + 9px); right:0; width:270px; display:none; padding:13px; border:1px solid var(--border); border-radius:11px; background:#111612; box-shadow:0 18px 45px rgba(0,0,0,.35); }
+        .custom-date-popover.open { display:block; }
+        .custom-date-popover label { display:block; margin-bottom:9px; color:var(--text-muted); font-size:9px; text-transform:uppercase; letter-spacing:.07em; }
+        .custom-date-popover input { width:100%; margin-top:5px; padding:8px; color:var(--text); color-scheme:dark; background:#0b0e0c; border:1px solid var(--border); border-radius:8px; }
+        .custom-date-actions { display:flex; justify-content:flex-end; gap:7px; margin-top:8px; }
+        .custom-date-actions button,.layout-control-btn { padding:7px 9px; border:1px solid var(--border); border-radius:8px; background:transparent; color:var(--text-secondary); font-size:9px; cursor:pointer; }
+        .custom-date-actions .primary,.layout-control-btn.primary { background:var(--accent); color:#07110d; border-color:var(--accent); font-weight:700; }
+        .custom-date-error { min-height:14px; color:var(--danger); font-size:9px; }
+        .layout-controls { display:flex; gap:5px; }
+        .layout-editing .layout-card { resize:both; overflow:auto; outline:1px dashed rgba(136,169,152,.55); cursor:grab; min-width:220px; min-height:120px; }
+        .layout-editing .layout-card:active { cursor:grabbing; }
+        .layout-editing .layout-card::after { content:"Drag or resize"; position:absolute; right:9px; top:8px; padding:3px 5px; border-radius:5px; background:rgba(136,169,152,.16); color:var(--accent-light); font-size:8px; pointer-events:none; }
+        .layout-card { position:relative; }
+        .layout-card.layout-dragging { opacity:.42; }
+        .agent-assist-panel { position:absolute; top:0; bottom:0; right:min(780px,100%); width:360px; z-index:2; display:flex; flex-direction:column; padding:18px; background:#f4f6f2; color:#17201b; border-right:1px solid #dce3dd; box-shadow:-18px 0 50px rgba(0,0,0,.18); transition:transform .2s ease; }
+        .agent-assist-panel.collapsed { transform:translateX(100%); pointer-events:none; }
+        .agent-assist-head { display:flex; align-items:center; justify-content:space-between; margin-bottom:18px; }
+        .agent-assist-title { font-size:17px; font-weight:800; }
+        .agent-assist-sub { color:#667069; font-size:10px; margin-top:3px; }
+        .agent-assist-collapse { width:31px; height:31px; border:1px solid #d4dcd5; border-radius:8px; background:white; color:#17201b; cursor:pointer; pointer-events:auto; }
+        .agent-assist-section { margin-bottom:15px; }
+        .agent-assist-label { margin-bottom:7px; color:#667069; font-size:9px; font-weight:750; letter-spacing:.08em; text-transform:uppercase; }
+        .agent-suggestion { min-height:150px; max-height:310px; overflow-y:auto; padding:13px; border:1px solid #dce3dd; border-radius:11px; background:white; color:#26312a; font-size:12px; line-height:1.55; }
+        .agent-suggestion.empty { display:grid; place-items:center; color:#879188; text-align:center; }
+        .agent-assist-actions,.agent-tone-actions { display:flex; flex-wrap:wrap; gap:6px; margin-top:9px; }
+        .agent-assist-btn { padding:8px 10px; border:1px solid #d4dcd5; border-radius:8px; background:white; color:#243027; font-size:10px; font-weight:650; cursor:pointer; }
+        .agent-assist-btn.primary { background:#8fae9e; border-color:#8fae9e; color:#09110d; }
+        .agent-assist-btn:disabled { opacity:.45; cursor:not-allowed; }
+        .agent-assist-status { min-height:16px; margin-top:8px; color:#667069; font-size:9px; }
+        .agent-assist-reopen { position:absolute; top:20px; left:-38px; width:38px; height:38px; display:none; border:1px solid #d4dcd5; border-radius:9px 0 0 9px; background:#f4f6f2; color:#17201b; cursor:pointer; pointer-events:auto; }
+        .agent-assist-panel.collapsed .agent-assist-reopen { display:block; }
+        .ticket-markdown p { margin:0 0 8px; }
+        .ticket-markdown p:last-child { margin-bottom:0; }
+        .ticket-markdown ul,.ticket-markdown ol { margin:7px 0 7px 18px; padding:0; }
+        .ticket-markdown li { margin:3px 0; }
+        .ticket-markdown a { color:inherit; text-decoration:underline; }
         .ticket-drawer-backdrop { position:fixed; inset:0; z-index:1000; display:none; background:rgba(0,0,0,.62); backdrop-filter:blur(3px); }
         .ticket-drawer-backdrop.open { display:block; }
         .ticket-drawer { position:absolute; top:0; right:0; bottom:0; width:min(780px,100%); display:flex; flex-direction:column; background:#0b0e0c; border-left:1px solid var(--border); box-shadow:-24px 0 70px rgba(0,0,0,.35); }
@@ -2331,36 +2368,41 @@
         .ticket-context { padding:14px 16px; margin-bottom:13px; border:1px solid var(--border); border-radius:12px; background:var(--bg-card); }
         .ticket-context-top { display:flex; justify-content:space-between; gap:16px; margin-bottom:12px; }
         .ticket-context-name { font-size:15px; font-weight:700; }
-        .ticket-context-phone { color:var(--accent-light); font-size:11px; margin-top:3px; }
+        .ticket-context-phone { color:var(--accent-light); font-size:13px; margin-top:3px; }
         .ticket-context-grid { display:grid; grid-template-columns:1.5fr 1fr 1fr; gap:12px; }
-        .ticket-context-item span { display:block; margin-bottom:4px; color:var(--text-muted); font-size:8px; text-transform:uppercase; letter-spacing:.08em; }
-        .ticket-context-item { color:var(--text); font-size:11px; line-height:1.45; }
+        .ticket-context-item span { display:block; margin-bottom:4px; color:var(--text-muted); font-size:10px; text-transform:uppercase; letter-spacing:.08em; }
+        .ticket-context-item { color:var(--text); font-size:13px; line-height:1.45; }
         .ticket-ai-details { margin-bottom:13px; border:1px solid var(--border); border-radius:11px; background:rgba(255,255,255,.018); }
-        .ticket-ai-details summary { padding:11px 14px; cursor:pointer; color:var(--text-secondary); font-size:11px; font-weight:650; }
+        .ticket-ai-details summary { padding:11px 14px; cursor:pointer; color:var(--text-secondary); font-size:12px; font-weight:650; }
         .ticket-ai-transcript { max-height:260px; overflow-y:auto; padding:0 13px 12px; }
-        .ticket-thread-label { margin:14px 2px 8px; color:var(--text-muted); font-size:9px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; }
+        .ticket-thread-label { margin:14px 2px 8px; color:var(--text-muted); font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; }
         .ticket-thread { min-height:210px; padding:14px; background:var(--bg-card); border:1px solid var(--border); border-radius:12px; }
-        .ticket-thread-message { width:fit-content; max-width:76%; margin:0 0 9px; padding:9px 11px; border-radius:11px; font-size:11px; line-height:1.48; white-space:pre-wrap; }
+        .ticket-thread-message { width:fit-content; max-width:76%; margin:0 0 9px; padding:9px 11px; border-radius:11px; font-size:13px; line-height:1.48; }
         .ticket-thread-message.customer { margin-left:auto; background:#a7c8b8; color:#0a120e; border-bottom-right-radius:3px; }
         .ticket-thread-message.agent { background:rgba(136,169,152,.10); border:1px solid rgba(136,169,152,.24); border-bottom-left-radius:3px; }
         .ticket-thread-message.ai { max-width:90%; background:rgba(255,255,255,.025); border:1px solid var(--border); color:var(--text-secondary); }
-        .ticket-thread-name { display:block; font-size:8px; opacity:.65; margin-bottom:3px; text-transform:uppercase; }
+        .ticket-thread-name { display:block; font-size:10px; opacity:.65; margin-bottom:3px; text-transform:uppercase; }
         .ticket-composer { flex:0 0 auto; padding:12px 22px 16px; border-top:1px solid var(--border); background:#0b0e0c; }
         .ticket-composer-tabs { display:flex; gap:4px; margin-bottom:8px; }
-        .ticket-composer-tab { padding:6px 9px; border:0; border-radius:7px; background:transparent; color:var(--text-muted); font-size:10px; cursor:pointer; }
+        .ticket-composer-tab { padding:6px 9px; border:0; border-radius:7px; background:transparent; color:var(--text-muted); font-size:11px; cursor:pointer; }
         .ticket-composer-tab.active { background:rgba(136,169,152,.12); color:var(--accent-light); }
         .ticket-composer-box { position:relative; }
-        .ticket-composer textarea { width:100%; min-height:68px; max-height:150px; resize:vertical; padding:11px 52px 11px 12px; color:var(--text); background:var(--bg-card); border:1px solid var(--border); border-radius:11px; outline:none; font:inherit; font-size:12px; }
+        .ticket-composer textarea { width:100%; min-height:68px; max-height:150px; resize:vertical; padding:11px 52px 11px 12px; color:var(--text); background:var(--bg-card); border:1px solid var(--border); border-radius:11px; outline:none; font:inherit; font-size:13px; }
         .ticket-composer textarea:focus { border-color:rgba(136,169,152,.45); }
         .ticket-send-arrow { position:absolute; right:9px; bottom:10px; width:34px; height:34px; display:grid; place-items:center; border:0; border-radius:9px; background:var(--accent); color:#07110d; cursor:pointer; }
         .ticket-send-arrow:disabled { opacity:.35; cursor:not-allowed; }
         .ticket-send-arrow svg { width:17px; height:17px; fill:none; stroke:currentColor; stroke-width:2; }
         .ticket-action-row { display:flex; align-items:center; gap:7px; margin-top:8px; }
-        .ticket-action-btn { padding:8px 10px; border:1px solid var(--border); border-radius:8px; background:transparent; color:var(--text-secondary); font-size:10px; cursor:pointer; }
+        .ticket-action-btn { padding:8px 10px; border:1px solid var(--border); border-radius:8px; background:transparent; color:var(--text-secondary); font-size:11px; cursor:pointer; }
         .ticket-action-btn.resolve { margin-left:auto; color:var(--accent-light); border-color:rgba(136,169,152,.3); }
         .ticket-note-pane { display:none; }
         .ticket-note-pane.active, .ticket-reply-pane.active { display:block; }
         .ticket-reply-pane { display:none; }
+        .ticket-notes-history { max-height:245px; overflow-y:auto; margin-top:13px; padding-top:4px; }
+        .ticket-note-date { margin:13px 0 7px; color:var(--text-muted); font-size:9px; font-weight:750; letter-spacing:.08em; text-transform:uppercase; }
+        .ticket-note-entry { margin-bottom:7px; padding:9px 10px; border:1px solid var(--border); border-radius:9px; background:rgba(255,255,255,.02); }
+        .ticket-note-meta { margin-bottom:4px; color:var(--text-muted); font-size:9px; }
+        .ticket-note-body { color:var(--text-secondary); font-size:12px; line-height:1.45; white-space:pre-wrap; }
         .ticket-action-error { min-height:15px; color:var(--danger); font-size:10px; margin-top:6px; }
         .ticket-resolution-overlay { position:absolute; inset:0; z-index:4; display:none; place-items:center; padding:20px; background:rgba(0,0,0,.62); }
         .ticket-resolution-overlay.open { display:grid; }
@@ -2369,7 +2411,9 @@
         .ticket-resolution-dialog p { margin:0 0 12px; color:var(--text-muted); font-size:10px; }
         .ticket-resolution-dialog textarea { width:100%; min-height:90px; padding:10px; resize:vertical; color:var(--text); background:#0b0e0c; border:1px solid var(--border); border-radius:9px; }
         .ticket-table tbody tr { cursor:pointer; }
-        @media (max-width:620px) { .ticket-drawer-head,.ticket-workspace-scroll,.ticket-composer { padding-left:14px; padding-right:14px; } .ticket-context-grid { grid-template-columns:1fr; } .ticket-thread-message { max-width:88%; } }
+        @media (max-width:1180px) { .agent-assist-panel { left:0; right:auto; box-shadow:18px 0 55px rgba(0,0,0,.35); } .agent-assist-panel.collapsed { transform:translateX(-100%); } .agent-assist-reopen { left:auto; right:-38px; border-radius:0 9px 9px 0; } }
+        @media (max-width:768px) { .layout-controls { display:none; } }
+        @media (max-width:620px) { .ticket-drawer-head,.ticket-workspace-scroll,.ticket-composer { padding-left:14px; padding-right:14px; } .ticket-context-grid { grid-template-columns:1fr; } .ticket-thread-message { max-width:88%; } .agent-assist-panel { width:min(340px,calc(100% - 42px)); } }
     </style>
 
 </head>
@@ -2708,6 +2752,13 @@
 
                 <div class="toolbar-right">
 
+                    <div class="layout-controls">
+                        <button id="customizeLayoutBtn" class="layout-control-btn" type="button">Customize layout</button>
+                        <button id="saveLayoutBtn" class="layout-control-btn primary" type="button" hidden>Save</button>
+                        <button id="cancelLayoutBtn" class="layout-control-btn" type="button" hidden>Cancel</button>
+                        <button id="resetLayoutBtn" class="layout-control-btn" type="button" hidden>Reset</button>
+                    </div>
+
 
                     <div
                         class="updated"
@@ -2735,10 +2786,10 @@
                         </button>
 
                         <button
-                            data-period="30"
+                            data-period="28"
                             class="active"
                         >
-                            30d
+                            28d
                         </button>
 
                         <button
@@ -2747,6 +2798,20 @@
                             90d
                         </button>
 
+                        <button id="customDateBtn" type="button">
+                            Custom
+                        </button>
+
+                    </div>
+
+                    <div id="customDatePopover" class="custom-date-popover">
+                        <label>From<input id="customDateStart" type="date"></label>
+                        <label>To<input id="customDateEnd" type="date"></label>
+                        <div id="customDateError" class="custom-date-error"></div>
+                        <div class="custom-date-actions">
+                            <button id="clearCustomDate" type="button">Clear</button>
+                            <button id="applyCustomDate" class="primary" type="button">Apply</button>
+                        </div>
                     </div>
 
                 </div>
@@ -3790,6 +3855,33 @@
 
 
 <div id="ticketDrawerBackdrop" class="ticket-drawer-backdrop" aria-hidden="true">
+    <section id="agentAssistPanel" class="agent-assist-panel" aria-label="AI Agent Assist">
+        <button id="agentAssistReopen" class="agent-assist-reopen" type="button" aria-label="Open AI Agent Assist">›</button>
+        <div class="agent-assist-head">
+            <div><div class="agent-assist-title">AI Agent Assist</div><div class="agent-assist-sub">Powered by your DeepSeek connection</div></div>
+            <button id="agentAssistCollapse" class="agent-assist-collapse" type="button" aria-label="Collapse AI Agent Assist">‹</button>
+        </div>
+        <div class="agent-assist-section">
+            <div class="agent-assist-label">Suggested reply</div>
+            <div id="agentAssistSuggestion" class="agent-suggestion empty">Generate a reply suggestion using the ticket context.</div>
+            <div class="agent-assist-actions">
+                <button id="agentSuggestReply" class="agent-assist-btn primary" type="button">Suggest reply</button>
+                <button id="agentRegenerate" class="agent-assist-btn" type="button" disabled>Generate another</button>
+                <button id="agentInsertSuggestion" class="agent-assist-btn" type="button" disabled>Insert into reply</button>
+            </div>
+        </div>
+        <div class="agent-assist-section">
+            <div class="agent-assist-label">Improve your draft</div>
+            <div class="agent-tone-actions">
+                <button class="agent-assist-btn" data-assist-mode="refine" type="button">Improve English</button>
+                <button class="agent-assist-btn" data-assist-mode="empathetic" type="button">More empathetic</button>
+                <button class="agent-assist-btn" data-assist-mode="concise" type="button">More concise</button>
+                <button class="agent-assist-btn" data-assist-mode="professional" type="button">More professional</button>
+                <button class="agent-assist-btn" data-assist-mode="simplify" type="button">Simplify</button>
+            </div>
+            <div id="agentAssistStatus" class="agent-assist-status"></div>
+        </div>
+    </section>
     <aside class="ticket-drawer" role="dialog" aria-modal="true" aria-labelledby="ticketDrawerTitle">
         <div class="ticket-drawer-head">
             <div>
@@ -3840,6 +3932,7 @@
                 <div class="ticket-action-row">
                     <button id="ticketSaveNote" class="ticket-action-btn" type="button">Save internal note</button>
                 </div>
+                <div id="ticketNotesHistory" class="ticket-notes-history"></div>
             </div>
 
             <div id="ticketActionError" class="ticket-action-error"></div>
@@ -3868,7 +3961,12 @@
        STATE
     ====================================================== */
 
-    let currentPeriod = 30;
+    let currentPeriod = Number(localStorage.getItem("novara_analytics_period") || 28);
+
+    let currentDateRange = (() => {
+        try { return JSON.parse(localStorage.getItem("novara_analytics_date_range") || "null"); }
+        catch { return null; }
+    })();
 
     let currentTab = "ai";
 
@@ -3936,19 +4034,27 @@
     }
 
 
+    function analyticsDateQuery(period = currentPeriod) {
+        if (currentDateRange?.start && currentDateRange?.end) {
+            return `start=${encodeURIComponent(currentDateRange.start)}&end=${encodeURIComponent(currentDateRange.end)}`;
+        }
+        return `period=${period}`;
+    }
+
+
     async function fetchAnalytics(period) {
 
         return fetchJSON(
-            `/analytics?period=${period}`
+            `/analytics?${analyticsDateQuery(period)}`
         );
 
     }
 
 
-    async function fetchConversations(limit = 10) {
+    async function fetchConversations(limit = 10, period = currentPeriod) {
 
         return fetchJSON(
-            `/conversations?limit=${limit}`
+            `/conversations?limit=${limit}&${analyticsDateQuery(period)}`
         );
 
     }
@@ -3957,7 +4063,7 @@
     async function fetchIntents(period) {
 
         return fetchJSON(
-            `/intents?period=${period}`
+            `/intents?${analyticsDateQuery(period)}`
         );
 
     }
@@ -3966,7 +4072,7 @@
     async function fetchRatings(period) {
 
         return fetchJSON(
-            `/ratings?period=${period}`
+            `/ratings?${analyticsDateQuery(period)}`
         );
 
     }
@@ -3975,7 +4081,7 @@
     async function fetchResolution(period) {
 
         return fetchJSON(
-            `/resolution?period=${period}`
+            `/resolution?${analyticsDateQuery(period)}`
         );
 
     }
@@ -3984,7 +4090,7 @@
     async function fetchSentiment(period) {
 
         return fetchJSON(
-            `/sentiment?period=${period}`
+            `/sentiment?${analyticsDateQuery(period)}`
         );
 
     }
@@ -3993,7 +4099,7 @@
     async function fetchTickets(period) {
 
         return fetchJSON(
-            `/tickets?period=${period}`
+            `/tickets?${analyticsDateQuery(period)}`
         );
 
     }
@@ -4004,6 +4110,7 @@
     ====================================================== */
 
     function setAnalyticsPageMode(isTickets) {
+        if (document.body.classList.contains("layout-editing")) document.getElementById("cancelLayoutBtn")?.click();
         document.getElementById("pageHeading").textContent = isTickets ? "Tickets" : "Analytics";
         document.getElementById("pageSubtitle").textContent = isTickets
             ? "Manage escalated customer requests and resolutions."
@@ -4176,6 +4283,8 @@
         currentPeriod =
             period;
 
+        if (!currentDateRange) localStorage.setItem("novara_analytics_period", String(period));
+
 
         document
             .querySelectorAll(
@@ -4185,12 +4294,14 @@
 
                 button.classList.toggle(
                     "active",
-                    parseInt(
+                    !currentDateRange && parseInt(
                         button.dataset.period
                     ) === period
                 );
 
             });
+
+        document.getElementById("customDateBtn").classList.toggle("active", Boolean(currentDateRange));
 
 
         try {
@@ -4212,7 +4323,8 @@
                 ),
 
                 fetchConversations(
-                    10
+                    10,
+                    period
                 ),
 
                 fetchIntents(
@@ -6645,19 +6757,56 @@
     }
 
 
+    function renderSafeMarkdown(value) {
+        let safe = escapeHtml(value || "")
+            .replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>')
+            .replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>")
+            .replace(/(^|[^*])\*([^*\n]+)\*/g, "$1<em>$2</em>");
+
+        const lines = safe.split(/\r?\n/);
+        let html = "";
+        let listType = null;
+        const closeList = () => {
+            if (listType) html += `</${listType}>`;
+            listType = null;
+        };
+
+        lines.forEach(line => {
+            const unordered = line.match(/^\s*[-•]\s+(.+)$/);
+            const ordered = line.match(/^\s*\d+[.)]\s+(.+)$/);
+            if (unordered) {
+                if (listType !== "ul") { closeList(); html += "<ul>"; listType = "ul"; }
+                html += `<li>${unordered[1]}</li>`;
+            } else if (ordered) {
+                if (listType !== "ol") { closeList(); html += "<ol>"; listType = "ol"; }
+                html += `<li>${ordered[1]}</li>`;
+            } else {
+                closeList();
+                if (line.trim()) html += `<p>${line}</p>`;
+            }
+        });
+        closeList();
+        return html;
+    }
+
+
     /* =====================================================
        PERIOD SELECTOR
     ====================================================== */
 
     document
         .querySelectorAll(
-            "#periodSelector button"
+            "#periodSelector button[data-period]"
         )
         .forEach(button => {
 
             button.addEventListener(
                 "click",
                 () => {
+
+                    currentDateRange = null;
+                    localStorage.removeItem("novara_analytics_date_range");
+                    document.getElementById("customDatePopover").classList.remove("open");
 
                     const period =
                         parseInt(
@@ -6692,6 +6841,40 @@
         });
     }
 
+    function renderTicketNotes(notes) {
+        const container = document.getElementById("ticketNotesHistory");
+        if (!Array.isArray(notes) || !notes.length) {
+            container.innerHTML = `<div class="empty-state">No internal notes yet.</div>`;
+            return;
+        }
+
+        const dateKey = value => new Intl.DateTimeFormat("en-CA", {
+            timeZone: "Asia/Kolkata", year: "numeric", month: "2-digit", day: "2-digit"
+        }).format(new Date(String(value).includes("T") ? value : `${String(value).replace(" ", "T")}Z`));
+        const today = dateKey(new Date().toISOString());
+        const yesterdayDate = new Date();
+        yesterdayDate.setDate(yesterdayDate.getDate() - 1);
+        const yesterday = dateKey(yesterdayDate.toISOString());
+        let lastGroup = "";
+        let html = "";
+
+        notes.forEach(item => {
+            const key = dateKey(item.created_at);
+            if (key !== lastGroup) {
+                const parsed = new Date(`${key}T00:00:00+05:30`);
+                const label = key === today ? `Today — ${ticketDateText(item.created_at).split(",")[0]}`
+                    : key === yesterday ? `Yesterday — ${ticketDateText(item.created_at).split(",")[0]}`
+                    : parsed.toLocaleDateString("en-IN", { timeZone:"Asia/Kolkata", day:"2-digit", month:"short", year:"numeric" });
+                html += `<div class="ticket-note-date">${escapeHtml(label)}</div>`;
+                lastGroup = key;
+            }
+            const time = new Date(String(item.created_at).includes("T") ? item.created_at : `${String(item.created_at).replace(" ", "T")}Z`)
+                .toLocaleTimeString("en-IN", { timeZone:"Asia/Kolkata", hour:"2-digit", minute:"2-digit" });
+            html += `<div class="ticket-note-entry"><div class="ticket-note-meta">${escapeHtml(time)} · ${escapeHtml(item.author_name || "Novara CX Support")}</div><div class="ticket-note-body">${escapeHtml(item.note)}</div></div>`;
+        });
+        container.innerHTML = html;
+    }
+
     async function openTicket(ticketId) {
         if (!ticketId) return;
         openTicketId = ticketId;
@@ -6700,6 +6883,12 @@
         backdrop.setAttribute("aria-hidden", "false");
         document.body.style.overflow = "hidden";
         setComposerMode("reply");
+        lastAssistSuggestion = "";
+        document.getElementById("agentAssistSuggestion").className = "agent-suggestion empty";
+        document.getElementById("agentAssistSuggestion").textContent = "Generate a reply suggestion using the ticket context.";
+        document.getElementById("agentAssistStatus").textContent = "";
+        document.getElementById("agentRegenerate").disabled = true;
+        document.getElementById("agentInsertSuggestion").disabled = true;
         await loadOpenTicket();
     }
 
@@ -6755,7 +6944,7 @@
             const aiElement = document.getElementById("ticketAiTranscript");
             aiElement.innerHTML = aiThread.length ? aiThread.map(item => `
                 <div class="ticket-thread-message ${item.type}">
-                    <span class="ticket-thread-name">${escapeHtml(item.name)} · ${escapeHtml(ticketDateText(item.created_at))}</span>${escapeHtml(item.message)}
+                    <span class="ticket-thread-name">${escapeHtml(item.name)} · ${escapeHtml(ticketDateText(item.created_at))}</span><div class="ticket-markdown">${renderSafeMarkdown(item.message)}</div>
                 </div>
             `).join("") : `<div class="empty-state">No AI conversation available.</div>`;
 
@@ -6769,12 +6958,11 @@
             const threadElement = document.getElementById("ticketThread");
             threadElement.innerHTML = humanThread.length ? humanThread.map(item => `
                 <div class="ticket-thread-message ${item.type}">
-                    <span class="ticket-thread-name">${escapeHtml(item.name)} · ${escapeHtml(ticketDateText(item.created_at))}</span>${escapeHtml(item.message)}
+                    <span class="ticket-thread-name">${escapeHtml(item.name)} · ${escapeHtml(ticketDateText(item.created_at))}</span><div class="ticket-markdown">${renderSafeMarkdown(item.message)}</div>
                 </div>
             `).join("") : `<div class="empty-state">No human-support messages yet. Send the first reply below.</div>`;
             threadElement.scrollTop = threadElement.scrollHeight;
-            const noteInput = document.getElementById("ticketNoteText");
-            if (document.activeElement !== noteInput) noteInput.value = ticket.internal_note || "";
+            renderTicketNotes(data.notes || []);
             document.getElementById("ticketReopen").style.display = ticket.status === "resolved" ? "inline-block" : "none";
             document.getElementById("ticketResolve").style.display = ticket.status === "resolved" ? "none" : "inline-block";
             document.getElementById("ticketMarkPending").style.display = ticket.status === "resolved" ? "none" : "inline-block";
@@ -6798,6 +6986,54 @@
         return data;
     }
 
+    let lastAssistSuggestion = "";
+
+    async function runAgentAssist(mode) {
+        const status = document.getElementById("agentAssistStatus");
+        const suggestionBox = document.getElementById("agentAssistSuggestion");
+        const draft = document.getElementById("ticketReplyText").value.trim();
+        const controls = document.querySelectorAll(".agent-assist-btn");
+        status.textContent = "Generating with DeepSeek…";
+        controls.forEach(button => button.disabled = true);
+        try {
+            const data = await postTicketAction({
+                route: "ai-assist",
+                body: { ticketId: openTicketId, mode, draft }
+            });
+            lastAssistSuggestion = data.suggestion;
+            suggestionBox.classList.remove("empty");
+            suggestionBox.innerHTML = `<div class="ticket-markdown">${renderSafeMarkdown(data.suggestion)}</div>`;
+            status.textContent = "Suggestion ready. Review it before inserting.";
+            document.getElementById("agentRegenerate").disabled = false;
+            document.getElementById("agentInsertSuggestion").disabled = false;
+        } catch (error) {
+            status.textContent = error.message || "Could not generate a suggestion.";
+        } finally {
+            document.getElementById("agentSuggestReply").disabled = false;
+            document.querySelectorAll("[data-assist-mode]").forEach(button => button.disabled = false);
+            if (lastAssistSuggestion) {
+                document.getElementById("agentRegenerate").disabled = false;
+                document.getElementById("agentInsertSuggestion").disabled = false;
+            }
+        }
+    }
+
+    document.getElementById("agentSuggestReply").addEventListener("click", () => runAgentAssist("suggest"));
+    document.getElementById("agentRegenerate").addEventListener("click", () => runAgentAssist("suggest"));
+    document.querySelectorAll("[data-assist-mode]").forEach(button => {
+        button.addEventListener("click", () => runAgentAssist(button.dataset.assistMode));
+    });
+    document.getElementById("agentInsertSuggestion").addEventListener("click", () => {
+        if (!lastAssistSuggestion) return;
+        const reply = document.getElementById("ticketReplyText");
+        reply.value = lastAssistSuggestion;
+        reply.dispatchEvent(new Event("input"));
+        setComposerMode("reply");
+        reply.focus();
+    });
+    document.getElementById("agentAssistCollapse").addEventListener("click", () => document.getElementById("agentAssistPanel").classList.add("collapsed"));
+    document.getElementById("agentAssistReopen").addEventListener("click", () => document.getElementById("agentAssistPanel").classList.remove("collapsed"));
+
     async function runTicketAction(action) {
         const errorBox = document.getElementById("ticketActionError");
         errorBox.textContent = "";
@@ -6810,6 +7046,7 @@
                 return;
             }
             await postTicketAction({ route: "update", body: { ticketId: openTicketId, action, note } });
+            if (action === "note") document.getElementById("ticketNoteText").value = "";
             if (action === "resolve") {
                 document.getElementById("ticketResolutionOverlay").classList.remove("open");
                 document.getElementById("ticketResolutionText").value = "";
@@ -6903,6 +7140,168 @@
             "spinning"
         );
 
+    const customDatePopover = document.getElementById("customDatePopover");
+    const customDateStart = document.getElementById("customDateStart");
+    const customDateEnd = document.getElementById("customDateEnd");
+    const todayInIst = new Intl.DateTimeFormat("en-CA", {
+        timeZone: "Asia/Kolkata", year: "numeric", month: "2-digit", day: "2-digit"
+    }).format(new Date());
+    customDateStart.max = todayInIst;
+    customDateEnd.max = todayInIst;
+    if (currentDateRange) {
+        customDateStart.value = currentDateRange.start;
+        customDateEnd.value = currentDateRange.end;
+    }
+    document.getElementById("customDateBtn").addEventListener("click", event => {
+        event.stopPropagation();
+        customDatePopover.classList.toggle("open");
+    });
+    document.getElementById("applyCustomDate").addEventListener("click", () => {
+        const start = customDateStart.value;
+        const end = customDateEnd.value;
+        const error = document.getElementById("customDateError");
+        error.textContent = "";
+        if (!start || !end) { error.textContent = "Select both dates."; return; }
+        if (start > end) { error.textContent = "From date must be before To date."; return; }
+        if (end > todayInIst) { error.textContent = "Future dates are not allowed."; return; }
+        currentDateRange = { start, end };
+        localStorage.setItem("novara_analytics_date_range", JSON.stringify(currentDateRange));
+        customDatePopover.classList.remove("open");
+        updateDashboard(currentPeriod);
+    });
+    document.getElementById("clearCustomDate").addEventListener("click", () => {
+        currentDateRange = null;
+        localStorage.removeItem("novara_analytics_date_range");
+        customDateStart.value = "";
+        customDateEnd.value = "";
+        document.getElementById("customDateError").textContent = "";
+        customDatePopover.classList.remove("open");
+        updateDashboard(currentPeriod);
+    });
+    document.addEventListener("click", event => {
+        if (!customDatePopover.contains(event.target) && event.target.id !== "customDateBtn") customDatePopover.classList.remove("open");
+    });
+
+    /* =====================================================
+       CUSTOM DASHBOARD LAYOUT
+    ====================================================== */
+
+    const layoutCardSelector = ".kpi-card,.chart-card,.table-card,.ticket-kpi-card,.ticket-status-card";
+    const defaultLayouts = {};
+    let layoutEditSnapshot = null;
+    let draggedLayoutCard = null;
+
+    function prepareLayoutPanel(panel) {
+        let cardCounter = 0;
+        const groups = [];
+        panel.querySelectorAll(layoutCardSelector).forEach(card => {
+            card.classList.add("layout-card");
+            card.dataset.layoutId = `${panel.id}-card-${cardCounter++}`;
+            if (!groups.includes(card.parentElement)) groups.push(card.parentElement);
+        });
+        groups.forEach((group, index) => group.dataset.layoutGroup = `${panel.id}-group-${index}`);
+        defaultLayouts[panel.id] = capturePanelLayout(panel);
+        applyStoredPanelLayout(panel);
+    }
+
+    function capturePanelLayout(panel) {
+        const items = [];
+        panel.querySelectorAll("[data-layout-group]").forEach(group => {
+            Array.from(group.children).filter(child => child.classList.contains("layout-card")).forEach((card, order) => {
+                items.push({
+                    id: card.dataset.layoutId,
+                    group: group.dataset.layoutGroup,
+                    order,
+                    width: card.style.width || "",
+                    height: card.style.height || ""
+                });
+            });
+        });
+        return items;
+    }
+
+    function applyPanelLayout(panel, layout) {
+        if (!Array.isArray(layout)) return;
+        const byGroup = Object.groupBy ? Object.groupBy(layout, item => item.group) : layout.reduce((acc, item) => ((acc[item.group] ||= []).push(item), acc), {});
+        Object.entries(byGroup).forEach(([groupId, items]) => {
+            const group = panel.querySelector(`[data-layout-group="${groupId}"]`);
+            if (!group) return;
+            items.sort((a,b) => a.order - b.order).forEach(item => {
+                const card = panel.querySelector(`[data-layout-id="${item.id}"]`);
+                if (!card) return;
+                card.style.width = item.width || "";
+                card.style.height = item.height || "";
+                group.appendChild(card);
+            });
+        });
+    }
+
+    function applyStoredPanelLayout(panel) {
+        try {
+            const saved = JSON.parse(localStorage.getItem(`novara_layout_${panel.id}`) || "null");
+            if (saved) applyPanelLayout(panel, saved);
+        } catch (error) { console.error("Saved layout error:", error); }
+    }
+
+    function activeLayoutPanel() {
+        return document.querySelector(".view-panel.active");
+    }
+
+    function setLayoutEditing(editing) {
+        const panel = activeLayoutPanel();
+        if (!panel) return;
+        document.body.classList.toggle("layout-editing", editing);
+        panel.querySelectorAll(".layout-card").forEach(card => card.draggable = editing);
+        document.getElementById("customizeLayoutBtn").hidden = editing;
+        ["saveLayoutBtn","cancelLayoutBtn","resetLayoutBtn"].forEach(id => document.getElementById(id).hidden = !editing);
+    }
+
+    document.querySelectorAll(".view-panel").forEach(prepareLayoutPanel);
+
+    document.addEventListener("dragstart", event => {
+        const card = event.target.closest(".layout-card");
+        if (!document.body.classList.contains("layout-editing") || !card) return;
+        draggedLayoutCard = card;
+        card.classList.add("layout-dragging");
+    });
+    document.addEventListener("dragend", () => {
+        draggedLayoutCard?.classList.remove("layout-dragging");
+        draggedLayoutCard = null;
+    });
+    document.addEventListener("dragover", event => {
+        if (!draggedLayoutCard) return;
+        const target = event.target.closest(".layout-card");
+        if (!target || target === draggedLayoutCard || target.parentElement !== draggedLayoutCard.parentElement) return;
+        event.preventDefault();
+        const rect = target.getBoundingClientRect();
+        const before = event.clientY < rect.top + rect.height / 2 || event.clientX < rect.left + rect.width / 2;
+        target.parentElement.insertBefore(draggedLayoutCard, before ? target : target.nextSibling);
+    });
+
+    document.getElementById("customizeLayoutBtn").addEventListener("click", () => {
+        if (window.innerWidth <= 768) return;
+        layoutEditSnapshot = capturePanelLayout(activeLayoutPanel());
+        setLayoutEditing(true);
+    });
+    document.getElementById("saveLayoutBtn").addEventListener("click", () => {
+        const panel = activeLayoutPanel();
+        localStorage.setItem(`novara_layout_${panel.id}`, JSON.stringify(capturePanelLayout(panel)));
+        setLayoutEditing(false);
+        window.dispatchEvent(new Event("resize"));
+    });
+    document.getElementById("cancelLayoutBtn").addEventListener("click", () => {
+        applyPanelLayout(activeLayoutPanel(), layoutEditSnapshot);
+        setLayoutEditing(false);
+        window.dispatchEvent(new Event("resize"));
+    });
+    document.getElementById("resetLayoutBtn").addEventListener("click", () => {
+        const panel = activeLayoutPanel();
+        localStorage.removeItem(`novara_layout_${panel.id}`);
+        applyPanelLayout(panel, defaultLayouts[panel.id]);
+        setLayoutEditing(false);
+        window.dispatchEvent(new Event("resize"));
+    });
+
 
         try {
 
@@ -6965,7 +7364,7 @@
         () => {
 
             updateDashboard(
-                30
+                currentPeriod
             );
 
         }
