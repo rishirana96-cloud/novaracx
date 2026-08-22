@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -2332,7 +2333,7 @@
         .layout-editing .layout-card::after { content:"Drag or resize"; position:absolute; right:9px; top:8px; padding:3px 5px; border-radius:5px; background:rgba(136,169,152,.16); color:var(--accent-light); font-size:8px; pointer-events:none; }
         .layout-card { position:relative; }
         .layout-card.layout-dragging { opacity:.42; }
-        .agent-assist-panel { position:absolute; top:0; bottom:0; left:var(--sidebar-width); right:min(900px,100%); width:auto; z-index:2; display:flex; flex-direction:column; padding:24px 28px; overflow-y:auto; background:#f4f6f2; color:#17201b; border-right:1px solid #dce3dd; box-shadow:-18px 0 50px rgba(0,0,0,.18); transition:transform .2s ease; }
+        .agent-assist-panel { position:absolute; top:0; bottom:0; left:var(--sidebar-width); right:min(780px,100%); width:auto; z-index:2; display:flex; flex-direction:column; padding:24px 28px; overflow-y:auto; background:#f4f6f2; color:#17201b; border-right:1px solid #dce3dd; box-shadow:-18px 0 50px rgba(0,0,0,.18); transition:transform .2s ease; }
         .agent-assist-panel.collapsed { transform:translateX(100%); pointer-events:none; }
         .agent-assist-head { display:flex; align-items:center; justify-content:space-between; margin-bottom:18px; }
         .agent-assist-title { font-size:21px; font-weight:800; letter-spacing:-.02em; }
@@ -2355,14 +2356,10 @@
         .agent-assist-copy svg { width:16px; height:16px; fill:none; stroke:currentColor; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
         .agent-assist-copy span { display:none; color:#3d604f; font-size:9px; font-weight:700; }
         .agent-assist-copy.copied span { display:inline; }
-        .agent-draft-input,.agent-improved-input { width:100%; min-height:96px; padding:13px; resize:vertical; border:1px solid #d6ded8; border-radius:11px; background:white; color:#26312a; font-size:12px; line-height:1.55; outline:none; }
-        .agent-draft-input:focus,.agent-improved-input:focus { border-color:#8fae9e; box-shadow:0 0 0 3px rgba(143,174,158,.16); }
-        .agent-improved-wrap { display:none; margin-top:13px; }
-        .agent-improved-wrap.visible { display:block; }
+        .agent-draft-input { width:100%; height:96px; min-height:96px; max-height:250px; overflow-y:hidden; padding:13px; resize:none; border:1px solid #d6ded8; border-radius:11px; background:white; color:#26312a; font-size:12px; line-height:1.55; outline:none; }
+        .agent-draft-input:focus { border-color:#8fae9e; box-shadow:0 0 0 3px rgba(143,174,158,.16); }
         .agent-original-toggle { display:none; margin-top:10px; padding:0; border:0; background:transparent; color:#456454; font-size:9px; font-weight:700; cursor:pointer; }
         .agent-original-toggle.visible { display:inline-flex; }
-        .agent-original-box { display:none; margin-top:7px; padding:11px; border:1px solid #dce3dd; border-radius:9px; background:#edf1ed; color:#56625b; font-size:11px; line-height:1.5; white-space:pre-wrap; }
-        .agent-original-box.visible { display:block; }
         .agent-draft-footer { display:flex; align-items:center; justify-content:space-between; gap:10px; margin-top:10px; }
         .agent-clear-btn { padding:6px 0; border:0; background:transparent; color:#717d75; font-size:9px; font-weight:700; cursor:pointer; }
         .agent-assist-reopen { position:absolute; top:20px; left:-38px; width:38px; height:38px; display:none; border:1px solid #d4dcd5; border-radius:9px 0 0 9px; background:#f4f6f2; color:#17201b; cursor:pointer; pointer-events:auto; }
@@ -2374,50 +2371,53 @@
         .ticket-markdown a { color:inherit; text-decoration:underline; }
         .ticket-drawer-backdrop { position:fixed; inset:0; z-index:1000; display:none; background:rgba(0,0,0,.62); backdrop-filter:blur(3px); }
         .ticket-drawer-backdrop.open { display:block; }
-        .ticket-drawer { position:absolute; top:0; right:0; bottom:0; width:min(900px,100%); display:flex; flex-direction:column; background:#0b0e0c; border-left:1px solid var(--border); box-shadow:-24px 0 70px rgba(0,0,0,.35); }
-        .ticket-drawer-head { flex:0 0 auto; display:flex; align-items:flex-start; justify-content:space-between; gap:20px; padding:22px 28px 20px; border-bottom:1px solid var(--border); background:rgba(11,14,12,.98); }
+        .ticket-drawer { position:absolute; top:0; right:0; bottom:0; width:min(780px,100%); display:flex; flex-direction:column; background:#0b0e0c; border-left:1px solid var(--border); box-shadow:-24px 0 70px rgba(0,0,0,.35); }
+        .ticket-drawer-head { flex:0 0 auto; display:flex; align-items:center; justify-content:space-between; gap:16px; padding:18px 22px; border-bottom:1px solid var(--border); background:rgba(11,14,12,.96); }
         .ticket-heading-row { display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
-        .ticket-drawer-title { font-size:22px; font-weight:780; letter-spacing:-.02em; }
-        .ticket-drawer-customer { margin-top:9px; color:var(--text); font-size:13px; font-weight:650; }
-        .ticket-drawer-customer span { margin-left:8px; color:var(--accent-light); font-weight:500; }
-        .ticket-drawer-meta { color:var(--text-muted); font-size:10px; margin-top:3px; }
+        .ticket-drawer-title { font-size:19px; font-weight:750; }
+        .ticket-drawer-meta { color:var(--text-muted); font-size:10px; margin-top:4px; }
         .ticket-chip { padding:5px 8px; border-radius:999px; font-size:9px; font-weight:700; text-transform:uppercase; letter-spacing:.06em; background:rgba(136,169,152,.12); color:var(--accent-light); }
         .ticket-chip.priority-high { background:rgba(223,141,130,.12); color:var(--danger); }
         .ticket-close { border:1px solid var(--border); background:var(--bg-card); color:var(--text); border-radius:9px; width:36px; height:36px; cursor:pointer; }
-        .ticket-workspace-scroll { flex:1 1 auto; min-height:0; overflow-y:auto; padding:18px 28px 26px; }
-        .ticket-context { padding:15px 0 17px; margin-bottom:12px; border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
-        .ticket-context-grid { display:grid; grid-template-columns:minmax(0,1.65fr) minmax(150px,1fr) minmax(110px,.65fr); gap:0; }
-        .ticket-context-item + .ticket-context-item { padding-left:20px; border-left:1px solid var(--border); }
-        .ticket-context-item:not(:last-child) { padding-right:20px; }
+        .ticket-workspace-scroll { flex:1 1 auto; overflow-y:auto; padding:18px 22px 22px; }
+        .ticket-context { padding:14px 16px; margin-bottom:13px; border:1px solid var(--border); border-radius:12px; background:var(--bg-card); }
+        .ticket-context-identity { display:grid; grid-template-columns:1.2fr 1.2fr 1fr .8fr; gap:12px; padding-bottom:13px; margin-bottom:13px; border-bottom:1px solid var(--border); }
+        .ticket-context-grid { display:grid; grid-template-columns:1.5fr 1fr 1fr; gap:12px; }
         .ticket-context-item span { display:block; margin-bottom:4px; color:var(--text-muted); font-size:10px; text-transform:uppercase; letter-spacing:.08em; }
         .ticket-context-item { color:var(--text); font-size:13px; line-height:1.45; }
-        .ticket-ai-details { margin-bottom:18px; border:1px solid var(--border); border-radius:10px; background:rgba(255,255,255,.012); }
-        .ticket-ai-details summary { display:flex; align-items:center; justify-content:space-between; gap:12px; padding:10px 13px; cursor:pointer; color:var(--text-secondary); font-size:11px; font-weight:650; list-style:none; }
-        .ticket-ai-details summary::-webkit-details-marker { display:none; }
-        .ticket-ai-details summary::after { content:"⌄"; color:var(--text-muted); font-size:14px; transition:transform .16s ease; }
-        .ticket-ai-details[open] summary::after { transform:rotate(180deg); }
-        .ticket-ai-count { margin-left:auto; color:var(--text-muted); font-size:9px; font-weight:500; }
-        .ticket-ai-transcript { max-height:280px; overflow-y:auto; padding:5px 14px 14px; }
-        .ticket-thread-label { margin:4px 2px 14px; color:var(--text-muted); font-size:10px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; }
-        .ticket-thread { min-height:240px; padding:0 2px 12px; background:transparent; border:0; }
-        .ticket-thread-message { width:fit-content; max-width:68%; margin:0 0 12px; padding:11px 14px; border-radius:15px; font-size:13px; line-height:1.52; box-shadow:0 5px 16px rgba(0,0,0,.08); }
-        .ticket-thread-message.customer { margin-left:auto; background:#abcbbb; color:#0a120e; border-bottom-right-radius:5px; }
-        .ticket-thread-message.agent { background:#151e19; border:1px solid rgba(136,169,152,.24); border-bottom-left-radius:5px; }
+        .ticket-ai-details { margin-bottom:13px; border:1px solid var(--border); border-radius:11px; background:rgba(255,255,255,.018); }
+        .ticket-ai-details summary { padding:11px 14px; cursor:pointer; color:var(--text-secondary); font-size:12px; font-weight:650; }
+        .ticket-ai-transcript { max-height:260px; overflow-y:auto; padding:0 13px 12px; }
+        .ticket-thread-label { margin:14px 2px 8px; color:var(--text-muted); font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; }
+        .ticket-thread { min-height:210px; padding:14px; background:var(--bg-card); border:1px solid var(--border); border-radius:12px; }
+        .ticket-thread-message { width:fit-content; max-width:76%; margin:0 0 9px; padding:9px 11px; border-radius:11px; font-size:13px; line-height:1.48; }
+        .ticket-thread-message.customer { margin-left:auto; background:#a7c8b8; color:#0a120e; border-bottom-right-radius:3px; }
+        .ticket-thread-message.agent { background:rgba(136,169,152,.10); border:1px solid rgba(136,169,152,.24); border-bottom-left-radius:3px; }
         .ticket-thread-message.ai { max-width:90%; background:rgba(255,255,255,.025); border:1px solid var(--border); color:var(--text-secondary); }
-        .ticket-thread-name { display:block; font-size:9px; opacity:.62; margin-bottom:5px; text-transform:uppercase; letter-spacing:.025em; }
-        .ticket-composer { flex:0 0 auto; padding:11px 28px 16px; border-top:1px solid var(--border); background:#0b0e0c; box-shadow:0 -12px 30px rgba(0,0,0,.13); }
-        .ticket-composer-tabs { display:flex; gap:5px; margin-bottom:9px; }
+        .ticket-thread-name { display:block; font-size:10px; opacity:.65; margin-bottom:3px; text-transform:uppercase; }
+        .ticket-composer { flex:0 0 auto; padding:12px 22px 16px; border-top:1px solid var(--border); background:#0b0e0c; }
+        .ticket-composer-tabs { display:flex; gap:4px; margin-bottom:8px; }
         .ticket-composer-tab { padding:6px 9px; border:0; border-radius:7px; background:transparent; color:var(--text-muted); font-size:11px; cursor:pointer; }
         .ticket-composer-tab.active { background:rgba(136,169,152,.12); color:var(--accent-light); }
         .ticket-composer-box { position:relative; }
-        .ticket-composer textarea { width:100%; height:76px; min-height:76px; max-height:240px; overflow-y:hidden; resize:none; padding:13px 54px 13px 14px; color:var(--text); background:var(--bg-card); border:1px solid var(--border); border-radius:12px; outline:none; font:inherit; font-size:13px; line-height:1.5; transition:border-color .16s ease,box-shadow .16s ease; }
+        .ticket-reply-compose { position:relative; display:flex; align-items:flex-end; gap:10px; }
+        .ticket-reply-shell { position:relative; flex:1 1 auto; min-width:0; }
+        .ticket-composer textarea { width:100%; height:50px; min-height:50px; max-height:240px; resize:none; padding:13px 52px 11px 16px; color:var(--text); background:var(--bg-card); border:1px solid var(--border); border-radius:25px; outline:none; font:inherit; font-size:13px; line-height:1.5; overflow-y:hidden; }
         .ticket-composer textarea:focus { border-color:rgba(136,169,152,.45); }
-        .ticket-send-arrow { position:absolute; right:9px; bottom:10px; width:34px; height:34px; display:grid; place-items:center; border:0; border-radius:9px; background:var(--accent); color:#07110d; cursor:pointer; }
+        .ticket-send-arrow { flex:0 0 44px; width:44px; height:44px; display:grid; place-items:center; border:0; border-radius:50%; background:var(--accent); color:#07110d; cursor:pointer; box-shadow:0 5px 16px rgba(0,0,0,.2); }
         .ticket-send-arrow:disabled { opacity:.35; cursor:not-allowed; }
         .ticket-send-arrow svg { width:17px; height:17px; fill:none; stroke:currentColor; stroke-width:2; }
-        .ticket-action-row { display:flex; align-items:center; gap:8px; margin-top:9px; }
+        .ticket-emoji-btn { position:absolute; right:8px; bottom:8px; width:34px; height:34px; display:grid; place-items:center; border:0; border-radius:50%; background:transparent; color:var(--text-muted); cursor:pointer; }
+        .ticket-emoji-btn:disabled { opacity:.35; cursor:not-allowed; }
+        .ticket-emoji-btn:hover { color:var(--accent-light); background:rgba(136,169,152,.1); }
+        .ticket-emoji-btn svg { width:21px; height:21px; fill:none; stroke:currentColor; stroke-width:1.8; }
+        .ticket-emoji-picker { position:absolute; right:54px; bottom:calc(100% + 8px); z-index:8; display:none; width:228px; padding:9px; grid-template-columns:repeat(6,1fr); gap:4px; border:1px solid var(--border); border-radius:12px; background:#151b17; box-shadow:0 16px 40px rgba(0,0,0,.38); }
+        .ticket-emoji-picker.open { display:grid; }
+        .ticket-emoji-picker button { width:30px; height:30px; border:0; border-radius:7px; background:transparent; font-size:17px; cursor:pointer; }
+        .ticket-emoji-picker button:hover { background:rgba(136,169,152,.14); }
+        .ticket-action-row { display:flex; align-items:center; gap:7px; margin-top:8px; }
         .ticket-action-btn { padding:8px 10px; border:1px solid var(--border); border-radius:8px; background:transparent; color:var(--text-secondary); font-size:11px; cursor:pointer; }
-        .ticket-action-btn.resolve { margin-left:auto; padding:8px 13px; color:#07110d; background:var(--accent); border-color:var(--accent); font-weight:700; }
+        .ticket-action-btn.resolve { margin-left:auto; color:var(--accent-light); border-color:rgba(136,169,152,.3); }
         .ticket-note-pane { display:none; }
         .ticket-note-pane.active, .ticket-reply-pane.active { display:block; }
         .ticket-reply-pane { display:none; }
@@ -2434,9 +2434,9 @@
         .ticket-resolution-dialog p { margin:0 0 12px; color:var(--text-muted); font-size:10px; }
         .ticket-resolution-dialog textarea { width:100%; min-height:90px; padding:10px; resize:vertical; color:var(--text); background:#0b0e0c; border:1px solid var(--border); border-radius:9px; }
         .ticket-table tbody tr { cursor:pointer; }
-        @media (max-width:1600px) { .agent-assist-panel { left:0; right:auto; width:min(640px,calc(100% - 42px)); box-shadow:18px 0 55px rgba(0,0,0,.35); } .agent-assist-panel.collapsed { transform:translateX(-100%); } .agent-assist-reopen { left:auto; right:-38px; border-radius:0 9px 9px 0; } }
+        @media (max-width:1180px) { .agent-assist-panel { left:0; right:auto; width:min(640px,calc(100% - 42px)); box-shadow:18px 0 55px rgba(0,0,0,.35); } .agent-assist-panel.collapsed { transform:translateX(-100%); } .agent-assist-reopen { left:auto; right:-38px; border-radius:0 9px 9px 0; } }
         @media (max-width:768px) { .layout-controls { display:none; } }
-        @media (max-width:620px) { .ticket-drawer-head,.ticket-workspace-scroll,.ticket-composer { padding-left:14px; padding-right:14px; } .ticket-context-grid { grid-template-columns:1fr; gap:13px; } .ticket-context-item + .ticket-context-item { padding-left:0; border-left:0; } .ticket-context-item:not(:last-child) { padding-right:0; } .ticket-thread-message { max-width:88%; } .agent-assist-panel { width:min(340px,calc(100% - 42px)); padding:18px; } }
+        @media (max-width:620px) { .ticket-drawer-head,.ticket-workspace-scroll,.ticket-composer { padding-left:14px; padding-right:14px; } .ticket-context-identity,.ticket-context-grid { grid-template-columns:1fr 1fr; } .ticket-thread-message { max-width:88%; } .agent-assist-panel { width:min(340px,calc(100% - 42px)); } .ticket-send-arrow { flex-basis:42px; width:42px; height:42px; } }
     </style>
 
 </head>
@@ -3852,7 +3852,6 @@
                 <button class="agent-assist-btn" data-assist-mode="simplify" type="button">Simplify</button>
             </div>
             <button id="agentOriginalToggle" class="agent-original-toggle" type="button">Show original</button>
-            <div id="agentOriginalBox" class="agent-original-box"></div>
             <div class="agent-draft-footer">
                 <button id="agentClearDraft" class="agent-clear-btn" type="button">Clear</button>
                 <button id="agentInsertDraft" class="agent-assist-btn primary" type="button" disabled>Insert into reply</button>
@@ -3868,7 +3867,6 @@
                     <span id="ticketStatusChip" class="ticket-chip">Open</span>
                     <span id="ticketPriorityChip" class="ticket-chip">Normal</span>
                 </div>
-                <div id="ticketDrawerCustomer" class="ticket-drawer-customer"></div>
                 <div id="ticketDrawerMeta" class="ticket-drawer-meta"></div>
             </div>
             <button id="ticketDrawerClose" class="ticket-close" type="button" aria-label="Close ticket">✕</button>
@@ -3877,7 +3875,7 @@
         <div class="ticket-workspace-scroll">
             <div id="ticketContext" class="ticket-context"></div>
             <details class="ticket-ai-details">
-                <summary><span>AI conversation before handoff</span><span id="ticketAiCount" class="ticket-ai-count">0 messages</span></summary>
+                <summary>View AI conversation before handoff</summary>
                 <div id="ticketAiTranscript" class="ticket-ai-transcript"></div>
             </details>
             <div class="ticket-thread-label">Human support conversation</div>
@@ -3891,11 +3889,17 @@
             </div>
 
             <div id="ticketReplyPane" class="ticket-reply-pane active">
-                <div class="ticket-composer-box">
-                    <textarea id="ticketReplyText" placeholder="Reply to customer…"></textarea>
+                <div class="ticket-reply-compose">
+                    <div class="ticket-reply-shell">
+                        <textarea id="ticketReplyText" placeholder="Reply to customer…"></textarea>
+                        <button id="ticketEmojiButton" class="ticket-emoji-btn" type="button" aria-label="Add emoji" title="Add emoji">
+                            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M8.5 14.5s1.2 2 3.5 2 3.5-2 3.5-2"></path><path d="M9 9h.01M15 9h.01"></path></svg>
+                        </button>
+                    </div>
                     <button id="ticketSendReply" class="ticket-send-arrow" type="button" aria-label="Send reply" disabled>
                         <svg viewBox="0 0 24 24"><path d="M22 2 11 13"></path><path d="m22 2-7 20-4-9-9-4Z"></path></svg>
                     </button>
+                    <div id="ticketEmojiPicker" class="ticket-emoji-picker" aria-label="Choose an emoji"></div>
                 </div>
                 <div class="ticket-action-row">
                     <button id="ticketMarkPending" class="ticket-action-btn" type="button">Mark pending</button>
@@ -6820,6 +6824,20 @@
         });
     }
 
+    function ticketDatePart(value) {
+        if (!value) return "—";
+        const date = new Date(String(value).includes("T") ? value : `${String(value).replace(" ", "T")}Z`);
+        if (isNaN(date.getTime())) return "—";
+        return date.toLocaleDateString("en-IN", { timeZone:"Asia/Kolkata", day:"2-digit", month:"short", year:"numeric" });
+    }
+
+    function ticketTimePart(value) {
+        if (!value) return "—";
+        const date = new Date(String(value).includes("T") ? value : `${String(value).replace(" ", "T")}Z`);
+        if (isNaN(date.getTime())) return "—";
+        return date.toLocaleTimeString("en-IN", { timeZone:"Asia/Kolkata", hour:"2-digit", minute:"2-digit" });
+    }
+
     function renderTicketNotes(notes) {
         const container = document.getElementById("ticketNotesHistory");
         if (!Array.isArray(notes) || !notes.length) {
@@ -6864,11 +6882,12 @@
         setComposerMode("reply");
         lastAssistSuggestion = "";
         originalAssistDraft = "";
+        refinedAssistDraft = "";
+        showingOriginalDraft = false;
         document.getElementById("agentAssistSuggestion").className = "agent-suggestion empty";
         document.getElementById("agentAssistSuggestion").textContent = "Generate a reply suggestion using the ticket context.";
         document.getElementById("agentDraftInput").value = "";
         document.getElementById("agentOriginalToggle").classList.remove("visible");
-        document.getElementById("agentOriginalBox").classList.remove("visible");
         document.getElementById("agentOriginalToggle").textContent = "Show original";
         document.getElementById("agentAssistStatus").textContent = "";
         document.getElementById("agentRegenerate").disabled = true;
@@ -6896,8 +6915,7 @@
 
             const ticket = data.ticket;
             document.getElementById("ticketDrawerTitle").textContent = ticket.ticket_number || `NX-${String(ticket.id).padStart(4, "0")}`;
-            document.getElementById("ticketDrawerCustomer").innerHTML = `${escapeHtml(ticket.customer_name || "Customer details unavailable")}<span>${escapeHtml(ticket.customer_phone || "No phone number")}</span>`;
-            document.getElementById("ticketDrawerMeta").textContent = `Created ${ticketDateText(ticket.created_at)} · ${ticket.agent_name || "Novara CX Support"}`;
+            document.getElementById("ticketDrawerMeta").textContent = `Assigned to ${ticket.agent_name || "Novara CX Support"}`;
 
             const statusChip = document.getElementById("ticketStatusChip");
             statusChip.textContent = String(ticket.status || "open").replaceAll("_", " ");
@@ -6906,6 +6924,12 @@
             priorityChip.className = `ticket-chip ${ticket.priority === "high" ? "priority-high" : ""}`;
 
             document.getElementById("ticketContext").innerHTML = `
+                <div class="ticket-context-identity">
+                    <div class="ticket-context-item"><span>Customer name</span>${escapeHtml(ticket.customer_name || "—")}</div>
+                    <div class="ticket-context-item"><span>Phone number</span>${escapeHtml(ticket.customer_phone || "—")}</div>
+                    <div class="ticket-context-item"><span>Created date</span>${escapeHtml(ticketDatePart(ticket.created_at))}</div>
+                    <div class="ticket-context-item"><span>Created time</span>${escapeHtml(ticketTimePart(ticket.created_at))}</div>
+                </div>
                 <div class="ticket-context-grid">
                     <div class="ticket-context-item"><span>Original query</span>${escapeHtml(ticket.customer_query || "—")}</div>
                     <div class="ticket-context-item"><span>Escalation reason</span>${escapeHtml((ticket.escalation_reason || "—").replaceAll("_", " "))}</div>
@@ -6925,7 +6949,6 @@
             });
 
             const aiElement = document.getElementById("ticketAiTranscript");
-            document.getElementById("ticketAiCount").textContent = `${aiThread.length} ${aiThread.length === 1 ? "message" : "messages"}`;
             aiElement.innerHTML = aiThread.length ? aiThread.map(item => `
                 <div class="ticket-thread-message ${item.type}">
                     <span class="ticket-thread-name">${escapeHtml(item.name)} · ${escapeHtml(ticketDateText(item.created_at))}</span><div class="ticket-markdown">${renderSafeMarkdown(item.message)}</div>
@@ -6954,6 +6977,7 @@
             replyInput.disabled = ticket.status === "resolved";
             replyInput.placeholder = ticket.status === "resolved" ? "Reopen this ticket before replying" : "Reply to customer…";
             document.getElementById("ticketSendReply").disabled = ticket.status === "resolved" || !replyInput.value.trim();
+            document.getElementById("ticketEmojiButton").disabled = ticket.status === "resolved";
         } catch (error) {
             document.getElementById("ticketActionError").textContent = error.message;
         }
@@ -6972,14 +6996,15 @@
 
     let lastAssistSuggestion = "";
     let originalAssistDraft = "";
+    let refinedAssistDraft = "";
+    let showingOriginalDraft = false;
 
     function autoResizeTextarea(textarea) {
         if (!textarea) return;
-        const minimum = textarea.id === "ticketReplyText" ? 76 : 96;
+        const minimum = textarea.id === "ticketReplyText" ? 50 : 96;
         const maximum = textarea.id === "ticketReplyText" ? 240 : 250;
         textarea.style.height = "auto";
-        const nextHeight = Math.max(minimum, Math.min(textarea.scrollHeight, maximum));
-        textarea.style.height = `${nextHeight}px`;
+        textarea.style.height = `${Math.max(minimum, Math.min(textarea.scrollHeight, maximum))}px`;
         textarea.style.overflowY = textarea.scrollHeight > maximum ? "auto" : "hidden";
     }
 
@@ -7002,7 +7027,6 @@
         }
         if (target === "draft" && !originalAssistDraft) {
             originalAssistDraft = draftInput.value.trim();
-            document.getElementById("agentOriginalBox").textContent = originalAssistDraft;
         }
         status.textContent = target === "draft" ? "Improving your draft with DeepSeek…" : "Generating with DeepSeek…";
         setAssistBusy(true);
@@ -7015,9 +7039,12 @@
                 suggestionBox.innerHTML = `<div class="ticket-markdown">${renderSafeMarkdown(data.suggestion)}</div>`;
                 status.textContent = "Suggested reply ready. Review it before inserting.";
             } else {
-                draftInput.value = data.suggestion;
+                refinedAssistDraft = data.suggestion;
+                showingOriginalDraft = false;
+                draftInput.value = refinedAssistDraft;
                 autoResizeTextarea(draftInput);
                 document.getElementById("agentOriginalToggle").classList.add("visible");
+                document.getElementById("agentOriginalToggle").textContent = "Show original";
                 status.textContent = "Draft improved. You can edit it or apply another option.";
             }
         } catch (error) {
@@ -7052,29 +7079,42 @@
         reply.focus();
     });
     document.getElementById("agentInsertDraft").addEventListener("click", () => {
-        const draft = document.getElementById("agentDraftInput").value.trim();
-        if (!draft) return;
+        const currentDraft = document.getElementById("agentDraftInput").value.trim();
+        if (!currentDraft) return;
         const reply = document.getElementById("ticketReplyText");
-        reply.value = draft;
+        reply.value = currentDraft;
         reply.dispatchEvent(new Event("input"));
         setComposerMode("reply");
         reply.focus();
     });
     document.getElementById("agentDraftInput").addEventListener("input", event => {
         autoResizeTextarea(event.target);
+        if (showingOriginalDraft) originalAssistDraft = event.target.value;
+        else if (originalAssistDraft) refinedAssistDraft = event.target.value;
         document.getElementById("agentInsertDraft").disabled = !event.target.value.trim();
     });
     document.getElementById("agentOriginalToggle").addEventListener("click", event => {
-        const box = document.getElementById("agentOriginalBox");
-        const visible = box.classList.toggle("visible");
-        event.currentTarget.textContent = visible ? "Hide original" : "Show original";
+        const draftInput = document.getElementById("agentDraftInput");
+        if (!originalAssistDraft || !refinedAssistDraft) return;
+        if (showingOriginalDraft) {
+            originalAssistDraft = draftInput.value;
+            draftInput.value = refinedAssistDraft;
+            showingOriginalDraft = false;
+            event.currentTarget.textContent = "Show original";
+        } else {
+            refinedAssistDraft = draftInput.value;
+            draftInput.value = originalAssistDraft;
+            showingOriginalDraft = true;
+            event.currentTarget.textContent = "Show refined";
+        }
+        autoResizeTextarea(draftInput);
     });
     document.getElementById("agentClearDraft").addEventListener("click", () => {
         originalAssistDraft = "";
+        refinedAssistDraft = "";
+        showingOriginalDraft = false;
         document.getElementById("agentDraftInput").value = "";
         autoResizeTextarea(document.getElementById("agentDraftInput"));
-        document.getElementById("agentOriginalBox").textContent = "";
-        document.getElementById("agentOriginalBox").classList.remove("visible");
         document.getElementById("agentOriginalToggle").classList.remove("visible");
         document.getElementById("agentOriginalToggle").textContent = "Show original";
         document.getElementById("agentInsertDraft").disabled = true;
@@ -7138,6 +7178,28 @@
             event.preventDefault();
             if (!ticketSendReply.disabled) sendAgentReply();
         }
+    });
+
+    const ticketEmojiButton = document.getElementById("ticketEmojiButton");
+    const ticketEmojiPicker = document.getElementById("ticketEmojiPicker");
+    const ticketEmojis = ["😀","😊","🙂","👍","🙏","🎉","❤️","✅","👋","😄","🤝","💚","📦","🚚","⏳","💬","✨","🙌"];
+    ticketEmojiPicker.innerHTML = ticketEmojis.map(emoji => `<button type="button" data-emoji="${emoji}" aria-label="Insert ${emoji}">${emoji}</button>`).join("");
+    ticketEmojiButton.addEventListener("click", event => {
+        event.stopPropagation();
+        if (!ticketEmojiButton.disabled) ticketEmojiPicker.classList.toggle("open");
+    });
+    ticketEmojiPicker.addEventListener("click", event => {
+        const button = event.target.closest("[data-emoji]");
+        if (!button) return;
+        const start = ticketReplyText.selectionStart ?? ticketReplyText.value.length;
+        const end = ticketReplyText.selectionEnd ?? start;
+        ticketReplyText.setRangeText(button.dataset.emoji, start, end, "end");
+        ticketReplyText.dispatchEvent(new Event("input"));
+        ticketReplyText.focus();
+        ticketEmojiPicker.classList.remove("open");
+    });
+    document.addEventListener("click", event => {
+        if (!ticketEmojiPicker.contains(event.target) && event.target !== ticketEmojiButton) ticketEmojiPicker.classList.remove("open");
     });
 
     function setComposerMode(mode) {
