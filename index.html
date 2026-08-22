@@ -1977,6 +1977,60 @@
             }
         }
     </style>
+
+    <style>
+        .msg-row.agent { align-self: flex-start; }
+        .msg.agent {
+            background: rgba(136, 169, 152, 0.14);
+            border: 1px solid rgba(136, 169, 152, 0.28);
+            color: var(--text);
+        }
+        .ticket-contact-card {
+            margin: 8px 0 4px 38px;
+            padding: 14px;
+            border: 1px solid rgba(136, 169, 152, 0.28);
+            border-radius: 14px;
+            background: rgba(136, 169, 152, 0.08);
+        }
+        .ticket-contact-card strong { display: block; margin-bottom: 10px; }
+        .ticket-contact-card input {
+            width: 100%;
+            margin-bottom: 8px;
+            padding: 10px 11px;
+            color: var(--text);
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 9px;
+            outline: none;
+        }
+        .ticket-contact-card input:focus { border-color: var(--accent); }
+        .ticket-consent {
+            display: flex;
+            gap: 8px;
+            align-items: flex-start;
+            margin: 3px 0 10px;
+            color: var(--text-muted);
+            font-size: 11px;
+            line-height: 1.4;
+        }
+        .ticket-consent input { width: auto; margin: 2px 0 0; }
+        .ticket-contact-submit {
+            width: 100%;
+            padding: 10px;
+            border: 0;
+            border-radius: 9px;
+            background: var(--accent);
+            color: #07110d;
+            font-weight: 700;
+            cursor: pointer;
+        }
+        .ticket-contact-error { min-height: 16px; color: #df8d82; font-size: 11px; margin-top: 7px; }
+        .human-chat-status {
+            margin: 7px 0 3px 38px;
+            color: var(--accent-light);
+            font-size: 11px;
+        }
+    </style>
 </head>
 
 <body>
@@ -4058,6 +4112,11 @@
             );
 
 
+        let activeTicket = null;
+        let lastTicketMessageId = 0;
+        let lastTicketStatus = null;
+
+
         // ==========================================
         // OPEN / CLOSE
         // ==========================================
@@ -4134,7 +4193,8 @@
 
 
             if (
-                sender === "bot"
+                sender === "bot" ||
+                sender === "agent"
             ) {
 
                 const avatar =
@@ -4298,7 +4358,7 @@
                     "escalation-status";
 
                 status.innerHTML =
-                    `<span class="pulse"></span> Waiting for human agent...`;
+                    `<span class="pulse"></span> Details required for human support`;
 
                 div.appendChild(
                     status
@@ -4326,7 +4386,7 @@
                         "escalation-badge";
 
                     badge.innerHTML =
-                        `<span class="icon">👤</span> Human Agent Notified`;
+                        `<span class="icon">👤</span> Human Handoff Available`;
 
                     div.appendChild(
                         badge
@@ -4407,6 +4467,164 @@
 
             }
 
+        }
+
+
+        // ==========================================
+        // HUMAN TICKET HANDOFF
+        // ==========================================
+
+        function showTicketContactForm() {
+
+            if (activeTicket || document.getElementById("ticketContactCard")) return;
+
+            const card = document.createElement("div");
+            card.className = "ticket-contact-card";
+            card.id = "ticketContactCard";
+            card.innerHTML = `
+                <strong>Connect with a human agent</strong>
+                <input id="ticketCustomerName" type="text" maxlength="80" placeholder="Your name" autocomplete="name">
+                <input id="ticketCustomerPhone" type="tel" maxlength="14" placeholder="10-digit mobile number" autocomplete="tel">
+                <label class="ticket-consent">
+                    <input id="ticketContactConsent" type="checkbox">
+                    <span>I agree to be contacted about this support request.</span>
+                </label>
+                <button id="ticketContactSubmit" class="ticket-contact-submit" type="button">Connect me to an agent</button>
+                <div id="ticketContactError" class="ticket-contact-error"></div>
+            `;
+
+            chatMessages.appendChild(card);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+
+            document.getElementById("ticketContactSubmit").addEventListener("click", createHumanTicket);
+
+        }
+
+
+        async function createHumanTicket() {
+
+            const name = document.getElementById("ticketCustomerName").value.trim();
+            const phone = document.getElementById("ticketCustomerPhone").value.trim();
+            const consent = document.getElementById("ticketContactConsent").checked;
+            const errorBox = document.getElementById("ticketContactError");
+            const button = document.getElementById("ticketContactSubmit");
+
+            errorBox.textContent = "";
+            button.disabled = true;
+            button.textContent = "Connecting...";
+
+            try {
+                const response = await fetch(`${WORKER_URL}ticket/create`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ sessionId, name, phone, consent })
+                });
+                const data = await response.json();
+                if (!response.ok) throw new Error(data.error || "Could not create ticket.");
+
+                activeTicket = data.ticket;
+                lastTicketStatus = data.ticket.status;
+                document.getElementById("ticketContactCard")?.remove();
+                renderMessage(
+                    `Your ticket **${data.ticket.ticketNumber}** has been created. Novara CX Support will reply here shortly.`,
+                    "agent",
+                    false
+                );
+                updateHumanChatStatus();
+            } catch (error) {
+                errorBox.textContent = error.message;
+                button.disabled = false;
+                button.textContent = "Connect me to an agent";
+            }
+
+        }
+
+
+        function updateHumanChatStatus() {
+            let status = document.getElementById("humanChatStatus");
+            if (!activeTicket) {
+                status?.remove();
+                return;
+            }
+            if (!status) {
+                status = document.createElement("div");
+                status.id = "humanChatStatus";
+                status.className = "human-chat-status";
+                chatMessages.appendChild(status);
+            }
+            const labels = {
+                open: "Waiting for Novara CX Support",
+                in_progress: "Connected to Novara CX Support",
+                pending: "Waiting for your response",
+                reopened: "Ticket reopened",
+                resolved: "Ticket resolved"
+            };
+            status.textContent = `${activeTicket.ticket_number || activeTicket.ticketNumber || "Ticket"} · ${labels[activeTicket.status] || activeTicket.status}`;
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+
+        async function pollTicketMessages() {
+            try {
+                const response = await fetch(`${WORKER_URL}ticket-status?session=${encodeURIComponent(sessionId)}&after=${lastTicketMessageId}`);
+                if (!response.ok) return;
+                const data = await response.json();
+                if (!data.ticket) return;
+
+                const previousStatus = lastTicketStatus;
+                activeTicket = data.ticket;
+                lastTicketStatus = data.ticket.status;
+
+                (data.messages || []).forEach(item => {
+                    lastTicketMessageId = Math.max(lastTicketMessageId, Number(item.id) || 0);
+                    renderMessage(item.message, item.sender_type === "agent" ? "agent" : "user", false);
+                });
+
+                if (data.ticket.status === "resolved" && previousStatus && previousStatus !== "resolved") {
+                    renderMessage(
+                        `This ticket has been resolved. ${data.ticket.resolution_note ? `Resolution: ${data.ticket.resolution_note}` : ""}\n\nIf the issue remains, type **reopen ticket**.`,
+                        "agent",
+                        false
+                    );
+                }
+
+                updateHumanChatStatus();
+            } catch (error) {
+                console.error("Ticket polling error:", error);
+            }
+        }
+
+
+        async function sendCustomerTicketMessage(message) {
+            const isReopen = activeTicket?.status === "resolved" && message.toLowerCase() === "reopen ticket";
+            if (isReopen) {
+                const response = await fetch(`${WORKER_URL}ticket/update`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ ticketId: activeTicket.id, action: "reopen" })
+                });
+                const data = await response.json();
+                if (!response.ok) throw new Error(data.error || "Could not reopen ticket.");
+                activeTicket = data.ticket;
+                lastTicketStatus = data.ticket.status;
+                renderMessage("Your ticket has been reopened.", "agent", false);
+                updateHumanChatStatus();
+                return;
+            }
+
+            if (activeTicket?.status === "resolved") {
+                renderMessage("Type **reopen ticket** if you still need help with this issue.", "agent", false);
+                return;
+            }
+
+            const response = await fetch(`${WORKER_URL}ticket/customer-message`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ sessionId, message })
+            });
+            const data = await response.json();
+            if (!response.ok) throw new Error(data.error || "Message could not be sent.");
+            lastTicketMessageId = Math.max(lastTicketMessageId, Number(data.messageId) || 0);
         }
 
 
@@ -4524,6 +4742,19 @@
                 true;
 
 
+            if (activeTicket) {
+                try {
+                    await sendCustomerTicketMessage(message);
+                } catch (error) {
+                    renderMessage(error.message || "Your message could not be sent.", "agent", false);
+                } finally {
+                    chatInput.disabled = false;
+                    chatSend.disabled = false;
+                    chatInput.focus();
+                }
+                return;
+            }
+
             showTyping();
 
 
@@ -4603,6 +4834,10 @@
                         escalationData
                     );
 
+                }
+
+                if (escalationData.escalatedToHuman === 1) {
+                    showTicketContactForm();
                 }
 
                 else {
@@ -4868,6 +5103,16 @@
         window.addEventListener(
             "load",
             async () => {
+
+                await pollTicketMessages();
+                setInterval(pollTicketMessages, 3000);
+
+                if (activeTicket) {
+                    chatWindow.classList.add("open");
+                    chatToggle.classList.add("is-open");
+                    chatInput.focus();
+                    return;
+                }
 
                 const restored =
                     await loadExistingConversation();
