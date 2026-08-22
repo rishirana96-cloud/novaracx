@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -2063,6 +2062,11 @@
                     13px;
             }
 
+            .nav-submenu,
+            .nav-chevron {
+                display: none !important;
+            }
+
 
             .main {
 
@@ -2551,6 +2555,15 @@
         .nav-item.active { background: linear-gradient(90deg, rgba(146,181,162,.15), rgba(146,181,162,.045)); border-color: rgba(146,181,162,.15); }
         .nav-item.active::before { background: var(--accent); box-shadow: 0 0 16px rgba(146,181,162,.38); }
         .nav-item:hover { transform: translateX(2px); }
+        .nav-parent .nav-chevron { width: 14px; height: 14px; margin-left: auto; transition: transform .18s ease; }
+        .nav-parent.expanded .nav-chevron { transform: rotate(180deg); }
+        .nav-submenu { display: none; flex-direction: column; gap: 2px; margin: 2px 0 7px 19px; padding-left: 12px; border-left: 1px solid rgba(146,181,162,.16); }
+        .nav-submenu.open { display: flex; }
+        .nav-subitem { display: flex; align-items: center; gap: 9px; min-height: 34px; padding: 7px 10px; border-radius: 8px; color: var(--text-muted); text-decoration: none; font-size: 10px; font-weight: 560; transition: var(--transition); }
+        .nav-subitem:hover { color: var(--text-secondary); background: rgba(255,255,255,.025); }
+        .nav-subitem.active { color: var(--text); background: rgba(146,181,162,.08); }
+        .nav-subdot { width: 5px; height: 5px; flex: 0 0 5px; border-radius: 50%; background: currentColor; opacity: .5; }
+        .nav-subitem.active .nav-subdot { color: var(--accent); opacity: 1; box-shadow: 0 0 0 3px rgba(146,181,162,.08); }
 
         .agent-profile { padding: 11px; border-radius: 12px; background: rgba(255,255,255,.022); transition: var(--transition); }
         .agent-profile:hover { background: rgba(255,255,255,.04); border-color: var(--border-strong); }
@@ -2566,8 +2579,12 @@
         .topbar-updated,
         .refresh-btn { min-height: 40px; border-radius: 10px; background: rgba(255,255,255,.022); }
         .topbar-updated { position: relative; padding-left: 28px; }
-        .topbar-updated::before { content: ""; position: absolute; left: 13px; width: 6px; height: 6px; border-radius: 50%; background: var(--success); box-shadow: 0 0 0 4px rgba(121,195,154,.08); }
+        .topbar-updated { padding-left: 13px; }
+        .topbar-updated::before { display: none; }
         .refresh-btn:hover { transform: translateY(-1px); }
+        .auto-refresh-control { min-height: 40px; display: flex; align-items: center; gap: 8px; padding: 5px 7px 5px 12px; border: 1px solid var(--border); border-radius: 10px; background: rgba(255,255,255,.022); color: var(--text-muted); font-size: 9px; white-space: nowrap; }
+        .auto-refresh-control select { min-height: 28px; padding: 5px 25px 5px 8px; border: 1px solid var(--border); border-radius: 7px; outline: none; background: #0b100d; color: var(--text-secondary); font-size: 9px; }
+        .auto-refresh-control select:focus { border-color: rgba(146,181,162,.45); }
 
         .toolbar {
             min-height: 56px;
@@ -2726,6 +2743,20 @@
         .report-field input:focus,
         .report-field select:focus { border-color: rgba(146,181,162,.52); box-shadow: 0 0 0 3px rgba(146,181,162,.08); color: var(--text); }
         .report-field input::placeholder { color: var(--text-muted); }
+        .pivot-report-control[hidden], .standard-report-control[hidden], .pivot-options[hidden] { display: none !important; }
+        .report-filter-section { margin-top: 18px; padding-top: 17px; border-top: 1px solid var(--border); }
+        .report-filter-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 9px; }
+        .report-filter-head strong { display: block; margin-top: 3px; color: var(--text-secondary); font-size: 10px; }
+        .report-text-btn { padding: 6px 8px; border: 1px solid var(--border); border-radius: 7px; background: transparent; color: var(--accent-light); font-size: 9px; font-weight: 650; }
+        .report-text-btn:hover { background: rgba(146,181,162,.08); border-color: rgba(146,181,162,.25); }
+        .report-filters-list { display: flex; flex-direction: column; gap: 7px; }
+        .report-filter-row { display: grid; grid-template-columns: 1fr .85fr 1fr 28px; gap: 5px; align-items: center; }
+        .report-filter-row select, .report-filter-row input { width: 100%; min-width: 0; height: 32px; padding: 6px 7px; border: 1px solid var(--border); border-radius: 7px; outline: none; background: #0a0f0c; color: var(--text-secondary); font-size: 8px; }
+        .report-filter-remove { width: 28px; height: 28px; display: grid; place-items: center; border: 0; border-radius: 7px; background: transparent; color: var(--text-muted); font-size: 15px; }
+        .report-filter-remove:hover { background: rgba(223,141,130,.09); color: var(--danger); }
+        .pivot-options { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 13px; padding: 11px; border: 1px solid var(--border); border-radius: 9px; background: rgba(255,255,255,.012); }
+        .pivot-options label { display: inline-flex; align-items: center; gap: 6px; color: var(--text-muted); font-size: 8px; }
+        .pivot-options input { accent-color: var(--accent); }
         .report-builder-message { min-height: 18px; margin-top: 10px; color: var(--text-muted); font-size: 9px; }
         .report-builder-message.success { color: var(--success); }
         .report-builder-message.error { color: var(--danger); }
@@ -2753,6 +2784,17 @@
         .report-chart-wrap { position: relative; height: 350px; padding-top: 22px; }
         .report-chart-wrap canvas { width: 100% !important; height: 100% !important; }
         .report-table-wrap { margin-top: 20px; overflow: auto; border: 1px solid var(--border); border-radius: 11px; }
+        .pivot-table-wrap { max-height: 520px; margin-top: 20px; overflow: auto; border: 1px solid var(--border); border-radius: 11px; }
+        .pivot-table { width: 100%; min-width: 620px; border-collapse: separate; border-spacing: 0; }
+        .pivot-table th, .pivot-table td { min-width: 92px; padding: 10px 12px; border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); font-size: 9px; text-align: right; white-space: nowrap; }
+        .pivot-table th { position: sticky; top: 0; z-index: 2; background: #0b100d; color: var(--text-muted); font-size: 8px; letter-spacing: .05em; text-transform: uppercase; }
+        .pivot-table th:first-child { left: 0; z-index: 3; text-align: left; }
+        .pivot-table td:first-child { position: sticky; left: 0; z-index: 1; max-width: 190px; overflow: hidden; background: #0d120f; color: var(--text-secondary); text-align: left; text-overflow: ellipsis; }
+        .pivot-table tr:last-child td { font-weight: 720; color: var(--text); background: #111813; }
+        .pivot-table .pivot-total { font-weight: 700; color: var(--accent-light); background: rgba(146,181,162,.045); }
+        .pivot-cell { position: relative; overflow: hidden; color: var(--text-secondary); }
+        .pivot-cell-value { position: relative; z-index: 1; }
+        .pivot-data-bar { position: absolute; z-index: 0; left: 0; top: 4px; bottom: 4px; border-radius: 0 4px 4px 0; background: rgba(146,181,162,.17); }
         .report-preview-table { width: 100%; border-collapse: collapse; }
         .report-preview-table th { padding: 11px 14px; text-align: left; background: #0b100d; color: var(--text-muted); font-size: 8px; text-transform: uppercase; letter-spacing: .08em; }
         .report-preview-table th:nth-child(n+2),
@@ -2770,6 +2812,55 @@
         .saved-report-delete:hover { background: rgba(223,141,130,.09); color: var(--danger); }
         .saved-report-delete svg { width: 13px; height: 13px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
 
+        /* Custom dashboards */
+        .dashboard-command-bar { display: flex; align-items: flex-end; justify-content: space-between; gap: 18px; margin-bottom: 18px; padding: 16px 18px; border: 1px solid var(--border); border-radius: 14px; background: linear-gradient(180deg, rgba(18,24,20,.98), rgba(14,19,16,.98)); box-shadow: var(--shadow); }
+        .dashboard-selector-wrap { min-width: min(330px, 100%); }
+        .dashboard-selector-wrap select { width: 100%; min-height: 39px; margin-top: 6px; padding: 8px 12px; border: 1px solid var(--border); border-radius: 9px; outline: none; background: #0a0f0c; color: var(--text); font-size: 11px; font-weight: 650; }
+        .dashboard-command-actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 7px; }
+        .report-secondary-btn.danger:hover { color: var(--danger); border-color: rgba(223,141,130,.28); background: rgba(223,141,130,.06); }
+        .custom-dashboard-empty { min-height: 430px; display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 40px 20px; border: 1px dashed rgba(146,181,162,.20); border-radius: 16px; background: rgba(255,255,255,.009); text-align: center; }
+        .custom-dashboard-empty[hidden] { display: none !important; }
+        .custom-dashboard-empty-icon { width: 54px; height: 54px; display: grid; place-items: center; margin-bottom: 15px; border: 1px solid rgba(146,181,162,.18); border-radius: 15px; background: rgba(146,181,162,.07); color: var(--accent); }
+        .custom-dashboard-empty-icon svg { width: 25px; height: 25px; fill: none; stroke: currentColor; stroke-width: 1.6; }
+        .custom-dashboard-empty h2 { font-size: 17px; }
+        .custom-dashboard-empty p { max-width: 430px; margin: 7px 0 18px; color: var(--text-muted); font-size: 10px; }
+        .custom-dashboard-grid { display: grid; grid-template-columns: repeat(12, minmax(0,1fr)); grid-auto-rows: 46px; gap: 12px; align-items: stretch; }
+        .dashboard-widget { position: relative; grid-column: span 6; grid-row: span 8; min-width: 300px; min-height: 260px; overflow: hidden; border: 1px solid var(--border); border-radius: 15px; background: linear-gradient(180deg, rgba(18,24,20,.99), rgba(13,18,15,.99)); box-shadow: var(--shadow); }
+        .dashboard-widget.dragging { opacity: .5; }
+        .dashboard-widget-head { height: 64px; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 13px 14px 11px 17px; border-bottom: 1px solid var(--border); cursor: grab; }
+        .dashboard-widget-head:active { cursor: grabbing; }
+        .dashboard-widget-title { min-width: 0; }
+        .dashboard-widget-title strong { display: block; overflow: hidden; color: var(--text); font-size: 11px; white-space: nowrap; text-overflow: ellipsis; }
+        .dashboard-widget-title span { display: block; margin-top: 4px; color: var(--text-muted); font-size: 8px; }
+        .dashboard-widget-actions { display: flex; gap: 4px; }
+        .dashboard-widget-action { width: 29px; height: 29px; display: grid; place-items: center; border: 1px solid transparent; border-radius: 7px; background: transparent; color: var(--text-muted); }
+        .dashboard-widget-action:hover { border-color: var(--border); background: rgba(255,255,255,.025); color: var(--text); }
+        .dashboard-widget-action.remove:hover { color: var(--danger); background: rgba(223,141,130,.07); }
+        .dashboard-widget-action svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+        .dashboard-widget-body { height: calc(100% - 64px); padding: 15px; overflow: auto; }
+        .dashboard-widget-chart { position: relative; width: 100%; height: 100%; min-height: 190px; }
+        .dashboard-widget-chart canvas { width: 100% !important; height: 100% !important; }
+        .dashboard-widget-table { width: 100%; border-collapse: collapse; }
+        .dashboard-widget-table th, .dashboard-widget-table td { padding: 8px 9px; border-bottom: 1px solid var(--border); color: var(--text-secondary); font-size: 8px; text-align: right; }
+        .dashboard-widget-table th { color: var(--text-muted); font-size: 7px; text-transform: uppercase; letter-spacing: .07em; }
+        .dashboard-widget-table th:first-child, .dashboard-widget-table td:first-child { text-align: left; }
+        .dashboard-widget-resize { position: absolute; right: 3px; bottom: 3px; width: 18px; height: 18px; cursor: nwse-resize; opacity: .45; }
+        .dashboard-widget-resize::after { content: ""; position: absolute; right: 3px; bottom: 3px; width: 8px; height: 8px; border-right: 2px solid var(--accent); border-bottom: 2px solid var(--accent); }
+        .dashboard-status { min-height: 18px; margin-top: 8px; color: var(--text-muted); font-size: 9px; }
+        .dashboard-picker-backdrop { position: fixed; inset: 0; z-index: 1300; display: none; align-items: center; justify-content: center; padding: 24px; background: rgba(0,0,0,.68); backdrop-filter: blur(5px); }
+        .dashboard-picker-backdrop.open { display: flex; }
+        .dashboard-picker { width: min(720px,100%); max-height: min(760px,90vh); display: flex; flex-direction: column; overflow: hidden; border: 1px solid var(--border-strong); border-radius: 16px; background: #101512; box-shadow: 0 28px 90px rgba(0,0,0,.58); }
+        .dashboard-picker-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 18px; padding: 20px; border-bottom: 1px solid var(--border); }
+        .dashboard-picker-head h2 { margin-top: 4px; font-size: 17px; }
+        .dashboard-picker-head p { margin-top: 5px; color: var(--text-muted); font-size: 9px; }
+        .dashboard-picker-search { display: flex; gap: 8px; padding: 13px 20px; border-bottom: 1px solid var(--border); }
+        .dashboard-picker-search input { flex: 1; min-width: 0; padding: 9px 11px; border: 1px solid var(--border); border-radius: 9px; outline: none; background: #090d0a; color: var(--text); font-size: 10px; }
+        .dashboard-picker-list { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 9px; padding: 18px 20px 22px; overflow-y: auto; }
+        .dashboard-picker-item { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 13px; border: 1px solid var(--border); border-radius: 11px; background: rgba(255,255,255,.014); }
+        .dashboard-picker-item strong { display: block; font-size: 10px; }
+        .dashboard-picker-item span { display: block; margin-top: 4px; color: var(--text-muted); font-size: 8px; }
+        .dashboard-picker-empty { grid-column: 1 / -1; padding: 54px 20px; color: var(--text-muted); font-size: 10px; text-align: center; }
+
         .custom-date-popover { padding: 16px; border-color: var(--border-strong); box-shadow: 0 24px 60px rgba(0,0,0,.52); }
         .custom-date-popover input { min-height: 38px; }
         .footer { opacity: .82; }
@@ -2782,6 +2873,9 @@
         @media (max-width: 1000px) {
             .reports-shell { grid-template-columns: 1fr; }
             .report-builder-card { position: static; }
+            .dashboard-command-bar { align-items: stretch; flex-direction: column; }
+            .dashboard-command-actions { justify-content: flex-start; }
+            .dashboard-widget { grid-column: span 12; }
         }
 
         @media (max-width: 720px) {
@@ -2797,6 +2891,11 @@
             .saved-reports-list { grid-template-columns: 1fr; }
             .report-summary-strip { grid-template-columns: 1fr; }
             .report-chart-wrap { height: 300px; }
+            .auto-refresh-control span { display: none; }
+            .topbar-actions { flex-wrap: wrap; }
+            .dashboard-picker-list { grid-template-columns: 1fr; }
+            .custom-dashboard-grid { display: flex; flex-direction: column; }
+            .dashboard-widget { width: 100%; min-width: 0; height: 380px; }
         }
 
         @media (prefers-reduced-motion: reduce) {
@@ -2847,7 +2946,7 @@
 
             <a
                 href="#"
-                class="nav-item active"
+                class="nav-item nav-parent active"
                 id="sidebarAnalytics"
             >
 
@@ -2898,11 +2997,16 @@
 
                 </svg>
 
-                <span>
-                    Analytics
-                </span>
+                <span>Analytics</span>
+                <svg class="nav-chevron" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m8 10 4 4 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
 
             </a>
+
+            <div id="analyticsSubnav" class="nav-submenu open">
+                <a href="#ai" id="sidebarAiAgent" class="nav-subitem active"><span class="nav-subdot"></span>AI Agent</a>
+                <a href="#human" id="sidebarHumanAgent" class="nav-subitem"><span class="nav-subdot"></span>Human Agent</a>
+                <a href="#dashboards" id="sidebarCustomDashboards" class="nav-subitem"><span class="nav-subdot"></span>Custom Dashboards</a>
+            </div>
 
 
             <!-- Tickets -->
@@ -3001,8 +3105,7 @@
                     </h1>
 
                     <p id="pageSubtitle">
-                        Monitor customer conversations and
-                        CX performance.
+                        Monitor customer conversations and CX performance.
                     </p>
 
                 </div>
@@ -3044,6 +3147,20 @@
 
                     </button>
 
+                    <label class="auto-refresh-control" title="Set automatic refresh interval">
+                        <span>Auto-refresh</span>
+                        <select id="autoRefreshSelect" aria-label="Auto-refresh interval">
+                            <option value="30000">30 sec</option>
+                            <option value="60000">1 min</option>
+                            <option value="300000">5 min</option>
+                            <option value="600000">10 min</option>
+                            <option value="900000">15 min</option>
+                            <option value="1800000">30 min</option>
+                            <option value="3600000">1 hour</option>
+                            <option value="0">Off</option>
+                        </select>
+                    </label>
+
                 </div>
 
             </header>
@@ -3060,6 +3177,7 @@
                 <div
                     class="tabs"
                     id="tabSwitcher"
+                    style="display:none"
                 >
 
                     <button
@@ -4136,6 +4254,42 @@
 
 
             <!-- =================================================
+                 CUSTOM DASHBOARDS
+            ================================================== -->
+
+            <section id="panel-dashboards" class="view-panel">
+                <div class="dashboard-command-bar">
+                    <div class="dashboard-selector-wrap">
+                        <span class="report-eyebrow">Active dashboard</span>
+                        <select id="customDashboardSelect" aria-label="Select custom dashboard"></select>
+                    </div>
+                    <div class="dashboard-command-actions">
+                        <button id="dashboardNewBtn" class="report-secondary-btn" type="button">New</button>
+                        <button id="dashboardRenameBtn" class="report-secondary-btn" type="button">Rename</button>
+                        <button id="dashboardDuplicateBtn" class="report-secondary-btn" type="button">Duplicate</button>
+                        <button id="dashboardDeleteBtn" class="report-secondary-btn danger" type="button">Delete</button>
+                        <button id="dashboardAddReportsBtn" class="report-primary-btn" type="button">
+                            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+                            Add reports
+                        </button>
+                    </div>
+                </div>
+
+                <div id="dashboardEmptyState" class="custom-dashboard-empty">
+                    <div class="custom-dashboard-empty-icon">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><path d="M17.5 14v7M14 17.5h7"/></svg>
+                    </div>
+                    <h2>Build your operational view</h2>
+                    <p>Add any saved chart, summary table or pivot report. There is no widget limit.</p>
+                    <button id="dashboardEmptyAddBtn" class="report-primary-btn" type="button">Add your first report</button>
+                </div>
+
+                <div id="customDashboardGrid" class="custom-dashboard-grid"></div>
+                <div id="dashboardStatus" class="dashboard-status" role="status"></div>
+            </section>
+
+
+            <!-- =================================================
                  CUSTOM REPORTS
             ================================================== -->
 
@@ -4160,6 +4314,14 @@
                             </label>
 
                             <label class="report-field report-field-wide">
+                                <span>Report type</span>
+                                <select id="reportMode">
+                                    <option value="standard">Chart or summary table</option>
+                                    <option value="pivot">Pivot table</option>
+                                </select>
+                            </label>
+
+                            <label class="report-field report-field-wide">
                                 <span>Dataset</span>
                                 <select id="reportDataset">
                                     <option value="tickets">Tickets</option>
@@ -4172,17 +4334,17 @@
                                 </select>
                             </label>
 
-                            <label class="report-field">
+                            <label class="report-field standard-report-control">
                                 <span>Group by</span>
                                 <select id="reportDimension"></select>
                             </label>
 
-                            <label class="report-field">
+                            <label class="report-field standard-report-control">
                                 <span>Measure</span>
                                 <select id="reportMetric"></select>
                             </label>
 
-                            <label class="report-field">
+                            <label class="report-field standard-report-control">
                                 <span>Calculation</span>
                                 <select id="reportAggregation">
                                     <option value="count">Count</option>
@@ -4191,7 +4353,7 @@
                                 </select>
                             </label>
 
-                            <label class="report-field">
+                            <label class="report-field standard-report-control">
                                 <span>Visual</span>
                                 <select id="reportVisual">
                                     <option value="bar">Bar chart</option>
@@ -4201,7 +4363,7 @@
                                 </select>
                             </label>
 
-                            <label class="report-field">
+                            <label class="report-field standard-report-control">
                                 <span>Sort</span>
                                 <select id="reportSort">
                                     <option value="desc">Highest first</option>
@@ -4210,15 +4372,64 @@
                                 </select>
                             </label>
 
-                            <label class="report-field">
-                                <span>Results</span>
-                                <select id="reportLimit">
-                                    <option value="5">Top 5</option>
-                                    <option value="10" selected>Top 10</option>
-                                    <option value="20">Top 20</option>
-                                    <option value="50">Top 50</option>
+                            <label class="report-field pivot-report-control" hidden>
+                                <span>Rows</span>
+                                <select id="pivotRow"></select>
+                            </label>
+
+                            <label class="report-field pivot-report-control" hidden>
+                                <span>Columns</span>
+                                <select id="pivotColumn"></select>
+                            </label>
+
+                            <label class="report-field pivot-report-control" hidden>
+                                <span>Values</span>
+                                <select id="pivotValue"></select>
+                            </label>
+
+                            <label class="report-field pivot-report-control" hidden>
+                                <span>Calculation</span>
+                                <select id="pivotAggregation">
+                                    <option value="count">Count</option>
+                                    <option value="sum">Sum</option>
+                                    <option value="avg">Average</option>
+                                    <option value="min">Minimum</option>
+                                    <option value="max">Maximum</option>
                                 </select>
                             </label>
+
+                            <label class="report-field pivot-report-control" hidden>
+                                <span>Display values</span>
+                                <select id="pivotDisplay">
+                                    <option value="value">Raw values</option>
+                                    <option value="rowPercent">% of row</option>
+                                    <option value="columnPercent">% of column</option>
+                                    <option value="grandPercent">% of grand total</option>
+                                </select>
+                            </label>
+
+                            <label class="report-field pivot-report-control" hidden>
+                                <span>Table styling</span>
+                                <select id="pivotStyle">
+                                    <option value="heatmap">Heatmap</option>
+                                    <option value="plain">Plain table</option>
+                                    <option value="bars">Data bars</option>
+                                </select>
+                            </label>
+                        </div>
+
+                        <div class="report-filter-section">
+                            <div class="report-filter-head">
+                                <div><span class="report-eyebrow">Conditions</span><strong>Filters</strong></div>
+                                <button id="addReportFilter" class="report-text-btn" type="button">+ Add filter</button>
+                            </div>
+                            <div id="reportFilters" class="report-filters-list"></div>
+                        </div>
+
+                        <div id="pivotOptions" class="pivot-options" hidden>
+                            <label><input id="pivotRowTotals" type="checkbox" checked> Row totals</label>
+                            <label><input id="pivotColumnTotals" type="checkbox" checked> Column totals</label>
+                            <label><input id="pivotHideZeros" type="checkbox"> Hide empty rows</label>
                         </div>
 
                         <div id="reportBuilderMessage" class="report-builder-message" role="status"></div>
@@ -4272,6 +4483,8 @@
                                     <tbody id="reportTableBody"></tbody>
                                 </table>
                             </div>
+
+                            <div id="pivotTableWrap" class="pivot-table-wrap" hidden></div>
                         </article>
 
                         <article class="saved-reports-card">
@@ -4330,6 +4543,21 @@
 
     </main>
 
+</div>
+
+
+<div id="dashboardReportPicker" class="dashboard-picker-backdrop" aria-hidden="true">
+    <section class="dashboard-picker" role="dialog" aria-modal="true" aria-labelledby="dashboardPickerTitle">
+        <div class="dashboard-picker-head">
+            <div><span class="report-eyebrow">Report library</span><h2 id="dashboardPickerTitle">Add reports to dashboard</h2><p>Select any saved report. You can add the same report more than once.</p></div>
+            <button id="dashboardPickerClose" class="ticket-close" type="button" aria-label="Close report picker">✕</button>
+        </div>
+        <div class="dashboard-picker-search">
+            <input id="dashboardReportSearch" type="search" placeholder="Search saved reports…" aria-label="Search saved reports">
+            <button id="dashboardOpenReportBuilder" class="report-secondary-btn" type="button">Create report</button>
+        </div>
+        <div id="dashboardReportPickerList" class="dashboard-picker-list"></div>
+    </section>
 </div>
 
 
@@ -4622,194 +4850,64 @@
 
 
     /* =====================================================
-       TAB SWITCHING
+       WORKSPACE NAVIGATION
     ====================================================== */
 
-    function setAnalyticsPageMode(isTickets) {
-        if (document.body.classList.contains("layout-editing")) document.getElementById("cancelLayoutBtn")?.click();
-        document.getElementById("pageHeading").textContent = isTickets ? "Tickets" : "Analytics";
-        document.getElementById("pageSubtitle").textContent = isTickets
-            ? "Manage escalated customer requests and resolutions."
-            : "Monitor customer conversations and CX performance.";
-        document.getElementById("tabSwitcher").style.display = isTickets ? "none" : "flex";
-    }
+    const sidebarAnalytics = document.getElementById("sidebarAnalytics");
+    const sidebarTickets = document.getElementById("sidebarTickets");
+    const sidebarReports = document.getElementById("sidebarReports");
+    const analyticsSubnav = document.getElementById("analyticsSubnav");
+    const analyticsSubitems = {
+        ai: document.getElementById("sidebarAiAgent"),
+        human: document.getElementById("sidebarHumanAgent"),
+        dashboards: document.getElementById("sidebarCustomDashboards")
+    };
 
-    function setCustomReportsPageMode() {
+    const workspaceCopy = {
+        ai: ["Analytics", "Monitor AI conversations, resolution and customer experience performance."],
+        human: ["Analytics", "Monitor human-agent escalations, outcomes and service performance."],
+        dashboards: ["Custom Dashboards", "Arrange saved reports into focused, reusable operational views."],
+        tickets: ["Tickets", "Manage escalated customer requests and resolutions."],
+        reports: ["Custom Reports", "Build, save and export focused views of your CX data."]
+    };
+
+    function showWorkspace(workspace, refresh = true) {
+        if (!document.getElementById(`panel-${workspace}`)) workspace = "ai";
         if (document.body.classList.contains("layout-editing")) document.getElementById("cancelLayoutBtn")?.click();
-        document.getElementById("pageHeading").textContent = "Custom Reports";
-        document.getElementById("pageSubtitle").textContent = "Build, save and export focused views of your CX data.";
+        currentTab = workspace;
+        document.querySelectorAll(".view-panel").forEach(panel => panel.classList.remove("active"));
+        document.getElementById(`panel-${workspace}`)?.classList.add("active");
+        document.querySelectorAll(".sidebar .nav-item").forEach(item => item.classList.remove("active"));
+        Object.values(analyticsSubitems).forEach(item => item?.classList.remove("active"));
+
+        const analyticsWorkspace = ["ai", "human", "dashboards"].includes(workspace);
+        if (analyticsWorkspace) {
+            sidebarAnalytics?.classList.add("active", "expanded");
+            analyticsSubnav?.classList.add("open");
+            analyticsSubitems[workspace]?.classList.add("active");
+        } else if (workspace === "tickets") sidebarTickets?.classList.add("active");
+        else if (workspace === "reports") sidebarReports?.classList.add("active");
+
+        const [heading, subtitle] = workspaceCopy[workspace];
+        document.getElementById("pageHeading").textContent = heading;
+        document.getElementById("pageSubtitle").textContent = subtitle;
         document.getElementById("tabSwitcher").style.display = "none";
+        const layoutControls = document.querySelector(".layout-controls");
+        if (layoutControls) layoutControls.style.display = ["ai","human","tickets"].includes(workspace) ? "flex" : "none";
+        history.replaceState(null, "", workspace === "ai" ? location.pathname : `#${workspace}`);
+
+        if (workspace === "dashboards") renderCustomDashboard();
+        if (refresh) updateDashboard(currentPeriod);
     }
 
-    document
-        .querySelectorAll(
-            "#tabSwitcher .tab"
-        )
-        .forEach(button => {
-
-            button.addEventListener(
-                "click",
-                () => {
-
-                    setAnalyticsPageMode(false);
-
-                    document
-                        .querySelectorAll(
-                            "#tabSwitcher .tab"
-                        )
-                        .forEach(tab => {
-
-                            tab.classList.remove(
-                                "active"
-                            );
-
-                        });
-
-
-                    button.classList.add(
-                        "active"
-                    );
-
-
-                    currentTab =
-                        button.dataset.tab;
-
-
-                    document
-                        .querySelectorAll(".sidebar .nav-item")
-                        .forEach(item => {
-                            item.classList.remove("active");
-                        });
-
-                    const analyticsNav =
-                        document.querySelector(
-                            '.sidebar .nav-item[href="#"]'
-                        );
-
-                    if (analyticsNav) {
-                        analyticsNav.classList.add("active");
-                    }
-
-
-                    document
-                        .querySelectorAll(
-                            ".view-panel"
-                        )
-                        .forEach(panel => {
-
-                            panel.classList.remove(
-                                "active"
-                            );
-
-                        });
-
-
-                    document
-                        .getElementById(
-                            `panel-${currentTab}`
-                        )
-                        .classList.add(
-                            "active"
-                        );
-
-
-                    updateDashboard(
-                        currentPeriod
-                    );
-
-                }
-            );
-
-        });
-
-
-    /* =====================================================
-       SIDEBAR TICKETS NAVIGATION
-    ====================================================== */
-
-    const sidebarTickets =
-        document.getElementById("sidebarTickets");
-
-    const sidebarAnalytics =
-        document.getElementById("sidebarAnalytics");
-
-    const sidebarReports =
-        document.getElementById("sidebarReports");
-
-    if (sidebarAnalytics) {
-        sidebarAnalytics.addEventListener("click", event => {
-            event.preventDefault();
-            setAnalyticsPageMode(false);
-            document.querySelectorAll(".sidebar .nav-item").forEach(item => item.classList.remove("active"));
-            sidebarAnalytics.classList.add("active");
-            const selectedTab = document.querySelector("#tabSwitcher .tab.active") || document.querySelector("#tabSwitcher .tab[data-tab='ai']");
-            selectedTab?.classList.add("active");
-            currentTab = selectedTab?.dataset.tab || "ai";
-            document.querySelectorAll(".view-panel").forEach(panel => panel.classList.remove("active"));
-            document.getElementById(`panel-${currentTab}`)?.classList.add("active");
-            updateDashboard(currentPeriod);
-        });
-    }
-
-    if (sidebarTickets) {
-
-        sidebarTickets.addEventListener(
-            "click",
-            event => {
-
-                event.preventDefault();
-
-                document
-                    .querySelectorAll(".sidebar .nav-item")
-                    .forEach(item => {
-                        item.classList.remove("active");
-                    });
-
-                sidebarTickets.classList.add("active");
-
-                setAnalyticsPageMode(true);
-
-                currentTab = "tickets";
-
-                document
-                    .querySelectorAll("#tabSwitcher .tab")
-                    .forEach(tab => {
-                        tab.classList.remove("active");
-                    });
-
-                document
-                    .querySelectorAll(".view-panel")
-                    .forEach(panel => {
-                        panel.classList.remove("active");
-                    });
-
-                const ticketsPanel =
-                    document.getElementById("panel-tickets");
-
-                if (ticketsPanel) {
-                    ticketsPanel.classList.add("active");
-                }
-
-                updateDashboard(currentPeriod);
-
-            }
-        );
-
-    }
-
-    if (sidebarReports) {
-        sidebarReports.addEventListener("click", event => {
-            event.preventDefault();
-            document.querySelectorAll(".sidebar .nav-item").forEach(item => item.classList.remove("active"));
-            sidebarReports.classList.add("active");
-            setCustomReportsPageMode();
-            currentTab = "reports";
-            document.querySelectorAll("#tabSwitcher .tab").forEach(tab => tab.classList.remove("active"));
-            document.querySelectorAll(".view-panel").forEach(panel => panel.classList.remove("active"));
-            document.getElementById("panel-reports")?.classList.add("active");
-            updateDashboard(currentPeriod);
-        });
-    }
+    sidebarAnalytics?.addEventListener("click", event => {
+        event.preventDefault();
+        analyticsSubnav?.classList.toggle("open");
+        sidebarAnalytics.classList.toggle("expanded", analyticsSubnav?.classList.contains("open"));
+    });
+    Object.entries(analyticsSubitems).forEach(([workspace, item]) => item?.addEventListener("click", event => { event.preventDefault(); showWorkspace(workspace); }));
+    sidebarTickets?.addEventListener("click", event => { event.preventDefault(); showWorkspace("tickets"); });
+    sidebarReports?.addEventListener("click", event => { event.preventDefault(); showWorkspace("reports"); });
 
 
     /* =====================================================
@@ -5500,6 +5598,10 @@
 
             if (currentTab === "reports") {
                 runCustomReport();
+            }
+
+            if (currentTab === "dashboards") {
+                renderCustomDashboard();
             }
 
             updateTicketsDashboard(
@@ -7514,7 +7616,20 @@
             forceDefaults ? "__count" : previousMetric
         );
 
+        const pivotRow = document.getElementById("pivotRow");
+        const pivotColumn = document.getElementById("pivotColumn");
+        const pivotValue = document.getElementById("pivotValue");
+        const previousPivotRow = pivotRow?.value;
+        const previousPivotColumn = pivotColumn?.value;
+        const previousPivotValue = pivotValue?.value;
+        populateReportSelect(pivotRow, fields.map(field => ({ value: field, label: reportLabel(field) })), forceDefaults ? defaultDimension : previousPivotRow);
+        populateReportSelect(pivotColumn, [{ value: "__none", label: "No columns" }, ...fields.map(field => ({ value: field, label: reportLabel(field) }))], forceDefaults ? "__none" : previousPivotColumn);
+        populateReportSelect(pivotValue, [{ value: "__count", label: "Records" }, ...numericFields.map(field => ({ value: field, label: reportLabel(field) }))], forceDefaults ? "__count" : previousPivotValue);
+
+        refreshFilterFieldOptions();
+
         syncReportAggregation();
+        syncPivotAggregation();
     }
 
     function syncReportAggregation() {
@@ -7526,6 +7641,78 @@
         [...aggregation.options].forEach(option => {
             option.disabled = countOnly && option.value !== "count";
         });
+    }
+
+    function syncPivotAggregation() {
+        const value = document.getElementById("pivotValue")?.value;
+        const aggregation = document.getElementById("pivotAggregation");
+        if (!aggregation) return;
+        const countOnly = value === "__count";
+        if (countOnly) aggregation.value = "count";
+        [...aggregation.options].forEach(option => option.disabled = countOnly && option.value !== "count");
+    }
+
+    function getReportFilters() {
+        return [...document.querySelectorAll(".report-filter-row")].map(row => ({
+            field: row.querySelector("[data-filter-field]")?.value || "",
+            operator: row.querySelector("[data-filter-operator]")?.value || "equals",
+            value: row.querySelector("[data-filter-value]")?.value || ""
+        })).filter(filter => filter.field);
+    }
+
+    function reportFilterOptions(fields, selected = "") {
+        return fields.map(field => `<option value="${escapeHtml(field)}" ${field === selected ? "selected" : ""}>${escapeHtml(reportLabel(field))}</option>`).join("");
+    }
+
+    function addReportFilter(filter = {}) {
+        const container = document.getElementById("reportFilters");
+        if (!container) return;
+        const fields = getReportFields(document.getElementById("reportDataset").value);
+        if (!fields.length) return;
+        const row = document.createElement("div");
+        row.className = "report-filter-row";
+        row.innerHTML = `
+            <select data-filter-field aria-label="Filter field">${reportFilterOptions(fields, filter.field || fields[0])}</select>
+            <select data-filter-operator aria-label="Filter operator">
+                ${[["equals","Equals"],["notEquals","Does not equal"],["contains","Contains"],["notContains","Does not contain"],["starts","Starts with"],["greater","Greater than"],["less","Less than"],["empty","Is empty"],["notEmpty","Is not empty"]].map(([value,label]) => `<option value="${value}" ${filter.operator === value ? "selected" : ""}>${label}</option>`).join("")}
+            </select>
+            <input data-filter-value type="text" value="${escapeHtml(filter.value || "")}" placeholder="Value" aria-label="Filter value">
+            <button class="report-filter-remove" type="button" aria-label="Remove filter">×</button>`;
+        row.querySelector(".report-filter-remove").addEventListener("click", () => row.remove());
+        const operator = row.querySelector("[data-filter-operator]");
+        const input = row.querySelector("[data-filter-value]");
+        const sync = () => { input.disabled = ["empty", "notEmpty"].includes(operator.value); };
+        operator.addEventListener("change", sync);
+        sync();
+        container.appendChild(row);
+    }
+
+    function refreshFilterFieldOptions() {
+        const fields = getReportFields(document.getElementById("reportDataset")?.value);
+        document.querySelectorAll("[data-filter-field]").forEach(select => {
+            const selected = select.value;
+            select.innerHTML = reportFilterOptions(fields, selected);
+        });
+    }
+
+    function applyReportFilters(rows, filters) {
+        return rows.filter(row => filters.every(filter => {
+            const raw = row?.[filter.field];
+            const actual = raw === null || raw === undefined ? "" : String(raw);
+            const expected = String(filter.value || "");
+            const a = actual.toLowerCase();
+            const e = expected.toLowerCase();
+            if (filter.operator === "equals") return a === e;
+            if (filter.operator === "notEquals") return a !== e;
+            if (filter.operator === "contains") return a.includes(e);
+            if (filter.operator === "notContains") return !a.includes(e);
+            if (filter.operator === "starts") return a.startsWith(e);
+            if (filter.operator === "greater") return Number(actual) > Number(expected);
+            if (filter.operator === "less") return Number(actual) < Number(expected);
+            if (filter.operator === "empty") return actual.trim() === "";
+            if (filter.operator === "notEmpty") return actual.trim() !== "";
+            return true;
+        }));
     }
 
     function reportGroupValue(value) {
@@ -7549,18 +7736,31 @@
     function getReportConfig() {
         return {
             name: document.getElementById("reportName").value.trim(),
+            mode: document.getElementById("reportMode").value,
             dataset: document.getElementById("reportDataset").value,
             dimension: document.getElementById("reportDimension").value,
             metric: document.getElementById("reportMetric").value,
             aggregation: document.getElementById("reportAggregation").value,
             visual: document.getElementById("reportVisual").value,
             sort: document.getElementById("reportSort").value,
-            limit: Number(document.getElementById("reportLimit").value) || 10
+            limit: null,
+            filters: getReportFilters(),
+            pivot: {
+                row: document.getElementById("pivotRow").value,
+                column: document.getElementById("pivotColumn").value,
+                value: document.getElementById("pivotValue").value,
+                aggregation: document.getElementById("pivotAggregation").value,
+                display: document.getElementById("pivotDisplay").value,
+                style: document.getElementById("pivotStyle").value,
+                rowTotals: document.getElementById("pivotRowTotals").checked,
+                columnTotals: document.getElementById("pivotColumnTotals").checked,
+                hideZeros: document.getElementById("pivotHideZeros").checked
+            }
         };
     }
 
     function buildReportResult(config) {
-        const rows = getReportRows(config.dataset);
+        const rows = applyReportFilters(getReportRows(config.dataset), config.filters || []);
         const groups = new Map();
 
         rows.forEach(row => {
@@ -7592,13 +7792,147 @@
             : config.sort === "asc" ? a.value - b.value : b.value - a.value
         );
 
-        points = points.slice(0, config.limit);
         return { config, rowsAnalysed: rows.length, points, total: points.reduce((sum, point) => sum + point.value, 0) };
     }
 
     function reportDateDescription() {
         if (currentDateRange?.start && currentDateRange?.end) return `${currentDateRange.start} to ${currentDateRange.end}`;
         return `Last ${currentPeriod} days`;
+    }
+
+    function aggregatePivotValues(values, aggregation, countMode) {
+        if (countMode || aggregation === "count") return values.length;
+        const numeric = values.map(Number).filter(Number.isFinite);
+        if (!numeric.length) return 0;
+        if (aggregation === "avg") return numeric.reduce((sum, value) => sum + value, 0) / numeric.length;
+        if (aggregation === "min") return Math.min(...numeric);
+        if (aggregation === "max") return Math.max(...numeric);
+        return numeric.reduce((sum, value) => sum + value, 0);
+    }
+
+    function buildPivotResult(config) {
+        const pivot = config.pivot;
+        const rows = applyReportFilters(getReportRows(config.dataset), config.filters || []);
+        const rowKeys = [...new Set(rows.map(row => reportGroupValue(row?.[pivot.row])))].sort((a,b) => a.localeCompare(b, undefined, { numeric:true }));
+        const columnKeys = pivot.column === "__none"
+            ? ["Value"]
+            : [...new Set(rows.map(row => reportGroupValue(row?.[pivot.column])))].sort((a,b) => a.localeCompare(b, undefined, { numeric:true }));
+        const cells = new Map();
+        const rowValues = new Map();
+        const columnValues = new Map();
+        const allValues = [];
+        const countMode = pivot.value === "__count";
+
+        rows.forEach(row => {
+            const rowKey = reportGroupValue(row?.[pivot.row]);
+            const columnKey = pivot.column === "__none" ? "Value" : reportGroupValue(row?.[pivot.column]);
+            const value = countMode ? 1 : row?.[pivot.value];
+            const cellKey = `${rowKey}\u0000${columnKey}`;
+            if (!cells.has(cellKey)) cells.set(cellKey, []);
+            cells.get(cellKey).push(value);
+            if (!rowValues.has(rowKey)) rowValues.set(rowKey, []);
+            rowValues.get(rowKey).push(value);
+            if (!columnValues.has(columnKey)) columnValues.set(columnKey, []);
+            columnValues.get(columnKey).push(value);
+            allValues.push(value);
+        });
+
+        const rawMatrix = rowKeys.map(rowKey => columnKeys.map(columnKey => aggregatePivotValues(cells.get(`${rowKey}\u0000${columnKey}`) || [], pivot.aggregation, countMode)));
+        const rawRowTotals = rowKeys.map(rowKey => aggregatePivotValues(rowValues.get(rowKey) || [], pivot.aggregation, countMode));
+        const rawColumnTotals = columnKeys.map(columnKey => aggregatePivotValues(columnValues.get(columnKey) || [], pivot.aggregation, countMode));
+        const rawGrandTotal = aggregatePivotValues(allValues, pivot.aggregation, countMode);
+
+        const displayValue = (value, rowIndex, columnIndex) => {
+            if (pivot.display === "rowPercent") return rawRowTotals[rowIndex] ? value / rawRowTotals[rowIndex] * 100 : 0;
+            if (pivot.display === "columnPercent") return rawColumnTotals[columnIndex] ? value / rawColumnTotals[columnIndex] * 100 : 0;
+            if (pivot.display === "grandPercent") return rawGrandTotal ? value / rawGrandTotal * 100 : 0;
+            return value;
+        };
+
+        let matrix = rawMatrix.map((row, rowIndex) => row.map((value, columnIndex) => displayValue(value, rowIndex, columnIndex)));
+        let visibleRowKeys = rowKeys;
+        let visibleRowTotals = rawRowTotals;
+        if (pivot.hideZeros) {
+            const keep = matrix.map((row, index) => ({ row, index })).filter(item => item.row.some(value => value !== 0));
+            visibleRowKeys = keep.map(item => rowKeys[item.index]);
+            visibleRowTotals = keep.map(item => rawRowTotals[item.index]);
+            matrix = keep.map(item => item.row);
+        }
+
+        return {
+            type: "pivot",
+            config,
+            rowsAnalysed: rows.length,
+            rowKeys: visibleRowKeys,
+            columnKeys,
+            matrix,
+            rawRowTotals: visibleRowTotals,
+            rawColumnTotals,
+            rawGrandTotal,
+            grandTotal: pivot.display === "value" ? rawGrandTotal : 100,
+            percentage: pivot.display !== "value"
+        };
+    }
+
+    function pivotDisplayText(value, percentage) {
+        return percentage ? `${value.toFixed(1)}%` : formatReportValue(value);
+    }
+
+    function renderPivotReport(result) {
+        currentReportResult = result;
+        const { config, rowKeys, columnKeys, matrix } = result;
+        const pivot = config.pivot;
+        const title = config.name || `${reportLabel(config.dataset)} pivot analysis`;
+        const valueLabel = pivot.value === "__count" ? "Records" : `${reportLabel(pivot.aggregation)} of ${reportLabel(pivot.value)}`;
+        const empty = document.getElementById("reportPreviewEmpty");
+        const chartWrap = document.getElementById("reportChartWrap");
+        const tableWrap = document.getElementById("reportTableWrap");
+        const pivotWrap = document.getElementById("pivotTableWrap");
+
+        if (customReportChart) { customReportChart.destroy(); customReportChart = null; }
+        chartWrap.hidden = true;
+        tableWrap.hidden = true;
+        document.getElementById("reportPreviewTitle").textContent = title;
+        document.getElementById("reportPreviewMeta").textContent = `${reportDateDescription()} · Pivot · ${valueLabel}`;
+        document.getElementById("reportRowsAnalysed").textContent = result.rowsAnalysed.toLocaleString("en-IN");
+        document.getElementById("reportGroupsShown").textContent = `${rowKeys.length} × ${columnKeys.length}`;
+        document.getElementById("reportTotalValue").textContent = pivotDisplayText(result.grandTotal, result.percentage);
+        document.getElementById("reportExportBtn").disabled = !rowKeys.length;
+
+        if (!rowKeys.length) {
+            empty.hidden = false;
+            pivotWrap.hidden = true;
+            empty.querySelector("strong").textContent = "No matching data";
+            empty.querySelector("span").textContent = "Try another field, filter or date range.";
+            return;
+        }
+
+        empty.hidden = true;
+        pivotWrap.hidden = false;
+        const maxCell = Math.max(...matrix.flat().map(Math.abs), 1);
+        const cellMarkup = (value, percentage, total = false) => {
+            const intensity = Math.min(Math.abs(value) / maxCell, 1);
+            const style = pivot.style === "heatmap" ? `background:rgba(146,181,162,${(intensity * .22).toFixed(3)})` : "";
+            const bar = pivot.style === "bars" && !total ? `<span class="pivot-data-bar" style="width:${Math.round(intensity * 100)}%"></span>` : "";
+            return `<td class="pivot-cell ${total ? "pivot-total" : ""}" style="${style}">${bar}<span class="pivot-cell-value">${escapeHtml(pivotDisplayText(value, percentage))}</span></td>`;
+        };
+
+        const header = `<tr><th>${escapeHtml(reportLabel(pivot.row))}</th>${columnKeys.map(key => `<th title="${escapeHtml(key)}">${escapeHtml(key)}</th>`).join("")}${pivot.rowTotals ? `<th>Total</th>` : ""}</tr>`;
+        const body = rowKeys.map((rowKey, rowIndex) => {
+            const rowCells = matrix[rowIndex].map(value => cellMarkup(value, result.percentage)).join("");
+            let displayedRowTotal = result.rawRowTotals[rowIndex];
+            if (pivot.display === "rowPercent") displayedRowTotal = 100;
+            else if (pivot.display === "grandPercent") displayedRowTotal = result.rawGrandTotal ? result.rawRowTotals[rowIndex] / result.rawGrandTotal * 100 : 0;
+            return `<tr><td title="${escapeHtml(rowKey)}">${escapeHtml(rowKey)}</td>${rowCells}${pivot.rowTotals ? cellMarkup(displayedRowTotal, result.percentage, true) : ""}</tr>`;
+        }).join("");
+        const footer = pivot.columnTotals ? `<tr><td>Grand total</td>${result.rawColumnTotals.map((value, index) => {
+            let displayed = value;
+            if (pivot.display === "columnPercent") displayed = 100;
+            else if (pivot.display === "grandPercent") displayed = result.rawGrandTotal ? value / result.rawGrandTotal * 100 : 0;
+            else if (pivot.display === "rowPercent") displayed = matrix.reduce((sum,row) => sum + row[index], 0);
+            return cellMarkup(displayed, result.percentage, true);
+        }).join("")}${pivot.rowTotals ? cellMarkup(result.grandTotal, result.percentage, true) : ""}</tr>` : "";
+        pivotWrap.innerHTML = `<table class="pivot-table"><thead>${header}</thead><tbody>${body}${footer}</tbody></table>`;
     }
 
     function renderCustomReport(result) {
@@ -7619,6 +7953,7 @@
         const empty = document.getElementById("reportPreviewEmpty");
         const chartWrap = document.getElementById("reportChartWrap");
         const tableWrap = document.getElementById("reportTableWrap");
+        document.getElementById("pivotTableWrap").hidden = true;
         empty.hidden = Boolean(points.length);
 
         if (customReportChart) {
@@ -7689,8 +8024,26 @@
         element.className = `report-builder-message ${type}`.trim();
     }
 
+    function syncReportMode() {
+        const isPivot = document.getElementById("reportMode")?.value === "pivot";
+        document.querySelectorAll(".standard-report-control").forEach(element => element.hidden = isPivot);
+        document.querySelectorAll(".pivot-report-control").forEach(element => element.hidden = !isPivot);
+        document.getElementById("pivotOptions").hidden = !isPivot;
+        currentReportResult = null;
+    }
+
     function runCustomReport() {
         const config = getReportConfig();
+        if (config.mode === "pivot") {
+            if (!config.pivot.row) {
+                setReportMessage("Choose a row field for the pivot table.", "error");
+                return;
+            }
+            const result = buildPivotResult(config);
+            renderPivotReport(result);
+            setReportMessage(result.rowsAnalysed ? `Pivot table generated from ${result.rowsAnalysed.toLocaleString("en-IN")} records.` : "No records found in this date range.");
+            return;
+        }
         if (!config.dimension) {
             setReportMessage("No fields are available for this dataset.", "error");
             return;
@@ -7721,7 +8074,7 @@
             <div class="saved-report-item">
                 <button class="saved-report-main" type="button" data-report-load="${escapeHtml(report.id)}">
                     <strong>${escapeHtml(report.name)}</strong>
-                    <span>${escapeHtml(reportLabel(report.dataset))} · ${escapeHtml(reportLabel(report.visual))} · ${escapeHtml(report.updatedLabel || "Saved report")}</span>
+                    <span>${escapeHtml(reportLabel(report.dataset))} · ${report.mode === "pivot" ? "Pivot table" : escapeHtml(reportLabel(report.visual))} · ${escapeHtml(report.updatedLabel || "Saved report")}</span>
                 </button>
                 <button class="saved-report-delete" type="button" data-report-delete="${escapeHtml(report.id)}" aria-label="Delete ${escapeHtml(report.name)}" title="Delete report">
                     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M9 7V4h6v3M7 7l1 13h8l1-13M10 11v5M14 11v5"/></svg>
@@ -7743,13 +8096,28 @@
 
     function applyReportConfig(config) {
         document.getElementById("reportName").value = config.name || "";
+        document.getElementById("reportMode").value = config.mode || "standard";
         document.getElementById("reportDataset").value = config.dataset || "tickets";
         refreshReportFields(true);
-        ["dimension", "metric", "aggregation", "visual", "sort", "limit"].forEach(key => {
+        ["dimension", "metric", "aggregation", "visual", "sort"].forEach(key => {
             const element = document.getElementById(`report${key.charAt(0).toUpperCase()}${key.slice(1)}`);
             if (element && [...element.options].some(option => option.value === String(config[key]))) element.value = String(config[key]);
         });
+        if (config.pivot) {
+            const pivotMap = { row:"pivotRow", column:"pivotColumn", value:"pivotValue", aggregation:"pivotAggregation", display:"pivotDisplay", style:"pivotStyle" };
+            Object.entries(pivotMap).forEach(([key,id]) => {
+                const element = document.getElementById(id);
+                if (element && [...element.options].some(option => option.value === String(config.pivot[key]))) element.value = String(config.pivot[key]);
+            });
+            document.getElementById("pivotRowTotals").checked = config.pivot.rowTotals !== false;
+            document.getElementById("pivotColumnTotals").checked = config.pivot.columnTotals !== false;
+            document.getElementById("pivotHideZeros").checked = Boolean(config.pivot.hideZeros);
+        }
+        document.getElementById("reportFilters").innerHTML = "";
+        (config.filters || []).forEach(addReportFilter);
+        syncReportMode();
         syncReportAggregation();
+        syncPivotAggregation();
         runCustomReport();
         setReportMessage(`Loaded “${config.name}”.`, "success");
     }
@@ -7773,40 +8141,300 @@
 
     function resetCustomReport() {
         document.getElementById("reportName").value = "";
+        document.getElementById("reportMode").value = "standard";
         document.getElementById("reportDataset").value = "tickets";
         document.getElementById("reportAggregation").value = "count";
         document.getElementById("reportVisual").value = "bar";
         document.getElementById("reportSort").value = "desc";
-        document.getElementById("reportLimit").value = "10";
+        document.getElementById("reportFilters").innerHTML = "";
+        document.getElementById("pivotDisplay").value = "value";
+        document.getElementById("pivotStyle").value = "heatmap";
+        document.getElementById("pivotRowTotals").checked = true;
+        document.getElementById("pivotColumnTotals").checked = true;
+        document.getElementById("pivotHideZeros").checked = false;
         refreshReportFields(true);
+        syncReportMode();
         runCustomReport();
         setReportMessage("Builder reset.");
     }
 
     function exportCustomReport() {
+        if (currentReportResult?.type === "pivot") {
+            const result = currentReportResult;
+            if (!result.rowKeys.length) return;
+            const csvCell = value => `"${String(value).replace(/"/g, '""')}"`;
+            const rows = [[reportLabel(result.config.pivot.row), ...result.columnKeys, ...(result.config.pivot.rowTotals ? ["Total"] : [])]];
+            result.rowKeys.forEach((rowKey, rowIndex) => {
+                const values = result.matrix[rowIndex].map(value => pivotDisplayText(value, result.percentage));
+                if (result.config.pivot.rowTotals) values.push(pivotDisplayText(result.rawRowTotals[rowIndex], false));
+                rows.push([rowKey, ...values]);
+            });
+            if (result.config.pivot.columnTotals) rows.push(["Grand total", ...result.rawColumnTotals.map(value => pivotDisplayText(value, false)), ...(result.config.pivot.rowTotals ? [pivotDisplayText(result.rawGrandTotal, false)] : [])]);
+            downloadReportCsv(rows, result.config.name || "novara-pivot-report", csvCell);
+            return;
+        }
         if (!currentReportResult?.points?.length) return;
         const { config, points } = currentReportResult;
         const metricLabel = config.metric === "__count" ? "Records" : reportLabel(config.metric);
         const csvCell = value => `"${String(value).replace(/"/g, '""')}"`;
         const rows = [[reportLabel(config.dimension), metricLabel], ...points.map(point => [point.label, point.value])];
+        downloadReportCsv(rows, config.name || "novara-custom-report", csvCell);
+    }
+
+    function downloadReportCsv(rows, name, csvCell = value => `"${String(value).replace(/"/g, '""')}"`) {
         const blob = new Blob([rows.map(row => row.map(csvCell).join(",")).join("\n")], { type: "text/csv;charset=utf-8" });
         const link = document.createElement("a");
         link.href = URL.createObjectURL(blob);
-        link.download = `${(config.name || "novara-custom-report").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") || "novara-custom-report"}.csv`;
+        link.download = `${String(name).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") || "novara-custom-report"}.csv`;
         document.body.appendChild(link);
         link.click();
         link.remove();
         URL.revokeObjectURL(link.href);
     }
 
-    document.getElementById("reportDataset")?.addEventListener("change", () => { refreshReportFields(true); currentReportResult = null; });
+    document.getElementById("reportMode")?.addEventListener("change", syncReportMode);
+    document.getElementById("reportDataset")?.addEventListener("change", () => { document.getElementById("reportFilters").innerHTML = ""; refreshReportFields(true); currentReportResult = null; });
     document.getElementById("reportMetric")?.addEventListener("change", syncReportAggregation);
+    document.getElementById("pivotValue")?.addEventListener("change", syncPivotAggregation);
+    document.getElementById("addReportFilter")?.addEventListener("click", () => addReportFilter());
     document.getElementById("reportRunBtn")?.addEventListener("click", runCustomReport);
     document.getElementById("reportSaveBtn")?.addEventListener("click", saveCustomReport);
     document.getElementById("reportResetBtn")?.addEventListener("click", resetCustomReport);
     document.getElementById("reportExportBtn")?.addEventListener("click", exportCustomReport);
     refreshReportFields(true);
+    syncReportMode();
     renderSavedReports();
+
+
+    /* =====================================================
+       CUSTOM DASHBOARDS
+    ====================================================== */
+
+    const DASHBOARD_STORAGE_KEY = "novara_custom_dashboards_v1";
+    const DASHBOARD_ACTIVE_KEY = "novara_active_dashboard_v1";
+    const dashboardCharts = new Map();
+
+    function loadCustomDashboards() {
+        try {
+            const stored = JSON.parse(localStorage.getItem(DASHBOARD_STORAGE_KEY) || "[]");
+            if (Array.isArray(stored) && stored.length) return stored;
+        } catch {}
+        const starter = [{ id: `dashboard_${Date.now()}`, name: "My Dashboard", widgets: [] }];
+        localStorage.setItem(DASHBOARD_STORAGE_KEY, JSON.stringify(starter));
+        localStorage.setItem(DASHBOARD_ACTIVE_KEY, starter[0].id);
+        return starter;
+    }
+
+    function saveCustomDashboards(dashboards) {
+        localStorage.setItem(DASHBOARD_STORAGE_KEY, JSON.stringify(dashboards));
+    }
+
+    function activeCustomDashboard(dashboards = loadCustomDashboards()) {
+        const activeId = localStorage.getItem(DASHBOARD_ACTIVE_KEY);
+        return dashboards.find(dashboard => dashboard.id === activeId) || dashboards[0];
+    }
+
+    function setDashboardStatus(message) {
+        const element = document.getElementById("dashboardStatus");
+        if (element) element.textContent = message;
+    }
+
+    function updateDashboardSelect(dashboards, active) {
+        const select = document.getElementById("customDashboardSelect");
+        if (!select) return;
+        select.innerHTML = dashboards.map(dashboard => `<option value="${escapeHtml(dashboard.id)}">${escapeHtml(dashboard.name)}</option>`).join("");
+        select.value = active.id;
+    }
+
+    function dashboardReportById(reportId) {
+        return loadSavedReports().find(report => report.id === reportId);
+    }
+
+    function destroyDashboardCharts() {
+        dashboardCharts.forEach(chart => chart.destroy());
+        dashboardCharts.clear();
+    }
+
+    function dashboardWidgetMarkup(widget, report) {
+        const type = report?.mode === "pivot" ? "Pivot table" : report ? reportLabel(report.visual) : "Missing report";
+        return `<article class="dashboard-widget" draggable="true" data-widget-id="${escapeHtml(widget.id)}" style="grid-column:span ${Math.max(3, Number(widget.colSpan) || 6)};grid-row:span ${Math.max(5, Number(widget.rowSpan) || 8)}">
+            <div class="dashboard-widget-head">
+                <div class="dashboard-widget-title"><strong>${escapeHtml(report?.name || "Report unavailable")}</strong><span>${escapeHtml(report ? `${reportLabel(report.dataset)} · ${type}` : "The saved report was deleted")}</span></div>
+                <div class="dashboard-widget-actions">
+                    ${report ? `<button class="dashboard-widget-action" type="button" data-widget-edit title="Edit report" aria-label="Edit report"><svg viewBox="0 0 24 24"><path d="M4 20h4l11-11-4-4L4 16v4ZM13.5 6.5l4 4"/></svg></button>` : ""}
+                    <button class="dashboard-widget-action remove" type="button" data-widget-remove title="Remove widget" aria-label="Remove widget"><svg viewBox="0 0 24 24"><path d="M5 12h14"/></svg></button>
+                </div>
+            </div>
+            <div class="dashboard-widget-body" id="dashboardWidgetBody-${escapeHtml(widget.id)}"><div class="empty-state">Loading report…</div></div>
+            <div class="dashboard-widget-resize" data-widget-resize aria-label="Resize widget"></div>
+        </article>`;
+    }
+
+    function renderCustomDashboard() {
+        const grid = document.getElementById("customDashboardGrid");
+        const empty = document.getElementById("dashboardEmptyState");
+        if (!grid || !empty) return;
+        const dashboards = loadCustomDashboards();
+        const active = activeCustomDashboard(dashboards);
+        localStorage.setItem(DASHBOARD_ACTIVE_KEY, active.id);
+        updateDashboardSelect(dashboards, active);
+        destroyDashboardCharts();
+
+        empty.hidden = active.widgets.length > 0;
+        grid.innerHTML = active.widgets.map(widget => dashboardWidgetMarkup(widget, dashboardReportById(widget.reportId))).join("");
+        active.widgets.forEach(widget => renderDashboardWidget(widget, dashboardReportById(widget.reportId)));
+        bindDashboardWidgetInteractions(grid, dashboards, active);
+    }
+
+    function renderDashboardWidget(widget, report) {
+        const body = document.getElementById(`dashboardWidgetBody-${widget.id}`);
+        if (!body) return;
+        if (!report) { body.innerHTML = `<div class="empty-state">This report no longer exists. Remove the widget or recreate the report.</div>`; return; }
+        const result = report.mode === "pivot" ? buildPivotResult(report) : buildReportResult(report);
+        if (report.mode === "pivot") renderDashboardPivot(body, result);
+        else if (report.visual === "table") renderDashboardTable(body, result);
+        else renderDashboardChart(body, result, widget.id);
+    }
+
+    function renderDashboardTable(body, result) {
+        if (!result.points.length) { body.innerHTML = `<div class="empty-state">No matching data in this date range.</div>`; return; }
+        body.innerHTML = `<table class="dashboard-widget-table"><thead><tr><th>${escapeHtml(reportLabel(result.config.dimension))}</th><th>Value</th><th>Share</th></tr></thead><tbody>${result.points.map(point => `<tr><td>${escapeHtml(point.label)}</td><td>${escapeHtml(formatReportValue(point.value))}</td><td>${result.total ? (point.value / result.total * 100).toFixed(1) : "0.0"}%</td></tr>`).join("")}</tbody></table>`;
+    }
+
+    function renderDashboardPivot(body, result) {
+        if (!result.rowKeys.length) { body.innerHTML = `<div class="empty-state">No matching data in this date range.</div>`; return; }
+        const pivot = result.config.pivot;
+        body.innerHTML = `<table class="dashboard-widget-table"><thead><tr><th>${escapeHtml(reportLabel(pivot.row))}</th>${result.columnKeys.map(key => `<th>${escapeHtml(key)}</th>`).join("")}${pivot.rowTotals ? "<th>Total</th>" : ""}</tr></thead><tbody>${result.rowKeys.map((rowKey,rowIndex) => `<tr><td>${escapeHtml(rowKey)}</td>${result.matrix[rowIndex].map(value => `<td>${escapeHtml(pivotDisplayText(value,result.percentage))}</td>`).join("")}${pivot.rowTotals ? `<td>${escapeHtml(formatReportValue(result.rawRowTotals[rowIndex]))}</td>` : ""}</tr>`).join("")}</tbody></table>`;
+    }
+
+    function renderDashboardChart(body, result, widgetId) {
+        if (!result.points.length) { body.innerHTML = `<div class="empty-state">No matching data in this date range.</div>`; return; }
+        body.innerHTML = `<div class="dashboard-widget-chart"><canvas></canvas></div>`;
+        const circular = result.config.visual === "doughnut";
+        const palette = ["#92b5a2","#6f9481","#b7cdbf","#d6b474","#cb837a","#7895a4","#9a8bb5","#6ea99a"];
+        const chart = new Chart(body.querySelector("canvas").getContext("2d"), {
+            type: result.config.visual,
+            data: { labels: result.points.map(point => point.label), datasets: [{ data: result.points.map(point => point.value), backgroundColor: circular ? result.points.map((_,i) => palette[i % palette.length]) : "rgba(146,181,162,.62)", borderColor: circular ? "#101512" : "#92b5a2", borderWidth: circular ? 2 : 1.5, borderRadius: result.config.visual === "bar" ? 5 : 0, tension:.32, fill:result.config.visual === "line" ? {target:"origin",above:"rgba(146,181,162,.07)"} : false, pointRadius:result.config.visual === "line" ? 2.5 : 0 }] },
+            options: { responsive:true, maintainAspectRatio:false, cutout:circular ? "67%" : undefined, plugins:{ legend:{ display:circular, position:"bottom", labels:{color:"rgba(236,243,239,.58)",boxWidth:8,boxHeight:8,font:{size:8}} } }, scales:circular ? {} : { x:{grid:{display:false},ticks:{color:"rgba(226,237,231,.42)",font:{size:8}}}, y:{beginAtZero:true,grid:{color:"rgba(222,235,227,.05)"},ticks:{color:"rgba(226,237,231,.42)",font:{size:8}},border:{display:false}} } }
+        });
+        dashboardCharts.set(widgetId, chart);
+    }
+
+    function persistDashboardWidgets(dashboards, active) {
+        const index = dashboards.findIndex(item => item.id === active.id);
+        if (index >= 0) dashboards[index] = active;
+        saveCustomDashboards(dashboards);
+    }
+
+    function bindDashboardWidgetInteractions(grid, dashboards, active) {
+        let draggedId = null;
+        grid.querySelectorAll(".dashboard-widget").forEach(element => {
+            const widgetId = element.dataset.widgetId;
+            element.addEventListener("dragstart", event => {
+                if (event.target.closest("button,[data-widget-resize]")) { event.preventDefault(); return; }
+                draggedId = widgetId; element.classList.add("dragging");
+            });
+            element.addEventListener("dragend", () => { draggedId = null; element.classList.remove("dragging"); });
+            element.addEventListener("dragover", event => {
+                if (!draggedId || draggedId === widgetId) return;
+                event.preventDefault();
+                const dragged = grid.querySelector(`[data-widget-id="${CSS.escape(draggedId)}"]`);
+                if (!dragged) return;
+                const rect = element.getBoundingClientRect();
+                const before = event.clientY < rect.top + rect.height / 2 || event.clientX < rect.left + rect.width / 2;
+                grid.insertBefore(dragged, before ? element : element.nextSibling);
+            });
+            element.addEventListener("drop", event => {
+                event.preventDefault();
+                const order = [...grid.querySelectorAll(".dashboard-widget")].map(item => item.dataset.widgetId);
+                active.widgets.sort((a,b) => order.indexOf(a.id) - order.indexOf(b.id));
+                persistDashboardWidgets(dashboards,active);
+                setDashboardStatus("Dashboard order saved.");
+            });
+            element.querySelector("[data-widget-remove]")?.addEventListener("click", () => {
+                active.widgets = active.widgets.filter(widget => widget.id !== widgetId);
+                persistDashboardWidgets(dashboards,active); renderCustomDashboard(); setDashboardStatus("Widget removed. The saved report is unchanged.");
+            });
+            element.querySelector("[data-widget-edit]")?.addEventListener("click", () => {
+                const report = dashboardReportById(active.widgets.find(widget => widget.id === widgetId)?.reportId);
+                if (report) { showWorkspace("reports",false); applyReportConfig(report); }
+            });
+            const handle = element.querySelector("[data-widget-resize]");
+            handle?.addEventListener("pointerdown", event => {
+                event.preventDefault(); event.stopPropagation();
+                const widget = active.widgets.find(item => item.id === widgetId);
+                const startX = event.clientX, startY = event.clientY, startCols = Number(widget.colSpan)||6, startRows = Number(widget.rowSpan)||8;
+                const move = pointer => {
+                    widget.colSpan = Math.max(3, Math.min(12, startCols + Math.round((pointer.clientX-startX)/110)));
+                    widget.rowSpan = Math.max(5, Math.min(18, startRows + Math.round((pointer.clientY-startY)/58)));
+                    element.style.gridColumn = `span ${widget.colSpan}`; element.style.gridRow = `span ${widget.rowSpan}`;
+                    dashboardCharts.get(widgetId)?.resize();
+                };
+                const up = () => { window.removeEventListener("pointermove",move); window.removeEventListener("pointerup",up); persistDashboardWidgets(dashboards,active); setDashboardStatus("Dashboard layout saved."); };
+                window.addEventListener("pointermove",move); window.addEventListener("pointerup",up,{once:true});
+            });
+        });
+    }
+
+    function openDashboardReportPicker() {
+        const picker = document.getElementById("dashboardReportPicker");
+        picker.classList.add("open"); picker.setAttribute("aria-hidden","false");
+        document.getElementById("dashboardReportSearch").value = "";
+        renderDashboardReportPicker();
+    }
+
+    function closeDashboardReportPicker() {
+        const picker = document.getElementById("dashboardReportPicker");
+        picker.classList.remove("open"); picker.setAttribute("aria-hidden","true");
+    }
+
+    function renderDashboardReportPicker(query = "") {
+        const reports = loadSavedReports().filter(report => report.name.toLowerCase().includes(query.toLowerCase()));
+        const list = document.getElementById("dashboardReportPickerList");
+        list.innerHTML = reports.length ? reports.map(report => `<div class="dashboard-picker-item"><div><strong>${escapeHtml(report.name)}</strong><span>${escapeHtml(reportLabel(report.dataset))} · ${report.mode === "pivot" ? "Pivot table" : escapeHtml(reportLabel(report.visual))}</span></div><button class="report-secondary-btn" type="button" data-add-report="${escapeHtml(report.id)}">Add</button></div>`).join("") : `<div class="dashboard-picker-empty">${loadSavedReports().length ? "No reports match your search." : "No saved reports yet. Create and save a report first."}</div>`;
+        list.querySelectorAll("[data-add-report]").forEach(button => button.addEventListener("click", () => addReportToDashboard(button.dataset.addReport)));
+    }
+
+    function addReportToDashboard(reportId) {
+        const dashboards = loadCustomDashboards(); const active = activeCustomDashboard(dashboards);
+        active.widgets.push({ id:`widget_${Date.now()}_${Math.random().toString(36).slice(2,7)}`, reportId, colSpan:6, rowSpan:8 });
+        persistDashboardWidgets(dashboards,active); renderCustomDashboard(); setDashboardStatus("Report added to dashboard.");
+    }
+
+    function createNamedDashboard() {
+        const name = prompt("Name your new dashboard:", "New Dashboard")?.trim(); if (!name) return;
+        const dashboards = loadCustomDashboards(); const dashboard = {id:`dashboard_${Date.now()}`,name,widgets:[]};
+        dashboards.push(dashboard); saveCustomDashboards(dashboards); localStorage.setItem(DASHBOARD_ACTIVE_KEY,dashboard.id); renderCustomDashboard();
+    }
+
+    function renameActiveDashboard() {
+        const dashboards=loadCustomDashboards(); const active=activeCustomDashboard(dashboards); const name=prompt("Rename dashboard:",active.name)?.trim(); if(!name)return;
+        active.name=name; persistDashboardWidgets(dashboards,active); renderCustomDashboard();
+    }
+
+    function duplicateActiveDashboard() {
+        const dashboards=loadCustomDashboards(); const active=activeCustomDashboard(dashboards); const clone={id:`dashboard_${Date.now()}`,name:`${active.name} Copy`,widgets:active.widgets.map(widget=>({...widget,id:`widget_${Date.now()}_${Math.random().toString(36).slice(2,7)}`}))};
+        dashboards.push(clone); saveCustomDashboards(dashboards); localStorage.setItem(DASHBOARD_ACTIVE_KEY,clone.id); renderCustomDashboard();
+    }
+
+    function deleteActiveDashboard() {
+        let dashboards=loadCustomDashboards(); const active=activeCustomDashboard(dashboards);
+        if(dashboards.length===1){ active.widgets=[]; active.name="My Dashboard"; persistDashboardWidgets(dashboards,active); renderCustomDashboard(); setDashboardStatus("The default dashboard was cleared."); return; }
+        if(!confirm(`Delete “${active.name}”? Saved reports will not be deleted.`))return;
+        dashboards=dashboards.filter(item=>item.id!==active.id); saveCustomDashboards(dashboards); localStorage.setItem(DASHBOARD_ACTIVE_KEY,dashboards[0].id); renderCustomDashboard();
+    }
+
+    document.getElementById("customDashboardSelect")?.addEventListener("change", event => { localStorage.setItem(DASHBOARD_ACTIVE_KEY,event.target.value); renderCustomDashboard(); });
+    document.getElementById("dashboardNewBtn")?.addEventListener("click",createNamedDashboard);
+    document.getElementById("dashboardRenameBtn")?.addEventListener("click",renameActiveDashboard);
+    document.getElementById("dashboardDuplicateBtn")?.addEventListener("click",duplicateActiveDashboard);
+    document.getElementById("dashboardDeleteBtn")?.addEventListener("click",deleteActiveDashboard);
+    document.getElementById("dashboardAddReportsBtn")?.addEventListener("click",openDashboardReportPicker);
+    document.getElementById("dashboardEmptyAddBtn")?.addEventListener("click",openDashboardReportPicker);
+    document.getElementById("dashboardPickerClose")?.addEventListener("click",closeDashboardReportPicker);
+    document.getElementById("dashboardReportPicker")?.addEventListener("click",event=>{if(event.target===event.currentTarget)closeDashboardReportPicker();});
+    document.getElementById("dashboardReportSearch")?.addEventListener("input",event=>renderDashboardReportPicker(event.target.value));
+    document.getElementById("dashboardOpenReportBuilder")?.addEventListener("click",()=>{closeDashboardReportPicker();showWorkspace("reports");});
 
 
     async function openTicket(ticketId) {
@@ -8399,10 +9027,20 @@
        AUTO REFRESH
     ====================================================== */
 
-    setInterval(
-        refreshDashboard,
-        30000
-    );
+    let autoRefreshTimer = null;
+
+    function configureAutoRefresh(value) {
+        const interval = Number(value);
+        localStorage.setItem("novara_auto_refresh_interval", String(interval));
+        if (autoRefreshTimer) clearInterval(autoRefreshTimer);
+        autoRefreshTimer = interval > 0 ? setInterval(refreshDashboard, interval) : null;
+    }
+
+    const autoRefreshSelect = document.getElementById("autoRefreshSelect");
+    const storedRefreshInterval = localStorage.getItem("novara_auto_refresh_interval") || "30000";
+    if ([...autoRefreshSelect.options].some(option => option.value === storedRefreshInterval)) autoRefreshSelect.value = storedRefreshInterval;
+    configureAutoRefresh(autoRefreshSelect.value);
+    autoRefreshSelect.addEventListener("change", event => configureAutoRefresh(event.target.value));
 
 
     /* =====================================================
@@ -8412,10 +9050,9 @@
     document.addEventListener(
         "DOMContentLoaded",
         () => {
-
-            updateDashboard(
-                currentPeriod
-            );
+            const requestedWorkspace = location.hash.replace("#", "");
+            showWorkspace(["ai","human","dashboards","tickets","reports"].includes(requestedWorkspace) ? requestedWorkspace : "ai", false);
+            updateDashboard(currentPeriod);
 
         }
     );
