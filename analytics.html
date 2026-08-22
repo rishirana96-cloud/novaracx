@@ -2332,21 +2332,39 @@
         .layout-editing .layout-card::after { content:"Drag or resize"; position:absolute; right:9px; top:8px; padding:3px 5px; border-radius:5px; background:rgba(136,169,152,.16); color:var(--accent-light); font-size:8px; pointer-events:none; }
         .layout-card { position:relative; }
         .layout-card.layout-dragging { opacity:.42; }
-        .agent-assist-panel { position:absolute; top:0; bottom:0; right:min(780px,100%); width:360px; z-index:2; display:flex; flex-direction:column; padding:18px; background:#f4f6f2; color:#17201b; border-right:1px solid #dce3dd; box-shadow:-18px 0 50px rgba(0,0,0,.18); transition:transform .2s ease; }
+        .agent-assist-panel { position:absolute; top:0; bottom:0; left:var(--sidebar-width); right:min(780px,100%); width:auto; z-index:2; display:flex; flex-direction:column; padding:24px 28px; overflow-y:auto; background:#f4f6f2; color:#17201b; border-right:1px solid #dce3dd; box-shadow:-18px 0 50px rgba(0,0,0,.18); transition:transform .2s ease; }
         .agent-assist-panel.collapsed { transform:translateX(100%); pointer-events:none; }
         .agent-assist-head { display:flex; align-items:center; justify-content:space-between; margin-bottom:18px; }
-        .agent-assist-title { font-size:17px; font-weight:800; }
-        .agent-assist-sub { color:#667069; font-size:10px; margin-top:3px; }
-        .agent-assist-collapse { width:31px; height:31px; border:1px solid #d4dcd5; border-radius:8px; background:white; color:#17201b; cursor:pointer; pointer-events:auto; }
-        .agent-assist-section { margin-bottom:15px; }
-        .agent-assist-label { margin-bottom:7px; color:#667069; font-size:9px; font-weight:750; letter-spacing:.08em; text-transform:uppercase; }
-        .agent-suggestion { min-height:150px; max-height:310px; overflow-y:auto; padding:13px; border:1px solid #dce3dd; border-radius:11px; background:white; color:#26312a; font-size:12px; line-height:1.55; }
+        .agent-assist-title { font-size:21px; font-weight:800; letter-spacing:-.02em; }
+        .agent-assist-sub { color:#667069; font-size:11px; margin-top:3px; }
+        .agent-assist-collapse { width:36px; height:36px; border:1px solid #d4dcd5; border-radius:10px; background:white; color:#17201b; cursor:pointer; pointer-events:auto; }
+        .agent-assist-section { margin-bottom:18px; }
+        .agent-assist-section + .agent-assist-section { padding-top:22px; border-top:1px solid #dce3dd; }
+        .agent-assist-section-head { display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:9px; }
+        .agent-assist-label { margin-bottom:2px; color:#26312a; font-size:12px; font-weight:750; letter-spacing:0; text-transform:none; }
+        .agent-assist-hint { color:#78827b; font-size:9px; }
+        .agent-suggestion { min-height:138px; max-height:280px; overflow-y:auto; padding:15px; border:1px solid #d6ded8; border-radius:12px; background:white; color:#26312a; font-size:12px; line-height:1.58; }
         .agent-suggestion.empty { display:grid; place-items:center; color:#879188; text-align:center; }
         .agent-assist-actions,.agent-tone-actions { display:flex; flex-wrap:wrap; gap:6px; margin-top:9px; }
         .agent-assist-btn { padding:8px 10px; border:1px solid #d4dcd5; border-radius:8px; background:white; color:#243027; font-size:10px; font-weight:650; cursor:pointer; }
-        .agent-assist-btn.primary { background:#8fae9e; border-color:#8fae9e; color:#09110d; }
+        .agent-assist-btn.primary { background:#29473a; border-color:#29473a; color:white; }
         .agent-assist-btn:disabled { opacity:.45; cursor:not-allowed; }
         .agent-assist-status { min-height:16px; margin-top:8px; color:#667069; font-size:9px; }
+        .agent-assist-copy { display:inline-flex; align-items:center; gap:6px; min-width:35px; height:35px; padding:0 9px; border:1px solid #d3dcd5; border-radius:10px; background:white; color:#435249; cursor:pointer; transition:background .16s ease,border-color .16s ease,transform .16s ease; }
+        .agent-assist-copy:hover { background:#ebf1ed; border-color:#9eb4a7; transform:translateY(-1px); }
+        .agent-assist-copy svg { width:16px; height:16px; fill:none; stroke:currentColor; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
+        .agent-assist-copy span { display:none; color:#3d604f; font-size:9px; font-weight:700; }
+        .agent-assist-copy.copied span { display:inline; }
+        .agent-draft-input,.agent-improved-input { width:100%; min-height:96px; padding:13px; resize:vertical; border:1px solid #d6ded8; border-radius:11px; background:white; color:#26312a; font-size:12px; line-height:1.55; outline:none; }
+        .agent-draft-input:focus,.agent-improved-input:focus { border-color:#8fae9e; box-shadow:0 0 0 3px rgba(143,174,158,.16); }
+        .agent-improved-wrap { display:none; margin-top:13px; }
+        .agent-improved-wrap.visible { display:block; }
+        .agent-original-toggle { display:none; margin-top:10px; padding:0; border:0; background:transparent; color:#456454; font-size:9px; font-weight:700; cursor:pointer; }
+        .agent-original-toggle.visible { display:inline-flex; }
+        .agent-original-box { display:none; margin-top:7px; padding:11px; border:1px solid #dce3dd; border-radius:9px; background:#edf1ed; color:#56625b; font-size:11px; line-height:1.5; white-space:pre-wrap; }
+        .agent-original-box.visible { display:block; }
+        .agent-draft-footer { display:flex; align-items:center; justify-content:space-between; gap:10px; margin-top:10px; }
+        .agent-clear-btn { padding:6px 0; border:0; background:transparent; color:#717d75; font-size:9px; font-weight:700; cursor:pointer; }
         .agent-assist-reopen { position:absolute; top:20px; left:-38px; width:38px; height:38px; display:none; border:1px solid #d4dcd5; border-radius:9px 0 0 9px; background:#f4f6f2; color:#17201b; cursor:pointer; pointer-events:auto; }
         .agent-assist-panel.collapsed .agent-assist-reopen { display:block; }
         .ticket-markdown p { margin:0 0 8px; }
@@ -2411,7 +2429,7 @@
         .ticket-resolution-dialog p { margin:0 0 12px; color:var(--text-muted); font-size:10px; }
         .ticket-resolution-dialog textarea { width:100%; min-height:90px; padding:10px; resize:vertical; color:var(--text); background:#0b0e0c; border:1px solid var(--border); border-radius:9px; }
         .ticket-table tbody tr { cursor:pointer; }
-        @media (max-width:1180px) { .agent-assist-panel { left:0; right:auto; box-shadow:18px 0 55px rgba(0,0,0,.35); } .agent-assist-panel.collapsed { transform:translateX(-100%); } .agent-assist-reopen { left:auto; right:-38px; border-radius:0 9px 9px 0; } }
+        @media (max-width:1180px) { .agent-assist-panel { left:0; right:auto; width:min(640px,calc(100% - 42px)); box-shadow:18px 0 55px rgba(0,0,0,.35); } .agent-assist-panel.collapsed { transform:translateX(-100%); } .agent-assist-reopen { left:auto; right:-38px; border-radius:0 9px 9px 0; } }
         @media (max-width:768px) { .layout-controls { display:none; } }
         @media (max-width:620px) { .ticket-drawer-head,.ticket-workspace-scroll,.ticket-composer { padding-left:14px; padding-right:14px; } .ticket-context-grid { grid-template-columns:1fr; } .ticket-thread-message { max-width:88%; } .agent-assist-panel { width:min(340px,calc(100% - 42px)); } }
     </style>
@@ -2583,34 +2601,6 @@
 
                 <span>
                     Website
-                </span>
-
-            </a>
-
-
-            <!-- Conversations -->
-
-            <a
-                href="#"
-                class="nav-item"
-            >
-
-                <svg
-                    viewBox="0 0 24 24"
-                    fill="none"
-                >
-
-                    <path
-                        d="M5 6h14M5 12h14M5 18h8"
-                        stroke="currentColor"
-                        stroke-width="1.8"
-                        stroke-linecap="round"
-                    />
-
-                </svg>
-
-                <span>
-                    Conversations
                 </span>
 
             </a>
@@ -3862,7 +3852,12 @@
             <button id="agentAssistCollapse" class="agent-assist-collapse" type="button" aria-label="Collapse AI Agent Assist">‹</button>
         </div>
         <div class="agent-assist-section">
-            <div class="agent-assist-label">Suggested reply</div>
+            <div class="agent-assist-section-head">
+                <div><div class="agent-assist-label">Suggested reply</div><div class="agent-assist-hint">Read-only · generated from the ticket conversation</div></div>
+                <button id="agentCopySuggestion" class="agent-assist-copy" type="button" aria-label="Copy suggested reply" title="Copy suggested reply">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="8" width="11" height="11" rx="2"></rect><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"></path></svg><span>Copied</span>
+                </button>
+            </div>
             <div id="agentAssistSuggestion" class="agent-suggestion empty">Generate a reply suggestion using the ticket context.</div>
             <div class="agent-assist-actions">
                 <button id="agentSuggestReply" class="agent-assist-btn primary" type="button">Suggest reply</button>
@@ -3871,13 +3866,31 @@
             </div>
         </div>
         <div class="agent-assist-section">
-            <div class="agent-assist-label">Improve your draft</div>
+            <div class="agent-assist-section-head">
+                <div><div class="agent-assist-label">Improve your draft</div><div class="agent-assist-hint">Type or paste the message you want AI to refine</div></div>
+            </div>
+            <textarea id="agentDraftInput" class="agent-draft-input" placeholder="Type or paste your draft here…"></textarea>
             <div class="agent-tone-actions">
                 <button class="agent-assist-btn" data-assist-mode="refine" type="button">Improve English</button>
                 <button class="agent-assist-btn" data-assist-mode="empathetic" type="button">More empathetic</button>
                 <button class="agent-assist-btn" data-assist-mode="concise" type="button">More concise</button>
                 <button class="agent-assist-btn" data-assist-mode="professional" type="button">More professional</button>
                 <button class="agent-assist-btn" data-assist-mode="simplify" type="button">Simplify</button>
+            </div>
+            <button id="agentOriginalToggle" class="agent-original-toggle" type="button">Show original</button>
+            <div id="agentOriginalBox" class="agent-original-box"></div>
+            <div id="agentImprovedWrap" class="agent-improved-wrap">
+                <div class="agent-assist-section-head">
+                    <div><div class="agent-assist-label">Improved version</div><div class="agent-assist-hint">You can edit this result before inserting it</div></div>
+                    <button id="agentCopyImproved" class="agent-assist-copy" type="button" aria-label="Copy improved draft" title="Copy improved draft">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="8" width="11" height="11" rx="2"></rect><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"></path></svg><span>Copied</span>
+                    </button>
+                </div>
+                <textarea id="agentImprovedInput" class="agent-improved-input" placeholder="The improved draft will appear here…"></textarea>
+            </div>
+            <div class="agent-draft-footer">
+                <button id="agentClearDraft" class="agent-clear-btn" type="button">Clear</button>
+                <button id="agentInsertImproved" class="agent-assist-btn primary" type="button" disabled>Insert into reply</button>
             </div>
             <div id="agentAssistStatus" class="agent-assist-status"></div>
         </div>
@@ -6884,11 +6897,19 @@
         document.body.style.overflow = "hidden";
         setComposerMode("reply");
         lastAssistSuggestion = "";
+        originalAssistDraft = "";
         document.getElementById("agentAssistSuggestion").className = "agent-suggestion empty";
         document.getElementById("agentAssistSuggestion").textContent = "Generate a reply suggestion using the ticket context.";
+        document.getElementById("agentDraftInput").value = "";
+        document.getElementById("agentImprovedInput").value = "";
+        document.getElementById("agentImprovedWrap").classList.remove("visible");
+        document.getElementById("agentOriginalToggle").classList.remove("visible");
+        document.getElementById("agentOriginalBox").classList.remove("visible");
+        document.getElementById("agentOriginalToggle").textContent = "Show original";
         document.getElementById("agentAssistStatus").textContent = "";
         document.getElementById("agentRegenerate").disabled = true;
         document.getElementById("agentInsertSuggestion").disabled = true;
+        document.getElementById("agentInsertImproved").disabled = true;
         await loadOpenTicket();
     }
 
@@ -6987,42 +7008,69 @@
     }
 
     let lastAssistSuggestion = "";
+    let originalAssistDraft = "";
 
-    async function runAgentAssist(mode) {
+    function setAssistBusy(isBusy) {
+        document.getElementById("agentSuggestReply").disabled = isBusy;
+        document.getElementById("agentRegenerate").disabled = isBusy || !lastAssistSuggestion;
+        document.getElementById("agentInsertSuggestion").disabled = isBusy || !lastAssistSuggestion;
+        document.querySelectorAll("[data-assist-mode]").forEach(button => button.disabled = isBusy);
+        document.getElementById("agentInsertImproved").disabled = isBusy || !document.getElementById("agentImprovedInput").value.trim();
+    }
+
+    async function runAgentAssist(mode, target) {
         const status = document.getElementById("agentAssistStatus");
-        const suggestionBox = document.getElementById("agentAssistSuggestion");
-        const draft = document.getElementById("ticketReplyText").value.trim();
-        const controls = document.querySelectorAll(".agent-assist-btn");
-        status.textContent = "Generating with DeepSeek…";
-        controls.forEach(button => button.disabled = true);
+        const draftInput = document.getElementById("agentDraftInput");
+        const improvedInput = document.getElementById("agentImprovedInput");
+        const draft = target === "draft" ? (improvedInput.value.trim() || draftInput.value.trim()) : "";
+        if (target === "draft" && !draft) {
+            status.textContent = "Type or paste a draft first.";
+            draftInput.focus();
+            return;
+        }
+        if (target === "draft" && !originalAssistDraft) {
+            originalAssistDraft = draftInput.value.trim();
+            document.getElementById("agentOriginalBox").textContent = originalAssistDraft;
+        }
+        status.textContent = target === "draft" ? "Improving your draft with DeepSeek…" : "Generating with DeepSeek…";
+        setAssistBusy(true);
         try {
-            const data = await postTicketAction({
-                route: "ai-assist",
-                body: { ticketId: openTicketId, mode, draft }
-            });
-            lastAssistSuggestion = data.suggestion;
-            suggestionBox.classList.remove("empty");
-            suggestionBox.innerHTML = `<div class="ticket-markdown">${renderSafeMarkdown(data.suggestion)}</div>`;
-            status.textContent = "Suggestion ready. Review it before inserting.";
-            document.getElementById("agentRegenerate").disabled = false;
-            document.getElementById("agentInsertSuggestion").disabled = false;
-        } catch (error) {
-            status.textContent = error.message || "Could not generate a suggestion.";
-        } finally {
-            document.getElementById("agentSuggestReply").disabled = false;
-            document.querySelectorAll("[data-assist-mode]").forEach(button => button.disabled = false);
-            if (lastAssistSuggestion) {
-                document.getElementById("agentRegenerate").disabled = false;
-                document.getElementById("agentInsertSuggestion").disabled = false;
+            const data = await postTicketAction({ route: "ai-assist", body: { ticketId: openTicketId, mode, draft } });
+            if (target === "suggestion") {
+                lastAssistSuggestion = data.suggestion;
+                const suggestionBox = document.getElementById("agentAssistSuggestion");
+                suggestionBox.classList.remove("empty");
+                suggestionBox.innerHTML = `<div class="ticket-markdown">${renderSafeMarkdown(data.suggestion)}</div>`;
+                status.textContent = "Suggested reply ready. Review it before inserting.";
+            } else {
+                improvedInput.value = data.suggestion;
+                document.getElementById("agentImprovedWrap").classList.add("visible");
+                document.getElementById("agentOriginalToggle").classList.add("visible");
+                status.textContent = "Draft improved. You can edit it or apply another option.";
             }
+        } catch (error) {
+            status.textContent = error.message || "Could not generate a response.";
+        } finally {
+            setAssistBusy(false);
         }
     }
 
-    document.getElementById("agentSuggestReply").addEventListener("click", () => runAgentAssist("suggest"));
-    document.getElementById("agentRegenerate").addEventListener("click", () => runAgentAssist("suggest"));
-    document.querySelectorAll("[data-assist-mode]").forEach(button => {
-        button.addEventListener("click", () => runAgentAssist(button.dataset.assistMode));
-    });
+    async function copyAssistText(button, text) {
+        if (!text) return;
+        try {
+            await navigator.clipboard.writeText(text);
+            button.classList.add("copied");
+            window.setTimeout(() => button.classList.remove("copied"), 1400);
+        } catch (_) {
+            document.getElementById("agentAssistStatus").textContent = "Copy was blocked by the browser. Select the text and copy it manually.";
+        }
+    }
+
+    document.getElementById("agentSuggestReply").addEventListener("click", () => runAgentAssist("suggest", "suggestion"));
+    document.getElementById("agentRegenerate").addEventListener("click", () => runAgentAssist("suggest", "suggestion"));
+    document.querySelectorAll("[data-assist-mode]").forEach(button => button.addEventListener("click", () => runAgentAssist(button.dataset.assistMode, "draft")));
+    document.getElementById("agentCopySuggestion").addEventListener("click", event => copyAssistText(event.currentTarget, lastAssistSuggestion));
+    document.getElementById("agentCopyImproved").addEventListener("click", event => copyAssistText(event.currentTarget, document.getElementById("agentImprovedInput").value.trim()));
     document.getElementById("agentInsertSuggestion").addEventListener("click", () => {
         if (!lastAssistSuggestion) return;
         const reply = document.getElementById("ticketReplyText");
@@ -7030,6 +7078,35 @@
         reply.dispatchEvent(new Event("input"));
         setComposerMode("reply");
         reply.focus();
+    });
+    document.getElementById("agentInsertImproved").addEventListener("click", () => {
+        const improved = document.getElementById("agentImprovedInput").value.trim();
+        if (!improved) return;
+        const reply = document.getElementById("ticketReplyText");
+        reply.value = improved;
+        reply.dispatchEvent(new Event("input"));
+        setComposerMode("reply");
+        reply.focus();
+    });
+    document.getElementById("agentImprovedInput").addEventListener("input", event => {
+        document.getElementById("agentInsertImproved").disabled = !event.target.value.trim();
+    });
+    document.getElementById("agentOriginalToggle").addEventListener("click", event => {
+        const box = document.getElementById("agentOriginalBox");
+        const visible = box.classList.toggle("visible");
+        event.currentTarget.textContent = visible ? "Hide original" : "Show original";
+    });
+    document.getElementById("agentClearDraft").addEventListener("click", () => {
+        originalAssistDraft = "";
+        document.getElementById("agentDraftInput").value = "";
+        document.getElementById("agentImprovedInput").value = "";
+        document.getElementById("agentOriginalBox").textContent = "";
+        document.getElementById("agentOriginalBox").classList.remove("visible");
+        document.getElementById("agentOriginalToggle").classList.remove("visible");
+        document.getElementById("agentOriginalToggle").textContent = "Show original";
+        document.getElementById("agentImprovedWrap").classList.remove("visible");
+        document.getElementById("agentInsertImproved").disabled = true;
+        document.getElementById("agentAssistStatus").textContent = "";
     });
     document.getElementById("agentAssistCollapse").addEventListener("click", () => document.getElementById("agentAssistPanel").classList.add("collapsed"));
     document.getElementById("agentAssistReopen").addEventListener("click", () => document.getElementById("agentAssistPanel").classList.remove("collapsed"));
