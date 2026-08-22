@@ -44,6 +44,8 @@
             --shadow-glow: 0 8px 40px rgba(124, 155, 138, 0.08);
             --shadow-hover: 0 12px 56px rgba(124, 155, 138, 0.12);
             --transition: 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            --escalation-color: #E7A98C;
+            --escalation-bg: rgba(231, 169, 140, 0.15);
         }
 
         @font-face {
@@ -1260,7 +1262,7 @@
         }
 
         /* ==========================================
-           CHATBOT — FLOATING WIDGET (v2 with Rating Buttons)
+           CHATBOT — FLOATING WIDGET (v2 with Escalation)
            ========================================== */
         .chatbot-toggle {
             position: fixed;
@@ -1514,6 +1516,48 @@
         .msg.user strong {
             color: var(--bg-primary);
             font-weight: 700;
+        }
+
+        /* ==========================================
+           ESCALATION BADGE (NEW)
+           ========================================== */
+        .escalation-badge {
+            display: inline-block;
+            padding: 2px 12px;
+            border-radius: 50px;
+            font-size: 0.6rem;
+            font-weight: 600;
+            background: var(--escalation-bg);
+            color: var(--escalation-color);
+            border: 1px solid rgba(231, 169, 140, 0.2);
+            margin-top: 6px;
+            animation: fadeIn 0.3s ease;
+        }
+        .escalation-badge .icon {
+            margin-right: 4px;
+        }
+
+        /* ==========================================
+           ESCALATION STATUS (NEW)
+           ========================================== */
+        .escalation-status {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            background: var(--escalation-bg);
+            border-radius: var(--radius-sm);
+            border: 1px solid rgba(231, 169, 140, 0.15);
+            margin-top: 6px;
+            font-size: 0.75rem;
+            color: var(--escalation-color);
+        }
+        .escalation-status .pulse {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--escalation-color);
+            animation: pulse-dot 1.5s infinite;
         }
 
         /* ==========================================
@@ -3930,10 +3974,6 @@
         // ==========================================
         // SESSION ID
         // ==========================================
-        // CHANGE FROM ORIGINAL:
-        // Supports analytics links like:
-        // index.html?session=session_123
-        // ==========================================
 
         const urlParams =
             new URLSearchParams(
@@ -4069,16 +4109,14 @@
 
 
         // ==========================================
-        // RENDER MESSAGE
-        // CHANGE FROM ORIGINAL:
-        // allowRating allows restored messages to
-        // display without duplicate rating buttons.
+        // RENDER MESSAGE (WITH ESCALATION SUPPORT)
         // ==========================================
 
         function renderMessage(
             text,
             sender,
-            allowRating = true
+            allowRating = true,
+            escalationData = null
         ) {
 
             const row =
@@ -4239,6 +4277,56 @@
                 html;
 
 
+            // ==========================================
+            // ESCALATION BADGE (NEW)
+            // ==========================================
+
+            if (
+                escalationData &&
+                escalationData.escalatedToHuman === 1
+            ) {
+
+                const badge =
+                    document.createElement(
+                        "div"
+                    );
+
+
+                badge.className =
+                    "escalation-badge";
+
+
+                badge.innerHTML =
+                    `<span class="icon">👤</span> Human Agent Notified`;
+
+
+                div.appendChild(
+                    badge
+                );
+
+
+                // Add escalation status
+                const status =
+                    document.createElement(
+                        "div"
+                    );
+
+
+                status.className =
+                    "escalation-status";
+
+
+                status.innerHTML =
+                    `<span class="pulse"></span> Waiting for agent response...`;
+
+
+                div.appendChild(
+                    status
+                );
+
+            }
+
+
             if (
                 ratingHtml
             ) {
@@ -4298,8 +4386,7 @@
                                     e.stopPropagation();
 
                                     sendMessage(
-                                        this.dataset.rating
-                                    );
+                                        this.dataset.rating                                    );
 
                                 }
                             );
@@ -4391,7 +4478,7 @@
 
 
         // ==========================================
-        // SEND MESSAGE
+        // SEND MESSAGE (WITH ESCALATION HANDLING)
         // ==========================================
 
         async function sendMessage(
@@ -4483,13 +4570,26 @@
                 }
 
 
+                // ==========================================
+                // CHECK FOR ESCALATION (NEW)
+                // ==========================================
+
+                const escalationData = {
+                    escalatedToHuman: data.escalatedToHuman || 0,
+                    escalationReason: data.escalationReason || null,
+                    escalationMessage: data.escalationMessage || null
+                };
+
+
                 if (
                     data.reply
                 ) {
 
                     renderMessage(
                         data.reply,
-                        "bot"
+                        "bot",
+                        true,
+                        escalationData
                     );
 
                 }
@@ -4498,7 +4598,9 @@
 
                     renderMessage(
                         "I'm not sure how to answer that. Would you like to book a discovery call?",
-                        "bot"
+                        "bot",
+                        true,
+                        escalationData
                     );
 
                 }
@@ -4538,11 +4640,6 @@
 
         // ==========================================
         // LOAD EXISTING CONVERSATION
-        // NEW
-        //
-        // Called only when Analytics opens:
-        //
-        // index.html?session=XXXXX
         // ==========================================
 
         async function loadExistingConversation() {
@@ -4626,13 +4723,27 @@
                             conversation.bot_reply
                         ) {
 
+                            // Check if this conversation was escalated
+                            const isEscalated =
+                                conversation.escalated_to_human === 1;
+
+
+                            const escalationData = {
+                                escalatedToHuman: isEscalated ? 1 : 0,
+                                escalationReason: conversation.escalation_reason || null,
+                                escalationMessage: null
+                            };
+
+
                             renderMessage(
 
                                 conversation.bot_reply,
 
                                 "bot",
 
-                                false
+                                false,
+
+                                escalationData
 
                             );
 
@@ -4742,14 +4853,6 @@
 
         // ==========================================
         // INITIAL CHAT LOAD
-        // CHANGE FROM ORIGINAL:
-        //
-        // Normal visitor:
-        // show original welcome message.
-        //
-        // Ticket visitor:
-        // restore exact conversation and open
-        // chatbot automatically.
         // ==========================================
 
         window.addEventListener(
