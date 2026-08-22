@@ -1519,7 +1519,7 @@
         }
 
         /* ==========================================
-           ESCALATION BADGE
+           ESCALATION BADGE & STATUS
            ========================================== */
         .escalation-badge {
             display: inline-block;
@@ -4111,7 +4111,7 @@
 
 
         // ==========================================
-        // RENDER MESSAGE (FIXED)
+        // RENDER MESSAGE (WITH WAITING STATUS)
         // ==========================================
 
         function renderMessage(
@@ -4280,16 +4280,31 @@
 
 
             // ==========================================
-            // ESCALATION BADGE (FIXED)
+            // ESCALATION BADGE & WAITING STATUS
             // ==========================================
 
             if (
                 escalationData &&
-                escalationData.escalatedToHuman === 1 &&
-                escalationData.escalationMessage
+                escalationData.escalatedToHuman === 1
             ) {
 
-                // Check if the reply already mentions human/agent
+                // Always show the waiting status when escalated
+                const status =
+                    document.createElement(
+                        "div"
+                    );
+
+                status.className =
+                    "escalation-status";
+
+                status.innerHTML =
+                    `<span class="pulse"></span> Waiting for human agent...`;
+
+                div.appendChild(
+                    status
+                );
+
+                // Only show the badge if the AI didn't already mention it
                 const alreadyMentionsHuman =
                     displayText.toLowerCase().includes('human') ||
                     displayText.toLowerCase().includes('agent') ||
@@ -4300,7 +4315,6 @@
                     displayText.toLowerCase().includes('connect') ||
                     displayText.toLowerCase().includes('someone');
 
-                // Only show badge if the AI didn't already mention it
                 if (!alreadyMentionsHuman) {
 
                     const badge =
@@ -4316,21 +4330,6 @@
 
                     div.appendChild(
                         badge
-                    );
-
-                    const status =
-                        document.createElement(
-                            "div"
-                        );
-
-                    status.className =
-                        "escalation-status";
-
-                    status.innerHTML =
-                        `<span class="pulse"></span> Waiting for agent response...`;
-
-                    div.appendChild(
-                        status
                     );
 
                 }
