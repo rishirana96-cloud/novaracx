@@ -2316,6 +2316,34 @@
 
     </style>
 
+    <style>
+        .ticket-drawer-backdrop { position:fixed; inset:0; z-index:1000; display:none; background:rgba(0,0,0,.58); }
+        .ticket-drawer-backdrop.open { display:block; }
+        .ticket-drawer { position:absolute; top:0; right:0; bottom:0; width:min(720px,100%); overflow-y:auto; padding:24px; background:var(--bg); border-left:1px solid var(--border); }
+        .ticket-drawer-head { display:flex; justify-content:space-between; gap:16px; margin-bottom:18px; }
+        .ticket-drawer-title { font-size:20px; font-weight:700; }
+        .ticket-drawer-meta { color:var(--text-muted); font-size:11px; margin-top:5px; }
+        .ticket-close { border:1px solid var(--border); background:var(--bg-card); color:var(--text); border-radius:9px; width:36px; height:36px; cursor:pointer; }
+        .ticket-detail-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:10px; margin-bottom:16px; }
+        .ticket-detail-item { padding:12px; background:var(--bg-card); border:1px solid var(--border); border-radius:10px; }
+        .ticket-detail-item span { display:block; color:var(--text-muted); font-size:9px; text-transform:uppercase; letter-spacing:.08em; margin-bottom:5px; }
+        .ticket-thread { min-height:260px; max-height:430px; overflow-y:auto; padding:14px; background:var(--bg-card); border:1px solid var(--border); border-radius:12px; }
+        .ticket-thread-message { max-width:84%; margin:0 0 10px; padding:10px 12px; border-radius:11px; font-size:12px; line-height:1.5; white-space:pre-wrap; }
+        .ticket-thread-message.customer { margin-left:auto; background:var(--accent); color:#07110d; }
+        .ticket-thread-message.agent { background:rgba(136,169,152,.12); border:1px solid rgba(136,169,152,.24); }
+        .ticket-thread-message.ai { background:rgba(255,255,255,.035); border:1px solid var(--border); }
+        .ticket-thread-name { display:block; font-size:9px; opacity:.7; margin-bottom:4px; text-transform:uppercase; }
+        .ticket-reply { margin-top:12px; }
+        .ticket-reply textarea, .ticket-note-input { width:100%; min-height:82px; resize:vertical; padding:11px; color:var(--text); background:var(--bg-card); border:1px solid var(--border); border-radius:10px; outline:none; }
+        .ticket-note-input { min-height:62px; margin-top:10px; }
+        .ticket-action-row { display:flex; flex-wrap:wrap; gap:8px; margin-top:10px; }
+        .ticket-action-btn { padding:9px 13px; border:1px solid var(--border); border-radius:9px; background:var(--bg-card); color:var(--text); cursor:pointer; }
+        .ticket-action-btn.primary { background:var(--accent); color:#07110d; border-color:var(--accent); font-weight:700; }
+        .ticket-action-error { min-height:17px; color:var(--danger); font-size:11px; margin-top:8px; }
+        .ticket-table tbody tr { cursor:pointer; }
+        @media (max-width:620px) { .ticket-detail-grid { grid-template-columns:1fr; } .ticket-drawer { padding:17px; } }
+    </style>
+
 </head>
 
 
@@ -3732,6 +3760,36 @@
 
 
 
+<div id="ticketDrawerBackdrop" class="ticket-drawer-backdrop" aria-hidden="true">
+    <aside class="ticket-drawer" role="dialog" aria-modal="true" aria-labelledby="ticketDrawerTitle">
+        <div class="ticket-drawer-head">
+            <div>
+                <div id="ticketDrawerTitle" class="ticket-drawer-title">Ticket</div>
+                <div id="ticketDrawerMeta" class="ticket-drawer-meta"></div>
+            </div>
+            <button id="ticketDrawerClose" class="ticket-close" type="button" aria-label="Close ticket">✕</button>
+        </div>
+        <div id="ticketDetailGrid" class="ticket-detail-grid"></div>
+        <div id="ticketThread" class="ticket-thread"><div class="empty-state">Loading ticket…</div></div>
+        <div class="ticket-reply">
+            <textarea id="ticketReplyText" placeholder="Reply to customer…"></textarea>
+            <div class="ticket-action-row">
+                <button id="ticketSendReply" class="ticket-action-btn primary" type="button">Send reply</button>
+                <button id="ticketMarkPending" class="ticket-action-btn" type="button">Mark pending</button>
+                <button id="ticketResolve" class="ticket-action-btn" type="button">Resolve</button>
+                <button id="ticketReopen" class="ticket-action-btn" type="button">Reopen</button>
+            </div>
+            <textarea id="ticketNoteText" class="ticket-note-input" placeholder="Internal note or resolution note…"></textarea>
+            <div class="ticket-action-row">
+                <button id="ticketSaveNote" class="ticket-action-btn" type="button">Save internal note</button>
+            </div>
+            <div id="ticketActionError" class="ticket-action-error"></div>
+        </div>
+    </aside>
+</div>
+
+
+
 <script>
 
     /* =====================================================
@@ -4734,10 +4792,12 @@
             null;
 
         return {
-            id: ticket.ticket_id || ticket.id || `TKT-${String(index + 1).padStart(4, "0")}`,
+            id: ticket.ticket_number || ticket.ticket_id || ticket.id || `TKT-${String(index + 1).padStart(4, "0")}`,
+            dbId: ticket.id || ticket.ticket_id || null,
             session: ticket.session_id || "",
             customer: ticket.customer_name || ticket.customer || ticket.email || "Customer",
-            query: ticket.subject || ticket.issue || ticket.first_query || ticket.query || "Escalated conversation",
+            phone: ticket.customer_phone || "",
+            query: ticket.customer_query || ticket.subject || ticket.issue || ticket.first_query || ticket.query || "Escalated conversation",
             agent,
             status,
             rawStatus,
@@ -4775,7 +4835,7 @@
 
     function formatTicketDate(value) {
         if (!value) return "—";
-        const date = new Date(value);
+        const date = new Date(String(value).includes("T") ? value : `${String(value).replace(" ", "T")}Z`);
         if (isNaN(date.getTime())) return "—";
         return `${date.toLocaleDateString("en-IN", { day: "2-digit", month: "short" })}<br><span style="color:var(--text-muted);font-size:10px;">${date.toLocaleTimeString("en-IN", { hour: "2-digit", minute: "2-digit" })}</span>`;
     }
@@ -4783,8 +4843,8 @@
 
     function formatTicketAge(createdAt, resolvedAt) {
         if (!createdAt) return "—";
-        const start = new Date(createdAt);
-        const end = resolvedAt ? new Date(resolvedAt) : new Date();
+        const start = new Date(String(createdAt).includes("T") ? createdAt : `${String(createdAt).replace(" ", "T")}Z`);
+        const end = resolvedAt ? new Date(String(resolvedAt).includes("T") ? resolvedAt : `${String(resolvedAt).replace(" ", "T")}Z`) : new Date();
         if (isNaN(start.getTime()) || isNaN(end.getTime())) return "—";
         const hours = Math.max(0, (end - start) / 3600000);
         if (hours < 1) return `${Math.round(hours * 60)}m`;
@@ -4876,7 +4936,7 @@
             const shortQuery = query.length > 52 ? `${query.substring(0, 52)}…` : query;
             const label = ticketStatusLabel(ticket.status, ticket.agent);
             return `
-                <tr>
+                <tr data-ticket-id="${escapeHtml(String(ticket.dbId || ""))}">
                     <td><span class="ticket-id">${escapeHtml(String(ticket.id))}</span></td>
                     <td>${formatTicketDate(ticket.createdAt)}</td>
                     <td class="query" title="${escapeHtml(query)}"><span class="ticket-customer">${escapeHtml(ticket.customer)}</span><br><span style="color:var(--text-muted);font-size:10px;">${escapeHtml(shortQuery)}</span></td>
@@ -4887,6 +4947,10 @@
                 </tr>
             `;
         }).join("");
+
+        tbody.querySelectorAll("tr[data-ticket-id]").forEach(row => {
+            row.addEventListener("click", () => openTicket(Number(row.dataset.ticketId)));
+        });
     }
 
 
@@ -6507,6 +6571,136 @@
             );
 
         });
+
+
+    /* =====================================================
+       LIVE TICKET DETAIL
+    ====================================================== */
+
+    let openTicketId = null;
+
+    function ticketDateText(value) {
+        if (!value) return "—";
+        const date = new Date(String(value).includes("T") ? value : `${String(value).replace(" ", "T")}Z`);
+        if (isNaN(date.getTime())) return "—";
+        return date.toLocaleString("en-IN", {
+            timeZone: "Asia/Kolkata",
+            day: "2-digit", month: "short", year: "numeric",
+            hour: "2-digit", minute: "2-digit"
+        });
+    }
+
+    async function openTicket(ticketId) {
+        if (!ticketId) return;
+        openTicketId = ticketId;
+        const backdrop = document.getElementById("ticketDrawerBackdrop");
+        backdrop.classList.add("open");
+        backdrop.setAttribute("aria-hidden", "false");
+        document.body.style.overflow = "hidden";
+        await loadOpenTicket();
+    }
+
+    function closeTicket() {
+        openTicketId = null;
+        const backdrop = document.getElementById("ticketDrawerBackdrop");
+        backdrop.classList.remove("open");
+        backdrop.setAttribute("aria-hidden", "true");
+        document.body.style.overflow = "";
+        document.getElementById("ticketActionError").textContent = "";
+    }
+
+    async function loadOpenTicket() {
+        if (!openTicketId) return;
+        try {
+            const response = await fetch(`${API_URL}/ticket-detail?id=${encodeURIComponent(openTicketId)}`);
+            const data = await response.json();
+            if (!response.ok) throw new Error(data.error || "Could not load ticket.");
+
+            const ticket = data.ticket;
+            document.getElementById("ticketDrawerTitle").textContent = ticket.ticket_number || `NX-${String(ticket.id).padStart(4, "0")}`;
+            document.getElementById("ticketDrawerMeta").textContent = `${ticket.status.replaceAll("_", " ")} · Created ${ticketDateText(ticket.created_at)}`;
+            document.getElementById("ticketDetailGrid").innerHTML = `
+                <div class="ticket-detail-item"><span>Customer</span>${escapeHtml(ticket.customer_name || "—")}</div>
+                <div class="ticket-detail-item"><span>Phone</span>${escapeHtml(ticket.customer_phone || "—")}</div>
+                <div class="ticket-detail-item"><span>Priority</span>${escapeHtml(ticket.priority || "normal")}</div>
+                <div class="ticket-detail-item"><span>Reason</span>${escapeHtml((ticket.escalation_reason || "—").replaceAll("_", " "))}</div>
+                <div class="ticket-detail-item"><span>Original query</span>${escapeHtml(ticket.customer_query || "—")}</div>
+                <div class="ticket-detail-item"><span>Agent</span>${escapeHtml(ticket.agent_name || "Novara CX Support")}</div>
+            `;
+
+            const thread = [];
+            (data.conversation || []).forEach(turn => {
+                if (turn.user_message) thread.push({ type: "customer", name: "Customer", message: turn.user_message, created_at: turn.created_at });
+                if (turn.bot_reply) thread.push({ type: "ai", name: "Novara CX AI", message: turn.bot_reply, created_at: turn.created_at });
+            });
+            (data.messages || []).forEach(message => thread.push({
+                type: message.sender_type === "agent" ? "agent" : "customer",
+                name: message.sender_name || message.sender_type,
+                message: message.message,
+                created_at: message.created_at
+            }));
+
+            const threadElement = document.getElementById("ticketThread");
+            threadElement.innerHTML = thread.length ? thread.map(item => `
+                <div class="ticket-thread-message ${item.type}">
+                    <span class="ticket-thread-name">${escapeHtml(item.name)} · ${escapeHtml(ticketDateText(item.created_at))}</span>${escapeHtml(item.message)}
+                </div>
+            `).join("") : `<div class="empty-state">No messages yet.</div>`;
+            threadElement.scrollTop = threadElement.scrollHeight;
+            const noteInput = document.getElementById("ticketNoteText");
+            if (document.activeElement !== noteInput) noteInput.value = ticket.internal_note || "";
+            document.getElementById("ticketReopen").style.display = ticket.status === "resolved" ? "inline-block" : "none";
+            document.getElementById("ticketResolve").style.display = ticket.status === "resolved" ? "none" : "inline-block";
+        } catch (error) {
+            document.getElementById("ticketActionError").textContent = error.message;
+        }
+    }
+
+    async function postTicketAction(payload) {
+        const response = await fetch(`${API_URL}/ticket/${payload.route}`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload.body)
+        });
+        const data = await response.json();
+        if (!response.ok) throw new Error(data.error || "Ticket action failed.");
+        return data;
+    }
+
+    async function runTicketAction(action) {
+        const errorBox = document.getElementById("ticketActionError");
+        errorBox.textContent = "";
+        try {
+            const note = document.getElementById("ticketNoteText").value.trim();
+            await postTicketAction({ route: "update", body: { ticketId: openTicketId, action, note } });
+            await loadOpenTicket();
+            await updateDashboard(currentPeriod);
+        } catch (error) {
+            errorBox.textContent = error.message;
+        }
+    }
+
+    document.getElementById("ticketDrawerClose").addEventListener("click", closeTicket);
+    document.getElementById("ticketDrawerBackdrop").addEventListener("click", event => {
+        if (event.target.id === "ticketDrawerBackdrop") closeTicket();
+    });
+    document.getElementById("ticketSendReply").addEventListener("click", async () => {
+        const errorBox = document.getElementById("ticketActionError");
+        const reply = document.getElementById("ticketReplyText").value.trim();
+        errorBox.textContent = "";
+        if (!reply) { errorBox.textContent = "Write a reply first."; return; }
+        try {
+            await postTicketAction({ route: "agent-message", body: { ticketId: openTicketId, message: reply } });
+            document.getElementById("ticketReplyText").value = "";
+            await loadOpenTicket();
+            await updateDashboard(currentPeriod);
+        } catch (error) { errorBox.textContent = error.message; }
+    });
+    document.getElementById("ticketMarkPending").addEventListener("click", () => runTicketAction("pending"));
+    document.getElementById("ticketResolve").addEventListener("click", () => runTicketAction("resolve"));
+    document.getElementById("ticketReopen").addEventListener("click", () => runTicketAction("reopen"));
+    document.getElementById("ticketSaveNote").addEventListener("click", () => runTicketAction("note"));
+    setInterval(() => { if (openTicketId) loadOpenTicket(); }, 3000);
 
 
     /* =====================================================
