@@ -2693,12 +2693,95 @@
         .agent-assist-btn:not(:disabled):hover { transform: translateY(-1px); border-color: #a8b9ad; background: #f5f8f5; }
         .agent-assist-btn.primary:not(:disabled):hover { background: #345746; color: white; }
 
+        /* Custom reports workspace */
+        .reports-shell { display: grid; grid-template-columns: minmax(300px, 380px) minmax(0, 1fr); gap: 18px; align-items: start; }
+        .report-builder-card,
+        .report-preview-card,
+        .saved-reports-card { border: 1px solid var(--border); border-radius: var(--radius-large); background: linear-gradient(180deg, rgba(18,24,20,.98), rgba(14,19,16,.98)); box-shadow: var(--shadow), inset 0 1px rgba(255,255,255,.018); }
+        .report-builder-card { position: sticky; top: 18px; padding: 22px; }
+        .report-results-column { display: flex; min-width: 0; flex-direction: column; gap: 18px; }
+        .report-preview-card,
+        .saved-reports-card { padding: 22px; }
+        .report-section-heading,
+        .report-preview-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 18px; }
+        .report-section-heading { margin-bottom: 22px; }
+        .report-section-heading h2,
+        .report-preview-head h2 { margin: 3px 0 0; color: var(--text); font-size: 17px; line-height: 1.25; font-weight: 730; letter-spacing: -.35px; }
+        .report-section-heading p,
+        .report-preview-head p { margin-top: 5px; color: var(--text-muted); font-size: 10px; }
+        .report-eyebrow { display: block; color: var(--accent); font-size: 8px; font-weight: 750; letter-spacing: .12em; text-transform: uppercase; }
+        .report-icon-btn { flex: 0 0 34px; width: 34px; height: 34px; display: grid; place-items: center; border: 1px solid var(--border); border-radius: 9px; background: rgba(255,255,255,.018); color: var(--text-secondary); transition: var(--transition); }
+        .report-icon-btn:hover { color: var(--text); border-color: var(--border-strong); background: var(--surface-hover); transform: rotate(-12deg); }
+        .report-icon-btn svg,
+        .report-primary-btn svg,
+        .report-secondary-btn svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+        .report-form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 13px 11px; }
+        .report-field { display: block; min-width: 0; }
+        .report-field-wide { grid-column: 1 / -1; }
+        .report-field > span { display: block; margin: 0 0 6px 2px; color: var(--text-muted); font-size: 8px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; }
+        .report-field input,
+        .report-field select { width: 100%; min-height: 39px; padding: 9px 11px; border: 1px solid var(--border); border-radius: 9px; outline: none; background: #0a0f0c; color: var(--text-secondary); font-size: 10px; transition: var(--transition); }
+        .report-field input:hover,
+        .report-field select:hover { border-color: var(--border-strong); }
+        .report-field input:focus,
+        .report-field select:focus { border-color: rgba(146,181,162,.52); box-shadow: 0 0 0 3px rgba(146,181,162,.08); color: var(--text); }
+        .report-field input::placeholder { color: var(--text-muted); }
+        .report-builder-message { min-height: 18px; margin-top: 10px; color: var(--text-muted); font-size: 9px; }
+        .report-builder-message.success { color: var(--success); }
+        .report-builder-message.error { color: var(--danger); }
+        .report-builder-actions,
+        .report-preview-actions { display: flex; align-items: center; gap: 8px; }
+        .report-builder-actions { margin-top: 6px; }
+        .report-primary-btn,
+        .report-secondary-btn { min-height: 38px; display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 9px 13px; border-radius: 9px; font-size: 10px; font-weight: 680; transition: var(--transition); }
+        .report-primary-btn { flex: 1; border: 1px solid var(--accent); background: var(--accent); color: #07100b; }
+        .report-primary-btn:hover { background: var(--accent-light); transform: translateY(-1px); }
+        .report-secondary-btn { border: 1px solid var(--border); background: rgba(255,255,255,.018); color: var(--text-secondary); }
+        .report-secondary-btn:hover:not(:disabled) { border-color: var(--border-strong); background: var(--surface-hover); color: var(--text); transform: translateY(-1px); }
+        .report-secondary-btn:disabled { opacity: .4; cursor: not-allowed; }
+        .report-summary-strip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; margin-top: 20px; overflow: hidden; border: 1px solid var(--border); border-radius: 11px; background: var(--border); }
+        .report-summary-strip > div { padding: 13px 15px; background: #0c110e; }
+        .report-summary-strip span { display: block; color: var(--text-muted); font-size: 8px; letter-spacing: .07em; text-transform: uppercase; }
+        .report-summary-strip strong { display: block; margin-top: 5px; color: var(--text); font-size: 15px; font-weight: 720; }
+        .report-preview-empty { min-height: 330px; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 5px; color: var(--text-muted); text-align: center; }
+        .report-preview-empty[hidden] { display: none !important; }
+        .report-preview-empty strong { color: var(--text-secondary); font-size: 11px; }
+        .report-preview-empty span { font-size: 9px; }
+        .report-preview-empty.compact { min-height: 130px; }
+        .report-empty-icon { width: 42px; height: 42px; display: grid; place-items: center; margin-bottom: 7px; border: 1px solid rgba(146,181,162,.16); border-radius: 12px; background: rgba(146,181,162,.07); color: var(--accent); }
+        .report-empty-icon svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+        .report-chart-wrap { position: relative; height: 350px; padding-top: 22px; }
+        .report-chart-wrap canvas { width: 100% !important; height: 100% !important; }
+        .report-table-wrap { margin-top: 20px; overflow: auto; border: 1px solid var(--border); border-radius: 11px; }
+        .report-preview-table { width: 100%; border-collapse: collapse; }
+        .report-preview-table th { padding: 11px 14px; text-align: left; background: #0b100d; color: var(--text-muted); font-size: 8px; text-transform: uppercase; letter-spacing: .08em; }
+        .report-preview-table th:nth-child(n+2),
+        .report-preview-table td:nth-child(n+2) { text-align: right; }
+        .report-preview-table td { padding: 12px 14px; border-top: 1px solid var(--border); color: var(--text-secondary); font-size: 10px; }
+        .report-preview-table tbody tr:hover td { background: rgba(146,181,162,.03); }
+        .saved-report-count { flex: 0 0 auto; padding: 5px 8px; border: 1px solid var(--border); border-radius: 999px; color: var(--text-muted); font-size: 8px; }
+        .saved-reports-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-top: 18px; }
+        .saved-report-item { position: relative; min-width: 0; padding: 14px; border: 1px solid var(--border); border-radius: 11px; background: rgba(255,255,255,.012); transition: var(--transition); }
+        .saved-report-item:hover { border-color: rgba(146,181,162,.25); background: rgba(146,181,162,.035); transform: translateY(-1px); }
+        .saved-report-main { width: calc(100% - 32px); padding: 0; border: 0; background: transparent; text-align: left; color: inherit; }
+        .saved-report-main strong { display: block; overflow: hidden; color: var(--text); font-size: 10px; white-space: nowrap; text-overflow: ellipsis; }
+        .saved-report-main span { display: block; margin-top: 5px; color: var(--text-muted); font-size: 8px; }
+        .saved-report-delete { position: absolute; top: 9px; right: 9px; width: 26px; height: 26px; display: grid; place-items: center; border: 0; border-radius: 7px; background: transparent; color: var(--text-muted); }
+        .saved-report-delete:hover { background: rgba(223,141,130,.09); color: var(--danger); }
+        .saved-report-delete svg { width: 13px; height: 13px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+
         .custom-date-popover { padding: 16px; border-color: var(--border-strong); box-shadow: 0 24px 60px rgba(0,0,0,.52); }
         .custom-date-popover input { min-height: 38px; }
         .footer { opacity: .82; }
 
         @media (max-width: 1200px) {
             .main { padding-left: 28px; padding-right: 28px; }
+            .reports-shell { grid-template-columns: 330px minmax(0, 1fr); }
+        }
+
+        @media (max-width: 1000px) {
+            .reports-shell { grid-template-columns: 1fr; }
+            .report-builder-card { position: static; }
         }
 
         @media (max-width: 720px) {
@@ -2708,6 +2791,12 @@
             .kpi-card, .ticket-kpi-card { padding: 17px; }
             .ticket-thread { padding: 14px; }
             .ticket-thread-message { max-width: 88%; }
+            .report-builder-card, .report-preview-card, .saved-reports-card { padding: 17px; }
+            .report-form-grid { grid-template-columns: 1fr; }
+            .report-field-wide { grid-column: auto; }
+            .saved-reports-list { grid-template-columns: 1fr; }
+            .report-summary-strip { grid-template-columns: 1fr; }
+            .report-chart-wrap { height: 300px; }
         }
 
         @media (prefers-reduced-motion: reduce) {
@@ -2849,6 +2938,24 @@
                 <span>
                     Tickets
                 </span>
+
+            </a>
+
+            <!-- Custom Reports -->
+
+            <a
+                href="#reports"
+                class="nav-item"
+                id="sidebarReports"
+                data-tab="reports"
+            >
+
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M4 19.5V11M10 19.5V5M16 19.5v-8M22 19.5V8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                    <path d="M3 20h19" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                </svg>
+
+                <span>Custom Reports</span>
 
             </a>
 
@@ -4029,6 +4136,163 @@
 
 
             <!-- =================================================
+                 CUSTOM REPORTS
+            ================================================== -->
+
+            <section id="panel-reports" class="view-panel">
+                <div class="reports-shell">
+                    <aside class="report-builder-card">
+                        <div class="report-section-heading">
+                            <div>
+                                <span class="report-eyebrow">Report builder</span>
+                                <h2>Build a report</h2>
+                                <p>Turn your CX data into a focused business view.</p>
+                            </div>
+                            <button id="reportResetBtn" class="report-icon-btn" type="button" title="Reset builder" aria-label="Reset report builder">
+                                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4v6h6M20 20v-6h-6M5.2 15a8 8 0 0 0 13.1 2M18.8 9A8 8 0 0 0 5.7 7"/></svg>
+                            </button>
+                        </div>
+
+                        <div class="report-form-grid">
+                            <label class="report-field report-field-wide">
+                                <span>Report name</span>
+                                <input id="reportName" type="text" maxlength="80" placeholder="e.g. Weekly escalation overview">
+                            </label>
+
+                            <label class="report-field report-field-wide">
+                                <span>Dataset</span>
+                                <select id="reportDataset">
+                                    <option value="tickets">Tickets</option>
+                                    <option value="analytics">Daily performance</option>
+                                    <option value="conversations">Conversations</option>
+                                    <option value="intents">Customer intents</option>
+                                    <option value="ratings">Ratings</option>
+                                    <option value="sentiment">Sentiment</option>
+                                    <option value="resolution">Resolution</option>
+                                </select>
+                            </label>
+
+                            <label class="report-field">
+                                <span>Group by</span>
+                                <select id="reportDimension"></select>
+                            </label>
+
+                            <label class="report-field">
+                                <span>Measure</span>
+                                <select id="reportMetric"></select>
+                            </label>
+
+                            <label class="report-field">
+                                <span>Calculation</span>
+                                <select id="reportAggregation">
+                                    <option value="count">Count</option>
+                                    <option value="sum">Sum</option>
+                                    <option value="avg">Average</option>
+                                </select>
+                            </label>
+
+                            <label class="report-field">
+                                <span>Visual</span>
+                                <select id="reportVisual">
+                                    <option value="bar">Bar chart</option>
+                                    <option value="line">Line chart</option>
+                                    <option value="doughnut">Donut chart</option>
+                                    <option value="table">Table</option>
+                                </select>
+                            </label>
+
+                            <label class="report-field">
+                                <span>Sort</span>
+                                <select id="reportSort">
+                                    <option value="desc">Highest first</option>
+                                    <option value="asc">Lowest first</option>
+                                    <option value="label">Label A–Z</option>
+                                </select>
+                            </label>
+
+                            <label class="report-field">
+                                <span>Results</span>
+                                <select id="reportLimit">
+                                    <option value="5">Top 5</option>
+                                    <option value="10" selected>Top 10</option>
+                                    <option value="20">Top 20</option>
+                                    <option value="50">Top 50</option>
+                                </select>
+                            </label>
+                        </div>
+
+                        <div id="reportBuilderMessage" class="report-builder-message" role="status"></div>
+
+                        <div class="report-builder-actions">
+                            <button id="reportRunBtn" class="report-primary-btn" type="button">
+                                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                                Run report
+                            </button>
+                            <button id="reportSaveBtn" class="report-secondary-btn" type="button">Save report</button>
+                        </div>
+                    </aside>
+
+                    <div class="report-results-column">
+                        <article class="report-preview-card">
+                            <div class="report-preview-head">
+                                <div>
+                                    <span class="report-eyebrow">Live preview</span>
+                                    <h2 id="reportPreviewTitle">Ticket overview</h2>
+                                    <p id="reportPreviewMeta">Current dashboard date range</p>
+                                </div>
+                                <div class="report-preview-actions">
+                                    <button id="reportExportBtn" class="report-secondary-btn" type="button" disabled>
+                                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>
+                                        Export CSV
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="report-summary-strip">
+                                <div><span>Rows analysed</span><strong id="reportRowsAnalysed">—</strong></div>
+                                <div><span>Groups shown</span><strong id="reportGroupsShown">—</strong></div>
+                                <div><span>Total value</span><strong id="reportTotalValue">—</strong></div>
+                            </div>
+
+                            <div id="reportPreviewEmpty" class="report-preview-empty">
+                                <div class="report-empty-icon">
+                                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19V9M10 19V5M16 19v-7M22 19H2"/></svg>
+                                </div>
+                                <strong>Your report will appear here</strong>
+                                <span>Choose your fields and run the report.</span>
+                            </div>
+
+                            <div id="reportChartWrap" class="report-chart-wrap" hidden>
+                                <canvas id="customReportChart"></canvas>
+                            </div>
+
+                            <div id="reportTableWrap" class="report-table-wrap" hidden>
+                                <table class="report-preview-table">
+                                    <thead><tr><th id="reportTableDimension">Group</th><th id="reportTableMetric">Value</th><th>Share</th></tr></thead>
+                                    <tbody id="reportTableBody"></tbody>
+                                </table>
+                            </div>
+                        </article>
+
+                        <article class="saved-reports-card">
+                            <div class="report-preview-head">
+                                <div>
+                                    <span class="report-eyebrow">Workspace</span>
+                                    <h2>Saved reports</h2>
+                                    <p>Reusable views stored in this browser.</p>
+                                </div>
+                                <span id="savedReportCount" class="saved-report-count">0 reports</span>
+                            </div>
+                            <div id="savedReportsList" class="saved-reports-list">
+                                <div class="report-preview-empty compact"><strong>No saved reports yet</strong><span>Save a useful report to access it here.</span></div>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+            </section>
+
+
+            <!-- =================================================
                  FOOTER
             ================================================== -->
 
@@ -4220,6 +4484,20 @@
 
     let ticketStatusChart = null;
 
+    let customReportChart = null;
+
+    let reportDataCache = {
+        analytics: [],
+        conversations: [],
+        intents: [],
+        ratings: [],
+        resolution: [],
+        sentiment: [],
+        tickets: []
+    };
+
+    let currentReportResult = null;
+
     let isRefreshing = false;
 
 
@@ -4356,6 +4634,13 @@
         document.getElementById("tabSwitcher").style.display = isTickets ? "none" : "flex";
     }
 
+    function setCustomReportsPageMode() {
+        if (document.body.classList.contains("layout-editing")) document.getElementById("cancelLayoutBtn")?.click();
+        document.getElementById("pageHeading").textContent = "Custom Reports";
+        document.getElementById("pageSubtitle").textContent = "Build, save and export focused views of your CX data.";
+        document.getElementById("tabSwitcher").style.display = "none";
+    }
+
     document
         .querySelectorAll(
             "#tabSwitcher .tab"
@@ -4448,6 +4733,9 @@
     const sidebarAnalytics =
         document.getElementById("sidebarAnalytics");
 
+    const sidebarReports =
+        document.getElementById("sidebarReports");
+
     if (sidebarAnalytics) {
         sidebarAnalytics.addEventListener("click", event => {
             event.preventDefault();
@@ -4509,6 +4797,20 @@
 
     }
 
+    if (sidebarReports) {
+        sidebarReports.addEventListener("click", event => {
+            event.preventDefault();
+            document.querySelectorAll(".sidebar .nav-item").forEach(item => item.classList.remove("active"));
+            sidebarReports.classList.add("active");
+            setCustomReportsPageMode();
+            currentTab = "reports";
+            document.querySelectorAll("#tabSwitcher .tab").forEach(tab => tab.classList.remove("active"));
+            document.querySelectorAll(".view-panel").forEach(panel => panel.classList.remove("active"));
+            document.getElementById("panel-reports")?.classList.add("active");
+            updateDashboard(currentPeriod);
+        });
+    }
+
 
     /* =====================================================
        DASHBOARD
@@ -4561,7 +4863,7 @@
                 ),
 
                 fetchConversations(
-                    10,
+                    100,
                     period
                 ),
 
@@ -4587,6 +4889,15 @@
 
             ]);
 
+            reportDataCache = {
+                analytics: Array.isArray(analyticsData) ? analyticsData : [],
+                conversations: Array.isArray(conversationsData) ? conversationsData : [],
+                intents: Array.isArray(intentsData) ? intentsData : [],
+                ratings: Array.isArray(ratingsData) ? ratingsData : [],
+                resolution: Array.isArray(resolutionData) ? resolutionData : [],
+                sentiment: Array.isArray(sentimentData) ? sentimentData : [],
+                tickets: Array.isArray(ticketsData) ? ticketsData : []
+            };
 
             /* =================================================
                TOTALS
@@ -5183,6 +5494,13 @@
                 ticketsData.length > 0
                     ? ticketsData
                     : escalatedConversations;
+
+            reportDataCache.tickets = ticketRecords;
+            refreshReportFields(false);
+
+            if (currentTab === "reports") {
+                runCustomReport();
+            }
 
             updateTicketsDashboard(
                 ticketRecords,
@@ -7126,6 +7444,370 @@
         });
         container.innerHTML = html;
     }
+
+    /* =====================================================
+       CUSTOM REPORTS WORKSPACE
+    ====================================================== */
+
+    const REPORT_STORAGE_KEY = "novara_custom_reports_v1";
+    const reportDefaults = {
+        tickets: ["status", "priority", "intent", "sentiment", "agent_name", "created_at"],
+        analytics: ["date", "total_conversations", "resolved", "escalated"],
+        conversations: ["resolution_status", "client_id", "started_at"],
+        intents: ["intent", "count"],
+        ratings: ["rating", "count"],
+        sentiment: ["sentiment", "count"],
+        resolution: ["date", "total", "resolved_count"]
+    };
+
+    function reportLabel(value) {
+        return String(value || "")
+            .replace(/_/g, " ")
+            .replace(/\b\w/g, character => character.toUpperCase());
+    }
+
+    function getReportRows(dataset = document.getElementById("reportDataset")?.value) {
+        return Array.isArray(reportDataCache[dataset]) ? reportDataCache[dataset] : [];
+    }
+
+    function getReportFields(dataset) {
+        const rows = getReportRows(dataset);
+        const discovered = [...new Set(rows.flatMap(row => row && typeof row === "object" ? Object.keys(row) : []))];
+        const preferred = reportDefaults[dataset] || [];
+        return [...preferred.filter(field => discovered.includes(field)), ...discovered.filter(field => !preferred.includes(field))];
+    }
+
+    function isReportNumericField(rows, field) {
+        const populated = rows.map(row => row?.[field]).filter(value => value !== null && value !== undefined && value !== "");
+        return populated.length > 0 && populated.slice(0, 30).every(value => Number.isFinite(Number(value)));
+    }
+
+    function populateReportSelect(select, options, selectedValue) {
+        if (!select) return;
+        select.innerHTML = options.map(option => `<option value="${escapeHtml(option.value)}">${escapeHtml(option.label)}</option>`).join("");
+        if (options.some(option => option.value === selectedValue)) select.value = selectedValue;
+    }
+
+    function refreshReportFields(forceDefaults = true) {
+        const datasetSelect = document.getElementById("reportDataset");
+        const dimensionSelect = document.getElementById("reportDimension");
+        const metricSelect = document.getElementById("reportMetric");
+        if (!datasetSelect || !dimensionSelect || !metricSelect) return;
+
+        const dataset = datasetSelect.value;
+        const rows = getReportRows(dataset);
+        const fields = getReportFields(dataset);
+        const previousDimension = dimensionSelect.value;
+        const previousMetric = metricSelect.value;
+        const defaultDimension = fields.find(field => !isReportNumericField(rows, field)) || fields[0] || "";
+        const numericFields = fields.filter(field => isReportNumericField(rows, field));
+
+        populateReportSelect(
+            dimensionSelect,
+            fields.map(field => ({ value: field, label: reportLabel(field) })),
+            forceDefaults ? defaultDimension : previousDimension
+        );
+
+        populateReportSelect(
+            metricSelect,
+            [{ value: "__count", label: "Records" }, ...numericFields.map(field => ({ value: field, label: reportLabel(field) }))],
+            forceDefaults ? "__count" : previousMetric
+        );
+
+        syncReportAggregation();
+    }
+
+    function syncReportAggregation() {
+        const metric = document.getElementById("reportMetric")?.value;
+        const aggregation = document.getElementById("reportAggregation");
+        if (!aggregation) return;
+        const countOnly = metric === "__count";
+        if (countOnly) aggregation.value = "count";
+        [...aggregation.options].forEach(option => {
+            option.disabled = countOnly && option.value !== "count";
+        });
+    }
+
+    function reportGroupValue(value) {
+        if (value === null || value === undefined || value === "") return "Not specified";
+        if (typeof value === "boolean") return value ? "Yes" : "No";
+        return String(value);
+    }
+
+    function reportNumber(value) {
+        const numeric = Number(value);
+        return Number.isFinite(numeric) ? numeric : 0;
+    }
+
+    function formatReportValue(value) {
+        if (!Number.isFinite(value)) return "0";
+        if (Math.abs(value) >= 1000000) return `${(value / 1000000).toFixed(1)}M`;
+        if (Math.abs(value) >= 1000) return `${(value / 1000).toFixed(1)}K`;
+        return Number.isInteger(value) ? value.toLocaleString("en-IN") : value.toLocaleString("en-IN", { maximumFractionDigits: 2 });
+    }
+
+    function getReportConfig() {
+        return {
+            name: document.getElementById("reportName").value.trim(),
+            dataset: document.getElementById("reportDataset").value,
+            dimension: document.getElementById("reportDimension").value,
+            metric: document.getElementById("reportMetric").value,
+            aggregation: document.getElementById("reportAggregation").value,
+            visual: document.getElementById("reportVisual").value,
+            sort: document.getElementById("reportSort").value,
+            limit: Number(document.getElementById("reportLimit").value) || 10
+        };
+    }
+
+    function buildReportResult(config) {
+        const rows = getReportRows(config.dataset);
+        const groups = new Map();
+
+        rows.forEach(row => {
+            const label = reportGroupValue(row?.[config.dimension]);
+            const existing = groups.get(label) || { label, count: 0, sum: 0, numericCount: 0 };
+            existing.count += 1;
+            if (config.metric !== "__count") {
+                const raw = row?.[config.metric];
+                const numeric = Number(raw);
+                if (raw !== null && raw !== undefined && raw !== "" && Number.isFinite(numeric)) {
+                    existing.sum += numeric;
+                    existing.numericCount += 1;
+                }
+            }
+            groups.set(label, existing);
+        });
+
+        let points = [...groups.values()].map(group => ({
+            label: group.label,
+            value: config.metric === "__count" || config.aggregation === "count"
+                ? group.count
+                : config.aggregation === "avg"
+                    ? (group.numericCount ? group.sum / group.numericCount : 0)
+                    : group.sum
+        }));
+
+        points.sort((a, b) => config.sort === "label"
+            ? a.label.localeCompare(b.label)
+            : config.sort === "asc" ? a.value - b.value : b.value - a.value
+        );
+
+        points = points.slice(0, config.limit);
+        return { config, rowsAnalysed: rows.length, points, total: points.reduce((sum, point) => sum + point.value, 0) };
+    }
+
+    function reportDateDescription() {
+        if (currentDateRange?.start && currentDateRange?.end) return `${currentDateRange.start} to ${currentDateRange.end}`;
+        return `Last ${currentPeriod} days`;
+    }
+
+    function renderCustomReport(result) {
+        currentReportResult = result;
+        const { config, points } = result;
+        const title = config.name || `${reportLabel(config.dataset)} by ${reportLabel(config.dimension)}`;
+        const metricLabel = config.metric === "__count" ? "Records" : `${reportLabel(config.aggregation)} of ${reportLabel(config.metric)}`;
+
+        document.getElementById("reportPreviewTitle").textContent = title;
+        document.getElementById("reportPreviewMeta").textContent = `${reportDateDescription()} · ${metricLabel}`;
+        document.getElementById("reportRowsAnalysed").textContent = result.rowsAnalysed.toLocaleString("en-IN");
+        document.getElementById("reportGroupsShown").textContent = points.length.toLocaleString("en-IN");
+        document.getElementById("reportTotalValue").textContent = formatReportValue(result.total);
+        document.getElementById("reportTableDimension").textContent = reportLabel(config.dimension);
+        document.getElementById("reportTableMetric").textContent = metricLabel;
+        document.getElementById("reportExportBtn").disabled = !points.length;
+
+        const empty = document.getElementById("reportPreviewEmpty");
+        const chartWrap = document.getElementById("reportChartWrap");
+        const tableWrap = document.getElementById("reportTableWrap");
+        empty.hidden = Boolean(points.length);
+
+        if (customReportChart) {
+            customReportChart.destroy();
+            customReportChart = null;
+        }
+
+        if (!points.length) {
+            chartWrap.hidden = true;
+            tableWrap.hidden = true;
+            empty.querySelector("strong").textContent = "No matching data";
+            empty.querySelector("span").textContent = "Try another dataset, field or date range.";
+            return;
+        }
+
+        if (config.visual === "table") {
+            chartWrap.hidden = true;
+            tableWrap.hidden = false;
+            const total = result.total || 1;
+            document.getElementById("reportTableBody").innerHTML = points.map(point => `
+                <tr><td>${escapeHtml(point.label)}</td><td>${escapeHtml(formatReportValue(point.value))}</td><td>${((point.value / total) * 100).toFixed(1)}%</td></tr>
+            `).join("");
+            return;
+        }
+
+        tableWrap.hidden = true;
+        chartWrap.hidden = false;
+        const isCircular = config.visual === "doughnut";
+        const palette = ["#92b5a2", "#6f9481", "#b7cdbf", "#d6b474", "#cb837a", "#7895a4", "#9a8bb5", "#6ea99a", "#b18d72", "#76916e"];
+        const context = document.getElementById("customReportChart").getContext("2d");
+        customReportChart = new Chart(context, {
+            type: config.visual,
+            data: {
+                labels: points.map(point => point.label),
+                datasets: [{
+                    label: metricLabel,
+                    data: points.map(point => point.value),
+                    backgroundColor: isCircular ? points.map((_, index) => palette[index % palette.length]) : "rgba(146,181,162,.62)",
+                    borderColor: isCircular ? "#101512" : "#92b5a2",
+                    borderWidth: isCircular ? 3 : 1.5,
+                    borderRadius: config.visual === "bar" ? 6 : 0,
+                    tension: .32,
+                    fill: config.visual === "line" ? { target: "origin", above: "rgba(146,181,162,.08)" } : false,
+                    pointBackgroundColor: "#bcd4c7",
+                    pointRadius: config.visual === "line" ? 3 : 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                cutout: isCircular ? "67%" : undefined,
+                plugins: {
+                    legend: { display: isCircular, position: "bottom", labels: { color: "rgba(236,243,239,.62)", boxWidth: 9, boxHeight: 9, padding: 16, font: { size: 10 } } },
+                    tooltip: { backgroundColor: "#18211c", titleColor: "#f4f7f5", bodyColor: "#bcd4c7", borderColor: "rgba(190,218,201,.18)", borderWidth: 1, padding: 10 }
+                },
+                scales: isCircular ? {} : {
+                    x: { grid: { display: false }, ticks: { color: "rgba(226,237,231,.46)", maxRotation: 35, font: { size: 9 } }, border: { color: "rgba(222,235,227,.08)" } },
+                    y: { beginAtZero: true, grid: { color: "rgba(222,235,227,.06)" }, ticks: { color: "rgba(226,237,231,.46)", font: { size: 9 } }, border: { display: false } }
+                }
+            }
+        });
+    }
+
+    function setReportMessage(message, type = "") {
+        const element = document.getElementById("reportBuilderMessage");
+        if (!element) return;
+        element.textContent = message;
+        element.className = `report-builder-message ${type}`.trim();
+    }
+
+    function runCustomReport() {
+        const config = getReportConfig();
+        if (!config.dimension) {
+            setReportMessage("No fields are available for this dataset.", "error");
+            return;
+        }
+        const result = buildReportResult(config);
+        renderCustomReport(result);
+        setReportMessage(result.rowsAnalysed ? `Report generated from ${result.rowsAnalysed.toLocaleString("en-IN")} records.` : "No records found in this date range.");
+    }
+
+    function loadSavedReports() {
+        try {
+            const reports = JSON.parse(localStorage.getItem(REPORT_STORAGE_KEY) || "[]");
+            return Array.isArray(reports) ? reports : [];
+        } catch { return []; }
+    }
+
+    function storeSavedReports(reports) {
+        localStorage.setItem(REPORT_STORAGE_KEY, JSON.stringify(reports));
+    }
+
+    function renderSavedReports() {
+        const reports = loadSavedReports();
+        const list = document.getElementById("savedReportsList");
+        const count = document.getElementById("savedReportCount");
+        if (!list || !count) return;
+        count.textContent = `${reports.length} ${reports.length === 1 ? "report" : "reports"}`;
+        list.innerHTML = reports.length ? reports.map(report => `
+            <div class="saved-report-item">
+                <button class="saved-report-main" type="button" data-report-load="${escapeHtml(report.id)}">
+                    <strong>${escapeHtml(report.name)}</strong>
+                    <span>${escapeHtml(reportLabel(report.dataset))} · ${escapeHtml(reportLabel(report.visual))} · ${escapeHtml(report.updatedLabel || "Saved report")}</span>
+                </button>
+                <button class="saved-report-delete" type="button" data-report-delete="${escapeHtml(report.id)}" aria-label="Delete ${escapeHtml(report.name)}" title="Delete report">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M9 7V4h6v3M7 7l1 13h8l1-13M10 11v5M14 11v5"/></svg>
+                </button>
+            </div>
+        `).join("") : `<div class="report-preview-empty compact"><strong>No saved reports yet</strong><span>Save a useful report to access it here.</span></div>`;
+
+        list.querySelectorAll("[data-report-load]").forEach(button => button.addEventListener("click", () => {
+            const report = reports.find(item => item.id === button.dataset.reportLoad);
+            if (report) applyReportConfig(report);
+        }));
+        list.querySelectorAll("[data-report-delete]").forEach(button => button.addEventListener("click", event => {
+            event.stopPropagation();
+            storeSavedReports(reports.filter(item => item.id !== button.dataset.reportDelete));
+            renderSavedReports();
+            setReportMessage("Saved report deleted.");
+        }));
+    }
+
+    function applyReportConfig(config) {
+        document.getElementById("reportName").value = config.name || "";
+        document.getElementById("reportDataset").value = config.dataset || "tickets";
+        refreshReportFields(true);
+        ["dimension", "metric", "aggregation", "visual", "sort", "limit"].forEach(key => {
+            const element = document.getElementById(`report${key.charAt(0).toUpperCase()}${key.slice(1)}`);
+            if (element && [...element.options].some(option => option.value === String(config[key]))) element.value = String(config[key]);
+        });
+        syncReportAggregation();
+        runCustomReport();
+        setReportMessage(`Loaded “${config.name}”.`, "success");
+    }
+
+    function saveCustomReport() {
+        const config = getReportConfig();
+        if (!config.name) {
+            document.getElementById("reportName").focus();
+            setReportMessage("Give this report a name before saving.", "error");
+            return;
+        }
+        const reports = loadSavedReports();
+        const existing = reports.findIndex(report => report.name.toLowerCase() === config.name.toLowerCase());
+        const saved = { ...config, id: existing >= 0 ? reports[existing].id : `report_${Date.now()}`, updatedAt: new Date().toISOString(), updatedLabel: "Saved just now" };
+        if (existing >= 0) reports.splice(existing, 1, saved); else reports.unshift(saved);
+        storeSavedReports(reports.slice(0, 30));
+        renderSavedReports();
+        runCustomReport();
+        setReportMessage(existing >= 0 ? "Saved report updated." : "Report saved to this browser.", "success");
+    }
+
+    function resetCustomReport() {
+        document.getElementById("reportName").value = "";
+        document.getElementById("reportDataset").value = "tickets";
+        document.getElementById("reportAggregation").value = "count";
+        document.getElementById("reportVisual").value = "bar";
+        document.getElementById("reportSort").value = "desc";
+        document.getElementById("reportLimit").value = "10";
+        refreshReportFields(true);
+        runCustomReport();
+        setReportMessage("Builder reset.");
+    }
+
+    function exportCustomReport() {
+        if (!currentReportResult?.points?.length) return;
+        const { config, points } = currentReportResult;
+        const metricLabel = config.metric === "__count" ? "Records" : reportLabel(config.metric);
+        const csvCell = value => `"${String(value).replace(/"/g, '""')}"`;
+        const rows = [[reportLabel(config.dimension), metricLabel], ...points.map(point => [point.label, point.value])];
+        const blob = new Blob([rows.map(row => row.map(csvCell).join(",")).join("\n")], { type: "text/csv;charset=utf-8" });
+        const link = document.createElement("a");
+        link.href = URL.createObjectURL(blob);
+        link.download = `${(config.name || "novara-custom-report").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") || "novara-custom-report"}.csv`;
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+        URL.revokeObjectURL(link.href);
+    }
+
+    document.getElementById("reportDataset")?.addEventListener("change", () => { refreshReportFields(true); currentReportResult = null; });
+    document.getElementById("reportMetric")?.addEventListener("change", syncReportAggregation);
+    document.getElementById("reportRunBtn")?.addEventListener("click", runCustomReport);
+    document.getElementById("reportSaveBtn")?.addEventListener("click", saveCustomReport);
+    document.getElementById("reportResetBtn")?.addEventListener("click", resetCustomReport);
+    document.getElementById("reportExportBtn")?.addEventListener("click", exportCustomReport);
+    refreshReportFields(true);
+    renderSavedReports();
+
 
     async function openTicket(ticketId) {
         if (!ticketId) return;
