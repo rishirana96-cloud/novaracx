@@ -2809,6 +2809,9 @@
         .report-empty-icon svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
         .report-chart-wrap { position: relative; height: 350px; padding-top: 22px; }
         .report-chart-wrap canvas { width: 100% !important; height: 100% !important; }
+        .report-mode-toolbar{display:none;align-items:center;gap:10px}.report-mode-toolbar>span{color:var(--text-muted);font-size:9px;font-weight:750;text-transform:uppercase;letter-spacing:.08em}.report-mode-toolbar select{min-height:42px;min-width:220px;padding:8px 36px 8px 12px;border:1px solid var(--border);border-radius:11px;background:var(--bg);color:var(--text-secondary);font:inherit;font-size:10px}.report-mode-toolbar.open{display:flex}
+        .report-heading-actions{display:flex;align-items:center;gap:8px}.report-palette-control{grid-column:1/-1}.palette-picker{display:flex;flex-wrap:wrap;gap:8px}.palette-option{display:flex;align-items:center;gap:8px;min-height:38px;padding:7px 10px;border:1px solid var(--border);border-radius:9px;background:var(--surface-alt);color:var(--text-secondary);font:inherit;font-size:9px;font-weight:700;cursor:pointer}.palette-option.active{border-color:var(--accent);box-shadow:0 0 0 2px rgba(146,181,162,.09)}.palette-swatches{display:flex}.palette-swatches i{width:13px;height:13px;margin-left:-3px;border:2px solid var(--surface);border-radius:50%}.palette-swatches i:first-child{margin-left:0}.custom-colors{display:none;grid-template-columns:repeat(6,minmax(38px,1fr));gap:7px;margin-top:9px}.custom-colors.open{display:grid}.custom-colors input{width:100%;height:38px;padding:3px!important;cursor:pointer}
+        .report-layout-menu{display:none;gap:7px;flex-wrap:wrap;padding:10px;border:1px solid var(--border);border-radius:11px;background:var(--surface)}.report-layout-menu.open{display:flex}.reports-shell.preview-focus{grid-template-columns:300px minmax(0,1fr)}.reports-shell.builder-focus{grid-template-columns:minmax(440px,.9fr) minmax(0,1.1fr)}.reports-shell.stacked{grid-template-columns:1fr}.reports-shell.stacked .report-builder-card{position:static}.reports-shell.preview-only{grid-template-columns:1fr}.reports-shell.preview-only .report-builder-card{display:none}
         .report-table-wrap { margin-top: 20px; overflow: auto; border: 1px solid var(--border); border-radius: 11px; }
         .pivot-table-wrap { max-height: 520px; margin-top: 20px; overflow: auto; border: 1px solid var(--border); border-radius: 11px; }
         .pivot-table { width: 100%; min-width: 620px; border-collapse: separate; border-spacing: 0; }
@@ -3119,7 +3122,7 @@
         .admin-btn{min-height:40px;padding:0 15px;border-radius:10px;border:1px solid var(--border-strong);background:var(--surface);color:var(--text);font:inherit;font-size:12px;font-weight:700;cursor:pointer}.admin-btn:hover{background:var(--surface-hover)}.admin-btn.primary{background:var(--accent);border-color:var(--accent);color:#102019}.admin-btn.danger{color:#df8f86}.admin-btn:disabled{opacity:.45;cursor:not-allowed}
         .admin-tabs{display:flex;align-items:center;gap:8px;padding:8px 10px;border:1px solid var(--border);border-radius:18px;background:var(--surface);overflow:auto;box-shadow:var(--shadow-soft)}.admin-tab{white-space:nowrap;min-height:48px;padding:0 20px;border:0;border-radius:13px;background:transparent;color:var(--muted);font:inherit;font-size:12px;font-weight:750;cursor:pointer}.admin-tab:hover{color:var(--text);background:var(--surface-hover)}.admin-tab.active{background:var(--surface-alt);color:var(--text);box-shadow:0 8px 22px rgba(0,0,0,.12)}.admin-tab-actions{display:flex;gap:9px;margin-left:auto;padding-left:18px}.admin-tab-panel{display:none}.admin-tab-panel.active{display:block}
         .admin-kpi-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}.admin-kpi{padding:18px;border:1px solid var(--border);border-radius:16px;background:var(--surface)}.admin-kpi span{display:block;color:var(--muted);font-size:10px;text-transform:uppercase;letter-spacing:1.1px;font-weight:700}.admin-kpi strong{display:block;margin-top:10px;font-size:22px}.admin-kpi small{display:block;margin-top:5px;color:var(--muted);font-size:11px}
-        .live-chatbot-card{margin-top:16px;padding:0;overflow:hidden}.live-chatbot-head{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;padding:19px 20px;border-bottom:1px solid var(--border)}.live-chatbot-head h3{font-size:15px}.live-chatbot-head p{font-size:11px}.live-chatbot-card .test-chat{min-height:540px;border:0;border-radius:0}.live-chatbot-card .test-chat-thread{padding:24px}.live-chatbot-card .test-composer{padding:16px 20px}.live-chatbot-badge{display:inline-flex;align-items:center;gap:7px;color:var(--accent-light);font-size:10px;font-weight:750}.live-chatbot-badge:before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor;box-shadow:0 0 0 5px rgba(146,181,162,.11)}
+        .live-chatbot-card{margin-top:16px;padding:0;overflow:hidden;background:#f5f7f5!important;border-color:#d8e0da!important;color:#18231d;box-shadow:0 18px 45px rgba(0,0,0,.18)!important}.live-chatbot-head{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;padding:19px 20px;border-bottom:1px solid #dce4de}.live-chatbot-head h3{font-size:16px;color:#17231c}.live-chatbot-head p{font-size:11px;color:#6f7b74}.live-chatbot-card .test-chat{min-height:430px;max-height:620px;border:0;border-radius:0;background:#eef2ef}.live-chatbot-card .test-chat-thread{min-height:310px;padding:24px;overflow:auto}.live-chatbot-card .test-message.ai{background:#fff;border-color:#d9e1db;color:#17231c;box-shadow:0 6px 18px rgba(31,57,42,.06)}.live-chatbot-card .test-message.user{background:#86ad98;color:#102019}.live-chatbot-card .test-composer{align-items:flex-end;padding:14px 18px;background:#fff;border-top-color:#dbe3dd}.live-chatbot-card .test-composer textarea{min-height:48px;max-height:130px;resize:none;border-color:#d3ddd6;background:#f8faf8;color:#17231c;border-radius:18px}.live-chatbot-card .test-composer .admin-btn{width:48px;height:48px;min-height:48px;padding:0;border-radius:50%;font-size:0}.live-chatbot-card .test-composer .admin-btn:after{content:"➤";font-size:18px}.test-response-meta{margin:5px 0 0;color:#849089;font-size:8px}.chatbot-status-control{display:none;align-items:center;gap:8px;min-height:48px;padding:0 12px;border:1px solid var(--border);border-radius:12px;background:var(--surface);font-size:11px;font-weight:750}.chatbot-status-control.open{display:flex}.chatbot-status-control:before{content:"";width:8px;height:8px;border-radius:50%;background:#75c99a;box-shadow:0 0 0 5px rgba(117,201,154,.10)}.chatbot-status-control.paused:before{background:#df7d73;box-shadow:0 0 0 5px rgba(223,125,115,.10)}.chatbot-status-control select{border:0;outline:0;background:transparent;color:var(--text);font:inherit;font-size:11px;font-weight:750}
         .advanced-settings{margin-top:16px;border:1px solid var(--border);border-radius:13px;background:var(--surface-alt);overflow:hidden}.advanced-settings summary{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:15px 16px;cursor:pointer;font-size:12px;font-weight:750;list-style:none}.advanced-settings summary::-webkit-details-marker{display:none}.advanced-settings summary:after{content:"+";font-size:18px;color:var(--muted)}.advanced-settings[open] summary:after{content:"−"}.advanced-settings-body{padding:0 16px 16px;border-top:1px solid var(--border)}.advanced-warning{margin:12px 0!important;padding:10px 12px;border-radius:9px;background:rgba(224,170,87,.09);color:var(--muted)!important}.response-style-options{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.response-style-btn{min-height:42px;border:1px solid var(--border);border-radius:10px;background:var(--surface-alt);color:var(--text-secondary);font:inherit;font-size:11px;font-weight:700;cursor:pointer}.response-style-btn.active{border-color:var(--accent);background:rgba(146,181,162,.15);color:var(--text)}
         .kpi-card[data-kpi-drilldown]{cursor:pointer}.kpi-card[data-kpi-drilldown]:after{content:"View underlying data \2192";position:absolute;right:18px;bottom:14px;width:auto;height:auto;background:none;color:var(--accent-light);font-size:9px;font-weight:750;opacity:0;transform:translateY(3px);transition:.18s ease}.kpi-card[data-kpi-drilldown]:hover:after,.kpi-card[data-kpi-drilldown]:focus-visible:after{opacity:1;transform:none}.kpi-card[data-kpi-drilldown]:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
         .admin-grid-2{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(300px,.75fr);gap:16px}.admin-card{padding:20px;border:1px solid var(--border);border-radius:17px;background:var(--surface)}.admin-card-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:16px}.admin-card h3{font-size:14px;margin:0 0 4px}.admin-card p{font-size:11px;color:var(--muted);margin:0}.admin-form-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px}.admin-field{display:grid;gap:7px}.admin-field.wide{grid-column:1/-1}.admin-field>span{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.9px;font-weight:750}.admin-field input,.admin-field select,.admin-field textarea{width:100%;box-sizing:border-box;border:1px solid var(--border);border-radius:10px;background:var(--surface-alt);color:var(--text);padding:11px 12px;font:inherit;font-size:12px;outline:none}.admin-field textarea{min-height:110px;resize:vertical;line-height:1.55}.admin-field input:focus,.admin-field select:focus,.admin-field textarea:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(146,181,162,.10)}
@@ -3127,7 +3130,8 @@
         .connection-list{display:grid;gap:10px}.connection-row{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:13px;border:1px solid var(--border);border-radius:12px;background:var(--surface-alt)}.connection-row strong{font-size:12px}.connection-row span{display:block;margin-top:3px;color:var(--muted);font-size:10px}.status-dot{display:inline-flex;align-items:center;gap:6px;padding:5px 8px;border-radius:999px;background:rgba(146,181,162,.10);color:var(--accent-light);font-size:10px;font-weight:750;text-transform:capitalize}.status-dot::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor}.status-dot.disconnected,.status-dot.error{color:var(--muted);background:rgba(127,127,127,.10)}
         .test-studio{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:16px}.test-chat{min-height:480px;display:flex;flex-direction:column;border:1px solid var(--border);border-radius:17px;background:var(--surface);overflow:hidden}.test-chat-thread{flex:1;display:flex;flex-direction:column;gap:11px;padding:18px;overflow:auto}.test-message{max-width:78%;padding:11px 13px;border-radius:13px;font-size:12px;line-height:1.55}.test-message.user{align-self:flex-end;background:var(--accent);color:#102019;border-bottom-right-radius:4px}.test-message.ai{align-self:flex-start;background:var(--surface-alt);border:1px solid var(--border);border-bottom-left-radius:4px}.test-composer{display:flex;gap:9px;padding:13px;border-top:1px solid var(--border);background:var(--surface-alt)}.test-composer textarea{flex:1;min-height:44px;max-height:140px;resize:vertical;border:1px solid var(--border);border-radius:10px;background:var(--surface);color:var(--text);padding:11px;font:inherit;font-size:12px}.test-meta-list{display:grid;gap:10px}.test-meta-item{padding:12px;border:1px solid var(--border);border-radius:11px;background:var(--surface-alt)}.test-meta-item span{display:block;color:var(--muted);font-size:9px;text-transform:uppercase;letter-spacing:.8px}.test-meta-item strong{display:block;margin-top:6px;font-size:12px}
         .channel-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.channel-card{padding:18px;border:1px solid var(--border);border-radius:16px;background:var(--surface);display:grid;gap:15px}.channel-card-head{display:flex;align-items:center;gap:11px}.channel-icon{width:38px;height:38px;border-radius:11px;display:grid;place-items:center;background:rgba(146,181,162,.12);color:var(--accent-light);font-size:16px;font-weight:800}.channel-card h3{font-size:13px;margin:0}.channel-card p{font-size:10px;color:var(--muted);margin:3px 0 0}.channel-actions{display:flex;align-items:center;justify-content:space-between;gap:10px}.channel-config{display:none;gap:10px;padding-top:13px;border-top:1px solid var(--border)}.channel-card.open .channel-config{display:grid}
-        .version-list,.kb-list{display:grid;gap:9px}.version-row,.kb-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:14px;align-items:center;padding:14px;border:1px solid var(--border);border-radius:12px;background:var(--surface)}.version-row strong,.kb-row strong{font-size:12px}.version-row span,.kb-row span{display:block;color:var(--muted);font-size:10px;margin-top:4px}.version-actions,.kb-actions{display:flex;align-items:center;gap:7px}
+        .version-list,.kb-list{display:grid;gap:9px}.version-row,.kb-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:14px;align-items:center;padding:14px;border:1px solid var(--border);border-radius:12px;background:var(--surface)}.kb-row{cursor:pointer;transition:.16s ease}.kb-row:hover{transform:translateY(-1px);border-color:var(--border-strong);background:var(--surface-hover)}.version-row strong,.kb-row strong{font-size:12px}.version-row span,.kb-row span{display:block;color:var(--muted);font-size:10px;margin-top:4px}.version-actions,.kb-actions{display:flex;align-items:center;gap:7px}
+        .kb-viewer-backdrop{position:fixed;inset:0;z-index:1090;display:none;background:rgba(0,0,0,.62);backdrop-filter:blur(5px)}.kb-viewer-backdrop.open{display:block}.kb-viewer{position:absolute;top:0;right:0;width:min(720px,100%);height:100%;display:flex;flex-direction:column;background:var(--surface);border-left:1px solid var(--border);box-shadow:-24px 0 70px rgba(0,0,0,.38)}.kb-viewer-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;padding:22px;border-bottom:1px solid var(--border)}.kb-viewer-head h2{margin:7px 0 0;font-size:22px}.kb-viewer-actions{display:flex;gap:8px}.kb-viewer-body{flex:1;overflow:auto;padding:24px}.kb-viewer-meta{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px}.kb-viewer-chip{padding:6px 9px;border-radius:999px;background:var(--surface-alt);color:var(--muted);font-size:9px;font-weight:700}.kb-viewer-section{padding:18px 0;border-top:1px solid var(--border)}.kb-viewer-section:first-of-type{border-top:0}.kb-viewer-section h3{margin:0 0 9px;font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}.kb-viewer-section p,.kb-viewer-content{color:var(--text-secondary);font-size:12px;line-height:1.7}.kb-viewer-tags{display:flex;flex-wrap:wrap;gap:7px}.kb-viewer-nav{display:flex;justify-content:space-between;gap:10px;padding:14px 22px;border-top:1px solid var(--border)}
         .kb-toolbar{display:grid;grid-template-columns:minmax(220px,1fr) 180px 180px auto;gap:10px}.kb-toolbar input,.kb-toolbar select{border:1px solid var(--border);border-radius:10px;background:var(--surface);color:var(--text);padding:11px;font:inherit;font-size:12px}.kb-status{display:inline-flex;padding:4px 7px;border-radius:999px;background:rgba(146,181,162,.12);color:var(--accent-light);font-size:9px!important;font-weight:800;text-transform:uppercase;letter-spacing:.5px}.kb-editor{display:none}.kb-editor.open{display:block}.kb-list.hidden{display:none}
         .sla-strip{display:flex;align-items:center;justify-content:space-between;gap:15px;margin-bottom:16px;padding:15px 17px;border:1px solid var(--border);border-radius:14px;background:linear-gradient(135deg,var(--surface),rgba(146,181,162,.05))}.sla-strip h3{margin:0 0 4px;font-size:13px}.sla-strip p{margin:0;color:var(--muted);font-size:10px}.sla-settings{display:none;margin-bottom:16px}.sla-settings.open{display:block}.sla-policy-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:11px}.sla-policy{padding:14px;border:1px solid var(--border);border-radius:13px;background:var(--surface)}.sla-policy h4{margin:0 0 12px;font-size:12px;text-transform:capitalize}.sla-policy label{display:grid;grid-template-columns:1fr 75px;align-items:center;gap:8px;margin-top:8px;color:var(--muted);font-size:10px}.sla-policy input{width:100%;box-sizing:border-box;border:1px solid var(--border);border-radius:8px;background:var(--surface-alt);color:var(--text);padding:8px;font:inherit;font-size:11px}.sla-badge{display:inline-flex;align-items:center;gap:5px;padding:4px 7px;border-radius:999px;font-size:9px;font-weight:800;background:rgba(111,187,143,.12);color:#72c99a}.sla-badge.warning{background:rgba(224,170,87,.12);color:#e0aa57}.sla-badge.breached{background:rgba(225,111,101,.12);color:#e16f65}.sla-badge.met{color:var(--muted);background:rgba(127,127,127,.10)}
         html[data-theme="light"] .admin-btn.primary,html[data-theme="light"] .test-message.user{background:#244f3c;color:#fff}.admin-loading{padding:40px;text-align:center;color:var(--muted);font-size:12px}
@@ -3365,6 +3369,10 @@
                         Updated —
                     </div>
 
+                    <label id="chatbotStatusControl" class="chatbot-status-control" title="Customer-facing chatbot status">
+                        <select id="chatbotHeaderStatus" aria-label="Chatbot status"><option value="active">Online</option><option value="paused">Paused</option></select>
+                    </label>
+
 
                     <button
                         id="refreshBtn"
@@ -3482,6 +3490,8 @@
 
 
                 </div>
+
+                <label id="reportModeToolbar" class="report-mode-toolbar"><span>Report type</span><select id="reportMode"><option value="standard">Chart or summary table</option><option value="pivot">Pivot table</option><option value="sql">Raw SQL report · Advanced</option></select></label>
 
 
                 <div class="toolbar-right">
@@ -4410,16 +4420,6 @@
                 class="view-panel"
             >
 
-                <div class="sla-strip">
-                    <div><h3>Service-level management</h3><p>First response, next response and resolution targets · Asia/Kolkata</p></div>
-                    <button id="toggleSlaSettings" class="admin-btn" type="button">SLA settings</button>
-                </div>
-                <div id="slaSettings" class="sla-settings admin-card">
-                    <div class="admin-card-head"><div><h3>SLA policies</h3><p>Targets are stored in minutes and can use configured business hours.</p></div><button id="saveSlaPolicies" class="admin-btn primary" type="button">Save policies</button></div>
-                    <div id="slaPolicyGrid" class="sla-policy-grid"><div class="admin-loading">Loading SLA policies…</div></div>
-                    <div id="slaSaveStatus" class="admin-status" role="status"></div>
-                </div>
-
                 <div class="ticket-kpi-grid">
 
                     <div class="ticket-kpi-card">
@@ -4589,6 +4589,7 @@
             ================================================== -->
 
             <section id="panel-reports" class="view-panel">
+                <div id="reportLayoutMenu" class="report-layout-menu"><button class="report-secondary-btn" data-report-layout="default" type="button">Builder + Preview</button><button class="report-secondary-btn" data-report-layout="preview-focus" type="button">Preview focused</button><button class="report-secondary-btn" data-report-layout="builder-focus" type="button">Builder focused</button><button class="report-secondary-btn" data-report-layout="stacked" type="button">Stacked</button><button class="report-secondary-btn" data-report-layout="preview-only" type="button">Preview only</button><button class="report-secondary-btn" data-report-layout="free" type="button">Drag & resize</button><button id="reportLayoutReset" class="report-secondary-btn" type="button">Reset layout</button></div>
                 <div class="reports-shell">
                     <aside class="report-builder-card">
                         <div class="report-section-heading">
@@ -4597,24 +4598,13 @@
                                 <h2>Build a report</h2>
                                 <p>Turn your CX data into a focused business view.</p>
                             </div>
-                            <button id="reportResetBtn" class="report-icon-btn" type="button" title="Reset builder" aria-label="Reset report builder">
-                                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4v6h6M20 20v-6h-6M5.2 15a8 8 0 0 0 13.1 2M18.8 9A8 8 0 0 0 5.7 7"/></svg>
-                            </button>
+                            <div class="report-heading-actions"><button id="reportResetBtn" class="report-icon-btn" type="button" title="Reset builder" aria-label="Reset report builder"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4v6h6M20 20v-6h-6M5.2 15a8 8 0 0 0 13.1 2M18.8 9A8 8 0 0 0 5.7 7"/></svg></button><button id="reportSaveBtn" class="report-secondary-btn" type="button">Save report</button></div>
                         </div>
 
                         <div class="report-form-grid">
                             <label class="report-field report-field-wide">
                                 <span>Report name</span>
                                 <input id="reportName" type="text" maxlength="80" placeholder="e.g. Weekly escalation overview">
-                            </label>
-
-                            <label class="report-field report-field-wide">
-                                <span>Report type</span>
-                                <select id="reportMode">
-                                    <option value="standard">Chart or summary table</option>
-                                    <option value="pivot">Pivot table</option>
-                                    <option value="sql">Raw SQL report · Advanced</option>
-                                </select>
                             </label>
 
                             <label class="report-field report-field-wide visual-report-control">
@@ -4634,6 +4624,8 @@
                                 <span>Group by</span>
                                 <select id="reportDimension"></select>
                             </label>
+
+                            <div class="report-palette-control standard-report-control"><span class="report-eyebrow" style="margin-bottom:8px">Chart colours</span><div id="reportPalettePicker" class="palette-picker"></div><div id="reportCustomColors" class="custom-colors"><input type="color" value="#315f4a"><input type="color" value="#78a68e"><input type="color" value="#d6a85f"><input type="color" value="#cf766c"><input type="color" value="#668da3"><input type="color" value="#8a79aa"></div></div>
 
                             <label class="report-field standard-report-control">
                                 <span>Measure</span>
@@ -4812,9 +4804,6 @@ ORDER BY ticket_count DESC</textarea>
 
                         <div id="reportBuilderMessage" class="report-builder-message" role="status"></div>
 
-                        <div class="report-builder-actions">
-                            <button id="reportSaveBtn" class="report-secondary-btn" type="button">Save report</button>
-                        </div>
                     </aside>
 
                     <div class="report-results-column">
@@ -4895,8 +4884,6 @@ ORDER BY ticket_count DESC</textarea>
                         <button class="admin-tab" data-chatbot-tab="channels" type="button">Channels</button>
                         <button class="admin-tab" data-chatbot-tab="versions" type="button">Version history</button>
                         <div class="admin-tab-actions">
-                            <button id="chatbotPauseBtn" class="admin-btn" type="button">Pause chatbot</button>
-                            <button id="chatbotSaveDraftTop" class="admin-btn" type="button">Save draft</button>
                             <button id="chatbotPublishTop" class="admin-btn primary" type="button">Publish changes</button>
                         </div>
                     </div>
@@ -4909,7 +4896,7 @@ ORDER BY ticket_count DESC</textarea>
                             <div class="admin-kpi"><span>Connected channels</span><strong id="chatbotChannelsKpi">—</strong><small>Including website chat</small></div>
                         </div>
                         <div class="admin-card live-chatbot-card">
-                            <div class="live-chatbot-head"><div><h3>Live customer experience</h3><p>Use the currently published chatbot exactly as a website visitor would.</p></div><div class="admin-command-actions"><span class="live-chatbot-badge">Live chatbot</span><button id="chatbotTestReset" class="admin-btn" type="button">New conversation</button></div></div>
+                            <div class="live-chatbot-head"><div><h3>Test Chatbot</h3><p>Preview and test the currently published customer experience.</p></div><button id="chatbotTestReset" class="admin-btn" type="button">New conversation</button></div>
                             <div class="test-chat"><div id="chatbotTestThread" class="test-chat-thread"><div class="test-message ai">Hello! How can I help you today?</div></div><div class="test-composer"><textarea id="chatbotTestInput" placeholder="Ask the live chatbot a question…"></textarea><button id="chatbotTestSend" class="admin-btn primary" type="button">Send</button></div></div>
                             <input id="testUseDraft" type="checkbox" hidden>
                             <div id="chatbotTestMeta" hidden></div>
@@ -4930,7 +4917,7 @@ ORDER BY ticket_count DESC</textarea>
                             <label class="prompt-section"><span class="prompt-section-head"><strong>Formatting</strong><span>Markdown and readability</span></span><textarea data-prompt-field="formatting_rules"></textarea></label>
                             <label class="prompt-section wide"><span class="prompt-section-head"><strong>Additional instructions</strong><span>Advanced custom rules</span></span><textarea data-prompt-field="custom_instructions"></textarea></label>
                         </div>
-                        <div class="prompt-editor-footer"><div><strong id="promptDraftLabel">Published prompt</strong><div id="promptSaveStatus" class="admin-status">Edit any instruction to create a draft.</div></div><div class="admin-command-actions"><button id="viewCompiledPrompt" class="admin-btn" type="button">Preview compiled prompt</button><button id="chatbotSaveDraft" class="admin-btn" type="button">Save draft</button><button id="chatbotPublish" class="admin-btn primary" type="button">Publish</button></div></div>
+                        <div class="prompt-editor-footer"><div><strong id="promptDraftLabel">Published prompt</strong><div id="promptSaveStatus" class="admin-status">Publish changes when your instructions are ready.</div></div><div class="admin-command-actions"><button id="viewCompiledPrompt" class="admin-btn" type="button">Preview compiled prompt</button><button id="chatbotPublish" class="admin-btn primary" type="button">Publish changes</button></div></div>
                     </div>
 
                     <div id="chatbotTab-model" class="admin-tab-panel">
@@ -5026,6 +5013,15 @@ ORDER BY ticket_count DESC</textarea>
 
     </main>
 
+</div>
+
+
+<div id="knowledgeViewerBackdrop" class="kb-viewer-backdrop" aria-hidden="true">
+    <aside class="kb-viewer" role="dialog" aria-modal="true" aria-labelledby="knowledgeViewerTitle">
+        <header class="kb-viewer-head"><div><span class="report-eyebrow">Knowledge article</span><h2 id="knowledgeViewerTitle">Article</h2></div><div class="kb-viewer-actions"><button id="knowledgeViewerEdit" class="admin-btn" type="button">Edit</button><button id="knowledgeViewerCopy" class="admin-btn" type="button">Copy link</button><button id="knowledgeViewerClose" class="ticket-close" type="button" aria-label="Close">✕</button></div></header>
+        <div id="knowledgeViewerBody" class="kb-viewer-body"></div>
+        <footer class="kb-viewer-nav"><button id="knowledgeViewerPrevious" class="admin-btn" type="button">← Previous</button><button id="knowledgeViewerNext" class="admin-btn" type="button">Next →</button></footer>
+    </aside>
 </div>
 
 
@@ -5436,17 +5432,21 @@ ORDER BY ticket_count DESC</textarea>
         document.getElementById("pageSubtitle").textContent = subtitle;
         const tabSwitcher = document.getElementById("tabSwitcher");
         tabSwitcher.style.display = analyticsWorkspace ? "flex" : "none";
+        document.getElementById("reportModeToolbar")?.classList.toggle("open", workspace === "reports");
         const workspaceToolbar = document.querySelector(".toolbar");
         if (workspaceToolbar) workspaceToolbar.style.display = ["chatbot","knowledge"].includes(workspace) ? "none" : "flex";
         tabSwitcher.querySelectorAll(".tab").forEach(tab => tab.classList.toggle("active", tab.dataset.tab === workspace));
         const layoutControls = document.querySelector(".layout-controls");
-        if (layoutControls) layoutControls.style.display = ["ai","human","tickets"].includes(workspace) ? "flex" : "none";
-        history.replaceState(null, "", workspace === "ai" ? location.pathname : `#${workspace}`);
+        if (layoutControls) layoutControls.style.display = ["ai","human","tickets","reports"].includes(workspace) ? "flex" : "none";
+        document.getElementById("lastUpdated").style.display = workspace === "chatbot" ? "none" : "flex";
+        document.getElementById("refreshBtn").style.display = workspace === "chatbot" ? "none" : "inline-flex";
+        document.getElementById("chatbotStatusControl")?.classList.toggle("open", workspace === "chatbot");
+        const preserveKnowledgeArticle = workspace === "knowledge" && /^#knowledge\/article\/\d+$/.test(location.hash);
+        if (!preserveKnowledgeArticle) history.replaceState(null, "", workspace === "ai" ? location.pathname : `#${workspace}`);
 
         if (workspace === "dashboards") renderCustomDashboard();
         if (workspace === "chatbot") loadChatbotControlCentre();
         if (workspace === "knowledge") loadKnowledgeBase();
-        if (workspace === "tickets") loadSlaPolicies();
         if (refresh) updateDashboard(currentPeriod);
     }
 
@@ -8764,6 +8764,18 @@ ORDER BY ticket_count DESC</textarea>
         return Number.isFinite(numeric) ? numeric : 0;
     }
 
+    const REPORT_PALETTES = {
+        novara:["#315f4a","#78a68e","#b7cdbf","#d6a85f","#cf766c","#668da3"],
+        business:["#2563eb","#0891b2","#7c3aed","#ea580c","#16a34a","#dc2626"],
+        ocean:["#0f4c5c","#167d9a","#39a6b8","#75c9c8","#9bd8d0","#d5eee8"],
+        warm:["#8c3b2a","#c75b39","#e88c4d","#efb45d","#d96c75","#8e5572"],
+        pastel:["#91b8d4","#b6a3d8","#e4a7b7","#edc48d","#9bc9ae","#b8d5d0"],
+        monochrome:["#244f3c","#426d59","#658c77","#8eae9d","#b7cbbf","#dce7e0"]
+    };
+    let selectedReportPalette = "novara";
+    function currentReportColors(){return selectedReportPalette === "custom" ? [...document.querySelectorAll("#reportCustomColors input")].map(input=>input.value) : REPORT_PALETTES[selectedReportPalette] || REPORT_PALETTES.novara;}
+    function renderReportPalettePicker(){const picker=document.getElementById("reportPalettePicker");if(!picker)return;picker.innerHTML=[...Object.entries(REPORT_PALETTES),["custom",["#315f4a","#d6a85f","#668da3"]]].map(([name,colors])=>`<button class="palette-option ${name===selectedReportPalette?"active":""}" data-report-palette="${name}" type="button"><span class="palette-swatches">${colors.slice(0,4).map(color=>`<i style="background:${color}"></i>`).join("")}</span>${reportLabel(name)}</button>`).join("");document.getElementById("reportCustomColors")?.classList.toggle("open",selectedReportPalette==="custom");picker.querySelectorAll("[data-report-palette]").forEach(button=>button.addEventListener("click",()=>{selectedReportPalette=button.dataset.reportPalette;renderReportPalettePicker();scheduleCustomReport();}));}
+
     function formatReportValue(value) {
         if (!Number.isFinite(value)) return "0";
         if (Math.abs(value) >= 1000000) return `${(value / 1000000).toFixed(1)}M`;
@@ -8781,6 +8793,8 @@ ORDER BY ticket_count DESC</textarea>
             aggregation: document.getElementById("reportAggregation").value,
             visual: document.getElementById("reportVisual").value,
             sort: document.getElementById("reportSort").value,
+            palette: selectedReportPalette,
+            colors: currentReportColors(),
             limit: null,
             filters: getReportFilters(),
             rawSql: {
@@ -9097,7 +9111,7 @@ ORDER BY ticket_count DESC</textarea>
         tableWrap.hidden = true;
         chartWrap.hidden = false;
         const isCircular = config.visual === "doughnut";
-        const palette = ["#92b5a2", "#6f9481", "#b7cdbf", "#d6b474", "#cb837a", "#7895a4", "#9a8bb5", "#6ea99a", "#b18d72", "#76916e"];
+        const palette = config.colors?.length ? config.colors : REPORT_PALETTES.novara;
         const context = document.getElementById("customReportChart").getContext("2d");
         customReportChart = new Chart(context, {
             type: config.visual,
@@ -9106,13 +9120,13 @@ ORDER BY ticket_count DESC</textarea>
                 datasets: [{
                     label: metricLabel,
                     data: points.map(point => point.value),
-                    backgroundColor: isCircular ? points.map((_, index) => palette[index % palette.length]) : "rgba(146,181,162,.62)",
-                    borderColor: isCircular ? "#101512" : "#92b5a2",
+                    backgroundColor: isCircular || config.visual === "bar" ? points.map((_, index) => palette[index % palette.length]) : palette[0],
+                    borderColor: isCircular ? "#101512" : palette[0],
                     borderWidth: isCircular ? 3 : 1.5,
                     borderRadius: config.visual === "bar" ? 6 : 0,
                     tension: .32,
-                    fill: config.visual === "line" ? { target: "origin", above: "rgba(146,181,162,.08)" } : false,
-                    pointBackgroundColor: "#bcd4c7",
+                    fill: config.visual === "line" ? { target: "origin", above: `${palette[0]}20` } : false,
+                    pointBackgroundColor: palette[1] || palette[0],
                     pointRadius: config.visual === "line" ? 3 : 0
                 }]
             },
@@ -9236,7 +9250,7 @@ ORDER BY ticket_count DESC</textarea>
 
         chartWrap.hidden = false;
         const circular = visual === "doughnut";
-        const palette = ["#92b5a2", "#6f9481", "#b7cdbf", "#d6b474", "#cb837a", "#7895a4", "#9a8bb5", "#6ea99a"];
+        const palette = config.colors?.length ? config.colors : REPORT_PALETTES.novara;
         customReportChart = new Chart(document.getElementById("customReportChart").getContext("2d"), {
             type: visual,
             data: {
@@ -9244,8 +9258,8 @@ ORDER BY ticket_count DESC</textarea>
                 datasets: [{
                     label: reportLabel(yField),
                     data: chartRows.map(row => Number(row[yField])),
-                    backgroundColor: circular ? chartRows.map((_, index) => palette[index % palette.length]) : "rgba(146,181,162,.62)",
-                    borderColor: circular ? "#101512" : "#92b5a2",
+                    backgroundColor: circular || visual === "bar" ? chartRows.map((_, index) => palette[index % palette.length]) : palette[0],
+                    borderColor: circular ? "#101512" : palette[0],
                     borderWidth: circular ? 2 : 1.5,
                     borderRadius: visual === "bar" ? 6 : 0,
                     tension: .32,
@@ -9397,6 +9411,9 @@ ORDER BY ticket_count DESC</textarea>
         document.getElementById("reportName").value = config.name || "";
         document.getElementById("reportMode").value = config.mode || "standard";
         document.getElementById("reportDataset").value = config.dataset || "tickets";
+        selectedReportPalette = config.palette || "novara";
+        if (selectedReportPalette === "custom" && Array.isArray(config.colors)) document.querySelectorAll("#reportCustomColors input").forEach((input,index)=>{if(config.colors[index])input.value=config.colors[index];});
+        renderReportPalettePicker();
         refreshReportFields(true);
         ["dimension", "metric", "aggregation", "visual", "sort"].forEach(key => {
             const element = document.getElementById(`report${key.charAt(0).toUpperCase()}${key.slice(1)}`);
@@ -9454,6 +9471,8 @@ ORDER BY ticket_count DESC</textarea>
         document.getElementById("reportAggregation").value = "count";
         document.getElementById("reportVisual").value = "bar";
         document.getElementById("reportSort").value = "desc";
+        selectedReportPalette = "novara";
+        renderReportPalettePicker();
         document.getElementById("reportFilters").innerHTML = "";
         document.getElementById("pivotDisplay").value = "value";
         document.getElementById("pivotStyle").value = "heatmap";
@@ -9510,6 +9529,8 @@ ORDER BY ticket_count DESC</textarea>
     }
 
     document.getElementById("reportMode")?.addEventListener("change", () => { syncReportMode(); scheduleCustomReport(); });
+    renderReportPalettePicker();
+    document.getElementById("reportCustomColors")?.addEventListener("input", scheduleCustomReport);
     document.getElementById("reportDataset")?.addEventListener("change", () => { document.getElementById("reportFilters").innerHTML = ""; refreshReportFields(true); currentReportResult = null; scheduleCustomReport(); });
     document.getElementById("reportMetric")?.addEventListener("change", () => { syncReportAggregation(); scheduleCustomReport(); });
     document.getElementById("pivotValue")?.addEventListener("change", () => { syncPivotAggregation(); scheduleCustomReport(); });
@@ -9699,10 +9720,10 @@ ORDER BY created_date DESC, ticket_count DESC`;
         if (!yField || !chartRows.length) { body.innerHTML = `<div class="empty-state">Choose a numeric Values column for this chart.</div>`; return; }
         body.innerHTML = `<div class="dashboard-widget-chart"><canvas></canvas></div>`;
         const circular = visual === "doughnut";
-        const palette = ["#92b5a2","#6f9481","#b7cdbf","#d6b474","#cb837a","#7895a4","#9a8bb5","#6ea99a"];
+        const palette = report.colors?.length ? report.colors : REPORT_PALETTES.novara;
         const chart = new Chart(body.querySelector("canvas").getContext("2d"), {
             type: visual,
-            data: { labels: chartRows.map(row => String(row?.[xField] ?? "Not specified")), datasets: [{ label:reportLabel(yField), data:chartRows.map(row => Number(row[yField])), backgroundColor:circular ? chartRows.map((_,index)=>palette[index%palette.length]) : "rgba(146,181,162,.62)", borderColor:circular ? "#101512" : "#92b5a2", borderWidth:circular?2:1.5, borderRadius:visual==="bar"?5:0, tension:.32, fill:visual==="line"?{target:"origin",above:"rgba(146,181,162,.07)"}:false }] },
+            data: { labels: chartRows.map(row => String(row?.[xField] ?? "Not specified")), datasets: [{ label:reportLabel(yField), data:chartRows.map(row => Number(row[yField])), backgroundColor:circular||visual==="bar" ? chartRows.map((_,index)=>palette[index%palette.length]) : palette[0], borderColor:circular ? "#101512" : palette[0], borderWidth:circular?2:1.5, borderRadius:visual==="bar"?5:0, tension:.32, fill:visual==="line"?{target:"origin",above:`${palette[0]}20`}:false }] },
             options: { responsive:true, maintainAspectRatio:false, cutout:circular?"67%":undefined, onHover:chartPointer, onClick:(event,elements)=>{if(elements.length){const label=String(chartRows[elements[0].index]?.[xField]??"Not specified");openRawSqlPointDrilldown(report,xField,label,rows);}}, plugins:{legend:{display:circular,position:"bottom"}}, scales:circular?{}:{x:{grid:{display:false}},y:{beginAtZero:true}} }
         });
         dashboardCharts.set(widgetId, chart);
@@ -9726,10 +9747,10 @@ ORDER BY created_date DESC, ticket_count DESC`;
         if (!result.points.length) { body.innerHTML = `<div class="empty-state">No matching data in this date range.</div>`; return; }
         body.innerHTML = `<div class="dashboard-widget-chart"><canvas></canvas></div>`;
         const circular = result.config.visual === "doughnut";
-        const palette = ["#92b5a2","#6f9481","#b7cdbf","#d6b474","#cb837a","#7895a4","#9a8bb5","#6ea99a"];
+        const palette = result.config.colors?.length ? result.config.colors : REPORT_PALETTES.novara;
         const chart = new Chart(body.querySelector("canvas").getContext("2d"), {
             type: result.config.visual,
-            data: { labels: result.points.map(point => point.label), datasets: [{ data: result.points.map(point => point.value), backgroundColor: circular ? result.points.map((_,i) => palette[i % palette.length]) : "rgba(146,181,162,.62)", borderColor: circular ? "#101512" : "#92b5a2", borderWidth: circular ? 2 : 1.5, borderRadius: result.config.visual === "bar" ? 5 : 0, tension:.32, fill:result.config.visual === "line" ? {target:"origin",above:"rgba(146,181,162,.07)"} : false, pointRadius:result.config.visual === "line" ? 2.5 : 0 }] },
+            data: { labels: result.points.map(point => point.label), datasets: [{ data: result.points.map(point => point.value), backgroundColor: circular||result.config.visual==="bar" ? result.points.map((_,i) => palette[i % palette.length]) : palette[0], borderColor: circular ? "#101512" : palette[0], borderWidth: circular ? 2 : 1.5, borderRadius: result.config.visual === "bar" ? 5 : 0, tension:.32, fill:result.config.visual === "line" ? {target:"origin",above:`${palette[0]}20`} : false, pointRadius:result.config.visual === "line" ? 2.5 : 0 }] },
             options: { responsive:true, maintainAspectRatio:false, cutout:circular ? "67%" : undefined, onHover:chartPointer, onClick:(event,elements)=>{if(elements.length){const point=result.points[elements[0].index];if(point)openReportPointDrilldown(result.config,point);}}, plugins:{ legend:{ display:circular, position:"bottom", labels:{color:"rgba(236,243,239,.58)",boxWidth:8,boxHeight:8,font:{size:8}} } }, scales:circular ? {} : { x:{grid:{display:false},ticks:{color:"rgba(226,237,231,.42)",font:{size:8}}}, y:{beginAtZero:true,grid:{color:"rgba(222,235,227,.05)"},ticks:{color:"rgba(226,237,231,.42)",font:{size:8}},border:{display:false}} } }
         });
         dashboardCharts.set(widgetId, chart);
@@ -10300,7 +10321,7 @@ ORDER BY created_date DESC, ticket_count DESC`;
        CUSTOM DASHBOARD LAYOUT
     ====================================================== */
 
-    const layoutCardSelector = ".kpi-card,.chart-card,.table-card,.ticket-kpi-card,.ticket-status-card";
+    const layoutCardSelector = ".kpi-card,.chart-card,.table-card,.ticket-kpi-card,.ticket-status-card,.report-builder-card,.report-preview-card,.saved-reports-card";
     const defaultLayouts = {};
     let layoutEditSnapshot = null;
     let draggedLayoutCard = null;
@@ -10393,6 +10414,10 @@ ORDER BY created_date DESC, ticket_count DESC`;
     });
 
     document.getElementById("customizeLayoutBtn").addEventListener("click", () => {
+        if (currentTab === "reports") {
+            document.getElementById("reportLayoutMenu")?.classList.toggle("open");
+            return;
+        }
         if (window.innerWidth <= 768) return;
         layoutEditSnapshot = capturePanelLayout(activeLayoutPanel());
         setLayoutEditing(true);
@@ -10415,6 +10440,20 @@ ORDER BY created_date DESC, ticket_count DESC`;
         setLayoutEditing(false);
         window.dispatchEvent(new Event("resize"));
     });
+
+    const reportShell = document.querySelector("#panel-reports .reports-shell");
+    function applyReportLayout(layout, persist = true) {
+        if (!reportShell) return;
+        if (layout === "free") { document.getElementById("reportLayoutMenu")?.classList.remove("open"); layoutEditSnapshot = capturePanelLayout(activeLayoutPanel()); setLayoutEditing(true); return; }
+        ["preview-focus","builder-focus","stacked","preview-only"].forEach(name => reportShell.classList.remove(name));
+        if (layout && layout !== "default") reportShell.classList.add(layout);
+        if (persist) localStorage.setItem("novara_reports_layout", layout || "default");
+        document.getElementById("reportLayoutMenu")?.classList.remove("open");
+        window.dispatchEvent(new Event("resize"));
+    }
+    document.querySelectorAll("[data-report-layout]").forEach(button => button.addEventListener("click", () => applyReportLayout(button.dataset.reportLayout)));
+    document.getElementById("reportLayoutReset")?.addEventListener("click", () => applyReportLayout("default"));
+    applyReportLayout(localStorage.getItem("novara_reports_layout") || "default", false);
 
 
         try {
@@ -10646,7 +10685,9 @@ ORDER BY created_date DESC, ticket_count DESC`;
         document.getElementById("chatbotModelKpi").textContent = profile.model || "—";
         document.getElementById("chatbotProviderKpi").textContent = String(profile.provider || "Provider").replace(/^./, char => char.toUpperCase());
         document.getElementById("chatbotChannelsKpi").textContent = connected;
-        document.getElementById("chatbotPauseBtn").textContent = profile.status === "paused" ? "Activate chatbot" : "Pause chatbot";
+        const headerStatus = document.getElementById("chatbotHeaderStatus");
+        if (headerStatus) headerStatus.value = profile.status === "paused" ? "paused" : "active";
+        document.getElementById("chatbotStatusControl")?.classList.toggle("paused", profile.status === "paused");
 
     }
 
@@ -10753,6 +10794,7 @@ ORDER BY created_date DESC, ticket_count DESC`;
         try {
             const result = await adminApi("/admin/chatbot/test", { method:"POST", body:JSON.stringify({ message, useDraft:document.getElementById("testUseDraft").checked }) });
             pending.innerHTML = renderSafeMarkdown(result.reply);
+            pending.insertAdjacentHTML("afterend", `<div class="test-response-meta">${Math.round(result.responseTimeMs)} ms · Prompt v${escapeHtml(String(result.promptVersion))} · Knowledge ${result.knowledgeUsed ? "used" : "not used"}</div>`);
             document.getElementById("chatbotTestMeta").innerHTML = `<div class="test-meta-item"><span>Model</span><strong>${escapeHtml(result.model)}</strong></div><div class="test-meta-item"><span>Response time</span><strong>${Math.round(result.responseTimeMs)} ms</strong></div><div class="test-meta-item"><span>Prompt</span><strong>Version ${escapeHtml(String(result.promptVersion))}</strong></div><div class="test-meta-item"><span>Knowledge used</span><strong>${result.knowledgeUsed ? "Yes" : "No"}</strong></div>`;
         } catch (error) { pending.textContent = error.message; }
         thread.scrollTop = thread.scrollHeight;
@@ -10763,10 +10805,12 @@ ORDER BY created_date DESC, ticket_count DESC`;
     ["chatbotPublish","chatbotPublishTop"].forEach(id=>document.getElementById(id)?.addEventListener("click",publishPrompt));
     document.getElementById("saveModelSettings")?.addEventListener("click",saveModelSettings);
     document.getElementById("chatbotPauseBtn")?.addEventListener("click",()=>{ const select=document.getElementById("chatbotOperationalStatus"); select.value=chatbotControlState?.profile?.status==="paused"?"active":"paused"; saveModelSettings(); });
+    document.getElementById("chatbotHeaderStatus")?.addEventListener("change",event=>{const select=document.getElementById("chatbotOperationalStatus");select.value=event.target.value;document.getElementById("chatbotStatusControl")?.classList.toggle("paused",event.target.value==="paused");saveModelSettings();});
     document.querySelectorAll("[data-model-preset]").forEach(button=>button.addEventListener("click",()=>{const preset={economy:[.2,650,20000],balanced:[.35,1200,30000],quality:[.5,2200,45000]}[button.dataset.modelPreset]; document.getElementById("chatbotTemperature").value=preset[0];document.getElementById("chatbotMaxTokens").value=preset[1];document.getElementById("chatbotTimeout").value=preset[2];document.getElementById("modelSaveStatus").textContent="Preset applied. Save model settings to activate it.";}));
     document.querySelectorAll("[data-response-style]").forEach(button=>button.addEventListener("click",()=>{const temperatures={precise:.2,balanced:.35,creative:.65};document.querySelectorAll("[data-response-style]").forEach(item=>item.classList.toggle("active",item===button));document.getElementById("chatbotTemperature").value=temperatures[button.dataset.responseStyle];document.getElementById("modelSaveStatus").textContent="Response style selected. Save model settings to activate it.";}));
     document.getElementById("chatbotTestSend")?.addEventListener("click",sendChatbotTest);
     document.getElementById("chatbotTestInput")?.addEventListener("keydown",event=>{if(event.key==="Enter"&&!event.shiftKey){event.preventDefault();sendChatbotTest();}});
+    document.getElementById("chatbotTestInput")?.addEventListener("input",event=>{event.target.style.height="auto";event.target.style.height=`${Math.min(event.target.scrollHeight,130)}px`;});
     document.getElementById("chatbotTestReset")?.addEventListener("click",()=>{document.getElementById("chatbotTestThread").innerHTML='<div class="test-message ai">Hello! How can I help you today?</div>';document.getElementById("chatbotTestMeta").innerHTML="";document.getElementById("chatbotTestInput").focus();});
     document.getElementById("viewCompiledPrompt")?.addEventListener("click",()=>{const text=Object.entries(promptPayload()).filter(([,value])=>value).map(([key,value])=>`${key.replaceAll("_"," ").toUpperCase()}\n${value}`).join("\n\n");const modal=document.createElement("div");modal.className="data-explorer-backdrop open";modal.innerHTML=`<section class="data-explorer-dialog" style="height:min(760px,90vh)"><header class="data-explorer-head"><div><span class="report-eyebrow">Prompt preview</span><h2>Compiled system instructions</h2><p>Preview only · secrets and dynamic customer context are never included.</p></div><button class="ticket-close" type="button">✕</button></header><div style="padding:20px;overflow:auto;white-space:pre-wrap;line-height:1.65;font-size:12px">${escapeHtml(text)}</div></section>`;document.body.appendChild(modal);modal.querySelector("button").onclick=()=>modal.remove();modal.onclick=e=>{if(e.target===modal)modal.remove();};});
 
@@ -10776,7 +10820,7 @@ ORDER BY created_date DESC, ticket_count DESC`;
     ====================================================== */
 
     async function loadKnowledgeBase() {
-        try { const data=await adminApi("/admin/knowledge"); knowledgeState={articles:data.articles||[],summary:data.summary||{}}; renderKnowledgeBase(); }
+        try { const data=await adminApi("/admin/knowledge"); knowledgeState={articles:data.articles||[],summary:data.summary||{}}; renderKnowledgeBase(); const match=location.hash.match(/^#knowledge\/article\/(\d+)$/);if(match)requestAnimationFrame(()=>openKnowledgeViewer(Number(match[1]))); }
         catch(error){document.getElementById("knowledgeArticleList").innerHTML=`<div class="empty-state">${escapeHtml(error.message)} Run the supplied D1 migration and deploy the Worker.</div>`;}
     }
     function renderKnowledgeBase() {
@@ -10784,21 +10828,15 @@ ORDER BY created_date DESC, ticket_count DESC`;
         const categories=[...new Set(knowledgeState.articles.map(article=>article.category).filter(Boolean))].sort();const select=document.getElementById("kbCategoryFilter");const current=select.value;select.innerHTML='<option value="">All categories</option>'+categories.map(category=>`<option value="${escapeHtml(category)}">${escapeHtml(category)}</option>`).join("");select.value=current;
         filterKnowledgeBase();
     }
-    function filterKnowledgeBase(){const query=document.getElementById("kbSearch").value.toLowerCase();const category=document.getElementById("kbCategoryFilter").value;const status=document.getElementById("kbStatusFilter").value;const rows=knowledgeState.articles.filter(article=>(!query||`${article.title} ${article.customer_question} ${article.content} ${article.keywords||""}`.toLowerCase().includes(query))&&(!category||article.category===category)&&(!status||article.status===status));const list=document.getElementById("knowledgeArticleList");list.innerHTML=rows.length?rows.map(article=>`<div class="kb-row"><div><strong>${escapeHtml(article.title)}</strong><span>${escapeHtml(article.customer_question)} · ${escapeHtml(article.category)} · ${article.usage_count||0} uses</span></div><div class="kb-actions"><span class="kb-status">${escapeHtml(article.status.replaceAll("_"," "))}</span><button class="admin-btn" data-kb-edit="${article.id}" type="button">Edit</button></div></div>`).join(""):'<div class="empty-state">No knowledge entries match these filters.</div>';list.querySelectorAll("[data-kb-edit]").forEach(button=>button.addEventListener("click",()=>openKnowledgeEditor(knowledgeState.articles.find(article=>article.id===Number(button.dataset.kbEdit)))));}
+    function filterKnowledgeBase(){const query=document.getElementById("kbSearch").value.toLowerCase();const category=document.getElementById("kbCategoryFilter").value;const status=document.getElementById("kbStatusFilter").value;const rows=knowledgeState.articles.filter(article=>(!query||`${article.title} ${article.customer_question} ${article.content} ${article.keywords||""}`.toLowerCase().includes(query))&&(!category||article.category===category)&&(!status||article.status===status));const list=document.getElementById("knowledgeArticleList");list.innerHTML=rows.length?rows.map(article=>`<div class="kb-row" data-kb-view="${article.id}" tabindex="0" role="button"><div><strong>${escapeHtml(article.title)}</strong><span>${escapeHtml(article.customer_question)} · ${escapeHtml(article.category)} · ${article.usage_count||0} uses</span></div><div class="kb-actions"><span class="kb-status">${escapeHtml(article.status.replaceAll("_"," "))}</span><button class="admin-btn" data-kb-edit="${article.id}" type="button">Edit</button></div></div>`).join(""):'<div class="empty-state">No knowledge entries match these filters.</div>';list.querySelectorAll("[data-kb-view]").forEach(row=>{row.addEventListener("click",event=>{if(!event.target.closest("[data-kb-edit]"))openKnowledgeViewer(Number(row.dataset.kbView));});row.addEventListener("keydown",event=>{if(["Enter"," "].includes(event.key)&&!event.target.closest("[data-kb-edit]")){event.preventDefault();openKnowledgeViewer(Number(row.dataset.kbView));}});});list.querySelectorAll("[data-kb-edit]").forEach(button=>button.addEventListener("click",event=>{event.stopPropagation();openKnowledgeEditor(knowledgeState.articles.find(article=>article.id===Number(button.dataset.kbEdit)));}));}
+    let openKnowledgeArticleId=null;
+    function openKnowledgeViewer(articleId){const article=knowledgeState.articles.find(item=>item.id===Number(articleId));if(!article)return;openKnowledgeArticleId=article.id;document.getElementById("knowledgeViewerTitle").textContent=article.title;const alternatives=String(article.alternative_questions||"").split(/\n|,/).map(value=>value.trim()).filter(Boolean);const keywords=String(article.keywords||"").split(",").map(value=>value.trim()).filter(Boolean);document.getElementById("knowledgeViewerBody").innerHTML=`<div class="kb-viewer-meta"><span class="kb-viewer-chip">${escapeHtml(article.status.replaceAll("_"," "))}</span><span class="kb-viewer-chip">${escapeHtml(article.category||"General")}</span><span class="kb-viewer-chip">Priority ${escapeHtml(String(article.priority||50))}</span><span class="kb-viewer-chip">${Number(article.usage_count||0).toLocaleString("en-IN")} uses</span><span class="kb-viewer-chip">Updated ${escapeHtml(formatAdminDate(article.updated_at||article.created_at))}</span></div><section class="kb-viewer-section"><h3>Customer question</h3><p>${escapeHtml(article.customer_question||"—")}</p></section><section class="kb-viewer-section"><h3>Approved answer</h3><div class="kb-viewer-content">${renderSafeMarkdown(article.content||"")}</div></section>${alternatives.length?`<section class="kb-viewer-section"><h3>Alternative questions</h3><div class="kb-viewer-tags">${alternatives.map(value=>`<span class="kb-viewer-chip">${escapeHtml(value)}</span>`).join("")}</div></section>`:""}${keywords.length?`<section class="kb-viewer-section"><h3>Keywords</h3><div class="kb-viewer-tags">${keywords.map(value=>`<span class="kb-viewer-chip">${escapeHtml(value)}</span>`).join("")}</div></section>`:""}${article.internal_notes?`<section class="kb-viewer-section"><h3>Admin-only notes</h3><p>${escapeHtml(article.internal_notes)}</p></section>`:""}`;const index=knowledgeState.articles.findIndex(item=>item.id===article.id);document.getElementById("knowledgeViewerPrevious").disabled=index<=0;document.getElementById("knowledgeViewerNext").disabled=index<0||index>=knowledgeState.articles.length-1;const backdrop=document.getElementById("knowledgeViewerBackdrop");backdrop.classList.add("open");backdrop.setAttribute("aria-hidden","false");document.body.style.overflow="hidden";}
+    function closeKnowledgeViewer(){const backdrop=document.getElementById("knowledgeViewerBackdrop");backdrop.classList.remove("open");backdrop.setAttribute("aria-hidden","true");document.body.style.overflow="";openKnowledgeArticleId=null;}
     function openKnowledgeEditor(article=null){document.getElementById("knowledgeListCard").style.display="none";document.getElementById("knowledgeEditor").classList.add("open");document.getElementById("knowledgeEditorTitle").textContent=article?"Edit knowledge article":"New knowledge article";document.getElementById("knowledgeArticleId").value=article?.id||"";document.getElementById("knowledgeTitle").value=article?.title||"";document.getElementById("knowledgeCategory").value=article?.category||"General";document.getElementById("knowledgeQuestion").value=article?.customer_question||"";document.getElementById("knowledgeContent").value=article?.content||"";document.getElementById("knowledgeAlternatives").value=article?.alternative_questions||"";document.getElementById("knowledgeKeywords").value=article?.keywords||"";document.getElementById("knowledgePriority").value=article?.priority||50;document.getElementById("knowledgeStatus").value=article?.status||"draft";document.getElementById("knowledgeNotes").value=article?.internal_notes||"";document.getElementById("knowledgeSaveStatus").textContent="";}
     function closeKnowledgeEditor(){document.getElementById("knowledgeEditor").classList.remove("open");document.getElementById("knowledgeListCard").style.display="block";}
     async function saveKnowledgeArticle(publish=false){const status=document.getElementById("knowledgeSaveStatus");status.textContent="Saving…";const article={id:Number(document.getElementById("knowledgeArticleId").value)||undefined,title:document.getElementById("knowledgeTitle").value,category:document.getElementById("knowledgeCategory").value,customer_question:document.getElementById("knowledgeQuestion").value,content:document.getElementById("knowledgeContent").value,alternative_questions:document.getElementById("knowledgeAlternatives").value,keywords:document.getElementById("knowledgeKeywords").value,priority:document.getElementById("knowledgePriority").value,status:publish?"published":"draft",internal_notes:document.getElementById("knowledgeNotes").value};try{await adminApi("/admin/knowledge/save",{method:"POST",body:JSON.stringify({article,changeSummary:publish?"Published from Knowledge Base":"Draft saved from Knowledge Base"})});status.textContent=publish?"Article published.":"Draft saved.";await loadKnowledgeBase();setTimeout(closeKnowledgeEditor,450);}catch(error){status.textContent=error.message;}}
     ["newKnowledgeArticle","newKnowledgeArticleSecondary"].forEach(id=>document.getElementById(id)?.addEventListener("click",()=>openKnowledgeEditor()));document.getElementById("closeKnowledgeEditor")?.addEventListener("click",closeKnowledgeEditor);document.getElementById("saveKnowledgeDraft")?.addEventListener("click",()=>saveKnowledgeArticle(false));document.getElementById("publishKnowledgeArticle")?.addEventListener("click",()=>saveKnowledgeArticle(true));["kbSearch","kbCategoryFilter","kbStatusFilter"].forEach(id=>document.getElementById(id)?.addEventListener(id==="kbSearch"?"input":"change",filterKnowledgeBase));
-
-
-    /* =====================================================
-       SLA POLICY CONTROLS
-    ====================================================== */
-
-    async function loadSlaPolicies(){try{slaState=await adminApi("/admin/sla");renderSlaPolicies();if(Array.isArray(reportDataCache.tickets)&&reportDataCache.tickets.length)updateTicketsTable(reportDataCache.tickets.map(normalizeTicket));}catch(error){document.getElementById("slaPolicyGrid").innerHTML=`<div class="empty-state">${escapeHtml(error.message)}</div>`;}}
-    function renderSlaPolicies(){const grid=document.getElementById("slaPolicyGrid");grid.innerHTML=(slaState.policies||[]).map(policy=>`<div class="sla-policy" data-sla-id="${policy.id}"><h4>${escapeHtml(policy.priority)}</h4><label>First response<input data-sla-first type="number" min="1" value="${policy.first_response_minutes}"></label><label>Next response<input data-sla-next type="number" min="1" value="${policy.next_response_minutes}"></label><label>Resolution<input data-sla-resolution type="number" min="1" value="${policy.resolution_minutes}"></label><label>Warning %<input data-sla-warning type="number" min="1" max="95" value="${policy.warning_percent}"></label><label>Urgent %<input data-sla-urgent type="number" min="2" max="99" value="${policy.urgent_percent}"></label></div>`).join("");}
-    async function saveSlaPolicies(){const status=document.getElementById("slaSaveStatus");status.textContent="Saving…";const policies=[...document.querySelectorAll("[data-sla-id]")].map(card=>({id:Number(card.dataset.slaId),first_response_minutes:Number(card.querySelector("[data-sla-first]").value),next_response_minutes:Number(card.querySelector("[data-sla-next]").value),resolution_minutes:Number(card.querySelector("[data-sla-resolution]").value),warning_percent:Number(card.querySelector("[data-sla-warning]").value),urgent_percent:Number(card.querySelector("[data-sla-urgent]").value),use_business_hours:true,pause_resolution_pending_customer:true,active:true}));try{await adminApi("/admin/sla/save",{method:"POST",body:JSON.stringify({policies})});status.textContent="SLA policies saved.";await loadSlaPolicies();}catch(error){status.textContent=error.message;}}
-    document.getElementById("toggleSlaSettings")?.addEventListener("click",()=>document.getElementById("slaSettings").classList.toggle("open"));document.getElementById("saveSlaPolicies")?.addEventListener("click",saveSlaPolicies);
+    document.getElementById("knowledgeViewerClose")?.addEventListener("click",closeKnowledgeViewer);document.getElementById("knowledgeViewerBackdrop")?.addEventListener("click",event=>{if(event.target.id==="knowledgeViewerBackdrop")closeKnowledgeViewer();});document.getElementById("knowledgeViewerEdit")?.addEventListener("click",()=>{const article=knowledgeState.articles.find(item=>item.id===openKnowledgeArticleId);closeKnowledgeViewer();if(article)openKnowledgeEditor(article);});document.getElementById("knowledgeViewerCopy")?.addEventListener("click",async()=>{if(!openKnowledgeArticleId)return;const url=`${location.origin}${location.pathname}#knowledge/article/${openKnowledgeArticleId}`;await navigator.clipboard.writeText(url);document.getElementById("knowledgeViewerCopy").textContent="Copied";setTimeout(()=>document.getElementById("knowledgeViewerCopy").textContent="Copy link",1200);});document.getElementById("knowledgeViewerPrevious")?.addEventListener("click",()=>{const index=knowledgeState.articles.findIndex(item=>item.id===openKnowledgeArticleId);if(index>0)openKnowledgeViewer(knowledgeState.articles[index-1].id);});document.getElementById("knowledgeViewerNext")?.addEventListener("click",()=>{const index=knowledgeState.articles.findIndex(item=>item.id===openKnowledgeArticleId);if(index>=0&&index<knowledgeState.articles.length-1)openKnowledgeViewer(knowledgeState.articles[index+1].id);});document.addEventListener("keydown",event=>{if(event.key==="Escape"&&document.getElementById("knowledgeViewerBackdrop")?.classList.contains("open"))closeKnowledgeViewer();});
 
 
     /* =====================================================
@@ -10808,7 +10846,7 @@ ORDER BY created_date DESC, ticket_count DESC`;
     document.addEventListener(
         "DOMContentLoaded",
         () => {
-            const requestedWorkspace = location.hash.replace("#", "");
+            const requestedWorkspace = location.hash.replace("#", "").split("/")[0];
             showWorkspace(["ai","human","dashboards","tickets","reports","chatbot","knowledge"].includes(requestedWorkspace) ? requestedWorkspace : "ai", false);
             updateDashboard(currentPeriod);
 
