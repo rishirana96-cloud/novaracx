@@ -3063,7 +3063,13 @@
         html[data-theme="light"] .theme-toggle-thumb { color:#5c7968; background:#fff; transform:translateX(0); }
         html[data-theme="light"] .theme-icon-sun { display:block; }
         html[data-theme="light"] .theme-icon-moon { display:none; }
-        html[data-theme="light"] .sidebar { background:linear-gradient(180deg,rgba(250,252,250,.98),rgba(241,246,243,.98)); border-right-color:rgba(35,67,50,.10); box-shadow:12px 0 40px rgba(31,57,42,.06); }
+        html[data-theme="light"] .sidebar { background:linear-gradient(180deg,#e7ede9 0%,#dfe8e2 100%); border-right-color:rgba(35,67,50,.20); box-shadow:12px 0 40px rgba(31,57,42,.10); }
+        html[data-theme="light"] .sidebar-heading { color:rgba(23,35,28,.62); }
+        html[data-theme="light"] .nav-item,html[data-theme="light"] .nav-subitem { color:rgba(23,35,28,.68); }
+        html[data-theme="light"] .nav-item:hover,html[data-theme="light"] .nav-subitem:hover { color:#17231c; background:rgba(255,255,255,.48); }
+        html[data-theme="light"] .nav-item.active { color:#17231c; border-color:rgba(63,107,85,.22); background:linear-gradient(90deg,rgba(255,255,255,.82),rgba(255,255,255,.52)); box-shadow:0 8px 22px rgba(31,57,42,.08); }
+        html[data-theme="light"] .nav-subitem.active { color:#244f3c; background:rgba(255,255,255,.58); }
+        html[data-theme="light"] .nav-submenu { border-left-color:rgba(35,67,50,.22); }
         html[data-theme="light"] .nav-item.active { background:linear-gradient(90deg,rgba(101,140,119,.16),rgba(101,140,119,.05)); }
         html[data-theme="light"] .nav-subitem.active { background:rgba(101,140,119,.10); }
         html[data-theme="light"] .agent-profile,html[data-theme="light"] .topbar-updated,html[data-theme="light"] .refresh-btn,html[data-theme="light"] .theme-toggle,html[data-theme="light"] .text-size-control,html[data-theme="light"] .auto-refresh-control { background:rgba(255,255,255,.68); }
@@ -3111,8 +3117,11 @@
         .admin-workspace{display:grid;gap:18px}.admin-command{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:20px 22px;border:1px solid var(--border);border-radius:18px;background:linear-gradient(135deg,var(--surface),rgba(146,181,162,.055));box-shadow:var(--shadow-soft)}
         .admin-command-copy{display:flex;align-items:center;gap:14px}.admin-command-icon{width:44px;height:44px;border-radius:13px;display:grid;place-items:center;color:var(--accent-light);background:rgba(146,181,162,.13);border:1px solid rgba(146,181,162,.18)}.admin-command-icon svg{width:22px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}.admin-command h2{font-size:18px;margin:0 0 4px}.admin-command p{margin:0;color:var(--muted);font-size:12px}.admin-command-actions{display:flex;gap:9px;flex-wrap:wrap}
         .admin-btn{min-height:40px;padding:0 15px;border-radius:10px;border:1px solid var(--border-strong);background:var(--surface);color:var(--text);font:inherit;font-size:12px;font-weight:700;cursor:pointer}.admin-btn:hover{background:var(--surface-hover)}.admin-btn.primary{background:var(--accent);border-color:var(--accent);color:#102019}.admin-btn.danger{color:#df8f86}.admin-btn:disabled{opacity:.45;cursor:not-allowed}
-        .admin-tabs{display:flex;gap:4px;padding:5px;border:1px solid var(--border);border-radius:13px;background:var(--surface);overflow:auto}.admin-tab{white-space:nowrap;padding:10px 14px;border:0;border-radius:9px;background:transparent;color:var(--muted);font:inherit;font-size:12px;font-weight:700;cursor:pointer}.admin-tab.active{background:rgba(146,181,162,.14);color:var(--text)}.admin-tab-panel{display:none}.admin-tab-panel.active{display:block}
+        .admin-tabs{display:flex;align-items:center;gap:8px;padding:8px 10px;border:1px solid var(--border);border-radius:18px;background:var(--surface);overflow:auto;box-shadow:var(--shadow-soft)}.admin-tab{white-space:nowrap;min-height:48px;padding:0 20px;border:0;border-radius:13px;background:transparent;color:var(--muted);font:inherit;font-size:12px;font-weight:750;cursor:pointer}.admin-tab:hover{color:var(--text);background:var(--surface-hover)}.admin-tab.active{background:var(--surface-alt);color:var(--text);box-shadow:0 8px 22px rgba(0,0,0,.12)}.admin-tab-actions{display:flex;gap:9px;margin-left:auto;padding-left:18px}.admin-tab-panel{display:none}.admin-tab-panel.active{display:block}
         .admin-kpi-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}.admin-kpi{padding:18px;border:1px solid var(--border);border-radius:16px;background:var(--surface)}.admin-kpi span{display:block;color:var(--muted);font-size:10px;text-transform:uppercase;letter-spacing:1.1px;font-weight:700}.admin-kpi strong{display:block;margin-top:10px;font-size:22px}.admin-kpi small{display:block;margin-top:5px;color:var(--muted);font-size:11px}
+        .live-chatbot-card{margin-top:16px;padding:0;overflow:hidden}.live-chatbot-head{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;padding:19px 20px;border-bottom:1px solid var(--border)}.live-chatbot-head h3{font-size:15px}.live-chatbot-head p{font-size:11px}.live-chatbot-card .test-chat{min-height:540px;border:0;border-radius:0}.live-chatbot-card .test-chat-thread{padding:24px}.live-chatbot-card .test-composer{padding:16px 20px}.live-chatbot-badge{display:inline-flex;align-items:center;gap:7px;color:var(--accent-light);font-size:10px;font-weight:750}.live-chatbot-badge:before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor;box-shadow:0 0 0 5px rgba(146,181,162,.11)}
+        .advanced-settings{margin-top:16px;border:1px solid var(--border);border-radius:13px;background:var(--surface-alt);overflow:hidden}.advanced-settings summary{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:15px 16px;cursor:pointer;font-size:12px;font-weight:750;list-style:none}.advanced-settings summary::-webkit-details-marker{display:none}.advanced-settings summary:after{content:"+";font-size:18px;color:var(--muted)}.advanced-settings[open] summary:after{content:"−"}.advanced-settings-body{padding:0 16px 16px;border-top:1px solid var(--border)}.advanced-warning{margin:12px 0!important;padding:10px 12px;border-radius:9px;background:rgba(224,170,87,.09);color:var(--muted)!important}.response-style-options{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.response-style-btn{min-height:42px;border:1px solid var(--border);border-radius:10px;background:var(--surface-alt);color:var(--text-secondary);font:inherit;font-size:11px;font-weight:700;cursor:pointer}.response-style-btn.active{border-color:var(--accent);background:rgba(146,181,162,.15);color:var(--text)}
+        .kpi-card[data-kpi-drilldown]{cursor:pointer}.kpi-card[data-kpi-drilldown]:after{content:"View underlying data \2192";position:absolute;right:18px;bottom:14px;width:auto;height:auto;background:none;color:var(--accent-light);font-size:9px;font-weight:750;opacity:0;transform:translateY(3px);transition:.18s ease}.kpi-card[data-kpi-drilldown]:hover:after,.kpi-card[data-kpi-drilldown]:focus-visible:after{opacity:1;transform:none}.kpi-card[data-kpi-drilldown]:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
         .admin-grid-2{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(300px,.75fr);gap:16px}.admin-card{padding:20px;border:1px solid var(--border);border-radius:17px;background:var(--surface)}.admin-card-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:16px}.admin-card h3{font-size:14px;margin:0 0 4px}.admin-card p{font-size:11px;color:var(--muted);margin:0}.admin-form-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px}.admin-field{display:grid;gap:7px}.admin-field.wide{grid-column:1/-1}.admin-field>span{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.9px;font-weight:750}.admin-field input,.admin-field select,.admin-field textarea{width:100%;box-sizing:border-box;border:1px solid var(--border);border-radius:10px;background:var(--surface-alt);color:var(--text);padding:11px 12px;font:inherit;font-size:12px;outline:none}.admin-field textarea{min-height:110px;resize:vertical;line-height:1.55}.admin-field input:focus,.admin-field select:focus,.admin-field textarea:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(146,181,162,.10)}
         .prompt-sections{display:grid;grid-template-columns:1fr 1fr;gap:14px}.prompt-section{padding:16px;border:1px solid var(--border);border-radius:14px;background:var(--surface)}.prompt-section.wide{grid-column:1/-1}.prompt-section-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}.prompt-section-head strong{font-size:12px}.prompt-section-head span{font-size:10px;color:var(--muted)}.prompt-section textarea{width:100%;min-height:120px;box-sizing:border-box;border:0;background:transparent;color:var(--text);font:inherit;font-size:12px;line-height:1.6;resize:vertical;outline:0}.prompt-editor-footer{position:sticky;bottom:12px;z-index:3;display:flex;justify-content:space-between;align-items:center;gap:15px;margin-top:16px;padding:13px 15px;border:1px solid var(--border-strong);border-radius:13px;background:color-mix(in srgb,var(--surface) 94%,transparent);backdrop-filter:blur(16px);box-shadow:var(--shadow)}.admin-status{font-size:11px;color:var(--muted)}
         .connection-list{display:grid;gap:10px}.connection-row{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:13px;border:1px solid var(--border);border-radius:12px;background:var(--surface-alt)}.connection-row strong{font-size:12px}.connection-row span{display:block;margin-top:3px;color:var(--muted);font-size:10px}.status-dot{display:inline-flex;align-items:center;gap:6px;padding:5px 8px;border-radius:999px;background:rgba(146,181,162,.10);color:var(--accent-light);font-size:10px;font-weight:750;text-transform:capitalize}.status-dot::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor}.status-dot.disconnected,.status-dot.error{color:var(--muted);background:rgba(127,127,127,.10)}
@@ -4879,25 +4888,17 @@ ORDER BY ticket_count DESC</textarea>
             ================================================== -->
             <section id="panel-chatbot" class="view-panel">
                 <div class="admin-workspace">
-                    <div class="admin-command">
-                        <div class="admin-command-copy">
-                            <div class="admin-command-icon"><svg viewBox="0 0 24 24"><path d="M7 8.5h10A3.5 3.5 0 0 1 20.5 12v4A3.5 3.5 0 0 1 17 19.5H9l-4.5 2V12A3.5 3.5 0 0 1 8 8.5"/><path d="M9 13h.01M12.5 13h.01M16 13h.01M12 3v3"/></svg></div>
-                            <div><h2>AI Chatbot Control Centre</h2><p>Configure, test and publish the intelligence used across every customer channel.</p></div>
-                        </div>
-                        <div class="admin-command-actions">
-                            <button id="chatbotPauseBtn" class="admin-btn" type="button">Pause chatbot</button>
-                            <button id="chatbotSaveDraftTop" class="admin-btn" type="button">Save draft</button>
-                            <button id="chatbotPublishTop" class="admin-btn primary" type="button">Publish changes</button>
-                        </div>
-                    </div>
-
                     <div class="admin-tabs" id="chatbotTabs">
                         <button class="admin-tab active" data-chatbot-tab="overview" type="button">Overview</button>
                         <button class="admin-tab" data-chatbot-tab="instructions" type="button">Instructions</button>
                         <button class="admin-tab" data-chatbot-tab="model" type="button">Model & performance</button>
-                        <button class="admin-tab" data-chatbot-tab="test" type="button">Test chatbot</button>
                         <button class="admin-tab" data-chatbot-tab="channels" type="button">Channels</button>
                         <button class="admin-tab" data-chatbot-tab="versions" type="button">Version history</button>
+                        <div class="admin-tab-actions">
+                            <button id="chatbotPauseBtn" class="admin-btn" type="button">Pause chatbot</button>
+                            <button id="chatbotSaveDraftTop" class="admin-btn" type="button">Save draft</button>
+                            <button id="chatbotPublishTop" class="admin-btn primary" type="button">Publish changes</button>
+                        </div>
                     </div>
 
                     <div id="chatbotTab-overview" class="admin-tab-panel active">
@@ -4907,15 +4908,11 @@ ORDER BY ticket_count DESC</textarea>
                             <div class="admin-kpi"><span>Active model</span><strong id="chatbotModelKpi">—</strong><small id="chatbotProviderKpi">Provider</small></div>
                             <div class="admin-kpi"><span>Connected channels</span><strong id="chatbotChannelsKpi">—</strong><small>Including website chat</small></div>
                         </div>
-                        <div class="admin-grid-2" style="margin-top:16px">
-                            <div class="admin-card">
-                                <div class="admin-card-head"><div><h3>Deployment readiness</h3><p>A concise check of the currently published customer experience.</p></div></div>
-                                <div id="chatbotReadiness" class="connection-list"><div class="admin-loading">Loading configuration…</div></div>
-                            </div>
-                            <div class="admin-card">
-                                <div class="admin-card-head"><div><h3>Provider connections</h3><p>API credentials remain protected in Worker secrets.</p></div></div>
-                                <div id="providerConnections" class="connection-list"></div>
-                            </div>
+                        <div class="admin-card live-chatbot-card">
+                            <div class="live-chatbot-head"><div><h3>Live customer experience</h3><p>Use the currently published chatbot exactly as a website visitor would.</p></div><div class="admin-command-actions"><span class="live-chatbot-badge">Live chatbot</span><button id="chatbotTestReset" class="admin-btn" type="button">New conversation</button></div></div>
+                            <div class="test-chat"><div id="chatbotTestThread" class="test-chat-thread"><div class="test-message ai">Hello! How can I help you today?</div></div><div class="test-composer"><textarea id="chatbotTestInput" placeholder="Ask the live chatbot a question…"></textarea><button id="chatbotTestSend" class="admin-btn primary" type="button">Send</button></div></div>
+                            <input id="testUseDraft" type="checkbox" hidden>
+                            <div id="chatbotTestMeta" hidden></div>
                         </div>
                     </div>
 
@@ -4942,11 +4939,10 @@ ORDER BY ticket_count DESC</textarea>
                                 <div class="admin-form-grid">
                                     <label class="admin-field"><span>Provider</span><select id="chatbotProvider"><option value="deepseek">DeepSeek</option><option value="openai">OpenAI</option><option value="anthropic">Anthropic</option><option value="google">Google Gemini</option></select></label>
                                     <label class="admin-field"><span>Model</span><input id="chatbotModel" type="text" placeholder="deepseek-chat"></label>
-                                    <label class="admin-field"><span>Creativity</span><input id="chatbotTemperature" type="number" min="0" max="1.5" step="0.05"></label>
-                                    <label class="admin-field"><span>Maximum output tokens</span><input id="chatbotMaxTokens" type="number" min="100" max="8000" step="100"></label>
-                                    <label class="admin-field"><span>Timeout (milliseconds)</span><input id="chatbotTimeout" type="number" min="5000" max="90000" step="1000"></label>
                                     <label class="admin-field"><span>Operational status</span><select id="chatbotOperationalStatus"><option value="active">Active</option><option value="paused">Paused</option></select></label>
+                                    <div class="admin-field wide"><span>Response style</span><div class="response-style-options"><button class="response-style-btn" data-response-style="precise" type="button">Precise</button><button class="response-style-btn active" data-response-style="balanced" type="button">Balanced</button><button class="response-style-btn" data-response-style="creative" type="button">Creative</button></div></div>
                                 </div>
+                                <details class="advanced-settings"><summary>Advanced settings</summary><div class="advanced-settings-body"><p class="advanced-warning">Only change these settings if you understand their impact on response quality, speed and cost.</p><div class="admin-form-grid"><label class="admin-field"><span>Temperature</span><input id="chatbotTemperature" type="number" min="0" max="1.5" step="0.05"></label><label class="admin-field"><span>Maximum output tokens</span><input id="chatbotMaxTokens" type="number" min="100" max="8000" step="100"></label><label class="admin-field"><span>Request timeout (milliseconds)</span><input id="chatbotTimeout" type="number" min="5000" max="90000" step="1000"></label><label class="admin-field"><span>Fallback model</span><input id="chatbotFallbackModel" type="text" placeholder="Optional"></label><label class="admin-field"><span>Retry attempts</span><input id="chatbotRetryAttempts" type="number" min="0" max="5" value="1"></label></div></div></details>
                                 <div class="admin-command-actions" style="margin-top:16px"><button id="saveModelSettings" class="admin-btn primary" type="button">Save model settings</button></div><div id="modelSaveStatus" class="admin-status"></div>
                             </div>
                             <div class="admin-card"><div class="admin-card-head"><div><h3>Recommended operating profile</h3><p>Balanced settings for concise customer support.</p></div></div>
@@ -4956,13 +4952,6 @@ ORDER BY ticket_count DESC</textarea>
                                     <button class="connection-row" data-model-preset="quality" type="button"><div><strong>Highest quality</strong><span>More reasoning and longer outputs</span></div><span>Apply →</span></button>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-
-                    <div id="chatbotTab-test" class="admin-tab-panel">
-                        <div class="test-studio">
-                            <div class="test-chat"><div id="chatbotTestThread" class="test-chat-thread"><div class="test-message ai">This is a private test. Ask me anything a customer might ask.</div></div><div class="test-composer"><textarea id="chatbotTestInput" placeholder="Type a test customer message…"></textarea><button id="chatbotTestSend" class="admin-btn primary" type="button">Send</button></div></div>
-                            <aside class="admin-card"><div class="admin-card-head"><div><h3>Test inspection</h3><p>Test messages are not added to customer analytics.</p></div></div><label class="connection-row"><div><strong>Use draft prompt</strong><span>Compare unpublished changes</span></div><input id="testUseDraft" type="checkbox"></label><div id="chatbotTestMeta" class="test-meta-list" style="margin-top:12px"><div class="test-meta-item"><span>Status</span><strong>Ready</strong></div></div><button id="chatbotTestReset" class="admin-btn" type="button" style="margin-top:12px">Reset test</button></aside>
                         </div>
                     </div>
 
@@ -4982,7 +4971,7 @@ ORDER BY ticket_count DESC</textarea>
             ================================================== -->
             <section id="panel-knowledge" class="view-panel">
                 <div class="admin-workspace">
-                    <div class="admin-command"><div class="admin-command-copy"><div class="admin-command-icon"><svg viewBox="0 0 24 24"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H11v16H6.5A2.5 2.5 0 0 0 4 21.5v-16ZM20 5.5A2.5 2.5 0 0 0 17.5 3H13v16h4.5a2.5 2.5 0 0 1 2.5 2.5v-16Z"/></svg></div><div><h2>Knowledge Base</h2><p>Build the governed source of truth used by the customer-facing AI.</p></div></div><button id="newKnowledgeArticle" class="admin-btn primary" type="button">New article</button></div>
+                    <div class="admin-command-actions" style="justify-content:flex-end"><button id="newKnowledgeArticle" class="admin-btn primary" type="button">New article</button></div>
                     <div class="admin-kpi-grid"><div class="admin-kpi"><span>Total content</span><strong id="kbTotal">—</strong><small>All knowledge entries</small></div><div class="admin-kpi"><span>Published</span><strong id="kbPublished">—</strong><small>Available to the AI</small></div><div class="admin-kpi"><span>Drafts</span><strong id="kbDrafts">—</strong><small>Awaiting publication</small></div><div class="admin-kpi"><span>Needs review</span><strong id="kbNeedsReview">—</strong><small>Potentially outdated</small></div></div>
                     <div id="knowledgeListCard" class="admin-card"><div class="kb-toolbar"><input id="kbSearch" type="search" placeholder="Search knowledge…"><select id="kbCategoryFilter"><option value="">All categories</option></select><select id="kbStatusFilter"><option value="">All statuses</option><option value="published">Published</option><option value="draft">Draft</option><option value="inactive">Inactive</option><option value="needs_review">Needs review</option></select><button id="newKnowledgeArticleSecondary" class="admin-btn" type="button">Add content</button></div><div id="knowledgeArticleList" class="kb-list" style="margin-top:15px"><div class="admin-loading">Loading Knowledge Base…</div></div></div>
                     <div id="knowledgeEditor" class="kb-editor admin-card"><div class="admin-card-head"><div><h3 id="knowledgeEditorTitle">New knowledge article</h3><p>Draft content remains unavailable to customers until published.</p></div><button id="closeKnowledgeEditor" class="admin-btn" type="button">Close</button></div>
@@ -5447,6 +5436,8 @@ ORDER BY ticket_count DESC</textarea>
         document.getElementById("pageSubtitle").textContent = subtitle;
         const tabSwitcher = document.getElementById("tabSwitcher");
         tabSwitcher.style.display = analyticsWorkspace ? "flex" : "none";
+        const workspaceToolbar = document.querySelector(".toolbar");
+        if (workspaceToolbar) workspaceToolbar.style.display = ["chatbot","knowledge"].includes(workspace) ? "none" : "flex";
         tabSwitcher.querySelectorAll(".tab").forEach(tab => tab.classList.toggle("active", tab.dataset.tab === workspace));
         const layoutControls = document.querySelector(".layout-controls");
         if (layoutControls) layoutControls.style.display = ["ai","human","tickets"].includes(workspace) ? "flex" : "none";
@@ -8354,6 +8345,56 @@ ORDER BY ticket_count DESC</textarea>
     document.getElementById("viewAllAiConversations")?.addEventListener("click", () => openViewAll("ai"));
     document.getElementById("viewAllHumanConversations")?.addEventListener("click", () => openViewAll("human"));
     document.getElementById("viewAllTickets")?.addEventListener("click", () => openViewAll("tickets"));
+
+    const aiKpiDrilldowns = {
+        aiTotalConversations: { title:"Total conversations", subtitle:"Every AI conversation counted in this KPI", filterField:"resolution_status", filterLabel:"All statuses" },
+        aiAvgResponseTime: { title:"Average response time", subtitle:"Conversations contributing to average response time", filterField:"resolution_status", filterLabel:"All statuses" },
+        aiResolutionRate: { title:"Resolution rate", subtitle:"Resolved and unresolved conversations behind this rate", filterField:"resolution_status", filterLabel:"All resolution outcomes" },
+        aiDeflectionRate: { title:"Deflection rate", subtitle:"AI-resolved and escalated conversations behind this rate", filterField:"resolution_status", filterLabel:"AI resolved or escalated" },
+        aiSentimentScore: { title:"Sentiment score", subtitle:"Conversation-level sentiment behind the average score", filterField:"sentiment", filterLabel:"All sentiment labels" },
+        aiAvgMessages: { title:"Average messages", subtitle:"Message count for each conversation behind this average", filterField:"resolution_status", filterLabel:"All statuses" }
+    };
+
+    async function openAiKpiDrilldown(metricId) {
+        const config = aiKpiDrilldowns[metricId];
+        if (!config) return;
+        openDataExplorer([], { title:config.title, subtitle:`Loading · ${reportDateDescription()}`, columns:conversationExplorerColumns, eyebrow:"KPI drill-down" });
+        setExplorerLoading(true);
+        try {
+            const rows = await fetchAllExplorerRows("conversations");
+            const prepared = rows.map(conversation => ({
+                ...conversation,
+                response_time_seconds: conversation.response_time_seconds ?? conversation.avg_response_time ?? conversation.response_time ?? null,
+                __openKind: conversation.resolution_status === "escalated" ? "human" : "ai",
+                __openId: conversation.session_id
+            }));
+            dataExplorerState.rows = prepared;
+            dataExplorerState.columns = metricId === "aiAvgResponseTime"
+                ? [...conversationExplorerColumns, { key:"response_time_seconds", label:"Response seconds" }]
+                : conversationExplorerColumns;
+            dataExplorerState.subtitle = `${config.subtitle} · ${reportDateDescription()}`;
+            dataExplorerState.filterField = config.filterField;
+            dataExplorerState.filterLabel = config.filterLabel;
+            document.getElementById("dataExplorerMeta").textContent = `${prepared.length.toLocaleString("en-IN")} underlying conversations · ${reportDateDescription()}`;
+            buildExplorerFilter();
+            renderDataExplorer();
+        } catch (error) {
+            document.getElementById("dataExplorerMeta").textContent = "Could not load the underlying conversations.";
+            dataExplorerState.rows = [];
+            renderDataExplorer();
+        } finally { setExplorerLoading(false); }
+    }
+
+    Object.keys(aiKpiDrilldowns).forEach(metricId => {
+        const card = document.getElementById(metricId)?.closest(".kpi-card");
+        if (!card) return;
+        card.dataset.kpiDrilldown = metricId;
+        card.tabIndex = 0;
+        card.setAttribute("role", "button");
+        card.setAttribute("aria-label", `${aiKpiDrilldowns[metricId].title}: view underlying data`);
+        card.addEventListener("click", () => openAiKpiDrilldown(metricId));
+        card.addEventListener("keydown", event => { if (["Enter"," "].includes(event.key)) { event.preventDefault(); openAiKpiDrilldown(metricId); } });
+    });
     document.getElementById("dataExplorerSearch")?.addEventListener("input", () => { dataExplorerState.page=1; renderDataExplorer(); });
     document.getElementById("dataExplorerFilter")?.addEventListener("change", () => { dataExplorerState.page=1; renderDataExplorer(); });
     document.getElementById("dataExplorerPrevious")?.addEventListener("click", () => { dataExplorerState.page=Math.max(1,dataExplorerState.page-1); renderDataExplorer(); });
@@ -10607,16 +10648,6 @@ ORDER BY created_date DESC, ticket_count DESC`;
         document.getElementById("chatbotChannelsKpi").textContent = connected;
         document.getElementById("chatbotPauseBtn").textContent = profile.status === "paused" ? "Activate chatbot" : "Pause chatbot";
 
-        const checks = [
-            ["Published instructions", Boolean(published), published ? `Version ${published.version_number} is live` : "Publish a tested prompt"],
-            ["Model connection", Boolean(state.connections?.[profile.provider]), state.connections?.[profile.provider] ? `${profile.provider} is connected` : `Add the ${profile.provider} Worker secret`],
-            ["Knowledge source", true, "Published articles are retrieved when relevant"],
-            ["Human handoff", true, "Name, phone and consent are required"]
-        ];
-        document.getElementById("chatbotReadiness").innerHTML = checks.map(([name, ready, detail]) => `<div class="connection-row"><div><strong>${escapeHtml(name)}</strong><span>${escapeHtml(detail)}</span></div><span class="status-dot ${ready ? "" : "disconnected"}">${ready ? "Ready" : "Action needed"}</span></div>`).join("");
-
-        const providerLabels = { deepseek: "DeepSeek", openai: "OpenAI", anthropic: "Anthropic", google: "Google Gemini" };
-        document.getElementById("providerConnections").innerHTML = Object.entries(providerLabels).map(([key, label]) => `<div class="connection-row"><div><strong>${label}</strong><span>Credential stored securely outside the browser</span></div><span class="status-dot ${state.connections?.[key] ? "" : "disconnected"}">${state.connections?.[key] ? "Connected" : "Not connected"}</span></div>`).join("");
     }
 
     function renderModelSettings() {
@@ -10627,6 +10658,9 @@ ORDER BY created_date DESC, ticket_count DESC`;
         document.getElementById("chatbotMaxTokens").value = profile.max_tokens || 1200;
         document.getElementById("chatbotTimeout").value = profile.timeout_ms || 30000;
         document.getElementById("chatbotOperationalStatus").value = profile.status || "active";
+        const temperature = Number(profile.temperature ?? 0.35);
+        const responseStyle = temperature <= .25 ? "precise" : temperature >= .5 ? "creative" : "balanced";
+        document.querySelectorAll("[data-response-style]").forEach(button => button.classList.toggle("active", button.dataset.responseStyle === responseStyle));
         const connected = Boolean(chatbotControlState?.connections?.[profile.provider]);
         const badge = document.getElementById("modelConnectionBadge");
         badge.textContent = connected ? "Connected" : "Not connected";
@@ -10660,7 +10694,8 @@ ORDER BY created_date DESC, ticket_count DESC`;
             renderChatbotOverview(); renderModelSettings(); renderChatbotVersions(); renderChatbotChannels();
         } catch (error) {
             document.getElementById("promptSaveStatus").textContent = error.message;
-            document.getElementById("chatbotReadiness").innerHTML = `<div class="empty-state">${escapeHtml(error.message)} Run the supplied D1 migration and deploy the updated Worker.</div>`;
+            const thread = document.getElementById("chatbotTestThread");
+            if (thread) thread.innerHTML = `<div class="test-message ai">${escapeHtml(error.message)} Run the supplied D1 migration and deploy the updated Worker.</div>`;
         } finally { chatbotControlLoading = false; }
     }
 
@@ -10729,9 +10764,10 @@ ORDER BY created_date DESC, ticket_count DESC`;
     document.getElementById("saveModelSettings")?.addEventListener("click",saveModelSettings);
     document.getElementById("chatbotPauseBtn")?.addEventListener("click",()=>{ const select=document.getElementById("chatbotOperationalStatus"); select.value=chatbotControlState?.profile?.status==="paused"?"active":"paused"; saveModelSettings(); });
     document.querySelectorAll("[data-model-preset]").forEach(button=>button.addEventListener("click",()=>{const preset={economy:[.2,650,20000],balanced:[.35,1200,30000],quality:[.5,2200,45000]}[button.dataset.modelPreset]; document.getElementById("chatbotTemperature").value=preset[0];document.getElementById("chatbotMaxTokens").value=preset[1];document.getElementById("chatbotTimeout").value=preset[2];document.getElementById("modelSaveStatus").textContent="Preset applied. Save model settings to activate it.";}));
+    document.querySelectorAll("[data-response-style]").forEach(button=>button.addEventListener("click",()=>{const temperatures={precise:.2,balanced:.35,creative:.65};document.querySelectorAll("[data-response-style]").forEach(item=>item.classList.toggle("active",item===button));document.getElementById("chatbotTemperature").value=temperatures[button.dataset.responseStyle];document.getElementById("modelSaveStatus").textContent="Response style selected. Save model settings to activate it.";}));
     document.getElementById("chatbotTestSend")?.addEventListener("click",sendChatbotTest);
     document.getElementById("chatbotTestInput")?.addEventListener("keydown",event=>{if(event.key==="Enter"&&!event.shiftKey){event.preventDefault();sendChatbotTest();}});
-    document.getElementById("chatbotTestReset")?.addEventListener("click",()=>{document.getElementById("chatbotTestThread").innerHTML='<div class="test-message ai">This is a private test. Ask me anything a customer might ask.</div>';document.getElementById("chatbotTestMeta").innerHTML='<div class="test-meta-item"><span>Status</span><strong>Ready</strong></div>';});
+    document.getElementById("chatbotTestReset")?.addEventListener("click",()=>{document.getElementById("chatbotTestThread").innerHTML='<div class="test-message ai">Hello! How can I help you today?</div>';document.getElementById("chatbotTestMeta").innerHTML="";document.getElementById("chatbotTestInput").focus();});
     document.getElementById("viewCompiledPrompt")?.addEventListener("click",()=>{const text=Object.entries(promptPayload()).filter(([,value])=>value).map(([key,value])=>`${key.replaceAll("_"," ").toUpperCase()}\n${value}`).join("\n\n");const modal=document.createElement("div");modal.className="data-explorer-backdrop open";modal.innerHTML=`<section class="data-explorer-dialog" style="height:min(760px,90vh)"><header class="data-explorer-head"><div><span class="report-eyebrow">Prompt preview</span><h2>Compiled system instructions</h2><p>Preview only · secrets and dynamic customer context are never included.</p></div><button class="ticket-close" type="button">✕</button></header><div style="padding:20px;overflow:auto;white-space:pre-wrap;line-height:1.65;font-size:12px">${escapeHtml(text)}</div></section>`;document.body.appendChild(modal);modal.querySelector("button").onclick=()=>modal.remove();modal.onclick=e=>{if(e.target===modal)modal.remove();};});
 
 
