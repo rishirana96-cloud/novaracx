@@ -2372,6 +2372,7 @@
         .custom-date-actions .primary,.layout-control-btn.primary { background:var(--accent); color:#07110d; border-color:var(--accent); font-weight:700; }
         .custom-date-error { min-height:14px; color:var(--danger); font-size:9px; }
         .layout-controls { display:flex; gap:5px; }
+        .analytics-layout-settings{display:none;margin:-2px 0 20px;padding:20px;border:1px solid var(--border);border-radius:16px;background:var(--surface);box-shadow:var(--shadow)}.analytics-layout-settings.open{display:block}.analytics-layout-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:17px}.analytics-layout-head h2{margin:0;font-size:16px}.analytics-layout-head p{margin:5px 0 0;color:var(--text-muted);font-size:10px}.analytics-layout-grid{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:20px;align-items:end}.analytics-layout-section>span{display:block;margin-bottom:9px;color:var(--text-muted);font-size:8px;font-weight:750;letter-spacing:.1em;text-transform:uppercase}.analytics-layout-actions{display:flex;gap:8px;flex-wrap:wrap}
         .layout-editing .layout-card { resize:both; overflow:auto; outline:1px dashed rgba(136,169,152,.55); cursor:grab; min-width:220px; min-height:120px; }
         .layout-editing .layout-card:active { cursor:grabbing; }
         .layout-editing .layout-card::after { content:"Drag or resize"; position:absolute; right:9px; top:8px; padding:3px 5px; border-radius:5px; background:rgba(136,169,152,.16); color:var(--accent-light); font-size:8px; pointer-events:none; }
@@ -2810,7 +2811,7 @@
         .report-chart-wrap { position: relative; height: 350px; padding-top: 22px; }
         .report-chart-wrap canvas { width: 100% !important; height: 100% !important; }
         .report-mode-toolbar{display:none;align-items:center;gap:10px}.report-mode-toolbar>span{color:var(--text-muted);font-size:9px;font-weight:750;text-transform:uppercase;letter-spacing:.08em}.report-mode-toolbar select{min-height:42px;min-width:220px;padding:8px 36px 8px 12px;border:1px solid var(--border);border-radius:11px;background:var(--bg);color:var(--text-secondary);font:inherit;font-size:10px}.report-mode-toolbar.open{display:flex}
-        .report-heading-actions{display:flex;align-items:center;gap:8px}.report-palette-control{grid-column:1/-1}.palette-picker{display:flex;flex-wrap:wrap;gap:8px}.palette-option{display:flex;align-items:center;gap:8px;min-height:38px;padding:7px 10px;border:1px solid var(--border);border-radius:9px;background:var(--surface-alt);color:var(--text-secondary);font:inherit;font-size:9px;font-weight:700;cursor:pointer}.palette-option.active{border-color:var(--accent);box-shadow:0 0 0 2px rgba(146,181,162,.09)}.palette-swatches{display:flex}.palette-swatches i{width:13px;height:13px;margin-left:-3px;border:2px solid var(--surface);border-radius:50%}.palette-swatches i:first-child{margin-left:0}.custom-colors{display:none;grid-template-columns:repeat(6,minmax(38px,1fr));gap:7px;margin-top:9px}.custom-colors.open{display:grid}.custom-colors input{width:100%;height:38px;padding:3px!important;cursor:pointer}
+        .report-heading-actions{display:flex;align-items:center;gap:8px}.palette-picker{display:flex;flex-wrap:wrap;gap:8px}.palette-option{display:flex;align-items:center;gap:8px;min-height:38px;padding:7px 10px;border:1px solid var(--border);border-radius:9px;background:var(--surface-alt);color:var(--text-secondary);font:inherit;font-size:9px;font-weight:700;cursor:pointer}.palette-option.active{border-color:var(--accent);box-shadow:0 0 0 2px rgba(146,181,162,.09)}.palette-swatches{display:flex}.palette-swatches i{width:13px;height:13px;margin-left:-3px;border:2px solid var(--surface);border-radius:50%}.palette-swatches i:first-child{margin-left:0}.custom-colors{display:none;grid-template-columns:repeat(6,minmax(38px,1fr));gap:7px;margin-top:9px}.custom-colors.open{display:grid}.custom-colors input{width:100%;height:38px;padding:3px!important;cursor:pointer}
         .report-layout-menu{display:none;gap:7px;flex-wrap:wrap;padding:10px;border:1px solid var(--border);border-radius:11px;background:var(--surface)}.report-layout-menu.open{display:flex}.reports-shell.preview-focus{grid-template-columns:300px minmax(0,1fr)}.reports-shell.builder-focus{grid-template-columns:minmax(440px,.9fr) minmax(0,1.1fr)}.reports-shell.stacked{grid-template-columns:1fr}.reports-shell.stacked .report-builder-card{position:static}.reports-shell.preview-only{grid-template-columns:1fr}.reports-shell.preview-only .report-builder-card{display:none}
         .report-table-wrap { margin-top: 20px; overflow: auto; border: 1px solid var(--border); border-radius: 11px; }
         .pivot-table-wrap { max-height: 520px; margin-top: 20px; overflow: auto; border: 1px solid var(--border); border-radius: 11px; }
@@ -3122,7 +3123,7 @@
         .admin-btn{min-height:40px;padding:0 15px;border-radius:10px;border:1px solid var(--border-strong);background:var(--surface);color:var(--text);font:inherit;font-size:12px;font-weight:700;cursor:pointer}.admin-btn:hover{background:var(--surface-hover)}.admin-btn.primary{background:var(--accent);border-color:var(--accent);color:#102019}.admin-btn.danger{color:#df8f86}.admin-btn:disabled{opacity:.45;cursor:not-allowed}
         .admin-tabs{display:flex;align-items:center;gap:8px;padding:8px 10px;border:1px solid var(--border);border-radius:18px;background:var(--surface);overflow:auto;box-shadow:var(--shadow-soft)}.admin-tab{white-space:nowrap;min-height:48px;padding:0 20px;border:0;border-radius:13px;background:transparent;color:var(--muted);font:inherit;font-size:12px;font-weight:750;cursor:pointer}.admin-tab:hover{color:var(--text);background:var(--surface-hover)}.admin-tab.active{background:var(--surface-alt);color:var(--text);box-shadow:0 8px 22px rgba(0,0,0,.12)}.admin-tab-actions{display:flex;gap:9px;margin-left:auto;padding-left:18px}.admin-tab-panel{display:none}.admin-tab-panel.active{display:block}
         .admin-kpi-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}.admin-kpi{padding:18px;border:1px solid var(--border);border-radius:16px;background:var(--surface)}.admin-kpi span{display:block;color:var(--muted);font-size:10px;text-transform:uppercase;letter-spacing:1.1px;font-weight:700}.admin-kpi strong{display:block;margin-top:10px;font-size:22px}.admin-kpi small{display:block;margin-top:5px;color:var(--muted);font-size:11px}
-        .live-chatbot-card{margin-top:16px;padding:0;overflow:hidden;background:#f5f7f5!important;border-color:#d8e0da!important;color:#18231d;box-shadow:0 18px 45px rgba(0,0,0,.18)!important}.live-chatbot-head{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;padding:19px 20px;border-bottom:1px solid #dce4de}.live-chatbot-head h3{font-size:16px;color:#17231c}.live-chatbot-head p{font-size:11px;color:#6f7b74}.live-chatbot-card .test-chat{min-height:430px;max-height:620px;border:0;border-radius:0;background:#eef2ef}.live-chatbot-card .test-chat-thread{min-height:310px;padding:24px;overflow:auto}.live-chatbot-card .test-message.ai{background:#fff;border-color:#d9e1db;color:#17231c;box-shadow:0 6px 18px rgba(31,57,42,.06)}.live-chatbot-card .test-message.user{background:#86ad98;color:#102019}.live-chatbot-card .test-composer{align-items:flex-end;padding:14px 18px;background:#fff;border-top-color:#dbe3dd}.live-chatbot-card .test-composer textarea{min-height:48px;max-height:130px;resize:none;border-color:#d3ddd6;background:#f8faf8;color:#17231c;border-radius:18px}.live-chatbot-card .test-composer .admin-btn{width:48px;height:48px;min-height:48px;padding:0;border-radius:50%;font-size:0}.live-chatbot-card .test-composer .admin-btn:after{content:"➤";font-size:18px}.test-response-meta{margin:5px 0 0;color:#849089;font-size:8px}.chatbot-status-control{display:none;align-items:center;gap:8px;min-height:48px;padding:0 12px;border:1px solid var(--border);border-radius:12px;background:var(--surface);font-size:11px;font-weight:750}.chatbot-status-control.open{display:flex}.chatbot-status-control:before{content:"";width:8px;height:8px;border-radius:50%;background:#75c99a;box-shadow:0 0 0 5px rgba(117,201,154,.10)}.chatbot-status-control.paused:before{background:#df7d73;box-shadow:0 0 0 5px rgba(223,125,115,.10)}.chatbot-status-control select{border:0;outline:0;background:transparent;color:var(--text);font:inherit;font-size:11px;font-weight:750}
+        .live-chatbot-card{margin-top:16px;padding:0;overflow:hidden;background:#f5f7f5!important;border-color:#d8e0da!important;color:#18231d;box-shadow:0 18px 45px rgba(0,0,0,.18)!important}.live-chatbot-head{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;padding:24px 26px;border-bottom:1px solid #dce4de;background:linear-gradient(135deg,#fff,#f2f6f3)}.live-chatbot-kicker{display:block;margin-bottom:7px;color:#527765;font-size:9px;font-weight:800;letter-spacing:.13em;text-transform:uppercase}.live-chatbot-head h3{margin:0;font-size:22px;line-height:1.15;letter-spacing:-.45px;color:#132019}.live-chatbot-head p{margin:7px 0 0;font-size:11px;color:#6f7b74}.live-chatbot-card .test-chat{min-height:430px;max-height:620px;border:0;border-radius:0;background:#eef2ef}.live-chatbot-card .test-chat-thread{min-height:310px;padding:24px;overflow:auto}.live-chatbot-card .test-message.ai{background:#fff;border-color:#d9e1db;color:#17231c;box-shadow:0 6px 18px rgba(31,57,42,.06)}.live-chatbot-card .test-message.user{background:#86ad98;color:#102019}.live-chatbot-card .test-composer{align-items:flex-end;padding:14px 18px;background:#fff;border-top-color:#dbe3dd}.live-chatbot-card .test-composer textarea{min-height:48px;max-height:130px;resize:none;border-color:#d3ddd6;background:#f8faf8;color:#17231c;border-radius:18px}.live-chatbot-card .test-composer .admin-btn{width:48px;height:48px;min-height:48px;padding:0;border-radius:50%;font-size:0}.live-chatbot-card .test-composer .admin-btn:after{content:"➤";font-size:18px}.test-response-meta{margin:5px 0 0;color:#849089;font-size:8px}.chatbot-status-control{display:none;align-items:center;gap:8px;min-height:48px;padding:0 12px;border:1px solid var(--border);border-radius:12px;background:var(--surface);font-size:11px;font-weight:750}.chatbot-status-control.open{display:flex}.chatbot-status-control:before{content:"";width:8px;height:8px;border-radius:50%;background:#75c99a;box-shadow:0 0 0 5px rgba(117,201,154,.10)}.chatbot-status-control.paused:before{background:#df7d73;box-shadow:0 0 0 5px rgba(223,125,115,.10)}.chatbot-status-control select{border:0;outline:0;background:transparent;color:var(--text);font:inherit;font-size:11px;font-weight:750}
         .advanced-settings{margin-top:16px;border:1px solid var(--border);border-radius:13px;background:var(--surface-alt);overflow:hidden}.advanced-settings summary{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:15px 16px;cursor:pointer;font-size:12px;font-weight:750;list-style:none}.advanced-settings summary::-webkit-details-marker{display:none}.advanced-settings summary:after{content:"+";font-size:18px;color:var(--muted)}.advanced-settings[open] summary:after{content:"−"}.advanced-settings-body{padding:0 16px 16px;border-top:1px solid var(--border)}.advanced-warning{margin:12px 0!important;padding:10px 12px;border-radius:9px;background:rgba(224,170,87,.09);color:var(--muted)!important}.response-style-options{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.response-style-btn{min-height:42px;border:1px solid var(--border);border-radius:10px;background:var(--surface-alt);color:var(--text-secondary);font:inherit;font-size:11px;font-weight:700;cursor:pointer}.response-style-btn.active{border-color:var(--accent);background:rgba(146,181,162,.15);color:var(--text)}
         .kpi-card[data-kpi-drilldown]{cursor:pointer}.kpi-card[data-kpi-drilldown]:after{content:"View underlying data \2192";position:absolute;right:18px;bottom:14px;width:auto;height:auto;background:none;color:var(--accent-light);font-size:9px;font-weight:750;opacity:0;transform:translateY(3px);transition:.18s ease}.kpi-card[data-kpi-drilldown]:hover:after,.kpi-card[data-kpi-drilldown]:focus-visible:after{opacity:1;transform:none}.kpi-card[data-kpi-drilldown]:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
         .admin-grid-2{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(300px,.75fr);gap:16px}.admin-card{padding:20px;border:1px solid var(--border);border-radius:17px;background:var(--surface)}.admin-card-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:16px}.admin-card h3{font-size:14px;margin:0 0 4px}.admin-card p{font-size:11px;color:var(--muted);margin:0}.admin-form-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px}.admin-field{display:grid;gap:7px}.admin-field.wide{grid-column:1/-1}.admin-field>span{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.9px;font-weight:750}.admin-field input,.admin-field select,.admin-field textarea{width:100%;box-sizing:border-box;border:1px solid var(--border);border-radius:10px;background:var(--surface-alt);color:var(--text);padding:11px 12px;font:inherit;font-size:12px;outline:none}.admin-field textarea{min-height:110px;resize:vertical;line-height:1.55}.admin-field input:focus,.admin-field select:focus,.admin-field textarea:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(146,181,162,.10)}
@@ -3553,6 +3554,12 @@
                 </div>
 
             </div>
+
+
+            <section id="analyticsLayoutSettings" class="analytics-layout-settings" aria-label="Analytics layout settings">
+                <div class="analytics-layout-head"><div><h2>Customize Analytics</h2><p>Arrange dashboard cards and choose the colour system used across analytics visualizations.</p></div><button id="closeAnalyticsLayoutSettings" class="ticket-close" type="button" aria-label="Close customization settings">✕</button></div>
+                <div class="analytics-layout-grid"><div class="analytics-layout-section"><span>Chart colour palette</span><div id="reportPalettePicker" class="palette-picker"></div><div id="reportCustomColors" class="custom-colors"><input type="color" value="#315f4a" aria-label="Custom colour 1"><input type="color" value="#78a68e" aria-label="Custom colour 2"><input type="color" value="#d6a85f" aria-label="Custom colour 3"><input type="color" value="#cf766c" aria-label="Custom colour 4"><input type="color" value="#668da3" aria-label="Custom colour 5"><input type="color" value="#8a79aa" aria-label="Custom colour 6"></div></div><div class="analytics-layout-section"><span>Dashboard arrangement</span><div class="analytics-layout-actions"><button id="arrangeAnalyticsCards" class="layout-control-btn primary" type="button">Arrange cards</button><button id="resetAnalyticsAppearance" class="layout-control-btn" type="button">Reset appearance</button></div></div></div>
+            </section>
 
 
 
@@ -4625,8 +4632,6 @@
                                 <select id="reportDimension"></select>
                             </label>
 
-                            <div class="report-palette-control standard-report-control"><span class="report-eyebrow" style="margin-bottom:8px">Chart colours</span><div id="reportPalettePicker" class="palette-picker"></div><div id="reportCustomColors" class="custom-colors"><input type="color" value="#315f4a"><input type="color" value="#78a68e"><input type="color" value="#d6a85f"><input type="color" value="#cf766c"><input type="color" value="#668da3"><input type="color" value="#8a79aa"></div></div>
-
                             <label class="report-field standard-report-control">
                                 <span>Measure</span>
                                 <select id="reportMetric"></select>
@@ -4896,7 +4901,7 @@ ORDER BY ticket_count DESC</textarea>
                             <div class="admin-kpi"><span>Connected channels</span><strong id="chatbotChannelsKpi">—</strong><small>Including website chat</small></div>
                         </div>
                         <div class="admin-card live-chatbot-card">
-                            <div class="live-chatbot-head"><div><h3>Test Chatbot</h3><p>Preview and test the currently published customer experience.</p></div><button id="chatbotTestReset" class="admin-btn" type="button">New conversation</button></div>
+                            <div class="live-chatbot-head"><div><span class="live-chatbot-kicker">Published experience preview</span><h3>Customer Experience Simulator</h3><p>See exactly how your published chatbot responds before customers do.</p></div><button id="chatbotTestReset" class="admin-btn" type="button">New conversation</button></div>
                             <div class="test-chat"><div id="chatbotTestThread" class="test-chat-thread"><div class="test-message ai">Hello! How can I help you today?</div></div><div class="test-composer"><textarea id="chatbotTestInput" placeholder="Ask the live chatbot a question…"></textarea><button id="chatbotTestSend" class="admin-btn primary" type="button">Send</button></div></div>
                             <input id="testUseDraft" type="checkbox" hidden>
                             <div id="chatbotTestMeta" hidden></div>
@@ -5441,6 +5446,7 @@ ORDER BY ticket_count DESC</textarea>
         document.getElementById("lastUpdated").style.display = workspace === "chatbot" ? "none" : "flex";
         document.getElementById("refreshBtn").style.display = workspace === "chatbot" ? "none" : "inline-flex";
         document.getElementById("chatbotStatusControl")?.classList.toggle("open", workspace === "chatbot");
+        if (!analyticsWorkspace) document.getElementById("analyticsLayoutSettings")?.classList.remove("open");
         const preserveKnowledgeArticle = workspace === "knowledge" && /^#knowledge\/article\/\d+$/.test(location.hash);
         if (!preserveKnowledgeArticle) history.replaceState(null, "", workspace === "ai" ? location.pathname : `#${workspace}`);
 
@@ -8772,9 +8778,10 @@ ORDER BY ticket_count DESC</textarea>
         pastel:["#91b8d4","#b6a3d8","#e4a7b7","#edc48d","#9bc9ae","#b8d5d0"],
         monochrome:["#244f3c","#426d59","#658c77","#8eae9d","#b7cbbf","#dce7e0"]
     };
-    let selectedReportPalette = "novara";
+    let selectedReportPalette = localStorage.getItem("novara_analytics_palette") || "novara";
     function currentReportColors(){return selectedReportPalette === "custom" ? [...document.querySelectorAll("#reportCustomColors input")].map(input=>input.value) : REPORT_PALETTES[selectedReportPalette] || REPORT_PALETTES.novara;}
-    function renderReportPalettePicker(){const picker=document.getElementById("reportPalettePicker");if(!picker)return;picker.innerHTML=[...Object.entries(REPORT_PALETTES),["custom",["#315f4a","#d6a85f","#668da3"]]].map(([name,colors])=>`<button class="palette-option ${name===selectedReportPalette?"active":""}" data-report-palette="${name}" type="button"><span class="palette-swatches">${colors.slice(0,4).map(color=>`<i style="background:${color}"></i>`).join("")}</span>${reportLabel(name)}</button>`).join("");document.getElementById("reportCustomColors")?.classList.toggle("open",selectedReportPalette==="custom");picker.querySelectorAll("[data-report-palette]").forEach(button=>button.addEventListener("click",()=>{selectedReportPalette=button.dataset.reportPalette;renderReportPalettePicker();scheduleCustomReport();}));}
+    function applyAnalyticsChartPalette(){const colors=currentReportColors();Object.values(Chart.instances||{}).forEach(chart=>{const canvas=chart.canvas;if(!canvas?.closest("#panel-ai,#panel-human,#panel-dashboards"))return;const type=chart.config.type;chart.data.datasets.forEach((dataset,index)=>{const color=colors[index%colors.length];if(["doughnut","pie","polarArea"].includes(type)||(type==="bar"&&chart.data.datasets.length===1))dataset.backgroundColor=(dataset.data||[]).map((_,point)=>colors[point%colors.length]);else dataset.backgroundColor=type==="line"?`${color}22`:color;dataset.borderColor=["doughnut","pie","polarArea"].includes(type)?document.documentElement.dataset.theme==="light"?"#fff":"#101512":color;if(type==="line"){dataset.pointBackgroundColor=color;dataset.pointBorderColor=color;}});chart.update("none");});}
+    function renderReportPalettePicker(){const picker=document.getElementById("reportPalettePicker");if(!picker)return;let customSaved=null;try{customSaved=JSON.parse(localStorage.getItem("novara_analytics_custom_colors")||"null");}catch{}if(Array.isArray(customSaved))document.querySelectorAll("#reportCustomColors input").forEach((input,index)=>{if(customSaved[index])input.value=customSaved[index];});picker.innerHTML=[...Object.entries(REPORT_PALETTES),["custom",["#315f4a","#d6a85f","#668da3"]]].map(([name,colors])=>`<button class="palette-option ${name===selectedReportPalette?"active":""}" data-report-palette="${name}" type="button"><span class="palette-swatches">${colors.slice(0,4).map(color=>`<i style="background:${color}"></i>`).join("")}</span>${reportLabel(name)}</button>`).join("");document.getElementById("reportCustomColors")?.classList.toggle("open",selectedReportPalette==="custom");picker.querySelectorAll("[data-report-palette]").forEach(button=>button.addEventListener("click",()=>{selectedReportPalette=button.dataset.reportPalette;localStorage.setItem("novara_analytics_palette",selectedReportPalette);renderReportPalettePicker();applyAnalyticsChartPalette();scheduleCustomReport();}));}
 
     function formatReportValue(value) {
         if (!Number.isFinite(value)) return "0";
@@ -9411,9 +9418,6 @@ ORDER BY ticket_count DESC</textarea>
         document.getElementById("reportName").value = config.name || "";
         document.getElementById("reportMode").value = config.mode || "standard";
         document.getElementById("reportDataset").value = config.dataset || "tickets";
-        selectedReportPalette = config.palette || "novara";
-        if (selectedReportPalette === "custom" && Array.isArray(config.colors)) document.querySelectorAll("#reportCustomColors input").forEach((input,index)=>{if(config.colors[index])input.value=config.colors[index];});
-        renderReportPalettePicker();
         refreshReportFields(true);
         ["dimension", "metric", "aggregation", "visual", "sort"].forEach(key => {
             const element = document.getElementById(`report${key.charAt(0).toUpperCase()}${key.slice(1)}`);
@@ -9471,8 +9475,6 @@ ORDER BY ticket_count DESC</textarea>
         document.getElementById("reportAggregation").value = "count";
         document.getElementById("reportVisual").value = "bar";
         document.getElementById("reportSort").value = "desc";
-        selectedReportPalette = "novara";
-        renderReportPalettePicker();
         document.getElementById("reportFilters").innerHTML = "";
         document.getElementById("pivotDisplay").value = "value";
         document.getElementById("pivotStyle").value = "heatmap";
@@ -9530,7 +9532,7 @@ ORDER BY ticket_count DESC</textarea>
 
     document.getElementById("reportMode")?.addEventListener("change", () => { syncReportMode(); scheduleCustomReport(); });
     renderReportPalettePicker();
-    document.getElementById("reportCustomColors")?.addEventListener("input", scheduleCustomReport);
+    document.getElementById("reportCustomColors")?.addEventListener("input",()=>{localStorage.setItem("novara_analytics_custom_colors",JSON.stringify(currentReportColors()));applyAnalyticsChartPalette();scheduleCustomReport();});
     document.getElementById("reportDataset")?.addEventListener("change", () => { document.getElementById("reportFilters").innerHTML = ""; refreshReportFields(true); currentReportResult = null; scheduleCustomReport(); });
     document.getElementById("reportMetric")?.addEventListener("change", () => { syncReportAggregation(); scheduleCustomReport(); });
     document.getElementById("pivotValue")?.addEventListener("change", () => { syncPivotAggregation(); scheduleCustomReport(); });
@@ -10418,6 +10420,10 @@ ORDER BY created_date DESC, ticket_count DESC`;
             document.getElementById("reportLayoutMenu")?.classList.toggle("open");
             return;
         }
+        if (["ai","human","dashboards"].includes(currentTab)) {
+            document.getElementById("analyticsLayoutSettings")?.classList.toggle("open");
+            return;
+        }
         if (window.innerWidth <= 768) return;
         layoutEditSnapshot = capturePanelLayout(activeLayoutPanel());
         setLayoutEditing(true);
@@ -10454,6 +10460,9 @@ ORDER BY created_date DESC, ticket_count DESC`;
     document.querySelectorAll("[data-report-layout]").forEach(button => button.addEventListener("click", () => applyReportLayout(button.dataset.reportLayout)));
     document.getElementById("reportLayoutReset")?.addEventListener("click", () => applyReportLayout("default"));
     applyReportLayout(localStorage.getItem("novara_reports_layout") || "default", false);
+    document.getElementById("closeAnalyticsLayoutSettings")?.addEventListener("click",()=>document.getElementById("analyticsLayoutSettings")?.classList.remove("open"));
+    document.getElementById("arrangeAnalyticsCards")?.addEventListener("click",()=>{document.getElementById("analyticsLayoutSettings")?.classList.remove("open");if(window.innerWidth<=768)return;layoutEditSnapshot=capturePanelLayout(activeLayoutPanel());setLayoutEditing(true);});
+    document.getElementById("resetAnalyticsAppearance")?.addEventListener("click",()=>{selectedReportPalette="novara";localStorage.removeItem("novara_analytics_palette");localStorage.removeItem("novara_analytics_custom_colors");renderReportPalettePicker();applyAnalyticsChartPalette();});
 
 
         try {
@@ -10557,6 +10566,7 @@ ORDER BY created_date DESC, ticket_count DESC`;
             chart.resize();
             chart.update("none");
         });
+        applyAnalyticsChartPalette();
     }
 
     let themeMode = localStorage.getItem(APPEARANCE_THEME_MODE_KEY) === "auto" ? "auto" : "manual";
