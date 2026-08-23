@@ -3106,6 +3106,24 @@
 
         @media(max-width:1200px){.topbar-actions{flex-wrap:wrap;justify-content:flex-end}.control-caption,#themeToggleLabel{display:none}}
         @media(max-width:720px){.text-size-control{flex:1}.text-size-control select{width:100%}.theme-toggle{justify-content:center}.ticket-context-section.identity,.ticket-context-section.case{grid-template-columns:1fr 1fr}.conversation-detail-backdrop,.data-explorer-backdrop{padding:10px}.data-explorer-toolbar{grid-template-columns:1fr}.data-explorer-dialog{height:calc(100vh - 20px)}.data-explorer-footer{align-items:flex-start;flex-direction:column}.data-explorer-pagination{width:100%;justify-content:space-between}}
+
+        /* AI Chatbot, Knowledge Base and SLA control centre */
+        .admin-workspace{display:grid;gap:18px}.admin-command{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:20px 22px;border:1px solid var(--border);border-radius:18px;background:linear-gradient(135deg,var(--surface),rgba(146,181,162,.055));box-shadow:var(--shadow-soft)}
+        .admin-command-copy{display:flex;align-items:center;gap:14px}.admin-command-icon{width:44px;height:44px;border-radius:13px;display:grid;place-items:center;color:var(--accent-light);background:rgba(146,181,162,.13);border:1px solid rgba(146,181,162,.18)}.admin-command-icon svg{width:22px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}.admin-command h2{font-size:18px;margin:0 0 4px}.admin-command p{margin:0;color:var(--muted);font-size:12px}.admin-command-actions{display:flex;gap:9px;flex-wrap:wrap}
+        .admin-btn{min-height:40px;padding:0 15px;border-radius:10px;border:1px solid var(--border-strong);background:var(--surface);color:var(--text);font:inherit;font-size:12px;font-weight:700;cursor:pointer}.admin-btn:hover{background:var(--surface-hover)}.admin-btn.primary{background:var(--accent);border-color:var(--accent);color:#102019}.admin-btn.danger{color:#df8f86}.admin-btn:disabled{opacity:.45;cursor:not-allowed}
+        .admin-tabs{display:flex;gap:4px;padding:5px;border:1px solid var(--border);border-radius:13px;background:var(--surface);overflow:auto}.admin-tab{white-space:nowrap;padding:10px 14px;border:0;border-radius:9px;background:transparent;color:var(--muted);font:inherit;font-size:12px;font-weight:700;cursor:pointer}.admin-tab.active{background:rgba(146,181,162,.14);color:var(--text)}.admin-tab-panel{display:none}.admin-tab-panel.active{display:block}
+        .admin-kpi-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}.admin-kpi{padding:18px;border:1px solid var(--border);border-radius:16px;background:var(--surface)}.admin-kpi span{display:block;color:var(--muted);font-size:10px;text-transform:uppercase;letter-spacing:1.1px;font-weight:700}.admin-kpi strong{display:block;margin-top:10px;font-size:22px}.admin-kpi small{display:block;margin-top:5px;color:var(--muted);font-size:11px}
+        .admin-grid-2{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(300px,.75fr);gap:16px}.admin-card{padding:20px;border:1px solid var(--border);border-radius:17px;background:var(--surface)}.admin-card-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:16px}.admin-card h3{font-size:14px;margin:0 0 4px}.admin-card p{font-size:11px;color:var(--muted);margin:0}.admin-form-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px}.admin-field{display:grid;gap:7px}.admin-field.wide{grid-column:1/-1}.admin-field>span{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.9px;font-weight:750}.admin-field input,.admin-field select,.admin-field textarea{width:100%;box-sizing:border-box;border:1px solid var(--border);border-radius:10px;background:var(--surface-alt);color:var(--text);padding:11px 12px;font:inherit;font-size:12px;outline:none}.admin-field textarea{min-height:110px;resize:vertical;line-height:1.55}.admin-field input:focus,.admin-field select:focus,.admin-field textarea:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(146,181,162,.10)}
+        .prompt-sections{display:grid;grid-template-columns:1fr 1fr;gap:14px}.prompt-section{padding:16px;border:1px solid var(--border);border-radius:14px;background:var(--surface)}.prompt-section.wide{grid-column:1/-1}.prompt-section-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}.prompt-section-head strong{font-size:12px}.prompt-section-head span{font-size:10px;color:var(--muted)}.prompt-section textarea{width:100%;min-height:120px;box-sizing:border-box;border:0;background:transparent;color:var(--text);font:inherit;font-size:12px;line-height:1.6;resize:vertical;outline:0}.prompt-editor-footer{position:sticky;bottom:12px;z-index:3;display:flex;justify-content:space-between;align-items:center;gap:15px;margin-top:16px;padding:13px 15px;border:1px solid var(--border-strong);border-radius:13px;background:color-mix(in srgb,var(--surface) 94%,transparent);backdrop-filter:blur(16px);box-shadow:var(--shadow)}.admin-status{font-size:11px;color:var(--muted)}
+        .connection-list{display:grid;gap:10px}.connection-row{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:13px;border:1px solid var(--border);border-radius:12px;background:var(--surface-alt)}.connection-row strong{font-size:12px}.connection-row span{display:block;margin-top:3px;color:var(--muted);font-size:10px}.status-dot{display:inline-flex;align-items:center;gap:6px;padding:5px 8px;border-radius:999px;background:rgba(146,181,162,.10);color:var(--accent-light);font-size:10px;font-weight:750;text-transform:capitalize}.status-dot::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor}.status-dot.disconnected,.status-dot.error{color:var(--muted);background:rgba(127,127,127,.10)}
+        .test-studio{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:16px}.test-chat{min-height:480px;display:flex;flex-direction:column;border:1px solid var(--border);border-radius:17px;background:var(--surface);overflow:hidden}.test-chat-thread{flex:1;display:flex;flex-direction:column;gap:11px;padding:18px;overflow:auto}.test-message{max-width:78%;padding:11px 13px;border-radius:13px;font-size:12px;line-height:1.55}.test-message.user{align-self:flex-end;background:var(--accent);color:#102019;border-bottom-right-radius:4px}.test-message.ai{align-self:flex-start;background:var(--surface-alt);border:1px solid var(--border);border-bottom-left-radius:4px}.test-composer{display:flex;gap:9px;padding:13px;border-top:1px solid var(--border);background:var(--surface-alt)}.test-composer textarea{flex:1;min-height:44px;max-height:140px;resize:vertical;border:1px solid var(--border);border-radius:10px;background:var(--surface);color:var(--text);padding:11px;font:inherit;font-size:12px}.test-meta-list{display:grid;gap:10px}.test-meta-item{padding:12px;border:1px solid var(--border);border-radius:11px;background:var(--surface-alt)}.test-meta-item span{display:block;color:var(--muted);font-size:9px;text-transform:uppercase;letter-spacing:.8px}.test-meta-item strong{display:block;margin-top:6px;font-size:12px}
+        .channel-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.channel-card{padding:18px;border:1px solid var(--border);border-radius:16px;background:var(--surface);display:grid;gap:15px}.channel-card-head{display:flex;align-items:center;gap:11px}.channel-icon{width:38px;height:38px;border-radius:11px;display:grid;place-items:center;background:rgba(146,181,162,.12);color:var(--accent-light);font-size:16px;font-weight:800}.channel-card h3{font-size:13px;margin:0}.channel-card p{font-size:10px;color:var(--muted);margin:3px 0 0}.channel-actions{display:flex;align-items:center;justify-content:space-between;gap:10px}.channel-config{display:none;gap:10px;padding-top:13px;border-top:1px solid var(--border)}.channel-card.open .channel-config{display:grid}
+        .version-list,.kb-list{display:grid;gap:9px}.version-row,.kb-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:14px;align-items:center;padding:14px;border:1px solid var(--border);border-radius:12px;background:var(--surface)}.version-row strong,.kb-row strong{font-size:12px}.version-row span,.kb-row span{display:block;color:var(--muted);font-size:10px;margin-top:4px}.version-actions,.kb-actions{display:flex;align-items:center;gap:7px}
+        .kb-toolbar{display:grid;grid-template-columns:minmax(220px,1fr) 180px 180px auto;gap:10px}.kb-toolbar input,.kb-toolbar select{border:1px solid var(--border);border-radius:10px;background:var(--surface);color:var(--text);padding:11px;font:inherit;font-size:12px}.kb-status{display:inline-flex;padding:4px 7px;border-radius:999px;background:rgba(146,181,162,.12);color:var(--accent-light);font-size:9px!important;font-weight:800;text-transform:uppercase;letter-spacing:.5px}.kb-editor{display:none}.kb-editor.open{display:block}.kb-list.hidden{display:none}
+        .sla-strip{display:flex;align-items:center;justify-content:space-between;gap:15px;margin-bottom:16px;padding:15px 17px;border:1px solid var(--border);border-radius:14px;background:linear-gradient(135deg,var(--surface),rgba(146,181,162,.05))}.sla-strip h3{margin:0 0 4px;font-size:13px}.sla-strip p{margin:0;color:var(--muted);font-size:10px}.sla-settings{display:none;margin-bottom:16px}.sla-settings.open{display:block}.sla-policy-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:11px}.sla-policy{padding:14px;border:1px solid var(--border);border-radius:13px;background:var(--surface)}.sla-policy h4{margin:0 0 12px;font-size:12px;text-transform:capitalize}.sla-policy label{display:grid;grid-template-columns:1fr 75px;align-items:center;gap:8px;margin-top:8px;color:var(--muted);font-size:10px}.sla-policy input{width:100%;box-sizing:border-box;border:1px solid var(--border);border-radius:8px;background:var(--surface-alt);color:var(--text);padding:8px;font:inherit;font-size:11px}.sla-badge{display:inline-flex;align-items:center;gap:5px;padding:4px 7px;border-radius:999px;font-size:9px;font-weight:800;background:rgba(111,187,143,.12);color:#72c99a}.sla-badge.warning{background:rgba(224,170,87,.12);color:#e0aa57}.sla-badge.breached{background:rgba(225,111,101,.12);color:#e16f65}.sla-badge.met{color:var(--muted);background:rgba(127,127,127,.10)}
+        html[data-theme="light"] .admin-btn.primary,html[data-theme="light"] .test-message.user{background:#244f3c;color:#fff}.admin-loading{padding:40px;text-align:center;color:var(--muted);font-size:12px}
+        @media(max-width:1100px){.admin-kpi-grid,.sla-policy-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.admin-grid-2,.test-studio{grid-template-columns:1fr}.channel-grid{grid-template-columns:1fr}.prompt-sections{grid-template-columns:1fr}.prompt-section.wide{grid-column:auto}}
+        @media(max-width:720px){.admin-command{align-items:flex-start;flex-direction:column}.admin-kpi-grid,.sla-policy-grid,.admin-form-grid{grid-template-columns:1fr}.admin-field.wide{grid-column:auto}.kb-toolbar{grid-template-columns:1fr}.prompt-editor-footer{align-items:flex-start;flex-direction:column}.channel-actions{align-items:flex-start;flex-direction:column}}
     </style>
 
 </head>
@@ -3266,6 +3284,23 @@
 
                 <span>Custom Reports</span>
 
+            </a>
+
+            <!-- AI Chatbot -->
+            <a href="#chatbot" class="nav-item" id="sidebarChatbot" data-tab="chatbot">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M7 8.5h10A3.5 3.5 0 0 1 20.5 12v4A3.5 3.5 0 0 1 17 19.5H9l-4.5 2V12A3.5 3.5 0 0 1 8 8.5" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+                    <path d="M9 13h.01M12.5 13h.01M16 13h.01M12 3v3M9.5 3h5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                </svg>
+                <span>AI Chatbot</span>
+            </a>
+
+            <!-- Knowledge Base -->
+            <a href="#knowledge" class="nav-item" id="sidebarKnowledge" data-tab="knowledge">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H11v16H6.5A2.5 2.5 0 0 0 4 21.5v-16ZM20 5.5A2.5 2.5 0 0 0 17.5 3H13v16h4.5a2.5 2.5 0 0 1 2.5 2.5v-16Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+                </svg>
+                <span>Knowledge Base</span>
             </a>
 
         </nav>
@@ -4366,6 +4401,16 @@
                 class="view-panel"
             >
 
+                <div class="sla-strip">
+                    <div><h3>Service-level management</h3><p>First response, next response and resolution targets · Asia/Kolkata</p></div>
+                    <button id="toggleSlaSettings" class="admin-btn" type="button">SLA settings</button>
+                </div>
+                <div id="slaSettings" class="sla-settings admin-card">
+                    <div class="admin-card-head"><div><h3>SLA policies</h3><p>Targets are stored in minutes and can use configured business hours.</p></div><button id="saveSlaPolicies" class="admin-btn primary" type="button">Save policies</button></div>
+                    <div id="slaPolicyGrid" class="sla-policy-grid"><div class="admin-loading">Loading SLA policies…</div></div>
+                    <div id="slaSaveStatus" class="admin-status" role="status"></div>
+                </div>
+
                 <div class="ticket-kpi-grid">
 
                     <div class="ticket-kpi-card">
@@ -4830,6 +4875,131 @@ ORDER BY ticket_count DESC</textarea>
 
 
             <!-- =================================================
+                 AI CHATBOT CONTROL CENTRE
+            ================================================== -->
+            <section id="panel-chatbot" class="view-panel">
+                <div class="admin-workspace">
+                    <div class="admin-command">
+                        <div class="admin-command-copy">
+                            <div class="admin-command-icon"><svg viewBox="0 0 24 24"><path d="M7 8.5h10A3.5 3.5 0 0 1 20.5 12v4A3.5 3.5 0 0 1 17 19.5H9l-4.5 2V12A3.5 3.5 0 0 1 8 8.5"/><path d="M9 13h.01M12.5 13h.01M16 13h.01M12 3v3"/></svg></div>
+                            <div><h2>AI Chatbot Control Centre</h2><p>Configure, test and publish the intelligence used across every customer channel.</p></div>
+                        </div>
+                        <div class="admin-command-actions">
+                            <button id="chatbotPauseBtn" class="admin-btn" type="button">Pause chatbot</button>
+                            <button id="chatbotSaveDraftTop" class="admin-btn" type="button">Save draft</button>
+                            <button id="chatbotPublishTop" class="admin-btn primary" type="button">Publish changes</button>
+                        </div>
+                    </div>
+
+                    <div class="admin-tabs" id="chatbotTabs">
+                        <button class="admin-tab active" data-chatbot-tab="overview" type="button">Overview</button>
+                        <button class="admin-tab" data-chatbot-tab="instructions" type="button">Instructions</button>
+                        <button class="admin-tab" data-chatbot-tab="model" type="button">Model & performance</button>
+                        <button class="admin-tab" data-chatbot-tab="test" type="button">Test chatbot</button>
+                        <button class="admin-tab" data-chatbot-tab="channels" type="button">Channels</button>
+                        <button class="admin-tab" data-chatbot-tab="versions" type="button">Version history</button>
+                    </div>
+
+                    <div id="chatbotTab-overview" class="admin-tab-panel active">
+                        <div class="admin-kpi-grid">
+                            <div class="admin-kpi"><span>Chatbot status</span><strong id="chatbotStatusKpi">—</strong><small>Published configuration</small></div>
+                            <div class="admin-kpi"><span>Prompt version</span><strong id="chatbotVersionKpi">—</strong><small id="chatbotVersionMeta">No version loaded</small></div>
+                            <div class="admin-kpi"><span>Active model</span><strong id="chatbotModelKpi">—</strong><small id="chatbotProviderKpi">Provider</small></div>
+                            <div class="admin-kpi"><span>Connected channels</span><strong id="chatbotChannelsKpi">—</strong><small>Including website chat</small></div>
+                        </div>
+                        <div class="admin-grid-2" style="margin-top:16px">
+                            <div class="admin-card">
+                                <div class="admin-card-head"><div><h3>Deployment readiness</h3><p>A concise check of the currently published customer experience.</p></div></div>
+                                <div id="chatbotReadiness" class="connection-list"><div class="admin-loading">Loading configuration…</div></div>
+                            </div>
+                            <div class="admin-card">
+                                <div class="admin-card-head"><div><h3>Provider connections</h3><p>API credentials remain protected in Worker secrets.</p></div></div>
+                                <div id="providerConnections" class="connection-list"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="chatbotTab-instructions" class="admin-tab-panel">
+                        <div class="prompt-sections" id="promptSections">
+                            <label class="prompt-section"><span class="prompt-section-head"><strong>Identity</strong><span>Who the chatbot is</span></span><textarea data-prompt-field="identity_prompt"></textarea></label>
+                            <label class="prompt-section"><span class="prompt-section-head"><strong>Objective</strong><span>Primary outcome</span></span><textarea data-prompt-field="objective_prompt"></textarea></label>
+                            <label class="prompt-section wide"><span class="prompt-section-head"><strong>Company information</strong><span>Approved business context</span></span><textarea data-prompt-field="company_prompt"></textarea></label>
+                            <label class="prompt-section"><span class="prompt-section-head"><strong>Voice and tone</strong><span>How replies should sound</span></span><textarea data-prompt-field="tone_prompt"></textarea></label>
+                            <label class="prompt-section"><span class="prompt-section-head"><strong>Response rules</strong><span>How replies should work</span></span><textarea data-prompt-field="response_rules"></textarea></label>
+                            <label class="prompt-section"><span class="prompt-section-head"><strong>Knowledge rules</strong><span>Source-of-truth behaviour</span></span><textarea data-prompt-field="knowledge_rules"></textarea></label>
+                            <label class="prompt-section"><span class="prompt-section-head"><strong>Escalation rules</strong><span>When humans take over</span></span><textarea data-prompt-field="escalation_rules"></textarea></label>
+                            <label class="prompt-section"><span class="prompt-section-head"><strong>Data collection</strong><span>Name, phone and consent</span></span><textarea data-prompt-field="data_collection_rules"></textarea></label>
+                            <label class="prompt-section"><span class="prompt-section-head"><strong>Restrictions</strong><span>What must never happen</span></span><textarea data-prompt-field="restriction_rules"></textarea></label>
+                            <label class="prompt-section"><span class="prompt-section-head"><strong>Formatting</strong><span>Markdown and readability</span></span><textarea data-prompt-field="formatting_rules"></textarea></label>
+                            <label class="prompt-section wide"><span class="prompt-section-head"><strong>Additional instructions</strong><span>Advanced custom rules</span></span><textarea data-prompt-field="custom_instructions"></textarea></label>
+                        </div>
+                        <div class="prompt-editor-footer"><div><strong id="promptDraftLabel">Published prompt</strong><div id="promptSaveStatus" class="admin-status">Edit any instruction to create a draft.</div></div><div class="admin-command-actions"><button id="viewCompiledPrompt" class="admin-btn" type="button">Preview compiled prompt</button><button id="chatbotSaveDraft" class="admin-btn" type="button">Save draft</button><button id="chatbotPublish" class="admin-btn primary" type="button">Publish</button></div></div>
+                    </div>
+
+                    <div id="chatbotTab-model" class="admin-tab-panel">
+                        <div class="admin-grid-2">
+                            <div class="admin-card"><div class="admin-card-head"><div><h3>Model configuration</h3><p>Choose the model used for live customer conversations.</p></div><span id="modelConnectionBadge" class="status-dot">Connected</span></div>
+                                <div class="admin-form-grid">
+                                    <label class="admin-field"><span>Provider</span><select id="chatbotProvider"><option value="deepseek">DeepSeek</option><option value="openai">OpenAI</option><option value="anthropic">Anthropic</option><option value="google">Google Gemini</option></select></label>
+                                    <label class="admin-field"><span>Model</span><input id="chatbotModel" type="text" placeholder="deepseek-chat"></label>
+                                    <label class="admin-field"><span>Creativity</span><input id="chatbotTemperature" type="number" min="0" max="1.5" step="0.05"></label>
+                                    <label class="admin-field"><span>Maximum output tokens</span><input id="chatbotMaxTokens" type="number" min="100" max="8000" step="100"></label>
+                                    <label class="admin-field"><span>Timeout (milliseconds)</span><input id="chatbotTimeout" type="number" min="5000" max="90000" step="1000"></label>
+                                    <label class="admin-field"><span>Operational status</span><select id="chatbotOperationalStatus"><option value="active">Active</option><option value="paused">Paused</option></select></label>
+                                </div>
+                                <div class="admin-command-actions" style="margin-top:16px"><button id="saveModelSettings" class="admin-btn primary" type="button">Save model settings</button></div><div id="modelSaveStatus" class="admin-status"></div>
+                            </div>
+                            <div class="admin-card"><div class="admin-card-head"><div><h3>Recommended operating profile</h3><p>Balanced settings for concise customer support.</p></div></div>
+                                <div class="connection-list">
+                                    <button class="connection-row" data-model-preset="economy" type="button"><div><strong>Fast & economical</strong><span>Low creativity · shorter answers</span></div><span>Apply →</span></button>
+                                    <button class="connection-row" data-model-preset="balanced" type="button"><div><strong>Balanced · Recommended</strong><span>Reliable tone and useful detail</span></div><span>Apply →</span></button>
+                                    <button class="connection-row" data-model-preset="quality" type="button"><div><strong>Highest quality</strong><span>More reasoning and longer outputs</span></div><span>Apply →</span></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="chatbotTab-test" class="admin-tab-panel">
+                        <div class="test-studio">
+                            <div class="test-chat"><div id="chatbotTestThread" class="test-chat-thread"><div class="test-message ai">This is a private test. Ask me anything a customer might ask.</div></div><div class="test-composer"><textarea id="chatbotTestInput" placeholder="Type a test customer message…"></textarea><button id="chatbotTestSend" class="admin-btn primary" type="button">Send</button></div></div>
+                            <aside class="admin-card"><div class="admin-card-head"><div><h3>Test inspection</h3><p>Test messages are not added to customer analytics.</p></div></div><label class="connection-row"><div><strong>Use draft prompt</strong><span>Compare unpublished changes</span></div><input id="testUseDraft" type="checkbox"></label><div id="chatbotTestMeta" class="test-meta-list" style="margin-top:12px"><div class="test-meta-item"><span>Status</span><strong>Ready</strong></div></div><button id="chatbotTestReset" class="admin-btn" type="button" style="margin-top:12px">Reset test</button></aside>
+                        </div>
+                    </div>
+
+                    <div id="chatbotTab-channels" class="admin-tab-panel">
+                        <div class="admin-card"><div class="admin-card-head"><div><h3>Customer channels</h3><p>Deploy the same published intelligence while preserving channel-specific identity and replies.</p></div><span class="status-dot">Unified inbox</span></div><div id="chatbotChannelGrid" class="channel-grid"><div class="admin-loading">Loading channels…</div></div></div>
+                    </div>
+
+                    <div id="chatbotTab-versions" class="admin-tab-panel">
+                        <div class="admin-card"><div class="admin-card-head"><div><h3>Prompt version history</h3><p>Restore any earlier configuration as a new draft before publishing.</p></div></div><div id="chatbotVersionList" class="version-list"><div class="admin-loading">Loading versions…</div></div></div>
+                    </div>
+                </div>
+            </section>
+
+
+            <!-- =================================================
+                 KNOWLEDGE BASE MANAGER
+            ================================================== -->
+            <section id="panel-knowledge" class="view-panel">
+                <div class="admin-workspace">
+                    <div class="admin-command"><div class="admin-command-copy"><div class="admin-command-icon"><svg viewBox="0 0 24 24"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H11v16H6.5A2.5 2.5 0 0 0 4 21.5v-16ZM20 5.5A2.5 2.5 0 0 0 17.5 3H13v16h4.5a2.5 2.5 0 0 1 2.5 2.5v-16Z"/></svg></div><div><h2>Knowledge Base</h2><p>Build the governed source of truth used by the customer-facing AI.</p></div></div><button id="newKnowledgeArticle" class="admin-btn primary" type="button">New article</button></div>
+                    <div class="admin-kpi-grid"><div class="admin-kpi"><span>Total content</span><strong id="kbTotal">—</strong><small>All knowledge entries</small></div><div class="admin-kpi"><span>Published</span><strong id="kbPublished">—</strong><small>Available to the AI</small></div><div class="admin-kpi"><span>Drafts</span><strong id="kbDrafts">—</strong><small>Awaiting publication</small></div><div class="admin-kpi"><span>Needs review</span><strong id="kbNeedsReview">—</strong><small>Potentially outdated</small></div></div>
+                    <div id="knowledgeListCard" class="admin-card"><div class="kb-toolbar"><input id="kbSearch" type="search" placeholder="Search knowledge…"><select id="kbCategoryFilter"><option value="">All categories</option></select><select id="kbStatusFilter"><option value="">All statuses</option><option value="published">Published</option><option value="draft">Draft</option><option value="inactive">Inactive</option><option value="needs_review">Needs review</option></select><button id="newKnowledgeArticleSecondary" class="admin-btn" type="button">Add content</button></div><div id="knowledgeArticleList" class="kb-list" style="margin-top:15px"><div class="admin-loading">Loading Knowledge Base…</div></div></div>
+                    <div id="knowledgeEditor" class="kb-editor admin-card"><div class="admin-card-head"><div><h3 id="knowledgeEditorTitle">New knowledge article</h3><p>Draft content remains unavailable to customers until published.</p></div><button id="closeKnowledgeEditor" class="admin-btn" type="button">Close</button></div>
+                        <input id="knowledgeArticleId" type="hidden"><div class="admin-form-grid">
+                            <label class="admin-field"><span>Title</span><input id="knowledgeTitle" type="text" maxlength="200"></label><label class="admin-field"><span>Category</span><input id="knowledgeCategory" type="text" maxlength="120" placeholder="General"></label>
+                            <label class="admin-field wide"><span>Primary customer question</span><input id="knowledgeQuestion" type="text" maxlength="1000"></label>
+                            <label class="admin-field wide"><span>Approved answer</span><textarea id="knowledgeContent" style="min-height:220px"></textarea></label>
+                            <label class="admin-field wide"><span>Alternative questions</span><textarea id="knowledgeAlternatives" placeholder="One variation per line"></textarea></label>
+                            <label class="admin-field"><span>Keywords</span><input id="knowledgeKeywords" type="text" placeholder="refund, return, cancellation"></label><label class="admin-field"><span>Priority (1–100)</span><input id="knowledgePriority" type="number" min="1" max="100" value="50"></label>
+                            <label class="admin-field"><span>Status</span><select id="knowledgeStatus"><option value="draft">Draft</option><option value="published">Published</option><option value="inactive">Inactive</option><option value="needs_review">Needs review</option></select></label><label class="admin-field"><span>Internal notes</span><input id="knowledgeNotes" type="text"></label>
+                        </div><div class="admin-command-actions" style="margin-top:16px"><button id="saveKnowledgeDraft" class="admin-btn" type="button">Save draft</button><button id="publishKnowledgeArticle" class="admin-btn primary" type="button">Save & publish</button></div><div id="knowledgeSaveStatus" class="admin-status"></div>
+                    </div>
+                </div>
+            </section>
+
+
+            <!-- =================================================
                  FOOTER
             ================================================== -->
 
@@ -5234,6 +5404,8 @@ ORDER BY ticket_count DESC</textarea>
     const sidebarAnalytics = document.getElementById("sidebarAnalytics");
     const sidebarTickets = document.getElementById("sidebarTickets");
     const sidebarReports = document.getElementById("sidebarReports");
+    const sidebarChatbot = document.getElementById("sidebarChatbot");
+    const sidebarKnowledge = document.getElementById("sidebarKnowledge");
     const analyticsSubnav = document.getElementById("analyticsSubnav");
     const analyticsSubitems = {
         ai: document.getElementById("sidebarAiAgent"),
@@ -5246,7 +5418,9 @@ ORDER BY ticket_count DESC</textarea>
         human: ["Analytics", "Monitor human-agent escalations, outcomes and service performance."],
         dashboards: ["Custom Dashboards", "Arrange saved reports into focused, reusable operational views."],
         tickets: ["Tickets", "Manage escalated customer requests and resolutions."],
-        reports: ["Custom Reports", "Build, save and export focused views of your CX data."]
+        reports: ["Custom Reports", "Build, save and export focused views of your CX data."],
+        chatbot: ["AI Chatbot", "Configure, test and deploy your customer-facing AI."],
+        knowledge: ["Knowledge Base", "Manage the governed information used by your AI chatbot."]
     };
 
     function showWorkspace(workspace, refresh = true) {
@@ -5265,6 +5439,8 @@ ORDER BY ticket_count DESC</textarea>
             analyticsSubitems[workspace]?.classList.add("active");
         } else if (workspace === "tickets") sidebarTickets?.classList.add("active");
         else if (workspace === "reports") sidebarReports?.classList.add("active");
+        else if (workspace === "chatbot") sidebarChatbot?.classList.add("active");
+        else if (workspace === "knowledge") sidebarKnowledge?.classList.add("active");
 
         const [heading, subtitle] = workspaceCopy[workspace];
         document.getElementById("pageHeading").textContent = heading;
@@ -5277,6 +5453,9 @@ ORDER BY ticket_count DESC</textarea>
         history.replaceState(null, "", workspace === "ai" ? location.pathname : `#${workspace}`);
 
         if (workspace === "dashboards") renderCustomDashboard();
+        if (workspace === "chatbot") loadChatbotControlCentre();
+        if (workspace === "knowledge") loadKnowledgeBase();
+        if (workspace === "tickets") loadSlaPolicies();
         if (refresh) updateDashboard(currentPeriod);
     }
 
@@ -5291,6 +5470,8 @@ ORDER BY ticket_count DESC</textarea>
     Object.entries(analyticsSubitems).forEach(([workspace, item]) => item?.addEventListener("click", event => { event.preventDefault(); showWorkspace(workspace); }));
     sidebarTickets?.addEventListener("click", event => { event.preventDefault(); showWorkspace("tickets"); });
     sidebarReports?.addEventListener("click", event => { event.preventDefault(); showWorkspace("reports"); });
+    sidebarChatbot?.addEventListener("click", event => { event.preventDefault(); showWorkspace("chatbot"); });
+    sidebarKnowledge?.addEventListener("click", event => { event.preventDefault(); showWorkspace("knowledge"); });
 
 
     /* =====================================================
@@ -6060,8 +6241,13 @@ ORDER BY ticket_count DESC</textarea>
             agent,
             status,
             rawStatus,
+            priority: String(ticket.priority || "normal").toLowerCase(),
             createdAt,
             resolvedAt,
+            firstResponseAt: ticket.first_response_at || null,
+            firstResponseDueAt: ticket.first_response_due_at || null,
+            resolutionDueAt: ticket.resolution_due_at || null,
+            slaWarningPercent: Number(ticket.sla_warning_percent || 75),
             resolutionTime: parseFloat(ticket.resolution_time_hours ?? ticket.resolution_hours ?? ticket.handle_time_hours ?? 0) || 0
         };
     }
@@ -6194,6 +6380,7 @@ ORDER BY ticket_count DESC</textarea>
             const query = String(ticket.query || "—");
             const shortQuery = query.length > 52 ? `${query.substring(0, 52)}…` : query;
             const label = ticketStatusLabel(ticket.status, ticket.agent);
+            const sla = ticketSlaDisplay(ticket);
             return `
                 <tr data-ticket-id="${escapeHtml(String(ticket.dbId || ""))}">
                     <td><span class="ticket-id">${escapeHtml(String(ticket.id))}</span></td>
@@ -6202,7 +6389,7 @@ ORDER BY ticket_count DESC</textarea>
                     <td><span class="ticket-assignee">${escapeHtml(ticket.agent)}</span></td>
                     <td><span class="ticket-badge ${ticketStatusClass(ticket.status)}">${escapeHtml(label)}</span></td>
                     <td><span class="ticket-age">${formatTicketAge(ticket.createdAt, ticket.resolvedAt)}</span></td>
-                    <td>${ticket.status === "resolved" ? `<span class="ticket-age">${ticket.resolutionTime > 0 ? `${ticket.resolutionTime.toFixed(1)}h` : "Resolved"}</span>` : `<span class="ticket-age">—</span>`}</td>
+                    <td>${ticket.status === "resolved" ? `<span class="sla-badge met">${ticket.resolutionTime > 0 ? `${ticket.resolutionTime.toFixed(1)}h` : "Resolved"}</span>` : `<span class="sla-badge ${sla.className}">${escapeHtml(sla.label)}</span>`}</td>
                 </tr>
             `;
         }).join("");
@@ -6210,6 +6397,29 @@ ORDER BY ticket_count DESC</textarea>
         tbody.querySelectorAll("tr[data-ticket-id]").forEach(row => {
             row.addEventListener("click", () => openTicket(Number(row.dataset.ticketId)));
         });
+    }
+
+    function ticketSlaDisplay(ticket) {
+        const policy = (slaState.policies || []).find(item => String(item.priority).toLowerCase() === ticket.priority)
+            || (slaState.policies || []).find(item => item.priority === "normal");
+        if (!policy || !ticket.createdAt) return { label: "SLA not set", className: "met" };
+        if (ticket.firstResponseAt) return { label: "First response met", className: "met" };
+        const created = new Date(String(ticket.createdAt).includes("T") ? ticket.createdAt : `${String(ticket.createdAt).replace(" ", "T")}Z`);
+        if (Number.isNaN(created.getTime())) return { label: "SLA unavailable", className: "met" };
+        const serverDue = ticket.firstResponseDueAt ? new Date(ticket.firstResponseDueAt) : null;
+        const targetMs = serverDue && !Number.isNaN(serverDue.getTime()) ? serverDue.getTime() - created.getTime() : Number(policy.first_response_minutes || 120) * 60000;
+        const elapsed = Date.now() - created.getTime();
+        const remaining = serverDue && !Number.isNaN(serverDue.getTime()) ? serverDue.getTime() - Date.now() : targetMs - elapsed;
+        if (remaining <= 0) return { label: `Overdue ${formatSlaDuration(Math.abs(remaining))}`, className: "breached" };
+        const consumed = elapsed / targetMs;
+        return { label: `${formatSlaDuration(remaining)} left`, className: consumed >= ((ticket.slaWarningPercent || 75) / 100) ? "warning" : "" };
+    }
+
+    function formatSlaDuration(milliseconds) {
+        const minutes = Math.max(0, Math.round(milliseconds / 60000));
+        if (minutes < 60) return `${minutes}m`;
+        const hours = Math.floor(minutes / 60), remainder = minutes % 60;
+        return remainder ? `${hours}h ${remainder}m` : `${hours}h`;
     }
 
 
@@ -9644,6 +9854,14 @@ ORDER BY created_date DESC, ticket_count DESC`;
             if (!response.ok) throw new Error(data.error || "Could not load ticket.");
 
             const ticket = data.ticket;
+            const drawerSla = ticketSlaDisplay({
+                priority: String(ticket.priority || "normal").toLowerCase(),
+                createdAt: ticket.created_at,
+                firstResponseAt: ticket.first_response_at,
+                firstResponseDueAt: ticket.first_response_due_at,
+                slaWarningPercent: Number(ticket.sla_warning_percent || 75),
+                status: ticket.status
+            });
             document.getElementById("ticketDrawerTitle").textContent = ticket.ticket_number || `NX-${String(ticket.id).padStart(4, "0")}`;
             document.getElementById("ticketDrawerMeta").textContent = `Assigned to ${ticket.agent_name || "Novara CX Support"}`;
 
@@ -9657,6 +9875,7 @@ ORDER BY created_date DESC, ticket_count DESC`;
                 <div class="ticket-context-header">
                     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20v-2a4 4 0 0 1 4-4h8a4 4 0 0 1 4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
                     Ticket Information
+                    <span class="sla-badge ${drawerSla.className}" style="margin-left:auto">${escapeHtml(drawerSla.label)}</span>
                 </div>
                 <div class="ticket-context-section identity">
                     <div class="ticket-context-item"><span>Customer name</span>${escapeHtml(ticket.customer_name || "—")}</div>
@@ -10340,6 +10559,213 @@ ORDER BY created_date DESC, ticket_count DESC`;
 
 
     /* =====================================================
+       AI CHATBOT CONTROL CENTRE
+    ====================================================== */
+
+    let chatbotControlState = null;
+    let chatbotControlLoading = false;
+    let knowledgeState = { articles: [], summary: {} };
+    let slaState = { policies: [], businessHours: [] };
+
+    async function adminApi(endpoint, options = {}) {
+        const response = await fetch(`${API_URL}${endpoint}`, {
+            ...options,
+            headers: { "Content-Type": "application/json", ...(options.headers || {}) }
+        });
+        const data = await response.json().catch(() => ({}));
+        if (!response.ok) throw new Error(data.error || data.details || `Request failed: ${response.status}`);
+        return data;
+    }
+
+    function promptPayload() {
+        return Object.fromEntries([...document.querySelectorAll("[data-prompt-field]")].map(input => [input.dataset.promptField, input.value.trim()]));
+    }
+
+    function formatAdminDate(value) {
+        if (!value) return "—";
+        const date = new Date(String(value).includes("T") ? value : `${String(value).replace(" ", "T")}Z`);
+        return Number.isNaN(date.getTime()) ? String(value) : date.toLocaleString("en-IN", { day:"2-digit", month:"short", year:"numeric", hour:"2-digit", minute:"2-digit" });
+    }
+
+    function populatePromptEditor(version) {
+        document.querySelectorAll("[data-prompt-field]").forEach(input => { input.value = version?.[input.dataset.promptField] || ""; });
+        document.getElementById("promptDraftLabel").textContent = version?.status === "draft" ? `Draft · Version ${version.version_number}` : `Published · Version ${version?.version_number || "—"}`;
+        document.getElementById("promptSaveStatus").textContent = version?.status === "draft" ? "Unpublished draft loaded." : "Edit any instruction to create a new draft.";
+    }
+
+    function renderChatbotOverview() {
+        const state = chatbotControlState;
+        if (!state) return;
+        const profile = state.profile || {};
+        const published = state.published;
+        const connected = (state.channels || []).filter(channel => channel.status === "connected").length;
+        document.getElementById("chatbotStatusKpi").textContent = profile.status === "paused" ? "Paused" : "Active";
+        document.getElementById("chatbotVersionKpi").textContent = published ? `v${published.version_number}` : "—";
+        document.getElementById("chatbotVersionMeta").textContent = published?.published_at ? `Published ${formatAdminDate(published.published_at)}` : "No published prompt";
+        document.getElementById("chatbotModelKpi").textContent = profile.model || "—";
+        document.getElementById("chatbotProviderKpi").textContent = String(profile.provider || "Provider").replace(/^./, char => char.toUpperCase());
+        document.getElementById("chatbotChannelsKpi").textContent = connected;
+        document.getElementById("chatbotPauseBtn").textContent = profile.status === "paused" ? "Activate chatbot" : "Pause chatbot";
+
+        const checks = [
+            ["Published instructions", Boolean(published), published ? `Version ${published.version_number} is live` : "Publish a tested prompt"],
+            ["Model connection", Boolean(state.connections?.[profile.provider]), state.connections?.[profile.provider] ? `${profile.provider} is connected` : `Add the ${profile.provider} Worker secret`],
+            ["Knowledge source", true, "Published articles are retrieved when relevant"],
+            ["Human handoff", true, "Name, phone and consent are required"]
+        ];
+        document.getElementById("chatbotReadiness").innerHTML = checks.map(([name, ready, detail]) => `<div class="connection-row"><div><strong>${escapeHtml(name)}</strong><span>${escapeHtml(detail)}</span></div><span class="status-dot ${ready ? "" : "disconnected"}">${ready ? "Ready" : "Action needed"}</span></div>`).join("");
+
+        const providerLabels = { deepseek: "DeepSeek", openai: "OpenAI", anthropic: "Anthropic", google: "Google Gemini" };
+        document.getElementById("providerConnections").innerHTML = Object.entries(providerLabels).map(([key, label]) => `<div class="connection-row"><div><strong>${label}</strong><span>Credential stored securely outside the browser</span></div><span class="status-dot ${state.connections?.[key] ? "" : "disconnected"}">${state.connections?.[key] ? "Connected" : "Not connected"}</span></div>`).join("");
+    }
+
+    function renderModelSettings() {
+        const profile = chatbotControlState?.profile || {};
+        document.getElementById("chatbotProvider").value = profile.provider || "deepseek";
+        document.getElementById("chatbotModel").value = profile.model || "deepseek-chat";
+        document.getElementById("chatbotTemperature").value = profile.temperature ?? 0.35;
+        document.getElementById("chatbotMaxTokens").value = profile.max_tokens || 1200;
+        document.getElementById("chatbotTimeout").value = profile.timeout_ms || 30000;
+        document.getElementById("chatbotOperationalStatus").value = profile.status || "active";
+        const connected = Boolean(chatbotControlState?.connections?.[profile.provider]);
+        const badge = document.getElementById("modelConnectionBadge");
+        badge.textContent = connected ? "Connected" : "Not connected";
+        badge.className = `status-dot ${connected ? "" : "disconnected"}`;
+    }
+
+    function renderChatbotVersions() {
+        const list = document.getElementById("chatbotVersionList");
+        const versions = chatbotControlState?.versions || [];
+        list.innerHTML = versions.length ? versions.map(version => `<div class="version-row"><div><strong>Version ${version.version_number} · ${escapeHtml(version.status)}</strong><span>${escapeHtml(version.change_summary || "No change summary")} · ${escapeHtml(formatAdminDate(version.published_at || version.created_at))}</span></div><div class="version-actions">${version.status === "published" ? `<span class="status-dot">Live</span>` : `<button class="admin-btn" data-restore-prompt="${version.id}" type="button">Restore as draft</button>`}</div></div>`).join("") : `<div class="empty-state">No prompt versions yet.</div>`;
+        list.querySelectorAll("[data-restore-prompt]").forEach(button => button.addEventListener("click", () => restorePromptVersion(Number(button.dataset.restorePrompt))));
+    }
+
+    function renderChatbotChannels() {
+        const grid = document.getElementById("chatbotChannelGrid");
+        const icon = { website:"W", whatsapp:"WA", instagram:"IG", messenger:"M", email:"@" };
+        grid.innerHTML = (chatbotControlState?.channels || []).map(channel => {
+            let settings = {}; try { settings = JSON.parse(channel.settings_json || "{}"); } catch {}
+            return `<article class="channel-card" data-channel-card="${escapeHtml(channel.channel)}"><div class="channel-card-head"><div class="channel-icon">${escapeHtml(icon[channel.channel] || channel.display_name.slice(0,2))}</div><div><h3>${escapeHtml(channel.display_name)}</h3><p>${escapeHtml(channel.account_label || (channel.channel === "website" ? "Novara CX website" : "Not configured"))}</p></div></div><div class="channel-actions"><span class="status-dot ${["connected","testing"].includes(channel.status) ? "" : "disconnected"}">${escapeHtml(channel.status)}</span><button class="admin-btn" data-channel-configure="${escapeHtml(channel.channel)}" type="button">Configure</button></div><div class="channel-config"><label class="admin-field"><span>Account label</span><input data-channel-account value="${escapeHtml(channel.account_label || "")}" placeholder="Business account or phone"></label><label class="admin-field"><span>External account ID</span><input data-channel-id value="${escapeHtml(channel.external_account_id || "")}" placeholder="Configured provider identifier"></label><label class="admin-field"><span>Mode</span><select data-channel-status><option value="disconnected" ${channel.status==="disconnected"?"selected":""}>Disconnected</option><option value="testing" ${channel.status==="testing"?"selected":""}>Testing</option><option value="connected" ${channel.status==="connected"?"selected":""}>Connected</option><option value="paused" ${channel.status==="paused"?"selected":""}>Paused</option></select></label><label class="admin-field"><span>Welcome message</span><input data-channel-welcome value="${escapeHtml(settings.welcomeMessage || "")}" placeholder="Optional channel greeting"></label><button class="admin-btn primary" data-channel-save="${escapeHtml(channel.channel)}" type="button">Save channel</button><div class="admin-status" data-channel-status-text></div></div></article>`;
+        }).join("");
+        grid.querySelectorAll("[data-channel-configure]").forEach(button => button.addEventListener("click", () => button.closest(".channel-card").classList.toggle("open")));
+        grid.querySelectorAll("[data-channel-save]").forEach(button => button.addEventListener("click", () => saveChannel(button.closest(".channel-card"), button.dataset.channelSave)));
+    }
+
+    async function loadChatbotControlCentre(force = false) {
+        if (chatbotControlLoading || (chatbotControlState && !force)) return;
+        chatbotControlLoading = true;
+        try {
+            chatbotControlState = await adminApi("/admin/chatbot");
+            populatePromptEditor(chatbotControlState.draft || chatbotControlState.published);
+            renderChatbotOverview(); renderModelSettings(); renderChatbotVersions(); renderChatbotChannels();
+        } catch (error) {
+            document.getElementById("promptSaveStatus").textContent = error.message;
+            document.getElementById("chatbotReadiness").innerHTML = `<div class="empty-state">${escapeHtml(error.message)} Run the supplied D1 migration and deploy the updated Worker.</div>`;
+        } finally { chatbotControlLoading = false; }
+    }
+
+    async function savePromptDraft() {
+        const status = document.getElementById("promptSaveStatus");
+        status.textContent = "Saving draft…";
+        try {
+            const result = await adminApi("/admin/chatbot/draft", { method:"POST", body:JSON.stringify({ prompt:promptPayload(), changeSummary:"Updated from AI Chatbot Control Centre" }) });
+            status.textContent = `Draft version ${result.versionNumber} saved.`;
+            await loadChatbotControlCentre(true);
+            return result;
+        } catch (error) { status.textContent = error.message; throw error; }
+    }
+
+    async function publishPrompt() {
+        const status = document.getElementById("promptSaveStatus");
+        try {
+            let draftId = chatbotControlState?.draft?.id;
+            if (!draftId) draftId = (await savePromptDraft()).draftId;
+            status.textContent = "Publishing…";
+            const result = await adminApi("/admin/chatbot/publish", { method:"POST", body:JSON.stringify({ draftId }) });
+            status.textContent = `Version ${result.versionNumber} published.`;
+            await loadChatbotControlCentre(true);
+        } catch (error) { status.textContent = error.message; }
+    }
+
+    async function restorePromptVersion(versionId) {
+        if (!confirm("Restore this version as a new editable draft?")) return;
+        try { await adminApi("/admin/chatbot/rollback", { method:"POST", body:JSON.stringify({ versionId }) }); await loadChatbotControlCentre(true); document.querySelector('[data-chatbot-tab="instructions"]')?.click(); }
+        catch (error) { alert(error.message); }
+    }
+
+    async function saveModelSettings() {
+        const status = document.getElementById("modelSaveStatus"); status.textContent = "Saving…";
+        try {
+            await adminApi("/admin/chatbot/settings", { method:"POST", body:JSON.stringify({ provider:document.getElementById("chatbotProvider").value, model:document.getElementById("chatbotModel").value, temperature:document.getElementById("chatbotTemperature").value, maxTokens:document.getElementById("chatbotMaxTokens").value, timeoutMs:document.getElementById("chatbotTimeout").value, status:document.getElementById("chatbotOperationalStatus").value }) });
+            status.textContent = "Model configuration saved."; await loadChatbotControlCentre(true);
+        } catch (error) { status.textContent = error.message; }
+    }
+
+    async function saveChannel(card, channel) {
+        const status = card.querySelector("[data-channel-status-text]"); status.textContent = "Saving…";
+        try {
+            const result = await adminApi("/admin/chatbot/channel", { method:"POST", body:JSON.stringify({ channel, accountLabel:card.querySelector("[data-channel-account]").value, externalAccountId:card.querySelector("[data-channel-id]").value, status:card.querySelector("[data-channel-status]").value, settings:{ welcomeMessage:card.querySelector("[data-channel-welcome]").value } }) });
+            status.textContent = result.requiresProviderCredentials ? "Configuration saved. Provider credentials and webhook approval are still required before live activation." : "Channel configuration saved.";
+            await loadChatbotControlCentre(true);
+        } catch (error) { status.textContent = error.message; }
+    }
+
+    async function sendChatbotTest() {
+        const input = document.getElementById("chatbotTestInput"); const message = input.value.trim(); if (!message) return;
+        const thread = document.getElementById("chatbotTestThread");
+        thread.insertAdjacentHTML("beforeend", `<div class="test-message user">${escapeHtml(message)}</div>`); input.value = ""; thread.scrollTop = thread.scrollHeight;
+        const pending = document.createElement("div"); pending.className="test-message ai"; pending.textContent="Thinking…"; thread.appendChild(pending);
+        try {
+            const result = await adminApi("/admin/chatbot/test", { method:"POST", body:JSON.stringify({ message, useDraft:document.getElementById("testUseDraft").checked }) });
+            pending.innerHTML = renderSafeMarkdown(result.reply);
+            document.getElementById("chatbotTestMeta").innerHTML = `<div class="test-meta-item"><span>Model</span><strong>${escapeHtml(result.model)}</strong></div><div class="test-meta-item"><span>Response time</span><strong>${Math.round(result.responseTimeMs)} ms</strong></div><div class="test-meta-item"><span>Prompt</span><strong>Version ${escapeHtml(String(result.promptVersion))}</strong></div><div class="test-meta-item"><span>Knowledge used</span><strong>${result.knowledgeUsed ? "Yes" : "No"}</strong></div>`;
+        } catch (error) { pending.textContent = error.message; }
+        thread.scrollTop = thread.scrollHeight;
+    }
+
+    document.getElementById("chatbotTabs")?.addEventListener("click", event => { const tab=event.target.closest("[data-chatbot-tab]"); if(!tab)return; document.querySelectorAll("#chatbotTabs .admin-tab").forEach(item=>item.classList.remove("active")); document.querySelectorAll("#panel-chatbot .admin-tab-panel").forEach(item=>item.classList.remove("active")); tab.classList.add("active"); document.getElementById(`chatbotTab-${tab.dataset.chatbotTab}`)?.classList.add("active"); });
+    ["chatbotSaveDraft","chatbotSaveDraftTop"].forEach(id=>document.getElementById(id)?.addEventListener("click",savePromptDraft));
+    ["chatbotPublish","chatbotPublishTop"].forEach(id=>document.getElementById(id)?.addEventListener("click",publishPrompt));
+    document.getElementById("saveModelSettings")?.addEventListener("click",saveModelSettings);
+    document.getElementById("chatbotPauseBtn")?.addEventListener("click",()=>{ const select=document.getElementById("chatbotOperationalStatus"); select.value=chatbotControlState?.profile?.status==="paused"?"active":"paused"; saveModelSettings(); });
+    document.querySelectorAll("[data-model-preset]").forEach(button=>button.addEventListener("click",()=>{const preset={economy:[.2,650,20000],balanced:[.35,1200,30000],quality:[.5,2200,45000]}[button.dataset.modelPreset]; document.getElementById("chatbotTemperature").value=preset[0];document.getElementById("chatbotMaxTokens").value=preset[1];document.getElementById("chatbotTimeout").value=preset[2];document.getElementById("modelSaveStatus").textContent="Preset applied. Save model settings to activate it.";}));
+    document.getElementById("chatbotTestSend")?.addEventListener("click",sendChatbotTest);
+    document.getElementById("chatbotTestInput")?.addEventListener("keydown",event=>{if(event.key==="Enter"&&!event.shiftKey){event.preventDefault();sendChatbotTest();}});
+    document.getElementById("chatbotTestReset")?.addEventListener("click",()=>{document.getElementById("chatbotTestThread").innerHTML='<div class="test-message ai">This is a private test. Ask me anything a customer might ask.</div>';document.getElementById("chatbotTestMeta").innerHTML='<div class="test-meta-item"><span>Status</span><strong>Ready</strong></div>';});
+    document.getElementById("viewCompiledPrompt")?.addEventListener("click",()=>{const text=Object.entries(promptPayload()).filter(([,value])=>value).map(([key,value])=>`${key.replaceAll("_"," ").toUpperCase()}\n${value}`).join("\n\n");const modal=document.createElement("div");modal.className="data-explorer-backdrop open";modal.innerHTML=`<section class="data-explorer-dialog" style="height:min(760px,90vh)"><header class="data-explorer-head"><div><span class="report-eyebrow">Prompt preview</span><h2>Compiled system instructions</h2><p>Preview only · secrets and dynamic customer context are never included.</p></div><button class="ticket-close" type="button">✕</button></header><div style="padding:20px;overflow:auto;white-space:pre-wrap;line-height:1.65;font-size:12px">${escapeHtml(text)}</div></section>`;document.body.appendChild(modal);modal.querySelector("button").onclick=()=>modal.remove();modal.onclick=e=>{if(e.target===modal)modal.remove();};});
+
+
+    /* =====================================================
+       KNOWLEDGE BASE MANAGER
+    ====================================================== */
+
+    async function loadKnowledgeBase() {
+        try { const data=await adminApi("/admin/knowledge"); knowledgeState={articles:data.articles||[],summary:data.summary||{}}; renderKnowledgeBase(); }
+        catch(error){document.getElementById("knowledgeArticleList").innerHTML=`<div class="empty-state">${escapeHtml(error.message)} Run the supplied D1 migration and deploy the Worker.</div>`;}
+    }
+    function renderKnowledgeBase() {
+        const summary=knowledgeState.summary||{}; document.getElementById("kbTotal").textContent=summary.total||0;document.getElementById("kbPublished").textContent=summary.published||0;document.getElementById("kbDrafts").textContent=summary.drafts||0;document.getElementById("kbNeedsReview").textContent=summary.needs_review||0;
+        const categories=[...new Set(knowledgeState.articles.map(article=>article.category).filter(Boolean))].sort();const select=document.getElementById("kbCategoryFilter");const current=select.value;select.innerHTML='<option value="">All categories</option>'+categories.map(category=>`<option value="${escapeHtml(category)}">${escapeHtml(category)}</option>`).join("");select.value=current;
+        filterKnowledgeBase();
+    }
+    function filterKnowledgeBase(){const query=document.getElementById("kbSearch").value.toLowerCase();const category=document.getElementById("kbCategoryFilter").value;const status=document.getElementById("kbStatusFilter").value;const rows=knowledgeState.articles.filter(article=>(!query||`${article.title} ${article.customer_question} ${article.content} ${article.keywords||""}`.toLowerCase().includes(query))&&(!category||article.category===category)&&(!status||article.status===status));const list=document.getElementById("knowledgeArticleList");list.innerHTML=rows.length?rows.map(article=>`<div class="kb-row"><div><strong>${escapeHtml(article.title)}</strong><span>${escapeHtml(article.customer_question)} · ${escapeHtml(article.category)} · ${article.usage_count||0} uses</span></div><div class="kb-actions"><span class="kb-status">${escapeHtml(article.status.replaceAll("_"," "))}</span><button class="admin-btn" data-kb-edit="${article.id}" type="button">Edit</button></div></div>`).join(""):'<div class="empty-state">No knowledge entries match these filters.</div>';list.querySelectorAll("[data-kb-edit]").forEach(button=>button.addEventListener("click",()=>openKnowledgeEditor(knowledgeState.articles.find(article=>article.id===Number(button.dataset.kbEdit)))));}
+    function openKnowledgeEditor(article=null){document.getElementById("knowledgeListCard").style.display="none";document.getElementById("knowledgeEditor").classList.add("open");document.getElementById("knowledgeEditorTitle").textContent=article?"Edit knowledge article":"New knowledge article";document.getElementById("knowledgeArticleId").value=article?.id||"";document.getElementById("knowledgeTitle").value=article?.title||"";document.getElementById("knowledgeCategory").value=article?.category||"General";document.getElementById("knowledgeQuestion").value=article?.customer_question||"";document.getElementById("knowledgeContent").value=article?.content||"";document.getElementById("knowledgeAlternatives").value=article?.alternative_questions||"";document.getElementById("knowledgeKeywords").value=article?.keywords||"";document.getElementById("knowledgePriority").value=article?.priority||50;document.getElementById("knowledgeStatus").value=article?.status||"draft";document.getElementById("knowledgeNotes").value=article?.internal_notes||"";document.getElementById("knowledgeSaveStatus").textContent="";}
+    function closeKnowledgeEditor(){document.getElementById("knowledgeEditor").classList.remove("open");document.getElementById("knowledgeListCard").style.display="block";}
+    async function saveKnowledgeArticle(publish=false){const status=document.getElementById("knowledgeSaveStatus");status.textContent="Saving…";const article={id:Number(document.getElementById("knowledgeArticleId").value)||undefined,title:document.getElementById("knowledgeTitle").value,category:document.getElementById("knowledgeCategory").value,customer_question:document.getElementById("knowledgeQuestion").value,content:document.getElementById("knowledgeContent").value,alternative_questions:document.getElementById("knowledgeAlternatives").value,keywords:document.getElementById("knowledgeKeywords").value,priority:document.getElementById("knowledgePriority").value,status:publish?"published":"draft",internal_notes:document.getElementById("knowledgeNotes").value};try{await adminApi("/admin/knowledge/save",{method:"POST",body:JSON.stringify({article,changeSummary:publish?"Published from Knowledge Base":"Draft saved from Knowledge Base"})});status.textContent=publish?"Article published.":"Draft saved.";await loadKnowledgeBase();setTimeout(closeKnowledgeEditor,450);}catch(error){status.textContent=error.message;}}
+    ["newKnowledgeArticle","newKnowledgeArticleSecondary"].forEach(id=>document.getElementById(id)?.addEventListener("click",()=>openKnowledgeEditor()));document.getElementById("closeKnowledgeEditor")?.addEventListener("click",closeKnowledgeEditor);document.getElementById("saveKnowledgeDraft")?.addEventListener("click",()=>saveKnowledgeArticle(false));document.getElementById("publishKnowledgeArticle")?.addEventListener("click",()=>saveKnowledgeArticle(true));["kbSearch","kbCategoryFilter","kbStatusFilter"].forEach(id=>document.getElementById(id)?.addEventListener(id==="kbSearch"?"input":"change",filterKnowledgeBase));
+
+
+    /* =====================================================
+       SLA POLICY CONTROLS
+    ====================================================== */
+
+    async function loadSlaPolicies(){try{slaState=await adminApi("/admin/sla");renderSlaPolicies();if(Array.isArray(reportDataCache.tickets)&&reportDataCache.tickets.length)updateTicketsTable(reportDataCache.tickets.map(normalizeTicket));}catch(error){document.getElementById("slaPolicyGrid").innerHTML=`<div class="empty-state">${escapeHtml(error.message)}</div>`;}}
+    function renderSlaPolicies(){const grid=document.getElementById("slaPolicyGrid");grid.innerHTML=(slaState.policies||[]).map(policy=>`<div class="sla-policy" data-sla-id="${policy.id}"><h4>${escapeHtml(policy.priority)}</h4><label>First response<input data-sla-first type="number" min="1" value="${policy.first_response_minutes}"></label><label>Next response<input data-sla-next type="number" min="1" value="${policy.next_response_minutes}"></label><label>Resolution<input data-sla-resolution type="number" min="1" value="${policy.resolution_minutes}"></label><label>Warning %<input data-sla-warning type="number" min="1" max="95" value="${policy.warning_percent}"></label><label>Urgent %<input data-sla-urgent type="number" min="2" max="99" value="${policy.urgent_percent}"></label></div>`).join("");}
+    async function saveSlaPolicies(){const status=document.getElementById("slaSaveStatus");status.textContent="Saving…";const policies=[...document.querySelectorAll("[data-sla-id]")].map(card=>({id:Number(card.dataset.slaId),first_response_minutes:Number(card.querySelector("[data-sla-first]").value),next_response_minutes:Number(card.querySelector("[data-sla-next]").value),resolution_minutes:Number(card.querySelector("[data-sla-resolution]").value),warning_percent:Number(card.querySelector("[data-sla-warning]").value),urgent_percent:Number(card.querySelector("[data-sla-urgent]").value),use_business_hours:true,pause_resolution_pending_customer:true,active:true}));try{await adminApi("/admin/sla/save",{method:"POST",body:JSON.stringify({policies})});status.textContent="SLA policies saved.";await loadSlaPolicies();}catch(error){status.textContent=error.message;}}
+    document.getElementById("toggleSlaSettings")?.addEventListener("click",()=>document.getElementById("slaSettings").classList.toggle("open"));document.getElementById("saveSlaPolicies")?.addEventListener("click",saveSlaPolicies);
+
+
+    /* =====================================================
        INITIAL LOAD
     ====================================================== */
 
@@ -10347,7 +10773,7 @@ ORDER BY created_date DESC, ticket_count DESC`;
         "DOMContentLoaded",
         () => {
             const requestedWorkspace = location.hash.replace("#", "");
-            showWorkspace(["ai","human","dashboards","tickets","reports"].includes(requestedWorkspace) ? requestedWorkspace : "ai", false);
+            showWorkspace(["ai","human","dashboards","tickets","reports","chatbot","knowledge"].includes(requestedWorkspace) ? requestedWorkspace : "ai", false);
             updateDashboard(currentPeriod);
 
         }
