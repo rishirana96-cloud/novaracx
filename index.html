@@ -2200,6 +2200,59 @@
             *,*::before,*::after { animation-duration:.01ms!important; animation-iteration-count:1!important; scroll-behavior:auto!important; transition-duration:.01ms!important; }
         }
     </style>
+
+    <style id="chatbot-contrast-fixes">
+        /* Contrast-only corrections for the chatbot's light conversation canvas. */
+        .chatbot-messages-window { color:#17241c; }
+        .msg.agent {
+            background:#e4eee8;
+            border-color:#b7cbbf;
+            color:#17241c;
+        }
+        .msg.agent b,.msg.agent strong { color:#102017; }
+
+        .ticket-contact-card,
+        .ticket-choice-card,
+        .past-ticket-card {
+            background:#f7faf8!important;
+            border-color:#bfd0c5!important;
+            color:#1b2a22!important;
+        }
+        .ticket-contact-card strong,
+        .ticket-choice-card strong,
+        .past-ticket-card strong { color:#102017!important; }
+        .ticket-consent { color:#4f6057; }
+        .human-chat-status { color:#315f49; font-weight:650; }
+
+        .ticket-choice-btn {
+            background:#fff;
+            border-color:#b9c9bf;
+            color:#26372e;
+        }
+        .ticket-choice-btn:hover {
+            background:#edf4f0;
+            border-color:#6f9480;
+            color:#173023;
+        }
+        .ticket-choice-btn.primary,
+        .ticket-contact-submit {
+            background:#557d68;
+            border-color:#557d68;
+            color:#fff;
+        }
+        .ticket-choice-btn.primary:hover,
+        .ticket-contact-submit:hover { background:#446b57; border-color:#446b57; }
+
+        .rating-btn { color:#3f5047; }
+        .rating-btn.yes:hover { background:#e8f5ed; border-color:#258349; color:#176535; }
+        .rating-btn.no:hover { background:#faecea; border-color:#c44135; color:#a63128; }
+        .rating-btn.partial:hover { background:#fff6d9; border-color:#9c7911; color:#725807; }
+
+        .chatbot-input-window textarea::placeholder { color:#66746c; opacity:1; }
+        .quick-replies-window .qr-btn { color:#35463d; }
+        .chatbot-powered-by { color:#68756e; }
+        .chatbot-powered-by strong { color:#3e5046; }
+    </style>
 </head>
 
 <body>
