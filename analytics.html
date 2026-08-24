@@ -3405,6 +3405,42 @@
         @media(max-width:760px){.ticket-drawer-backdrop{--assist-width:0px}.agent-assist-panel{left:0!important;width:min(390px,calc(100% - 42px))!important;transform:translateX(-100%)}.agent-assist-panel:not(.collapsed){transform:translateX(0)}.ticket-drawer{left:0}.ticket-context-section.identity,.ticket-context-section.case{grid-template-columns:1fr 1fr}.ticket-custom-date-popover{grid-template-columns:1fr!important}.ticket-custom-date-popover .custom-date-actions,.ticket-custom-date-popover .custom-date-error{grid-column:1}}
         html[data-theme="light"] .ticket-queue-panel{background:#f6f8f6}.ticket-queue-card{background:var(--bg-card)}
     </style>
+    <style id="workspace-pdf-improvements">
+        /* PDF-requested workspace refinements */
+        .quick-settings-button svg{width:18px;height:18px}
+        .analytics-layout-settings.open{animation:workspaceReveal .18s ease-out}
+        @keyframes workspaceReveal{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:none}}
+        .ticket-pagination{display:flex;align-items:center;justify-content:center;gap:6px;min-height:58px;padding:12px 18px;border-top:1px solid var(--border)}
+        .ticket-pagination:empty{display:none}
+        .ticket-page-btn{min-width:34px;height:34px;padding:0 10px;border:1px solid var(--border);border-radius:9px;background:transparent;color:var(--text-secondary);font:inherit;font-size:10px;font-weight:700;cursor:pointer}
+        .ticket-page-btn:hover{border-color:var(--border-strong);background:var(--surface-hover);color:var(--text)}
+        .ticket-page-btn.active{border-color:var(--accent);background:var(--accent);color:#fff}
+        .ticket-page-btn:disabled{opacity:.35;cursor:not-allowed}
+        .ticket-queue-view{display:grid;gap:6px;margin-bottom:10px;color:var(--text-muted);font-size:8px;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
+        .ticket-queue-view select{width:100%;height:38px;padding:0 32px 0 10px;border:1px solid var(--border);border-radius:9px;background:var(--bg-card);color:var(--text);font:inherit;font-size:10px;font-weight:700;outline:none}
+        .ticket-queue-view select:focus{border-color:var(--accent)}
+        .agent-knowledge-suggestion{display:grid;grid-template-columns:30px minmax(0,1fr) 17px;align-items:center;gap:9px;margin:-7px 0 18px;padding:9px 11px;border:1px solid #d6dfd8;border-radius:10px;background:rgba(255,255,255,.7);color:#203027;text-decoration:none;transition:border-color .16s,background .16s,transform .16s}
+        .agent-knowledge-suggestion[hidden]{display:none!important}
+        .agent-knowledge-suggestion:hover{border-color:#9bb3a5;background:#fff;transform:translateY(-1px)}
+        .agent-knowledge-suggestion>span:nth-child(2){display:grid;gap:1px;min-width:0}
+        .agent-knowledge-suggestion small{color:#718078;font-size:8px;font-weight:750;letter-spacing:.06em;text-transform:uppercase}
+        .agent-knowledge-suggestion strong{overflow:hidden;color:#26372d;font-size:10px;text-overflow:ellipsis;white-space:nowrap}
+        .agent-knowledge-icon{display:grid;place-items:center;width:30px;height:30px;border-radius:8px;background:#e8f0eb;color:#315f4a;font-size:14px}
+        .agent-knowledge-suggestion svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+        .ticket-ai-details summary{display:flex;align-items:center;gap:9px}
+        .ticket-ai-summary-icon{width:18px;height:18px;flex:0 0 18px;fill:none;stroke:var(--accent);stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+        .ticket-action-row{justify-content:flex-end}
+        .ticket-action-btn.resolve{margin-left:0}
+        .ticket-custom-date-popover{width:min(318px,calc(100vw - 24px))!important}
+        .ticket-drawer-backdrop{background:rgba(5,9,7,.46);backdrop-filter:blur(1px)}
+        .ticket-queue-panel,.agent-assist-panel,.ticket-drawer{top:10px!important;bottom:10px!important}
+        .ticket-queue-panel{left:10px!important;border:1px solid var(--border);border-radius:16px 0 0 16px}
+        .agent-assist-panel{top:10px!important;bottom:10px!important;left:calc(var(--queue-width) + 10px)!important}
+        .ticket-drawer{left:calc(var(--queue-width) + var(--assist-width) + 10px)!important;right:10px!important;border:1px solid var(--border);border-radius:0 16px 16px 0;overflow:hidden}
+        @media(max-width:1060px){.ticket-drawer{border-radius:0 16px 16px 0}}
+        @media(max-width:1060px){.agent-assist-panel{left:10px!important}.ticket-drawer{left:calc(var(--assist-width) + 10px)!important}}
+        @media(max-width:760px){.agent-assist-panel{left:6px!important}.ticket-drawer{right:6px!important;left:6px!important;top:6px!important;bottom:6px!important;border-radius:15px}.ticket-queue-panel{left:6px!important}}
+    </style>
 </head>
 
 
@@ -3666,13 +3702,13 @@
 
                         </svg>
 
-                        Refresh
+                        <span id="refreshBtnLabel">Refresh</span>
 
                     </button>
 
                     <div class="quick-settings-wrap">
                         <button id="quickSettingsBtn" class="quick-settings-button" type="button" aria-label="Open Quick Settings" title="Quick Settings" aria-expanded="false" aria-controls="quickSettingsPanel">
-                            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h10M18 7h2M4 17h2M10 17h10"/><circle cx="16" cy="7" r="2"/><circle cx="8" cy="17" r="2"/></svg>
+                            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .34 1.88l.06.06-2.83 2.83-.06-.06A1.7 1.7 0 0 0 15 19.4a1.7 1.7 0 0 0-1 .6 1.7 1.7 0 0 0-.4 1.1V21h-4v-.09A1.7 1.7 0 0 0 8.6 19.4a1.7 1.7 0 0 0-1.88.34l-.06.06-2.83-2.83.06-.06A1.7 1.7 0 0 0 4.6 15a1.7 1.7 0 0 0-.6-1 1.7 1.7 0 0 0-1.1-.4H3v-4h.09A1.7 1.7 0 0 0 4.6 8.6a1.7 1.7 0 0 0-.34-1.88l-.06-.06 2.83-2.83.06.06A1.7 1.7 0 0 0 9 4.6a1.7 1.7 0 0 0 1-.6 1.7 1.7 0 0 0 .4-1.1V3h4v.09A1.7 1.7 0 0 0 15.4 4.6a1.7 1.7 0 0 0 1.88-.34l.06-.06 2.83 2.83-.06.06A1.7 1.7 0 0 0 19.4 9c.15.38.36.72.6 1 .3.28.69.42 1.1.4h.09v4h-.09a1.7 1.7 0 0 0-1.7.6Z"/></svg>
                         </button>
 
                         <div id="quickSettingsPanel" class="quick-settings-panel" role="dialog" aria-label="Quick settings">
@@ -4803,7 +4839,6 @@
                             <div class="table-title">All Tickets</div>
                             <div id="ticketTableSubtitle" class="table-subtitle">All tickets matching the selected view and filters</div>
                         </div>
-                        <button id="viewAllTickets" class="view-all" type="button">View all →</button>
                     </div>
 
                     <div class="table-wrapper">
@@ -4828,6 +4863,7 @@
                             </tbody>
                         </table>
                     </div>
+                    <nav id="ticketPagination" class="ticket-pagination" aria-label="Ticket pages"></nav>
                 </div>
 
             </section>
@@ -5387,6 +5423,7 @@ ORDER BY ticket_count DESC</textarea>
             <div><span>Current view</span><strong id="ticketQueueTitle">All Tickets</strong></div>
             <span id="ticketQueueCount" class="ticket-queue-count">0</span>
         </div>
+        <label class="ticket-queue-view"><span>Switch queue</span><select id="ticketQueueViewSelect" aria-label="Change ticket view"></select></label>
         <label class="ticket-queue-search"><span aria-hidden="true">⌕</span><input id="ticketQueueSearch" type="search" placeholder="Search this queue…" autocomplete="off"></label>
         <div id="ticketQueueList" class="ticket-queue-list"></div>
     </aside>
@@ -5410,6 +5447,11 @@ ORDER BY ticket_count DESC</textarea>
                 <button id="agentInsertSuggestion" class="agent-assist-btn" type="button" disabled>Insert into reply</button>
             </div>
         </div>
+        <a id="agentKnowledgeSuggestion" class="agent-knowledge-suggestion" href="#knowledge" hidden>
+            <span class="agent-knowledge-icon" aria-hidden="true">✦</span>
+            <span><small>Suggested knowledge article</small><strong id="agentKnowledgeTitle">Relevant article</strong></span>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 14 21 3M15 3h6v6"/><path d="M21 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h6"/></svg>
+        </a>
         <div class="agent-assist-section">
             <div class="agent-assist-section-head">
                 <div><div class="agent-assist-label">Improve your draft</div><div class="agent-assist-hint">Type or paste the message you want AI to refine</div></div>
@@ -5449,7 +5491,7 @@ ORDER BY ticket_count DESC</textarea>
         <div class="ticket-workspace-scroll">
             <div id="ticketContext" class="ticket-context"></div>
             <details class="ticket-ai-details">
-                <summary>AI conversation before handoff</summary>
+                <summary><svg class="ticket-ai-summary-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 14 8l5 2-5 2-2 5-2-5-5-2 5-2 2-5Z"/><path d="m19 16 .8 2.2L22 19l-2.2.8L19 22l-.8-2.2L16 19l2.2-.8L19 16Z"/></svg><span>AI conversation before handoff</span></summary>
                 <div id="ticketAiTranscript" class="ticket-ai-transcript"></div>
             </details>
             <div class="ticket-thread-label">Human support conversation</div>
@@ -5737,6 +5779,8 @@ ORDER BY ticket_count DESC</textarea>
         if (layoutControls) layoutControls.style.display = ["ai","human","tickets","reports"].includes(workspace) ? "flex" : "none";
         document.getElementById("lastUpdated").style.display = workspace === "chatbot" ? "none" : "flex";
         document.getElementById("refreshBtn").style.display = workspace === "chatbot" ? "none" : "inline-flex";
+        const refreshLabel = document.getElementById("refreshBtnLabel");
+        if (refreshLabel) refreshLabel.textContent = analyticsWorkspace ? "Sync Now" : "Refresh";
         document.getElementById("chatbotStatusControl")?.classList.toggle("open", workspace === "chatbot");
         if (!analyticsWorkspace) document.getElementById("analyticsLayoutSettings")?.classList.remove("open");
         const preserveKnowledgeArticle = workspace === "knowledge" && /^#knowledge\/article\/\d+$/.test(location.hash);
@@ -6624,7 +6668,7 @@ ORDER BY ticket_count DESC</textarea>
         escalation: "ticketFilterEscalation",
         query: "ticketFilterQuery"
     };
-    let ticketWorkspaceState = { source: [], filtered: [], activeView: "all" };
+    let ticketWorkspaceState = { source: [], filtered: [], activeView: "all", page: 1, pageSize: 10 };
 
     function readSavedTicketViews() {
         try {
@@ -6765,12 +6809,18 @@ ORDER BY ticket_count DESC</textarea>
 
     function updateTicketsTable(tickets) {
         const tbody = document.getElementById("ticketsBody");
+        const pagination = document.getElementById("ticketPagination");
         if (!tickets.length) {
             tbody.innerHTML = `<tr><td colspan="7"><div class="empty-state">No escalated tickets yet.</div></td></tr>`;
+            if (pagination) pagination.innerHTML = "";
             return;
         }
 
-        tbody.innerHTML = tickets.slice(0, 20).map(ticket => {
+        const pageSize = ticketWorkspaceState.pageSize;
+        const totalPages = Math.max(1, Math.ceil(tickets.length / pageSize));
+        ticketWorkspaceState.page = Math.min(Math.max(1, ticketWorkspaceState.page), totalPages);
+        const start = (ticketWorkspaceState.page - 1) * pageSize;
+        tbody.innerHTML = tickets.slice(start, start + pageSize).map(ticket => {
             const query = String(ticket.query || "—");
             const shortQuery = query.length > 52 ? `${query.substring(0, 52)}…` : query;
             const label = ticketStatusLabel(ticket.status, ticket.agent);
@@ -6791,6 +6841,24 @@ ORDER BY ticket_count DESC</textarea>
         tbody.querySelectorAll("tr[data-ticket-id]").forEach(row => {
             row.addEventListener("click", () => openTicket(Number(row.dataset.ticketId)));
         });
+
+        if (pagination) {
+            const current = ticketWorkspaceState.page;
+            const pages = Array.from({ length: totalPages }, (_, index) => index + 1)
+                .filter(page => totalPages <= 7 || page === 1 || page === totalPages || Math.abs(page - current) <= 2);
+            let previous = 0;
+            const numbered = pages.map(page => {
+                const gap = previous && page - previous > 1 ? `<span class="ticket-page-gap">…</span>` : "";
+                previous = page;
+                return `${gap}<button class="ticket-page-btn ${page === current ? "active" : ""}" type="button" data-ticket-page="${page}" aria-label="Page ${page}" ${page === current ? 'aria-current="page"' : ""}>${page}</button>`;
+            }).join("");
+            pagination.innerHTML = totalPages > 1 ? `<button class="ticket-page-btn" type="button" data-ticket-page="${current - 1}" ${current === 1 ? "disabled" : ""} aria-label="Previous page">‹</button>${numbered}<button class="ticket-page-btn" type="button" data-ticket-page="${current + 1}" ${current === totalPages ? "disabled" : ""} aria-label="Next page">›</button>` : `<span class="table-subtitle">Page 1 of 1</span>`;
+            pagination.querySelectorAll("[data-ticket-page]").forEach(button => button.addEventListener("click", () => {
+                ticketWorkspaceState.page = Number(button.dataset.ticketPage);
+                updateTicketsTable(ticketWorkspaceState.filtered);
+                document.querySelector("#panel-tickets .table-card")?.scrollIntoView({ behavior:"smooth", block:"start" });
+            }));
+        }
     }
 
     document.getElementById("ticketFilterToggle")?.addEventListener("click", () => {
@@ -6803,6 +6871,7 @@ ORDER BY ticket_count DESC</textarea>
         const element = document.getElementById(id);
         element?.addEventListener(element.tagName === "SELECT" ? "change" : "input", () => {
             ticketWorkspaceState.activeView = "all";
+            ticketWorkspaceState.page = 1;
             document.getElementById("ticketViewSelect").value = "all";
             refreshTicketWorkspace();
         });
@@ -6817,6 +6886,7 @@ ORDER BY ticket_count DESC</textarea>
         } else {
             applyTicketFilterValues(value.startsWith("status:") ? { status:value.slice(7) } : {});
         }
+        ticketWorkspaceState.page = 1;
         refreshTicketWorkspace();
     });
 
@@ -10439,6 +10509,11 @@ ORDER BY created_date DESC, ticket_count DESC`;
         const rows = (ticketWorkspaceState.filtered || ticketWorkspaceState.source || []).filter(ticket => !query || [ticket.id,ticket.customer,ticket.query,ticket.phone].some(value => String(value || "").toLowerCase().includes(query)));
         const select = document.getElementById("ticketViewSelect");
         document.getElementById("ticketQueueTitle").textContent = select?.selectedOptions?.[0]?.textContent || "Tickets";
+        const queueSelect = document.getElementById("ticketQueueViewSelect");
+        if (queueSelect && select) {
+            queueSelect.innerHTML = select.innerHTML;
+            queueSelect.value = select.value;
+        }
         document.getElementById("ticketQueueCount").textContent = rows.length;
         list.innerHTML = rows.length ? rows.slice(0,80).map(ticket => {
             const created = ticket.createdAt ? new Date(String(ticket.createdAt).includes("T") ? ticket.createdAt : `${String(ticket.createdAt).replace(" ","T")}Z`) : null;
@@ -10447,6 +10522,54 @@ ORDER BY created_date DESC, ticket_count DESC`;
         }).join("") : `<div class="ticket-queue-empty">No tickets match this queue.</div>`;
         list.querySelectorAll("[data-queue-ticket-id]").forEach(button => button.addEventListener("click", () => openTicket(Number(button.dataset.queueTicketId))));
     }
+
+    document.getElementById("ticketQueueViewSelect")?.addEventListener("change", event => {
+        const mainSelect = document.getElementById("ticketViewSelect");
+        if (!mainSelect) return;
+        mainSelect.value = event.target.value;
+        mainSelect.dispatchEvent(new Event("change", { bubbles:true }));
+        renderTicketQueue(document.getElementById("ticketQueueSearch")?.value);
+    });
+
+    let suggestedKnowledgeArticleId = null;
+    async function updateSuggestedKnowledgeArticle(ticket) {
+        const bar = document.getElementById("agentKnowledgeSuggestion");
+        if (!bar) return;
+        bar.hidden = true;
+        suggestedKnowledgeArticleId = null;
+        try {
+            if (!knowledgeState.articles.length) {
+                const response = await adminApi("/admin/knowledge");
+                knowledgeState = { articles:response.articles || [], summary:response.summary || {} };
+            }
+            const words = new Set(`${ticket.customer_query || ""} ${ticket.intent || ""} ${ticket.escalation_reason || ""}`.toLowerCase().match(/[a-z0-9]{3,}/g) || []);
+            const ranked = knowledgeState.articles
+                .filter(article => String(article.status || "published") === "published")
+                .map(article => {
+                    const haystack = `${article.title || ""} ${article.customer_question || ""} ${article.keywords || ""} ${article.category || ""}`.toLowerCase();
+                    return { article, score:[...words].reduce((score, word) => score + (haystack.includes(word) ? 1 : 0), 0) };
+                })
+                .sort((a,b) => b.score - a.score || Number(b.article.priority || 0) - Number(a.article.priority || 0));
+            const match = ranked[0]?.article;
+            if (!match) return;
+            suggestedKnowledgeArticleId = Number(match.id);
+            document.getElementById("agentKnowledgeTitle").textContent = match.title || match.customer_question || "Open relevant article";
+            bar.href = `#knowledge/article/${encodeURIComponent(match.id)}`;
+            bar.hidden = false;
+        } catch (_) {
+            bar.hidden = true;
+        }
+    }
+
+    document.getElementById("agentKnowledgeSuggestion")?.addEventListener("click", async event => {
+        if (!suggestedKnowledgeArticleId) return;
+        event.preventDefault();
+        closeTicket();
+        history.replaceState(null, "", `#knowledge/article/${suggestedKnowledgeArticleId}`);
+        showWorkspace("knowledge", false);
+        await loadKnowledgeBase();
+        openKnowledgeViewer(suggestedKnowledgeArticleId);
+    });
 
     async function openTicket(ticketId) {
         if (!ticketId) return;
@@ -10539,6 +10662,7 @@ ORDER BY created_date DESC, ticket_count DESC`;
                     <div class="ticket-context-item"><span>Sentiment</span>${escapeHtml(ticket.sentiment || "—")}</div>
                 </div>
             `;
+            updateSuggestedKnowledgeArticle(ticket);
 
             const cleanTicketText = value => String(value || "")
                 .replace(/\[✅ Yes\]\s*\[❌ No\]\s*\[🔄 Not really\]/g, "")
@@ -10840,12 +10964,112 @@ ORDER BY created_date DESC, ticket_count DESC`;
     document.getElementById("ticketConfirmResolution").addEventListener("click", () => runTicketAction("resolve"));
     document.getElementById("ticketReopen").addEventListener("click", () => runTicketAction("reopen"));
     document.getElementById("ticketSaveNote").addEventListener("click", () => runTicketAction("note"));
-    setInterval(() => {
-        if (!document.hidden && openTicketId && document.getElementById("ticketDrawerBackdrop")?.classList.contains("open")) loadOpenTicket();
-    }, 10000);
+    let ticketDetailPollTimer = null;
+    function scheduleTicketDetailPoll() {
+        if (ticketDetailPollTimer) clearTimeout(ticketDetailPollTimer);
+        const interval = Number(localStorage.getItem("novara_auto_refresh_interval") || 1800000);
+        if (interval <= 0) return;
+        ticketDetailPollTimer = setTimeout(async () => {
+            if (!document.hidden && openTicketId && document.getElementById("ticketDrawerBackdrop")?.classList.contains("open")) await loadOpenTicket();
+            scheduleTicketDetailPoll();
+        }, interval);
+    }
+    scheduleTicketDetailPoll();
     document.addEventListener("visibilitychange", () => {
         if (!document.hidden && openTicketId && document.getElementById("ticketDrawerBackdrop")?.classList.contains("open")) loadOpenTicket();
+        scheduleTicketDetailPoll();
     });
+
+    function initializeDashboardControls() {
+        if (document.body.dataset.dashboardControlsReady === "true") return;
+        document.body.dataset.dashboardControlsReady = "true";
+
+        const refreshButton = document.getElementById("refreshBtn");
+        refreshButton?.addEventListener("click", async () => {
+            if (dashboardUpdateRunning) return;
+            refreshButton.classList.add("spinning");
+            try { await updateDashboard(currentPeriod); }
+            finally { refreshButton.classList.remove("spinning"); }
+        });
+
+        const popover = document.getElementById("customDatePopover");
+        const startInput = document.getElementById("customDateStart");
+        const endInput = document.getElementById("customDateEnd");
+        const today = new Intl.DateTimeFormat("en-CA", { timeZone:"Asia/Kolkata", year:"numeric", month:"2-digit", day:"2-digit" }).format(new Date());
+        [startInput,endInput].forEach(input => { if (input) input.max = today; });
+        document.getElementById("customDateBtn")?.addEventListener("click", event => {
+            event.stopPropagation();
+            startInput.value = currentDateRange?.start || "";
+            endInput.value = currentDateRange?.end || "";
+            popover?.classList.toggle("open");
+        });
+        document.getElementById("applyCustomDate")?.addEventListener("click", () => {
+            const error = document.getElementById("customDateError");
+            const start = startInput.value, end = endInput.value;
+            error.textContent = "";
+            if (!start || !end) { error.textContent = "Select both dates."; return; }
+            if (start > end) { error.textContent = "From date must be before To date."; return; }
+            if (end > today) { error.textContent = "Future dates are not allowed."; return; }
+            currentDateRange = { start,end };
+            localStorage.setItem("novara_analytics_date_range", JSON.stringify(currentDateRange));
+            popover.classList.remove("open");
+            updateDashboard(currentPeriod);
+        });
+        document.getElementById("clearCustomDate")?.addEventListener("click", () => {
+            currentDateRange = null;
+            localStorage.removeItem("novara_analytics_date_range");
+            startInput.value = endInput.value = "";
+            document.getElementById("customDateError").textContent = "";
+            popover?.classList.remove("open");
+            updateDashboard(currentPeriod);
+        });
+        document.addEventListener("click", event => {
+            if (popover && !popover.contains(event.target) && event.target.id !== "customDateBtn") popover.classList.remove("open");
+        });
+
+        const settings = document.getElementById("analyticsLayoutSettings");
+        document.getElementById("customizeLayoutBtn")?.addEventListener("click", () => {
+            if (currentTab === "reports") { document.getElementById("reportLayoutMenu")?.classList.toggle("open"); return; }
+            if (["ai","human","dashboards"].includes(currentTab)) settings?.classList.toggle("open");
+        });
+        document.getElementById("closeAnalyticsLayoutSettings")?.addEventListener("click", () => settings?.classList.remove("open"));
+
+        let dragged = null;
+        const activeCards = () => [...(document.querySelector(".view-panel.active")?.querySelectorAll(".kpi-card,.chart-card,.table-card") || [])];
+        function setLayoutMode(editing) {
+            document.body.classList.toggle("layout-editing", editing);
+            activeCards().forEach(card => { card.classList.add("layout-card"); card.draggable = editing; });
+            document.getElementById("customizeLayoutBtn").hidden = editing;
+            ["saveLayoutBtn","cancelLayoutBtn","resetLayoutBtn"].forEach(id => { document.getElementById(id).hidden = !editing; });
+        }
+        document.getElementById("arrangeAnalyticsCards")?.addEventListener("click", () => { settings?.classList.remove("open"); setLayoutMode(true); });
+        document.addEventListener("dragstart", event => { if (document.body.classList.contains("layout-editing")) dragged = event.target.closest(".layout-card"); });
+        document.addEventListener("dragover", event => {
+            const target = event.target.closest(".layout-card");
+            if (!dragged || !target || target === dragged || target.parentElement !== dragged.parentElement) return;
+            event.preventDefault();
+            const rect = target.getBoundingClientRect();
+            target.parentElement.insertBefore(dragged, event.clientY < rect.top + rect.height / 2 ? target : target.nextSibling);
+        });
+        document.addEventListener("dragend", () => { dragged = null; });
+        document.getElementById("saveLayoutBtn")?.addEventListener("click", () => {
+            const panel = document.querySelector(".view-panel.active");
+            if (panel) localStorage.setItem(`novara_simple_layout_${panel.id}`, JSON.stringify(activeCards().map(card => card.id || card.dataset.layoutId || "")));
+            setLayoutMode(false);
+        });
+        document.getElementById("cancelLayoutBtn")?.addEventListener("click", () => { setLayoutMode(false); updateDashboard(currentPeriod); });
+        document.getElementById("resetLayoutBtn")?.addEventListener("click", () => {
+            const panel = document.querySelector(".view-panel.active");
+            if (panel) localStorage.removeItem(`novara_simple_layout_${panel.id}`);
+            setLayoutMode(false); location.reload();
+        });
+        document.getElementById("resetAnalyticsAppearance")?.addEventListener("click", () => {
+            selectedReportPalette = "novara";
+            localStorage.removeItem("novara_analytics_palette");
+            localStorage.removeItem("novara_analytics_custom_colors");
+            renderReportPalettePicker(); applyAnalyticsChartPalette();
+        });
+    }
 
 
     /* =====================================================
@@ -11238,11 +11462,14 @@ ORDER BY created_date DESC, ticket_count DESC`;
         const interval = Number(value);
         localStorage.setItem("novara_auto_refresh_interval", String(interval));
         if (autoRefreshTimer) clearInterval(autoRefreshTimer);
-        autoRefreshTimer = interval > 0 ? setInterval(refreshDashboard, interval) : null;
+        autoRefreshTimer = interval > 0 ? setInterval(() => {
+            if (!document.hidden && !openTicketId && !dashboardUpdateRunning) updateDashboard(currentPeriod);
+        }, interval) : null;
+        if (typeof scheduleTicketDetailPoll === "function") scheduleTicketDetailPoll();
     }
 
     const autoRefreshSelect = document.getElementById("autoRefreshSelect");
-    const storedRefreshInterval = localStorage.getItem("novara_auto_refresh_interval") || "30000";
+    const storedRefreshInterval = localStorage.getItem("novara_auto_refresh_interval") || "1800000";
     if ([...autoRefreshSelect.options].some(option => option.value === storedRefreshInterval)) autoRefreshSelect.value = storedRefreshInterval;
     configureAutoRefresh(autoRefreshSelect.value);
     autoRefreshSelect.addEventListener("change", event => configureAutoRefresh(event.target.value));
@@ -11457,6 +11684,7 @@ ORDER BY created_date DESC, ticket_count DESC`;
         "DOMContentLoaded",
         () => {
             document.body.classList.add("ui-ready");
+            initializeDashboardControls();
             document.querySelectorAll(".kpi-card[data-kpi-drilldown], .ticket-kpi-card").forEach(card => {
                 if (!card.hasAttribute("tabindex")) card.tabIndex = 0;
                 if (!card.hasAttribute("role")) card.setAttribute("role", "button");
