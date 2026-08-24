@@ -1,5 +1,4 @@
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -3473,6 +3472,23 @@
         @media(max-width:1180px){.ticket-drawer-backdrop{--queue-width:250px;--assist-width:390px}.ticket-status-select{max-width:125px}.ticket-agent-select{max-width:150px}}
         @media(max-width:900px){#panel-reports.sql-runner-mode .reports-shell{grid-template-columns:1fr!important}.sql-studio-sidebar{display:none!important}#panel-reports.sql-runner-mode .report-builder-card,#panel-reports.sql-runner-mode .report-results-column{grid-column:1}.ticket-head-controls{margin-left:0;width:100%}}
     </style>
+    <style id="workspace-pdf3-improvements">
+        /* Ticket workspace refinements requested in Untitled document (3).pdf */
+        .ticket-view-control{min-width:0;padding:7px 8px 7px 14px;border:1px solid var(--border);border-radius:13px;background:var(--bg-card);box-shadow:none!important}
+        .ticket-view-control>span{font-size:8px!important;color:var(--text-muted)!important;letter-spacing:.1em}.ticket-view-control select{min-width:190px;min-height:38px;border:0;background:transparent;font-size:11px!important;font-weight:750!important;box-shadow:none}
+        .ticket-pagination{position:relative;justify-content:center;padding-inline:140px}.ticket-page-summary{position:absolute;right:20px;margin:0!important}.ticket-page-label{min-width:72px;color:var(--text-muted);font-size:10px;text-align:center}
+        .ticket-title-copy .ticket-drawer-title,.ticket-queue-card strong,.ticket-id{font-weight:850!important;letter-spacing:.01em}
+        .ticket-agent-select{min-width:180px;height:30px!important;padding-block:0;border:0;background:transparent;box-shadow:none}.ticket-assignment{display:grid!important;grid-template-columns:32px minmax(0,1fr);gap:9px!important;width:max-content;min-width:235px;padding:7px 9px!important;border:1px solid var(--border);border-radius:11px;background:var(--surface)}.ticket-assignment-avatar{grid-row:1/3;display:grid;place-items:center;width:32px;height:32px;border-radius:9px;background:color-mix(in srgb,var(--accent) 16%,var(--bg-card));color:var(--accent);font-size:10px;font-weight:900}.ticket-assignment-copy{display:grid;gap:0}.ticket-assignment-copy small{padding-left:10px;color:var(--text-muted);font-size:7px;font-weight:800;letter-spacing:.09em;text-transform:uppercase}
+        .ticket-status-select{position:absolute!important;width:1px!important;height:1px!important;overflow:hidden!important;clip:rect(0 0 0 0)!important;white-space:nowrap!important}
+        .ticket-status-control{position:relative;--status-colour:#4d9b70}.ticket-status-control[data-status="in_progress"]{--status-colour:#4f83cc}.ticket-status-control[data-status="pending"]{--status-colour:#d39a3d}.ticket-status-control[data-status="resolved"]{--status-colour:#718078}.ticket-status-control[data-status="reopened"]{--status-colour:#8b68bd}.ticket-status-trigger{display:flex;align-items:center;justify-content:space-between;gap:12px;min-width:142px;height:40px;padding:0 12px;border:1px solid color-mix(in srgb,var(--status-colour) 42%,var(--border));border-radius:11px;background:color-mix(in srgb,var(--status-colour) 13%,var(--bg-card));color:var(--text);font:inherit;font-size:11px;font-weight:800;cursor:pointer}.ticket-status-trigger::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--status-colour)}.ticket-status-trigger svg{width:15px;height:15px;margin-left:auto;fill:none;stroke:currentColor;stroke-width:2;transition:transform .16s}.ticket-status-control.open .ticket-status-trigger svg{transform:rotate(180deg)}
+        .ticket-status-menu{position:absolute;top:calc(100% + 7px);right:0;z-index:30;display:none;width:190px;padding:7px;border:1px solid var(--border);border-radius:12px;background:var(--bg-card);box-shadow:0 18px 45px rgba(0,0,0,.22)}.ticket-status-control.open .ticket-status-menu{display:grid;gap:4px}.ticket-status-option{display:flex;align-items:center;gap:9px;width:100%;padding:9px 10px;border:0;border-radius:8px;background:transparent;color:var(--text-secondary);font:inherit;font-size:10px;font-weight:750;text-align:left;cursor:pointer}.ticket-status-option:hover,.ticket-status-option.active{background:var(--surface-hover);color:var(--text)}.ticket-status-swatch{width:5px;height:22px;border-radius:999px;background:var(--status-colour)}.ticket-status-option[data-value="open"]{--status-colour:#4d9b70}.ticket-status-option[data-value="in_progress"]{--status-colour:#4f83cc}.ticket-status-option[data-value="pending"]{--status-colour:#d39a3d}.ticket-status-option[data-value="resolved"]{--status-colour:#718078}.ticket-status-option[data-value="reopened"]{--status-colour:#8b68bd}.ticket-status-option.active::after{content:"✓";margin-left:auto;color:var(--status-colour);font-weight:900}
+        .ticket-tag{position:relative;padding-left:10px}.ticket-tag::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--tag-colour,var(--accent))}.ticket-tag-popover{position:absolute;top:calc(100% + 7px);left:0;z-index:25;display:none;width:230px;padding:12px;border:1px solid var(--border);border-radius:12px;background:var(--bg-card);box-shadow:0 18px 45px rgba(0,0,0,.22)}.ticket-tag-popover.open{display:grid;gap:10px}.ticket-tag-popover input{width:100%;height:38px;padding:0 10px;border:1px solid var(--border);border-radius:9px;background:var(--surface);color:var(--text);font:inherit;font-size:10px;outline:0}.ticket-tag-colours{display:flex;gap:7px}.ticket-tag-colour{width:25px;height:25px;border:2px solid transparent;border-radius:50%;background:var(--tag-colour);cursor:pointer}.ticket-tag-colour.active{border-color:var(--text);box-shadow:0 0 0 2px var(--bg-card)}.ticket-tag-submit{height:34px;border:0;border-radius:8px;background:var(--accent);color:#fff;font:inherit;font-size:10px;font-weight:800;cursor:pointer}
+        .ticket-thread-message.agent,.ticket-thread-message.ai{align-self:flex-end}.ticket-thread-message.customer{align-self:flex-start}.ticket-thread-message.agent,.ticket-thread-message.ai{border-color:color-mix(in srgb,var(--accent) 45%,var(--border));background:color-mix(in srgb,var(--accent) 13%,var(--bg-card))}.ticket-thread-message.customer{background:var(--bg-card)}
+        .ticket-composer-tabs{display:inline-flex;width:max-content;padding:4px;border:1px solid var(--border);border-radius:11px;background:var(--surface)}.ticket-composer-tab{min-height:36px;padding:0 14px;border-radius:8px}.ticket-composer-tab.active{background:var(--bg-card);box-shadow:0 3px 12px rgba(0,0,0,.08)}
+        .ticket-reply-shell{min-height:92px;border-radius:20px}.ticket-reply-shell textarea{min-height:72px!important;padding:17px 52px 17px 18px!important}.ticket-send-arrow{width:48px;height:48px;flex-basis:48px}.ticket-emoji-btn{right:10px;bottom:12px}.ticket-emoji-btn svg{width:22px;height:22px}.ticket-reply-pane>.ticket-action-row{display:none!important}.ticket-action-error:not(:empty){margin-top:8px}
+        .native-dialog-backdrop{position:fixed;inset:0;z-index:3000;display:none;place-items:center;padding:20px;background:rgba(5,10,7,.48)}.native-dialog-backdrop.open{display:grid}.native-dialog{width:min(400px,100%);padding:20px;border:1px solid var(--border);border-radius:16px;background:var(--bg-card);box-shadow:0 24px 70px rgba(0,0,0,.28)}.native-dialog h3{margin:0 0 7px;font-size:17px}.native-dialog p{margin:0 0 15px;color:var(--text-muted);font-size:10px;line-height:1.5}.native-dialog input{width:100%;height:42px;padding:0 12px;border:1px solid var(--border);border-radius:10px;background:var(--surface);color:var(--text);font:inherit}.native-dialog-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:16px}.native-dialog-actions button{min-height:38px;padding:0 14px;border:1px solid var(--border);border-radius:9px;background:transparent;color:var(--text);font:inherit;font-size:10px;font-weight:750;cursor:pointer}.native-dialog-actions .primary{border-color:var(--accent);background:var(--accent);color:#fff}
+        @media(max-width:720px){.ticket-pagination{padding:12px}.ticket-page-summary{position:static;width:100%;order:3;text-align:center}.ticket-pagination{flex-wrap:wrap}.ticket-assignment{width:100%}.ticket-agent-select{min-width:0;flex:1}.ticket-status-menu{right:auto;left:0}}
+    </style>
 </head>
 
 
@@ -5522,9 +5538,22 @@ ORDER BY ticket_count DESC</textarea>
                     <span class="ticket-title-copy"><span id="ticketDrawerTitle" class="ticket-drawer-title">Ticket</span><button id="ticketCopyId" class="ticket-copy-id" type="button" aria-label="Copy ticket number" title="Copy ticket number"><svg viewBox="0 0 24 24"><rect x="8" y="8" width="11" height="11" rx="2"></rect><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"></path></svg></button></span>
                     <div id="ticketTags" class="ticket-tags"></div>
                 </div>
-                <div class="ticket-assignment"><strong>Assigned to →</strong><select id="ticketAgentSelect" class="ticket-agent-select" aria-label="Assigned agent"><option>Novara CX Support</option></select></div>
+                <div class="ticket-assignment"><span class="ticket-assignment-avatar" aria-hidden="true">NC</span><span class="ticket-assignment-copy"><small>Assigned agent</small><select id="ticketAgentSelect" class="ticket-agent-select" aria-label="Assigned agent"><option>Novara CX Support</option></select></span></div>
             </div>
-            <div class="ticket-head-controls"><select id="ticketStatusSelect" class="ticket-status-select" aria-label="Ticket status"><option value="open">Open</option><option value="in_progress">In progress</option><option value="pending">Pending</option><option value="resolved">Closed</option><option value="reopened">Reopened</option></select><button id="ticketDrawerClose" class="ticket-close" type="button" aria-label="Close ticket">✕</button></div>
+            <div class="ticket-head-controls">
+                <div id="ticketStatusControl" class="ticket-status-control">
+                    <select id="ticketStatusSelect" class="ticket-status-select" aria-label="Ticket status"><option value="open">Open</option><option value="in_progress">In progress</option><option value="pending">Pending</option><option value="resolved">Resolved</option><option value="reopened">Reopened</option></select>
+                    <button id="ticketStatusTrigger" class="ticket-status-trigger" type="button" aria-haspopup="listbox" aria-expanded="false"><span id="ticketStatusTriggerLabel">Open</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
+                    <div id="ticketStatusMenu" class="ticket-status-menu" role="listbox" aria-label="Change ticket status">
+                        <button class="ticket-status-option" data-value="open" type="button"><span class="ticket-status-swatch"></span>Open</button>
+                        <button class="ticket-status-option" data-value="in_progress" type="button"><span class="ticket-status-swatch"></span>In progress</button>
+                        <button class="ticket-status-option" data-value="pending" type="button"><span class="ticket-status-swatch"></span>Pending</button>
+                        <button class="ticket-status-option" data-value="resolved" type="button"><span class="ticket-status-swatch"></span>Resolved</button>
+                        <button class="ticket-status-option" data-value="reopened" type="button"><span class="ticket-status-swatch"></span>Reopened</button>
+                    </div>
+                </div>
+                <button id="ticketDrawerClose" class="ticket-close" type="button" aria-label="Close ticket">✕</button>
+            </div>
         </div>
 
         <div class="ticket-workspace-scroll">
@@ -5548,7 +5577,7 @@ ORDER BY ticket_count DESC</textarea>
                     <div class="ticket-reply-shell">
                         <textarea id="ticketReplyText" placeholder="Reply to customer…"></textarea>
                         <button id="ticketEmojiButton" class="ticket-emoji-btn" type="button" aria-label="Add emoji" title="Add emoji">
-                            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M8.5 14.5s1.2 2 3.5 2 3.5-2 3.5-2"></path><path d="M9 9h.01M15 9h.01"></path></svg>
+                            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><circle cx="9" cy="10" r="1"></circle><circle cx="15" cy="10" r="1"></circle><path d="M8.5 14.5c1 1 2.1 1.5 3.5 1.5s2.5-.5 3.5-1.5"></path></svg>
                         </button>
                     </div>
                     <button id="ticketSendReply" class="ticket-send-arrow" type="button" aria-label="Send reply" disabled>
@@ -5589,6 +5618,19 @@ ORDER BY ticket_count DESC</textarea>
             </div>
         </div>
     </aside>
+</div>
+
+
+<div id="nativeDialogBackdrop" class="native-dialog-backdrop" aria-hidden="true">
+    <section class="native-dialog" role="dialog" aria-modal="true" aria-labelledby="nativeDialogTitle">
+        <h3 id="nativeDialogTitle">Confirm action</h3>
+        <p id="nativeDialogMessage"></p>
+        <input id="nativeDialogInput" type="text" hidden>
+        <div class="native-dialog-actions">
+            <button id="nativeDialogCancel" type="button">Cancel</button>
+            <button id="nativeDialogConfirm" class="primary" type="button">Continue</button>
+        </div>
+    </section>
 </div>
 
 
@@ -6891,7 +6933,7 @@ ORDER BY ticket_count DESC</textarea>
                 previous = page;
                 return `${gap}<button class="ticket-page-btn ${page === current ? "active" : ""}" type="button" data-ticket-page="${page}" aria-label="Page ${page}" ${page === current ? 'aria-current="page"' : ""}>${page}</button>`;
             }).join("");
-            pagination.innerHTML = `<span class="ticket-page-summary">${tickets.length.toLocaleString("en-IN")} total records</span><button class="ticket-page-btn" type="button" data-ticket-page="${current - 1}" ${current === 1 ? "disabled" : ""} aria-label="Previous page">‹</button>${numbered}<button class="ticket-page-btn" type="button" data-ticket-page="${current + 1}" ${current === totalPages ? "disabled" : ""} aria-label="Next page">›</button>`;
+            pagination.innerHTML = `<button class="ticket-page-btn" type="button" data-ticket-page="${current - 1}" ${current === 1 ? "disabled" : ""} aria-label="Previous page">‹</button>${numbered}<span class="ticket-page-label">Page ${current} of ${totalPages}</span><button class="ticket-page-btn" type="button" data-ticket-page="${current + 1}" ${current === totalPages ? "disabled" : ""} aria-label="Next page">›</button><span class="ticket-page-summary">${tickets.length.toLocaleString("en-IN")} total records</span>`;
             pagination.querySelectorAll("[data-ticket-page]").forEach(button => button.addEventListener("click", () => {
                 ticketWorkspaceState.page = Number(button.dataset.ticketPage);
                 updateTicketsTable(ticketWorkspaceState.filtered);
@@ -10508,14 +10550,38 @@ ORDER BY created_date DESC, ticket_count DESC`;
         persistDashboardWidgets(dashboards,active); renderCustomDashboard(); setDashboardStatus("Report added to dashboard.");
     }
 
-    function createNamedDashboard() {
-        const name = prompt("Name your new dashboard:", "New Dashboard")?.trim(); if (!name) return;
+    function openNativeDialog({ title, message = "", value = "", input = false, confirmLabel = "Continue", cancelLabel = "Cancel" }) {
+        return new Promise(resolve => {
+            const backdrop = document.getElementById("nativeDialogBackdrop");
+            const field = document.getElementById("nativeDialogInput");
+            const confirmButton = document.getElementById("nativeDialogConfirm");
+            const cancelButton = document.getElementById("nativeDialogCancel");
+            document.getElementById("nativeDialogTitle").textContent = title;
+            document.getElementById("nativeDialogMessage").textContent = message;
+            confirmButton.textContent = confirmLabel;
+            cancelButton.textContent = cancelLabel;
+            field.hidden = !input;
+            field.value = value;
+            backdrop.classList.add("open"); backdrop.setAttribute("aria-hidden", "false");
+            const finish = result => { backdrop.classList.remove("open"); backdrop.setAttribute("aria-hidden", "true"); cleanup(); resolve(result); };
+            const accept = () => finish(input ? field.value.trim() : true);
+            const cancel = () => finish(input ? "" : false);
+            const keyboard = event => { if (event.key === "Escape") cancel(); if (event.key === "Enter" && (!input || document.activeElement === field)) accept(); };
+            const outside = event => { if (event.target === backdrop) cancel(); };
+            const cleanup = () => { confirmButton.removeEventListener("click", accept); cancelButton.removeEventListener("click", cancel); backdrop.removeEventListener("click", outside); document.removeEventListener("keydown", keyboard); };
+            confirmButton.addEventListener("click", accept); cancelButton.addEventListener("click", cancel); backdrop.addEventListener("click", outside); document.addEventListener("keydown", keyboard);
+            requestAnimationFrame(() => (input ? field : confirmButton).focus());
+        });
+    }
+
+    async function createNamedDashboard() {
+        const name = await openNativeDialog({ title:"New dashboard", message:"Give this dashboard a clear, memorable name.", value:"New Dashboard", input:true, confirmLabel:"Create dashboard" }); if (!name) return;
         const dashboards = loadCustomDashboards(); const dashboard = {id:`dashboard_${Date.now()}`,name,widgets:[]};
         dashboards.push(dashboard); saveCustomDashboards(dashboards); localStorage.setItem(DASHBOARD_ACTIVE_KEY,dashboard.id); renderCustomDashboard();
     }
 
-    function renameActiveDashboard() {
-        const dashboards=loadCustomDashboards(); const active=activeCustomDashboard(dashboards); const name=prompt("Rename dashboard:",active.name)?.trim(); if(!name)return;
+    async function renameActiveDashboard() {
+        const dashboards=loadCustomDashboards(); const active=activeCustomDashboard(dashboards); const name=await openNativeDialog({ title:"Rename dashboard", message:"Choose the name shown in your workspace.", value:active.name, input:true, confirmLabel:"Save name" }); if(!name)return;
         active.name=name; persistDashboardWidgets(dashboards,active); renderCustomDashboard();
     }
 
@@ -10524,10 +10590,10 @@ ORDER BY created_date DESC, ticket_count DESC`;
         dashboards.push(clone); saveCustomDashboards(dashboards); localStorage.setItem(DASHBOARD_ACTIVE_KEY,clone.id); renderCustomDashboard();
     }
 
-    function deleteActiveDashboard() {
+    async function deleteActiveDashboard() {
         let dashboards=loadCustomDashboards(); const active=activeCustomDashboard(dashboards);
         if(dashboards.length===1){ active.widgets=[]; active.name="My Dashboard"; persistDashboardWidgets(dashboards,active); renderCustomDashboard(); setDashboardStatus("The default dashboard was cleared."); return; }
-        if(!confirm(`Delete “${active.name}”? Saved reports will not be deleted.`))return;
+        if(!await openNativeDialog({ title:`Delete ${active.name}?`, message:"Saved reports will not be deleted.", confirmLabel:"Delete dashboard" }))return;
         dashboards=dashboards.filter(item=>item.id!==active.id); saveCustomDashboards(dashboards); localStorage.setItem(DASHBOARD_ACTIVE_KEY,dashboards[0].id); renderCustomDashboard();
     }
 
@@ -10660,9 +10726,24 @@ ORDER BY created_date DESC, ticket_count DESC`;
     function renderTicketTags(ticketId){
         const host=document.getElementById("ticketTags"); if(!host)return;
         let tags=[]; try{tags=JSON.parse(localStorage.getItem(ticketTagsKey(ticketId))||"[]")}catch(_){tags=[]}
-        host.innerHTML=tags.map((tag,index)=>`<span class="ticket-tag">${escapeHtml(tag)}<button type="button" data-remove-ticket-tag="${index}" aria-label="Remove ${escapeHtml(tag)}">×</button></span>`).join("")+`<button class="ticket-add-tag" type="button" id="ticketAddTag">+ Tag</button>`;
+        tags=tags.map(tag=>typeof tag==="string"?{text:tag,color:"#477b62"}:tag).filter(tag=>tag?.text);
+        host.innerHTML=tags.map((tag,index)=>`<span class="ticket-tag" style="--tag-colour:${escapeHtml(tag.color||"#477b62")}">${escapeHtml(tag.text)}<button type="button" data-remove-ticket-tag="${index}" aria-label="Remove ${escapeHtml(tag.text)}">×</button></span>`).join("")+`<span style="position:relative"><button class="ticket-add-tag" type="button" id="ticketAddTag">+ Tag</button><span id="ticketTagPopover" class="ticket-tag-popover"><input id="ticketTagInput" type="text" maxlength="30" placeholder="Tag name"><span class="ticket-tag-colours">${["#477b62","#4f83cc","#d39a3d","#c95f59","#8b68bd","#718078"].map((color,index)=>`<button class="ticket-tag-colour ${index===0?"active":""}" style="--tag-colour:${color}" data-tag-colour="${color}" type="button" aria-label="Use ${color}"></button>`).join("")}</span><button id="ticketTagSubmit" class="ticket-tag-submit" type="button">Add tag</button></span></span>`;
         host.querySelectorAll("[data-remove-ticket-tag]").forEach(button=>button.addEventListener("click",()=>{tags.splice(Number(button.dataset.removeTicketTag),1);localStorage.setItem(ticketTagsKey(ticketId),JSON.stringify(tags));renderTicketTags(ticketId)}));
-        host.querySelector("#ticketAddTag")?.addEventListener("click",()=>{const value=prompt("Add a ticket tag");if(!value?.trim())return;tags.push(value.trim().slice(0,30));localStorage.setItem(ticketTagsKey(ticketId),JSON.stringify([...new Set(tags)]));renderTicketTags(ticketId)});
+        const popover=host.querySelector("#ticketTagPopover"),input=host.querySelector("#ticketTagInput"); let selectedColour="#477b62";
+        host.querySelector("#ticketAddTag")?.addEventListener("click",event=>{event.stopPropagation();popover.classList.toggle("open");if(popover.classList.contains("open"))requestAnimationFrame(()=>input.focus())});
+        host.querySelectorAll("[data-tag-colour]").forEach(button=>button.addEventListener("click",()=>{selectedColour=button.dataset.tagColour;host.querySelectorAll("[data-tag-colour]").forEach(item=>item.classList.toggle("active",item===button))}));
+        const saveTag=()=>{const value=input.value.trim();if(!value)return input.focus();if(!tags.some(tag=>tag.text.toLowerCase()===value.toLowerCase()))tags.push({text:value.slice(0,30),color:selectedColour});localStorage.setItem(ticketTagsKey(ticketId),JSON.stringify(tags));renderTicketTags(ticketId)};
+        host.querySelector("#ticketTagSubmit")?.addEventListener("click",saveTag); input?.addEventListener("keydown",event=>{if(event.key==="Enter"){event.preventDefault();saveTag()}});
+    }
+
+    function setTicketStatusUi(value) {
+        const select=document.getElementById("ticketStatusSelect");
+        const normalized=value==="pending_revert"?"pending":value==="progress"?"in_progress":value||"open";
+        if(select)select.value=normalized;
+        const option=select?.selectedOptions?.[0];
+        document.getElementById("ticketStatusTriggerLabel").textContent=option?.textContent||"Open";
+        document.getElementById("ticketStatusControl")?.setAttribute("data-status",normalized);
+        document.querySelectorAll(".ticket-status-option").forEach(button=>button.classList.toggle("active",button.dataset.value===normalized));
     }
 
     async function loadOpenTicket(scrollLatest = false) {
@@ -10695,7 +10776,7 @@ ORDER BY created_date DESC, ticket_count DESC`;
                 status: ticket.status
             });
             document.getElementById("ticketDrawerTitle").textContent = ticket.ticket_number || `NX-${String(ticket.id).padStart(4, "0")}`;
-            document.getElementById("ticketStatusSelect").value = ticket.status === "resolved" ? "resolved" : ticket.status === "pending_revert" ? "pending" : (ticket.status || "open");
+            setTicketStatusUi(ticket.status === "resolved" ? "resolved" : ticket.status === "pending_revert" ? "pending" : (ticket.status || "open"));
             const agentSelect=document.getElementById("ticketAgentSelect");
             const agents=[ticket.agent_name || "Novara CX Support","Novara CX Support","Support Agent A","Support Agent B"].filter((value,index,array)=>value&&array.indexOf(value)===index);
             agentSelect.innerHTML=agents.map(agent=>`<option value="${escapeHtml(agent)}">${escapeHtml(agent)}</option>`).join(""); agentSelect.value=ticket.agent_name||"Novara CX Support";
@@ -10761,9 +10842,9 @@ ORDER BY created_date DESC, ticket_count DESC`;
                 });
             }
             renderTicketNotes(data.notes || []);
-            document.getElementById("ticketReopen").style.display = ticket.status === "resolved" ? "inline-block" : "none";
-            document.getElementById("ticketResolve").style.display = ticket.status === "resolved" ? "none" : "inline-block";
-            document.getElementById("ticketMarkPending").style.display = ticket.status === "resolved" ? "none" : "inline-block";
+            document.getElementById("ticketReopen").style.display = "none";
+            document.getElementById("ticketResolve").style.display = "none";
+            document.getElementById("ticketMarkPending").style.display = "none";
             const replyInput = document.getElementById("ticketReplyText");
             replyInput.disabled = ticket.status === "resolved";
             replyInput.placeholder = ticket.status === "resolved" ? "Reopen this ticket before replying" : "Reply to customer…";
@@ -10826,7 +10907,30 @@ ORDER BY created_date DESC, ticket_count DESC`;
         status.textContent = target === "draft" ? "Improving your draft…" : "Generating a reply suggestion…";
         setAssistBusy(true);
         try {
-            const data = await postTicketAction({ route: "ai-assist", body: { ticketId: openTicketId, mode, draft } });
+            const modeInstructions = {
+                suggest:"Write the next customer-support reply using the ticket, AI handoff, and human conversation context. Directly address the customer's latest message, preserve known facts, be warm and concise, and never invent policy, actions, refunds, timelines, or outcomes. Return only the reply an agent can send; no analysis, heading, quotation marks, or markdown preface.",
+                refine:"Correct grammar, spelling, punctuation, and clarity while preserving the exact meaning, facts, and commitment level. Return only the revised message.",
+                empathetic:"Make the draft warmer and more empathetic without becoming verbose, admitting unverified fault, or adding promises. Return only the revised message.",
+                concise:"Shorten the draft while retaining every necessary fact, action, and commitment. Return only the revised message.",
+                professional:"Make the draft polished, calm, and professional while preserving its meaning. Return only the revised message.",
+                simplify:"Rewrite the draft in plain, easy-to-understand English without changing its meaning. Return only the revised message."
+            };
+            const ticket=lastOpenTicketData?.ticket||{};
+            const data = await postTicketAction({ route: "ai-assist", body: {
+                ticketId: openTicketId,
+                mode,
+                draft,
+                instruction:modeInstructions[mode]||modeInstructions.suggest,
+                context:{
+                    ticketNumber:ticket.ticket_number,
+                    originalQuery:ticket.customer_query,
+                    escalationReason:ticket.escalation_reason,
+                    sentiment:ticket.sentiment,
+                    status:ticket.status,
+                    latestHumanMessages:(lastOpenTicketData?.messages||[]).slice(-8).map(item=>({sender:item.sender_type,message:item.message})),
+                    aiHandoff:(lastOpenTicketData?.conversation||[]).slice(-6).map(item=>({customer:item.user_message,assistant:item.bot_reply}))
+                }
+            } });
             if (target === "suggestion") {
                 lastAssistSuggestion = data.suggestion;
                 const suggestionBox = document.getElementById("agentAssistSuggestion");
@@ -10946,9 +11050,27 @@ ORDER BY created_date DESC, ticket_count DESC`;
     document.getElementById("ticketDrawerClose").addEventListener("click", closeTicket);
     document.getElementById("ticketQueueSearch")?.addEventListener("input", event => { ticketQueuePage=1; renderTicketQueue(event.target.value); });
     document.getElementById("ticketCopyId")?.addEventListener("click",async()=>{const value=document.getElementById("ticketDrawerTitle")?.textContent||"";try{await navigator.clipboard.writeText(value);document.getElementById("ticketCopyId").title="Copied";setTimeout(()=>document.getElementById("ticketCopyId").title="Copy ticket number",1200)}catch(_){}});
+    document.getElementById("ticketStatusTrigger")?.addEventListener("click",event=>{
+        event.stopPropagation();
+        const control=document.getElementById("ticketStatusControl");
+        control.classList.toggle("open");
+        event.currentTarget.setAttribute("aria-expanded",String(control.classList.contains("open")));
+    });
+    document.querySelectorAll(".ticket-status-option").forEach(button=>button.addEventListener("click",()=>{
+        const select=document.getElementById("ticketStatusSelect");
+        select.value=button.dataset.value;
+        setTicketStatusUi(button.dataset.value);
+        document.getElementById("ticketStatusControl").classList.remove("open");
+        document.getElementById("ticketStatusTrigger").setAttribute("aria-expanded","false");
+        select.dispatchEvent(new Event("change",{bubbles:true}));
+    }));
+    document.addEventListener("click",event=>{
+        const control=document.getElementById("ticketStatusControl");
+        if(control&&!control.contains(event.target)){control.classList.remove("open");document.getElementById("ticketStatusTrigger")?.setAttribute("aria-expanded","false")}
+    });
     document.getElementById("ticketStatusSelect")?.addEventListener("change",async event=>{
         const value=event.target.value; const previous=lastOpenTicketData?.ticket?.status||"open";
-        try{if(value==="resolved"){document.getElementById("ticketResolve").click();return}await postTicketAction({route:"update",body:{ticketId:openTicketId,action:value==="pending"?"pending":value==="reopened"?"reopen":value}});await loadOpenTicket();await refreshTicketsOnly()}catch(error){event.target.value=previous;document.getElementById("ticketActionError").textContent=error.message}
+        try{if(value==="resolved"){document.getElementById("ticketResolutionError").textContent="";document.getElementById("ticketResolutionOverlay").classList.add("open");document.getElementById("ticketResolutionText").focus();return}await postTicketAction({route:"update",body:{ticketId:openTicketId,action:value==="pending"?"pending":value==="reopened"?"reopen":value}});await loadOpenTicket();await refreshTicketsOnly()}catch(error){setTicketStatusUi(previous);document.getElementById("ticketActionError").textContent=error.message}
     });
     document.getElementById("ticketAgentSelect")?.addEventListener("change",async event=>{
         const previous=lastOpenTicketData?.ticket?.agent_name||"Novara CX Support";
@@ -11037,21 +11159,32 @@ ORDER BY created_date DESC, ticket_count DESC`;
     });
     document.getElementById("ticketCancelResolution").addEventListener("click", () => {
         document.getElementById("ticketResolutionOverlay").classList.remove("open");
+        setTicketStatusUi(lastOpenTicketData?.ticket?.status || "open");
     });
     document.getElementById("ticketConfirmResolution").addEventListener("click", () => runTicketAction("resolve"));
     document.getElementById("ticketReopen").addEventListener("click", () => runTicketAction("reopen"));
     document.getElementById("ticketSaveNote").addEventListener("click", () => runTicketAction("note"));
     let ticketDetailPollTimer = null;
+    let ticketRealtimeCycle = 0;
     function scheduleTicketDetailPoll() {
         if (ticketDetailPollTimer) clearTimeout(ticketDetailPollTimer);
-        const interval = Number(localStorage.getItem("novara_auto_refresh_interval") || 1800000);
-        if (interval <= 0) return;
         ticketDetailPollTimer = setTimeout(async () => {
-            if (!document.hidden && openTicketId && document.getElementById("ticketDrawerBackdrop")?.classList.contains("open")) await loadOpenTicket();
+            if (!document.hidden && openTicketId && document.getElementById("ticketDrawerBackdrop")?.classList.contains("open")) {
+                await loadOpenTicket();
+                ticketRealtimeCycle += 1;
+                if (ticketRealtimeCycle % 3 === 0) await refreshTicketsOnly();
+            }
             scheduleTicketDetailPoll();
-        }, interval);
+        }, 3000);
     }
     scheduleTicketDetailPoll();
+    let ticketListRealtimeBusy = false;
+    window.setInterval(async () => {
+        if (document.hidden || currentTab !== "tickets" || openTicketId || ticketListRealtimeBusy) return;
+        ticketListRealtimeBusy = true;
+        try { await refreshTicketsOnly(); }
+        finally { ticketListRealtimeBusy = false; }
+    }, 5000);
     document.addEventListener("visibilitychange", () => {
         if (!document.hidden && openTicketId && document.getElementById("ticketDrawerBackdrop")?.classList.contains("open")) loadOpenTicket();
         scheduleTicketDetailPoll();
@@ -11678,9 +11811,9 @@ ORDER BY created_date DESC, ticket_count DESC`;
     }
 
     async function restorePromptVersion(versionId) {
-        if (!confirm("Restore this version as a new editable draft?")) return;
+        if (!await openNativeDialog({ title:"Restore this version?", message:"It will be restored as a new editable draft.", confirmLabel:"Restore version" })) return;
         try { await adminApi("/admin/chatbot/rollback", { method:"POST", body:JSON.stringify({ versionId }) }); await loadChatbotControlCentre(true); document.querySelector('[data-chatbot-tab="instructions"]')?.click(); }
-        catch (error) { alert(error.message); }
+        catch (error) { await openNativeDialog({ title:"Version could not be restored", message:error.message, confirmLabel:"Close", cancelLabel:"" }); }
     }
 
     async function saveModelSettings() {
