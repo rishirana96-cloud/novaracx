@@ -9893,7 +9893,6 @@ ORDER BY ticket_count DESC</textarea>
         document.getElementById("rawSqlControls").hidden = !isSql;
         document.getElementById("pivotOptions").hidden = !isPivot;
         document.getElementById("panel-reports")?.classList.toggle("sql-workspace", isSql);
-        refreshNovaraSelect(document.getElementById("reportMode"));
         if (isSql) ensureRawSqlDates();
         syncRawSqlVisual();
         currentReportResult = null;
