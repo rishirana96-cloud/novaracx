@@ -3385,6 +3385,69 @@
         }
     </style>
 
+    <style id="novara-workspace-v20">
+        /* Unified branded controls */
+        .report-mode-toolbar::before{display:none!important;content:none!important}
+        .report-mode-toolbar,.ticket-view-control{align-items:center;gap:14px;min-height:62px;padding:9px 11px 9px 16px;border:1px solid rgba(146,181,162,.42);border-radius:15px;background:linear-gradient(135deg,rgba(146,181,162,.13),rgba(146,181,162,.035));box-shadow:0 0 0 3px rgba(146,181,162,.055),0 12px 28px rgba(0,0,0,.1)}
+        .report-mode-toolbar{display:none}.report-mode-toolbar.open{display:flex}.ticket-view-control{display:flex}
+        .ticket-view-control{min-width:410px}
+        .report-mode-toolbar>span,.ticket-view-control>span{display:flex;min-width:112px;flex-direction:column;color:var(--accent-light);font-size:9px;font-weight:820;text-transform:uppercase;letter-spacing:.1em}
+        .report-mode-toolbar>span::after{content:"Choose format";margin-top:3px;color:var(--text-muted);font-size:7px;font-weight:650;letter-spacing:.04em}
+        .ticket-view-control>span::after{content:"Choose queue";margin-top:3px;color:var(--text-muted);font-size:7px;font-weight:650;letter-spacing:.04em}
+        html[data-theme="light"] .report-mode-toolbar,html[data-theme="light"] .ticket-view-control{background:linear-gradient(135deg,#edf5f0,#fff)}
+        .novara-select-native{position:absolute!important;width:1px!important;height:1px!important;overflow:hidden!important;clip:rect(0 0 0 0)!important;white-space:nowrap!important;opacity:0!important;pointer-events:none!important}
+        .novara-select{position:relative;min-width:0;font:inherit}
+        .report-mode-toolbar>.novara-select,.ticket-view-control>.novara-select{flex:1;min-width:210px}
+        .novara-select-button{width:100%;min-height:42px;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:9px 12px;border:1px solid var(--border-strong);border-radius:10px;background:var(--bg);color:var(--text);font:inherit;font-size:10px;font-weight:720;text-align:left;cursor:pointer;transition:border-color .16s ease,box-shadow .16s ease,background .16s ease}
+        .novara-select-button:hover,.novara-select.open .novara-select-button{border-color:var(--accent);box-shadow:0 0 0 3px rgba(146,181,162,.09)}
+        .novara-select-chevron{width:8px;height:8px;flex:0 0 auto;border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transform:rotate(45deg) translateY(-2px);transition:transform .16s ease}
+        .novara-select.open .novara-select-chevron{transform:rotate(225deg) translate(-1px,-1px)}
+        .novara-select-menu{position:absolute;z-index:5000;top:calc(100% + 7px);left:0;width:max(100%,220px);max-height:320px;overflow:auto;padding:7px;border:1px solid var(--border-strong);border-radius:12px;background:var(--surface);box-shadow:0 22px 55px rgba(0,0,0,.32);opacity:0;visibility:hidden;transform:translateY(-5px);transition:opacity .14s ease,transform .14s ease,visibility .14s ease}
+        .novara-select.open .novara-select-menu{opacity:1;visibility:visible;transform:none}
+        .novara-select-group{padding:7px 9px 5px;color:var(--text-muted);font-size:8px;font-weight:750;letter-spacing:.09em;text-transform:uppercase}
+        .novara-select-option{width:100%;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:9px 10px;border:0;border-radius:8px;background:transparent;color:var(--text-secondary);font:inherit;font-size:10px;text-align:left;cursor:pointer}
+        .novara-select-option:hover,.novara-select-option.focused{background:rgba(146,181,162,.09);color:var(--text)}
+        .novara-select-option.selected{background:rgba(146,181,162,.16);color:var(--accent-light);font-weight:750}
+        .novara-select-option.selected::after{content:"✓";color:var(--accent);font-weight:850}
+        .novara-select-option:disabled{opacity:.4;cursor:not-allowed}
+        html[data-theme="light"] .novara-select-button{background:#fff;color:#17201b}html[data-theme="light"] .novara-select-menu{background:#fff;box-shadow:0 22px 55px rgba(30,50,39,.18)}html[data-theme="light"] .novara-select-option{color:#536159}html[data-theme="light"] .novara-select-option:hover,html[data-theme="light"] .novara-select-option.focused{color:#17201b}html[data-theme="light"] .novara-select-option.selected{color:#315c48;background:#e8f2ec}
+
+        /* Contextual ticket KPIs */
+        #ticketKpiGrid{grid-template-columns:repeat(3,minmax(0,1fr))}
+        #ticketKpiGrid .ticket-kpi-card{color:inherit;font:inherit;text-align:left;cursor:pointer}
+
+        /* Three-column ticket workspace */
+        .ticket-drawer-backdrop.open{display:grid;grid-template-columns:minmax(250px,310px) minmax(410px,600px) minmax(560px,1fr);align-items:stretch}
+        .ticket-queue-panel,.agent-assist-panel,.ticket-drawer{position:relative!important;inset:auto!important;width:auto!important;min-width:0;height:100vh;transform:none!important}
+        .ticket-queue-panel{z-index:2;display:flex;flex-direction:column;padding:20px 15px;background:var(--surface);border-right:1px solid var(--border);color:var(--text);overflow:hidden}
+        .agent-assist-panel{z-index:3;box-shadow:18px 0 55px rgba(0,0,0,.2)}
+        .ticket-drawer{z-index:2;border-left:0;box-shadow:none}
+        .ticket-queue-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:13px}.ticket-queue-head span{display:block;color:var(--text-muted);font-size:8px;font-weight:750;letter-spacing:.09em;text-transform:uppercase}.ticket-queue-head strong{display:block;margin-top:4px;color:var(--text);font-size:16px}.ticket-queue-count{min-width:28px;padding:5px 7px;border:1px solid var(--border);border-radius:999px;text-align:center}
+        .ticket-queue-search{display:flex;align-items:center;gap:7px;padding:0 10px;margin-bottom:12px;border:1px solid var(--border);border-radius:10px;background:var(--bg)}.ticket-queue-search>span{color:var(--text-muted);font-size:18px}.ticket-queue-search input{width:100%;min-height:40px;border:0;outline:0;background:transparent;color:var(--text);font:inherit;font-size:10px}.ticket-queue-list{flex:1;min-height:0;overflow-y:auto;padding-right:3px}
+        .ticket-queue-card{width:100%;display:block;margin-bottom:8px;padding:12px;border:1px solid var(--border);border-radius:11px;background:rgba(255,255,255,.018);color:inherit;text-align:left;cursor:pointer;transition:.16s ease}.ticket-queue-card:hover{border-color:var(--border-strong);background:rgba(146,181,162,.055);transform:translateX(2px)}.ticket-queue-card.active{border-color:var(--accent);background:rgba(146,181,162,.13);box-shadow:inset 3px 0 var(--accent)}.ticket-queue-card-top{display:flex;align-items:center;justify-content:space-between;gap:8px}.ticket-queue-card-top strong{overflow:hidden;color:var(--text);font-size:10px;white-space:nowrap;text-overflow:ellipsis}.ticket-queue-card-top span{color:var(--text-muted);font-size:8px}.ticket-queue-card-customer{margin-top:8px;color:var(--text-secondary);font-size:10px;font-weight:700}.ticket-queue-card-query{display:-webkit-box;margin-top:4px;overflow:hidden;color:var(--text-muted);font-size:9px;line-height:1.45;-webkit-box-orient:vertical;-webkit-line-clamp:2}.ticket-queue-empty{padding:28px 12px;color:var(--text-muted);font-size:10px;text-align:center}
+        .ticket-drawer-backdrop.assist-collapsed{grid-template-columns:minmax(250px,310px) 0 minmax(560px,1fr)}.ticket-drawer-backdrop.assist-collapsed .agent-assist-panel{display:none}.ticket-drawer-backdrop.assist-collapsed .ticket-drawer{position:relative!important}.ticket-drawer-backdrop.assist-collapsed::after{content:"AI Assist";position:fixed;z-index:6;left:320px;top:22px;padding:9px 12px;border:1px solid var(--border);border-radius:9px;background:var(--surface);color:var(--accent-light);font-size:9px;font-weight:750;cursor:pointer}
+        html[data-theme="light"] .ticket-queue-panel{background:#f7faf8}html[data-theme="light"] .ticket-queue-search{background:#fff}html[data-theme="light"] .ticket-queue-card{background:#fff}
+
+        /* Classic SQL runner; visual and pivot modes retain the two-column builder */
+        #panel-reports.sql-workspace .reports-shell{display:flex;flex-direction:column;gap:18px}
+        #panel-reports.sql-workspace .report-builder-card{position:static;width:100%;padding:22px}
+        #panel-reports.sql-workspace .report-section-heading{margin-bottom:14px}
+        #panel-reports.sql-workspace .report-form-grid{display:grid;grid-template-columns:minmax(260px,.45fr) minmax(0,1fr);align-items:end}
+        #panel-reports.sql-workspace .report-form-grid>.report-field-wide:first-child{grid-column:1}
+        #panel-reports.sql-workspace .raw-sql-controls{display:grid!important;grid-template-columns:minmax(0,1fr);gap:14px;margin-top:12px;padding-top:14px}
+        #panel-reports.sql-workspace #rawSqlEditor{min-height:300px;font-size:11px;line-height:1.65;border-radius:12px}
+        #panel-reports.sql-workspace .report-results-column{display:flex;flex-direction:column}
+        #panel-reports.sql-workspace .report-preview-card{min-height:280px}
+        #panel-reports.sql-workspace .report-preview-head .report-eyebrow{font-size:9px}
+        #panel-reports.sql-workspace .report-summary-strip{margin-top:14px}
+        #panel-reports.sql-workspace .raw-sql-table-wrap{max-height:620px}
+        #panel-reports.sql-workspace .saved-reports-card{order:2}
+        #panel-reports.sql-workspace+.report-layout-menu,#panel-reports.sql-workspace #reportLayoutMenu{display:none!important}
+
+        @media(max-width:1250px){.ticket-drawer-backdrop.open{grid-template-columns:minmax(390px,46%) minmax(540px,1fr)}.ticket-queue-panel{display:none}.ticket-drawer-backdrop.assist-collapsed{grid-template-columns:0 1fr}.ticket-drawer-backdrop.assist-collapsed::after{left:14px}}
+        @media(max-width:860px){.ticket-drawer-backdrop.open{display:block}.ticket-drawer{position:absolute!important;inset:0!important}.agent-assist-panel{position:absolute!important;inset:0!important;width:100%!important;z-index:5}.agent-assist-panel.collapsed{display:none}.ticket-view-control{min-width:0;width:100%}.ticket-view-control>span,.report-mode-toolbar>span{min-width:92px}.novara-select-menu{position:fixed;left:12px;right:12px;top:auto;bottom:12px;width:auto;max-height:56vh;border-radius:17px;transform:translateY(20px)}.novara-select.open .novara-select-menu{transform:none}.ticket-drawer-backdrop.assist-collapsed::after{display:none}#panel-reports.sql-workspace .report-form-grid{grid-template-columns:1fr}}
+        @media(max-width:620px){#ticketKpiGrid{grid-template-columns:1fr}.report-mode-toolbar,.ticket-view-control{align-items:stretch;flex-direction:column}.report-mode-toolbar>.novara-select,.ticket-view-control>.novara-select{width:100%}}
+    </style>
 </head>
 
 
@@ -4737,50 +4800,12 @@
                     </div>
                 </section>
 
-                <div class="ticket-kpi-grid">
-
-                    <div class="ticket-kpi-card">
-                        <div class="ticket-kpi-label">Total Tickets</div>
-                        <div id="ticketTotal" class="ticket-kpi-value">—</div>
-                        <div class="ticket-kpi-sub">AI escalations in selected period</div>
-                    </div>
-
-                    <div class="ticket-kpi-card">
-                        <div class="ticket-kpi-label">Open</div>
-                        <div id="ticketOpen" class="ticket-kpi-value danger">—</div>
-                        <div class="ticket-kpi-sub">Awaiting agent action</div>
-                    </div>
-
-                    <div class="ticket-kpi-card">
-                        <div class="ticket-kpi-label">Pending Revert</div>
-                        <div id="ticketPending" class="ticket-kpi-value warning">—</div>
-                        <div class="ticket-kpi-sub">Waiting for customer / internal revert</div>
-                    </div>
-
-                    <div class="ticket-kpi-card">
-                        <div class="ticket-kpi-label">Resolved</div>
-                        <div id="ticketResolved" class="ticket-kpi-value accent">—</div>
-                        <div class="ticket-kpi-sub">Closed by human agent</div>
-                    </div>
-
-                    <div class="ticket-kpi-card">
-                        <div class="ticket-kpi-label">Avg. Resolution Time</div>
-                        <div id="ticketAvgResolution" class="ticket-kpi-value">—</div>
-                        <div class="ticket-kpi-sub">Hours</div>
-                    </div>
-
-                    <div class="ticket-kpi-card">
-                        <div class="ticket-kpi-label">Reopened</div>
-                        <div id="ticketReopened" class="ticket-kpi-value">—</div>
-                        <div class="ticket-kpi-sub">Tickets reopened after resolution</div>
-                    </div>
-
-                </div>
+                <div id="ticketKpiGrid" class="ticket-kpi-grid" aria-live="polite"></div>
 
                 <div class="table-card">
                     <div class="table-header">
                         <div>
-                            <div class="table-title">All Tickets</div>
+                            <div id="ticketTableTitle" class="table-title">All Tickets</div>
                             <div id="ticketTableSubtitle" class="table-subtitle">All tickets matching the selected view and filters</div>
                         </div>
                         <button id="viewAllTickets" class="view-all" type="button">View all →</button>
@@ -5047,7 +5072,8 @@ ORDER BY ticket_count DESC</textarea>
 
                             <div class="raw-sql-actions">
                                 <button id="rawSqlExampleBtn" class="report-text-btn" type="button">Load grouping example</button>
-                                <span><kbd>Ctrl</kbd>/<kbd>⌘</kbd> + <kbd>Enter</kbd> to refresh now</span>
+                                <span><kbd>Ctrl</kbd>/<kbd>⌘</kbd> + <kbd>Enter</kbd> to run</span>
+                                <button id="rawSqlRunBtn" class="report-primary-btn" type="button">Run SQL</button>
                             </div>
                         </div>
 
@@ -5361,6 +5387,14 @@ ORDER BY ticket_count DESC</textarea>
 
 
 <div id="ticketDrawerBackdrop" class="ticket-drawer-backdrop" aria-hidden="true">
+    <nav id="ticketQueuePanel" class="ticket-queue-panel" aria-label="Tickets in current view">
+        <div class="ticket-queue-head">
+            <div><span>Current view</span><strong id="ticketQueueTitle">All Tickets</strong></div>
+            <span id="ticketQueueCount" class="ticket-queue-count">0</span>
+        </div>
+        <label class="ticket-queue-search"><span aria-hidden="true">⌕</span><input id="ticketQueueSearch" type="search" placeholder="Search this queue…" aria-label="Search tickets in current view"></label>
+        <div id="ticketQueueList" class="ticket-queue-list"></div>
+    </nav>
     <section id="agentAssistPanel" class="agent-assist-panel" aria-label="AI Agent Assist">
         <button id="agentAssistReopen" class="agent-assist-reopen" type="button" aria-label="Open AI Agent Assist">›</button>
         <div class="agent-assist-head">
@@ -6599,6 +6633,7 @@ ORDER BY ticket_count DESC</textarea>
                 element.add(new Option(value, value));
             }
             element.value = value;
+            refreshNovaraSelect(element);
         });
     }
 
@@ -6644,29 +6679,76 @@ ORDER BY ticket_count DESC</textarea>
     }
 
     function refreshTicketWorkspace() {
+        refreshNovaraSelect(document.getElementById("ticketViewSelect"));
         const filters = ticketFilterValues();
         const filtered = ticketWorkspaceState.source.filter(ticket => ticketMatchesFilters(ticket, filters));
         ticketWorkspaceState.filtered = filtered;
-        const activeFilterCount = Object.values(filters).filter(Boolean).length;
+        const isStandardStatusView = ticketWorkspaceState.activeView.startsWith("status:");
+        const activeFilterCount = Object.entries(filters).filter(([key,value]) => value && !(isStandardStatusView && key === "status")).length;
         const count = document.getElementById("ticketFilterCount");
         count.textContent = activeFilterCount;
         count.hidden = !activeFilterCount;
         document.getElementById("ticketTableSubtitle").textContent = `${filtered.length.toLocaleString("en-IN")} of ${ticketWorkspaceState.source.length.toLocaleString("en-IN")} tickets · selected view and filters`;
-
-        const total = filtered.length;
-        const open = filtered.filter(ticket => ticket.status === "open").length;
-        const pending = filtered.filter(ticket => ticket.status === "pending").length;
-        const resolved = filtered.filter(ticket => ticket.status === "resolved").length;
-        const reopened = filtered.filter(ticket => ticket.status === "reopened").length;
-        const resolvedWithTime = filtered.filter(ticket => ticket.status === "resolved" && ticket.resolutionTime > 0);
-        const avgResolution = resolvedWithTime.length ? (resolvedWithTime.reduce((sum,ticket) => sum + ticket.resolutionTime,0) / resolvedWithTime.length).toFixed(1) : "—";
-        document.getElementById("ticketTotal").textContent = total;
-        document.getElementById("ticketOpen").textContent = open;
-        document.getElementById("ticketPending").textContent = pending;
-        document.getElementById("ticketResolved").textContent = resolved;
-        document.getElementById("ticketAvgResolution").textContent = avgResolution;
-        document.getElementById("ticketReopened").textContent = reopened;
+        renderContextualTicketKpis(filtered);
+        const viewLabel = currentTicketViewLabel();
+        document.getElementById("ticketTableTitle").textContent = viewLabel;
+        document.getElementById("ticketQueueTitle").textContent = viewLabel;
+        renderTicketQueue();
         updateTicketsTable(filtered);
+    }
+
+    function currentTicketViewLabel() {
+        const select = document.getElementById("ticketViewSelect");
+        return select?.selectedOptions?.[0]?.textContent?.trim() || "All Tickets";
+    }
+
+    function ticketAgeHours(ticket) {
+        if (!ticket.createdAt) return 0;
+        const start = new Date(String(ticket.createdAt).includes("T") ? ticket.createdAt : `${String(ticket.createdAt).replace(" ","T")}Z`);
+        const endValue = ticket.resolvedAt || new Date();
+        const end = endValue instanceof Date ? endValue : new Date(String(endValue).includes("T") ? endValue : `${String(endValue).replace(" ","T")}Z`);
+        return isNaN(start.getTime()) || isNaN(end.getTime()) ? 0 : Math.max(0,(end-start)/3600000);
+    }
+
+    function formatAverageHours(value) {
+        if (!Number.isFinite(value)) return "—";
+        if (value < 1) return `${Math.round(value*60)}m`;
+        if (value < 48) return `${value.toFixed(1)}h`;
+        return `${(value/24).toFixed(1)}d`;
+    }
+
+    function renderContextualTicketKpis(filtered) {
+        const status = ticketWorkspaceState.activeView.startsWith("status:") ? ticketWorkspaceState.activeView.slice(7) : ticketWorkspaceState.activeView.startsWith("saved:") ? "saved" : "all";
+        const countStatus = key => filtered.filter(ticket => ticket.status === key).length;
+        const averageAge = filtered.length ? filtered.reduce((sum,ticket) => sum + ticketAgeHours(ticket),0)/filtered.length : NaN;
+        const oldestAge = filtered.length ? Math.max(...filtered.map(ticketAgeHours)) : NaN;
+        const slaRisk = filtered.filter(ticket => ["warning","danger","breached"].includes(ticketSlaDisplay(ticket).className)).length;
+        const resolvedWithTime = filtered.filter(ticket => ticket.resolutionTime > 0);
+        const avgResolution = resolvedWithTime.length ? resolvedWithTime.reduce((sum,ticket)=>sum+ticket.resolutionTime,0)/resolvedWithTime.length : NaN;
+        const reopened = countStatus("reopened");
+        const cardsByView = {
+            all: [
+                ["Total tickets",filtered.length,"All tickets in this view","all",""] ,
+                ["Open",countStatus("open"),"Awaiting agent action","open","danger"],
+                ["Pending / In progress",countStatus("pending")+countStatus("progress"),"Active work requiring follow-up","active","warning"]
+            ],
+            open: [["Open tickets",filtered.length,"Awaiting agent action","open","danger"],["Average age",formatAverageHours(averageAge),"Time since creation","all",""] ,["SLA at risk",slaRisk,"Warning or breached","sla","warning"]],
+            progress: [["In progress",filtered.length,"Currently being handled","progress",""] ,["Average handling age",formatAverageHours(averageAge),"Time since creation","all",""] ,["SLA at risk",slaRisk,"Warning or breached","sla","warning"]],
+            pending: [["Pending tickets",filtered.length,"Waiting for a response","pending","warning"],["Average waiting time",formatAverageHours(averageAge),"Time since creation","all",""] ,["Oldest waiting",formatAverageHours(oldestAge),"Longest outstanding ticket","oldest","danger"]],
+            resolved: [["Resolved tickets",filtered.length,"Closed by human support","resolved","accent"],["Average resolution time",formatAverageHours(avgResolution),"Created to resolved","all",""] ,["Resolution SLA met",`${Math.max(0,filtered.length-slaRisk)}/${filtered.length}`,"Resolved within target","met","accent"]],
+            reopened: [["Reopened tickets",filtered.length,"Returned after resolution","reopened","danger"],["Reopen rate",`${ticketWorkspaceState.source.length ? ((reopened/ticketWorkspaceState.source.length)*100).toFixed(1) : "0.0"}%`,"Share of all tickets","all",""] ,["Average age",formatAverageHours(averageAge),"Time since original creation","all",""]]
+        };
+        const cards = cardsByView[status] || [["Matching tickets",filtered.length,"Tickets in this saved view","all",""] ,["Average age",formatAverageHours(averageAge),"Time since creation","all",""] ,["SLA at risk",slaRisk,"Warning or breached","sla","warning"]];
+        const grid = document.getElementById("ticketKpiGrid");
+        grid.innerHTML = cards.map(([label,value,sub,kind,tone]) => `<button class="ticket-kpi-card" type="button" data-ticket-kpi="${kind}"><span class="ticket-kpi-label">${escapeHtml(label)}</span><strong class="ticket-kpi-value ${tone}">${escapeHtml(String(value))}</strong><span class="ticket-kpi-sub">${escapeHtml(sub)}</span></button>`).join("");
+        grid.querySelectorAll("[data-ticket-kpi]").forEach(card => card.addEventListener("click", () => {
+            const kind = card.dataset.ticketKpi;
+            let rows = filtered;
+            if (["open","pending","progress","resolved","reopened"].includes(kind)) rows = filtered.filter(ticket => ticket.status === kind);
+            if (kind === "active") rows = filtered.filter(ticket => ["pending","progress"].includes(ticket.status));
+            if (kind === "sla") rows = filtered.filter(ticket => ["warning","danger","breached"].includes(ticketSlaDisplay(ticket).className));
+            openDataExplorer(rows.map(ticket => ({...ticket,__openKind:"ticket",__openId:ticket.dbId})), { title:card.querySelector(".ticket-kpi-label").textContent, subtitle:`${currentTicketViewLabel()} · underlying tickets` });
+        }));
     }
 
 
@@ -6708,6 +6790,23 @@ ORDER BY ticket_count DESC</textarea>
             row.addEventListener("click", () => openTicket(Number(row.dataset.ticketId)));
         });
     }
+
+    function renderTicketQueue(search = document.getElementById("ticketQueueSearch")?.value || "") {
+        const list = document.getElementById("ticketQueueList");
+        if (!list) return;
+        const query = search.trim().toLowerCase();
+        const rows = ticketWorkspaceState.filtered.filter(ticket => !query || `${ticket.id} ${ticket.customer} ${ticket.query}`.toLowerCase().includes(query));
+        document.getElementById("ticketQueueCount").textContent = rows.length.toLocaleString("en-IN");
+        list.innerHTML = rows.length ? rows.map(ticket => `
+            <button class="ticket-queue-card ${Number(ticket.dbId)===Number(openTicketId)?"active":""}" type="button" data-queue-ticket="${escapeHtml(String(ticket.dbId||""))}">
+                <span class="ticket-queue-card-top"><strong>${escapeHtml(String(ticket.id))}</strong><span>${escapeHtml(formatTicketDate(ticket.createdAt).replace(/<[^>]*>/g," "))}</span></span>
+                <span class="ticket-queue-card-customer">${escapeHtml(ticket.customer||"Unknown customer")}</span>
+                <span class="ticket-queue-card-query">${escapeHtml(ticket.query||"No original query")}</span>
+            </button>`).join("") : `<div class="ticket-queue-empty">No tickets match this queue search.</div>`;
+        list.querySelectorAll("[data-queue-ticket]").forEach(button => button.addEventListener("click",()=>openTicket(Number(button.dataset.queueTicket))));
+    }
+
+    document.getElementById("ticketQueueSearch")?.addEventListener("input", event => renderTicketQueue(event.target.value));
 
     document.getElementById("ticketFilterToggle")?.addEventListener("click", () => {
         const panel = document.getElementById("ticketFilterPanel");
@@ -9793,6 +9892,8 @@ ORDER BY ticket_count DESC</textarea>
         document.querySelectorAll(".visual-report-control").forEach(element => element.hidden = isSql);
         document.getElementById("rawSqlControls").hidden = !isSql;
         document.getElementById("pivotOptions").hidden = !isPivot;
+        document.getElementById("panel-reports")?.classList.toggle("sql-workspace", isSql);
+        refreshNovaraSelect(document.getElementById("reportMode"));
         if (isSql) ensureRawSqlDates();
         syncRawSqlVisual();
         currentReportResult = null;
@@ -9826,9 +9927,12 @@ ORDER BY ticket_count DESC</textarea>
     let customReportUpdateTimer = null;
     function scheduleCustomReport() {
         window.clearTimeout(customReportUpdateTimer);
+        if (document.getElementById("reportMode")?.value === "sql") {
+            setReportMessage("Query changed · select Run SQL when ready.");
+            return;
+        }
         setReportMessage("Updating preview…");
-        const delay = document.getElementById("reportMode")?.value === "sql" ? 750 : 300;
-        customReportUpdateTimer = window.setTimeout(runCustomReport, delay);
+        customReportUpdateTimer = window.setTimeout(runCustomReport, 300);
     }
 
     function loadSavedReports() {
@@ -9905,8 +10009,9 @@ ORDER BY ticket_count DESC</textarea>
         syncReportMode();
         syncReportAggregation();
         syncPivotAggregation();
-        runCustomReport();
-        setReportMessage(`Loaded “${config.name}”.`, "success");
+        if (config.mode === "sql") setReportMessage(`Loaded “${config.name}”. Select Run SQL when ready.`, "success");
+        else runCustomReport();
+        if (config.mode !== "sql") setReportMessage(`Loaded “${config.name}”.`, "success");
     }
 
     function saveCustomReport() {
@@ -9922,7 +10027,7 @@ ORDER BY ticket_count DESC</textarea>
         if (existing >= 0) reports.splice(existing, 1, saved); else reports.unshift(saved);
         storeSavedReports(reports.slice(0, 30));
         renderSavedReports();
-        runCustomReport();
+        if (config.mode !== "sql") runCustomReport();
         setReportMessage(existing >= 0 ? "Saved report updated." : "Report saved to this browser.", "success");
     }
 
@@ -10013,7 +10118,7 @@ WHERE created_at >= DATETIME(:start_date, '-5 hours', '-30 minutes')
   AND created_at < DATETIME(:end_date, '+1 day', '-5 hours', '-30 minutes')
 GROUP BY created_date, status
 ORDER BY created_date DESC, ticket_count DESC`;
-        scheduleCustomReport();
+        setReportMessage("Example loaded · select Run SQL when ready.");
     });
     document.getElementById("rawSqlEditor")?.addEventListener("keydown", event => {
         if ((event.ctrlKey || event.metaKey) && event.key === "Enter") {
@@ -10021,6 +10126,10 @@ ORDER BY created_date DESC, ticket_count DESC`;
             window.clearTimeout(customReportUpdateTimer);
             runCustomReport();
         }
+    });
+    document.getElementById("rawSqlRunBtn")?.addEventListener("click", () => {
+        window.clearTimeout(customReportUpdateTimer);
+        runCustomReport();
     });
     document.getElementById("reportSaveBtn")?.addEventListener("click", saveCustomReport);
     document.getElementById("reportResetBtn")?.addEventListener("click", resetCustomReport);
@@ -10340,6 +10449,8 @@ ORDER BY created_date DESC, ticket_count DESC`;
         openTicketId = ticketId;
         const backdrop = document.getElementById("ticketDrawerBackdrop");
         backdrop.classList.add("open");
+        backdrop.classList.remove("assist-collapsed");
+        document.getElementById("agentAssistPanel").classList.remove("collapsed");
         backdrop.setAttribute("aria-hidden", "false");
         document.body.style.overflow = "hidden";
         setComposerMode("reply");
@@ -10356,13 +10467,16 @@ ORDER BY created_date DESC, ticket_count DESC`;
         document.getElementById("agentRegenerate").disabled = true;
         document.getElementById("agentInsertSuggestion").disabled = true;
         document.getElementById("agentInsertDraft").disabled = true;
+        renderTicketQueue();
         await loadOpenTicket();
+        renderTicketQueue();
     }
 
     function closeTicket() {
         openTicketId = null;
         const backdrop = document.getElementById("ticketDrawerBackdrop");
         backdrop.classList.remove("open");
+        backdrop.classList.remove("assist-collapsed");
         backdrop.setAttribute("aria-hidden", "true");
         document.body.style.overflow = "";
         document.getElementById("ticketActionError").textContent = "";
@@ -10603,8 +10717,20 @@ ORDER BY created_date DESC, ticket_count DESC`;
         document.getElementById("agentInsertDraft").disabled = true;
         document.getElementById("agentAssistStatus").textContent = "";
     });
-    document.getElementById("agentAssistCollapse").addEventListener("click", () => document.getElementById("agentAssistPanel").classList.add("collapsed"));
-    document.getElementById("agentAssistReopen").addEventListener("click", () => document.getElementById("agentAssistPanel").classList.remove("collapsed"));
+    document.getElementById("agentAssistCollapse").addEventListener("click", () => {
+        document.getElementById("agentAssistPanel").classList.add("collapsed");
+        document.getElementById("ticketDrawerBackdrop").classList.add("assist-collapsed");
+    });
+    document.getElementById("agentAssistReopen").addEventListener("click", () => {
+        document.getElementById("agentAssistPanel").classList.remove("collapsed");
+        document.getElementById("ticketDrawerBackdrop").classList.remove("assist-collapsed");
+    });
+    document.getElementById("ticketDrawerBackdrop").addEventListener("click", event => {
+        if (event.target === event.currentTarget && event.currentTarget.classList.contains("assist-collapsed")) {
+            document.getElementById("agentAssistPanel").classList.remove("collapsed");
+            event.currentTarget.classList.remove("assist-collapsed");
+        }
+    });
 
     async function runTicketAction(action) {
         const errorBox = document.getElementById("ticketActionError");
@@ -11309,6 +11435,102 @@ ORDER BY created_date DESC, ticket_count DESC`;
 
 
     /* =====================================================
+       NOVARA SELECTS
+       Accessible, theme-aware replacements for browser menus.
+    ====================================================== */
+    const novaraSelectMap = new WeakMap();
+
+    function closeNovaraSelects(except = null) {
+        document.querySelectorAll(".novara-select.open").forEach(wrapper => {
+            if (wrapper !== except) {
+                wrapper.classList.remove("open");
+                wrapper.querySelector(".novara-select-button")?.setAttribute("aria-expanded","false");
+            }
+        });
+    }
+
+    function novaraSelectEntries(select) {
+        const entries = [];
+        [...select.children].forEach(child => {
+            if (child.tagName === "OPTGROUP") {
+                entries.push({group:child.label});
+                [...child.children].forEach(option => entries.push({option}));
+            } else if (child.tagName === "OPTION") entries.push({option:child});
+        });
+        return entries;
+    }
+
+    function refreshNovaraSelect(select) {
+        const wrapper = novaraSelectMap.get(select);
+        if (!wrapper) return;
+        const button = wrapper.querySelector(".novara-select-button");
+        const menu = wrapper.querySelector(".novara-select-menu");
+        const selected = select.selectedOptions?.[0] || select.options?.[0];
+        button.querySelector(".novara-select-value").textContent = selected?.textContent?.trim() || "Select an option";
+        button.disabled = select.disabled;
+        menu.innerHTML = novaraSelectEntries(select).map(entry => entry.group
+            ? `<div class="novara-select-group">${escapeHtml(entry.group)}</div>`
+            : `<button class="novara-select-option ${entry.option.selected?"selected":""}" type="button" role="option" aria-selected="${entry.option.selected}" data-select-value="${escapeHtml(entry.option.value)}" ${entry.option.disabled?"disabled":""}>${escapeHtml(entry.option.textContent.trim())}</button>`
+        ).join("");
+        menu.querySelectorAll("[data-select-value]").forEach(optionButton => optionButton.addEventListener("click", () => {
+            select.value = optionButton.dataset.selectValue;
+            select.dispatchEvent(new Event("change", {bubbles:true}));
+            refreshNovaraSelect(select);
+            wrapper.classList.remove("open");
+            button.setAttribute("aria-expanded","false");
+            button.focus();
+        }));
+    }
+
+    function enhanceNovaraSelect(select) {
+        if (!select || novaraSelectMap.has(select) || select.multiple || select.size > 1) return;
+        select.classList.add("novara-select-native");
+        const wrapper = document.createElement("div");
+        wrapper.className = "novara-select";
+        wrapper.innerHTML = `<button class="novara-select-button" type="button" aria-haspopup="listbox" aria-expanded="false"><span class="novara-select-value"></span><span class="novara-select-chevron" aria-hidden="true"></span></button><div class="novara-select-menu" role="listbox"></div>`;
+        select.insertAdjacentElement("afterend",wrapper);
+        novaraSelectMap.set(select,wrapper);
+        const button = wrapper.querySelector(".novara-select-button");
+        button.setAttribute("aria-label",select.getAttribute("aria-label") || select.closest("label")?.querySelector(":scope > span")?.textContent?.trim() || "Choose option");
+        button.addEventListener("click", event => {
+            event.stopPropagation();
+            refreshNovaraSelect(select);
+            const opening = !wrapper.classList.contains("open");
+            closeNovaraSelects(wrapper);
+            wrapper.classList.toggle("open",opening);
+            button.setAttribute("aria-expanded",String(opening));
+            if (opening) wrapper.querySelector(".novara-select-option.selected")?.scrollIntoView({block:"nearest"});
+        });
+        button.addEventListener("keydown", event => {
+            if (!["ArrowDown","ArrowUp","Enter"," ","Escape"].includes(event.key)) return;
+            if (event.key === "Escape") { wrapper.classList.remove("open"); button.setAttribute("aria-expanded","false"); return; }
+            event.preventDefault();
+            if (!wrapper.classList.contains("open")) { button.click(); return; }
+            const options = [...wrapper.querySelectorAll(".novara-select-option:not(:disabled)")];
+            const current = wrapper.querySelector(".novara-select-option.focused") || wrapper.querySelector(".novara-select-option.selected");
+            let index = Math.max(0,options.indexOf(current));
+            if (event.key === "ArrowDown") index = Math.min(options.length-1,index+1);
+            if (event.key === "ArrowUp") index = Math.max(0,index-1);
+            options.forEach(item=>item.classList.remove("focused"));
+            options[index]?.classList.add("focused");
+            options[index]?.scrollIntoView({block:"nearest"});
+            if (["Enter"," "].includes(event.key)) options[index]?.click();
+        });
+        select.addEventListener("change",()=>refreshNovaraSelect(select));
+        new MutationObserver(()=>refreshNovaraSelect(select)).observe(select,{childList:true,subtree:true,characterData:true,attributes:true});
+        refreshNovaraSelect(select);
+    }
+
+    function enhanceAllNovaraSelects(root=document) {
+        if (root.matches?.("select")) enhanceNovaraSelect(root);
+        root.querySelectorAll?.("select").forEach(enhanceNovaraSelect);
+    }
+
+    document.addEventListener("click",()=>closeNovaraSelects());
+    document.addEventListener("keydown",event=>{if(event.key==="Escape")closeNovaraSelects();});
+    new MutationObserver(records => records.forEach(record => record.addedNodes.forEach(node => { if(node.nodeType===1) enhanceAllNovaraSelects(node); }))).observe(document.body,{childList:true,subtree:true});
+
+    /* =====================================================
        INITIAL LOAD
     ====================================================== */
 
@@ -11316,6 +11538,7 @@ ORDER BY created_date DESC, ticket_count DESC`;
         "DOMContentLoaded",
         () => {
             document.body.classList.add("ui-ready");
+            enhanceAllNovaraSelects();
             document.querySelectorAll(".kpi-card[data-kpi-drilldown], .ticket-kpi-card").forEach(card => {
                 if (!card.hasAttribute("tabindex")) card.tabIndex = 0;
                 if (!card.hasAttribute("role")) card.setAttribute("role", "button");
