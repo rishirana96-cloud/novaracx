@@ -18,6 +18,36 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
 
+    <script>
+        (function applyAutomaticTheme() {
+            function getThemeForIndia() {
+                try {
+                    const parts = new Intl.DateTimeFormat("en-GB", {
+                        timeZone: "Asia/Kolkata",
+                        hour: "2-digit",
+                        hourCycle: "h23"
+                    }).formatToParts(new Date());
+                    const hour = Number(parts.find(part => part.type === "hour")?.value);
+                    return hour >= 6 && hour < 18 ? "light" : "dark";
+                } catch (_) {
+                    return window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+                }
+            }
+
+            function updateTheme() {
+                const theme = getThemeForIndia();
+                document.documentElement.dataset.theme = theme;
+                document.querySelector('meta[name="theme-color"]')?.setAttribute(
+                    "content",
+                    theme === "light" ? "#F4F7F4" : "#0A0A0F"
+                );
+            }
+
+            updateTheme();
+            window.setInterval(updateTheme, 60000);
+        })();
+    </script>
+
     <style>
         /* ==========================================
            RESET & BASE
@@ -48,6 +78,23 @@
             --escalation-bg: rgba(231, 169, 140, 0.15);
         }
 
+        html[data-theme="light"] {
+            --bg-primary: #F4F7F4;
+            --bg-secondary: #FFFFFF;
+            --bg-card: #FFFFFF;
+            --border-subtle: rgba(25, 50, 36, 0.12);
+            --text-primary: #102019;
+            --text-secondary: #4D5D54;
+            --text-muted: #7A877F;
+            --accent: #628A74;
+            --accent-glow: rgba(82, 126, 101, 0.18);
+            --accent-gradient: linear-gradient(135deg, #88AD99 0%, #608771 100%);
+            --shadow-glow: 0 8px 40px rgba(40, 75, 55, 0.08);
+            --shadow-hover: 0 12px 56px rgba(40, 75, 55, 0.13);
+            --escalation-color: #995336;
+            --escalation-bg: #F8E9E1;
+        }
+
         @font-face {
             font-family: 'Gilroy ExtraBold';
             src: local('Gilroy ExtraBold'), local('Gilroy-ExtraBold');
@@ -66,7 +113,13 @@
             line-height: 1.6;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
+            transition: background-color .28s ease, color .28s ease;
         }
+
+        html[data-theme="light"] header { background: rgba(244, 247, 244, .9); border-bottom-color: rgba(25,50,36,.1); }
+        html[data-theme="light"] header.scrolled { background: rgba(244, 247, 244, .97); }
+        html[data-theme="light"] .btn-secondary { background: rgba(28,57,40,.06); border-color: rgba(28,57,40,.13); }
+        html[data-theme="light"] .btn-secondary:hover { background: rgba(28,57,40,.11); }
 
         .container {
             max-width: 1100px;
@@ -2097,6 +2150,14 @@
         .msg.bot { color:#26332c; background:#fff; border-color:#d8e1da; box-shadow:0 4px 16px rgba(25,55,37,.055); }
         .msg.bot b,.msg.bot strong { color:#142119; }
         .msg.bot a { color:#426b55; font-weight:650; }
+        .chatbot-messages-window { overflow-anchor:none; }
+        .msg-content.is-typing::after {
+            content:""; display:inline-block; width:2px; height:1.05em; margin-left:3px;
+            border-radius:2px; background:#648a76; vertical-align:-.12em;
+            animation:replyCursor .72s steps(1,end) infinite;
+        }
+        @keyframes replyCursor { 0%,48% { opacity:1; } 49%,100% { opacity:0; } }
+        .msg.is-revealing > :not(.msg-content) { opacity:0; }
         .msg.user { color:#0c1711; background:#9fc0ae; box-shadow:0 5px 16px rgba(38,73,53,.14); }
         .msg.user b,.msg.user strong { color:#0c1711; }
         .typing-indicator span { background:#527463; }
@@ -2177,20 +2238,83 @@
         .history-message.user .history-message-meta { color:#4c6859; }
         .chat-history-continue { width:100%; min-height:42px; margin-top:14px; border:0; border-radius:11px; background:#668d77; color:#fff; font:700 .72rem/1 'Inter',sans-serif; cursor:pointer; }
 
+        /* Explicit contrast for support cards in the light conversation canvas */
+        .ticket-contact-card,.ticket-choice-card,.past-ticket-card {
+            border-color:#c9d8cf!important; background:#fff!important; color:#25372d!important;
+        }
+        .msg.agent { border-color:#c8d8cf; background:#fff; color:#25372d; box-shadow:0 4px 16px rgba(25,55,37,.055); }
+        .msg.agent b,.msg.agent strong { color:#14251b; }
+        .ticket-contact-card strong,.ticket-choice-card strong,.past-ticket-card strong { color:#14251b!important; }
+        .ticket-consent { color:#596b61!important; }
+        .human-chat-status { color:#3e6c54!important; font-weight:650; }
+        .ticket-choice-btn:not(.primary) { border-color:#cbd7d0!important; background:#f4f7f5!important; color:#25372d!important; }
+
+        /* Night-time chatbot palette keeps every surface readable */
+        html[data-theme="dark"] .chatbot-messages-window {
+            background:linear-gradient(180deg,#121a15 0%,#0d1410 100%);
+            color:#e8eee9;
+        }
+        html[data-theme="dark"] .msg.bot {
+            border-color:#2c3c32; background:#1b2720; color:#e0e8e2; box-shadow:0 5px 18px rgba(0,0,0,.2);
+        }
+        html[data-theme="dark"] .msg.bot b,html[data-theme="dark"] .msg.bot strong { color:#fff; }
+        html[data-theme="dark"] .msg.bot a { color:#a8d2ba; }
+        html[data-theme="dark"] .msg.user { background:#7fa78f; color:#08120d; }
+        html[data-theme="dark"] .chatbot-footer,
+        html[data-theme="dark"] .chatbot-input-window { background:#111a14; }
+        html[data-theme="dark"] .quick-replies-window { border-top-color:#27362c; background:#131d17; }
+        html[data-theme="dark"] .quick-replies-window .qr-btn { border-color:#34463a; background:#1b2720; color:#d5dfd8; }
+        html[data-theme="dark"] .chatbot-input-window textarea { border-color:#34463a; background:#1a251e; color:#f2f6f3; }
+        html[data-theme="dark"] .chatbot-input-window textarea::placeholder { color:#93a097; }
+        html[data-theme="dark"] .chatbot-input-window textarea:focus { border-color:#88ad99; background:#1e2b23; }
+        html[data-theme="dark"] .chatbot-powered-by { border-top-color:#27362c; background:#111a14; color:#9ba79f; }
+        html[data-theme="dark"] .chatbot-powered-by strong { color:#dce5df; }
+        html[data-theme="dark"] .ticket-contact-card,
+        html[data-theme="dark"] .ticket-choice-card,
+        html[data-theme="dark"] .past-ticket-card { border-color:#35483b!important; background:#1a261f!important; color:#e2eae4!important; }
+        html[data-theme="dark"] .msg.agent { border-color:#35483b; background:#1a261f; color:#e2eae4; }
+        html[data-theme="dark"] .msg.agent b,html[data-theme="dark"] .msg.agent strong { color:#fff; }
+        html[data-theme="dark"] .ticket-contact-card strong,
+        html[data-theme="dark"] .ticket-choice-card strong,
+        html[data-theme="dark"] .past-ticket-card strong { color:#fff!important; }
+        html[data-theme="dark"] .ticket-consent { color:#b4c0b8!important; }
+        html[data-theme="dark"] .human-chat-status { color:#a8d2ba!important; }
+        html[data-theme="dark"] .ticket-choice-btn:not(.primary) { border-color:#3b5042!important; background:#233128!important; color:#edf3ef!important; }
+        html[data-theme="dark"] .chat-history-view { background:#101812; color:#edf3ef; }
+        html[data-theme="dark"] .chat-history-head { border-bottom-color:#29382e; background:#172119; }
+        html[data-theme="dark"] .chat-history-head h3 { color:#fff; }
+        html[data-theme="dark"] .chat-history-head p { color:#a7b3ab; }
+        html[data-theme="dark"] .chat-history-item { border-color:#314238; background:#1a261f; color:#edf3ef; }
+        html[data-theme="dark"] .chat-history-item strong { color:#fff; }
+        html[data-theme="dark"] .chat-history-item span { color:#aebbb2; }
+        html[data-theme="dark"] .chat-history-detail-head { border-bottom-color:#29382e; background:rgba(23,33,25,.96); }
+        html[data-theme="dark"] .chat-history-back { border-color:#35483b; background:#202d25; color:#e8eee9; }
+        html[data-theme="dark"] .chat-history-detail-title strong { color:#fff; }
+        html[data-theme="dark"] .chat-history-detail-title span { color:#aab6ae; }
+        html[data-theme="dark"] .history-message { border-color:#314238; background:#1a261f; color:#e2eae4; }
+        html[data-theme="dark"] .history-message.user { border-color:#70977f; background:#7fa78f; color:#09140e; }
+
         @media(max-width:600px) {
-            body.chat-open { overflow:hidden; touch-action:none; }
+            body.chat-open { overflow:hidden; overscroll-behavior:none; touch-action:none; }
             .chatbot-window { touch-action:auto; }
             .chatbot-toggle { right:18px; bottom:18px; width:58px; height:58px; }
             .chatbot-toggle::after { display:none; }
             .chatbot-window {
-                inset:0; width:100%; height:100dvh; max-width:none; max-height:none;
+                top:var(--chat-viewport-top,0px); right:0; bottom:auto; left:0;
+                width:100%; height:var(--chat-viewport-height,100dvh); max-width:none; max-height:none;
                 border:0; border-radius:0; animation:chatMobileIn .24s ease;
             }
             @keyframes chatMobileIn { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:none; } }
-            .chatbot-header-window { padding:max(14px,env(safe-area-inset-top)) 16px 14px; }
-            .chatbot-messages-window { padding:18px 14px; }
+            .chatbot-header-window { min-height:72px; padding:max(12px,env(safe-area-inset-top)) 14px 12px; }
+            .chatbot-messages-window { min-height:0; padding:16px 12px; overscroll-behavior:contain; }
             .chatbot-input-window { padding:10px 12px calc(10px + env(safe-area-inset-bottom)); }
+            .chatbot-input-window textarea { min-height:48px; max-height:120px; padding:12px 15px; border-radius:24px; font-size:16px; line-height:1.4; }
+            .chatbot-input-window .send-btn { width:48px; height:48px; flex-basis:48px; }
             .chatbot-powered-by { display:none; }
+            .chatbot-window.keyboard-open .quick-replies-window { display:none; }
+            .chatbot-window.keyboard-open .chatbot-header-window { min-height:62px; padding-top:10px; padding-bottom:10px; }
+            .chatbot-window.keyboard-open .chatbot-header-window .status { display:none; }
+            .chatbot-window.keyboard-open .chatbot-input-window { padding-bottom:8px; }
             .chat-history-head { padding:14px 14px 12px; }
             .chat-history-list,.chat-history-detail { padding:12px; }
             .chat-history-detail-head { top:-12px; margin:-12px -12px 12px; padding:12px; }
@@ -4566,6 +4690,79 @@
             });
         }
 
+        const mobileChatQuery = window.matchMedia("(max-width: 600px)");
+
+        function syncMobileChatViewport() {
+            if (!mobileChatQuery.matches) {
+                chatWindow.style.removeProperty("--chat-viewport-height");
+                chatWindow.style.removeProperty("--chat-viewport-top");
+                chatWindow.classList.remove("keyboard-open");
+                return;
+            }
+
+            const viewport = window.visualViewport;
+            const viewportHeight = Math.round(viewport?.height || window.innerHeight);
+            const viewportTop = Math.round(viewport?.offsetTop || 0);
+            const layoutHeight = Math.max(document.documentElement.clientHeight, window.innerHeight);
+            const keyboardIsOpen = layoutHeight - viewportHeight > 140;
+
+            chatWindow.style.setProperty("--chat-viewport-height", `${viewportHeight}px`);
+            chatWindow.style.setProperty("--chat-viewport-top", `${viewportTop}px`);
+            chatWindow.classList.toggle("keyboard-open", keyboardIsOpen);
+
+            if (keyboardIsOpen && !replyAnimationActive) {
+                requestAnimationFrame(scrollChatToLatest);
+            }
+        }
+
+        function waitForReplyFrame(milliseconds) {
+            return new Promise(resolve => setTimeout(resolve, milliseconds));
+        }
+
+        let replyAnimationActive = false;
+
+        async function animateMessageText(content, row, messageBubble) {
+            if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+            const walker = document.createTreeWalker(content, NodeFilter.SHOW_TEXT);
+            const textNodes = [];
+            let node;
+            while ((node = walker.nextNode())) {
+                if (node.nodeValue) textNodes.push({ node, text: node.nodeValue });
+            }
+
+            const totalCharacters = textNodes.reduce((sum, item) => sum + item.text.length, 0);
+            if (!totalCharacters) return;
+
+            textNodes.forEach(item => { item.node.nodeValue = ""; });
+            content.classList.add("is-typing");
+            messageBubble.classList.add("is-revealing");
+            replyAnimationActive = true;
+
+            await waitForReplyFrame(70);
+            chatMessages.scrollTo({
+                top: Math.max(0, row.offsetTop - 12),
+                behavior: "smooth"
+            });
+
+            const charactersPerStep = totalCharacters > 700 ? 4 : totalCharacters > 320 ? 2 : 1;
+            const stepDelay = totalCharacters > 700 ? 9 : totalCharacters > 320 ? 13 : 18;
+
+            for (const item of textNodes) {
+                for (let index = 0; index < item.text.length; index += charactersPerStep) {
+                    const fragment = item.text.slice(index, index + charactersPerStep);
+                    item.node.nodeValue += fragment;
+
+                    const punctuationPause = /[.!?]\s?$/.test(fragment) ? 55 : /[,;:]\s?$/.test(fragment) ? 24 : 0;
+                    await waitForReplyFrame(stepDelay + punctuationPause);
+                }
+            }
+
+            content.classList.remove("is-typing");
+            messageBubble.classList.remove("is-revealing");
+            replyAnimationActive = false;
+        }
+
 
         // ==========================================
         // OPEN / CLOSE
@@ -4601,6 +4798,7 @@
 
                     unresolvedReminderShown = false;
                     document.body.classList.add("chat-open");
+                    syncMobileChatViewport();
                     chatInput.focus();
                     scrollChatToLatest();
 
@@ -4631,6 +4829,7 @@
                 document.body.classList.remove("chat-open");
                 chatWindow.classList.remove("history-open");
                 chatHistoryBtn.setAttribute("aria-pressed", "false");
+                chatWindow.classList.remove("keyboard-open");
 
             }
         );
@@ -4803,8 +5002,10 @@
                 );
 
 
-            div.innerHTML =
-                html;
+            const content = document.createElement("div");
+            content.className = "msg-content";
+            content.innerHTML = html;
+            div.appendChild(content);
 
 
             // ==========================================
@@ -4901,9 +5102,18 @@
                 row
             );
 
+            const shouldAnimateReply =
+                sender === "bot" &&
+                persistHistory &&
+                !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-            chatMessages.scrollTop =
-                chatMessages.scrollHeight;
+            let revealPromise = Promise.resolve();
+
+            if (shouldAnimateReply) {
+                revealPromise = animateMessageText(content, row, div);
+            } else {
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
 
             if (persistHistory) {
                 recordHistoryMessage(displayText, sender);
@@ -4939,6 +5149,8 @@
 
             }
 
+            return revealPromise;
+
         }
 
 
@@ -4966,7 +5178,6 @@
             `;
 
             chatMessages.appendChild(card);
-            chatMessages.scrollTop = chatMessages.scrollHeight;
 
             document.getElementById("ticketContactSubmit").addEventListener("click", createHumanTicket);
 
@@ -5149,7 +5360,6 @@
                 </div>
             `;
             chatMessages.appendChild(card);
-            chatMessages.scrollTop = chatMessages.scrollHeight;
 
             card.querySelector("button").addEventListener("click", async () => {
                 sessionId = unresolvedBrowserTicket.session_id;
@@ -5419,7 +5629,7 @@
                     data.reply
                 ) {
 
-                    renderMessage(
+                    await renderMessage(
                         data.reply,
                         "bot",
                         true,
@@ -5428,7 +5638,7 @@
 
                 } else {
 
-                    renderMessage(
+                    await renderMessage(
                         "I'm not sure how to answer that. Would you like to book a discovery call?",
                         "bot",
                         true,
@@ -5454,7 +5664,7 @@
                 );
 
 
-                renderMessage(
+                await renderMessage(
                     "Something went wrong. Please try again or book a discovery call directly.",
                     "bot"
                 );
@@ -5681,7 +5891,14 @@
         );
 
         chatInput.addEventListener("focus", () => {
-            setTimeout(scrollChatToLatest, 250);
+            setTimeout(() => {
+                syncMobileChatViewport();
+                if (!replyAnimationActive) scrollChatToLatest();
+            }, 250);
+        });
+
+        chatInput.addEventListener("blur", () => {
+            setTimeout(syncMobileChatViewport, 120);
         });
 
         chatHistoryBtn.addEventListener("click", () => {
@@ -5697,10 +5914,10 @@
         chatHistoryNew.addEventListener("click", startNewConversationFromHistory);
 
         if (window.visualViewport) {
-            window.visualViewport.addEventListener("resize", () => {
-                if (chatWindow.classList.contains("open")) scrollChatToLatest();
-            });
+            window.visualViewport.addEventListener("resize", syncMobileChatViewport);
+            window.visualViewport.addEventListener("scroll", syncMobileChatViewport);
         }
+        window.addEventListener("orientationchange", () => setTimeout(syncMobileChatViewport, 180));
 
 
         quickReplyBtns.forEach(
@@ -5750,6 +5967,7 @@
                     chatToggle.classList.add("is-open");
                     chatToggle.setAttribute("aria-expanded", "true");
                     document.body.classList.add("chat-open");
+                    syncMobileChatViewport();
                     chatInput.focus();
                     return;
                 }
@@ -5775,6 +5993,7 @@
 
                     chatToggle.setAttribute("aria-expanded", "true");
                     document.body.classList.add("chat-open");
+                    syncMobileChatViewport();
 
 
                     chatInput.focus();
@@ -5843,6 +6062,7 @@
                     document.body.classList.remove("chat-open");
                     chatWindow.classList.remove("history-open");
                     chatHistoryBtn.setAttribute("aria-pressed", "false");
+                    chatWindow.classList.remove("keyboard-open");
 
                 }
 
