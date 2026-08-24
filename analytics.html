@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5767,9 +5768,18 @@ ORDER BY ticket_count DESC</textarea>
        DASHBOARD
     ====================================================== */
 
+    let dashboardUpdateRunning = false;
+    let pendingDashboardPeriod = null;
+
     async function updateDashboard(
         period
     ) {
+
+        if (dashboardUpdateRunning) {
+            pendingDashboardPeriod = period;
+            return;
+        }
+        dashboardUpdateRunning = true;
 
         currentPeriod =
             period;
@@ -6478,6 +6488,15 @@ ORDER BY ticket_count DESC</textarea>
 
         }
 
+        finally {
+            dashboardUpdateRunning = false;
+            if (pendingDashboardPeriod !== null) {
+                const nextPeriod = pendingDashboardPeriod;
+                pendingDashboardPeriod = null;
+                window.setTimeout(() => updateDashboard(nextPeriod), 0);
+            }
+        }
+
     }
 
 
@@ -6731,6 +6750,16 @@ ORDER BY ticket_count DESC</textarea>
         document.querySelectorAll("[data-ticket-period]").forEach(button => button.classList.toggle("active", !currentDateRange && Number(button.dataset.ticketPeriod) === Number(period)));
         document.getElementById("ticketCustomDateBtn")?.classList.toggle("active", Boolean(currentDateRange));
         refreshTicketWorkspace();
+    }
+
+    async function refreshTicketsOnly() {
+        try {
+            const tickets = await fetchTickets(currentPeriod);
+            reportDataCache.tickets = Array.isArray(tickets) ? tickets : [];
+            updateTicketsDashboard(reportDataCache.tickets, reportDataCache.analytics || [], currentPeriod);
+        } catch (error) {
+            console.error("Ticket refresh error:", error);
+        }
     }
 
 
@@ -9012,6 +9041,8 @@ ORDER BY ticket_count DESC</textarea>
     ====================================================== */
 
     let openTicketId = null;
+    let ticketDetailRequestInFlight = false;
+    let lastTicketDetailSignature = "";
 
     function ticketDateText(value) {
         if (!value) return "—";
@@ -10420,6 +10451,7 @@ ORDER BY created_date DESC, ticket_count DESC`;
     async function openTicket(ticketId) {
         if (!ticketId) return;
         openTicketId = ticketId;
+        lastTicketDetailSignature = "";
         const backdrop = document.getElementById("ticketDrawerBackdrop");
         backdrop.classList.add("open");
         backdrop.setAttribute("aria-hidden", "false");
@@ -10454,12 +10486,24 @@ ORDER BY created_date DESC, ticket_count DESC`;
 
     async function loadOpenTicket(scrollLatest = false) {
         if (!openTicketId) return;
+        if (ticketDetailRequestInFlight) return;
+        ticketDetailRequestInFlight = true;
+        const requestedTicketId = openTicketId;
         try {
-            const response = await fetch(`${API_URL}/ticket-detail?id=${encodeURIComponent(openTicketId)}`);
+            const response = await fetch(`${API_URL}/ticket-detail?id=${encodeURIComponent(requestedTicketId)}`);
             const data = await response.json();
             if (!response.ok) throw new Error(data.error || "Could not load ticket.");
+            if (openTicketId !== requestedTicketId) return;
 
             const ticket = data.ticket;
+            const signature = JSON.stringify([
+                ticket?.id, ticket?.status, ticket?.updated_at, ticket?.resolved_at, ticket?.first_response_at,
+                data.messages?.length || 0, data.messages?.at?.(-1)?.id || data.messages?.at?.(-1)?.created_at || "",
+                data.conversation?.length || 0, data.conversation?.at?.(-1)?.id || data.conversation?.at?.(-1)?.created_at || "",
+                data.notes?.length || 0, data.notes?.at?.(-1)?.id || data.notes?.at?.(-1)?.created_at || ""
+            ]);
+            if (!scrollLatest && signature === lastTicketDetailSignature) return;
+            lastTicketDetailSignature = signature;
             const drawerSla = ticketSlaDisplay({
                 priority: String(ticket.priority || "normal").toLowerCase(),
                 createdAt: ticket.created_at,
@@ -10544,8 +10588,12 @@ ORDER BY created_date DESC, ticket_count DESC`;
             replyInput.placeholder = ticket.status === "resolved" ? "Reopen this ticket before replying" : "Reply to customer…";
             document.getElementById("ticketSendReply").disabled = ticket.status === "resolved" || !replyInput.value.trim();
             document.getElementById("ticketEmojiButton").disabled = ticket.status === "resolved";
+            renderTicketQueue(document.getElementById("ticketQueueSearch")?.value);
         } catch (error) {
             document.getElementById("ticketActionError").textContent = error.message;
+        } finally {
+            ticketDetailRequestInFlight = false;
+            if (openTicketId && openTicketId !== requestedTicketId) window.setTimeout(() => loadOpenTicket(), 0);
         }
     }
 
@@ -10708,7 +10756,7 @@ ORDER BY created_date DESC, ticket_count DESC`;
                 document.getElementById("ticketResolutionError").textContent = "";
             }
             await loadOpenTicket();
-            await updateDashboard(currentPeriod);
+            await refreshTicketsOnly();
         } catch (error) {
             errorBox.textContent = error.message;
         }
@@ -10729,7 +10777,7 @@ ORDER BY created_date DESC, ticket_count DESC`;
             document.getElementById("ticketReplyText").value = "";
             autoResizeTextarea(document.getElementById("ticketReplyText"));
             await loadOpenTicket(true);
-            await updateDashboard(currentPeriod);
+            await refreshTicketsOnly();
         } catch (error) { errorBox.textContent = error.message; }
     }
 
@@ -10792,7 +10840,12 @@ ORDER BY created_date DESC, ticket_count DESC`;
     document.getElementById("ticketConfirmResolution").addEventListener("click", () => runTicketAction("resolve"));
     document.getElementById("ticketReopen").addEventListener("click", () => runTicketAction("reopen"));
     document.getElementById("ticketSaveNote").addEventListener("click", () => runTicketAction("note"));
-    setInterval(() => { if (openTicketId) loadOpenTicket(); }, 3000);
+    setInterval(() => {
+        if (!document.hidden && openTicketId && document.getElementById("ticketDrawerBackdrop")?.classList.contains("open")) loadOpenTicket();
+    }, 10000);
+    document.addEventListener("visibilitychange", () => {
+        if (!document.hidden && openTicketId && document.getElementById("ticketDrawerBackdrop")?.classList.contains("open")) loadOpenTicket();
+    });
 
 
     /* =====================================================
@@ -10800,6 +10853,10 @@ ORDER BY created_date DESC, ticket_count DESC`;
     ====================================================== */
 
     async function refreshDashboard() {
+
+        if (document.hidden || openTicketId) {
+            return;
+        }
 
         if (isRefreshing) {
             return;
