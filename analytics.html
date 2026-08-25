@@ -4756,13 +4756,10 @@
             backdrop-filter:none!important;
         }
         .workflow-editor-backdrop::before{
-            content:"";
-            position:absolute;
-            inset:0;
-            z-index:0;
-            background:rgba(5,10,7,.52);
-            backdrop-filter:blur(4px);
-            pointer-events:none;
+            content:none!important;
+            display:none!important;
+            background:transparent!important;
+            backdrop-filter:none!important;
         }
         .workflow-editor,.workflow-editor *{box-sizing:border-box}
         .workflow-editor{
@@ -4851,6 +4848,67 @@
             .workflow-editor-footer .admin-command-actions{width:100%;margin-left:0}
             .workflow-editor-footer .admin-command-actions .admin-btn{flex:1}
             .workflow-save-state{display:none}
+        }
+    </style>
+    <style id="novaradesk-consolidated-toolbar-fixes-v5">
+        /* Workflow controls live in one calm, enterprise toolbar. */
+        #panel-workflows .workflow-toolbar{
+            display:flex!important;
+            align-items:center;
+            gap:10px;
+            padding:12px!important;
+            flex-wrap:nowrap;
+        }
+        #panel-workflows .workflow-search{flex:1 1 320px;min-width:180px}
+        #panel-workflows #workflowStatusFilter,
+        #panel-workflows .workflow-toolbar>.unified-select{flex:0 0 168px;min-width:150px}
+        #panel-workflows .workflow-tabs{flex:0 0 auto;white-space:nowrap}
+        #panel-workflows .workflow-toolbar .workflow-hero-actions{
+            display:flex;
+            flex:0 0 auto;
+            align-items:center;
+            gap:8px;
+            margin-left:0;
+        }
+        #panel-workflows .workflow-toolbar .workflow-hero-actions .admin-btn{
+            min-height:38px;
+            height:38px;
+            padding:0 13px;
+            border-radius:8px;
+            font-size:12px;
+            font-weight:760;
+            white-space:nowrap;
+            box-shadow:none;
+        }
+        #panel-workflows .workflow-toolbar .workflow-hero-actions svg{width:16px;height:16px}
+
+        /* The report shortcut is a distinct control at the far right of Report Type. */
+        .report-mode-toolbar{flex:1 1 auto}
+        .report-mode-toolbar .report-workspace-jump{margin-left:auto}
+        .report-mode-toolbar .report-workspace-jump.open{display:grid!important}
+
+        /* Knowledge creation belongs with the knowledge filters. */
+        #panel-knowledge .kb-toolbar .admin-btn.primary{
+            min-height:44px;
+            padding-inline:18px;
+            white-space:nowrap;
+        }
+
+        @media(max-width:1100px){
+            #panel-workflows .workflow-toolbar{flex-wrap:wrap}
+            #panel-workflows .workflow-search{flex-basis:calc(100% - 180px)}
+            #panel-workflows .workflow-toolbar .workflow-hero-actions{margin-left:auto}
+        }
+        @media(max-width:760px){
+            #panel-workflows .workflow-toolbar{align-items:stretch}
+            #panel-workflows .workflow-search,
+            #panel-workflows #workflowStatusFilter,
+            #panel-workflows .workflow-toolbar>.unified-select{flex:1 1 100%;width:100%}
+            #panel-workflows .workflow-tabs{display:flex;flex:1 1 100%}
+            #panel-workflows .workflow-tab{flex:1}
+            #panel-workflows .workflow-toolbar .workflow-hero-actions{width:100%;margin-left:0}
+            #panel-workflows .workflow-toolbar .workflow-hero-actions .admin-btn{flex:1}
+            .report-mode-toolbar .report-workspace-jump{flex:0 0 40px!important}
         }
     </style>
 </head>
@@ -5224,7 +5282,13 @@
 
                 </div>
 
-                <label id="reportModeToolbar" class="report-mode-toolbar"><span>Report type</span><select id="reportMode"><option value="standard">Chart or summary table</option><option value="pivot">Pivot table</option><option value="sql">Raw SQL report · Advanced</option></select></label>
+                <div id="reportModeToolbar" class="report-mode-toolbar">
+                    <span>Report type</span>
+                    <select id="reportMode" aria-label="Report type"><option value="standard">Chart or summary table</option><option value="pivot">Pivot table</option><option value="sql">Raw SQL report · Advanced</option></select>
+                    <button id="reportWorkspaceJump" class="report-workspace-jump" type="button" title="Go to generated report" aria-label="Go to generated report">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+                    </button>
+                </div>
 
 
                 <div class="toolbar-right">
@@ -5277,10 +5341,6 @@
                         </button>
 
                     </div>
-
-                    <button id="reportWorkspaceJump" class="report-workspace-jump" type="button" title="Go to report workspace" aria-label="Go to report workspace">
-                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
-                    </button>
 
                     <div id="customDatePopover" class="custom-date-popover">
                         <label>From<input id="customDateStart" type="date"></label>
@@ -6802,9 +6862,8 @@ ORDER BY ticket_count DESC</textarea>
             ================================================== -->
             <section id="panel-knowledge" class="view-panel">
                 <div class="admin-workspace">
-                    <div class="admin-command-actions" style="justify-content:flex-end"><button id="newKnowledgeArticle" class="admin-btn primary" type="button">New article</button></div>
                     <div class="admin-kpi-grid"><div class="admin-kpi"><span>Total content</span><strong id="kbTotal">—</strong><small>All knowledge entries</small></div><div class="admin-kpi"><span>Published</span><strong id="kbPublished">—</strong><small>Available to the AI</small></div><div class="admin-kpi"><span>Drafts</span><strong id="kbDrafts">—</strong><small>Awaiting publication</small></div><div class="admin-kpi"><span>Needs review</span><strong id="kbNeedsReview">—</strong><small>Potentially outdated</small></div></div>
-                    <div id="knowledgeListCard" class="admin-card"><div class="kb-toolbar"><input id="kbSearch" type="search" placeholder="Search knowledge…"><select id="kbCategoryFilter"><option value="">All categories</option></select><select id="kbStatusFilter"><option value="">All statuses</option><option value="published">Published</option><option value="draft">Draft</option><option value="inactive">Inactive</option><option value="needs_review">Needs review</option></select><button id="newKnowledgeArticleSecondary" class="admin-btn" type="button">Add content</button></div><div id="knowledgeArticleList" class="kb-list" style="margin-top:15px"><div class="admin-loading">Loading Knowledge Base…</div></div></div>
+                    <div id="knowledgeListCard" class="admin-card"><div class="kb-toolbar"><input id="kbSearch" type="search" placeholder="Search knowledge…"><select id="kbCategoryFilter"><option value="">All categories</option></select><select id="kbStatusFilter"><option value="">All statuses</option><option value="published">Published</option><option value="draft">Draft</option><option value="inactive">Inactive</option><option value="needs_review">Needs review</option></select><button id="newKnowledgeArticle" class="admin-btn primary" type="button">New article</button></div><div id="knowledgeArticleList" class="kb-list" style="margin-top:15px"><div class="admin-loading">Loading Knowledge Base…</div></div></div>
                     <div id="knowledgeEditor" class="kb-editor admin-card"><div class="admin-card-head"><div><h3 id="knowledgeEditorTitle">New knowledge article</h3><p>Draft content remains unavailable to customers until published.</p></div><button id="closeKnowledgeEditor" class="admin-btn" type="button">Close</button></div>
                         <input id="knowledgeArticleId" type="hidden"><div class="admin-form-grid">
                             <label class="admin-field"><span>Title</span><input id="knowledgeTitle" type="text" maxlength="200"></label><label class="admin-field"><span>Category</span><input id="knowledgeCategory" type="text" maxlength="120" placeholder="General"></label>
@@ -6823,18 +6882,6 @@ ORDER BY ticket_count DESC</textarea>
             ================================================== -->
             <section id="panel-workflows" class="view-panel">
                 <div class="workflow-shell">
-                    <header class="workflow-hero">
-                        <div class="workflow-hero-copy">
-                            <span class="report-eyebrow">Operations automation</span>
-                            <h2>Workflows</h2>
-                            <p>Automate routing, service-level protection and customer follow-ups with rules your team can audit and control.</p>
-                        </div>
-                        <div class="workflow-hero-actions">
-                            <button id="workflowTemplatesBtn" class="admin-btn" type="button"><svg viewBox="0 0 24 24"><path d="M4 5h16v14H4zM8 9h8M8 13h5"/></svg>Templates</button>
-                            <button id="workflowCreateBtn" class="admin-btn primary" type="button"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>Create workflow</button>
-                        </div>
-                    </header>
-
                     <div class="workflow-kpis">
                         <article class="workflow-kpi"><span>Active workflows</span><strong id="workflowActiveKpi">0</strong><small>Currently monitoring events</small></article>
                         <article class="workflow-kpi"><span>Runs today</span><strong id="workflowRunsKpi">0</strong><small>Automation executions</small></article>
@@ -6847,6 +6894,10 @@ ORDER BY ticket_count DESC</textarea>
                             <label class="workflow-search"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m16 16 4 4"/></svg><input id="workflowSearch" type="search" placeholder="Search workflows…" aria-label="Search workflows"></label>
                             <select id="workflowStatusFilter" aria-label="Filter workflows by status"><option value="all">All statuses</option><option value="active">Active</option><option value="paused">Paused</option><option value="draft">Draft</option></select>
                             <div class="workflow-tabs" role="tablist"><button class="workflow-tab active" data-workflow-view="workflows" type="button">Workflows</button><button class="workflow-tab" data-workflow-view="history" type="button">Run history</button></div>
+                            <div class="workflow-hero-actions">
+                                <button id="workflowTemplatesBtn" class="admin-btn" type="button"><svg viewBox="0 0 24 24"><path d="M4 5h16v14H4zM8 9h8M8 13h5"/></svg>Templates</button>
+                                <button id="workflowCreateBtn" class="admin-btn primary" type="button"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>Create workflow</button>
+                            </div>
                         </div>
                         <div id="workflowTableHead" class="workflow-table-head" aria-hidden="true"><span>Workflow</span><span>Trigger</span><span>Actions</span><span>Updated</span><span>Status</span><span></span></div>
                         <div id="workflowList" class="workflow-list"></div>
@@ -11891,7 +11942,7 @@ ORDER BY ticket_count DESC</textarea>
 
     document.getElementById("reportMode")?.addEventListener("change", () => { syncReportMode(); scheduleCustomReport(); });
     document.getElementById("reportWorkspaceJump")?.addEventListener("click", () => {
-        const workspace = document.getElementById("reportWorkspace");
+        const workspace = document.querySelector("#panel-reports .report-preview-card") || document.getElementById("reportWorkspace");
         if (!workspace) return;
         const stickyOffset = 18;
         const top = workspace.getBoundingClientRect().top + window.scrollY - stickyOffset;
