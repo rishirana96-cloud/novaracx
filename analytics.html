@@ -1,4 +1,5 @@
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -4258,6 +4259,121 @@
         }
         @media(prefers-reduced-motion:reduce) { .ticket-workspace-floater { transition:none; } }
     </style>
+    <style id="agreed-workspace-and-report-refinements">
+        /* Report type now mirrors the compact Ticket View control. */
+        .report-mode-toolbar{
+            min-height:48px!important;
+            padding:6px 8px 6px 12px!important;
+            gap:12px!important;
+            border:1px solid var(--border)!important;
+            border-radius:12px!important;
+            background:var(--bg-card)!important;
+            box-shadow:none!important;
+        }
+        .report-mode-toolbar::before{display:none!important;content:none!important}
+        .report-mode-toolbar>span{
+            display:block!important;
+            color:var(--accent-dark)!important;
+            font-size:8px!important;
+            font-weight:820!important;
+            letter-spacing:.09em!important;
+            white-space:nowrap;
+        }
+        .report-mode-toolbar>span::after{display:none!important;content:none!important}
+        .report-mode-toolbar .unified-select-trigger,
+        .report-mode-toolbar select{
+            min-width:235px!important;
+            min-height:36px!important;
+            border:1px solid var(--border)!important;
+            border-radius:9px!important;
+            background:var(--surface)!important;
+            box-shadow:none!important;
+            font-size:10px!important;
+        }
+        .report-workspace-jump{
+            display:none;
+            flex:0 0 42px;
+            width:42px;
+            height:42px;
+            place-items:center;
+            border:1px solid var(--border);
+            border-radius:11px;
+            background:var(--bg-card);
+            color:var(--text-secondary);
+            box-shadow:var(--shadow-soft);
+            cursor:pointer;
+            transition:transform .16s ease,border-color .16s ease,color .16s ease;
+        }
+        .report-workspace-jump.open{display:grid}
+        .report-workspace-jump:hover{transform:translateY(2px);border-color:var(--accent);color:var(--accent-dark)}
+        .report-workspace-jump svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+
+        /* Agent-facing message convention: customer left; AI and agent right. */
+        .ticket-thread-message.customer{
+            align-self:flex-start!important;
+            margin-left:0!important;
+            margin-right:auto!important;
+            border:1px solid var(--border)!important;
+            border-bottom-left-radius:3px!important;
+            border-bottom-right-radius:12px!important;
+            background:var(--bg-card)!important;
+            color:var(--text)!important;
+        }
+        .ticket-thread-message.agent,.ticket-thread-message.ai{
+            align-self:flex-end!important;
+            margin-left:auto!important;
+            margin-right:0!important;
+            border:1px solid color-mix(in srgb,var(--accent) 54%,var(--border))!important;
+            border-bottom-left-radius:12px!important;
+            border-bottom-right-radius:3px!important;
+            background:color-mix(in srgb,var(--accent) 42%,var(--bg-card))!important;
+            color:var(--text)!important;
+        }
+        .ticket-thread-message.system{
+            align-self:center!important;
+            max-width:82%!important;
+            background:var(--surface-2)!important;
+            border:1px dashed var(--border)!important;
+            color:var(--text-secondary)!important;
+            text-align:center!important;
+        }
+        .ticket-thread,.ticket-ai-transcript,.conversation-detail-thread{display:flex;flex-direction:column}
+
+        /* Closed-by-default two-panel workspace: no middle gap and no stretched queue. */
+        @media(min-width:1121px){
+            .ticket-drawer-backdrop.assist-collapsed{
+                --collapsed-shell-width:min(1180px,calc(100vw - 120px));
+                --collapsed-shell-left:calc((100vw - var(--collapsed-shell-width))/2);
+            }
+            .ticket-drawer-backdrop.assist-collapsed .ticket-queue-panel{
+                display:flex!important;
+                left:var(--collapsed-shell-left)!important;
+                width:var(--queue-width)!important;
+                border-radius:18px 0 0 18px!important;
+                box-shadow:0 20px 60px rgba(8,18,12,.18)!important;
+            }
+            .ticket-drawer-backdrop.assist-collapsed .ticket-drawer{
+                left:calc(var(--collapsed-shell-left) + var(--queue-width))!important;
+                right:auto!important;
+                width:calc(var(--collapsed-shell-width) - var(--queue-width))!important;
+                border-radius:0 18px 18px 0!important;
+            }
+            .ticket-drawer-backdrop.assist-collapsed .agent-assist-panel{
+                display:flex!important;
+                width:var(--assist-width)!important;
+                transform:translateX(-110%)!important;
+                opacity:0!important;
+                pointer-events:none!important;
+            }
+            .ticket-drawer-backdrop.assist-collapsed .ticket-queue-card{min-height:82px!important;padding:12px!important}
+            .ticket-drawer-backdrop.assist-collapsed .ticket-queue-card p{white-space:nowrap!important;display:block!important;text-overflow:ellipsis!important;overflow:hidden!important}
+        }
+        @media(max-width:720px){
+            .report-mode-toolbar{width:100%;align-items:center!important;flex-wrap:nowrap!important}
+            .report-mode-toolbar .unified-select-trigger,.report-mode-toolbar select{min-width:0!important;width:100%!important}
+            .report-workspace-jump{flex-basis:40px;width:40px;height:40px}
+        }
+    </style>
 </head>
 
 
@@ -4666,6 +4782,10 @@
                         </button>
 
                     </div>
+
+                    <button id="reportWorkspaceJump" class="report-workspace-jump" type="button" title="Go to report workspace" aria-label="Go to report workspace">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+                    </button>
 
                     <div id="customDatePopover" class="custom-date-popover">
                         <label>From<input id="customDateStart" type="date"></label>
@@ -5780,7 +5900,7 @@
 
             <section id="panel-reports" class="view-panel">
                 <div id="reportLayoutMenu" class="report-layout-menu"><button class="report-secondary-btn" data-report-layout="default" type="button">Builder + Preview</button><button class="report-secondary-btn" data-report-layout="preview-focus" type="button">Preview focused</button><button class="report-secondary-btn" data-report-layout="builder-focus" type="button">Builder focused</button><button class="report-secondary-btn" data-report-layout="stacked" type="button">Stacked</button><button class="report-secondary-btn" data-report-layout="preview-only" type="button">Preview only</button><button class="report-secondary-btn" data-report-layout="free" type="button">Drag & resize</button><button id="reportLayoutReset" class="report-secondary-btn" type="button">Reset layout</button></div>
-                <div class="reports-shell">
+                <div id="reportWorkspace" class="reports-shell">
                     <aside class="sql-studio-sidebar" aria-label="Database schema">
                         <h3>Data explorer</h3><p>Read-only tables available to reports</p>
                         <input id="sqlTableSearch" class="sql-table-search" type="search" placeholder="Search tables…">
@@ -6709,6 +6829,7 @@ ORDER BY ticket_count DESC</textarea>
         const tabSwitcher = document.getElementById("tabSwitcher");
         tabSwitcher.style.display = analyticsWorkspace ? "flex" : "none";
         document.getElementById("reportModeToolbar")?.classList.toggle("open", workspace === "reports");
+        document.getElementById("reportWorkspaceJump")?.classList.toggle("open", workspace === "reports");
         const workspaceToolbar = document.querySelector(".toolbar");
         if (workspaceToolbar) workspaceToolbar.style.display = ["chatbot","knowledge","tickets"].includes(workspace) ? "none" : "flex";
         tabSwitcher.querySelectorAll(".tab").forEach(tab => tab.classList.toggle("active", tab.dataset.tab === workspace));
@@ -9613,7 +9734,7 @@ ORDER BY ticket_count DESC</textarea>
             turns.sort((a,b) => new Date(a.created_at || 0) - new Date(b.created_at || 0));
             thread.innerHTML = turns.length ? turns.map(item => `
                 <div class="ticket-thread-message ${item.type}">
-                    <span class="ticket-thread-name">${escapeHtml(item.name)} · ${escapeHtml(ticketDateText(item.created_at))}</span>
+                    <span class="ticket-thread-name">${escapeHtml(item.type === "customer" ? cleanConversationSenderName(item.name) : item.name)} · ${escapeHtml(ticketDateText(item.created_at))}</span>
                     <div class="ticket-markdown">${renderSafeMarkdown(item.message)}</div>
                 </div>
             `).join("") : `<div class="empty-state">No messages are available for this conversation.</div>`;
@@ -10079,6 +10200,13 @@ ORDER BY ticket_count DESC</textarea>
             day: "2-digit", month: "short", year: "numeric",
             hour: "2-digit", minute: "2-digit"
         });
+    }
+
+    function cleanConversationSenderName(value, fallback = "Customer") {
+        const text = String(value || fallback).trim();
+        return text
+            .replace(/\s*[-·]\s*\d{1,2}\s+[A-Za-z]{3,9}(?:\s+\d{4})?\s*$/i, "")
+            .trim() || fallback;
     }
 
     function ticketDatePart(value) {
@@ -11179,6 +11307,13 @@ ORDER BY ticket_count DESC</textarea>
     }
 
     document.getElementById("reportMode")?.addEventListener("change", () => { syncReportMode(); scheduleCustomReport(); });
+    document.getElementById("reportWorkspaceJump")?.addEventListener("click", () => {
+        const workspace = document.getElementById("reportWorkspace");
+        if (!workspace) return;
+        const stickyOffset = 18;
+        const top = workspace.getBoundingClientRect().top + window.scrollY - stickyOffset;
+        window.scrollTo({ top:Math.max(0,top), behavior:"smooth" });
+    });
     document.getElementById("rawSqlRunBtn")?.addEventListener("click", runCustomReport);
     document.getElementById("rawSqlRunBtnTop")?.addEventListener("click", runCustomReport);
     document.getElementById("rawSqlFormatBtn")?.addEventListener("click", () => {
@@ -11798,6 +11933,7 @@ ORDER BY created_date DESC, ticket_count DESC`;
 
     async function openTicket(ticketId) {
         if (!ticketId) return;
+        const workspaceWasOpen = document.getElementById("ticketDrawerBackdrop")?.classList.contains("open");
         openTicketId = ticketId;
         sessionStorage.setItem("novaradesk_last_ticket_id", String(ticketId));
         sessionStorage.setItem("novaradesk_ticket_workspace_open", "true");
@@ -11805,6 +11941,7 @@ ORDER BY created_date DESC, ticket_count DESC`;
         const backdrop = document.getElementById("ticketDrawerBackdrop");
         backdrop.classList.add("open");
         backdrop.setAttribute("aria-hidden", "false");
+        if (!workspaceWasOpen) setAgentAssistCollapsed(true, false);
         syncTicketWorkspaceFloater(true);
         document.body.style.overflow = "hidden";
         setComposerMode("reply");
@@ -11942,7 +12079,7 @@ ORDER BY created_date DESC, ticket_count DESC`;
 
             const aiThread = [];
             (data.conversation || []).forEach(turn => {
-                if (turn.user_message) aiThread.push({ type: "customer", name: ticket.customer_name || "Customer", message: turn.user_message, created_at: turn.created_at });
+                if (turn.user_message) aiThread.push({ type: "customer", name: cleanConversationSenderName(ticket.customer_name || "Customer"), message: turn.user_message, created_at: turn.created_at });
                 if (turn.bot_reply) aiThread.push({ type: "ai", name: "Novara CX AI", message: cleanTicketText(turn.bot_reply), created_at: turn.created_at });
             });
 
@@ -11955,7 +12092,7 @@ ORDER BY created_date DESC, ticket_count DESC`;
 
             const humanThread = (data.messages || []).map(message => ({
                 type: message.sender_type === "agent" ? "agent" : "customer",
-                name: message.sender_type === "customer" ? (ticket.customer_name || message.sender_name || "Customer") : (message.sender_name || "Novara CX Support"),
+                name: message.sender_type === "customer" ? cleanConversationSenderName(ticket.customer_name || message.sender_name || "Customer") : (message.sender_name || "Novara CX Support"),
                 message: message.message,
                 created_at: message.created_at
             }));
@@ -11963,7 +12100,7 @@ ORDER BY created_date DESC, ticket_count DESC`;
             const threadElement = document.getElementById("ticketThread");
             threadElement.innerHTML = humanThread.length ? humanThread.map(item => `
                 <div class="ticket-thread-message ${item.type}">
-                    <span class="ticket-thread-name">${escapeHtml(item.name)} · ${escapeHtml(ticketDateText(item.created_at))}<span class="ticket-message-state sent">✓ Sent</span></span><div class="ticket-markdown">${renderSafeMarkdown(item.message)}</div>
+                    <span class="ticket-thread-name">${escapeHtml(item.name)} · ${escapeHtml(ticketDateText(item.created_at))}${item.type === "agent" ? '<span class="ticket-message-state sent">✓ Sent</span>' : ''}</span><div class="ticket-markdown">${renderSafeMarkdown(item.message)}</div>
                 </div>
             `).join("") : `<div class="empty-state">No human-support messages yet. Send the first reply below.</div>`;
             threadElement.scrollTop = threadElement.scrollHeight;
