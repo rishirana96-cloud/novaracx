@@ -4554,6 +4554,113 @@
         .ticket-composer-tab{font-weight:800!important}
         .ticket-composer-tab.active{font-weight:850!important}
     </style>
+    <style id="novaradesk-workflows-v1">
+        .workflow-shell{display:grid;gap:18px}
+        .workflow-hero{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;padding:22px 24px;border:1px solid var(--border);border-radius:18px;background:linear-gradient(135deg,color-mix(in srgb,var(--bg-card) 96%,var(--accent) 4%),var(--bg-card));box-shadow:var(--shadow-soft)}
+        .workflow-hero-copy{max-width:690px}.workflow-hero-copy .report-eyebrow{display:block;margin-bottom:7px}.workflow-hero h2{margin:0;color:var(--text);font-size:25px;letter-spacing:-.035em}.workflow-hero p{margin:7px 0 0;color:var(--text-muted);font-size:11px;line-height:1.55}
+        .workflow-hero-actions{display:flex;gap:8px;flex:0 0 auto}.workflow-hero-actions svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+        .workflow-kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.workflow-kpi{min-height:118px;padding:18px;border:1px solid var(--border);border-radius:15px;background:var(--bg-card);box-shadow:var(--shadow-soft)}.workflow-kpi span{display:block;color:var(--text-muted);font-size:8px;font-weight:800;letter-spacing:.09em;text-transform:uppercase}.workflow-kpi strong{display:block;margin-top:11px;color:var(--text);font-size:26px;letter-spacing:-.04em}.workflow-kpi small{display:block;margin-top:5px;color:var(--text-secondary);font-size:9px}
+        .workflow-card{overflow:hidden;border:1px solid var(--border);border-radius:18px;background:var(--bg-card);box-shadow:var(--shadow-soft)}
+        .workflow-toolbar{display:grid;grid-template-columns:minmax(260px,1fr) 180px auto;gap:10px;padding:16px 18px;border-bottom:1px solid var(--border);background:var(--surface)}.workflow-search{display:flex;align-items:center;gap:9px;min-height:42px;padding:0 12px;border:1px solid var(--border);border-radius:10px;background:var(--bg-card)}.workflow-search svg{width:16px;height:16px;fill:none;stroke:var(--text-muted);stroke-width:1.8}.workflow-search input{width:100%;border:0;outline:0;background:transparent;color:var(--text);font:inherit;font-size:11px}.workflow-toolbar select{width:100%;min-height:42px;padding:0 36px 0 12px;border:1px solid var(--border);border-radius:10px;background:var(--bg-card);color:var(--text);font:inherit;font-size:10px;font-weight:700}
+        .workflow-tabs{display:flex;align-items:center;gap:4px;padding:8px;border:1px solid var(--border);border-radius:10px;background:var(--bg-card)}.workflow-tab{min-height:34px;padding:0 11px;border:0;border-radius:8px;background:transparent;color:var(--text-muted);font:inherit;font-size:10px;font-weight:750;cursor:pointer}.workflow-tab.active{background:color-mix(in srgb,var(--accent) 13%,var(--surface));color:var(--accent-light)}
+        .workflow-list{display:grid}.workflow-row{display:grid;grid-template-columns:minmax(250px,1.4fr) minmax(210px,.9fr) minmax(180px,.8fr) 115px 122px;align-items:center;gap:16px;min-height:92px;padding:15px 18px;border-bottom:1px solid var(--border);transition:background .15s ease}.workflow-row:last-child{border-bottom:0}.workflow-row:hover{background:color-mix(in srgb,var(--accent) 5%,var(--surface))}.workflow-name{min-width:0}.workflow-name strong{display:flex;align-items:center;gap:8px;color:var(--text);font-size:12px}.workflow-name p{overflow:hidden;margin:6px 0 0;color:var(--text-muted);font-size:9px;line-height:1.4;white-space:nowrap;text-overflow:ellipsis}.workflow-icon{width:30px;height:30px;display:grid;place-items:center;flex:0 0 auto;border-radius:9px;background:color-mix(in srgb,var(--accent) 12%,var(--surface));color:var(--accent-light)}.workflow-icon svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}.workflow-summary span,.workflow-updated span{display:block;color:var(--text-muted);font-size:7px;font-weight:800;letter-spacing:.08em;text-transform:uppercase}.workflow-summary strong,.workflow-updated strong{display:block;overflow:hidden;margin-top:5px;color:var(--text-secondary);font-size:9px;white-space:nowrap;text-overflow:ellipsis}
+        .workflow-status{display:inline-flex;align-items:center;justify-content:center;gap:6px;width:max-content;min-height:30px;padding:0 10px;border:1px solid var(--border);border-radius:999px;font-size:9px;font-weight:800}.workflow-status::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor}.workflow-status.active{border-color:color-mix(in srgb,var(--success) 35%,var(--border));background:color-mix(in srgb,var(--success) 10%,transparent);color:var(--success)}.workflow-status.paused{border-color:color-mix(in srgb,var(--warning) 35%,var(--border));background:color-mix(in srgb,var(--warning) 10%,transparent);color:var(--warning)}.workflow-status.draft{color:var(--text-muted)}
+        .workflow-row-actions{display:flex;justify-content:flex-end;gap:5px}.workflow-action{width:34px;height:34px;display:grid;place-items:center;border:1px solid var(--border);border-radius:9px;background:var(--bg-card);color:var(--text-secondary);cursor:pointer}.workflow-action:hover{border-color:color-mix(in srgb,var(--accent) 40%,var(--border));color:var(--accent-light)}.workflow-action.danger:hover{color:var(--danger)}.workflow-action svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+        .workflow-empty{padding:64px 24px;text-align:center}.workflow-empty strong{display:block;font-size:16px}.workflow-empty span{display:block;margin-top:7px;color:var(--text-muted);font-size:10px}
+        .workflow-history-head{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:17px 18px;border-bottom:1px solid var(--border)}.workflow-history-head h3{font-size:14px}.workflow-history-head p{margin-top:4px;color:var(--text-muted);font-size:9px}.workflow-history-list{display:grid}.workflow-history-row{display:grid;grid-template-columns:140px minmax(220px,1fr) minmax(180px,1fr) 100px;gap:14px;padding:13px 18px;border-bottom:1px solid var(--border);color:var(--text-secondary);font-size:9px}.workflow-history-row:last-child{border-bottom:0}.workflow-history-row strong{color:var(--text)}.workflow-history-result{font-weight:800}.workflow-history-result.success{color:var(--success)}.workflow-history-result.skipped{color:var(--warning)}
+        .workflow-editor-backdrop{position:fixed;inset:0;z-index:3000;display:none;align-items:stretch;justify-content:flex-end;background:rgba(4,8,6,.6);backdrop-filter:blur(4px)}.workflow-editor-backdrop.open{display:flex}.workflow-editor{width:min(720px,100%);height:100%;display:flex;flex-direction:column;background:var(--bg);border-left:1px solid var(--border);box-shadow:-24px 0 70px rgba(0,0,0,.3)}.workflow-editor-head{display:flex;align-items:flex-start;justify-content:space-between;gap:20px;padding:22px 24px;border-bottom:1px solid var(--border);background:var(--bg-card)}.workflow-editor-head h2{font-size:20px}.workflow-editor-head p{margin-top:5px;color:var(--text-muted);font-size:10px}.workflow-editor-body{flex:1;overflow:auto;padding:22px 24px}.workflow-editor-footer{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:15px 24px;border-top:1px solid var(--border);background:var(--bg-card)}.workflow-save-state{color:var(--text-muted);font-size:9px}.workflow-section{margin-bottom:16px;padding:18px;border:1px solid var(--border);border-radius:15px;background:var(--bg-card)}.workflow-section-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:14px}.workflow-step{display:flex;align-items:center;gap:10px}.workflow-step-number{width:27px;height:27px;display:grid;place-items:center;border-radius:8px;background:var(--accent-dark);color:#fff;font-size:10px;font-weight:850}.workflow-step h3{font-size:13px}.workflow-step p{margin-top:3px;color:var(--text-muted);font-size:8px}.workflow-form-grid{display:grid;grid-template-columns:1fr 1fr;gap:11px}.workflow-field{display:grid;gap:6px}.workflow-field.wide{grid-column:1/-1}.workflow-field>span{color:var(--text-muted);font-size:8px;font-weight:800;letter-spacing:.08em;text-transform:uppercase}.workflow-field input,.workflow-field select,.workflow-field textarea{width:100%;min-height:43px;padding:0 12px;border:1px solid var(--border);border-radius:10px;background:var(--surface);color:var(--text);font:inherit;font-size:10px;outline:none}.workflow-field textarea{min-height:76px;padding-block:10px;resize:vertical}.workflow-field input:focus,.workflow-field textarea:focus{border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 12%,transparent)}
+        .workflow-rule-list{display:grid;gap:9px}.workflow-rule{display:grid;grid-template-columns:150px 130px minmax(120px,1fr) 34px;gap:8px;align-items:center}.workflow-rule select,.workflow-rule input{width:100%;min-height:40px;padding:0 10px;border:1px solid var(--border);border-radius:9px;background:var(--surface);color:var(--text);font:inherit;font-size:9px}.workflow-rule-remove{width:34px;height:34px;border:1px solid var(--border);border-radius:8px;background:transparent;color:var(--text-muted);cursor:pointer}.workflow-rule-remove:hover{color:var(--danger)}.workflow-add-rule{margin-top:10px}.workflow-logic{display:flex;gap:5px}.workflow-logic button{min-height:31px;padding:0 10px;border:1px solid var(--border);border-radius:8px;background:transparent;color:var(--text-muted);font:inherit;font-size:9px;font-weight:800;cursor:pointer}.workflow-logic button.active{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 11%,var(--surface));color:var(--accent-light)}
+        .workflow-template-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.workflow-template{padding:14px;border:1px solid var(--border);border-radius:12px;background:var(--surface);color:var(--text);text-align:left;cursor:pointer}.workflow-template:hover{border-color:color-mix(in srgb,var(--accent) 45%,var(--border));background:color-mix(in srgb,var(--accent) 7%,var(--surface))}.workflow-template strong{display:block;font-size:10px}.workflow-template span{display:block;margin-top:5px;color:var(--text-muted);font-size:8px;line-height:1.45}
+        html[data-theme="light"] .workflow-hero,html[data-theme="light"] .workflow-kpi,html[data-theme="light"] .workflow-card,html[data-theme="light"] .workflow-section{background:#fff}
+        @media(max-width:1100px){.workflow-kpis{grid-template-columns:repeat(2,1fr)}.workflow-row{grid-template-columns:minmax(230px,1.4fr) minmax(180px,1fr) 105px 110px}.workflow-updated{display:none}}
+        @media(max-width:760px){.workflow-hero{align-items:flex-start;flex-direction:column;padding:18px}.workflow-hero-actions{width:100%;flex-wrap:wrap}.workflow-hero-actions button{flex:1}.workflow-kpis{grid-template-columns:1fr 1fr}.workflow-toolbar{grid-template-columns:1fr}.workflow-tabs{overflow:auto}.workflow-row{grid-template-columns:1fr auto;gap:10px;min-height:0}.workflow-summary,.workflow-updated{display:none}.workflow-row-actions{grid-column:1/-1;justify-content:flex-start}.workflow-history-row{grid-template-columns:1fr 90px}.workflow-history-row>:nth-child(1),.workflow-history-row>:nth-child(3){display:none}.workflow-editor-body{padding:16px}.workflow-editor-head,.workflow-editor-footer{padding:16px}.workflow-form-grid,.workflow-template-grid{grid-template-columns:1fr}.workflow-rule{grid-template-columns:1fr 1fr 34px}.workflow-rule input{grid-column:1/3}.workflow-rule-remove{grid-column:3;grid-row:1/3}.workflow-section{padding:15px}}
+    </style>
+    <style id="novaradesk-workflows-enterprise-v2">
+        /* Workflows: compact enterprise operations console */
+        #panel-workflows{--wf-green:#2f6b55;--wf-green-soft:color-mix(in srgb,var(--wf-green) 9%,var(--bg-card));--wf-blue:#3f6fbd;--wf-amber:#a66c13}
+        #panel-workflows .workflow-shell{gap:14px;max-width:1680px;margin:0 auto}
+        #panel-workflows .workflow-hero{align-items:center;padding:4px 2px 18px;border:0;border-bottom:1px solid var(--border);border-radius:0;background:transparent;box-shadow:none}
+        #panel-workflows .workflow-hero-copy{max-width:760px}
+        #panel-workflows .workflow-hero-copy .report-eyebrow{margin-bottom:5px;color:var(--accent-light);font-size:9px;letter-spacing:.14em}
+        #panel-workflows .workflow-hero h2{font-size:27px;line-height:1.15;letter-spacing:-.035em}
+        #panel-workflows .workflow-hero p{max-width:680px;margin-top:6px;font-size:11px;line-height:1.5}
+        #panel-workflows .workflow-hero-actions{gap:8px}
+        #panel-workflows .workflow-hero-actions .admin-btn{min-height:40px;padding-inline:14px;border-radius:9px;font-size:10px;box-shadow:none}
+        #panel-workflows .workflow-kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;overflow:hidden;border:1px solid var(--border);border-radius:12px;background:var(--bg-card);box-shadow:none}
+        #panel-workflows .workflow-kpi{min-height:78px;padding:14px 17px;border:0;border-right:1px solid var(--border);border-radius:0;background:transparent;box-shadow:none}
+        #panel-workflows .workflow-kpi:last-child{border-right:0}
+        #panel-workflows .workflow-kpi span{font-size:8px;letter-spacing:.1em}
+        #panel-workflows .workflow-kpi strong{margin-top:5px;font-size:22px;line-height:1}
+        #panel-workflows .workflow-kpi small{margin-top:5px;font-size:8px}
+        #panel-workflows .workflow-card{overflow:visible;border-radius:12px;box-shadow:none}
+        #panel-workflows .workflow-toolbar{grid-template-columns:minmax(240px,1fr) 160px auto;padding:10px 12px;border-radius:12px 12px 0 0;background:var(--bg-card)}
+        #panel-workflows .workflow-search,#panel-workflows .workflow-toolbar select{min-height:38px;border-radius:8px}
+        #panel-workflows .workflow-tabs{padding:3px;border-radius:8px}
+        #panel-workflows .workflow-tab{min-height:30px;padding:0 12px;border-radius:6px;font-size:9px}
+        #panel-workflows .workflow-table-head{display:grid;grid-template-columns:minmax(260px,1.45fr) minmax(150px,.72fr) minmax(180px,.9fr) 110px 104px 112px;gap:14px;padding:10px 14px;border-bottom:1px solid var(--border);background:var(--surface);color:var(--text-muted);font-size:7px;font-weight:850;letter-spacing:.11em;text-transform:uppercase}
+        #panel-workflows .workflow-list{background:var(--bg-card);border-radius:0 0 12px 12px}
+        #panel-workflows .workflow-row{grid-template-columns:minmax(260px,1.45fr) minmax(150px,.72fr) minmax(180px,.9fr) 110px 104px 112px;gap:14px;min-height:72px;padding:11px 14px;background:transparent}
+        #panel-workflows .workflow-row:hover{background:var(--wf-green-soft)}
+        #panel-workflows .workflow-name strong{gap:10px;font-size:11px;line-height:1.25}
+        #panel-workflows .workflow-name p{margin-top:4px;font-size:8px;line-height:1.35}
+        #panel-workflows .workflow-icon{width:27px;height:27px;border-radius:7px}
+        #panel-workflows .workflow-icon svg{width:14px;height:14px}
+        #panel-workflows .workflow-summary span,#panel-workflows .workflow-updated span{display:none}
+        #panel-workflows .workflow-summary strong,#panel-workflows .workflow-updated strong{margin:0;font-size:9px;line-height:1.35}
+        #panel-workflows .workflow-actions-summary{min-width:0;color:var(--text-secondary);font-size:9px;line-height:1.4}
+        #panel-workflows .workflow-actions-summary strong{display:block;overflow:hidden;color:var(--text-secondary);font-weight:650;white-space:nowrap;text-overflow:ellipsis}
+        #panel-workflows .workflow-status{min-height:28px;padding:0 9px;border-radius:7px;font-size:8px}
+        #panel-workflows .workflow-row-actions{gap:4px;opacity:.45;transition:opacity .15s ease}
+        #panel-workflows .workflow-row:hover .workflow-row-actions,#panel-workflows .workflow-row:focus-within .workflow-row-actions{opacity:1}
+        #panel-workflows .workflow-action{width:30px;height:30px;border:0;border-radius:7px;background:transparent}
+        #panel-workflows .workflow-action:hover{background:color-mix(in srgb,var(--accent) 10%,var(--surface))}
+        #panel-workflows .workflow-empty{padding:52px 24px}
+        #panel-workflows .workflow-empty strong{font-size:14px}
+        #panel-workflows .workflow-empty span{font-size:9px}
+        #panel-workflows .workflow-history-head{padding:13px 15px}
+        #panel-workflows .workflow-history-row{padding:12px 15px}
+        .workflow-editor{width:min(650px,100%);background:var(--bg-card)}
+        .workflow-editor-head{padding:18px 20px}
+        .workflow-editor-head h2{font-size:18px}
+        .workflow-editor-body{padding:0 20px 24px;background:var(--bg-card)}
+        .workflow-editor-footer{padding:12px 20px}
+        .workflow-editor .workflow-section{margin:0;padding:20px 0;border:0;border-bottom:1px solid var(--border);border-radius:0;background:transparent;box-shadow:none}
+        .workflow-editor .workflow-section:last-child{border-bottom:0}
+        .workflow-editor .workflow-section-head{margin-bottom:12px}
+        .workflow-editor .workflow-step-number{width:24px;height:24px;border-radius:6px;font-size:9px}
+        .workflow-editor .workflow-step h3{font-size:12px}
+        .workflow-editor .workflow-step p{font-size:8px}
+        .workflow-editor .workflow-field input,.workflow-editor .workflow-field select,.workflow-editor .workflow-field textarea{min-height:40px;border-radius:8px;background:var(--surface);font-size:9px}
+        .workflow-editor .workflow-field textarea{min-height:64px}
+        .workflow-editor .workflow-rule{grid-template-columns:145px 125px minmax(120px,1fr) 32px}
+        .workflow-editor .workflow-rule[data-rule-type="action"]{grid-template-columns:190px minmax(160px,1fr) 32px}
+        .workflow-editor .workflow-rule select,.workflow-editor .workflow-rule input{min-height:38px;border-radius:8px}
+        .workflow-editor .workflow-rule-remove{width:32px;height:32px}
+        .workflow-editor .workflow-template-grid{grid-template-columns:1fr}
+        .workflow-editor .workflow-template{padding:12px;border-radius:9px}
+        html[data-theme="light"] #panel-workflows .workflow-hero{background:transparent}
+        @media(max-width:1180px){
+            #panel-workflows .workflow-table-head{grid-template-columns:minmax(230px,1.35fr) minmax(150px,.8fr) minmax(150px,.8fr) 104px 112px}
+            #panel-workflows .workflow-table-head span:nth-child(4){display:none}
+            #panel-workflows .workflow-row{grid-template-columns:minmax(230px,1.35fr) minmax(150px,.8fr) minmax(150px,.8fr) 104px 112px}
+            #panel-workflows .workflow-updated{display:none}
+        }
+        @media(max-width:760px){
+            #panel-workflows .workflow-hero{align-items:flex-start;padding-bottom:14px}
+            #panel-workflows .workflow-hero h2{font-size:23px}
+            #panel-workflows .workflow-kpis{grid-template-columns:1fr 1fr}
+            #panel-workflows .workflow-kpi:nth-child(2){border-right:0}
+            #panel-workflows .workflow-kpi:nth-child(-n+2){border-bottom:1px solid var(--border)}
+            #panel-workflows .workflow-toolbar{grid-template-columns:1fr}
+            #panel-workflows .workflow-table-head{display:none}
+            #panel-workflows .workflow-row{grid-template-columns:1fr auto;padding:13px}
+            #panel-workflows .workflow-actions-summary{display:none}
+            #panel-workflows .workflow-row-actions{grid-column:1/-1;opacity:1}
+            .workflow-editor .workflow-rule,.workflow-editor .workflow-rule[data-rule-type="action"]{grid-template-columns:1fr 32px}
+            .workflow-editor .workflow-rule select,.workflow-editor .workflow-rule input{grid-column:1}
+            .workflow-editor .workflow-rule-remove{grid-column:2;grid-row:1/4}
+        }
+    </style>
 </head>
 
 
@@ -4732,6 +4839,17 @@
                     <path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H11v16H6.5A2.5 2.5 0 0 0 4 21.5v-16ZM20 5.5A2.5 2.5 0 0 0 17.5 3H13v16h4.5a2.5 2.5 0 0 1 2.5 2.5v-16Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
                 </svg>
                 <span>Knowledge Base</span>
+            </a>
+
+            <!-- Workflows -->
+            <a href="#workflows" class="nav-item" id="sidebarWorkflows" data-tab="workflows">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <circle cx="6" cy="6" r="2.5" stroke="currentColor" stroke-width="1.8"/>
+                    <circle cx="18" cy="6" r="2.5" stroke="currentColor" stroke-width="1.8"/>
+                    <circle cx="18" cy="18" r="2.5" stroke="currentColor" stroke-width="1.8"/>
+                    <path d="M8.5 6H15.5M18 8.5v7M6 8.5v4.2c0 2.9 2.4 5.3 5.3 5.3h4.2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                </svg>
+                <span>Workflows</span>
             </a>
 
         </nav>
@@ -6508,6 +6626,43 @@ ORDER BY ticket_count DESC</textarea>
                 </div>
             </section>
 
+            <!-- =================================================
+                 WORKFLOW AUTOMATION
+            ================================================== -->
+            <section id="panel-workflows" class="view-panel">
+                <div class="workflow-shell">
+                    <header class="workflow-hero">
+                        <div class="workflow-hero-copy">
+                            <span class="report-eyebrow">Operations automation</span>
+                            <h2>Workflows</h2>
+                            <p>Automate routing, service-level protection and customer follow-ups with rules your team can audit and control.</p>
+                        </div>
+                        <div class="workflow-hero-actions">
+                            <button id="workflowTemplatesBtn" class="admin-btn" type="button"><svg viewBox="0 0 24 24"><path d="M4 5h16v14H4zM8 9h8M8 13h5"/></svg>Templates</button>
+                            <button id="workflowCreateBtn" class="admin-btn primary" type="button"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>Create workflow</button>
+                        </div>
+                    </header>
+
+                    <div class="workflow-kpis">
+                        <article class="workflow-kpi"><span>Active workflows</span><strong id="workflowActiveKpi">0</strong><small>Currently monitoring events</small></article>
+                        <article class="workflow-kpi"><span>Runs today</span><strong id="workflowRunsKpi">0</strong><small>Automation executions</small></article>
+                        <article class="workflow-kpi"><span>Successful</span><strong id="workflowSuccessKpi">—</strong><small>Last 30 executions</small></article>
+                        <article class="workflow-kpi"><span>Time saved</span><strong id="workflowTimeKpi">0m</strong><small>Estimated this week</small></article>
+                    </div>
+
+                    <article class="workflow-card">
+                        <div class="workflow-toolbar">
+                            <label class="workflow-search"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m16 16 4 4"/></svg><input id="workflowSearch" type="search" placeholder="Search workflows…" aria-label="Search workflows"></label>
+                            <select id="workflowStatusFilter" aria-label="Filter workflows by status"><option value="all">All statuses</option><option value="active">Active</option><option value="paused">Paused</option><option value="draft">Draft</option></select>
+                            <div class="workflow-tabs" role="tablist"><button class="workflow-tab active" data-workflow-view="workflows" type="button">Workflows</button><button class="workflow-tab" data-workflow-view="history" type="button">Run history</button></div>
+                        </div>
+                        <div id="workflowTableHead" class="workflow-table-head" aria-hidden="true"><span>Workflow</span><span>Trigger</span><span>Actions</span><span>Updated</span><span>Status</span><span></span></div>
+                        <div id="workflowList" class="workflow-list"></div>
+                        <div id="workflowHistory" class="workflow-history-list" hidden></div>
+                    </article>
+                </div>
+            </section>
+
 
             <!-- =================================================
                  FOOTER
@@ -6561,6 +6716,35 @@ ORDER BY ticket_count DESC</textarea>
         <header class="kb-viewer-head"><div><span class="report-eyebrow">Knowledge article</span><h2 id="knowledgeViewerTitle">Article</h2></div><div class="kb-viewer-actions"><button id="knowledgeViewerEdit" class="admin-btn" type="button">Edit</button><button id="knowledgeViewerCopy" class="admin-btn" type="button">Copy link</button><button id="knowledgeViewerClose" class="ticket-close" type="button" aria-label="Close">✕</button></div></header>
         <div id="knowledgeViewerBody" class="kb-viewer-body"></div>
         <footer class="kb-viewer-nav"><button id="knowledgeViewerPrevious" class="admin-btn" type="button">← Previous</button><button id="knowledgeViewerNext" class="admin-btn" type="button">Next →</button></footer>
+    </aside>
+</div>
+
+<div id="workflowEditorBackdrop" class="workflow-editor-backdrop" aria-hidden="true">
+    <aside class="workflow-editor" role="dialog" aria-modal="true" aria-labelledby="workflowEditorTitle">
+        <header class="workflow-editor-head"><div><span class="report-eyebrow">Workflow builder</span><h2 id="workflowEditorTitle">Create workflow</h2><p>Define what starts the workflow and what NovaraDesk should do next.</p></div><button id="workflowEditorClose" class="ticket-close" type="button" aria-label="Close workflow builder">✕</button></header>
+        <div class="workflow-editor-body">
+            <section id="workflowTemplateSection" class="workflow-section" hidden>
+                <div class="workflow-section-head"><div class="workflow-step"><span class="workflow-step-number">★</span><div><h3>Start from a template</h3><p>Use a proven automation and adapt it to your operation.</p></div></div></div>
+                <div id="workflowTemplateGrid" class="workflow-template-grid"></div>
+            </section>
+            <section class="workflow-section">
+                <div class="workflow-section-head"><div class="workflow-step"><span class="workflow-step-number">1</span><div><h3>Workflow details</h3><p>Give your team a clear name and purpose.</p></div></div></div>
+                <div class="workflow-form-grid"><label class="workflow-field wide"><span>Name</span><input id="workflowNameInput" maxlength="100" placeholder="e.g. Escalate angry customers"></label><label class="workflow-field wide"><span>Description</span><textarea id="workflowDescriptionInput" maxlength="280" placeholder="Explain what this workflow handles."></textarea></label></div>
+            </section>
+            <section class="workflow-section">
+                <div class="workflow-section-head"><div class="workflow-step"><span class="workflow-step-number">2</span><div><h3>When this happens</h3><p>Select the event that starts the workflow.</p></div></div></div>
+                <label class="workflow-field wide"><span>Trigger</span><select id="workflowTriggerInput"><option value="ticket_created">Ticket is created</option><option value="customer_replied">Customer replies</option><option value="status_changed">Ticket status changes</option><option value="ticket_assigned">Ticket is assigned</option><option value="sla_approaching">SLA is approaching</option><option value="rating_received">Rating is received</option><option value="ai_low_confidence">AI confidence is low</option></select></label>
+            </section>
+            <section class="workflow-section">
+                <div class="workflow-section-head"><div class="workflow-step"><span class="workflow-step-number">3</span><div><h3>Only if</h3><p>Add optional conditions to narrow the workflow.</p></div></div><div class="workflow-logic"><button class="active" data-workflow-logic="and" type="button">AND</button><button data-workflow-logic="or" type="button">OR</button></div></div>
+                <div id="workflowConditionList" class="workflow-rule-list"></div><button id="workflowAddCondition" class="admin-btn workflow-add-rule" type="button">＋ Add condition</button>
+            </section>
+            <section class="workflow-section">
+                <div class="workflow-section-head"><div class="workflow-step"><span class="workflow-step-number">4</span><div><h3>Then do this</h3><p>Add one or more actions in execution order.</p></div></div></div>
+                <div id="workflowActionList" class="workflow-rule-list"></div><button id="workflowAddAction" class="admin-btn workflow-add-rule" type="button">＋ Add action</button>
+            </section>
+        </div>
+        <footer class="workflow-editor-footer"><span id="workflowEditorState" class="workflow-save-state">Saved locally until workflow execution is connected.</span><div class="admin-command-actions"><button id="workflowSaveDraft" class="admin-btn" type="button">Save draft</button><button id="workflowSaveActive" class="admin-btn primary" type="button">Save & activate</button></div></footer>
     </aside>
 </div>
 
@@ -6974,6 +7158,7 @@ ORDER BY ticket_count DESC</textarea>
     const sidebarReports = document.getElementById("sidebarReports");
     const sidebarChatbot = document.getElementById("sidebarChatbot");
     const sidebarKnowledge = document.getElementById("sidebarKnowledge");
+    const sidebarWorkflows = document.getElementById("sidebarWorkflows");
     const analyticsSubnav = document.getElementById("analyticsSubnav");
     const analyticsSubitems = {
         ai: document.getElementById("sidebarAiAgent"),
@@ -6988,7 +7173,8 @@ ORDER BY ticket_count DESC</textarea>
         tickets: ["Tickets", "Manage escalated customer requests and resolutions."],
         reports: ["Custom Reports", "Build, save and export focused views of your CX data."],
         chatbot: ["AI Chatbot", "Configure, test and deploy your customer-facing AI."],
-        knowledge: ["Knowledge Base", "Manage the governed information used by your AI chatbot."]
+        knowledge: ["Knowledge Base", "Manage the governed information used by your AI chatbot."],
+        workflows: ["Workflows", "Automate routing, follow-ups and service-level actions."]
     };
 
     function showWorkspace(workspace, refresh = true) {
@@ -7009,6 +7195,7 @@ ORDER BY ticket_count DESC</textarea>
         else if (workspace === "reports") sidebarReports?.classList.add("active");
         else if (workspace === "chatbot") sidebarChatbot?.classList.add("active");
         else if (workspace === "knowledge") sidebarKnowledge?.classList.add("active");
+        else if (workspace === "workflows") sidebarWorkflows?.classList.add("active");
 
         const [heading, subtitle] = workspaceCopy[workspace];
         document.getElementById("pageHeading").textContent = heading;
@@ -7020,7 +7207,7 @@ ORDER BY ticket_count DESC</textarea>
         document.getElementById("reportWorkspaceJump")?.classList.toggle("open", workspace === "reports");
         document.getElementById("dashboardToolbarAddReport")?.classList.toggle("open", workspace === "dashboards");
         const workspaceToolbar = document.querySelector(".toolbar");
-        if (workspaceToolbar) workspaceToolbar.style.display = ["chatbot","knowledge","tickets"].includes(workspace) ? "none" : "flex";
+        if (workspaceToolbar) workspaceToolbar.style.display = ["chatbot","knowledge","tickets","workflows"].includes(workspace) ? "none" : "flex";
         tabSwitcher.querySelectorAll(".tab").forEach(tab => tab.classList.toggle("active", tab.dataset.tab === workspace));
         const layoutControls = document.querySelector(".layout-controls");
         if (layoutControls) layoutControls.style.display = ["ai","human","tickets","reports"].includes(workspace) ? "flex" : "none";
@@ -7036,6 +7223,7 @@ ORDER BY ticket_count DESC</textarea>
         if (workspace === "dashboards") renderCustomDashboard();
         if (workspace === "chatbot") loadChatbotControlCentre();
         if (workspace === "knowledge") loadKnowledgeBase();
+        if (workspace === "workflows") renderWorkflowWorkspace();
         if (refresh) window.scrollTo({ top: 0, behavior: "smooth" });
         if (refresh) updateDashboard(currentPeriod);
     }
@@ -7053,6 +7241,7 @@ ORDER BY ticket_count DESC</textarea>
     sidebarReports?.addEventListener("click", event => { event.preventDefault(); showWorkspace("reports"); });
     sidebarChatbot?.addEventListener("click", event => { event.preventDefault(); showWorkspace("chatbot"); });
     sidebarKnowledge?.addEventListener("click", event => { event.preventDefault(); showWorkspace("knowledge"); });
+    sidebarWorkflows?.addEventListener("click", event => { event.preventDefault(); showWorkspace("workflows"); });
 
 
     /* =====================================================
@@ -13625,6 +13814,117 @@ ORDER BY created_date DESC, ticket_count DESC`;
 
 
     /* =====================================================
+       WORKFLOW AUTOMATION
+    ====================================================== */
+
+    const WORKFLOW_STORAGE_KEY = "novaradesk_workflows_v1";
+    const WORKFLOW_HISTORY_KEY = "novaradesk_workflow_history_v1";
+    const WORKFLOW_TEMPLATES = [
+        { id:"negative_sentiment", name:"Negative sentiment escalation", description:"Prioritise risky conversations and alert the support owner.", trigger:"ticket_created", logic:"and", conditions:[{field:"sentiment",operator:"equals",value:"negative"}], actions:[{type:"set_priority",value:"high"},{type:"add_tag",value:"At Risk"},{type:"notify_agent",value:"assigned"}] },
+        { id:"sla_warning", name:"SLA breach warning", description:"Notify the ticket owner before the first-response SLA expires.", trigger:"sla_approaching", logic:"and", conditions:[{field:"status",operator:"not_equals",value:"resolved"}], actions:[{type:"notify_agent",value:"assigned"},{type:"add_internal_note",value:"SLA deadline approaching"}] },
+        { id:"reopened_priority", name:"Reopened ticket priority", description:"Return reopened cases to their previous owner with higher priority.", trigger:"status_changed", logic:"and", conditions:[{field:"status",operator:"equals",value:"reopened"}], actions:[{type:"set_priority",value:"high"},{type:"assign_agent",value:"previous_owner"},{type:"notify_agent",value:"assigned"}] },
+        { id:"pending_followup", name:"Pending customer follow-up", description:"Follow up when a customer has not replied within the chosen time.", trigger:"status_changed", logic:"and", conditions:[{field:"status",operator:"equals",value:"pending"},{field:"hours_waiting",operator:"greater_than",value:"48"}], actions:[{type:"send_reply",value:"We’re checking whether you still need help with this request."},{type:"add_tag",value:"Follow-up sent"}] },
+        { id:"low_confidence", name:"Low-confidence AI handoff", description:"Escalate uncertain AI conversations before an unreliable answer is sent.", trigger:"ai_low_confidence", logic:"and", conditions:[{field:"ai_confidence",operator:"less_than",value:"0.55"}], actions:[{type:"set_priority",value:"normal"},{type:"add_tag",value:"AI Handoff"},{type:"notify_agent",value:"unassigned_queue"}] }
+    ];
+    const WORKFLOW_FIELDS = [
+        ["status","Ticket status"],["priority","Priority"],["sentiment","Sentiment"],["intent","Intent"],["assigned_agent","Assigned agent"],["tag","Tag"],["customer_phone","Customer phone"],["hours_waiting","Hours waiting"],["ai_confidence","AI confidence"],["rating","Customer rating"]
+    ];
+    const WORKFLOW_OPERATORS = [["equals","Equals"],["not_equals","Does not equal"],["contains","Contains"],["not_contains","Does not contain"],["greater_than","Greater than"],["less_than","Less than"],["is_empty","Is empty"],["is_not_empty","Is not empty"]];
+    const WORKFLOW_ACTIONS = [["set_status","Set status"],["set_priority","Set priority"],["assign_agent","Assign agent"],["add_tag","Add tag"],["add_internal_note","Add internal note"],["notify_agent","Notify agent"],["send_reply","Send predefined reply"],["reopen_ticket","Reopen ticket"],["close_ticket","Close ticket"]];
+    let workflowEditingId = null;
+    let workflowLogic = "and";
+    let workflowView = "workflows";
+
+    function workflowId() { return `workflow_${Date.now()}_${Math.random().toString(36).slice(2,7)}`; }
+    function loadWorkflows() { try { const value=JSON.parse(localStorage.getItem(WORKFLOW_STORAGE_KEY)||"[]"); return Array.isArray(value)?value:[]; } catch { return []; } }
+    function saveWorkflows(items) { localStorage.setItem(WORKFLOW_STORAGE_KEY,JSON.stringify(items)); }
+    function loadWorkflowHistory() { try { const value=JSON.parse(localStorage.getItem(WORKFLOW_HISTORY_KEY)||"[]"); return Array.isArray(value)?value:[]; } catch { return []; } }
+    function workflowTime(value) { if(!value)return "Never"; const elapsed=Date.now()-new Date(value).getTime(); const minutes=Math.max(0,Math.floor(elapsed/60000)); if(minutes<1)return "Just now"; if(minutes<60)return `${minutes} min ago`; const hours=Math.floor(minutes/60); if(hours<24)return `${hours} hr${hours===1?"":"s"} ago`; return new Date(value).toLocaleDateString("en-IN",{day:"2-digit",month:"short",year:"numeric"}); }
+    function workflowTriggerLabel(value) { return ({ticket_created:"Ticket created",customer_replied:"Customer replied",status_changed:"Status changed",ticket_assigned:"Ticket assigned",sla_approaching:"SLA approaching",rating_received:"Rating received",ai_low_confidence:"Low AI confidence"})[value]||value; }
+    function workflowActionLabel(value) { return Object.fromEntries(WORKFLOW_ACTIONS)[value]||value; }
+    function workflowOptionMarkup(options,selected) { return options.map(([value,label])=>`<option value="${escapeHtml(value)}" ${value===selected?"selected":""}>${escapeHtml(label)}</option>`).join(""); }
+
+    function renderWorkflowWorkspace() {
+        const workflows=loadWorkflows(); const history=loadWorkflowHistory();
+        const active=workflows.filter(item=>item.status==="active").length;
+        const today=new Date().toDateString(); const todayRuns=history.filter(item=>new Date(item.createdAt).toDateString()===today).length;
+        const recent=history.slice(0,30); const success=recent.length?Math.round(recent.filter(item=>item.result==="success").length/recent.length*100):null;
+        document.getElementById("workflowActiveKpi").textContent=String(active);
+        document.getElementById("workflowRunsKpi").textContent=String(todayRuns);
+        document.getElementById("workflowSuccessKpi").textContent=success===null?"—":`${success}%`;
+        document.getElementById("workflowTimeKpi").textContent=`${history.filter(item=>Date.now()-new Date(item.createdAt).getTime()<604800000).length*3}m`;
+        document.getElementById("workflowList").hidden=workflowView!=="workflows";
+        document.getElementById("workflowTableHead").hidden=workflowView!=="workflows";
+        document.getElementById("workflowHistory").hidden=workflowView!=="history";
+        renderWorkflowList(); renderWorkflowHistory();
+    }
+
+    function renderWorkflowList() {
+        const list=document.getElementById("workflowList"); if(!list)return;
+        const query=(document.getElementById("workflowSearch")?.value||"").trim().toLowerCase();
+        const status=document.getElementById("workflowStatusFilter")?.value||"all";
+        const items=loadWorkflows().filter(item=>(status==="all"||item.status===status)&&(!query||`${item.name} ${item.description} ${workflowTriggerLabel(item.trigger)}`.toLowerCase().includes(query)));
+        if(!items.length){list.innerHTML=`<div class="workflow-empty"><strong>${loadWorkflows().length?"No workflows match this view":"Create your first workflow"}</strong><span>${loadWorkflows().length?"Try another search or status filter.":"Start with a template or create a rule from scratch."}</span></div>`;return;}
+        list.innerHTML=items.map(item=>`<article class="workflow-row" data-workflow-id="${escapeHtml(item.id)}">
+            <div class="workflow-name"><strong><span class="workflow-icon"><svg viewBox="0 0 24 24"><path d="M5 6h6M13 6h6M7 6v7a5 5 0 0 0 5 5h5M17 15l3 3-3 3"/></svg></span>${escapeHtml(item.name)}</strong><p>${escapeHtml(item.description||"No description")}</p></div>
+            <div class="workflow-summary"><span>Trigger</span><strong>${escapeHtml(workflowTriggerLabel(item.trigger))}${item.conditions.length?` · ${item.conditions.length} rule${item.conditions.length===1?"":"s"}`:""}</strong></div>
+            <div class="workflow-actions-summary"><strong>${escapeHtml(item.actions.slice(0,2).map(action=>workflowActionLabel(action.type)).join(" · "))}${item.actions.length>2?` +${item.actions.length-2}`:""}</strong></div>
+            <div class="workflow-updated"><span>Last updated</span><strong>${escapeHtml(workflowTime(item.updatedAt))}</strong></div>
+            <button class="workflow-status ${escapeHtml(item.status)}" type="button" data-workflow-status title="Change workflow status">${escapeHtml(item.status.charAt(0).toUpperCase()+item.status.slice(1))}</button>
+            <div class="workflow-row-actions">
+                <button class="workflow-action" type="button" data-workflow-edit title="Edit workflow" aria-label="Edit ${escapeHtml(item.name)}"><svg viewBox="0 0 24 24"><path d="M4 20h4l11-11-4-4L4 16v4ZM13.5 6.5l4 4"/></svg></button>
+                <button class="workflow-action" type="button" data-workflow-copy title="Duplicate workflow" aria-label="Duplicate ${escapeHtml(item.name)}"><svg viewBox="0 0 24 24"><rect x="8" y="8" width="11" height="11" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg></button>
+                <button class="workflow-action danger" type="button" data-workflow-delete title="Delete workflow" aria-label="Delete ${escapeHtml(item.name)}"><svg viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3M7 7l1 13h8l1-13M10 11v5M14 11v5"/></svg></button>
+            </div></article>`).join("");
+    }
+
+    function renderWorkflowHistory() {
+        const list=document.getElementById("workflowHistory"); if(!list)return; const history=loadWorkflowHistory();
+        list.innerHTML=`<div class="workflow-history-head"><div><h3>Execution history</h3><p>Every workflow run will appear here once server-side execution is connected.</p></div></div>`+(history.length?history.map(item=>`<div class="workflow-history-row"><span>${escapeHtml(new Date(item.createdAt).toLocaleString("en-IN"))}</span><strong>${escapeHtml(item.workflowName)}</strong><span>${escapeHtml(item.summary||"Workflow evaluated")}</span><span class="workflow-history-result ${escapeHtml(item.result)}">${escapeHtml(item.result)}</span></div>`).join(""):`<div class="workflow-empty"><strong>No workflow runs yet</strong><span>Execution records will appear here with their outcome and affected ticket.</span></div>`);
+    }
+
+    function workflowRuleMarkup(rule,type) {
+        const isCondition=type==="condition"; const first=isCondition?workflowOptionMarkup(WORKFLOW_FIELDS,rule.field):workflowOptionMarkup(WORKFLOW_ACTIONS,rule.type);
+        const second=isCondition?`<select data-rule-operator>${workflowOptionMarkup(WORKFLOW_OPERATORS,rule.operator||"equals")}</select>`:"";
+        return `<div class="workflow-rule" data-rule-type="${type}"><select data-rule-key>${first}</select>${second}<input data-rule-value value="${escapeHtml(rule.value||"")}" placeholder="${isCondition?"Value":"Action value"}"><button class="workflow-rule-remove" type="button" data-rule-remove aria-label="Remove ${type}">✕</button></div>`;
+    }
+    function addWorkflowRule(type,rule={}) { const target=document.getElementById(type==="condition"?"workflowConditionList":"workflowActionList"); if(target)target.insertAdjacentHTML("beforeend",workflowRuleMarkup(rule,type)); }
+    function renderWorkflowTemplates() { const grid=document.getElementById("workflowTemplateGrid"); if(grid)grid.innerHTML=WORKFLOW_TEMPLATES.map(item=>`<button class="workflow-template" type="button" data-workflow-template="${escapeHtml(item.id)}"><strong>${escapeHtml(item.name)}</strong><span>${escapeHtml(item.description)}</span></button>`).join(""); }
+
+    function openWorkflowEditor(workflow=null,showTemplates=false) {
+        workflowEditingId=workflow?.id||null; workflowLogic=workflow?.logic||"and";
+        document.getElementById("workflowEditorTitle").textContent=workflow?"Edit workflow":"Create workflow";
+        document.getElementById("workflowNameInput").value=workflow?.name||""; document.getElementById("workflowDescriptionInput").value=workflow?.description||""; document.getElementById("workflowTriggerInput").value=workflow?.trigger||"ticket_created";
+        document.querySelectorAll("[data-workflow-logic]").forEach(button=>button.classList.toggle("active",button.dataset.workflowLogic===workflowLogic));
+        document.getElementById("workflowConditionList").innerHTML=""; document.getElementById("workflowActionList").innerHTML="";
+        (workflow?.conditions||[]).forEach(rule=>addWorkflowRule("condition",rule)); (workflow?.actions||[{type:"set_priority",value:"high"}]).forEach(rule=>addWorkflowRule("action",rule));
+        const templateSection=document.getElementById("workflowTemplateSection"); templateSection.hidden=!showTemplates; if(showTemplates)renderWorkflowTemplates();
+        const backdrop=document.getElementById("workflowEditorBackdrop"); backdrop.classList.add("open"); backdrop.setAttribute("aria-hidden","false"); document.body.style.overflow="hidden";
+        requestAnimationFrame(()=>document.getElementById("workflowNameInput")?.focus());
+    }
+    function closeWorkflowEditor() { const backdrop=document.getElementById("workflowEditorBackdrop"); backdrop.classList.remove("open"); backdrop.setAttribute("aria-hidden","true"); document.body.style.overflow=""; workflowEditingId=null; }
+    function applyWorkflowTemplate(id) { const template=WORKFLOW_TEMPLATES.find(item=>item.id===id); if(!template)return; document.getElementById("workflowTemplateSection").hidden=true; document.getElementById("workflowNameInput").value=template.name; document.getElementById("workflowDescriptionInput").value=template.description; document.getElementById("workflowTriggerInput").value=template.trigger; workflowLogic=template.logic; document.querySelectorAll("[data-workflow-logic]").forEach(button=>button.classList.toggle("active",button.dataset.workflowLogic===workflowLogic)); document.getElementById("workflowConditionList").innerHTML="";document.getElementById("workflowActionList").innerHTML="";template.conditions.forEach(rule=>addWorkflowRule("condition",rule));template.actions.forEach(rule=>addWorkflowRule("action",rule)); }
+    function collectWorkflowRules(type) { return [...document.querySelectorAll(`#workflow${type==="condition"?"Condition":"Action"}List .workflow-rule`)].map(row=>type==="condition"?{field:row.querySelector("[data-rule-key]").value,operator:row.querySelector("[data-rule-operator]").value,value:row.querySelector("[data-rule-value]").value.trim()}:{type:row.querySelector("[data-rule-key]").value,value:row.querySelector("[data-rule-value]").value.trim()}); }
+    function saveWorkflowFromEditor(status) { const name=document.getElementById("workflowNameInput").value.trim(); const actions=collectWorkflowRules("action"); if(!name){document.getElementById("workflowEditorState").textContent="Add a workflow name before saving.";document.getElementById("workflowNameInput").focus();return;} if(!actions.length){document.getElementById("workflowEditorState").textContent="Add at least one action before saving.";return;} const items=loadWorkflows(); const existing=items.find(item=>item.id===workflowEditingId); const value={id:existing?.id||workflowId(),name,description:document.getElementById("workflowDescriptionInput").value.trim(),trigger:document.getElementById("workflowTriggerInput").value,logic:workflowLogic,conditions:collectWorkflowRules("condition"),actions,status,createdAt:existing?.createdAt||new Date().toISOString(),updatedAt:new Date().toISOString()}; const index=items.findIndex(item=>item.id===value.id); if(index>=0)items[index]=value;else items.unshift(value);saveWorkflows(items);closeWorkflowEditor();renderWorkflowWorkspace(); }
+    async function deleteWorkflow(id) { const items=loadWorkflows(); const item=items.find(value=>value.id===id); if(!item)return; const confirmed=typeof openNativeDialog==="function"?await openNativeDialog({title:`Delete ${item.name}?`,message:"This removes the workflow configuration. Existing ticket history is unchanged.",confirmLabel:"Delete workflow"}):confirm(`Delete ${item.name}?`); if(!confirmed)return;saveWorkflows(items.filter(value=>value.id!==id));renderWorkflowWorkspace(); }
+
+    document.getElementById("workflowCreateBtn")?.addEventListener("click",()=>openWorkflowEditor());
+    document.getElementById("workflowTemplatesBtn")?.addEventListener("click",()=>openWorkflowEditor(null,true));
+    document.getElementById("workflowEditorClose")?.addEventListener("click",closeWorkflowEditor);
+    document.getElementById("workflowEditorBackdrop")?.addEventListener("click",event=>{if(event.target===event.currentTarget)closeWorkflowEditor();});
+    document.getElementById("workflowAddCondition")?.addEventListener("click",()=>addWorkflowRule("condition",{field:"status",operator:"equals",value:""}));
+    document.getElementById("workflowAddAction")?.addEventListener("click",()=>addWorkflowRule("action",{type:"add_tag",value:""}));
+    document.getElementById("workflowSaveDraft")?.addEventListener("click",()=>saveWorkflowFromEditor("draft"));
+    document.getElementById("workflowSaveActive")?.addEventListener("click",()=>saveWorkflowFromEditor("active"));
+    document.getElementById("workflowSearch")?.addEventListener("input",renderWorkflowList); document.getElementById("workflowStatusFilter")?.addEventListener("change",renderWorkflowList);
+    document.querySelectorAll("[data-workflow-logic]").forEach(button=>button.addEventListener("click",()=>{workflowLogic=button.dataset.workflowLogic;document.querySelectorAll("[data-workflow-logic]").forEach(item=>item.classList.toggle("active",item===button));}));
+    document.getElementById("workflowTemplateGrid")?.addEventListener("click",event=>{const button=event.target.closest("[data-workflow-template]");if(button)applyWorkflowTemplate(button.dataset.workflowTemplate);});
+    document.querySelectorAll("[data-workflow-view]").forEach(button=>button.addEventListener("click",()=>{workflowView=button.dataset.workflowView;document.querySelectorAll("[data-workflow-view]").forEach(item=>item.classList.toggle("active",item===button));renderWorkflowWorkspace();}));
+    document.getElementById("workflowEditorBackdrop")?.addEventListener("click",event=>{const remove=event.target.closest("[data-rule-remove]");if(remove)remove.closest(".workflow-rule")?.remove();});
+    document.getElementById("workflowList")?.addEventListener("click",event=>{const row=event.target.closest("[data-workflow-id]");if(!row)return;const id=row.dataset.workflowId;const items=loadWorkflows();const item=items.find(value=>value.id===id);if(!item)return;if(event.target.closest("[data-workflow-edit]"))openWorkflowEditor(item);else if(event.target.closest("[data-workflow-copy]")){items.unshift({...item,id:workflowId(),name:`${item.name} Copy`,status:"draft",createdAt:new Date().toISOString(),updatedAt:new Date().toISOString()});saveWorkflows(items);renderWorkflowWorkspace();}else if(event.target.closest("[data-workflow-delete]"))deleteWorkflow(id);else if(event.target.closest("[data-workflow-status]")){item.status=item.status==="active"?"paused":"active";item.updatedAt=new Date().toISOString();saveWorkflows(items);renderWorkflowWorkspace();}});
+    document.addEventListener("keydown",event=>{if(event.key==="Escape"&&document.getElementById("workflowEditorBackdrop")?.classList.contains("open"))closeWorkflowEditor();});
+
+    /* =====================================================
        INITIAL LOAD
     ====================================================== */
 
@@ -13643,7 +13943,7 @@ ORDER BY created_date DESC, ticket_count DESC`;
                 });
             });
             const requestedWorkspace = location.hash.replace("#", "").split("/")[0];
-            showWorkspace(["ai","human","dashboards","tickets","reports","chatbot","knowledge"].includes(requestedWorkspace) ? requestedWorkspace : "ai", false);
+            showWorkspace(["ai","human","dashboards","tickets","reports","chatbot","knowledge","workflows"].includes(requestedWorkspace) ? requestedWorkspace : "ai", false);
             updateDashboard(currentPeriod);
 
         }
