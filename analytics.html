@@ -9,7 +9,7 @@
         content="width=device-width, initial-scale=1.0"
     />
 
-    <title>Novara CX — Analytics</title>
+    <title>NovaraDesk — Analytics</title>
 
     <!-- =====================================================
          FAVICONS
@@ -3955,6 +3955,267 @@
             .sidebar { transition: none !important; }
         }
     </style>
+    <style id="enterprise-custom-dashboard-v2">
+        /* Enterprise custom-dashboard workspace */
+        #panel-dashboards { position: relative; }
+        .dashboard-enterprise-shell {
+            margin-bottom: 18px;
+            overflow: visible;
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            background: linear-gradient(145deg,color-mix(in srgb,var(--bg-card) 96%,var(--accent) 4%),var(--bg-card));
+            box-shadow: var(--shadow-soft);
+        }
+        .dashboard-enterprise-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 22px;
+            padding: 20px 22px 17px;
+            border-bottom: 1px solid var(--border);
+        }
+        .dashboard-enterprise-title { min-width: 0; }
+        .dashboard-enterprise-title h2 { margin: 3px 0 2px; font-size: 22px; line-height: 1.2; letter-spacing: -.025em; }
+        .dashboard-enterprise-title p { margin: 0; color: var(--text-muted); font-size: 10px; }
+        .dashboard-primary-actions { display: flex; align-items: center; justify-content: flex-end; gap: 8px; }
+        .dashboard-icon-button {
+            width: 39px;
+            height: 39px;
+            display: grid;
+            place-items: center;
+            flex: 0 0 auto;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            background: var(--surface);
+            color: var(--text-secondary);
+            cursor: pointer;
+        }
+        .dashboard-icon-button:hover { border-color: color-mix(in srgb,var(--accent) 45%,var(--border)); color: var(--accent); background: color-mix(in srgb,var(--accent) 8%,var(--surface)); }
+        .dashboard-icon-button svg { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+        .dashboard-more-wrap { position: relative; }
+        .dashboard-more-menu {
+            position: absolute;
+            top: calc(100% + 8px);
+            right: 0;
+            z-index: 25;
+            width: 190px;
+            display: none;
+            padding: 6px;
+            border: 1px solid var(--border-strong);
+            border-radius: 11px;
+            background: var(--bg-card);
+            box-shadow: 0 18px 46px rgba(0,0,0,.24);
+        }
+        .dashboard-more-menu.open { display: grid; gap: 3px; }
+        .dashboard-more-menu button { min-height: 36px; padding: 0 10px; border: 0; border-radius: 8px; background: transparent; color: var(--text-secondary); font: inherit; font-size: 10px; font-weight: 650; text-align: left; cursor: pointer; }
+        .dashboard-more-menu button:hover { background: var(--surface-hover); color: var(--text); }
+        .dashboard-more-menu button.danger:hover { background: color-mix(in srgb,var(--danger) 10%,transparent); color: var(--danger); }
+
+        .dashboard-control-rail {
+            display: grid;
+            grid-template-columns: minmax(210px,1fr) minmax(240px,1.2fr) minmax(210px,.9fr) auto;
+            gap: 12px;
+            align-items: end;
+            padding: 15px 22px;
+            border-bottom: 1px solid var(--border);
+            background: color-mix(in srgb,var(--surface) 86%,transparent);
+        }
+        .dashboard-control { min-width: 0; display: grid; gap: 6px; }
+        .dashboard-control > span:first-child { color: var(--text-muted); font-size: 7.5px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+        .dashboard-control select,
+        .dashboard-search-field {
+            width: 100%;
+            min-height: 40px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            background: var(--bg-card);
+            color: var(--text);
+        }
+        .dashboard-control select { padding: 0 35px 0 12px; font-size: 10px; font-weight: 700; }
+        .dashboard-search-field { display: flex; align-items: center; gap: 8px; padding: 0 11px; }
+        .dashboard-search-field svg { width: 15px; height: 15px; flex: 0 0 auto; fill: none; stroke: var(--text-muted); stroke-width: 1.8; }
+        .dashboard-search-field input { min-width: 0; width: 100%; height: 38px; border: 0; outline: 0; background: transparent; color: var(--text); font: inherit; font-size: 10px; }
+        .dashboard-rail-actions { display: flex; gap: 7px; }
+        .dashboard-rail-actions .report-secondary-btn { min-height: 40px; }
+        .dashboard-rail-actions .active { border-color: var(--accent); background: color-mix(in srgb,var(--accent) 13%,var(--surface)); color: var(--accent-light); }
+
+        .dashboard-health-strip {
+            display: grid;
+            grid-template-columns: repeat(3,minmax(100px,150px)) minmax(220px,1fr);
+            align-items: center;
+            padding: 12px 22px;
+        }
+        .dashboard-health-strip > div:not(.dashboard-health-note) { display: grid; gap: 1px; padding-right: 18px; border-right: 1px solid var(--border); }
+        .dashboard-health-strip span { color: var(--text-muted); font-size: 7px; font-weight: 750; letter-spacing: .08em; text-transform: uppercase; }
+        .dashboard-health-strip strong { font-size: 11px; }
+        .dashboard-health-note { display: flex; align-items: center; justify-content: flex-end; gap: 7px; color: var(--text-muted); font-size: 8px; }
+        .dashboard-health-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--success); box-shadow: 0 0 0 4px color-mix(in srgb,var(--success) 11%,transparent); }
+
+        .custom-dashboard-grid { grid-auto-rows: 52px; gap: 16px; }
+        .dashboard-widget {
+            border-radius: 16px;
+            background: linear-gradient(180deg,color-mix(in srgb,var(--bg-card) 98%,var(--accent) 2%),var(--bg-card));
+            box-shadow: 0 12px 34px rgba(0,0,0,.1);
+            transition: border-color .16s ease,box-shadow .16s ease,transform .16s ease;
+        }
+        .dashboard-widget:hover { border-color: color-mix(in srgb,var(--accent) 28%,var(--border)); box-shadow: 0 16px 40px rgba(0,0,0,.14); }
+        .dashboard-widget-head { height: 66px; padding: 14px 13px 12px 17px; cursor: default; }
+        .dashboard-widget-title strong { font-size: 12px; letter-spacing: -.01em; }
+        .dashboard-widget-title span { margin-top: 3px; font-size: 8px; }
+        .dashboard-widget-action { width: 31px; height: 31px; border-radius: 8px; }
+        .dashboard-widget-body { height: calc(100% - 66px); padding: 17px; }
+        .dashboard-widget-table th,.dashboard-widget-table td { padding: 9px 10px; }
+        .dashboard-widget-resize { display: none; }
+        #panel-dashboards.dashboard-arranging .dashboard-widget { outline: 1px dashed color-mix(in srgb,var(--accent) 60%,transparent); cursor: grab; }
+        #panel-dashboards.dashboard-arranging .dashboard-widget-head { cursor: grab; }
+        #panel-dashboards.dashboard-arranging .dashboard-widget-resize { display: block; }
+        #panel-dashboards.dashboard-arranging .dashboard-widget::before { content: "Drag to arrange"; position: absolute; left: 16px; bottom: 9px; z-index: 2; padding: 3px 6px; border-radius: 5px; background: color-mix(in srgb,var(--accent) 12%,var(--bg-card)); color: var(--accent); font-size: 7px; font-weight: 750; pointer-events: none; }
+
+        .dashboard-widget-focus-backdrop { position: fixed; inset: 0; z-index: 2090; display: none; width: 100%; height: 100%; border: 0; background: rgba(5,9,7,.62); backdrop-filter: blur(4px); }
+        .dashboard-widget-focus-backdrop.open { display: block; }
+        .dashboard-widget.widget-focused { position: fixed; inset: 28px; z-index: 2100; width: auto !important; height: auto !important; min-width: 0; max-width: none; grid-column: auto !important; grid-row: auto !important; }
+        .dashboard-widget.widget-focused .dashboard-widget-body { height: calc(100% - 66px); }
+
+        #panel-dashboards.dashboard-presenting {
+            position: fixed;
+            inset: 14px;
+            z-index: 2050;
+            display: block !important;
+            padding: 22px;
+            overflow: auto;
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            background: var(--bg);
+            box-shadow: 0 30px 100px rgba(0,0,0,.45);
+        }
+        #panel-dashboards.dashboard-presenting .dashboard-control-rail,
+        #panel-dashboards.dashboard-presenting .dashboard-health-strip { display: none; }
+        #panel-dashboards.dashboard-presenting .dashboard-enterprise-shell { position: sticky; top: 0; z-index: 10; }
+
+        .custom-dashboard-empty { min-height: 390px; border-radius: 18px; background: linear-gradient(145deg,color-mix(in srgb,var(--surface) 94%,var(--accent) 6%),var(--surface)); }
+        .custom-dashboard-empty h2 { font-size: 19px; letter-spacing: -.02em; }
+        .dashboard-status { position: sticky; bottom: 12px; z-index: 12; width: max-content; max-width: 100%; min-height: 0; margin: 12px auto 0; padding: 0; border-radius: 9px; background: var(--text); color: var(--bg); box-shadow: 0 10px 28px rgba(0,0,0,.18); font-size: 9px; }
+        .dashboard-status:not(:empty) { padding: 8px 11px; }
+
+        html[data-theme="light"] .dashboard-enterprise-shell,
+        html[data-theme="light"] .dashboard-widget { background: linear-gradient(180deg,#fff,#fafcfb); }
+        html[data-theme="light"] .dashboard-control-rail { background: #f4f7f5; }
+        html[data-theme="light"] .dashboard-control select,
+        html[data-theme="light"] .dashboard-search-field { background: #fff; }
+
+        @media(max-width:1180px) {
+            .dashboard-control-rail { grid-template-columns: 1fr 1fr; }
+            .dashboard-health-strip { grid-template-columns: repeat(3,1fr); gap: 12px; }
+            .dashboard-health-note { grid-column: 1/-1; justify-content: flex-start; }
+        }
+        @media(max-width:760px) {
+            .dashboard-enterprise-head { align-items: flex-start; flex-direction: column; padding: 17px; }
+            .dashboard-primary-actions { width: 100%; justify-content: flex-start; flex-wrap: wrap; }
+            .dashboard-primary-actions .report-primary-btn { order: -1; }
+            .dashboard-control-rail { grid-template-columns: 1fr; padding: 14px 17px; }
+            .dashboard-rail-actions { width: 100%; }
+            .dashboard-rail-actions button { flex: 1; }
+            .dashboard-health-strip { grid-template-columns: repeat(3,1fr); padding: 12px 17px; }
+            .dashboard-health-strip > div:not(.dashboard-health-note) { padding-right: 8px; }
+            .dashboard-widget { height: 360px; }
+            .dashboard-widget.widget-focused { inset: 8px; }
+            #panel-dashboards.dashboard-presenting { inset: 5px; padding: 10px; }
+        }
+    </style>
+    <style id="novaradesk-ticket-floater-and-status-pills">
+        .brand { align-items: center; }
+        .brand-product { min-width: 0; display: grid; gap: 1px; }
+        .brand-name { color: var(--text); line-height: 1.08; }
+        .brand-name span { color: var(--accent-light); }
+        .brand-endorsement { color: var(--text-secondary); font-size: 8px; font-weight: 650; letter-spacing: .025em; line-height: 1.2; }
+
+        /* Compact CRM-style status pills. */
+        .ticket-status-trigger {
+            min-width: 0 !important;
+            height: 34px !important;
+            padding: 0 11px !important;
+            gap: 8px !important;
+            border: 1px solid color-mix(in srgb,var(--status-colour) 38%,transparent) !important;
+            border-radius: 9px !important;
+            background: color-mix(in srgb,var(--status-colour) 12%,var(--bg-card)) !important;
+            color: var(--status-colour) !important;
+            box-shadow: none !important;
+            font-size: 9px !important;
+        }
+        .ticket-status-trigger::before { display: block !important; width: 6px !important; height: 6px !important; }
+        .ticket-status-trigger:hover { filter: none !important; background: color-mix(in srgb,var(--status-colour) 18%,var(--bg-card)) !important; }
+        .ticket-status-trigger svg { width: 12px; height: 12px; }
+        .ticket-status-menu { width: 170px; padding: 6px; }
+        .ticket-status-option,
+        html[data-theme="dark"] .ticket-status-option {
+            min-height: 34px;
+            padding: 7px 9px;
+            border: 1px solid color-mix(in srgb,var(--status-colour) 32%,transparent) !important;
+            border-radius: 8px;
+            background: color-mix(in srgb,var(--status-colour) 11%,var(--bg-card)) !important;
+            color: var(--status-colour) !important;
+            font-size: 9px;
+        }
+        .ticket-status-option:hover,
+        .ticket-status-option.active,
+        html[data-theme="dark"] .ticket-status-option:hover,
+        html[data-theme="dark"] .ticket-status-option.active {
+            background: color-mix(in srgb,var(--status-colour) 19%,var(--bg-card)) !important;
+            color: var(--status-colour) !important;
+            filter: none !important;
+        }
+        .ticket-status-option::before { content:""; width:6px; height:6px; flex:0 0 auto; border-radius:50%; background:var(--status-colour); }
+        .ticket-status-option.active::after { color: var(--status-colour) !important; }
+
+        .ticket-workspace-floater {
+            position: fixed;
+            right: 22px;
+            bottom: 22px;
+            z-index: 2200;
+            width: 50px;
+            height: 50px;
+            display: grid;
+            place-items: center;
+            border: 1px solid color-mix(in srgb,var(--accent) 65%,transparent);
+            border-radius: 15px;
+            background: var(--accent);
+            color: #fff;
+            box-shadow: 0 13px 32px color-mix(in srgb,var(--accent) 32%,transparent);
+            cursor: pointer;
+            transition: transform .16s ease,box-shadow .16s ease,background .16s ease;
+        }
+        .ticket-workspace-floater:hover { transform: translateY(-2px); box-shadow: 0 17px 36px color-mix(in srgb,var(--accent) 40%,transparent); }
+        .ticket-workspace-floater svg { width: 22px; height: 22px; fill:none; stroke:currentColor; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
+        .ticket-workspace-floater .ticket-floater-close-icon { display:none; }
+        .ticket-workspace-floater.open .ticket-floater-message-icon { display:none; }
+        .ticket-workspace-floater.open .ticket-floater-close-icon { display:block; }
+        .ticket-workspace-floater.open { background:var(--bg-card); color:var(--text); border-color:var(--border-strong); box-shadow:0 12px 30px rgba(0,0,0,.2); }
+        .ticket-workspace-badge {
+            position:absolute;
+            top:-7px;
+            right:-7px;
+            min-width:20px;
+            height:20px;
+            padding:0 5px;
+            display:grid;
+            place-items:center;
+            border:2px solid var(--bg);
+            border-radius:999px;
+            background:#d84e49;
+            color:#fff;
+            font-size:8px;
+            font-weight:850;
+            line-height:1;
+        }
+        .ticket-workspace-badge[hidden] { display:none; }
+        @media(max-width:1000px) { .brand-product { display:none; } }
+        @media(max-width:720px) {
+            .ticket-workspace-floater { right:14px; bottom:14px; width:48px; height:48px; border-radius:14px; }
+            .sidebar .brand-product { display:grid; }
+            .brand-endorsement { font-size:8px; }
+        }
+        @media(prefers-reduced-motion:reduce) { .ticket-workspace-floater { transition:none; } }
+    </style>
 </head>
 
 
@@ -3979,11 +4240,12 @@
 
             <img
                 src="assets/logo-mark.png"
-                alt="Novara CX"
+                alt="NovaraDesk"
             />
 
-            <div class="brand-name">
-                Novara <span>CX</span>
+            <div class="brand-product">
+                <div class="brand-name">Novara<span>Desk</span></div>
+                <div class="brand-endorsement">by Novara CX</div>
             </div>
 
         </a>
@@ -5395,20 +5657,63 @@
             ================================================== -->
 
             <section id="panel-dashboards" class="view-panel">
-                <div class="dashboard-command-bar">
-                    <div class="dashboard-selector-wrap">
-                        <span class="report-eyebrow">Active dashboard</span>
-                        <select id="customDashboardSelect" aria-label="Select custom dashboard"></select>
+                <div class="dashboard-enterprise-shell">
+                    <header class="dashboard-enterprise-head">
+                        <div class="dashboard-enterprise-title">
+                            <span class="report-eyebrow">Custom workspace</span>
+                            <h2 id="dashboardActiveTitle">My Dashboard</h2>
+                            <p>Monitor the reports that matter together in one operational view.</p>
+                        </div>
+                        <div class="dashboard-primary-actions">
+                            <button id="dashboardRefreshBtn" class="dashboard-icon-button" type="button" aria-label="Refresh dashboard" title="Refresh dashboard">
+                                <svg viewBox="0 0 24 24"><path d="M20 11a8 8 0 1 0 1 5M20 4v7h-7"/></svg>
+                            </button>
+                            <button id="dashboardAddReportsBtn" class="report-primary-btn" type="button">
+                                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+                                Add report
+                            </button>
+                            <button id="dashboardNewBtn" class="report-secondary-btn" type="button">New dashboard</button>
+                            <div class="dashboard-more-wrap">
+                                <button id="dashboardMoreBtn" class="dashboard-icon-button" type="button" aria-label="Dashboard actions" aria-expanded="false" title="Dashboard actions">
+                                    <svg viewBox="0 0 24 24"><circle cx="5" cy="12" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/></svg>
+                                </button>
+                                <div id="dashboardMoreMenu" class="dashboard-more-menu">
+                                    <button id="dashboardRenameBtn" type="button">Rename dashboard</button>
+                                    <button id="dashboardDuplicateBtn" type="button">Duplicate dashboard</button>
+                                    <button id="dashboardDeleteBtn" class="danger" type="button">Delete dashboard</button>
+                                </div>
+                            </div>
+                        </div>
+                    </header>
+
+                    <div class="dashboard-control-rail">
+                        <label class="dashboard-control dashboard-selector-wrap">
+                            <span>Dashboard</span>
+                            <select id="customDashboardSelect" aria-label="Select custom dashboard"></select>
+                        </label>
+                        <label class="dashboard-control dashboard-widget-search">
+                            <span>Find a widget</span>
+                            <span class="dashboard-search-field"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m16 16 4 4"/></svg><input id="dashboardWidgetSearch" type="search" placeholder="Search this dashboard…"></span>
+                        </label>
+                        <label class="dashboard-control dashboard-layout-control">
+                            <span>Grid</span>
+                            <select id="dashboardLayoutSelect" aria-label="Dashboard grid layout">
+                                <option value="balanced">Balanced · 2 columns</option>
+                                <option value="compact">Compact · 3 columns</option>
+                                <option value="focus">Focus · 1 column</option>
+                            </select>
+                        </label>
+                        <div class="dashboard-rail-actions">
+                            <button id="dashboardArrangeBtn" class="report-secondary-btn" type="button"><span>Arrange</span></button>
+                            <button id="dashboardPresentBtn" class="report-secondary-btn" type="button">Present</button>
+                        </div>
                     </div>
-                    <div class="dashboard-command-actions">
-                        <button id="dashboardNewBtn" class="report-secondary-btn" type="button">New</button>
-                        <button id="dashboardRenameBtn" class="report-secondary-btn" type="button">Rename</button>
-                        <button id="dashboardDuplicateBtn" class="report-secondary-btn" type="button">Duplicate</button>
-                        <button id="dashboardDeleteBtn" class="report-secondary-btn danger" type="button">Delete</button>
-                        <button id="dashboardAddReportsBtn" class="report-primary-btn" type="button">
-                            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
-                            Add reports
-                        </button>
+
+                    <div class="dashboard-health-strip">
+                        <div><span>Widgets</span><strong id="dashboardWidgetCount">0</strong></div>
+                        <div><span>Reports available</span><strong id="dashboardReportCount">0</strong></div>
+                        <div><span>Last saved</span><strong id="dashboardLastSaved">Just now</strong></div>
+                        <div class="dashboard-health-note"><span class="dashboard-health-dot"></span>Saved automatically in this browser</div>
                     </div>
                 </div>
 
@@ -5423,6 +5728,7 @@
 
                 <div id="customDashboardGrid" class="custom-dashboard-grid"></div>
                 <div id="dashboardStatus" class="dashboard-status" role="status"></div>
+                <button id="dashboardWidgetFocusBackdrop" class="dashboard-widget-focus-backdrop" type="button" aria-label="Close focused widget"></button>
             </section>
 
 
@@ -5866,6 +6172,12 @@ ORDER BY ticket_count DESC</textarea>
     </main>
 
 </div>
+
+<button id="ticketWorkspaceFloater" class="ticket-workspace-floater" type="button" aria-label="Open ticket workspace" aria-expanded="false" title="Open ticket workspace">
+    <svg class="ticket-floater-message-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17.5 3.5 20v-5.2A8.5 8.5 0 1 1 7 17.5Z"/><path d="M8 9h8M8 13h5"/></svg>
+    <svg class="ticket-floater-close-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg>
+    <span id="ticketWorkspaceBadge" class="ticket-workspace-badge" hidden>0</span>
+</button>
 
 
 <div id="knowledgeViewerBackdrop" class="kb-viewer-backdrop" aria-hidden="true">
@@ -6325,7 +6637,7 @@ ORDER BY ticket_count DESC</textarea>
         const [heading, subtitle] = workspaceCopy[workspace];
         document.getElementById("pageHeading").textContent = heading;
         document.getElementById("pageSubtitle").textContent = subtitle;
-        document.title = `Novara CX — ${heading}`;
+        document.title = `NovaraDesk — ${heading}`;
         const tabSwitcher = document.getElementById("tabSwitcher");
         tabSwitcher.style.display = analyticsWorkspace ? "flex" : "none";
         document.getElementById("reportModeToolbar")?.classList.toggle("open", workspace === "reports");
@@ -7140,6 +7452,15 @@ ORDER BY ticket_count DESC</textarea>
             ticket.closed_at ||
             null;
 
+        const latestSender = String(ticket.latest_sender_type || ticket.last_sender_type || ticket.latest_message_sender || ticket.last_message_sender || "").toLowerCase();
+        const explicitNeedsReply = ticket.needs_reply ?? ticket.awaiting_agent_response ?? ticket.awaiting_reply;
+        const unreadCustomerMessages = Number(ticket.unread_customer_messages ?? ticket.unread_messages ?? 0) || 0;
+        const needsReply = explicitNeedsReply !== undefined && explicitNeedsReply !== null
+            ? [true,1,"1","true","yes"].includes(explicitNeedsReply)
+            : latestSender
+                ? ["customer","user","visitor"].includes(latestSender)
+                : unreadCustomerMessages > 0 || (!["resolved","pending"].includes(status) && !ticket.first_response_at);
+
         return {
             id: ticket.ticket_number || ticket.ticket_id || ticket.id || `TKT-${String(index + 1).padStart(4, "0")}`,
             dbId: ticket.id || ticket.ticket_id || null,
@@ -7160,6 +7481,9 @@ ORDER BY ticket_count DESC</textarea>
             firstResponseAt: ticket.first_response_at || null,
             firstResponseDueAt: ticket.first_response_due_at || null,
             resolutionDueAt: ticket.resolution_due_at || null,
+            latestSender,
+            unreadCustomerMessages,
+            needsReply,
             slaWarningPercent: Number(ticket.sla_warning_percent || 75),
             resolutionTime: parseFloat(ticket.resolution_time_hours ?? ticket.resolution_hours ?? ticket.handle_time_hours ?? 0) || 0
         };
@@ -7254,7 +7578,7 @@ ORDER BY ticket_count DESC</textarea>
         const select = document.getElementById("ticketViewSelect");
         if (!select) return;
         const defaults = [
-            ["all","All Tickets"],["status:open","Open Tickets"],["status:pending","Pending Revert"],
+            ["all","All Tickets"],["needs_reply","Needs reply"],["status:open","Open Tickets"],["status:pending","Pending Revert"],
             ["status:progress","In Progress"],["status:resolved","Resolved"],["status:reopened","Reopened"]
         ];
         const saved = readSavedTicketViews();
@@ -7293,7 +7617,8 @@ ORDER BY ticket_count DESC</textarea>
 
     function refreshTicketWorkspace() {
         const filters = ticketFilterValues();
-        const filtered = ticketWorkspaceState.source.filter(ticket => ticketMatchesFilters(ticket, filters));
+        const viewSource = ticketWorkspaceState.activeView === "needs_reply" ? ticketWorkspaceState.source.filter(ticket => ticket.needsReply) : ticketWorkspaceState.source;
+        const filtered = viewSource.filter(ticket => ticketMatchesFilters(ticket, filters));
         ticketWorkspaceState.filtered = filtered;
         const activeFilterCount = Object.values(filters).filter(Boolean).length;
         const count = document.getElementById("ticketFilterCount");
@@ -7341,6 +7666,7 @@ ORDER BY ticket_count DESC</textarea>
         const tableTitle = document.querySelector("#panel-tickets .table-title");
         if (tableTitle) tableTitle.textContent = document.getElementById("ticketViewSelect")?.selectedOptions?.[0]?.textContent || "All Tickets";
         updateTicketsTable(filtered);
+        updateTicketWorkspaceFloater();
         if (document.getElementById("ticketDrawerBackdrop")?.classList.contains("open")) renderTicketQueue(document.getElementById("ticketQueueSearch")?.value);
     }
 
@@ -7351,6 +7677,7 @@ ORDER BY ticket_count DESC</textarea>
         document.querySelectorAll("[data-ticket-period]").forEach(button => button.classList.toggle("active", !currentDateRange && Number(button.dataset.ticketPeriod) === Number(period)));
         document.getElementById("ticketCustomDateBtn")?.classList.toggle("active", Boolean(currentDateRange));
         refreshTicketWorkspace();
+        restoreTicketWorkspaceForSession();
     }
 
     async function refreshTicketsOnly() {
@@ -7437,7 +7764,9 @@ ORDER BY ticket_count DESC</textarea>
     document.getElementById("ticketViewSelect")?.addEventListener("change", event => {
         const value = event.target.value;
         ticketWorkspaceState.activeView = value;
-        if (value.startsWith("saved:")) {
+        if (value === "needs_reply") {
+            applyTicketFilterValues({});
+        } else if (value.startsWith("saved:")) {
             const view = readSavedTicketViews().find(item => item.id === value.slice(6));
             applyTicketFilterValues(view?.filters || {});
         } else {
@@ -10798,13 +11127,15 @@ ORDER BY created_date DESC, ticket_count DESC`;
     const DASHBOARD_STORAGE_KEY = "novara_custom_dashboards_v1";
     const DASHBOARD_ACTIVE_KEY = "novara_active_dashboard_v1";
     const dashboardCharts = new Map();
+    let dashboardArrangeMode = false;
+    let dashboardFocusedWidgetId = null;
 
     function loadCustomDashboards() {
         try {
             const stored = JSON.parse(localStorage.getItem(DASHBOARD_STORAGE_KEY) || "[]");
             if (Array.isArray(stored) && stored.length) return stored;
         } catch {}
-        const starter = [{ id: `dashboard_${Date.now()}`, name: "My Dashboard", widgets: [] }];
+        const starter = [{ id: `dashboard_${Date.now()}`, name: "My Dashboard", widgets: [], updatedAt:new Date().toISOString() }];
         localStorage.setItem(DASHBOARD_STORAGE_KEY, JSON.stringify(starter));
         localStorage.setItem(DASHBOARD_ACTIVE_KEY, starter[0].id);
         return starter;
@@ -10842,10 +11173,11 @@ ORDER BY created_date DESC, ticket_count DESC`;
 
     function dashboardWidgetMarkup(widget, report) {
         const type = report?.mode === "pivot" ? "Pivot table" : report?.mode === "sql" ? `SQL · ${reportLabel(report.rawSql?.visual || "table")}` : report ? reportLabel(report.visual) : "Missing report";
-        return `<article class="dashboard-widget" draggable="true" data-widget-id="${escapeHtml(widget.id)}" style="grid-column:span ${Math.max(3, Number(widget.colSpan) || 6)};grid-row:span ${Math.max(5, Number(widget.rowSpan) || 8)}">
+        return `<article class="dashboard-widget" draggable="${dashboardArrangeMode ? "true" : "false"}" data-widget-id="${escapeHtml(widget.id)}" style="grid-column:span ${Math.max(3, Number(widget.colSpan) || 6)};grid-row:span ${Math.max(5, Number(widget.rowSpan) || 8)}">
             <div class="dashboard-widget-head">
                 <div class="dashboard-widget-title"><strong>${escapeHtml(report?.name || "Report unavailable")}</strong><span>${escapeHtml(report ? `${report.mode === "sql" ? "Raw SQL" : reportLabel(report.dataset)} · ${type}` : "The saved report was deleted")}</span></div>
                 <div class="dashboard-widget-actions">
+                    <button class="dashboard-widget-action" type="button" data-widget-focus title="Focus widget" aria-label="Focus widget"><svg viewBox="0 0 24 24"><path d="M8 3H3v5M16 3h5v5M8 21H3v-5M16 21h5v-5"/></svg></button>
                     ${report ? `<button class="dashboard-widget-action" type="button" data-widget-edit title="Edit report" aria-label="Edit report"><svg viewBox="0 0 24 24"><path d="M4 20h4l11-11-4-4L4 16v4ZM13.5 6.5l4 4"/></svg></button>` : ""}
                     <button class="dashboard-widget-action remove" type="button" data-widget-remove title="Remove widget" aria-label="Remove widget"><svg viewBox="0 0 24 24"><path d="M5 12h14"/></svg></button>
                 </div>
@@ -10863,12 +11195,22 @@ ORDER BY created_date DESC, ticket_count DESC`;
         const active = activeCustomDashboard(dashboards);
         localStorage.setItem(DASHBOARD_ACTIVE_KEY, active.id);
         updateDashboardSelect(dashboards, active);
+        const activeTitle = document.getElementById("dashboardActiveTitle");
+        if (activeTitle) activeTitle.textContent = active.name;
+        const widgetCount = document.getElementById("dashboardWidgetCount");
+        if (widgetCount) widgetCount.textContent = String(active.widgets.length);
+        const reportCount = document.getElementById("dashboardReportCount");
+        if (reportCount) reportCount.textContent = String(loadSavedReports().length);
+        const lastSaved = document.getElementById("dashboardLastSaved");
+        if (lastSaved) lastSaved.textContent = dashboardRelativeTime(active.updatedAt);
+        document.getElementById("panel-dashboards")?.classList.toggle("dashboard-arranging", dashboardArrangeMode);
         destroyDashboardCharts();
 
         empty.hidden = active.widgets.length > 0;
         grid.innerHTML = active.widgets.map(widget => dashboardWidgetMarkup(widget, dashboardReportById(widget.reportId))).join("");
         active.widgets.forEach(widget => renderDashboardWidget(widget, dashboardReportById(widget.reportId)));
         bindDashboardWidgetInteractions(grid, dashboards, active);
+        filterDashboardWidgets(document.getElementById("dashboardWidgetSearch")?.value || "");
     }
 
     async function renderDashboardWidget(widget, report) {
@@ -10947,6 +11289,7 @@ ORDER BY created_date DESC, ticket_count DESC`;
     }
 
     function persistDashboardWidgets(dashboards, active) {
+        active.updatedAt = new Date().toISOString();
         const index = dashboards.findIndex(item => item.id === active.id);
         if (index >= 0) dashboards[index] = active;
         saveCustomDashboards(dashboards);
@@ -10957,6 +11300,7 @@ ORDER BY created_date DESC, ticket_count DESC`;
         grid.querySelectorAll(".dashboard-widget").forEach(element => {
             const widgetId = element.dataset.widgetId;
             element.addEventListener("dragstart", event => {
+                if (!dashboardArrangeMode) { event.preventDefault(); return; }
                 if (event.target.closest("button,[data-widget-resize]")) { event.preventDefault(); return; }
                 draggedId = widgetId; element.classList.add("dragging");
             });
@@ -10985,8 +11329,10 @@ ORDER BY created_date DESC, ticket_count DESC`;
                 const report = dashboardReportById(active.widgets.find(widget => widget.id === widgetId)?.reportId);
                 if (report) { showWorkspace("reports",false); applyReportConfig(report); }
             });
+            element.querySelector("[data-widget-focus]")?.addEventListener("click", () => focusDashboardWidget(widgetId));
             const handle = element.querySelector("[data-widget-resize]");
             handle?.addEventListener("pointerdown", event => {
+                if (!dashboardArrangeMode) return;
                 event.preventDefault(); event.stopPropagation();
                 const widget = active.widgets.find(item => item.id === widgetId);
                 const startX = event.clientX, startY = event.clientY, startCols = Number(widget.colSpan)||6, startRows = Number(widget.rowSpan)||8;
@@ -11000,6 +11346,79 @@ ORDER BY created_date DESC, ticket_count DESC`;
                 window.addEventListener("pointermove",move); window.addEventListener("pointerup",up,{once:true});
             });
         });
+    }
+
+    function dashboardRelativeTime(value) {
+        if (!value) return "Not yet";
+        const elapsed = Date.now() - new Date(value).getTime();
+        if (!Number.isFinite(elapsed) || elapsed < 0) return "Just now";
+        const minutes = Math.floor(elapsed / 60000);
+        if (minutes < 1) return "Just now";
+        if (minutes < 60) return `${minutes} min ago`;
+        const hours = Math.floor(minutes / 60);
+        if (hours < 24) return `${hours} hr${hours === 1 ? "" : "s"} ago`;
+        return new Date(value).toLocaleDateString("en-IN", { day:"2-digit", month:"short", year:"numeric" });
+    }
+
+    function filterDashboardWidgets(query = "") {
+        const normalized = query.trim().toLowerCase();
+        let shown = 0;
+        document.querySelectorAll("#customDashboardGrid .dashboard-widget").forEach(widget => {
+            const match = !normalized || widget.querySelector(".dashboard-widget-title")?.textContent.toLowerCase().includes(normalized);
+            widget.hidden = !match;
+            if (match) shown += 1;
+        });
+        if (normalized) setDashboardStatus(shown ? `${shown} matching widget${shown === 1 ? "" : "s"}.` : "No widgets match this search.");
+    }
+
+    function setDashboardArrangeMode(enabled) {
+        dashboardArrangeMode = Boolean(enabled);
+        const panel = document.getElementById("panel-dashboards");
+        const button = document.getElementById("dashboardArrangeBtn");
+        panel?.classList.toggle("dashboard-arranging", dashboardArrangeMode);
+        button?.classList.toggle("active", dashboardArrangeMode);
+        button?.setAttribute("aria-pressed", String(dashboardArrangeMode));
+        document.querySelectorAll("#customDashboardGrid .dashboard-widget").forEach(widget => widget.setAttribute("draggable", String(dashboardArrangeMode)));
+        setDashboardStatus(dashboardArrangeMode ? "Arrange mode is on. Drag or resize widgets, then select Done arranging." : "Layout saved. Widget movement is locked.");
+        if (button) button.lastChild.textContent = dashboardArrangeMode ? " Done arranging" : " Arrange";
+    }
+
+    function focusDashboardWidget(widgetId) {
+        closeDashboardWidgetFocus();
+        const widget = document.querySelector(`#customDashboardGrid .dashboard-widget[data-widget-id="${CSS.escape(widgetId)}"]`);
+        if (!widget) return;
+        dashboardFocusedWidgetId = widgetId;
+        widget.classList.add("widget-focused");
+        document.getElementById("dashboardWidgetFocusBackdrop")?.classList.add("open");
+        requestAnimationFrame(() => dashboardCharts.get(widgetId)?.resize());
+    }
+
+    function closeDashboardWidgetFocus() {
+        if (!dashboardFocusedWidgetId) return;
+        document.querySelector(`#customDashboardGrid .dashboard-widget[data-widget-id="${CSS.escape(dashboardFocusedWidgetId)}"]`)?.classList.remove("widget-focused");
+        document.getElementById("dashboardWidgetFocusBackdrop")?.classList.remove("open");
+        dashboardFocusedWidgetId = null;
+    }
+
+    function setDashboardPresenting(enabled) {
+        const panel = document.getElementById("panel-dashboards");
+        const button = document.getElementById("dashboardPresentBtn");
+        panel?.classList.toggle("dashboard-presenting", enabled);
+        button?.classList.toggle("active", enabled);
+        button?.setAttribute("aria-pressed", String(enabled));
+        document.body.style.overflow = enabled ? "hidden" : "";
+        if (button) button.lastChild.textContent = enabled ? " Exit presentation" : " Present";
+        requestAnimationFrame(() => dashboardCharts.forEach(chart => chart.resize()));
+    }
+
+    function applyDashboardGridPreset(preset) {
+        const dashboards = loadCustomDashboards();
+        const active = activeCustomDashboard(dashboards);
+        const dimensions = preset === "compact" ? { colSpan:4, rowSpan:7 } : preset === "focus" ? { colSpan:12, rowSpan:9 } : { colSpan:6, rowSpan:8 };
+        active.widgets = active.widgets.map(widget => ({ ...widget, ...dimensions }));
+        persistDashboardWidgets(dashboards, active);
+        renderCustomDashboard();
+        setDashboardStatus(`${preset.charAt(0).toUpperCase() + preset.slice(1)} layout applied.`);
     }
 
     function openDashboardReportPicker() {
@@ -11053,7 +11472,7 @@ ORDER BY created_date DESC, ticket_count DESC`;
 
     async function createNamedDashboard() {
         const name = await openNativeDialog({ title:"New dashboard", message:"Give this dashboard a clear, memorable name.", value:"New Dashboard", input:true, confirmLabel:"Create dashboard" }); if (!name) return;
-        const dashboards = loadCustomDashboards(); const dashboard = {id:`dashboard_${Date.now()}`,name,widgets:[]};
+        const dashboards = loadCustomDashboards(); const dashboard = {id:`dashboard_${Date.now()}`,name,widgets:[],updatedAt:new Date().toISOString()};
         dashboards.push(dashboard); saveCustomDashboards(dashboards); localStorage.setItem(DASHBOARD_ACTIVE_KEY,dashboard.id); renderCustomDashboard();
     }
 
@@ -11063,7 +11482,7 @@ ORDER BY created_date DESC, ticket_count DESC`;
     }
 
     function duplicateActiveDashboard() {
-        const dashboards=loadCustomDashboards(); const active=activeCustomDashboard(dashboards); const clone={id:`dashboard_${Date.now()}`,name:`${active.name} Copy`,widgets:active.widgets.map(widget=>({...widget,id:`widget_${Date.now()}_${Math.random().toString(36).slice(2,7)}`}))};
+        const dashboards=loadCustomDashboards(); const active=activeCustomDashboard(dashboards); const clone={id:`dashboard_${Date.now()}`,name:`${active.name} Copy`,widgets:active.widgets.map(widget=>({...widget,id:`widget_${Date.now()}_${Math.random().toString(36).slice(2,7)}`})),updatedAt:new Date().toISOString()};
         dashboards.push(clone); saveCustomDashboards(dashboards); localStorage.setItem(DASHBOARD_ACTIVE_KEY,clone.id); renderCustomDashboard();
     }
 
@@ -11085,6 +11504,15 @@ ORDER BY created_date DESC, ticket_count DESC`;
     document.getElementById("dashboardReportPicker")?.addEventListener("click",event=>{if(event.target===event.currentTarget)closeDashboardReportPicker();});
     document.getElementById("dashboardReportSearch")?.addEventListener("input",event=>renderDashboardReportPicker(event.target.value));
     document.getElementById("dashboardOpenReportBuilder")?.addEventListener("click",()=>{closeDashboardReportPicker();showWorkspace("reports");});
+    document.getElementById("dashboardRefreshBtn")?.addEventListener("click",()=>{renderCustomDashboard();setDashboardStatus("Dashboard refreshed.");});
+    document.getElementById("dashboardWidgetSearch")?.addEventListener("input",event=>filterDashboardWidgets(event.target.value));
+    document.getElementById("dashboardLayoutSelect")?.addEventListener("change",event=>applyDashboardGridPreset(event.target.value));
+    document.getElementById("dashboardArrangeBtn")?.addEventListener("click",()=>setDashboardArrangeMode(!dashboardArrangeMode));
+    document.getElementById("dashboardPresentBtn")?.addEventListener("click",event=>setDashboardPresenting(!document.getElementById("panel-dashboards")?.classList.contains("dashboard-presenting")));
+    document.getElementById("dashboardWidgetFocusBackdrop")?.addEventListener("click",closeDashboardWidgetFocus);
+    document.getElementById("dashboardMoreBtn")?.addEventListener("click",event=>{event.stopPropagation();const menu=document.getElementById("dashboardMoreMenu");menu?.classList.toggle("open");event.currentTarget.setAttribute("aria-expanded",String(menu?.classList.contains("open")));});
+    document.addEventListener("click",event=>{const menu=document.getElementById("dashboardMoreMenu");if(menu?.classList.contains("open")&&!event.target.closest(".dashboard-more-wrap")){menu.classList.remove("open");document.getElementById("dashboardMoreBtn")?.setAttribute("aria-expanded","false");}});
+    document.addEventListener("keydown",event=>{if(event.key!=="Escape")return;closeDashboardWidgetFocus();if(document.getElementById("panel-dashboards")?.classList.contains("dashboard-presenting"))setDashboardPresenting(false);document.getElementById("dashboardMoreMenu")?.classList.remove("open");});
 
 
     let ticketQueuePage = 1;
@@ -11163,13 +11591,65 @@ ORDER BY created_date DESC, ticket_count DESC`;
         window.open(`${location.href.split("#")[0]}#knowledge/article/${suggestedKnowledgeArticleId}`, "_blank", "noopener");
     });
 
+    let ticketWorkspaceSessionRestored = false;
+
+    function ticketsNeedingReply() {
+        return (ticketWorkspaceState.source || []).filter(ticket => ticket.needsReply && ticket.status !== "resolved");
+    }
+
+    function updateTicketWorkspaceFloater() {
+        const tickets = ticketsNeedingReply();
+        const badge = document.getElementById("ticketWorkspaceBadge");
+        const button = document.getElementById("ticketWorkspaceFloater");
+        if (!badge || !button) return;
+        badge.hidden = tickets.length === 0;
+        badge.textContent = tickets.length > 99 ? "99+" : String(tickets.length);
+        const open = document.getElementById("ticketDrawerBackdrop")?.classList.contains("open");
+        const action = open ? "Close ticket workspace" : "Open ticket workspace";
+        const notice = tickets.length ? `; ${tickets.length} ticket${tickets.length === 1 ? "" : "s"} need a reply` : "";
+        button.setAttribute("aria-label", `${action}${notice}`);
+        button.title = `${action}${notice}`;
+    }
+
+    function syncTicketWorkspaceFloater(open) {
+        const button = document.getElementById("ticketWorkspaceFloater");
+        if (!button) return;
+        button.classList.toggle("open", open);
+        button.setAttribute("aria-expanded", String(open));
+        updateTicketWorkspaceFloater();
+    }
+
+    function openNeedsReplyQueue() {
+        const select = document.getElementById("ticketViewSelect");
+        if (select) select.value = "needs_reply";
+        ticketWorkspaceState.activeView = "needs_reply";
+        applyTicketFilterValues({});
+        ticketWorkspaceState.page = 1;
+        refreshTicketWorkspace();
+        const target = ticketsNeedingReply()[0];
+        if (target?.dbId) openTicket(Number(target.dbId));
+        else showWorkspace("tickets");
+    }
+
+    function restoreTicketWorkspaceForSession() {
+        if (ticketWorkspaceSessionRestored || !ticketWorkspaceState.source.length) return;
+        ticketWorkspaceSessionRestored = true;
+        if (sessionStorage.getItem("novaradesk_ticket_workspace_open") !== "true") return;
+        const savedId = sessionStorage.getItem("novaradesk_last_ticket_id");
+        const target = ticketWorkspaceState.source.find(ticket => String(ticket.dbId) === savedId) || ticketWorkspaceState.source[0];
+        if (target?.dbId) openTicket(Number(target.dbId));
+    }
+
     async function openTicket(ticketId) {
         if (!ticketId) return;
         openTicketId = ticketId;
+        sessionStorage.setItem("novaradesk_last_ticket_id", String(ticketId));
+        sessionStorage.setItem("novaradesk_ticket_workspace_open", "true");
         lastTicketDetailSignature = "";
         const backdrop = document.getElementById("ticketDrawerBackdrop");
         backdrop.classList.add("open");
         backdrop.setAttribute("aria-hidden", "false");
+        syncTicketWorkspaceFloater(true);
         document.body.style.overflow = "hidden";
         setComposerMode("reply");
         lastAssistSuggestion = "";
@@ -11194,6 +11674,8 @@ ORDER BY created_date DESC, ticket_count DESC`;
         const backdrop = document.getElementById("ticketDrawerBackdrop");
         backdrop.classList.remove("open");
         backdrop.setAttribute("aria-hidden", "true");
+        sessionStorage.setItem("novaradesk_ticket_workspace_open", "false");
+        syncTicketWorkspaceFloater(false);
         document.body.style.overflow = "";
         document.getElementById("ticketActionError").textContent = "";
         document.getElementById("ticketResolutionOverlay").classList.remove("open");
@@ -11569,6 +12051,15 @@ ORDER BY created_date DESC, ticket_count DESC`;
     }
 
     document.getElementById("ticketDrawerClose").addEventListener("click", closeTicket);
+    document.getElementById("ticketWorkspaceFloater")?.addEventListener("click", event => {
+        const open = document.getElementById("ticketDrawerBackdrop")?.classList.contains("open");
+        if (open) { closeTicket(); return; }
+        if (event.target.closest("#ticketWorkspaceBadge") && ticketsNeedingReply().length) { openNeedsReplyQueue(); return; }
+        const savedId = sessionStorage.getItem("novaradesk_last_ticket_id");
+        const target = ticketWorkspaceState.source.find(ticket => String(ticket.dbId) === savedId) || ticketsNeedingReply()[0] || ticketWorkspaceState.filtered[0] || ticketWorkspaceState.source[0];
+        if (target?.dbId) openTicket(Number(target.dbId));
+        else showWorkspace("tickets");
+    });
     document.getElementById("ticketQueueSearch")?.addEventListener("input", event => { ticketQueuePage=1; renderTicketQueue(event.target.value); });
     document.getElementById("ticketCopyId")?.addEventListener("click",async()=>{const value=document.getElementById("ticketDrawerTitle")?.textContent||"";try{await navigator.clipboard.writeText(value);document.getElementById("ticketCopyId").title="Copied";setTimeout(()=>document.getElementById("ticketCopyId").title="Copy ticket number",1200)}catch(_){}});
     document.getElementById("ticketStatusTrigger")?.addEventListener("click",event=>{
