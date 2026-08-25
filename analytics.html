@@ -4410,6 +4410,150 @@
         #panel-dashboards .dashboard-widget:hover .dashboard-widget-actions,#panel-dashboards .dashboard-widget:focus-within .dashboard-widget-actions{opacity:1;transform:none;pointer-events:auto}
         @media(max-width:760px){.dashboard-title-trigger{max-width:calc(100vw - 58px)}.dashboard-title-trigger strong{font-size:24px}.dashboard-title-menu{position:fixed;top:110px;left:14px;right:14px;width:auto}.dashboard-title-actions{opacity:1;transform:none;pointer-events:auto}.dashboard-toolbar-add{min-height:38px;padding-inline:12px}.dashboard-toolbar-add svg{display:none}}
     </style>
+    <style id="workspace-final-agreed-corrections-v1">
+        /* Dashboard selector: clean title alignment and an opaque menu above every widget. */
+        #panel-dashboards .dashboard-enterprise-shell{
+            position:relative!important;
+            z-index:90!important;
+            isolation:isolate;
+            overflow:visible!important;
+        }
+        #panel-dashboards .dashboard-enterprise-head{
+            position:relative;
+            z-index:100;
+            overflow:visible!important;
+        }
+        #panel-dashboards .dashboard-enterprise-title{
+            position:relative;
+            z-index:110;
+            width:min(760px,100%);
+        }
+        #panel-dashboards .dashboard-title-trigger{
+            display:inline-flex;
+            width:auto;
+            max-width:100%;
+            align-items:center;
+            gap:10px;
+        }
+        #panel-dashboards .dashboard-title-trigger>span{display:block;min-width:0}
+        #panel-dashboards .dashboard-title-trigger>svg{align-self:center;margin-top:2px}
+        #panel-dashboards .dashboard-title-menu{
+            z-index:5000!important;
+            max-height:min(420px,calc(100vh - 180px));
+            overflow-y:auto;
+            overscroll-behavior:contain;
+            opacity:1!important;
+            background:#111713!important;
+            backdrop-filter:none!important;
+        }
+        html[data-theme="light"] #panel-dashboards .dashboard-title-menu{background:#fff!important}
+        #panel-dashboards .custom-dashboard-grid,
+        #panel-dashboards .custom-dashboard-empty{position:relative;z-index:1}
+
+        /* The Current View heading owns one clear line: title left, AI Assist right. */
+        .ticket-queue-head{
+            display:grid!important;
+            grid-template-columns:minmax(0,1fr) auto!important;
+            align-items:center!important;
+            gap:12px!important;
+        }
+        .ticket-queue-head>div{min-width:0}
+        .ticket-queue-head strong{overflow:hidden;text-overflow:ellipsis}
+        .ticket-queue-count{display:none!important}
+        .ticket-drawer-backdrop.assist-collapsed .agent-assist-dock-toggle{
+            display:inline-flex!important;
+            min-width:0;
+            height:34px;
+            padding:0 12px;
+        }
+
+        /* Draggable boundary for Current View. Assist stays fixed; ticket absorbs the delta. */
+        .ticket-queue-panel{overflow:visible!important}
+        .ticket-queue-resize-handle{
+            position:absolute;
+            top:18px;
+            right:-6px;
+            bottom:18px;
+            z-index:80;
+            width:12px;
+            padding:0;
+            border:0;
+            background:transparent;
+            cursor:col-resize;
+            touch-action:none;
+        }
+        .ticket-queue-resize-handle::before{
+            content:"";
+            position:absolute;
+            top:0;
+            bottom:0;
+            left:5px;
+            width:2px;
+            border-radius:999px;
+            background:transparent;
+            transition:background .15s,box-shadow .15s;
+        }
+        .ticket-queue-resize-handle:hover::before,
+        .ticket-queue-resize-handle:focus-visible::before,
+        .ticket-drawer-backdrop.queue-resizing .ticket-queue-resize-handle::before{
+            background:var(--accent);
+            box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 14%,transparent);
+        }
+        .ticket-drawer-backdrop.queue-resizing,
+        .ticket-drawer-backdrop.queue-resizing *{cursor:col-resize!important;user-select:none!important}
+
+        @media(min-width:1121px){
+            .ticket-drawer-backdrop:not(.assist-collapsed) .ticket-queue-panel{
+                left:12px!important;
+                width:var(--queue-width)!important;
+            }
+            .ticket-drawer-backdrop:not(.assist-collapsed) .agent-assist-panel{
+                left:calc(12px + var(--queue-width))!important;
+                width:var(--assist-width)!important;
+            }
+            .ticket-drawer-backdrop:not(.assist-collapsed) .ticket-drawer{
+                left:calc(12px + var(--queue-width) + var(--assist-width))!important;
+                right:12px!important;
+                width:auto!important;
+            }
+        }
+        @media(max-width:1120px){.ticket-queue-resize-handle{display:none}}
+
+        /* Familiar support-chat convention: customer neutral left, Novara team green right. */
+        .ticket-thread-message.agent,
+        .ticket-thread-message.ai{
+            align-self:flex-end!important;
+            margin-left:auto!important;
+            margin-right:0!important;
+            border-color:#79ad91!important;
+            background:#b8dcc8!important;
+            color:#102219!important;
+        }
+        .ticket-thread-message.agent .ticket-thread-name,
+        .ticket-thread-message.ai .ticket-thread-name,
+        .ticket-thread-message.agent .ticket-message-state,
+        .ticket-thread-message.ai .ticket-message-state{color:#315f49!important}
+        html[data-theme="dark"] .ticket-thread-message.agent,
+        html[data-theme="dark"] .ticket-thread-message.ai{
+            border-color:#34765a!important;
+            background:#275f48!important;
+            color:#f5fff9!important;
+        }
+        html[data-theme="dark"] .ticket-thread-message.agent .ticket-thread-name,
+        html[data-theme="dark"] .ticket-thread-message.ai .ticket-thread-name,
+        html[data-theme="dark"] .ticket-thread-message.agent .ticket-message-state,
+        html[data-theme="dark"] .ticket-thread-message.ai .ticket-message-state{color:#c4ead5!important}
+        .ticket-thread-message.customer{
+            align-self:flex-start!important;
+            margin-left:0!important;
+            margin-right:auto!important;
+            background:var(--bg-card)!important;
+            color:var(--text)!important;
+        }
+
+        .ticket-composer-tab{font-weight:800!important}
+        .ticket-composer-tab.active{font-weight:850!important}
+    </style>
 </head>
 
 
@@ -5864,7 +6008,7 @@
                     <header class="dashboard-enterprise-head">
                         <div class="dashboard-enterprise-title">
                             <button id="dashboardTitleTrigger" class="dashboard-title-trigger" type="button" aria-haspopup="menu" aria-expanded="false">
-                                <span><span class="report-eyebrow">Custom workspace</span><strong id="dashboardActiveTitle">My Dashboard</strong></span>
+                                <span><strong id="dashboardActiveTitle">My Dashboard</strong></span>
                                 <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m7 10 5 5 5-5"/></svg>
                             </button>
                             <div id="dashboardTitleMenu" class="dashboard-title-menu" role="menu"></div>
@@ -6493,11 +6637,11 @@ ORDER BY ticket_count DESC</textarea>
     <aside id="ticketQueuePanel" class="ticket-queue-panel" aria-label="Tickets in current view">
         <div class="ticket-queue-head">
             <div><span>Current view</span><strong id="ticketQueueTitle">All Tickets</strong></div>
-            <span id="ticketQueueCount" class="ticket-queue-count">0</span>
             <button id="agentAssistDockToggle" class="agent-assist-dock-toggle" type="button" aria-label="Open AI Agent Assist" aria-expanded="false">
                 <span aria-hidden="true">✦</span><strong>AI Assist</strong>
             </button>
         </div>
+        <button id="ticketQueueResizeHandle" class="ticket-queue-resize-handle" type="button" aria-label="Resize Current View panel" title="Drag to resize Current View"></button>
         <label class="ticket-queue-view"><span>Switch queue</span><select id="ticketQueueViewSelect" aria-label="Change ticket view"></select></label>
         <label class="ticket-queue-search"><span aria-hidden="true">⌕</span><input id="ticketQueueSearch" type="search" placeholder="Search this queue…" autocomplete="off"></label>
         <div id="ticketQueueList" class="ticket-queue-list"></div>
@@ -6562,11 +6706,11 @@ ORDER BY ticket_count DESC</textarea>
             </div>
             <div class="ticket-head-controls">
                 <div id="ticketStatusControl" class="ticket-status-control">
-                    <select id="ticketStatusSelect" class="ticket-status-select" aria-label="Ticket status"><option value="open">Open</option><option value="in_progress">In progress</option><option value="pending">Pending</option><option value="resolved">Resolved</option><option value="reopened">Reopened</option></select>
+                    <select id="ticketStatusSelect" class="ticket-status-select" aria-label="Ticket status"><option value="open">Open</option><option value="in_progress">In Progress</option><option value="pending">Pending</option><option value="resolved">Resolved</option><option value="reopened">Reopened</option></select>
                     <button id="ticketStatusTrigger" class="ticket-status-trigger" type="button" aria-haspopup="listbox" aria-expanded="false"><span id="ticketStatusTriggerLabel">Open</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
                     <div id="ticketStatusMenu" class="ticket-status-menu" role="listbox" aria-label="Change ticket status">
                         <button class="ticket-status-option" data-value="open" type="button"><span class="ticket-status-swatch"></span>Open</button>
-                        <button class="ticket-status-option" data-value="in_progress" type="button"><span class="ticket-status-swatch"></span>In progress</button>
+                        <button class="ticket-status-option" data-value="in_progress" type="button"><span class="ticket-status-swatch"></span>In Progress</button>
                         <button class="ticket-status-option" data-value="pending" type="button"><span class="ticket-status-swatch"></span>Pending</button>
                         <button class="ticket-status-option" data-value="resolved" type="button"><span class="ticket-status-swatch"></span>Resolved</button>
                         <button class="ticket-status-option" data-value="reopened" type="button"><span class="ticket-status-swatch"></span>Reopened</button>
@@ -6588,8 +6732,8 @@ ORDER BY ticket_count DESC</textarea>
 
         <div class="ticket-composer">
             <div class="ticket-composer-tabs">
-                <button id="ticketReplyTab" class="ticket-composer-tab active" type="button">Customer reply</button>
-                <button id="ticketNoteTab" class="ticket-composer-tab" type="button">Internal note</button>
+                <button id="ticketReplyTab" class="ticket-composer-tab active" type="button">Customer Reply</button>
+                <button id="ticketNoteTab" class="ticket-composer-tab" type="button">Internal Note</button>
             </div>
 
             <div id="ticketReplyPane" class="ticket-reply-pane active">
@@ -7731,6 +7875,7 @@ ORDER BY ticket_count DESC</textarea>
             pending: "Pending Revert",
             open: "Open",
             progress: "In Progress",
+            in_progress: "In Progress",
             reopened: "Reopened"
         };
 
@@ -7744,6 +7889,7 @@ ORDER BY ticket_count DESC</textarea>
             pending: "pending",
             open: "open",
             progress: "progress",
+            in_progress: "progress",
             reopened: "reopened"
         }[status] || "open";
     }
@@ -7880,12 +8026,12 @@ ORDER BY ticket_count DESC</textarea>
         const active = ticketWorkspaceState.activeView || "all";
         const viewType = active.startsWith("status:") ? active.slice(7) : active.startsWith("saved:") ? "saved" : "all";
         const configurations = {
-            all:[["Total tickets",total,"Matching selected period"],["Open",open,"Awaiting agent action"],["Pending / in progress",pending+progress,"Active support work"]],
-            open:[["Open tickets",total,"Awaiting agent action"],["Average age",averageAge,"Time since creation"],["SLA at risk",slaRisk,"Needs attention"]],
-            progress:[["In progress",total,"Currently being handled"],["Average age",averageAge,"Time since creation"],["SLA at risk",slaRisk,"Needs attention"]],
-            pending:[["Pending revert",total,"Waiting for a response"],["Average wait",averageAge,"Time in queue"],["Oldest waiting",oldestAge,"Longest pending ticket"]],
-            resolved:[["Resolved tickets",total,"Closed by human support"],["Average resolution",avgResolution==="—"?"—":`${avgResolution}h`,"Created to resolved"],["Resolution SLA met",slaMet,"Resolved within target"]],
-            reopened:[["Reopened tickets",total,"Returned after resolution"],["Average age",averageAge,"Time since creation"],["SLA at risk",slaRisk,"Needs attention"]],
+            all:[["Total Tickets",total,"Matching selected period"],["Open",open,"Awaiting agent action"],["Pending / In Progress",pending+progress,"Active support work"]],
+            open:[["Open Tickets",total,"Awaiting agent action"],["Average Age",averageAge,"Time since creation"],["SLA at Risk",slaRisk,"Needs attention"]],
+            progress:[["In Progress",total,"Currently being handled"],["Average Age",averageAge,"Time since creation"],["SLA at Risk",slaRisk,"Needs attention"]],
+            pending:[["Pending Revert",total,"Waiting for a response"],["Average Wait",averageAge,"Time in queue"],["Oldest Waiting",oldestAge,"Longest pending ticket"]],
+            resolved:[["Resolved Tickets",total,"Closed by human support"],["Average Resolution",avgResolution==="—"?"—":`${avgResolution}h`,"Created to resolved"],["Resolution SLA Met",slaMet,"Resolved within target"]],
+            reopened:[["Reopened Tickets",total,"Returned after resolution"],["Average Age",averageAge,"Time since creation"],["SLA at Risk",slaRisk,"Needs attention"]],
             saved:[["Matching tickets",total,"Saved view results"],["Average age",averageAge,"Time since creation"],["SLA at risk",slaRisk,"Needs attention"]]
         };
         const cards = [...document.querySelectorAll("#panel-tickets .ticket-kpi-card")];
@@ -9857,6 +10003,7 @@ ORDER BY ticket_count DESC</textarea>
             return ticketDateText(value);
         }
         if (typeof value === "number") return Number.isInteger(value) ? value.toLocaleString("en-IN") : value.toLocaleString("en-IN", { maximumFractionDigits:2 });
+        if (/status/i.test(key)) return reportLabel(value);
         return String(value).replaceAll("_", " ");
     }
 
@@ -11910,7 +12057,8 @@ ORDER BY created_date DESC, ticket_count DESC`;
             queueSelect.innerHTML = select.innerHTML;
             queueSelect.value = select.value;
         }
-        document.getElementById("ticketQueueCount").textContent = rows.length;
+        const queueCount = document.getElementById("ticketQueueCount");
+        if (queueCount) queueCount.textContent = rows.length;
         const totalPages = Math.max(1, Math.ceil(rows.length / TICKET_QUEUE_PAGE_SIZE));
         ticketQueuePage = Math.min(ticketQueuePage, totalPages);
         const visibleRows = rows.slice((ticketQueuePage - 1) * TICKET_QUEUE_PAGE_SIZE, ticketQueuePage * TICKET_QUEUE_PAGE_SIZE);
@@ -12387,11 +12535,67 @@ ORDER BY created_date DESC, ticket_count DESC`;
         backdrop?.classList.toggle("assist-collapsed",collapsed);
         toggle?.setAttribute("aria-expanded",String(!collapsed));
         if(remember)localStorage.setItem("novara_agent_assist_collapsed",collapsed?"1":"0");
-        requestAnimationFrame(()=>fitTicketTags());
+        requestAnimationFrame(()=>{
+            restoreTicketQueueWidth();
+            fitTicketTags();
+        });
     }
     document.getElementById("agentAssistCollapse").addEventListener("click", () => setAgentAssistCollapsed(true));
     document.getElementById("agentAssistReopen").addEventListener("click", () => setAgentAssistCollapsed(false));
     document.getElementById("agentAssistDockToggle")?.addEventListener("click", () => setAgentAssistCollapsed(false));
+
+    const TICKET_QUEUE_WIDTH_KEY = "novaradesk_ticket_queue_width";
+    function ticketQueueWidthBounds() {
+        const backdrop = document.getElementById("ticketDrawerBackdrop");
+        const assistOpen = backdrop && !backdrop.classList.contains("assist-collapsed");
+        const assistWidth = assistOpen ? (parseFloat(getComputedStyle(backdrop).getPropertyValue("--assist-width")) || 420) : 0;
+        const shellWidth = assistOpen ? window.innerWidth - 24 : Math.min(1180, window.innerWidth - 120);
+        return { min:220, max:Math.max(220, Math.min(430, shellWidth - assistWidth - 520)) };
+    }
+    function setTicketQueueWidth(width, remember=true) {
+        const backdrop = document.getElementById("ticketDrawerBackdrop");
+        if (!backdrop || window.innerWidth <= 1120) return;
+        const bounds = ticketQueueWidthBounds();
+        const next = Math.round(Math.max(bounds.min, Math.min(bounds.max, Number(width) || 272)));
+        backdrop.style.setProperty("--queue-width", `${next}px`);
+        if (remember) localStorage.setItem(TICKET_QUEUE_WIDTH_KEY, String(next));
+        requestAnimationFrame(() => fitTicketTags());
+    }
+    function restoreTicketQueueWidth() {
+        setTicketQueueWidth(Number(localStorage.getItem(TICKET_QUEUE_WIDTH_KEY)) || 272, false);
+    }
+    const ticketQueueResizeHandle = document.getElementById("ticketQueueResizeHandle");
+    ticketQueueResizeHandle?.addEventListener("pointerdown", event => {
+        if (window.innerWidth <= 1120) return;
+        event.preventDefault();
+        const backdrop = document.getElementById("ticketDrawerBackdrop");
+        const queue = document.getElementById("ticketQueuePanel");
+        const startX = event.clientX;
+        const startWidth = queue?.getBoundingClientRect().width || 272;
+        backdrop?.classList.add("queue-resizing");
+        ticketQueueResizeHandle.setPointerCapture?.(event.pointerId);
+        const move = moveEvent => setTicketQueueWidth(startWidth + moveEvent.clientX - startX, false);
+        const stop = stopEvent => {
+            ticketQueueResizeHandle.releasePointerCapture?.(stopEvent.pointerId);
+            ticketQueueResizeHandle.removeEventListener("pointermove", move);
+            ticketQueueResizeHandle.removeEventListener("pointerup", stop);
+            ticketQueueResizeHandle.removeEventListener("pointercancel", stop);
+            backdrop?.classList.remove("queue-resizing");
+            const width = queue?.getBoundingClientRect().width;
+            if (width) setTicketQueueWidth(width, true);
+        };
+        ticketQueueResizeHandle.addEventListener("pointermove", move);
+        ticketQueueResizeHandle.addEventListener("pointerup", stop);
+        ticketQueueResizeHandle.addEventListener("pointercancel", stop);
+    });
+    ticketQueueResizeHandle?.addEventListener("keydown", event => {
+        if (!["ArrowLeft","ArrowRight"].includes(event.key)) return;
+        event.preventDefault();
+        const current = document.getElementById("ticketQueuePanel")?.getBoundingClientRect().width || 272;
+        setTicketQueueWidth(current + (event.key === "ArrowRight" ? 16 : -16));
+    });
+    restoreTicketQueueWidth();
+    window.addEventListener("resize", restoreTicketQueueWidth);
 
     function setMobileSidebar(open) {
         document.body.classList.toggle("mobile-sidebar-open",open);
