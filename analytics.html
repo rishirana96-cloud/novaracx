@@ -1,5 +1,6 @@
 
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -4720,7 +4721,7 @@
         }
     </style>
     <style id="novaradesk-workflows-readability-fix-v4">
-        /* Workflow readability and overflow hardening */
+        /* Workflow workspace: readable, compact and duplication-free */
         #panel-workflows .workflow-hero{justify-content:flex-end;padding:0 0 12px;border-bottom:0}
         #panel-workflows .workflow-hero::after{display:none}
         #panel-workflows .workflow-hero-copy{display:none}
@@ -4746,38 +4747,110 @@
         #panel-workflows .workflow-history-head h3{font-size:16px}
         #panel-workflows .workflow-history-head p,#panel-workflows .workflow-history-row{font-size:12px}
 
-        .workflow-editor-backdrop{padding-left:12px;overflow:hidden}
+        /* The scrim is a sibling visual layer, never an opacity on the drawer. */
+        .workflow-editor-backdrop{
+            isolation:isolate;
+            padding-left:16px;
+            overflow:hidden;
+            background:transparent!important;
+            backdrop-filter:none!important;
+        }
+        .workflow-editor-backdrop::before{
+            content:"";
+            position:absolute;
+            inset:0;
+            z-index:0;
+            background:rgba(5,10,7,.52);
+            backdrop-filter:blur(4px);
+            pointer-events:none;
+        }
         .workflow-editor,.workflow-editor *{box-sizing:border-box}
-        .workflow-editor{position:relative;width:min(680px,calc(100vw - 24px))!important;max-width:calc(100vw - 24px)!important;min-width:0;overflow:hidden}
+        .workflow-editor{
+            position:relative;
+            z-index:1;
+            width:min(680px,calc(100vw - 16px))!important;
+            max-width:calc(100vw - 16px)!important;
+            min-width:0;
+            height:100dvh;
+            overflow:hidden;
+            opacity:1!important;
+            filter:none!important;
+            background:var(--bg-card)!important;
+            color:var(--text);
+        }
         .workflow-editor-head,.workflow-editor-body,.workflow-editor-footer,.workflow-editor .workflow-section,.workflow-editor .workflow-form-grid,.workflow-editor .workflow-field,.workflow-editor .workflow-rule-list,.workflow-editor .workflow-rule{min-width:0;max-width:100%}
-        .workflow-editor-body{width:100%;overflow-x:hidden;overscroll-behavior:contain}
-        .workflow-editor-head h2{font-size:25px}
-        .workflow-editor-head p{font-size:13px;line-height:1.5}
-        .workflow-editor .report-eyebrow{font-size:11px}
-        .workflow-editor .workflow-step h3{font-size:17px}
-        .workflow-editor .workflow-step p{font-size:13px;line-height:1.45}
-        .workflow-editor .workflow-step-number{font-size:12px}
-        .workflow-editor .workflow-field>span{font-size:11px}
-        .workflow-editor .workflow-field input,.workflow-editor .workflow-field select,.workflow-editor .workflow-field textarea,.workflow-editor .workflow-rule select,.workflow-editor .workflow-rule input{max-width:100%;font-size:14px}
-        .workflow-editor .unified-select-trigger{min-width:0!important;max-width:100%;font-size:14px}
-        .workflow-editor .workflow-template strong{font-size:14px}
-        .workflow-editor .workflow-template span{font-size:12px;line-height:1.5}
-        .workflow-editor .workflow-add-rule,.workflow-editor .workflow-logic button,.workflow-editor-footer .admin-btn{font-size:13px}
-        .workflow-live-preview-label,.workflow-flow-node span{font-size:10px}
-        .workflow-ready-badge,.workflow-validation-item{font-size:11px}
-        .workflow-flow-node strong{font-size:13px}
-        .workflow-save-state{font-size:11px;line-height:1.4}
-        .workflow-editor-footer{flex-wrap:wrap}
-        .workflow-editor-footer .workflow-footer-left{flex:1 1 260px;flex-wrap:wrap}
-        .workflow-editor-footer .admin-command-actions{display:flex;flex:0 1 auto;gap:8px;margin-left:auto}
+        .workflow-editor-head{
+            flex:0 0 auto;
+            padding:18px 22px;
+            background:var(--bg-card)!important;
+            opacity:1!important;
+        }
+        .workflow-editor-body{
+            flex:1 1 auto;
+            min-height:0;
+            width:100%;
+            padding:0 22px 22px;
+            overflow-x:hidden;
+            overflow-y:auto;
+            overscroll-behavior:contain;
+            background:var(--bg-card)!important;
+            opacity:1!important;
+        }
+        .workflow-editor-head h2{font-size:21px;line-height:1.2}
+        .workflow-editor-head p{font-size:12px;line-height:1.45}
+        .workflow-editor .report-eyebrow{font-size:10px}
+        .workflow-editor .workflow-section{padding:18px 0}
+        .workflow-editor .workflow-step{align-items:flex-start}
+        .workflow-editor .workflow-step h3{font-size:15px;line-height:1.25}
+        .workflow-editor .workflow-step p{font-size:12px;line-height:1.4}
+        .workflow-editor .workflow-step-number{width:25px;height:25px;font-size:11px}
+        .workflow-editor .workflow-field>span{font-size:10px}
+        .workflow-editor .workflow-field input,.workflow-editor .workflow-field select,.workflow-editor .workflow-field textarea,.workflow-editor .workflow-rule select,.workflow-editor .workflow-rule input{max-width:100%;font-size:13px}
+        .workflow-editor .workflow-field input,.workflow-editor .workflow-field select{min-height:42px}
+        .workflow-editor .workflow-field textarea{min-height:72px}
+        .workflow-editor .unified-select-trigger{min-width:0!important;max-width:100%;font-size:13px}
+        .workflow-editor .workflow-template strong{font-size:13px}
+        .workflow-editor .workflow-template span{font-size:11px;line-height:1.45}
+        .workflow-editor .workflow-add-rule,.workflow-editor .workflow-logic button,.workflow-editor-footer .admin-btn{font-size:12px}
+        .workflow-live-preview{
+            top:0;
+            margin:0 -22px;
+            padding:13px 22px 14px;
+            background:color-mix(in srgb,var(--bg-card) 97%,var(--accent) 3%)!important;
+            backdrop-filter:none!important;
+            opacity:1!important;
+        }
+        .workflow-live-preview-label,.workflow-flow-node span{font-size:9px}
+        .workflow-ready-badge,.workflow-validation-item{font-size:10px}
+        .workflow-flow-node{background:var(--surface)!important;opacity:1!important}
+        .workflow-flow-node strong{font-size:12px}
+        .workflow-save-state{font-size:10px;line-height:1.35}
+        .workflow-editor-footer{
+            position:relative;
+            z-index:2;
+            flex:0 0 auto;
+            flex-wrap:nowrap;
+            padding:12px 22px;
+            background:var(--bg-card)!important;
+            opacity:1!important;
+        }
+        .workflow-editor-footer .workflow-footer-left{display:flex;flex:1 1 auto;align-items:center;gap:9px;min-width:0;flex-wrap:nowrap}
+        .workflow-editor-footer .admin-command-actions{display:flex;flex:0 0 auto;gap:8px;margin-left:auto}
         .workflow-editor-footer .admin-command-actions .admin-btn{min-height:40px;white-space:nowrap}
-        .workflow-validation-toast{font-size:12px}
+        .workflow-validation-toast{font-size:11px}
         @media(max-width:760px){
             .workflow-editor-backdrop{padding-left:0}
             .workflow-editor{width:100vw!important;max-width:100vw!important;border-left:0}
-            .workflow-editor-head h2{font-size:22px}
-            .workflow-editor .workflow-step h3{font-size:16px}
-            .workflow-editor-footer .workflow-footer-left{flex-basis:100%}
+            .workflow-editor-head{padding:15px 16px}
+            .workflow-editor-body{padding:0 16px 18px}
+            .workflow-live-preview{margin-inline:-16px;padding-inline:16px}
+            .workflow-editor-head h2{font-size:20px}
+            .workflow-editor .workflow-step h3{font-size:15px}
+            .workflow-editor-footer{align-items:stretch;flex-direction:column;padding:10px 16px}
+            .workflow-editor-footer .workflow-footer-left{width:100%;flex-wrap:wrap}
+            .workflow-editor-footer .admin-command-actions{width:100%;margin-left:0}
+            .workflow-editor-footer .admin-command-actions .admin-btn{flex:1}
+            .workflow-save-state{display:none}
         }
     </style>
 </head>
