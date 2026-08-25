@@ -3471,6 +3471,48 @@
         #panel-reports.sql-runner-mode .report-preview-card{border:0!important;border-radius:0!important;box-shadow:none!important}.sql-studio-status{display:flex;align-items:center;justify-content:flex-end;gap:16px;padding:8px 18px;border-top:1px solid var(--border);color:var(--text-muted);font-size:9px}
         @media(max-width:1180px){.ticket-drawer-backdrop{--queue-width:250px;--assist-width:390px}.ticket-status-select{max-width:125px}.ticket-agent-select{max-width:150px}}
         @media(max-width:900px){#panel-reports.sql-runner-mode .reports-shell{grid-template-columns:1fr!important}.sql-studio-sidebar{display:none!important}#panel-reports.sql-runner-mode .report-builder-card,#panel-reports.sql-runner-mode .report-results-column{grid-column:1}.ticket-head-controls{margin-left:0;width:100%}}
+
+        /* SQL Studio — a focused query workflow, separate from the visual builders */
+        #panel-reports.sql-runner-mode .report-section-heading{padding:18px 20px 14px;border-bottom:1px solid var(--border);margin:0}
+        #panel-reports.sql-runner-mode .report-section-heading .report-eyebrow{font-size:9px;letter-spacing:.14em}
+        #panel-reports.sql-runner-mode .report-section-heading h2{font-size:20px;margin-top:3px}
+        #panel-reports.sql-runner-mode .report-section-heading p{font-size:10px;margin-top:4px}
+        #panel-reports.sql-runner-mode .report-form-grid{padding:14px 20px 0}
+        #panel-reports.sql-runner-mode .report-heading-actions{display:none}
+        #panel-reports.sql-runner-mode .raw-sql-notice,#panel-reports.sql-runner-mode .raw-sql-schema{display:none}
+        .sql-studio-toolbar{display:none;align-items:center;gap:8px;padding:0 20px 12px}
+        #panel-reports.sql-runner-mode .sql-studio-toolbar{display:flex}
+        .sql-studio-toolbar .report-primary-btn{margin-left:auto}
+        .sql-tool-btn{height:34px;padding:0 12px;border:1px solid var(--border);border-radius:8px;background:var(--bg-card);color:var(--text-secondary);font:700 10px/1 inherit;cursor:pointer;transition:var(--transition)}
+        .sql-tool-btn:hover{border-color:var(--accent);color:var(--text);background:var(--surface-hover)}
+        .sql-editor-frame{position:relative;border:1px solid var(--border);border-radius:12px;overflow:hidden;background:#08100c;box-shadow:inset 0 1px 0 rgba(255,255,255,.03)}
+        .sql-editor-chrome{display:flex;align-items:center;justify-content:space-between;height:36px;padding:0 12px;border-bottom:1px solid rgba(255,255,255,.08);background:#0d1712;color:#9eb1a6;font:700 9px/1 ui-monospace,SFMono-Regular,Menlo,monospace;text-transform:uppercase;letter-spacing:.1em}
+        .sql-editor-chrome span:last-child{color:#6f8278;font-weight:600;text-transform:none;letter-spacing:0}
+        #panel-reports.sql-runner-mode #rawSqlEditor{display:block;min-height:330px!important;border:0!important;border-radius:0!important;box-shadow:none!important;background:#08100c!important;color:#d5e4db!important;padding:18px 20px!important;font-size:12px!important;line-height:1.72!important;resize:vertical}
+        html[data-theme="light"] #panel-reports.sql-runner-mode #rawSqlEditor{background:#f8fbf9!important;color:#173126!important}
+        html[data-theme="light"] .sql-editor-frame{background:#f8fbf9}html[data-theme="light"] .sql-editor-chrome{background:#eef4f0;color:#527062;border-color:var(--border)}
+        .sql-studio-params{display:grid;grid-template-columns:repeat(3,minmax(0,180px));gap:10px;padding-top:2px}
+        .sql-results-tabs{display:none;align-items:center;gap:4px;padding:10px 18px 0;border-bottom:1px solid var(--border);background:var(--surface)}
+        #panel-reports.sql-runner-mode .sql-results-tabs{display:flex}
+        .sql-result-tab{padding:9px 12px;border:0;border-bottom:2px solid transparent;background:transparent;color:var(--text-muted);font:700 10px/1 inherit;cursor:pointer}
+        .sql-result-tab.active{color:var(--accent-dark);border-bottom-color:var(--accent-dark)}
+        .sql-result-tab-spacer{flex:1}
+        .sql-result-search{display:none;width:190px;height:32px;padding:0 10px;border:1px solid var(--border);border-radius:8px;background:var(--bg-card);color:var(--text);font:inherit;font-size:10px;outline:none}
+        #panel-reports.sql-runner-mode .sql-result-search{display:block}
+        #panel-reports.sql-runner-mode .report-preview-head{padding:16px 20px 12px}
+        #panel-reports.sql-runner-mode .report-preview-head .report-eyebrow{font-size:9px}
+        #panel-reports.sql-runner-mode .report-preview-head h2{font-size:18px}
+        #panel-reports.sql-runner-mode .report-summary-strip{margin:0 20px 12px}
+        #panel-reports.sql-runner-mode .raw-sql-table-wrap{max-height:440px;overflow:auto;margin:0 20px 20px;border:1px solid var(--border);border-radius:10px}
+        #panel-reports.sql-runner-mode .raw-sql-result-table{min-width:100%;font-size:10px}
+        #panel-reports.sql-runner-mode .raw-sql-result-table thead{position:sticky;top:0;z-index:2}
+        .sql-query-details{display:none;margin:0 20px 20px;padding:16px;border:1px solid var(--border);border-radius:10px;background:var(--surface)}
+        .sql-query-details.active{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+        .sql-query-details div{padding:12px;border:1px solid var(--border);border-radius:8px;background:var(--bg-card)}
+        .sql-query-details span{display:block;color:var(--text-muted);font-size:8px;text-transform:uppercase;letter-spacing:.12em}.sql-query-details strong{display:block;margin-top:5px;font-size:11px}
+        #panel-reports.sql-runner-mode .saved-reports-card{border-radius:0!important;border:0!important;border-top:1px solid var(--border)!important;box-shadow:none!important}
+        #panel-reports.sql-runner-mode .saved-reports-card .report-preview-head{cursor:pointer}
+        @media(max-width:720px){.sql-studio-toolbar{flex-wrap:wrap}.sql-studio-toolbar .report-primary-btn{margin-left:0}.sql-studio-params{grid-template-columns:1fr}.sql-results-tabs{overflow:auto}.sql-result-search{min-width:150px}.sql-query-details.active{grid-template-columns:1fr}}
     </style>
     <style id="workspace-pdf3-improvements">
         /* Ticket workspace refinements requested in Untitled document (3).pdf */
@@ -5860,6 +5902,13 @@
                         </div>
 
                         <div id="rawSqlControls" class="raw-sql-controls raw-sql-control" hidden>
+                            <div class="sql-studio-toolbar" aria-label="SQL query actions">
+                                <button id="rawSqlFormatBtn" class="sql-tool-btn" type="button">Format SQL</button>
+                                <button id="rawSqlClearBtn" class="sql-tool-btn" type="button">Clear</button>
+                                <button id="rawSqlCopyBtn" class="sql-tool-btn" type="button">Copy query</button>
+                                <button id="rawSqlSaveBtn" class="sql-tool-btn" type="button">Save report</button>
+                                <button id="rawSqlRunBtnTop" class="report-primary-btn" type="button">▶ Run query</button>
+                            </div>
                             <div class="raw-sql-notice">
                                 <div>
                                     <span class="report-eyebrow">Advanced · Read only</span>
@@ -5885,7 +5934,9 @@
                             </details>
 
                             <label class="report-field report-field-wide">
-                                <span>SQL query</span>
+                                <span>Query editor</span>
+                                <div class="sql-editor-frame">
+                                <div class="sql-editor-chrome"><span>Read-only SQL</span><span>Ctrl/⌘ + Enter to run</span></div>
                                 <textarea id="rawSqlEditor" spellcheck="false" autocomplete="off" aria-label="Read-only SQL query">SELECT
   status,
   COUNT(*) AS ticket_count
@@ -5894,9 +5945,10 @@ WHERE created_at &gt;= DATETIME(:start_date, '-5 hours', '-30 minutes')
   AND created_at &lt; DATETIME(:end_date, '+1 day', '-5 hours', '-30 minutes')
 GROUP BY status
 ORDER BY ticket_count DESC</textarea>
+                                </div>
                             </label>
 
-                            <div class="raw-sql-parameters">
+                            <div class="raw-sql-parameters sql-studio-params">
                                 <label class="report-field">
                                     <span>:start_date</span>
                                     <input id="rawSqlStartDate" type="date">
@@ -5962,6 +6014,14 @@ ORDER BY ticket_count DESC</textarea>
 
                     <div class="report-results-column">
                         <article class="report-preview-card">
+                            <div class="sql-results-tabs" role="tablist" aria-label="SQL output">
+                                <button class="sql-result-tab active" data-sql-result-tab="results" type="button">Results</button>
+                                <button class="sql-result-tab" data-sql-result-tab="chart" type="button">Visualise</button>
+                                <button class="sql-result-tab" data-sql-result-tab="details" type="button">Query details</button>
+                                <span class="sql-result-tab-spacer"></span>
+                                <input id="rawSqlResultSearch" class="sql-result-search" type="search" placeholder="Search results…" aria-label="Search query results">
+                                <button id="rawSqlCopyResultsBtn" class="sql-tool-btn" type="button">Copy table</button>
+                            </div>
                             <div class="report-preview-head">
                                 <div>
                                     <span class="report-eyebrow">Live preview</span>
@@ -6009,6 +6069,14 @@ ORDER BY ticket_count DESC</textarea>
 
                             <div id="rawSqlTableWrap" class="raw-sql-table-wrap" hidden>
                                 <table id="rawSqlResultTable" class="raw-sql-result-table"></table>
+                            </div>
+                            <div id="sqlQueryDetails" class="sql-query-details">
+                                <div><span>Execution</span><strong id="sqlExecutionState">Not run</strong></div>
+                                <div><span>Duration</span><strong id="sqlExecutionDuration">—</strong></div>
+                                <div><span>Rows returned</span><strong id="sqlExecutionRows">—</strong></div>
+                                <div><span>Access</span><strong>Read only</strong></div>
+                                <div><span>Row limit</span><strong id="sqlExecutionLimit">500</strong></div>
+                                <div><span>Last run</span><strong id="sqlExecutionTime">—</strong></div>
                             </div>
                         </article>
 
@@ -10820,16 +10888,28 @@ ORDER BY ticket_count DESC</textarea>
             return;
         }
         const requestSerial = ++rawSqlRequestSerial;
+        const startedAt = performance.now();
+        const state = document.getElementById("sqlExecutionState");
+        if (state) state.textContent = "Running…";
         setReportMessage("Running read-only query…");
         try {
             const data = await fetchRawSqlReport(config);
             if (requestSerial !== rawSqlRequestSerial) return;
             renderRawSqlReport(data, config);
+            const elapsed = Math.max(1, Math.round(performance.now() - startedAt));
+            document.getElementById("sqlExecutionState").textContent = "Completed";
+            document.getElementById("sqlExecutionDuration").textContent = `${elapsed.toLocaleString("en-IN")} ms`;
+            document.getElementById("sqlExecutionRows").textContent = data.rowCount.toLocaleString("en-IN");
+            document.getElementById("sqlExecutionLimit").textContent = Number(config.rawSql.limit).toLocaleString("en-IN");
+            document.getElementById("sqlExecutionTime").textContent = new Date().toLocaleTimeString("en-IN", { hour:"2-digit", minute:"2-digit" });
             setReportMessage(`${data.rowCount.toLocaleString("en-IN")} rows returned${data.truncated ? ` · limited to ${data.limit.toLocaleString("en-IN")}` : ""}.`, "success");
         } catch (error) {
             if (requestSerial !== rawSqlRequestSerial) return;
             currentReportResult = null;
             document.getElementById("reportExportBtn").disabled = true;
+            if (state) state.textContent = "Failed";
+            const duration = document.getElementById("sqlExecutionDuration");
+            if (duration) duration.textContent = `${Math.max(1, Math.round(performance.now() - startedAt)).toLocaleString("en-IN")} ms`;
             setReportMessage(error.message || "The report query failed.", "error");
         }
     }
@@ -10844,7 +10924,13 @@ ORDER BY ticket_count DESC</textarea>
         document.querySelectorAll(".visual-report-control").forEach(element => element.hidden = isSql);
         document.getElementById("rawSqlControls").hidden = !isSql;
         document.getElementById("pivotOptions").hidden = !isPivot;
-        if (isSql) ensureRawSqlDates();
+        const heading = document.querySelector("#panel-reports .report-section-heading h2");
+        const eyebrow = document.querySelector("#panel-reports .report-section-heading .report-eyebrow");
+        const description = document.querySelector("#panel-reports .report-section-heading p");
+        if (heading) heading.textContent = isSql ? "SQL Studio" : "Build a report";
+        if (eyebrow) eyebrow.textContent = isSql ? "Read-only query workspace" : "Report builder";
+        if (description) description.textContent = isSql ? "Write, run, inspect, visualise and save governed D1 queries." : "Turn your CX data into a focused business view.";
+        if (isSql) { ensureRawSqlDates(); setSqlOutputTab("results"); }
         syncRawSqlVisual();
         currentReportResult = null;
     }
@@ -11042,8 +11128,78 @@ ORDER BY ticket_count DESC</textarea>
         URL.revokeObjectURL(link.href);
     }
 
+    function formatSqlText(sql) {
+        const keywords = ["SELECT","FROM","LEFT JOIN","RIGHT JOIN","INNER JOIN","FULL JOIN","JOIN","WHERE","GROUP BY","HAVING","ORDER BY","LIMIT","UNION ALL","UNION"];
+        let output = String(sql || "").replace(/\s+/g, " ").trim();
+        keywords.forEach(keyword => {
+            output = output.replace(new RegExp(`\\s+${keyword.replace(" ", "\\s+")}\\s+`, "ig"), `\n${keyword} `);
+        });
+        output = output.replace(/^\s*SELECT\s+/i, "SELECT\n  ").replace(/,\s*(?=[A-Za-z_`\[])/g, ",\n  ");
+        return output.trim();
+    }
+
+    function copyTextWithFeedback(text, button, successLabel) {
+        if (!text) return;
+        navigator.clipboard?.writeText(text).then(() => {
+            const original = button?.textContent;
+            if (button) button.textContent = successLabel;
+            window.setTimeout(() => { if (button) button.textContent = original; }, 1300);
+        });
+    }
+
+    function sqlRowsAsTsv() {
+        const result = currentReportResult;
+        if (result?.type !== "sql" || !result.columns?.length) return "";
+        return [result.columns.join("\t"), ...result.rows.map(row => result.columns.map(column => String(row?.[column] ?? "")).join("\t"))].join("\n");
+    }
+
+    function setSqlOutputTab(tab) {
+        document.querySelectorAll(".sql-result-tab").forEach(button => button.classList.toggle("active", button.dataset.sqlResultTab === tab));
+        const details = document.getElementById("sqlQueryDetails");
+        if (details) details.classList.toggle("active", tab === "details");
+        const chartWrap = document.getElementById("reportChartWrap");
+        const rawWrap = document.getElementById("rawSqlTableWrap");
+        const summary = document.querySelector("#panel-reports .report-summary-strip");
+        const empty = document.getElementById("reportPreviewEmpty");
+        if (tab === "details") {
+            if (chartWrap) chartWrap.hidden = true;
+            if (rawWrap) rawWrap.hidden = true;
+            if (empty) empty.hidden = true;
+            if (summary) summary.hidden = true;
+            return;
+        }
+        if (summary) summary.hidden = false;
+        const visual = document.getElementById("rawSqlVisual");
+        if (visual) {
+            if (tab === "results") visual.value = "table";
+            if (tab === "chart" && visual.value === "table") visual.value = "bar";
+            syncRawSqlVisual();
+            if (currentReportResult?.type === "sql") renderRawSqlReport({ columns:currentReportResult.columns, rows:currentReportResult.rows, rowCount:currentReportResult.rows.length, truncated:currentReportResult.truncated }, getReportConfig());
+        }
+    }
+
     document.getElementById("reportMode")?.addEventListener("change", () => { syncReportMode(); scheduleCustomReport(); });
     document.getElementById("rawSqlRunBtn")?.addEventListener("click", runCustomReport);
+    document.getElementById("rawSqlRunBtnTop")?.addEventListener("click", runCustomReport);
+    document.getElementById("rawSqlFormatBtn")?.addEventListener("click", () => {
+        const editor = document.getElementById("rawSqlEditor");
+        editor.value = formatSqlText(editor.value);
+        editor.focus();
+    });
+    document.getElementById("rawSqlClearBtn")?.addEventListener("click", () => {
+        const editor = document.getElementById("rawSqlEditor");
+        editor.value = "";
+        editor.focus();
+        setReportMessage("Editor cleared.");
+    });
+    document.getElementById("rawSqlCopyBtn")?.addEventListener("click", event => copyTextWithFeedback(document.getElementById("rawSqlEditor")?.value, event.currentTarget, "Copied"));
+    document.getElementById("rawSqlSaveBtn")?.addEventListener("click", saveCustomReport);
+    document.getElementById("rawSqlCopyResultsBtn")?.addEventListener("click", event => copyTextWithFeedback(sqlRowsAsTsv(), event.currentTarget, "Copied"));
+    document.querySelectorAll(".sql-result-tab").forEach(button => button.addEventListener("click", () => setSqlOutputTab(button.dataset.sqlResultTab)));
+    document.getElementById("rawSqlResultSearch")?.addEventListener("input", event => {
+        const query = event.target.value.trim().toLowerCase();
+        document.querySelectorAll("#rawSqlResultTable tbody tr").forEach(row => row.hidden = Boolean(query && !row.textContent.toLowerCase().includes(query)));
+    });
     renderReportPalettePicker();
     document.getElementById("reportCustomColors")?.addEventListener("input",()=>{localStorage.setItem("novara_analytics_custom_colors",JSON.stringify(currentReportColors()));applyAnalyticsChartPalette();scheduleCustomReport();});
     document.getElementById("reportDataset")?.addEventListener("change", () => { document.getElementById("reportFilters").innerHTML = ""; refreshReportFields(true); currentReportResult = null; scheduleCustomReport(); });
