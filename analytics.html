@@ -4927,6 +4927,149 @@
 body.ticket-call-mode .ticket-ai-details,body.ticket-call-mode .ticket-thread-label,body.ticket-call-mode #ticketThread,body.ticket-call-mode .ticket-composer{display:none!important}body.ticket-call-mode #callWorkspace{display:grid!important}
 @media(max-width:760px){.ticket-channel-switcher{width:100%}.ticket-channel-tab{flex:1;justify-content:center}.ticket-table-view{align-items:stretch;flex-direction:column}.ticket-table-view .ticket-view-control .unified-select-trigger,.ticket-table-view .ticket-view-control select{width:100%;min-width:0}.call-input-body{grid-template-columns:1fr}.call-field.wide{grid-column:auto}}
 </style>
+<style id="novaradesk-call-detail-panels">
+/* Call-ticket sections use the same visual language as Ticket Information. */
+.call-workspace{display:grid;gap:14px}
+.call-detail-panel{overflow:hidden;border:1px solid var(--border);border-radius:15px;background:var(--surface)}
+.call-detail-panel[open]{box-shadow:0 10px 28px rgba(0,0,0,.055)}
+.call-detail-summary{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:62px;padding:14px 16px;list-style:none;color:var(--text);cursor:pointer;user-select:none}
+.call-detail-summary::-webkit-details-marker{display:none}
+.call-detail-summary:hover{background:color-mix(in srgb,var(--accent) 4%,var(--surface))}
+.call-detail-title{display:flex;align-items:center;gap:10px;min-width:0}
+.call-detail-title>svg{flex:0 0 auto;width:18px;height:18px;fill:none;stroke:var(--accent-light);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.call-detail-title>span{display:grid;gap:3px;min-width:0}
+.call-detail-title strong{color:var(--text);font-size:14px;font-weight:780;line-height:1.25}
+.call-detail-title small{overflow:hidden;color:var(--text-muted);font-size:10px;font-weight:500;line-height:1.35;text-overflow:ellipsis;white-space:nowrap}
+.call-detail-actions{display:flex;align-items:center;gap:10px;flex:0 0 auto}
+.call-detail-chevron{width:18px;height:18px;fill:none;stroke:var(--text-secondary);stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:transform .18s ease}
+.call-detail-panel[open] .call-detail-chevron{transform:rotate(180deg)}
+.call-detail-content{border-top:1px solid var(--border);background:var(--bg-card)}
+.call-history-count{padding:6px 9px;border-radius:999px;background:var(--surface-2);color:var(--text-secondary);font-size:10px;font-weight:800;white-space:nowrap}
+.call-history-table-wrap{overflow:auto}
+.call-history-table th{padding:12px 14px;background:var(--surface-2);color:var(--text-muted);font-size:9px;font-weight:850;letter-spacing:.08em;text-align:left;text-transform:uppercase}
+.call-history-table td{padding:13px 14px;color:var(--text-secondary);font-size:11px;line-height:1.45}
+.call-input-body{padding:16px}
+.call-field span{font-size:9px}
+.call-field input,.call-field select{font-size:12px}
+@media(max-width:760px){.call-detail-summary{padding:13px 14px}.call-detail-title small{white-space:normal}.call-history-count{display:none}}
+</style>
+<style id="novaradesk-tickets-enterprise-refinement">
+/* Final, authoritative Tickets presentation layer. */
+#panel-tickets{--ticket-radius:16px;--ticket-control-h:42px}
+#panel-tickets .ticket-workspace-toolbar{min-height:68px;margin-bottom:18px;padding:12px 14px;border-radius:var(--ticket-radius);background:color-mix(in srgb,var(--surface) 94%,transparent)}
+#panel-tickets .ticket-channel-switcher{padding:4px;border-radius:11px;box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--border) 78%,transparent)}
+#panel-tickets .ticket-channel-tab{min-width:104px;min-height:38px;justify-content:center;font-size:12px;letter-spacing:.01em}
+#panel-tickets .ticket-toolbar-right{display:flex;align-items:center;gap:10px}
+#panel-tickets .ticket-period-selector{min-height:44px;padding:4px;border-radius:12px}
+#panel-tickets .ticket-period-selector button{min-width:54px;min-height:36px;border-radius:9px;font-size:11px;font-weight:800}
+#panel-tickets .ticket-filter-toggle{min-height:44px;padding:0 15px;border-radius:12px;font-size:11px;font-weight:800}
+#panel-tickets .ticket-filter-panel{padding:20px;border-radius:var(--ticket-radius)}
+#panel-tickets .ticket-filter-panel-head h2{font-size:18px}
+#panel-tickets .ticket-filter-panel-head p{font-size:11px}
+#panel-tickets .ticket-filter-grid label>span,#panel-tickets .ticket-save-view-row label>span{font-size:9px;font-weight:850;letter-spacing:.08em;text-transform:uppercase}
+#panel-tickets .ticket-filter-grid input,#panel-tickets .ticket-filter-grid select,#panel-tickets .ticket-save-view-row input{min-height:42px;font-size:12px}
+#panel-tickets .ticket-kpi-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:14px;margin-bottom:18px}
+#panel-tickets .ticket-kpi-card{min-height:142px!important;padding:20px!important;border-radius:var(--ticket-radius)}
+#panel-tickets .ticket-kpi-label{font-size:10px!important}
+#panel-tickets .ticket-kpi-value{margin:13px 0 8px!important;font-size:38px!important;letter-spacing:-1.8px!important}
+#panel-tickets .ticket-kpi-sub{font-size:10px!important;line-height:1.4!important}
+#panel-tickets .table-card{overflow:hidden;border-radius:var(--ticket-radius)}
+#panel-tickets .table-header{min-height:76px;padding:16px 18px}
+#panel-tickets .ticket-table-view{gap:14px;min-width:0}
+#panel-tickets .ticket-view-control{display:flex;align-items:center;gap:10px}
+#panel-tickets .ticket-view-control>span{display:block!important;color:var(--text-muted);font-size:9px;font-weight:850;letter-spacing:.08em;text-transform:uppercase}
+#panel-tickets .ticket-table-view .ticket-view-control .unified-select-trigger,#panel-tickets .ticket-table-view .ticket-view-control select{min-width:220px;min-height:42px;border:1px solid var(--border);border-radius:11px;background:var(--bg-card);font-size:12px}
+#panel-tickets .table-subtitle{font-size:10px}
+#panel-tickets .conversation-table thead th{position:sticky;top:0;z-index:2;padding:13px 16px;font-size:9px;letter-spacing:.08em;background:var(--surface-2)}
+#panel-tickets .conversation-table tbody td{padding:15px 16px;font-size:11px;line-height:1.45}
+#panel-tickets .conversation-table tbody tr{transition:background .14s ease,box-shadow .14s ease}
+#panel-tickets .conversation-table tbody tr:hover{background:color-mix(in srgb,var(--accent) 6%,var(--bg-card));box-shadow:inset 3px 0 0 color-mix(in srgb,var(--accent) 70%,transparent)}
+#panel-tickets .ticket-id,#panel-tickets .ticket-customer{font-size:12px;font-weight:820}
+#panel-tickets .table-secondary{display:inline-block;max-width:360px;margin-top:4px;overflow:hidden;color:var(--text-muted);font-size:10px;text-overflow:ellipsis;white-space:nowrap}
+
+.ticket-drawer-backdrop{--queue-width:clamp(260px,18vw,320px);--assist-width:clamp(390px,28vw,455px);padding:12px!important;background:rgba(4,8,6,.54)!important;backdrop-filter:blur(4px)!important}
+.ticket-queue-panel,.agent-assist-panel,.ticket-drawer{top:12px!important;bottom:12px!important;border-color:color-mix(in srgb,var(--border) 92%,transparent)!important;box-shadow:0 24px 70px rgba(0,0,0,.22)!important}
+.ticket-queue-panel{left:12px!important;width:var(--queue-width)!important;padding:18px 15px 14px!important;border-radius:18px 0 0 18px!important;background:var(--surface)!important}
+.ticket-drawer-backdrop.assist-collapsed .ticket-queue-panel{width:var(--queue-width)!important}
+.ticket-drawer-backdrop.assist-collapsed .ticket-drawer{left:calc(12px + var(--queue-width))!important;right:12px!important;border-radius:0 18px 18px 0!important}
+.ticket-drawer-backdrop:not(.assist-collapsed) .agent-assist-panel{left:calc(12px + var(--queue-width))!important;width:var(--assist-width)!important;border-radius:0!important}
+.ticket-drawer-backdrop:not(.assist-collapsed) .ticket-drawer{left:calc(12px + var(--queue-width) + var(--assist-width))!important;right:12px!important;border-radius:0 18px 18px 0!important}
+.ticket-queue-head{align-items:center!important;margin-bottom:12px!important;padding:0 3px!important}
+.ticket-queue-head>div{min-width:0}
+.ticket-queue-head span{font-size:8px!important;letter-spacing:.11em!important}
+.ticket-queue-head strong{font-size:18px!important;line-height:1.15!important;white-space:nowrap}
+.agent-assist-dock-toggle{min-height:36px!important;padding:0 11px!important;border-radius:10px!important;font-size:10px!important;white-space:nowrap}
+.ticket-queue-view{gap:7px!important;margin-bottom:10px!important;font-size:8px!important}
+.ticket-queue-view .unified-select-trigger,.ticket-queue-view select{min-height:40px!important;border-radius:10px!important;font-size:11px!important}
+.ticket-queue-search{margin-bottom:11px!important;border-radius:10px!important}
+.ticket-queue-search input{height:40px!important;font-size:11px!important}
+.ticket-queue-list{gap:8px!important}
+.ticket-queue-card{min-height:96px;padding:13px!important;border-radius:12px!important}
+.ticket-queue-card strong{font-size:11px!important}.ticket-queue-card time{font-size:8px!important}.ticket-queue-card-name{font-size:10px!important}.ticket-queue-card-query{font-size:9px!important}
+.ticket-queue-card.active{background:color-mix(in srgb,var(--accent) 7%,var(--bg-card))!important;box-shadow:inset 4px 0 0 var(--accent)!important}
+.ticket-queue-resize-handle{right:-5px!important;width:10px!important}
+
+.agent-assist-panel{padding:18px!important;background:var(--surface)!important}
+.agent-assist-head{margin-bottom:14px!important}.agent-assist-title{font-size:20px!important}.agent-assist-sub{font-size:10px!important}
+.agent-assist-section{padding:16px!important;border-radius:14px!important}.agent-assist-label{font-size:12px!important}.agent-assist-hint{font-size:9px!important}
+.agent-suggestion{min-height:150px!important;font-size:11px!important;line-height:1.55!important}.agent-draft-input{min-height:120px!important;font-size:11px!important;line-height:1.55!important}
+.agent-assist-btn{min-height:38px!important;font-size:10px!important}.agent-knowledge-suggestion{border-radius:12px!important}
+
+.ticket-drawer{overflow:hidden!important;background:var(--bg)!important}
+.ticket-drawer-head{min-height:100px!important;padding:16px 22px!important;background:var(--surface)!important}
+.ticket-drawer-head>div:first-child{display:grid;gap:9px;min-width:0}
+.ticket-heading-row{min-width:0;flex-wrap:nowrap!important}.ticket-title-copy{flex:0 0 auto}.ticket-drawer-title{font-size:25px!important;letter-spacing:-.035em!important}
+.ticket-tags{display:flex!important;flex:1 1 auto;min-width:0;max-width:100%;overflow:hidden;flex-wrap:nowrap!important;white-space:nowrap}
+.ticket-tag{flex:0 0 auto}
+.ticket-assignment{width:min(310px,100%);min-height:48px!important;padding:7px 11px!important;border-radius:11px!important}
+.ticket-head-controls{align-self:flex-start;gap:8px!important}.ticket-status-trigger{min-height:44px!important;min-width:132px!important;border-radius:11px!important}.ticket-close{width:44px!important;height:44px!important;border-radius:11px!important}
+.ticket-mobile-queue-toggle{display:none;align-items:center;gap:7px;min-height:44px;padding:0 12px;border:1px solid var(--border);border-radius:11px;background:var(--bg-card);color:var(--text);font:inherit;font-size:10px;font-weight:800;cursor:pointer}.ticket-mobile-queue-toggle svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round}
+.ticket-workspace-scroll{padding:18px 20px 22px!important;background:var(--bg)!important;scroll-behavior:smooth}
+.ticket-context{padding:17px!important;margin-bottom:14px!important;border-radius:15px!important;background:var(--surface)!important}
+.ticket-context-header{font-size:14px!important}.ticket-context-section .ticket-context-item{padding:13px 14px!important;font-size:12px!important;line-height:1.45!important}.ticket-context-item span{font-size:8px!important}
+.ticket-ai-details{margin-bottom:14px!important;border-radius:14px!important}.ticket-ai-details summary{min-height:58px;padding:14px 16px!important;font-size:13px!important;font-weight:800!important}
+.ticket-thread-label{margin:14px 2px 10px!important;font-size:9px!important;letter-spacing:.1em!important}
+.ticket-thread{min-height:260px!important;padding:18px!important;border-radius:15px!important;background:color-mix(in srgb,var(--surface) 80%,var(--bg))!important}
+.ticket-thread-message{max-width:min(76%,680px)!important;padding:11px 13px!important;border-radius:14px!important;font-size:12px!important;line-height:1.5!important}
+.ticket-thread-message.customer{align-self:flex-start!important;margin-left:0!important;margin-right:auto!important;background:var(--bg-card)!important;color:var(--text)!important;border:1px solid var(--border)!important;border-bottom-left-radius:4px!important}
+.ticket-thread-message.agent,.ticket-thread-message.ai{align-self:flex-end!important;margin-left:auto!important;margin-right:0!important;background:color-mix(in srgb,var(--accent) 25%,var(--bg-card))!important;color:var(--text)!important;border:1px solid color-mix(in srgb,var(--accent) 48%,var(--border))!important;border-bottom-right-radius:4px!important}
+.ticket-composer{padding:12px 20px 16px!important;background:var(--surface)!important;box-shadow:0 -12px 30px rgba(0,0,0,.08)!important}.ticket-composer-tab{min-height:34px!important;font-size:11px!important;font-weight:800!important}.ticket-reply-shell textarea,.ticket-composer textarea{font-size:13px!important;line-height:1.5!important}.ticket-action-btn{min-height:38px!important;font-size:10px!important;font-weight:800!important}
+
+body.ticket-call-mode .agent-assist-panel{display:none!important}body.ticket-call-mode .ticket-drawer-backdrop{--assist-width:0px!important}body.ticket-call-mode .ticket-drawer{left:calc(12px + var(--queue-width))!important}body.ticket-call-mode .agent-assist-dock-toggle{display:none!important}
+.call-workspace{gap:14px!important}.call-history-card,.call-input-card{border-radius:15px!important}.call-section-head{padding:16px 18px!important}.call-section-head h3{font-size:15px!important}.call-section-head p{font-size:10px!important}.call-history-table th{font-size:8px!important}.call-history-table td{font-size:10px!important}.call-input-body{padding:16px 18px!important}.call-field span{font-size:8px!important}.call-field input,.call-field select{font-size:11px!important}
+
+@media(max-width:1180px){
+  .ticket-drawer-backdrop{--queue-width:250px;--assist-width:380px}
+  .ticket-context-section.identity{grid-template-columns:1fr 1fr!important}.ticket-context-section.case{grid-template-columns:1.4fr 1fr!important}.ticket-context-section.case .ticket-context-item:last-child{grid-column:1/-1}
+}
+@media(max-width:900px){
+  #panel-tickets .ticket-workspace-toolbar{align-items:stretch;flex-direction:column}
+  #panel-tickets .ticket-toolbar-right{justify-content:space-between}
+  #panel-tickets .ticket-kpi-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  .ticket-drawer-backdrop{--queue-width:0px;--assist-width:min(400px,calc(100vw - 24px))}
+  .ticket-queue-panel{display:flex!important;width:min(340px,calc(100vw - 48px))!important;z-index:8!important;transform:translateX(calc(-100% - 20px));transition:transform .18s ease!important;border-radius:16px!important}
+  .ticket-drawer-backdrop.mobile-queue-open .ticket-queue-panel{transform:translateX(0)}
+  .ticket-drawer-backdrop.mobile-queue-open::after{content:"";position:absolute;inset:12px;z-index:7;border-radius:18px;background:rgba(3,7,5,.34)}
+  .ticket-drawer-backdrop.assist-collapsed .ticket-drawer,.ticket-drawer-backdrop:not(.assist-collapsed) .ticket-drawer,body.ticket-call-mode .ticket-drawer{left:12px!important}
+  .ticket-drawer-backdrop:not(.assist-collapsed) .agent-assist-panel{left:12px!important;z-index:9!important;border-radius:16px!important}
+  .ticket-mobile-queue-toggle{display:inline-flex}
+  .ticket-queue-resize-handle{display:none!important}
+}
+@media(max-width:620px){
+  #panel-tickets .ticket-toolbar-right{align-items:stretch;flex-direction:column}
+  #panel-tickets .ticket-period-selector{width:100%;overflow-x:auto}#panel-tickets .ticket-period-selector button{flex:1;min-width:48px}
+  #panel-tickets .ticket-kpi-grid{grid-template-columns:1fr!important;gap:10px}#panel-tickets .ticket-kpi-card{min-height:118px!important}
+  #panel-tickets .table-header{align-items:stretch;flex-direction:column}.ticket-table-view{align-items:stretch!important}.ticket-view-control{justify-content:space-between}.ticket-view-control .unified-select{flex:1}
+  #panel-tickets .table-wrapper{overflow:auto}#panel-tickets .conversation-table{min-width:760px}
+  .ticket-drawer-backdrop{padding:6px!important}.ticket-drawer{inset:6px!important;border-radius:15px!important}
+  .ticket-drawer-head{min-height:unset!important;padding:12px!important}.ticket-drawer-title{font-size:21px!important}.ticket-assignment{width:100%}.ticket-head-controls{position:absolute;right:11px;top:11px}.ticket-status-trigger{min-width:112px!important}.ticket-mobile-queue-toggle span{display:none}
+  .ticket-heading-row{padding-right:154px}.ticket-tags{display:none!important}.ticket-assignment{max-width:calc(100% - 154px)}
+  .ticket-workspace-scroll{padding:12px!important}.ticket-context{padding:13px!important}.ticket-context-section.identity,.ticket-context-section.case{grid-template-columns:1fr 1fr!important}.ticket-context-section.case .ticket-context-item:last-child{grid-column:1/-1}.ticket-context-section .ticket-context-item{padding:11px!important}
+  .ticket-thread{padding:12px!important}.ticket-thread-message{max-width:90%!important}.ticket-composer{padding:10px 12px 12px!important}
+  .call-history-table{min-width:780px}.call-input-body{grid-template-columns:1fr!important}
+}
+@media(prefers-reduced-motion:reduce){.ticket-queue-panel{transition:none!important}.ticket-workspace-scroll{scroll-behavior:auto}}
+</style>
 </head>
 
 
@@ -7165,6 +7308,10 @@ ORDER BY ticket_count DESC</textarea>
                 <div class="ticket-assignment"><span class="ticket-assignment-avatar" aria-hidden="true">NC</span><span class="ticket-assignment-copy"><small>Assigned agent</small><select id="ticketAgentSelect" class="ticket-agent-select" aria-label="Assigned agent"><option>Novara CX Support</option></select></span></div>
             </div>
             <div class="ticket-head-controls">
+                <button id="ticketQueueMobileToggle" class="ticket-mobile-queue-toggle" type="button" aria-label="Open ticket queue" aria-expanded="false">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 6h14M5 12h14M5 18h9"/></svg>
+                    <span>Queue</span>
+                </button>
                 <div id="ticketStatusControl" class="ticket-status-control">
                     <select id="ticketStatusSelect" class="ticket-status-select" aria-label="Ticket status"><option value="open">Open</option><option value="in_progress">In Progress</option><option value="pending">Pending</option><option value="resolved">Resolved</option><option value="reopened">Reopened</option></select>
                     <button id="ticketStatusTrigger" class="ticket-status-trigger" type="button" aria-haspopup="listbox" aria-expanded="false"><span id="ticketStatusTriggerLabel">Open</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
@@ -7189,16 +7336,25 @@ ORDER BY ticket_count DESC</textarea>
             <div class="ticket-thread-label">Human support conversation</div>
             <div id="ticketThread" class="ticket-thread"><div class="empty-state">Loading ticket…</div></div>
             <section id="callWorkspace" class="call-workspace" hidden>
-                <section class="call-history-card">
-                    <header class="call-section-head">
-                        <div><h3>Calls History</h3><p>Incoming and outgoing attempts linked to this ticket</p></div>
-                        <span id="callHistoryCount" class="call-history-count">0 attempts</span>
-                    </header>
-                    <div id="callHistoryList" class="call-history-table-wrap"></div>
-                </section>
-                <section class="call-input-card">
-                    <header class="call-section-head"><div><h3>Call Details</h3><p>Record the outcome after an Exotel call</p></div></header>
-                    <div class="call-input-body">
+                <details class="call-detail-panel">
+                    <summary class="call-detail-summary">
+                        <span class="call-detail-title">
+                            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8a15.5 15.5 0 0 0 6.6 6.6l2.2-2.2a1.5 1.5 0 0 1 1.6-.35c1.1.36 2.27.55 3.45.55a1.5 1.5 0 0 1 1.5 1.5v3.55a1.5 1.5 0 0 1-1.5 1.5A18.45 18.45 0 0 1 2 3.5 1.5 1.5 0 0 1 3.5 2H7a1.5 1.5 0 0 1 1.5 1.5c0 1.2.2 2.35.55 3.45a1.5 1.5 0 0 1-.35 1.6Z"/></svg>
+                            <span><strong>Call History · Click to view</strong><small>Incoming and outgoing attempts linked to this ticket</small></span>
+                        </span>
+                        <span class="call-detail-actions"><span id="callHistoryCount" class="call-history-count">0 attempts</span><svg class="call-detail-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m7 10 5 5 5-5"/></svg></span>
+                    </summary>
+                    <div class="call-detail-content"><div id="callHistoryList" class="call-history-table-wrap"></div></div>
+                </details>
+                <details class="call-detail-panel">
+                    <summary class="call-detail-summary">
+                        <span class="call-detail-title">
+                            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v14H4z"/><path d="M8 9h8M8 13h5"/></svg>
+                            <span><strong>Call Details · Click to view</strong><small>Record the outcome after an Exotel call</small></span>
+                        </span>
+                        <svg class="call-detail-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m7 10 5 5 5-5"/></svg>
+                    </summary>
+                    <div class="call-detail-content"><div class="call-input-body">
                         <label class="call-field"><span>Timestamp</span><input id="callInputTimestamp" type="datetime-local" step="1"></label>
                         <label class="call-field"><span>Call type</span><select id="callInputType"><option>Outgoing</option><option>Incoming</option></select></label>
                         <label class="call-field"><span>Call outcome</span><select id="callInputOutcome"><option>Connected</option><option>DNP</option><option>Asked to Callback Later</option></select></label>
@@ -7206,8 +7362,8 @@ ORDER BY ticket_count DESC</textarea>
                         <label class="call-field"><span>Duration</span><input id="callInputDuration" type="text" inputmode="numeric" placeholder="00:00:00"></label>
                         <label class="call-field"><span>Resolution outcome</span><select id="callInputResolution"><option>Resolved</option><option>Follow-up Required</option><option>Callback Requested</option></select></label>
                         <div class="call-recording-note wide"><strong>Recording</strong><span>Fetched automatically from Exotel when the call completes.</span></div>
-                    </div>
-                </section>
+                    </div></div>
+                </details>
             </section>
         </div>
 
@@ -14457,6 +14613,12 @@ ORDER BY created_date DESC, ticket_count DESC`;
         ],
         [
             { timestamp: new Date(Date.now() - 26 * 3600000).toISOString(), type: "Outgoing", outcome: "Connected", agent: "Novara CX Support", duration: "00:06:14", resolution: "Resolved", recording: true }
+        ],
+        [
+            { timestamp: new Date(Date.now() - 2 * 3600000).toISOString(), type: "Incoming", outcome: "Connected", agent: "Support Agent A", duration: "00:04:38", resolution: "Follow-up Required", recording: true }
+        ],
+        [
+            { timestamp: new Date(Date.now() - 44 * 60000).toISOString(), type: "Outgoing", outcome: "Asked to Callback Later", agent: "Support Agent B", duration: "00:01:06", resolution: "Callback Requested", recording: true }
         ]
     ];
 
@@ -14480,23 +14642,14 @@ ORDER BY created_date DESC, ticket_count DESC`;
     }
 
     function callTickets() {
-        const source = Array.isArray(ticketWorkspaceState?.source) ? ticketWorkspaceState.source.slice(0, 3) : [];
-        const fallbacks = [
+        const dummyTickets = [
             { id: "NX-C001", customer: "Aarav Mehta", phone: "+91 98765 43210", query: "Requested a callback about onboarding", agent: "Novara CX Support", status: "open", priority: "high", createdAt: new Date(Date.now() - 22 * 60000).toISOString() },
             { id: "NX-C002", customer: "Meera Shah", phone: "+91 98201 44680", query: "Billing question after a missed inbound call", agent: "Novara CX Support", status: "pending", priority: "normal", createdAt: new Date(Date.now() - 95 * 60000).toISOString() },
-            { id: "NX-C003", customer: "Kabir Rao", phone: "+91 99870 22114", query: "Product consultation follow-up", agent: "Novara CX Support", status: "resolved", priority: "normal", createdAt: new Date(Date.now() - 26 * 3600000).toISOString() }
+            { id: "NX-C003", customer: "Kabir Rao", phone: "+91 99870 22114", query: "Product consultation follow-up", agent: "Novara CX Support", status: "resolved", priority: "normal", createdAt: new Date(Date.now() - 26 * 3600000).toISOString() },
+            { id: "NX-C004", customer: "Ananya Iyer", phone: "+91 98184 60972", query: "Needs help selecting the right support plan", agent: "Support Agent A", status: "in_progress", priority: "high", createdAt: new Date(Date.now() - 2 * 3600000).toISOString() },
+            { id: "NX-C005", customer: "Rohan Kapoor", phone: "+91 99991 17340", query: "Requested a callback regarding implementation timelines", agent: "Support Agent B", status: "reopened", priority: "normal", createdAt: new Date(Date.now() - 44 * 60000).toISOString() }
         ];
-        const base = source.length >= 3 ? source.map((ticket, index) => ({
-            id: `NX-C${String(index + 1).padStart(3, "0")}`,
-            customer: ticket.customer || ticket.customer_name || "Customer",
-            phone: ticket.phone || ticket.customer_phone || "—",
-            query: ticket.query || ticket.customer_query || "Call request",
-            agent: ticket.agent || ticket.agent_name || "Novara CX Support",
-            status: ticket.status || "open",
-            priority: ticket.priority || "normal",
-            createdAt: ticket.createdAt || ticket.created_at || new Date().toISOString()
-        })) : fallbacks;
-        return base.map((ticket, index) => ({ ...ticket, dbId: `call-${index + 1}`, history: callPrototypeHistory[index] || [] }));
+        return dummyTickets.map((ticket, index) => ({ ...ticket, dbId: `call-${index + 1}`, history: callPrototypeHistory[index] || [] }));
     }
 
     function setChannelButtons(channel) {
@@ -14658,6 +14811,50 @@ ORDER BY created_date DESC, ticket_count DESC`;
         activeCallTicket = null;
     });
     updateChannelBadges();
+})();
+</script>
+<script id="novaradesk-tickets-enterprise-behaviour">
+(() => {
+    const backdrop = document.getElementById("ticketDrawerBackdrop");
+    const queueToggle = document.getElementById("ticketQueueMobileToggle");
+    const queuePanel = document.getElementById("ticketQueuePanel");
+
+    function setMobileQueue(open) {
+        if (!backdrop || !queueToggle) return;
+        backdrop.classList.toggle("mobile-queue-open", Boolean(open));
+        queueToggle.setAttribute("aria-expanded", String(Boolean(open)));
+        queueToggle.setAttribute("aria-label", open ? "Close ticket queue" : "Open ticket queue");
+    }
+
+    queueToggle?.addEventListener("click", event => {
+        event.stopPropagation();
+        setMobileQueue(!backdrop?.classList.contains("mobile-queue-open"));
+    });
+
+    queuePanel?.addEventListener("click", event => {
+        if (event.target.closest("[data-queue-ticket-id],[data-queue-call]")) setMobileQueue(false);
+    });
+
+    backdrop?.addEventListener("click", event => {
+        if (!backdrop.classList.contains("mobile-queue-open")) return;
+        if (!event.target.closest("#ticketQueuePanel,#ticketQueueMobileToggle")) setMobileQueue(false);
+    });
+
+    document.addEventListener("keydown", event => {
+        if (event.key === "Escape" && backdrop?.classList.contains("mobile-queue-open")) {
+            setMobileQueue(false);
+            event.stopPropagation();
+        }
+    }, true);
+
+    window.addEventListener("resize", () => {
+        if (window.innerWidth > 900) setMobileQueue(false);
+    });
+
+    const observer = new MutationObserver(() => {
+        if (!backdrop?.classList.contains("open")) setMobileQueue(false);
+    });
+    if (backdrop) observer.observe(backdrop, { attributes:true, attributeFilter:["class"] });
 })();
 </script>
 </body>
