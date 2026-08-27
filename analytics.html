@@ -5044,6 +5044,25 @@
         @media(max-width:900px){.ticket-drawer-head{flex-wrap:wrap}.ticket-head-side{width:100%;justify-items:stretch}.ticket-head-controls{justify-content:flex-end!important}.ticket-channel-switch{width:100%}}
         @media(max-width:620px){.ticket-call-details-grid{grid-template-columns:1fr}.ticket-call-field.wide{grid-column:auto}.ticket-call-summary-title small{white-space:normal}}
     </style>
+    <style id="customer-profiles-enterprise-v1">
+        .customer-profiles-shell{display:grid;gap:18px}
+        .customer-profile-kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.customer-profile-kpis article{min-height:118px;padding:18px;border:1px solid var(--border);border-radius:14px;background:var(--bg-card);box-shadow:var(--shadow-soft)}.customer-profile-kpis span,.customer-profile-kpis small{display:block;color:var(--text-muted)}.customer-profile-kpis span{font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase}.customer-profile-kpis strong{display:block;margin:11px 0 7px;color:var(--text);font-size:28px;line-height:1}.customer-profile-kpis small{font-size:10px}
+        .customer-directory-card{overflow:hidden;border:1px solid var(--border);border-radius:15px;background:var(--bg-card);box-shadow:var(--shadow-soft)}
+        .customer-directory-toolbar{display:grid;grid-template-columns:minmax(260px,1fr) 150px 160px 150px auto auto;gap:9px;padding:14px;border-bottom:1px solid var(--border)}.customer-search{position:relative}.customer-search svg{position:absolute;left:12px;top:50%;width:16px;height:16px;transform:translateY(-50%);fill:none;stroke:var(--text-muted);stroke-width:1.8}.customer-search input,.customer-directory-toolbar select{width:100%;height:40px;border:1px solid var(--border);border-radius:9px;background:var(--surface);color:var(--text);font:inherit;font-size:11px}.customer-search input{padding:0 12px 0 37px}.customer-directory-toolbar select{padding:0 30px 0 10px}.customer-search input:focus,.customer-directory-toolbar select:focus{outline:2px solid rgba(91,145,119,.14);border-color:var(--accent)}
+        .customer-primary-btn,.customer-secondary-btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:38px;padding:0 13px;border-radius:9px;font:750 10px/1 inherit;cursor:pointer;white-space:nowrap}.customer-primary-btn{border:1px solid var(--accent);background:var(--accent);color:#fff}.customer-secondary-btn{border:1px solid var(--border);background:var(--bg-card);color:var(--text-secondary)}.customer-primary-btn svg,.customer-secondary-btn svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:1.8}
+        .customer-directory-meta{display:flex;justify-content:space-between;gap:16px;padding:10px 15px;color:var(--text-muted);font-size:9px}.customer-directory-meta span:first-child{color:var(--text-secondary);font-weight:750}
+        .customer-table-wrap{overflow:auto}.customer-profile-table{width:100%;min-width:1080px;border-collapse:collapse}.customer-profile-table th{padding:11px 14px;border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:var(--surface);color:var(--text-muted);font-size:8px;font-weight:850;letter-spacing:.08em;text-align:left;text-transform:uppercase}.customer-profile-table td{padding:13px 14px;border-bottom:1px solid var(--border);color:var(--text-secondary);font-size:10px;vertical-align:middle}.customer-profile-table tbody tr{cursor:pointer;transition:background .15s}.customer-profile-table tbody tr:hover{background:color-mix(in srgb,var(--accent) 5%,transparent)}
+        .customer-cell-identity{display:flex;align-items:center;gap:10px;min-width:210px}.customer-list-avatar,.customer-profile-avatar{display:grid;place-items:center;flex:0 0 auto;border-radius:11px;background:color-mix(in srgb,var(--accent) 15%,var(--bg-card));color:var(--accent);font-weight:850}.customer-list-avatar{width:38px;height:38px;font-size:11px}.customer-cell-identity strong,.customer-cell-identity span{display:block}.customer-cell-identity strong{color:var(--text);font-size:11px}.customer-cell-identity span{margin-top:3px;color:var(--text-muted);font-size:9px}.customer-org strong,.customer-org span{display:block}.customer-org strong{color:var(--text);font-size:10px}.customer-org span{margin-top:4px}.customer-segment,.customer-health-pill,.customer-status-pill,.customer-source-badge,.customer-risk-badge{display:inline-flex;align-items:center;width:max-content;padding:5px 8px;border-radius:999px;font-size:8px;font-weight:800}.customer-segment{background:rgba(91,145,119,.1);color:var(--accent)}.customer-segment.risk{background:rgba(202,91,79,.1);color:#c55c50}.customer-health-pill{gap:6px}.customer-health-pill::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor}.customer-health-pill.healthy{background:rgba(66,163,119,.1);color:#3f9c73}.customer-health-pill.watch{background:rgba(211,154,61,.11);color:#bd8532}.customer-health-pill.risk{background:rgba(202,91,79,.1);color:#c55c50}.customer-table-action{width:30px;height:30px;border:1px solid var(--border);border-radius:8px;background:var(--bg-card);color:var(--text-secondary);cursor:pointer}.customer-profile-empty{display:grid;place-items:center;gap:5px;padding:60px 20px;color:var(--text-muted);text-align:center}.customer-profile-empty strong{color:var(--text);font-size:13px}.customer-profile-empty span{font-size:10px}
+        .customer-profile-backdrop{position:fixed;inset:0;z-index:1200;display:none;background:rgba(6,10,8,.52);backdrop-filter:blur(2px)}.customer-profile-backdrop.open{display:block}.customer-profile-drawer{position:absolute;top:12px;right:12px;bottom:12px;width:min(1120px,calc(100vw - 24px));display:flex;flex-direction:column;overflow:hidden;border:1px solid var(--border);border-radius:18px;background:var(--surface);box-shadow:-20px 0 65px rgba(0,0,0,.25)}
+        .customer-profile-head{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:18px 20px;border-bottom:1px solid var(--border);background:var(--bg-card)}.customer-profile-identity{display:flex;align-items:center;gap:13px;min-width:0}.customer-profile-avatar{width:50px;height:50px;font-size:14px}.customer-profile-name-row{display:flex;align-items:center;gap:9px}.customer-profile-name-row h2{margin:0;color:var(--text);font-size:20px;letter-spacing:-.02em}.customer-profile-identity p{margin:4px 0 6px;color:var(--text-muted);font-size:10px}.customer-verified-badge{padding:4px 7px;border-radius:999px;background:rgba(66,163,119,.1);color:#3f9c73;font-size:8px;font-weight:800}.customer-profile-tags{display:flex;gap:5px;flex-wrap:wrap}.customer-profile-tags span{padding:4px 7px;border:1px solid var(--border);border-radius:999px;color:var(--text-secondary);font-size:8px}.customer-profile-head-actions{display:flex;align-items:center;gap:8px}.customer-profile-close{width:38px;height:38px;border:1px solid var(--border);border-radius:10px;background:var(--bg-card);color:var(--text);font-size:17px;cursor:pointer}
+        .customer-profile-summary{display:grid;grid-template-columns:repeat(5,1fr);border-bottom:1px solid var(--border);background:var(--bg-card)}.customer-profile-summary article{padding:13px 18px;border-right:1px solid var(--border)}.customer-profile-summary article:last-child{border-right:0}.customer-profile-summary span,.customer-profile-summary strong{display:block}.customer-profile-summary span{color:var(--text-muted);font-size:8px;font-weight:800;letter-spacing:.07em;text-transform:uppercase}.customer-profile-summary strong{margin-top:6px;color:var(--text);font-size:13px}
+        .customer-profile-tabs{display:flex;gap:3px;padding:8px 18px;border-bottom:1px solid var(--border);background:var(--bg-card)}.customer-profile-tabs button{min-height:33px;padding:0 12px;border:0;border-radius:8px;background:transparent;color:var(--text-muted);font:750 10px/1 inherit;cursor:pointer}.customer-profile-tabs button.active{background:color-mix(in srgb,var(--accent) 11%,transparent);color:var(--accent)}
+        .customer-profile-scroll{flex:1;min-height:0;overflow:auto;padding:16px}.customer-profile-tab{display:none}.customer-profile-tab.active{display:block}.customer-profile-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px}.customer-profile-card{padding:15px;border:1px solid var(--border);border-radius:13px;background:var(--bg-card)}.customer-profile-card.wide{grid-column:1/-1}.customer-profile-card header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:13px}.customer-profile-card h3{margin:3px 0 0;color:var(--text);font-size:13px}.customer-card-eyebrow{color:var(--text-muted);font-size:8px;font-weight:850;letter-spacing:.09em;text-transform:uppercase}.customer-detail-list{display:grid}.customer-detail-row{display:grid;grid-template-columns:130px minmax(0,1fr);gap:14px;padding:9px 0;border-top:1px solid var(--border)}.customer-detail-row:first-child{border-top:0}.customer-detail-row span{color:var(--text-muted);font-size:9px}.customer-detail-row strong{color:var(--text);font-size:10px;font-weight:650;overflow-wrap:anywhere}.customer-signal-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}.customer-signal{padding:11px;border:1px solid var(--border);border-radius:10px;background:var(--surface)}.customer-signal span,.customer-signal strong{display:block}.customer-signal span{color:var(--text-muted);font-size:8px}.customer-signal strong{margin-top:5px;color:var(--text);font-size:12px}.customer-risk-badge.healthy{background:rgba(66,163,119,.1);color:#3f9c73}.customer-risk-badge.watch{background:rgba(211,154,61,.11);color:#bd8532}.customer-risk-badge.risk{background:rgba(202,91,79,.1);color:#c55c50}.customer-integration-list{display:grid;gap:8px}.customer-integration{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px;border:1px solid var(--border);border-radius:10px}.customer-integration div{display:flex;align-items:center;gap:9px}.customer-integration-icon{display:grid;place-items:center;width:30px;height:30px;border-radius:8px;background:var(--surface);color:var(--accent);font-weight:850}.customer-integration strong,.customer-integration small{display:block}.customer-integration strong{font-size:10px}.customer-integration small{margin-top:2px;color:var(--text-muted);font-size:8px}.customer-source-badge{background:rgba(91,145,119,.1);color:var(--accent)}.customer-agent-brief{margin:0;color:var(--text-secondary);font-size:11px;line-height:1.65}.customer-icon-btn{display:grid;place-items:center;width:32px;height:32px;border:1px solid var(--border);border-radius:8px;background:var(--bg-card);color:var(--text-secondary);cursor:pointer}.customer-icon-btn svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:1.8}
+        .customer-timeline{position:relative;display:grid;gap:0;padding-left:26px}.customer-timeline::before{content:"";position:absolute;left:8px;top:8px;bottom:8px;width:1px;background:var(--border)}.customer-timeline-item{position:relative;padding:0 0 19px 16px}.customer-timeline-item::before{content:"";position:absolute;left:-22px;top:3px;width:9px;height:9px;border:3px solid var(--surface);border-radius:50%;background:var(--accent)}.customer-timeline-item time{color:var(--text-muted);font-size:8px}.customer-timeline-item strong{display:block;margin:4px 0;color:var(--text);font-size:11px}.customer-timeline-item p{margin:0;color:var(--text-secondary);font-size:10px;line-height:1.5}.customer-subtable-card{overflow:auto;border:1px solid var(--border);border-radius:12px;background:var(--bg-card)}.customer-subtable-card table{width:100%;min-width:720px;border-collapse:collapse}.customer-subtable-card th,.customer-subtable-card td{padding:12px 14px;border-bottom:1px solid var(--border);text-align:left}.customer-subtable-card th{background:var(--surface);color:var(--text-muted);font-size:8px;text-transform:uppercase}.customer-subtable-card td{color:var(--text-secondary);font-size:10px}.customer-status-pill{background:rgba(91,145,119,.1);color:var(--accent)}.customer-order-list{display:grid;gap:8px}.customer-order{display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:12px;align-items:center;padding:11px;border:1px solid var(--border);border-radius:10px}.customer-order span,.customer-order strong{display:block}.customer-order span{color:var(--text-muted);font-size:8px}.customer-order strong{margin-top:3px;color:var(--text);font-size:10px}.customer-notes-layout{display:grid;grid-template-columns:360px 1fr;gap:13px}.customer-notes-layout textarea{width:100%;min-height:120px;margin-bottom:10px;padding:11px;border:1px solid var(--border);border-radius:10px;background:var(--surface);color:var(--text);font:inherit;font-size:10px;resize:vertical}.customer-notes-list{display:grid;gap:9px;align-content:start}.customer-note{padding:13px;border:1px solid var(--border);border-radius:11px;background:var(--bg-card)}.customer-note div{display:flex;justify-content:space-between;gap:12px;margin-bottom:7px}.customer-note strong{font-size:10px}.customer-note time{color:var(--text-muted);font-size:8px}.customer-note p{margin:0;color:var(--text-secondary);font-size:10px;line-height:1.5}
+        .customer-profile-editor{position:absolute;z-index:10;inset:0 0 0 auto;width:min(520px,100%);padding:20px;overflow:auto;border-left:1px solid var(--border);background:var(--bg-card);box-shadow:-18px 0 50px rgba(0,0,0,.2)}.customer-profile-editor[hidden]{display:none}.customer-profile-editor-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}.customer-profile-editor-head h3{margin:3px 0 0;font-size:17px}.customer-profile-editor-head button{width:35px;height:35px;border:1px solid var(--border);border-radius:9px;background:var(--bg-card);color:var(--text);cursor:pointer}.customer-editor-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px}.customer-editor-grid label{display:grid;gap:7px}.customer-editor-grid label.wide{grid-column:1/-1}.customer-editor-grid span{color:var(--text-muted);font-size:9px;font-weight:800;text-transform:uppercase}.customer-editor-grid input,.customer-editor-grid select{width:100%;height:42px;padding:0 11px;border:1px solid var(--border);border-radius:9px;background:var(--surface);color:var(--text);font:inherit;font-size:11px}.customer-editor-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:18px}
+        @media(max-width:1200px){.customer-directory-toolbar{grid-template-columns:minmax(240px,1fr) repeat(3,145px);}.customer-directory-toolbar .customer-secondary-btn,.customer-directory-toolbar .customer-primary-btn{grid-row:2}.customer-profile-kpis{grid-template-columns:1fr 1fr}}
+        @media(max-width:760px){.customer-profile-kpis{grid-template-columns:1fr}.customer-directory-toolbar{grid-template-columns:1fr}.customer-directory-toolbar .customer-secondary-btn,.customer-directory-toolbar .customer-primary-btn{grid-row:auto}.customer-profile-drawer{inset:6px;width:auto}.customer-profile-head{align-items:flex-start;flex-direction:column}.customer-profile-head-actions{width:100%;flex-wrap:wrap}.customer-profile-summary{grid-template-columns:1fr 1fr}.customer-profile-summary article{border-bottom:1px solid var(--border)}.customer-profile-tabs{overflow:auto}.customer-profile-grid,.customer-notes-layout{grid-template-columns:1fr}.customer-profile-card.wide{grid-column:auto}.customer-editor-grid{grid-template-columns:1fr}.customer-editor-grid label.wide{grid-column:auto}}
+    </style>
 </head>
 
 
@@ -5187,6 +5206,16 @@
                     Tickets
                 </span>
 
+            </a>
+
+            <!-- Customer Profiles -->
+            <a href="#customers" class="nav-item" id="sidebarCustomers" data-tab="customers">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <circle cx="9" cy="8" r="3.2" stroke="currentColor" stroke-width="1.8"/>
+                    <path d="M3.5 19c.5-4 2.4-6 5.5-6s5 2 5.5 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                    <path d="M16 7.5h4M16 11h4M17 15h3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                </svg>
+                <span>Customer Profiles</span>
             </a>
 
             <!-- Custom Reports -->
@@ -6586,6 +6615,39 @@
 
 
             <!-- =================================================
+                 CUSTOMER PROFILES
+            ================================================== -->
+            <section id="panel-customers" class="view-panel">
+                <div class="customer-profiles-shell">
+                    <div class="customer-profile-kpis">
+                        <article><span>Total customers</span><strong id="customerKpiTotal">0</strong><small>Known customer identities</small></article>
+                        <article><span>Active customers</span><strong id="customerKpiActive">0</strong><small>Engaged in the last 30 days</small></article>
+                        <article><span>At risk</span><strong id="customerKpiRisk">0</strong><small>Requires proactive attention</small></article>
+                        <article><span>High value</span><strong id="customerKpiValue">0</strong><small>VIP and priority accounts</small></article>
+                    </div>
+
+                    <section class="customer-directory-card">
+                        <div class="customer-directory-toolbar">
+                            <label class="customer-search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg><input id="customerProfileSearch" type="search" placeholder="Search by name, phone, email or organisation…"></label>
+                            <select id="customerSegmentFilter" aria-label="Filter customer segment"><option value="">All segments</option><option value="VIP">VIP</option><option value="Loyal">Loyal</option><option value="New">New</option><option value="At risk">At risk</option></select>
+                            <select id="customerHealthFilter" aria-label="Filter customer health"><option value="">All health scores</option><option value="healthy">Healthy</option><option value="watch">Watch</option><option value="risk">At risk</option></select>
+                            <select id="customerSort" aria-label="Sort customers"><option value="recent">Most recent</option><option value="value">Highest value</option><option value="tickets">Most tickets</option><option value="health">Lowest health</option><option value="name">Name A–Z</option></select>
+                            <button id="customerExportBtn" class="customer-secondary-btn" type="button"><svg viewBox="0 0 24 24"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>Export</button>
+                            <button id="customerNewBtn" class="customer-primary-btn" type="button"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>New customer</button>
+                        </div>
+                        <div class="customer-directory-meta"><span id="customerDirectoryCount">0 customers</span><span>Unified profiles across support and commerce sources</span></div>
+                        <div class="customer-table-wrap">
+                            <table class="customer-profile-table">
+                                <thead><tr><th>Customer</th><th>Organisation & segment</th><th>Last interaction</th><th>Support</th><th>CSAT</th><th>Health</th><th>Lifetime value</th><th></th></tr></thead>
+                                <tbody id="customerProfileBody"></tbody>
+                            </table>
+                        </div>
+                        <div id="customerProfileEmpty" class="customer-profile-empty" hidden><strong>No customers found</strong><span>Adjust the search or filter criteria.</span></div>
+                    </section>
+                </div>
+            </section>
+
+            <!-- =================================================
                  CUSTOM REPORTS
             ================================================== -->
 
@@ -7225,6 +7287,52 @@ ORDER BY ticket_count DESC</textarea>
 
 
 
+<div id="customerProfileBackdrop" class="customer-profile-backdrop" aria-hidden="true">
+    <aside class="customer-profile-drawer" role="dialog" aria-modal="true" aria-labelledby="customerProfileName">
+        <header class="customer-profile-head">
+            <div class="customer-profile-identity">
+                <span id="customerProfileAvatar" class="customer-profile-avatar">AM</span>
+                <div><div class="customer-profile-name-row"><h2 id="customerProfileName">Customer</h2><span id="customerProfileVerified" class="customer-verified-badge">Verified</span></div><p id="customerProfileHeadline">Customer profile</p><div id="customerProfileTags" class="customer-profile-tags"></div></div>
+            </div>
+            <div class="customer-profile-head-actions">
+                <button id="customerProfileNewTicket" class="customer-secondary-btn" type="button">Create ticket</button>
+                <button id="customerProfileEdit" class="customer-primary-btn" type="button">Edit profile</button>
+                <button id="customerProfileClose" class="customer-profile-close" type="button" aria-label="Close customer profile">✕</button>
+            </div>
+        </header>
+        <div class="customer-profile-summary">
+            <article><span>Customer since</span><strong id="customerSummarySince">—</strong></article>
+            <article><span>Lifetime value</span><strong id="customerSummaryValue">—</strong></article>
+            <article><span>Total tickets</span><strong id="customerSummaryTickets">—</strong></article>
+            <article><span>Average CSAT</span><strong id="customerSummaryCsat">—</strong></article>
+            <article><span>Health score</span><strong id="customerSummaryHealth">—</strong></article>
+        </div>
+        <nav id="customerProfileTabs" class="customer-profile-tabs" aria-label="Customer profile sections">
+            <button class="active" data-customer-tab="overview" type="button">Overview</button><button data-customer-tab="timeline" type="button">Timeline</button><button data-customer-tab="tickets" type="button">Tickets</button><button data-customer-tab="commerce" type="button">Commerce</button><button data-customer-tab="notes" type="button">Notes</button>
+        </nav>
+        <div class="customer-profile-scroll">
+            <section id="customerTab-overview" class="customer-profile-tab active">
+                <div class="customer-profile-grid">
+                    <article class="customer-profile-card"><header><div><span class="customer-card-eyebrow">Identity</span><h3>Contact details</h3></div></header><div id="customerContactDetails" class="customer-detail-list"></div></article>
+                    <article class="customer-profile-card"><header><div><span class="customer-card-eyebrow">Intelligence</span><h3>Customer signals</h3></div><span id="customerRiskBadge" class="customer-risk-badge">Healthy</span></header><div id="customerSignals" class="customer-signal-grid"></div></article>
+                    <article class="customer-profile-card"><header><div><span class="customer-card-eyebrow">Preferences</span><h3>Communication & consent</h3></div></header><div id="customerPreferences" class="customer-detail-list"></div></article>
+                    <article class="customer-profile-card"><header><div><span class="customer-card-eyebrow">Connected profiles</span><h3>External systems</h3></div></header><div id="customerIntegrations" class="customer-integration-list"></div></article>
+                    <article class="customer-profile-card wide"><header><div><span class="customer-card-eyebrow">Service context</span><h3>Agent briefing</h3></div><button id="customerCopyBrief" class="customer-icon-btn" type="button" title="Copy briefing" aria-label="Copy customer briefing"><svg viewBox="0 0 24 24"><rect x="8" y="8" width="11" height="11" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg></button></header><p id="customerAgentBrief" class="customer-agent-brief"></p></article>
+                </div>
+            </section>
+            <section id="customerTab-timeline" class="customer-profile-tab"><div id="customerTimeline" class="customer-timeline"></div></section>
+            <section id="customerTab-tickets" class="customer-profile-tab"><div class="customer-subtable-card"><table><thead><tr><th>Ticket</th><th>Subject</th><th>Channel</th><th>Status</th><th>Created</th></tr></thead><tbody id="customerTicketsBody"></tbody></table></div></section>
+            <section id="customerTab-commerce" class="customer-profile-tab"><div class="customer-profile-grid"><article class="customer-profile-card wide"><header><div><span class="customer-card-eyebrow">Commerce</span><h3>Order history</h3></div><span id="customerCommerceSource" class="customer-source-badge">Shopify</span></header><div id="customerOrders" class="customer-order-list"></div></article></div></section>
+            <section id="customerTab-notes" class="customer-profile-tab"><div class="customer-notes-layout"><article class="customer-profile-card"><header><div><span class="customer-card-eyebrow">Private context</span><h3>Add customer note</h3></div></header><textarea id="customerNoteInput" placeholder="Add context that should follow this customer across tickets…"></textarea><button id="customerSaveNote" class="customer-primary-btn" type="button">Save note</button></article><div id="customerNotesList" class="customer-notes-list"></div></div></section>
+        </div>
+        <div id="customerProfileEditor" class="customer-profile-editor" hidden>
+            <div class="customer-profile-editor-head"><div><span class="customer-card-eyebrow">Customer record</span><h3 id="customerEditorTitle">Edit profile</h3></div><button id="customerEditorClose" type="button" aria-label="Close editor">✕</button></div>
+            <div class="customer-editor-grid"><label><span>Full name</span><input id="customerEditName" type="text"></label><label><span>Email</span><input id="customerEditEmail" type="email"></label><label><span>Phone</span><input id="customerEditPhone" type="tel"></label><label><span>Organisation</span><input id="customerEditOrganisation" type="text"></label><label><span>Segment</span><select id="customerEditSegment"><option>VIP</option><option>Loyal</option><option>New</option><option>At risk</option></select></label><label><span>Preferred language</span><select id="customerEditLanguage"><option>English</option><option>Hindi</option><option>Hinglish</option></select></label><label class="wide"><span>Tags</span><input id="customerEditTags" type="text" placeholder="Comma-separated tags"></label></div>
+            <div class="customer-editor-actions"><button id="customerEditorCancel" class="customer-secondary-btn" type="button">Cancel</button><button id="customerEditorSave" class="customer-primary-btn" type="button">Save customer</button></div>
+        </div>
+    </aside>
+</div>
+
 <div id="ticketDrawerBackdrop" class="ticket-drawer-backdrop" aria-hidden="true">
     <aside id="ticketQueuePanel" class="ticket-queue-panel" aria-label="Tickets in current view">
         <div class="ticket-queue-head">
@@ -7334,7 +7442,7 @@ ORDER BY ticket_count DESC</textarea>
             <section id="ticketCallSections" class="ticket-call-sections" hidden aria-label="Call information">
                 <details id="ticketCallHistoryPanel" class="ticket-call-panel" open>
                     <summary>
-                        <span class="ticket-call-summary-title"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8a15.5 15.5 0 0 0 6.6 6.6l2.2-2.2a1.5 1.5 0 0 1 1.6-.35c1.1.36 2.27.55 3.45.55a1.5 1.5 0 0 1 1.5 1.5v3.55a1.5 1.5 0 0 1-1.5 1.5A18.45 18.45 0 0 1 2 3.5 1.5 1.5 0 0 1 3.5 2H7a1.5 1.5 0 0 1 1.5 1.5c0 1.2.2 2.35.55 3.45a1.5 1.5 0 0 1-.35 1.6Z"/></svg><span><strong>Call History</strong><small>Incoming and outgoing attempts linked to this ticket</small></span></span>
+                        <span class="ticket-call-summary-title"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8a15.5 15.5 0 0 0 6.6 6.6l2.2-2.2a1.5 1.5 0 0 1 1.6-.35c1.1.36 2.27.55 3.45.55a1.5 1.5 0 0 1 1.5 1.5v3.55a1.5 1.5 0 0 1-1.5 1.5A18.45 18.45 0 0 1 2 3.5 1.5 1.5 0 0 1 3.5 2H7a1.5 1.5 0 0 1 1.5 1.5c0 1.2.2 2.35.55 3.45a1.5 1.5 0 0 1-.35 1.6Z"/></svg><span><strong>Call History · Click to view</strong><small>Incoming and outgoing attempts linked to this ticket</small></span></span>
                         <span class="ticket-call-summary-meta"><strong id="ticketCallAttemptCount">1 attempt</strong><svg class="ticket-call-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m7 14 5-5 5 5"/></svg></span>
                     </summary>
                     <div class="ticket-call-panel-body ticket-call-history-wrap">
@@ -7347,7 +7455,7 @@ ORDER BY ticket_count DESC</textarea>
 
                 <details id="ticketCallDetailsPanel" class="ticket-call-panel" open>
                     <summary>
-                        <span class="ticket-call-summary-title"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v14H4z"/><path d="M8 9h8M8 13h5"/></svg><span><strong>Call Details</strong><small>Record the outcome after an Exotel call</small></span></span>
+                        <span class="ticket-call-summary-title"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v14H4z"/><path d="M8 9h8M8 13h5"/></svg><span><strong>Call Details · Click to view</strong><small>Record the outcome after an Exotel call</small></span></span>
                         <svg class="ticket-call-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m7 14 5-5 5 5"/></svg>
                     </summary>
                     <div class="ticket-call-panel-body ticket-call-details-grid">
@@ -7603,6 +7711,7 @@ ORDER BY ticket_count DESC</textarea>
 
     const sidebarAnalytics = document.getElementById("sidebarAnalytics");
     const sidebarTickets = document.getElementById("sidebarTickets");
+    const sidebarCustomers = document.getElementById("sidebarCustomers");
     const sidebarReports = document.getElementById("sidebarReports");
     const sidebarChatbot = document.getElementById("sidebarChatbot");
     const sidebarKnowledge = document.getElementById("sidebarKnowledge");
@@ -7619,6 +7728,7 @@ ORDER BY ticket_count DESC</textarea>
         human: ["Analytics", "Monitor human-agent escalations, outcomes and service performance."],
         dashboards: ["Custom Dashboards", "Arrange saved reports into focused, reusable operational views."],
         tickets: ["Tickets", "Manage escalated customer requests and resolutions."],
+        customers: ["Customer Profiles", "Understand every customer across support, commerce and connected channels."],
         reports: ["Custom Reports", "Build, save and export focused views of your CX data."],
         chatbot: ["AI Chatbot", "Configure, test and deploy your customer-facing AI."],
         knowledge: ["Knowledge Base", "Manage the governed information used by your AI chatbot."],
@@ -7640,6 +7750,7 @@ ORDER BY ticket_count DESC</textarea>
             analyticsSubnav?.classList.add("open");
             analyticsSubitems[workspace]?.classList.add("active");
         } else if (workspace === "tickets") sidebarTickets?.classList.add("active");
+        else if (workspace === "customers") sidebarCustomers?.classList.add("active");
         else if (workspace === "reports") sidebarReports?.classList.add("active");
         else if (workspace === "chatbot") sidebarChatbot?.classList.add("active");
         else if (workspace === "knowledge") sidebarKnowledge?.classList.add("active");
@@ -7655,7 +7766,7 @@ ORDER BY ticket_count DESC</textarea>
         document.getElementById("reportWorkspaceJump")?.classList.toggle("open", workspace === "reports");
         document.getElementById("dashboardToolbarAddReport")?.classList.toggle("open", workspace === "dashboards");
         const workspaceToolbar = document.querySelector(".toolbar");
-        if (workspaceToolbar) workspaceToolbar.style.display = ["chatbot","knowledge","tickets","workflows"].includes(workspace) ? "none" : "flex";
+        if (workspaceToolbar) workspaceToolbar.style.display = ["chatbot","knowledge","tickets","customers","workflows"].includes(workspace) ? "none" : "flex";
         tabSwitcher.querySelectorAll(".tab").forEach(tab => tab.classList.toggle("active", tab.dataset.tab === workspace));
         const layoutControls = document.querySelector(".layout-controls");
         if (layoutControls) layoutControls.style.display = ["ai","human","tickets","reports"].includes(workspace) ? "flex" : "none";
@@ -7686,6 +7797,7 @@ ORDER BY ticket_count DESC</textarea>
     });
     Object.entries(analyticsSubitems).forEach(([workspace, item]) => item?.addEventListener("click", event => { event.preventDefault(); showWorkspace(workspace); }));
     sidebarTickets?.addEventListener("click", event => { event.preventDefault(); showWorkspace("tickets"); });
+    sidebarCustomers?.addEventListener("click", event => { event.preventDefault(); showWorkspace("customers"); });
     sidebarReports?.addEventListener("click", event => { event.preventDefault(); showWorkspace("reports"); });
     sidebarChatbot?.addEventListener("click", event => { event.preventDefault(); showWorkspace("chatbot"); });
     sidebarKnowledge?.addEventListener("click", event => { event.preventDefault(); showWorkspace("knowledge"); });
@@ -14444,7 +14556,7 @@ ORDER BY created_date DESC, ticket_count DESC`;
                 });
             });
             const requestedWorkspace = location.hash.replace("#", "").split("/")[0];
-            showWorkspace(["ai","human","dashboards","tickets","reports","chatbot","knowledge","workflows"].includes(requestedWorkspace) ? requestedWorkspace : "ai", false);
+            showWorkspace(["ai","human","dashboards","tickets","customers","reports","chatbot","knowledge","workflows"].includes(requestedWorkspace) ? requestedWorkspace : "ai", false);
             updateDashboard(currentPeriod);
 
         }
@@ -14689,6 +14801,95 @@ ORDER BY created_date DESC, ticket_count DESC`;
         download.title = "No recording is connected yet";
     });
     setChannel("chat");
+})();
+</script>
+<script id="customer-profiles-enterprise-behaviour-v1">
+(() => {
+    const STORAGE_KEY = "novaradesk_customer_profiles_v1";
+    const SEED_CUSTOMERS = [
+        {id:"C-1001",name:"Aarav Mehta",email:"aarav@northstar.in",phone:"+91 98765 43210",organisation:"Northstar Retail",segment:"VIP",health:"healthy",healthScore:92,value:184500,tickets:8,openTickets:1,csat:4.8,lastInteraction:"2026-08-27T12:35:00+05:30",since:"Mar 2024",city:"Mumbai, India",timezone:"Asia/Kolkata",language:"English",owner:"Novara CX Support",preferredChannel:"WhatsApp",marketingConsent:"Opted in",dataConsent:"Verified",tags:["VIP","Renewal due","Shopify"],brief:"High-value repeat customer. Prefers concise WhatsApp updates and proactive delivery communication. One onboarding callback remains open; avoid asking for information already provided.",signals:{orders:"24",refundRate:"4.2%",avgResponse:"18 min",lastSentiment:"Positive"},integrations:[{name:"Shopify",id:"#SH-28411",status:"Connected"},{name:"WhatsApp",id:"+91 98765 43210",status:"Verified"},{name:"NovaraDesk",id:"C-1001",status:"Primary"}],timeline:[{date:"27 Aug, 12:35 pm",title:"WhatsApp conversation",text:"Asked for onboarding support and requested a callback."},{date:"26 Aug, 04:20 pm",title:"Outbound call connected",text:"Spoke with Novara CX Support for 6 minutes 14 seconds."},{date:"22 Aug, 10:15 am",title:"Order delivered",text:"Shopify order #10482 delivered successfully."}],ticketList:[{id:"NX-0012",subject:"Onboarding callback",channel:"Call",status:"Open",created:"27 Aug 2026"},{id:"NX-0007",subject:"Delivery confirmation",channel:"Chat",status:"Resolved",created:"22 Aug 2026"}],orders:[{id:"#10482",date:"22 Aug 2026",value:"₹8,499",status:"Delivered"},{id:"#10311",date:"04 Aug 2026",value:"₹12,990",status:"Delivered"}],notes:[{author:"Novara CX Support",date:"26 Aug 2026, 04:31 pm",text:"Customer prefers calls after 4 pm on weekdays."}]},
+        {id:"C-1002",name:"Meera Shah",email:"meera.shah@gmail.com",phone:"+91 98201 44680",organisation:"Individual",segment:"Loyal",health:"watch",healthScore:68,value:62900,tickets:12,openTickets:2,csat:4.2,lastInteraction:"2026-08-27T11:57:00+05:30",since:"Nov 2024",city:"Pune, India",timezone:"Asia/Kolkata",language:"Hinglish",owner:"Novara CX Support",preferredChannel:"Email",marketingConsent:"Opted out",dataConsent:"Verified",tags:["Repeat buyer","Billing"],brief:"Repeat customer with two recent billing contacts. Sentiment is neutral but response time has increased. Confirm invoice corrections before closing the next interaction.",signals:{orders:"11",refundRate:"9.1%",avgResponse:"42 min",lastSentiment:"Neutral"},integrations:[{name:"Shopify",id:"#SH-19008",status:"Connected"},{name:"Email",id:"meera.shah@gmail.com",status:"Verified"}],timeline:[{date:"27 Aug, 11:57 am",title:"Missed inbound call",text:"Customer called regarding a billing question."},{date:"25 Aug, 03:10 pm",title:"Ticket reopened",text:"Invoice correction was not reflected."}],ticketList:[{id:"NX-0011",subject:"Invoice correction",channel:"Chat",status:"Reopened",created:"25 Aug 2026"}],orders:[{id:"#10392",date:"18 Aug 2026",value:"₹4,299",status:"Delivered"}],notes:[]},
+        {id:"C-1003",name:"Kabir Rao",email:"kabir@vertexlabs.ai",phone:"+91 99876 12043",organisation:"Vertex Labs",segment:"VIP",health:"healthy",healthScore:88,value:236000,tickets:5,openTickets:0,csat:4.9,lastInteraction:"2026-08-26T11:32:00+05:30",since:"Jan 2025",city:"Bengaluru, India",timezone:"Asia/Kolkata",language:"English",owner:"Novara CX Support",preferredChannel:"Email",marketingConsent:"Opted in",dataConsent:"Verified",tags:["Enterprise","Priority SLA"],brief:"Enterprise account with excellent CSAT and no open issues. Technical buyer; provide precise documentation and include implementation details.",signals:{orders:"8",refundRate:"0%",avgResponse:"11 min",lastSentiment:"Positive"},integrations:[{name:"Salesforce",id:"003VX201",status:"Connected"},{name:"NovaraDesk",id:"C-1003",status:"Primary"}],timeline:[{date:"26 Aug, 11:32 am",title:"Knowledge article viewed",text:"Read the API authentication guide."}],ticketList:[{id:"NX-0010",subject:"API authentication",channel:"Chat",status:"Resolved",created:"24 Aug 2026"}],orders:[{id:"#ENT-081",date:"02 Aug 2026",value:"₹48,000",status:"Paid"}],notes:[]},
+        {id:"C-1004",name:"Ananya Iyer",email:"ananya.iyer@outlook.com",phone:"+91 98450 77120",organisation:"Individual",segment:"At risk",health:"risk",healthScore:34,value:28400,tickets:15,openTickets:3,csat:2.8,lastInteraction:"2026-08-26T09:18:00+05:30",since:"Jul 2025",city:"Chennai, India",timezone:"Asia/Kolkata",language:"English",owner:"Novara CX Support",preferredChannel:"Phone",marketingConsent:"Opted out",dataConsent:"Verified",tags:["At risk","Refund","Escalated"],brief:"At-risk customer with three open issues, low CSAT and repeated refund contacts. Assign a senior agent, acknowledge the repeated effort and provide one accountable resolution owner.",signals:{orders:"6",refundRate:"33%",avgResponse:"3.4 hrs",lastSentiment:"Negative"},integrations:[{name:"Shopify",id:"#SH-14200",status:"Connected"},{name:"Exotel",id:"+91 98450 77120",status:"Verified"}],timeline:[{date:"26 Aug, 09:18 am",title:"Negative CSAT received",text:"Rated the latest resolution 2 out of 5."},{date:"25 Aug, 05:40 pm",title:"Escalation created",text:"Refund remained pending after two contacts."}],ticketList:[{id:"NX-0009",subject:"Refund not received",channel:"Call",status:"Escalated",created:"25 Aug 2026"}],orders:[{id:"#10219",date:"14 Aug 2026",value:"₹5,799",status:"Refund pending"}],notes:[{author:"Support Lead",date:"26 Aug 2026, 10:05 am",text:"Keep ownership with one agent until the refund is confirmed."}]},
+        {id:"C-1005",name:"Rohan Kapoor",email:"rohan.kapoor@gmail.com",phone:"+91 98111 70325",organisation:"Individual",segment:"New",health:"healthy",healthScore:79,value:7990,tickets:2,openTickets:0,csat:4.5,lastInteraction:"2026-08-25T16:56:00+05:30",since:"Aug 2026",city:"Delhi, India",timezone:"Asia/Kolkata",language:"Hindi",owner:"Novara CX Support",preferredChannel:"Chat",marketingConsent:"Opted in",dataConsent:"Verified",tags:["New customer"],brief:"New customer with a successful first purchase and resolved delivery query. Use Hindi when helpful and focus on onboarding and product education.",signals:{orders:"1",refundRate:"0%",avgResponse:"24 min",lastSentiment:"Positive"},integrations:[{name:"Shopify",id:"#SH-30110",status:"Connected"}],timeline:[{date:"25 Aug, 04:56 pm",title:"Chat resolved",text:"Delivery-date question answered by a human agent."}],ticketList:[{id:"NX-0008",subject:"Delivery date",channel:"Chat",status:"Resolved",created:"25 Aug 2026"}],orders:[{id:"#10521",date:"24 Aug 2026",value:"₹7,990",status:"In transit"}],notes:[]},
+        {id:"C-1006",name:"Sara Fernandes",email:"sara@meridianhome.co",phone:"+91 99200 44018",organisation:"Meridian Home",segment:"Loyal",health:"watch",healthScore:61,value:91750,tickets:9,openTickets:1,csat:3.9,lastInteraction:"2026-08-23T14:12:00+05:30",since:"Sep 2024",city:"Goa, India",timezone:"Asia/Kolkata",language:"English",owner:"Novara CX Support",preferredChannel:"WhatsApp",marketingConsent:"Opted in",dataConsent:"Verified",tags:["Wholesale","Delivery watch"],brief:"Wholesale buyer with strong lifetime value. Recent logistics delays reduced health; proactively share fulfilment milestones and avoid generic delivery estimates.",signals:{orders:"18",refundRate:"5.5%",avgResponse:"51 min",lastSentiment:"Neutral"},integrations:[{name:"Shopify",id:"#SH-11047",status:"Connected"},{name:"WhatsApp",id:"+91 99200 44018",status:"Verified"}],timeline:[{date:"23 Aug, 02:12 pm",title:"Delivery delay reported",text:"Wholesale order missed the expected dispatch date."}],ticketList:[{id:"NX-0006",subject:"Delayed wholesale order",channel:"WhatsApp",status:"Pending",created:"23 Aug 2026"}],orders:[{id:"#10401",date:"19 Aug 2026",value:"₹22,400",status:"Delayed"}],notes:[]}
+    ];
+
+    let customers;
+    try { const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || "null"); customers = Array.isArray(saved) && saved.length ? saved : SEED_CUSTOMERS; } catch { customers = SEED_CUSTOMERS; }
+    let activeCustomer = null;
+    let editorMode = "edit";
+    const saveCustomers = () => localStorage.setItem(STORAGE_KEY, JSON.stringify(customers));
+    const initials = name => String(name || "Customer").split(/\s+/).slice(0,2).map(part => part[0]).join("").toUpperCase();
+    const money = value => `₹${Number(value || 0).toLocaleString("en-IN")}`;
+    const healthLabel = value => value === "healthy" ? "Healthy" : value === "watch" ? "Watch" : "At risk";
+    const interactionLabel = value => { const date = new Date(value); return Number.isNaN(date) ? "—" : date.toLocaleString("en-IN",{day:"2-digit",month:"short",hour:"2-digit",minute:"2-digit"}); };
+    const row = (label,value) => `<div class="customer-detail-row"><span>${escapeHtml(label)}</span><strong>${escapeHtml(String(value ?? "—"))}</strong></div>`;
+
+    function renderCustomerDirectory() {
+        const query = document.getElementById("customerProfileSearch")?.value.trim().toLowerCase() || "";
+        const segment = document.getElementById("customerSegmentFilter")?.value || "";
+        const health = document.getElementById("customerHealthFilter")?.value || "";
+        const sort = document.getElementById("customerSort")?.value || "recent";
+        let rows = customers.filter(customer => (!query || [customer.name,customer.email,customer.phone,customer.organisation,...(customer.tags||[])].join(" ").toLowerCase().includes(query)) && (!segment || customer.segment === segment) && (!health || customer.health === health));
+        rows.sort((a,b) => sort === "value" ? b.value-a.value : sort === "tickets" ? b.tickets-a.tickets : sort === "health" ? a.healthScore-b.healthScore : sort === "name" ? a.name.localeCompare(b.name) : new Date(b.lastInteraction)-new Date(a.lastInteraction));
+        document.getElementById("customerKpiTotal").textContent = customers.length.toLocaleString("en-IN");
+        document.getElementById("customerKpiActive").textContent = customers.filter(item => Date.now()-new Date(item.lastInteraction).getTime() < 30*864e5).length;
+        document.getElementById("customerKpiRisk").textContent = customers.filter(item => item.health === "risk").length;
+        document.getElementById("customerKpiValue").textContent = customers.filter(item => item.segment === "VIP").length;
+        document.getElementById("customerDirectoryCount").textContent = `${rows.length} ${rows.length===1?"customer":"customers"}`;
+        const body = document.getElementById("customerProfileBody");
+        body.innerHTML = rows.map(customer => `<tr data-customer-id="${escapeHtml(customer.id)}" tabindex="0">
+            <td><div class="customer-cell-identity"><span class="customer-list-avatar">${escapeHtml(initials(customer.name))}</span><div><strong>${escapeHtml(customer.name)}</strong><span>${escapeHtml(customer.email)} · ${escapeHtml(customer.phone)}</span></div></div></td>
+            <td><div class="customer-org"><strong>${escapeHtml(customer.organisation)}</strong><span class="customer-segment ${customer.segment==="At risk"?"risk":""}">${escapeHtml(customer.segment)}</span></div></td>
+            <td>${escapeHtml(interactionLabel(customer.lastInteraction))}<br><span style="color:var(--text-muted)">${escapeHtml(customer.preferredChannel)}</span></td><td><strong style="color:var(--text)">${customer.openTickets} open</strong> · ${customer.tickets} total</td><td>${Number(customer.csat).toFixed(1)} / 5</td><td><span class="customer-health-pill ${escapeHtml(customer.health)}">${escapeHtml(healthLabel(customer.health))} · ${customer.healthScore}</span></td><td><strong style="color:var(--text)">${escapeHtml(money(customer.value))}</strong></td><td><button class="customer-table-action" type="button" aria-label="Open ${escapeHtml(customer.name)}">›</button></td>
+        </tr>`).join("");
+        document.getElementById("customerProfileEmpty").hidden = Boolean(rows.length);
+    }
+
+    function renderCustomerProfile(customer) {
+        activeCustomer = customer;
+        document.getElementById("customerProfileAvatar").textContent = initials(customer.name);
+        document.getElementById("customerProfileName").textContent = customer.name;
+        document.getElementById("customerProfileHeadline").textContent = `${customer.organisation} · ${customer.city} · Owner: ${customer.owner}`;
+        document.getElementById("customerProfileTags").innerHTML = (customer.tags||[]).map(tag=>`<span>${escapeHtml(tag)}</span>`).join("");
+        document.getElementById("customerSummarySince").textContent = customer.since;
+        document.getElementById("customerSummaryValue").textContent = money(customer.value);
+        document.getElementById("customerSummaryTickets").textContent = `${customer.tickets} · ${customer.openTickets} open`;
+        document.getElementById("customerSummaryCsat").textContent = `${Number(customer.csat).toFixed(1)} / 5`;
+        document.getElementById("customerSummaryHealth").textContent = `${customer.healthScore} · ${healthLabel(customer.health)}`;
+        document.getElementById("customerContactDetails").innerHTML = row("Email",customer.email)+row("Phone",customer.phone)+row("Organisation",customer.organisation)+row("Location",customer.city)+row("Time zone",customer.timezone)+row("Owner",customer.owner);
+        document.getElementById("customerSignals").innerHTML = Object.entries(customer.signals||{}).map(([key,value])=>`<div class="customer-signal"><span>${escapeHtml(key.replace(/([A-Z])/g," $1").replace(/^./,c=>c.toUpperCase()))}</span><strong>${escapeHtml(value)}</strong></div>`).join("");
+        const risk = document.getElementById("customerRiskBadge"); risk.className=`customer-risk-badge ${customer.health}`; risk.textContent=healthLabel(customer.health);
+        document.getElementById("customerPreferences").innerHTML = row("Preferred channel",customer.preferredChannel)+row("Language",customer.language)+row("Marketing consent",customer.marketingConsent)+row("Identity & data consent",customer.dataConsent);
+        document.getElementById("customerIntegrations").innerHTML = (customer.integrations||[]).map(item=>`<div class="customer-integration"><div><span class="customer-integration-icon">${escapeHtml(item.name[0])}</span><span><strong>${escapeHtml(item.name)}</strong><small>${escapeHtml(item.id)}</small></span></div><span class="customer-source-badge">${escapeHtml(item.status)}</span></div>`).join("");
+        document.getElementById("customerAgentBrief").textContent = customer.brief;
+        document.getElementById("customerTimeline").innerHTML = (customer.timeline||[]).map(item=>`<article class="customer-timeline-item"><time>${escapeHtml(item.date)}</time><strong>${escapeHtml(item.title)}</strong><p>${escapeHtml(item.text)}</p></article>`).join("");
+        document.getElementById("customerTicketsBody").innerHTML = (customer.ticketList||[]).map(item=>`<tr><td><strong>${escapeHtml(item.id)}</strong></td><td>${escapeHtml(item.subject)}</td><td>${escapeHtml(item.channel)}</td><td><span class="customer-status-pill">${escapeHtml(item.status)}</span></td><td>${escapeHtml(item.created)}</td></tr>`).join("");
+        document.getElementById("customerOrders").innerHTML = (customer.orders||[]).map(item=>`<div class="customer-order"><div><span>Order</span><strong>${escapeHtml(item.id)}</strong></div><div><span>Date</span><strong>${escapeHtml(item.date)}</strong></div><div><span>Value</span><strong>${escapeHtml(item.value)}</strong></div><span class="customer-status-pill">${escapeHtml(item.status)}</span></div>`).join("");
+        renderCustomerNotes();
+    }
+
+    function renderCustomerNotes(){ const list=document.getElementById("customerNotesList"); list.innerHTML=(activeCustomer?.notes||[]).length?(activeCustomer.notes||[]).slice().reverse().map(note=>`<article class="customer-note"><div><strong>${escapeHtml(note.author)}</strong><time>${escapeHtml(note.date)}</time></div><p>${escapeHtml(note.text)}</p></article>`).join(""):`<div class="customer-profile-empty"><strong>No customer notes yet</strong><span>Notes follow the customer across every ticket.</span></div>`; }
+    function setCustomerTab(tab){ document.querySelectorAll("[data-customer-tab]").forEach(button=>button.classList.toggle("active",button.dataset.customerTab===tab));document.querySelectorAll(".customer-profile-tab").forEach(panel=>panel.classList.toggle("active",panel.id===`customerTab-${tab}`)); }
+    function openCustomer(id){ const customer=customers.find(item=>item.id===id);if(!customer)return;renderCustomerProfile(customer);setCustomerTab("overview");document.getElementById("customerProfileBackdrop").classList.add("open");document.getElementById("customerProfileBackdrop").setAttribute("aria-hidden","false");document.body.style.overflow="hidden"; }
+    function closeCustomer(){ document.getElementById("customerProfileBackdrop").classList.remove("open");document.getElementById("customerProfileBackdrop").setAttribute("aria-hidden","true");document.getElementById("customerProfileEditor").hidden=true;document.body.style.overflow=""; }
+    function openEditor(mode){ editorMode=mode;const c=mode==="edit"?activeCustomer:null;document.getElementById("customerEditorTitle").textContent=mode==="edit"?"Edit profile":"New customer";document.getElementById("customerEditName").value=c?.name||"";document.getElementById("customerEditEmail").value=c?.email||"";document.getElementById("customerEditPhone").value=c?.phone||"";document.getElementById("customerEditOrganisation").value=c?.organisation||"";document.getElementById("customerEditSegment").value=c?.segment||"New";document.getElementById("customerEditLanguage").value=c?.language||"English";document.getElementById("customerEditTags").value=(c?.tags||[]).join(", ");document.getElementById("customerProfileEditor").hidden=false; }
+
+    document.getElementById("customerProfileBody")?.addEventListener("click",event=>{const row=event.target.closest("tr[data-customer-id]");if(row)openCustomer(row.dataset.customerId)});
+    document.getElementById("customerProfileBody")?.addEventListener("keydown",event=>{const row=event.target.closest("tr[data-customer-id]");if(row&&["Enter"," "].includes(event.key)){event.preventDefault();openCustomer(row.dataset.customerId)}});
+    ["customerProfileSearch","customerSegmentFilter","customerHealthFilter","customerSort"].forEach(id=>document.getElementById(id)?.addEventListener(id==="customerProfileSearch"?"input":"change",renderCustomerDirectory));
+    document.getElementById("customerProfileTabs")?.addEventListener("click",event=>{const button=event.target.closest("[data-customer-tab]");if(button)setCustomerTab(button.dataset.customerTab)});
+    document.getElementById("customerProfileClose")?.addEventListener("click",closeCustomer);document.getElementById("customerProfileBackdrop")?.addEventListener("click",event=>{if(event.target.id==="customerProfileBackdrop")closeCustomer()});
+    document.getElementById("customerProfileEdit")?.addEventListener("click",()=>openEditor("edit"));document.getElementById("customerNewBtn")?.addEventListener("click",()=>{activeCustomer=null;document.getElementById("customerProfileBackdrop").classList.add("open");document.body.style.overflow="hidden";openEditor("new")});
+    ["customerEditorClose","customerEditorCancel"].forEach(id=>document.getElementById(id)?.addEventListener("click",()=>document.getElementById("customerProfileEditor").hidden=true));
+    document.getElementById("customerEditorSave")?.addEventListener("click",()=>{const name=document.getElementById("customerEditName").value.trim();if(!name)return document.getElementById("customerEditName").focus();const base=editorMode==="edit"&&activeCustomer?activeCustomer:{id:`C-${Date.now().toString().slice(-6)}`,health:"healthy",healthScore:80,value:0,tickets:0,openTickets:0,csat:0,lastInteraction:new Date().toISOString(),since:new Date().toLocaleString("en-IN",{month:"short",year:"numeric"}),city:"Not specified",timezone:"Asia/Kolkata",owner:"Novara CX Support",preferredChannel:"Email",marketingConsent:"Not recorded",dataConsent:"Not recorded",brief:"New customer profile. Add service context after the first interaction.",signals:{orders:"0",refundRate:"0%",avgResponse:"—",lastSentiment:"Unknown"},integrations:[{name:"NovaraDesk",id:"New",status:"Primary"}],timeline:[],ticketList:[],orders:[],notes:[]};Object.assign(base,{name,email:document.getElementById("customerEditEmail").value.trim(),phone:document.getElementById("customerEditPhone").value.trim(),organisation:document.getElementById("customerEditOrganisation").value.trim()||"Individual",segment:document.getElementById("customerEditSegment").value,language:document.getElementById("customerEditLanguage").value,tags:document.getElementById("customerEditTags").value.split(",").map(x=>x.trim()).filter(Boolean)});if(editorMode==="new")customers.unshift(base);activeCustomer=base;saveCustomers();renderCustomerDirectory();renderCustomerProfile(base);document.getElementById("customerProfileEditor").hidden=true;});
+    document.getElementById("customerSaveNote")?.addEventListener("click",()=>{const input=document.getElementById("customerNoteInput");const text=input.value.trim();if(!text||!activeCustomer)return;(activeCustomer.notes||=[]).push({author:"Novara CX Support",date:new Date().toLocaleString("en-IN",{day:"2-digit",month:"short",year:"numeric",hour:"2-digit",minute:"2-digit"}),text});input.value="";saveCustomers();renderCustomerNotes()});
+    document.getElementById("customerCopyBrief")?.addEventListener("click",()=>navigator.clipboard?.writeText(activeCustomer?.brief||""));
+    document.getElementById("customerProfileNewTicket")?.addEventListener("click",()=>{closeCustomer();showWorkspace("tickets")});
+    document.getElementById("customerExportBtn")?.addEventListener("click",()=>{const rows=[["Customer ID","Name","Email","Phone","Organisation","Segment","Health score","Tickets","CSAT","Lifetime value"],...customers.map(c=>[c.id,c.name,c.email,c.phone,c.organisation,c.segment,c.healthScore,c.tickets,c.csat,c.value])];const csv=rows.map(row=>row.map(value=>`"${String(value??"").replace(/"/g,'""')}"`).join(",")).join("\n");const link=document.createElement("a");link.href=URL.createObjectURL(new Blob([csv],{type:"text/csv"}));link.download="novaradesk-customer-profiles.csv";link.click();URL.revokeObjectURL(link.href)});
+    document.addEventListener("keydown",event=>{if(event.key==="Escape"&&document.getElementById("customerProfileBackdrop")?.classList.contains("open"))closeCustomer()});
+    renderCustomerDirectory();
 })();
 </script>
 </body>
