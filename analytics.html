@@ -5192,6 +5192,28 @@ body.ticket-call-mode .agent-assist-panel{display:none!important}body.ticket-cal
             }
             .ticket-queue-resize-handle{right:0!important;z-index:8!important}
         }
+
+        /* Strict channel separation. */
+        #callWorkspace{display:none!important}
+        body.ticket-call-mode #callWorkspace{display:grid!important}
+        body:not(.ticket-call-mode) .ticket-ai-details{display:block!important}
+        body:not(.ticket-call-mode) .ticket-thread-label{display:block!important}
+        body:not(.ticket-call-mode) #ticketThread{display:flex!important}
+        body:not(.ticket-call-mode) .ticket-composer{display:block!important}
+        body.ticket-call-mode .ticket-ai-details,
+        body.ticket-call-mode .ticket-thread-label,
+        body.ticket-call-mode #ticketThread,
+        body.ticket-call-mode .ticket-composer{display:none!important}
+
+        /* Readable Calls queue typography. */
+        body.ticket-call-mode .ticket-queue-card{display:grid!important;gap:7px!important;min-height:108px!important;padding:14px!important}
+        body.ticket-call-mode .ticket-queue-card>span{display:flex!important;align-items:center!important;justify-content:space-between!important;gap:10px!important;min-width:0!important}
+        body.ticket-call-mode .ticket-queue-card>span strong{flex:0 0 auto;font-size:13px!important;font-weight:850!important;line-height:1.25!important;letter-spacing:.01em!important}
+        body.ticket-call-mode .ticket-queue-card>span small{min-width:0;color:var(--text-muted)!important;font-size:10px!important;font-weight:650!important;line-height:1.3!important;text-align:right!important;white-space:nowrap!important}
+        body.ticket-call-mode .ticket-queue-card>b{display:block!important;color:var(--text)!important;font-size:14px!important;font-weight:800!important;line-height:1.3!important}
+        body.ticket-call-mode .ticket-queue-card>p{display:-webkit-box!important;margin:0!important;overflow:hidden!important;color:var(--text-secondary)!important;font-size:11px!important;font-weight:500!important;line-height:1.45!important;-webkit-box-orient:vertical;-webkit-line-clamp:2}
+        body.ticket-call-mode .ticket-queue-view>span{font-size:9px!important}
+        body.ticket-call-mode .ticket-queue-view .unified-select-trigger{font-size:12px!important;font-weight:750!important}
     </style>
 </head>
 
@@ -12943,6 +12965,7 @@ ORDER BY created_date DESC, ticket_count DESC`;
 
     async function openTicket(ticketId) {
         if (!ticketId) return;
+        document.body.classList.remove("ticket-call-mode");
         window.setTicketLoading?.(true);
         const workspaceWasOpen = document.getElementById("ticketDrawerBackdrop")?.classList.contains("open");
         openTicketId = ticketId;
@@ -14873,6 +14896,13 @@ ORDER BY created_date DESC, ticket_count DESC`;
         if (!list) return;
         const tickets = callTickets();
         document.getElementById("ticketQueueTitle").textContent = "Call requests";
+        const queueSelect = document.getElementById("ticketQueueViewSelect");
+        if (queueSelect) {
+            queueSelect.innerHTML = `<option value="all_calls">All call requests</option>`;
+            queueSelect.value = "all_calls";
+            queueSelect._unifiedSelect?.build?.();
+            queueSelect._unifiedSelect?.sync?.();
+        }
         list.innerHTML = tickets.map(ticket => `<button class="ticket-queue-card ${activeCallTicket?.dbId === ticket.dbId ? "active" : ""}" type="button" data-queue-call="${escapeHtml(ticket.dbId)}"><span><strong>${escapeHtml(ticket.id)}</strong><small>${escapeHtml(plainDate(ticket.createdAt))}</small></span><b>${escapeHtml(ticket.customer)}</b><p>${escapeHtml(ticket.query)}</p></button>`).join("");
         list.querySelectorAll("[data-queue-call]").forEach(button => button.addEventListener("click", () => openCallTicket(button.dataset.queueCall)));
         const pagination = document.getElementById("ticketQueuePagination");
