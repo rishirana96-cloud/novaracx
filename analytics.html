@@ -5063,6 +5063,170 @@
         @media(max-width:1200px){.customer-directory-toolbar{grid-template-columns:minmax(240px,1fr) repeat(3,145px);}.customer-directory-toolbar .customer-secondary-btn,.customer-directory-toolbar .customer-primary-btn{grid-row:2}.customer-profile-kpis{grid-template-columns:1fr 1fr}}
         @media(max-width:760px){.customer-profile-kpis{grid-template-columns:1fr}.customer-directory-toolbar{grid-template-columns:1fr}.customer-directory-toolbar .customer-secondary-btn,.customer-directory-toolbar .customer-primary-btn{grid-row:auto}.customer-profile-drawer{inset:6px;width:auto}.customer-profile-head{align-items:flex-start;flex-direction:column}.customer-profile-head-actions{width:100%;flex-wrap:wrap}.customer-profile-summary{grid-template-columns:1fr 1fr}.customer-profile-summary article{border-bottom:1px solid var(--border)}.customer-profile-tabs{overflow:auto}.customer-profile-grid,.customer-notes-layout{grid-template-columns:1fr}.customer-profile-card.wide{grid-column:auto}.customer-editor-grid{grid-template-columns:1fr}.customer-editor-grid label.wide{grid-column:auto}}
     </style>
+    <style id="novaradesk-enterprise-refinement-v8">
+        .nav-group { display:grid;gap:2px; }
+        .nav-parent-row { position:relative;display:flex;align-items:center; }
+        .nav-parent-row>.nav-item { flex:1; }
+        .nav-expand-toggle { width:36px;height:36px;display:grid;place-items:center;flex:0 0 36px;border:0;border-radius:9px;background:transparent;color:var(--text-muted); }
+        .nav-expand-toggle:hover { color:var(--text);background:var(--surface-hover); }
+        .nav-expand-toggle .nav-chevron { width:15px;height:15px;transition:transform .18s ease; }
+        .nav-group.open>.nav-parent-row .nav-expand-toggle .nav-chevron { transform:rotate(180deg); }
+        /* Desktop icon rail with hover expansion */
+        @media (min-width:721px) {
+            :root { --sidebar-width:82px; }
+            .sidebar {
+                width:82px!important;
+                padding:22px 12px 18px!important;
+                overflow-x:hidden;
+                overflow-y:auto;
+                transition:width .22s cubic-bezier(.2,.72,.2,1),box-shadow .22s ease!important;
+            }
+            .sidebar:hover,.sidebar:focus-within {
+                width:266px!important;
+                box-shadow:22px 0 60px rgba(0,0,0,.18)!important;
+            }
+            .sidebar .brand { min-height:42px;justify-content:flex-start;margin-bottom:30px;padding:0 10px!important;white-space:nowrap; }
+            .sidebar .brand img { flex:0 0 36px; }
+            .sidebar .brand-product,.sidebar .sidebar-heading,.sidebar .nav-item>span,.sidebar .agent-profile-info,.sidebar .system-status {
+                opacity:0;visibility:hidden;transform:translateX(-5px);transition:opacity .14s ease,transform .18s ease,visibility .14s;
+            }
+            .sidebar:hover .brand-product,.sidebar:focus-within .brand-product,
+            .sidebar:hover .sidebar-heading,.sidebar:focus-within .sidebar-heading,
+            .sidebar:hover .nav-item>span,.sidebar:focus-within .nav-item>span,
+            .sidebar:hover .agent-profile-info,.sidebar:focus-within .agent-profile-info,
+            .sidebar:hover .system-status,.sidebar:focus-within .system-status {
+                opacity:1;visibility:visible;transform:none;
+            }
+            .sidebar .sidebar-heading { height:15px;overflow:hidden;white-space:nowrap; }
+            .sidebar .nav { gap:5px;overflow:visible; }
+            .sidebar .nav-group { display:grid;gap:2px; }
+            .sidebar .nav-parent-row { position:relative;display:grid;grid-template-columns:minmax(0,1fr) 34px;align-items:center; }
+            .sidebar .nav-item { width:58px;min-height:50px;justify-content:flex-start;gap:14px;padding:13px 17px!important;white-space:nowrap;overflow:hidden; }
+            .sidebar:hover .nav-item,.sidebar:focus-within .nav-item { width:100%;padding-right:44px!important; }
+            .sidebar .nav-item svg { width:20px!important;height:20px!important;flex:0 0 20px; }
+            .sidebar .nav-item:hover { transform:none; }
+            .sidebar .nav-expand-toggle {
+                position:absolute;right:4px;width:34px;height:34px;display:grid;place-items:center;border:0;border-radius:9px;background:transparent;color:var(--text-muted);opacity:0;visibility:hidden;cursor:pointer;
+            }
+            .sidebar:hover .nav-expand-toggle,.sidebar:focus-within .nav-expand-toggle { opacity:1;visibility:visible; }
+            .sidebar .nav-expand-toggle:hover { color:var(--text);background:var(--surface-hover); }
+            .sidebar .nav-expand-toggle svg { width:15px;height:15px;transition:transform .18s ease; }
+            .sidebar .nav-group.open>.nav-parent-row .nav-expand-toggle svg { transform:rotate(180deg); }
+            .sidebar .nav-submenu { display:none!important;margin:1px 4px 7px 22px;padding-left:15px;opacity:0; }
+            .sidebar:hover .nav-group.open>.nav-submenu,.sidebar:focus-within .nav-group.open>.nav-submenu { display:flex!important;opacity:1; }
+            .sidebar .nav-subitem { min-height:34px;font-size:10px;white-space:nowrap; }
+            .sidebar .agent-profile { min-height:58px;padding:10px!important;overflow:hidden;white-space:nowrap; }
+        }
+
+        /* Compact ticket channel control */
+        .ticket-channel-switch {
+            width:156px!important;height:38px;padding:3px!important;border-color:color-mix(in srgb,var(--border) 78%,var(--accent) 22%)!important;border-radius:11px!important;background:color-mix(in srgb,var(--surface) 94%,var(--accent) 6%)!important;box-shadow:inset 0 1px 2px rgba(0,0,0,.035)!important;
+        }
+        .ticket-channel-switch button { min-height:30px!important;padding:0 14px!important;border-radius:8px!important;font-size:10px!important;font-weight:780!important;letter-spacing:.01em;transition:background .16s ease,color .16s ease,box-shadow .16s ease,transform .16s ease!important; }
+        .ticket-channel-switch button.active { background:var(--accent-dark)!important;color:#fff!important;box-shadow:0 4px 12px rgba(44,93,68,.2)!important; }
+        .ticket-channel-switch button:active { transform:scale(.98); }
+        .ticket-channel-dot { display:none!important; }
+
+        /* Extensible prompt instructions */
+        #legacyCustomInstructions[hidden] { display:none!important; }
+        .custom-instruction-cards { display:contents; }
+        .custom-instruction-card { position:relative;display:flex;flex-direction:column;min-height:250px;padding:18px;border:1px solid var(--border);border-radius:16px;background:var(--bg-card);box-shadow:var(--shadow-soft); }
+        .custom-instruction-card-head { display:grid;grid-template-columns:minmax(0,1fr) 34px;gap:10px;align-items:start;margin-bottom:12px; }
+        .custom-instruction-title { width:100%;padding:0 0 8px;border:0;border-bottom:1px solid transparent;background:transparent;color:var(--text);font:800 13px/1.3 inherit;outline:0; }
+        .custom-instruction-title:focus { border-bottom-color:var(--accent); }
+        .custom-instruction-title::placeholder { color:var(--text-muted); }
+        .custom-instruction-remove { width:32px;height:32px;display:grid;place-items:center;border:1px solid var(--border);border-radius:9px;background:transparent;color:var(--text-muted);font-size:15px;cursor:pointer; }
+        .custom-instruction-remove:hover { border-color:rgba(202,91,79,.35);background:rgba(202,91,79,.07);color:#c55c50; }
+        .custom-instruction-card textarea { flex:1;width:100%;min-height:165px;padding:13px;border:1px solid var(--border);border-radius:11px;background:var(--surface);color:var(--text-secondary);font:500 11px/1.6 inherit;resize:vertical;outline:0; }
+        .custom-instruction-card textarea:focus { border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 10%,transparent); }
+        .custom-instruction-add { min-height:250px;display:grid;place-items:center;align-content:center;gap:8px;padding:24px;border:1.5px dashed color-mix(in srgb,var(--accent) 45%,var(--border));border-radius:16px;background:color-mix(in srgb,var(--surface) 95%,var(--accent) 5%);color:var(--text-muted);font:inherit;cursor:pointer;transition:border-color .16s,background .16s,transform .16s; }
+        .custom-instruction-add>span { width:54px;height:54px;display:grid;place-items:center;border-radius:16px;background:color-mix(in srgb,var(--accent) 13%,transparent);color:var(--accent);font-size:30px;font-weight:350; }
+        .custom-instruction-add strong { color:var(--text);font-size:13px; }
+        .custom-instruction-add small { max-width:240px;font-size:9px;line-height:1.5;text-align:center; }
+        .custom-instruction-add:hover { transform:translateY(-2px);border-color:var(--accent);background:color-mix(in srgb,var(--surface) 90%,var(--accent) 10%); }
+
+        /* Premium customer profile */
+        .customer-profile-backdrop { background:rgba(8,14,10,.44)!important;backdrop-filter:blur(6px)!important; }
+        .customer-profile-drawer { top:18px!important;right:18px!important;bottom:18px!important;width:min(1080px,calc(100vw - 36px))!important;border-radius:22px!important;background:var(--bg)!important;box-shadow:-28px 0 90px rgba(0,0,0,.28)!important; }
+        .customer-profile-head { position:relative;padding:24px 26px 21px!important;border-bottom:0!important;background:linear-gradient(135deg,var(--bg-card),color-mix(in srgb,var(--bg-card) 91%,var(--accent) 9%))!important; }
+        .customer-profile-head::after { content:"";position:absolute;left:26px;right:26px;bottom:0;height:1px;background:var(--border); }
+        .customer-profile-identity { align-items:flex-start!important;gap:16px!important; }
+        .customer-profile-avatar { width:58px!important;height:58px!important;display:grid;place-items:center;flex:0 0 58px;border:1px solid color-mix(in srgb,var(--accent) 35%,var(--border));border-radius:16px!important;background:linear-gradient(145deg,color-mix(in srgb,var(--accent) 20%,var(--surface)),var(--surface));color:var(--accent);font-size:16px!important;font-weight:850;box-shadow:0 9px 25px rgba(42,87,64,.11); }
+        .customer-profile-name-row { gap:10px!important; }
+        .customer-profile-name-row h2 { font-size:23px!important;line-height:1.15;letter-spacing:-.45px!important; }
+        .customer-profile-identity p { margin:6px 0 9px!important;font-size:10px!important;line-height:1.5;color:var(--text-secondary)!important; }
+        .customer-verified-badge { padding:5px 8px!important;font-size:8px!important;letter-spacing:.02em; }
+        .customer-profile-tags { gap:6px!important; }
+        .customer-profile-tags span { padding:5px 8px!important;background:var(--surface);font-size:8px!important;font-weight:700; }
+        .customer-profile-head-actions { align-self:flex-start!important;gap:9px!important; }
+        .customer-profile-head-actions .customer-primary-btn,.customer-profile-head-actions .customer-secondary-btn { min-height:39px;padding:0 14px;border-radius:10px;font-size:10px;font-weight:780; }
+        .customer-profile-close { width:39px!important;height:39px!important;border-radius:10px!important; }
+        .customer-profile-summary { grid-template-columns:repeat(5,1fr)!important;margin:0;padding:0 26px 19px;border:0!important;background:var(--bg-card)!important; }
+        .customer-profile-summary article { position:relative;min-width:0;padding:17px 17px!important;border:1px solid var(--border)!important;border-right:0!important;background:var(--surface); }
+        .customer-profile-summary article:first-child { border-radius:13px 0 0 13px; }
+        .customer-profile-summary article:last-child { border-right:1px solid var(--border)!important;border-radius:0 13px 13px 0; }
+        .customer-profile-summary span { font-size:7.5px!important;letter-spacing:.085em!important; }
+        .customer-profile-summary strong { margin-top:7px!important;font-size:13px!important;white-space:nowrap;overflow:hidden;text-overflow:ellipsis; }
+        .customer-profile-tabs { position:sticky;top:0;z-index:4;gap:18px!important;padding:0 26px!important;border-top:1px solid var(--border);border-bottom:1px solid var(--border)!important;background:color-mix(in srgb,var(--bg-card) 94%,transparent)!important;backdrop-filter:blur(16px); }
+        .customer-profile-tabs button { position:relative;min-height:51px!important;padding:0 2px!important;border-radius:0!important;background:transparent!important;font-size:10px!important; }
+        .customer-profile-tabs button::after { content:"";position:absolute;left:0;right:0;bottom:-1px;height:2px;border-radius:2px;background:transparent; }
+        .customer-profile-tabs button.active { color:var(--text)!important; }
+        .customer-profile-tabs button.active::after { background:var(--accent); }
+        .customer-profile-scroll { padding:20px 22px 26px!important;background:linear-gradient(180deg,color-mix(in srgb,var(--surface) 78%,var(--bg) 22%),var(--bg)); }
+        .customer-profile-grid { gap:15px!important; }
+        .customer-profile-card { padding:18px!important;border-radius:15px!important;background:var(--bg-card)!important;box-shadow:0 8px 28px rgba(0,0,0,.045); }
+        .customer-profile-card header { margin-bottom:15px!important;padding-bottom:12px;border-bottom:1px solid var(--border); }
+        .customer-profile-card h3 { font-size:13px!important;letter-spacing:-.1px; }
+        .customer-card-eyebrow { font-size:7.5px!important;letter-spacing:.11em!important; }
+        .customer-detail-row { grid-template-columns:140px minmax(0,1fr)!important;padding:11px 0!important; }
+        .customer-detail-row span { font-size:8.5px!important; }
+        .customer-detail-row strong { font-size:10.5px!important;font-weight:680!important; }
+        .customer-signal-grid { gap:10px!important; }
+        .customer-signal { min-height:67px;padding:12px!important;border-radius:11px!important;background:color-mix(in srgb,var(--surface) 94%,var(--accent) 6%)!important; }
+        .customer-signal span { font-size:8px!important; }
+        .customer-signal strong { margin-top:6px!important;font-size:14px!important; }
+        .customer-integration { min-height:57px;padding:11px!important;border-radius:11px!important;background:var(--surface); }
+        .customer-agent-brief { font-size:11px!important;line-height:1.72!important; }
+        .customer-timeline { padding:4px 2px; }
+        .customer-timeline-item { position:relative;margin-left:10px;padding:0 0 24px 35px;border-left:1px solid color-mix(in srgb,var(--accent) 28%,var(--border)); }
+        .customer-timeline-item::before { content:"";position:absolute;left:-5px;top:2px;width:9px;height:9px;border:2px solid var(--bg-card);border-radius:50%;background:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 12%,transparent); }
+        .customer-timeline-item time { display:block;margin-bottom:6px;color:var(--text-muted);font-size:8px;font-weight:700;text-transform:uppercase;letter-spacing:.06em; }
+        .customer-timeline-item strong { color:var(--text);font-size:12px; }
+        .customer-timeline-item p { margin:5px 0 0;color:var(--text-secondary);font-size:10px;line-height:1.55; }
+        .customer-subtable-card { overflow:hidden;border-radius:15px!important;background:var(--bg-card);box-shadow:0 8px 28px rgba(0,0,0,.045); }
+        .customer-subtable-card th { height:44px;background:var(--surface);font-size:8px!important;letter-spacing:.08em; }
+        .customer-subtable-card td { height:54px;font-size:10px!important; }
+        .customer-order { padding:14px!important;border-radius:11px!important;background:var(--surface); }
+        .customer-notes-layout { gap:15px!important; }
+        #customerNoteInput { min-height:138px!important;padding:13px!important;border-radius:11px!important;font-size:10.5px!important;line-height:1.6; }
+        .customer-note { padding:16px!important;border-radius:13px!important;background:var(--bg-card)!important;box-shadow:0 7px 22px rgba(0,0,0,.04); }
+        .customer-profile-editor { width:min(500px,100%)!important;padding:24px!important;box-shadow:-24px 0 70px rgba(0,0,0,.24)!important; }
+        .customer-profile-editor-head { padding-bottom:17px;border-bottom:1px solid var(--border); }
+        .customer-editor-grid { gap:15px!important; }
+        .customer-editor-grid input,.customer-editor-grid select { height:45px!important;border-radius:10px!important;font-size:10.5px!important; }
+        @media(max-width:760px) {
+            .customer-profile-drawer { inset:4px!important;width:auto!important;border-radius:16px!important; }
+            .customer-profile-head { padding:18px!important; }
+            .customer-profile-head::after { left:18px;right:18px; }
+            .customer-profile-head-actions { width:100%; }
+            .customer-profile-head-actions .customer-primary-btn,.customer-profile-head-actions .customer-secondary-btn { flex:1; }
+            .customer-profile-summary { grid-template-columns:1fr 1fr!important;padding:0 18px 15px!important;gap:8px; }
+            .customer-profile-summary article,.customer-profile-summary article:first-child,.customer-profile-summary article:last-child { border:1px solid var(--border)!important;border-radius:11px!important; }
+            .customer-profile-tabs { padding:0 18px!important;gap:17px!important; }
+            .customer-profile-scroll { padding:15px!important; }
+        }
+        @media (min-width:721px) and (max-width:1000px) {
+            .sidebar:hover .brand-product,.sidebar:focus-within .brand-product { display:block!important; }
+            .sidebar:hover .sidebar-heading,.sidebar:focus-within .sidebar-heading { display:block!important; }
+            .sidebar:hover .nav-item>span,.sidebar:focus-within .nav-item>span { display:inline!important; }
+            .sidebar .nav-expand-toggle .nav-chevron { display:block!important; }
+        }
+        @media (max-width:720px) {
+            .sidebar .nav-item>span,.sidebar .brand-product,.sidebar .sidebar-heading { display:block!important; }
+            .sidebar .nav-expand-toggle .nav-chevron { display:block!important; }
+            .sidebar .nav-parent-row>.nav-item { justify-content:flex-start!important; }
+        }
+    </style>
 </head>
 
 
@@ -5107,10 +5271,13 @@
 
             <!-- Analytics -->
 
+            <div class="nav-group open" id="analyticsNavGroup">
+            <div class="nav-parent-row">
             <a
-                href="#"
+                href="#ai"
                 class="nav-item nav-parent active"
                 id="sidebarAnalytics"
+                title="Analytics"
             >
 
                 <svg
@@ -5161,24 +5328,31 @@
                 </svg>
 
                 <span>Analytics</span>
-                <svg class="nav-chevron" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m8 10 4 4 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
 
             </a>
+            <button id="analyticsNavToggle" class="nav-expand-toggle" type="button" aria-label="Expand Analytics menu" aria-expanded="true">
+                <svg class="nav-chevron" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m8 10 4 4 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            </div>
 
             <div id="analyticsSubnav" class="nav-submenu open">
                 <a href="#ai" id="sidebarAiAgent" class="nav-subitem active"><span class="nav-subdot"></span>AI Agent</a>
                 <a href="#human" id="sidebarHumanAgent" class="nav-subitem"><span class="nav-subdot"></span>Human Agent</a>
                 <a href="#dashboards" id="sidebarCustomDashboards" class="nav-subitem"><span class="nav-subdot"></span>Custom Dashboards</a>
             </div>
+            </div>
 
 
             <!-- Tickets -->
 
+            <div class="nav-group" id="ticketsNavGroup">
+            <div class="nav-parent-row">
             <a
                 href="#tickets"
-                class="nav-item"
+                class="nav-item nav-parent"
                 id="sidebarTickets"
                 data-tab="tickets"
+                title="Tickets"
             >
 
                 <svg
@@ -5207,6 +5381,19 @@
                 </span>
 
             </a>
+            <button id="ticketsNavToggle" class="nav-expand-toggle" type="button" aria-label="Expand Tickets menu" aria-expanded="false">
+                <svg class="nav-chevron" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m8 10 4 4 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            </div>
+            <div id="ticketsSubnav" class="nav-submenu">
+                <a href="#tickets" class="nav-subitem active" data-ticket-nav-view="all"><span class="nav-subdot"></span>All Tickets</a>
+                <a href="#tickets" class="nav-subitem" data-ticket-nav-view="status:open"><span class="nav-subdot"></span>Open</a>
+                <a href="#tickets" class="nav-subitem" data-ticket-nav-view="status:progress"><span class="nav-subdot"></span>In Progress</a>
+                <a href="#tickets" class="nav-subitem" data-ticket-nav-view="status:pending"><span class="nav-subdot"></span>Pending</a>
+                <a href="#tickets" class="nav-subitem" data-ticket-nav-view="status:resolved"><span class="nav-subdot"></span>Resolved</a>
+                <a href="#tickets" class="nav-subitem" data-ticket-nav-view="status:reopened"><span class="nav-subdot"></span>Reopened</a>
+            </div>
+            </div>
 
             <!-- Customer Profiles -->
             <a href="#customers" class="nav-item" id="sidebarCustomers" data-tab="customers">
@@ -7036,7 +7223,9 @@ ORDER BY ticket_count DESC</textarea>
                             <label class="prompt-section"><span class="prompt-section-head"><strong>Data collection</strong><span>Name, phone and consent</span></span><textarea data-prompt-field="data_collection_rules"></textarea></label>
                             <label class="prompt-section"><span class="prompt-section-head"><strong>Restrictions</strong><span>What must never happen</span></span><textarea data-prompt-field="restriction_rules"></textarea></label>
                             <label class="prompt-section"><span class="prompt-section-head"><strong>Formatting</strong><span>Markdown and readability</span></span><textarea data-prompt-field="formatting_rules"></textarea></label>
-                            <label class="prompt-section wide"><span class="prompt-section-head"><strong>Additional instructions</strong><span>Advanced custom rules</span></span><textarea data-prompt-field="custom_instructions"></textarea></label>
+                            <label class="prompt-section wide" id="legacyCustomInstructions" hidden><span class="prompt-section-head"><strong>Additional instructions</strong><span>Advanced custom rules</span></span><textarea data-prompt-field="custom_instructions"></textarea></label>
+                            <div id="customInstructionCards" class="custom-instruction-cards"></div>
+                            <button id="addCustomInstruction" class="custom-instruction-add" type="button"><span aria-hidden="true">＋</span><strong>Add custom instruction</strong><small>Create a header and instruction for a specialised rule</small></button>
                         </div>
                         <div class="prompt-editor-footer"><div><strong id="promptDraftLabel">Published prompt</strong><div id="promptSaveStatus" class="admin-status">Publish changes when your instructions are ready.</div></div><div class="admin-command-actions"><button id="viewCompiledPrompt" class="admin-btn" type="button">Preview compiled prompt</button><button id="chatbotPublish" class="admin-btn primary" type="button">Publish changes</button></div></div>
                     </div>
@@ -7717,11 +7906,20 @@ ORDER BY ticket_count DESC</textarea>
     const sidebarKnowledge = document.getElementById("sidebarKnowledge");
     const sidebarWorkflows = document.getElementById("sidebarWorkflows");
     const analyticsSubnav = document.getElementById("analyticsSubnav");
+    const ticketsSubnav = document.getElementById("ticketsSubnav");
+    const analyticsNavGroup = document.getElementById("analyticsNavGroup");
+    const ticketsNavGroup = document.getElementById("ticketsNavGroup");
+    const analyticsNavToggle = document.getElementById("analyticsNavToggle");
+    const ticketsNavToggle = document.getElementById("ticketsNavToggle");
     const analyticsSubitems = {
         ai: document.getElementById("sidebarAiAgent"),
         human: document.getElementById("sidebarHumanAgent"),
         dashboards: document.getElementById("sidebarCustomDashboards")
     };
+    document.querySelectorAll("#appSidebar .nav-item").forEach(item => {
+        const label = item.querySelector("span")?.textContent.trim();
+        if (label && !item.title) item.title = label;
+    });
 
     const workspaceCopy = {
         ai: ["Analytics", "Monitor AI conversations, resolution and customer experience performance."],
@@ -7746,8 +7944,7 @@ ORDER BY ticket_count DESC</textarea>
 
         const analyticsWorkspace = ["ai", "human", "dashboards"].includes(workspace);
         if (analyticsWorkspace) {
-            sidebarAnalytics?.classList.add("active", "expanded");
-            analyticsSubnav?.classList.add("open");
+            sidebarAnalytics?.classList.add("active");
             analyticsSubitems[workspace]?.classList.add("active");
         } else if (workspace === "tickets") sidebarTickets?.classList.add("active");
         else if (workspace === "customers") sidebarCustomers?.classList.add("active");
@@ -7791,12 +7988,54 @@ ORDER BY ticket_count DESC</textarea>
         event.preventDefault();
         showWorkspace("ai");
     });
+    function setSidebarGroup(group, open) {
+        const isAnalytics = group === "analytics";
+        const activeGroup = isAnalytics ? analyticsNavGroup : ticketsNavGroup;
+        const activeSubnav = isAnalytics ? analyticsSubnav : ticketsSubnav;
+        const activeToggle = isAnalytics ? analyticsNavToggle : ticketsNavToggle;
+        const otherGroup = isAnalytics ? ticketsNavGroup : analyticsNavGroup;
+        const otherSubnav = isAnalytics ? ticketsSubnav : analyticsSubnav;
+        const otherToggle = isAnalytics ? ticketsNavToggle : analyticsNavToggle;
+        activeGroup?.classList.toggle("open", open);
+        activeSubnav?.classList.toggle("open", open);
+        activeToggle?.setAttribute("aria-expanded", String(open));
+        if (open) {
+            otherGroup?.classList.remove("open");
+            otherSubnav?.classList.remove("open");
+            otherToggle?.setAttribute("aria-expanded", "false");
+        }
+    }
+    analyticsNavToggle?.addEventListener("click", event => {
+        event.preventDefault();
+        event.stopPropagation();
+        setSidebarGroup("analytics", !analyticsNavGroup?.classList.contains("open"));
+    });
+    ticketsNavToggle?.addEventListener("click", event => {
+        event.preventDefault();
+        event.stopPropagation();
+        setSidebarGroup("tickets", !ticketsNavGroup?.classList.contains("open"));
+    });
     document.getElementById("tabSwitcher")?.addEventListener("click", event => {
         const tab = event.target.closest(".tab[data-tab]");
         if (tab) showWorkspace(tab.dataset.tab);
     });
     Object.entries(analyticsSubitems).forEach(([workspace, item]) => item?.addEventListener("click", event => { event.preventDefault(); showWorkspace(workspace); }));
     sidebarTickets?.addEventListener("click", event => { event.preventDefault(); showWorkspace("tickets"); });
+    ticketsSubnav?.addEventListener("click", event => {
+        const item = event.target.closest("[data-ticket-nav-view]");
+        if (!item) return;
+        event.preventDefault();
+        showWorkspace("tickets", false);
+        ticketsSubnav.querySelectorAll("[data-ticket-nav-view]").forEach(link => link.classList.toggle("active", link === item));
+        const viewSelect = document.getElementById("ticketViewSelect");
+        if (viewSelect) {
+            viewSelect.value = item.dataset.ticketNavView;
+            viewSelect.dispatchEvent(new Event("change", { bubbles:true }));
+        }
+    });
+    document.getElementById("ticketViewSelect")?.addEventListener("change", event => {
+        ticketsSubnav?.querySelectorAll("[data-ticket-nav-view]").forEach(link => link.classList.toggle("active", link.dataset.ticketNavView === event.target.value));
+    });
     sidebarCustomers?.addEventListener("click", event => { event.preventDefault(); showWorkspace("customers"); });
     sidebarReports?.addEventListener("click", event => { event.preventDefault(); showWorkspace("reports"); });
     sidebarChatbot?.addEventListener("click", event => { event.preventDefault(); showWorkspace("chatbot"); });
@@ -14067,7 +14306,49 @@ ORDER BY created_date DESC, ticket_count DESC`;
         return data;
     }
 
+    const CUSTOM_INSTRUCTION_KEY = "novaradesk_custom_prompt_sections_v1";
+    let customPromptSections = [];
+    try { customPromptSections = JSON.parse(localStorage.getItem(CUSTOM_INSTRUCTION_KEY) || "[]"); } catch { customPromptSections = []; }
+    if (!Array.isArray(customPromptSections)) customPromptSections = [];
+
+    function syncCustomPromptSections() {
+        const legacy = document.querySelector('[data-prompt-field="custom_instructions"]');
+        if (legacy) legacy.value = customPromptSections.filter(item => item.title || item.instruction).map(item => `## ${item.title || "Custom instruction"}\n${item.instruction || ""}`).join("\n\n");
+        localStorage.setItem(CUSTOM_INSTRUCTION_KEY, JSON.stringify(customPromptSections));
+    }
+
+    function renderCustomPromptSections(importedValue = "") {
+        const host = document.getElementById("customInstructionCards");
+        if (!host) return;
+        if (!customPromptSections.length && importedValue.trim()) customPromptSections = [{ id:`custom-${Date.now()}`, title:"Additional instructions", instruction:importedValue.trim() }];
+        host.innerHTML = customPromptSections.map(section => `<article class="custom-instruction-card" data-custom-instruction="${escapeHtml(section.id)}"><div class="custom-instruction-card-head"><input class="custom-instruction-title" value="${escapeHtml(section.title || "")}" placeholder="Custom header" aria-label="Custom instruction header"><button class="custom-instruction-remove" type="button" aria-label="Delete custom instruction">×</button></div><textarea placeholder="Write the instruction the AI should follow…" aria-label="Custom instruction">${escapeHtml(section.instruction || "")}</textarea></article>`).join("");
+        syncCustomPromptSections();
+    }
+
+    document.getElementById("addCustomInstruction")?.addEventListener("click", () => {
+        const section = { id:`custom-${Date.now()}`, title:"", instruction:"" };
+        customPromptSections.push(section);
+        renderCustomPromptSections();
+        document.querySelector(`[data-custom-instruction="${section.id}"] .custom-instruction-title`)?.focus();
+    });
+    document.getElementById("customInstructionCards")?.addEventListener("input", event => {
+        const card = event.target.closest("[data-custom-instruction]");
+        const section = customPromptSections.find(item => item.id === card?.dataset.customInstruction);
+        if (!section) return;
+        if (event.target.matches(".custom-instruction-title")) section.title = event.target.value;
+        if (event.target.matches("textarea")) section.instruction = event.target.value;
+        syncCustomPromptSections();
+    });
+    document.getElementById("customInstructionCards")?.addEventListener("click", event => {
+        const remove = event.target.closest(".custom-instruction-remove");
+        if (!remove) return;
+        const card = remove.closest("[data-custom-instruction]");
+        customPromptSections = customPromptSections.filter(item => item.id !== card.dataset.customInstruction);
+        renderCustomPromptSections();
+    });
+
     function promptPayload() {
+        syncCustomPromptSections();
         return Object.fromEntries([...document.querySelectorAll("[data-prompt-field]")].map(input => [input.dataset.promptField, input.value.trim()]));
     }
 
@@ -14079,6 +14360,7 @@ ORDER BY created_date DESC, ticket_count DESC`;
 
     function populatePromptEditor(version) {
         document.querySelectorAll("[data-prompt-field]").forEach(input => { input.value = version?.[input.dataset.promptField] || ""; });
+        renderCustomPromptSections(version?.custom_instructions || "");
         document.getElementById("promptDraftLabel").textContent = version?.status === "draft" ? `Draft · Version ${version.version_number}` : `Published · Version ${version?.version_number || "—"}`;
         document.getElementById("promptSaveStatus").textContent = version?.status === "draft" ? "Unpublished draft loaded." : "Edit any instruction to create a new draft.";
     }
