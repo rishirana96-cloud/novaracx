@@ -1,5 +1,6 @@
 
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5150,6 +5151,47 @@ body.ticket-call-mode .agent-assist-panel{display:none!important}body.ticket-cal
         .workflow-editor-head,.workflow-editor-body,.workflow-editor-footer,.workflow-live-preview,.workflow-section{background:#fff!important}
         html[data-theme="dark"] .workflow-editor,html[data-theme="dark"] .workflow-editor-head,html[data-theme="dark"] .workflow-editor-body,html[data-theme="dark"] .workflow-editor-footer,html[data-theme="dark"] .workflow-live-preview,html[data-theme="dark"] .workflow-section{background:#000!important}
         @media(max-width:900px){.ticket-toolbar-right{flex-wrap:wrap}.report-mode-toolbar{width:100%!important}.report-mode-toolbar .unified-select-trigger,.report-mode-toolbar select{min-width:0!important;width:100%!important}.sql-studio-title-actions{width:100%}.sql-saved-query-control{flex-wrap:wrap}}
+
+        /* Authoritative desktop ticket shell: every column owns its bounds. */
+        @media(min-width:1121px){
+            .ticket-drawer-backdrop.assist-collapsed .ticket-queue-panel{
+                overflow:hidden!important;
+                contain:paint;
+                z-index:4!important;
+            }
+            .ticket-drawer-backdrop.assist-collapsed .ticket-drawer{
+                z-index:5!important;
+                overflow:hidden!important;
+            }
+            .ticket-drawer-backdrop.assist-collapsed .agent-assist-panel{
+                display:none!important;
+            }
+            .ticket-queue-head{
+                grid-template-columns:minmax(0,1fr) max-content!important;
+                width:100%!important;
+                overflow:hidden!important;
+            }
+            .ticket-queue-head>div{overflow:hidden!important}
+            .ticket-queue-head strong{display:block;max-width:100%;overflow:hidden!important;text-overflow:ellipsis!important;white-space:nowrap!important}
+            .ticket-drawer-backdrop.assist-collapsed .agent-assist-dock-toggle{
+                position:static!important;
+                width:auto!important;
+                min-width:94px!important;
+                max-width:118px!important;
+                height:34px!important;
+                padding:0 10px!important;
+                overflow:hidden!important;
+                font-size:11px!important;
+                line-height:1!important;
+            }
+            .ticket-drawer-backdrop.assist-collapsed .agent-assist-dock-toggle span{font-size:11px!important}
+            .ticket-queue-view,.ticket-queue-search,.ticket-queue-list,.ticket-queue-pagination,.ticket-queue-card{
+                min-width:0!important;
+                max-width:100%!important;
+                overflow:hidden!important;
+            }
+            .ticket-queue-resize-handle{right:0!important;z-index:8!important}
+        }
     </style>
 </head>
 
