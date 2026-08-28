@@ -5398,6 +5398,100 @@
         @media(max-width:900px){.settings-shell{grid-template-columns:1fr}.settings-navigation{position:static}.settings-navigation nav{display:flex;overflow:auto;padding-bottom:2px}.settings-navigation nav button{min-width:max-content}.settings-form-grid,.settings-permission-grid{grid-template-columns:1fr}.settings-form-grid .wide{grid-column:auto}.settings-inline-form{grid-template-columns:1fr}.settings-audit-list>div{grid-template-columns:1fr;gap:4px}.settings-save-bar{bottom:8px;flex-wrap:wrap}.settings-save-bar>div{width:100%;margin:0 0 4px}.settings-content-head{padding-top:0}}
         @media(max-width:760px){.customizer-toolbar{align-items:flex-start;flex-direction:column}.customizer-grid{grid-template-columns:1fr}.customizer-field-list{grid-template-columns:1fr 1fr;max-height:230px}.customizer-preview-stage{padding:10px;min-height:420px}.customizer-inspector{grid-template-columns:1fr}.layout-preview-fields{grid-template-columns:1fr}.layout-preview-item,.layout-preview-item:nth-child(2n){border-right:0}.layout-preview-item.full{grid-column:auto}}
     </style>
+    <style id="novaradesk-settings-visual-refinement-v12">
+        /* Settings: readable, restrained enterprise visual system */
+        #panel-settings { --settings-accent:#3f745d; }
+        #panel-settings.view-panel.active { background:linear-gradient(180deg,color-mix(in srgb,var(--accent) 2.5%,var(--bg)) 0,var(--bg) 300px); }
+        #panel-settings .settings-shell { grid-template-columns:252px minmax(0,1fr);gap:28px;max-width:1500px;padding:4px 2px 30px; }
+        #panel-settings .settings-navigation { top:20px;padding:10px;border-color:color-mix(in srgb,var(--border) 82%,transparent);border-radius:16px;box-shadow:0 10px 30px rgba(26,49,38,.055); }
+        #panel-settings .settings-search { height:44px;gap:10px;padding:0 12px;margin-bottom:9px;border-radius:10px;background:color-mix(in srgb,var(--surface) 76%,var(--bg-card)); }
+        #panel-settings .settings-search svg { width:17px;height:17px; }
+        #panel-settings .settings-search input { font-size:13px;line-height:1.4; }
+        #panel-settings .settings-navigation nav { gap:2px; }
+        #panel-settings .settings-navigation nav button { min-height:46px;gap:11px;padding:0 11px;border-radius:10px;font-size:13px;font-weight:650;letter-spacing:-.005em; }
+        #panel-settings .settings-navigation nav button>span { width:28px;height:28px;flex-basis:28px;border-radius:8px;font-size:9px;letter-spacing:.02em; }
+        #panel-settings .settings-navigation nav button.active { background:color-mix(in srgb,var(--settings-accent) 9%,var(--surface));box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--settings-accent) 13%,transparent); }
+        #panel-settings .settings-content { padding-bottom:88px; }
+        #panel-settings .settings-content-head { min-height:94px;align-items:center;padding:8px 3px 20px;border-bottom-color:color-mix(in srgb,var(--border) 86%,transparent); }
+        #panel-settings .settings-content-head .report-eyebrow { font-size:10px;letter-spacing:.13em; }
+        #panel-settings .settings-content-head h2 { margin-top:6px;font-size:29px;line-height:1.08;letter-spacing:-.035em; }
+        #panel-settings .settings-content-head p { max-width:680px;margin-top:7px;font-size:13px;line-height:1.5; }
+        #panel-settings .settings-save-state { min-height:30px;padding:0 11px;font-size:10px;font-weight:750; }
+        #panel-settings .settings-section { padding-top:20px; }
+        #panel-settings .settings-section.active { gap:16px; }
+        #panel-settings .settings-block { padding:22px;border-color:color-mix(in srgb,var(--border) 84%,transparent);border-radius:16px;box-shadow:0 10px 28px rgba(26,49,38,.045); }
+        #panel-settings .settings-block-head { align-items:center;margin-bottom:19px;padding-bottom:16px; }
+        #panel-settings .settings-block-head h3 { font-size:16px;line-height:1.3;letter-spacing:-.012em; }
+        #panel-settings .settings-block-head p { margin-top:5px;font-size:12px;line-height:1.55; }
+        #panel-settings .settings-form-grid { gap:16px; }
+        #panel-settings .settings-form-grid>label:not(.settings-switch-row) { gap:8px; }
+        #panel-settings .settings-form-grid>label>span { font-size:10px;letter-spacing:.08em; }
+        #panel-settings .settings-form-grid input:not([type="checkbox"]),#panel-settings .settings-form-grid select,#panel-settings .settings-inline-form input,#panel-settings .settings-inline-form select { height:46px;padding:0 13px;border-radius:10px;font-size:13px; }
+        #panel-settings .settings-switch-row { min-height:64px;padding:12px 1px; }
+        #panel-settings .settings-switch-row strong { font-size:13px;line-height:1.35; }
+        #panel-settings .settings-switch-row small { margin-top:5px;font-size:11px;line-height:1.5; }
+        #panel-settings .settings-switch-row i { width:42px;height:24px;flex-basis:42px; }
+        #panel-settings .settings-switch-row i::after { width:18px;height:18px; }
+        #panel-settings .settings-switch-row input:checked+i::after { transform:translateX(18px); }
+        #panel-settings .settings-primary-btn,#panel-settings .settings-secondary-btn,#panel-settings .settings-text-btn { min-height:40px;padding:0 14px;border-radius:9px;font-size:12px;font-weight:720; }
+        #panel-settings .settings-inline-form { gap:10px;padding:15px;border-radius:12px; }
+        #panel-settings .settings-compact-check { font-size:12px; }
+        #panel-settings .settings-agent-row,#panel-settings .settings-field-row,#panel-settings .settings-connection-row { min-height:68px;padding:12px 2px; }
+        #panel-settings .settings-agent-avatar,#panel-settings .settings-connection-icon { width:38px;height:38px;flex-basis:38px;border-radius:10px;font-size:11px; }
+        #panel-settings .settings-agent-row strong,#panel-settings .settings-field-row strong,#panel-settings .settings-connection-row strong { font-size:13px;line-height:1.35; }
+        #panel-settings .settings-agent-row small,#panel-settings .settings-field-row small,#panel-settings .settings-connection-row small { margin-top:4px;font-size:11px;line-height:1.4; }
+        #panel-settings .settings-badge { min-height:27px;padding:0 9px;font-size:9px;letter-spacing:.025em; }
+        #panel-settings .settings-row-action { min-height:34px;padding:0 11px;border-radius:8px;font-size:10px;cursor:pointer; }
+        #panel-settings .settings-permission-grid>div { padding:17px;border-radius:12px; }
+        #panel-settings .settings-permission-grid>div>strong { font-size:14px; }
+        #panel-settings .settings-permission-grid label { gap:9px;padding:8px 0;font-size:12px; }
+        #panel-settings .settings-audit-list>div { padding:15px 0;font-size:12px; }
+        #panel-settings .settings-save-bar { bottom:14px;padding:13px 15px;border-radius:14px;box-shadow:0 18px 45px rgba(24,48,36,.13); }
+        #panel-settings .settings-save-bar strong { font-size:13px; }
+        #panel-settings .settings-save-bar span { margin-top:4px;font-size:10px; }
+
+        /* Workspace customizer: clear editor hierarchy */
+        #panel-settings .workspace-customizer { gap:15px; }
+        #panel-settings .customizer-toolbar { min-height:58px;padding:10px 13px;border-radius:14px; }
+        #panel-settings .customizer-window-tabs { padding:4px;border-radius:10px; }
+        #panel-settings .customizer-window-tabs button { min-height:38px;padding:0 15px;border-radius:8px;font-size:12px; }
+        #panel-settings .customizer-toolbar small { font-size:11px; }
+        #panel-settings .customizer-grid { grid-template-columns:224px minmax(390px,1fr) 238px;gap:15px; }
+        #panel-settings .customizer-pane { border-radius:15px;box-shadow:0 8px 24px rgba(24,48,36,.035); }
+        #panel-settings .customizer-pane-head { padding:16px;border-bottom-color:color-mix(in srgb,var(--border) 86%,transparent); }
+        #panel-settings .customizer-pane-head strong { font-size:13px; }
+        #panel-settings .customizer-pane-head span { margin-top:4px;font-size:10px;line-height:1.5; }
+        #panel-settings .customizer-field-list { gap:2px;padding:8px; }
+        #panel-settings .customizer-field { min-height:51px;gap:10px;padding:8px;border-radius:9px; }
+        #panel-settings .customizer-field-icon { width:30px;height:30px;flex-basis:30px;border-radius:8px;font-size:10px; }
+        #panel-settings .customizer-field strong { font-size:12px;line-height:1.3; }
+        #panel-settings .customizer-field small { margin-top:3px;font-size:9px; }
+        #panel-settings .customizer-preview-stage { padding:20px; }
+        #panel-settings .layout-preview-top { padding:15px 17px; }
+        #panel-settings .layout-preview-top strong { font-size:20px; }
+        #panel-settings .layout-preview-top span { min-height:28px;padding:0 9px;font-size:9px; }
+        #panel-settings .layout-preview-body { padding:16px; }
+        #panel-settings .layout-preview-title { padding-bottom:12px; }
+        #panel-settings .layout-preview-title strong { font-size:14px; }
+        #panel-settings .layout-preview-title small { font-size:9px; }
+        #panel-settings .layout-preview-item { min-height:72px;padding:13px; }
+        #panel-settings .layout-preview-item label { font-size:8.5px; }
+        #panel-settings .layout-preview-item span { margin-top:8px;font-size:12px;line-height:1.35; }
+        #panel-settings .layout-preview-section { padding:14px; }
+        #panel-settings .layout-preview-section strong { font-size:12px; }
+        #panel-settings .layout-preview-section p { margin-top:6px;font-size:10px;line-height:1.45; }
+        #panel-settings .customizer-inspector { padding:15px;gap:14px; }
+        #panel-settings .customizer-inspector label { gap:7px; }
+        #panel-settings .customizer-inspector label>span { font-size:9px; }
+        #panel-settings .customizer-inspector input,#panel-settings .customizer-inspector select { height:42px;padding:0 11px;border-radius:9px;font-size:12px; }
+        #panel-settings .customizer-mini-btn { min-height:38px;border-radius:9px;font-size:10px; }
+        #panel-settings .customizer-inspector small { font-size:10px!important; }
+        #panel-settings .customizer-empty-inspector { padding:28px 17px;font-size:11px; }
+
+        @media(max-width:1180px){#panel-settings .customizer-grid{grid-template-columns:200px minmax(340px,1fr)}#panel-settings .customizer-properties-pane{grid-column:1/-1}}
+        @media(max-width:900px){#panel-settings .settings-shell{grid-template-columns:1fr;gap:18px}#panel-settings .settings-navigation nav button{font-size:12px}#panel-settings .settings-content-head h2{font-size:26px}}
+        @media(max-width:760px){#panel-settings .customizer-grid{grid-template-columns:1fr}#panel-settings .customizer-field-list{grid-template-columns:1fr 1fr}#panel-settings .customizer-preview-stage{padding:11px}}
+    </style>
 </head>
 
 
