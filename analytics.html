@@ -5610,6 +5610,67 @@
         body.customizer-dragging { cursor:grabbing!important;user-select:none!important; }
         @media(max-width:700px){#panel-settings .customizer-preview-stage{padding:10px}#panel-settings .layout-preview-fields{grid-template-columns:1fr}#panel-settings .layout-preview-item.full{grid-column:auto}#panel-settings .layout-field-controls{opacity:1;transform:none}}
     </style>
+    <style id="novaradesk-settings-product-ready-v16">
+        /* Compact administration navigation */
+        #panel-settings .settings-shell { grid-template-columns:224px minmax(0,1fr);gap:24px; }
+        #panel-settings .settings-navigation { padding:9px;border-radius:14px; }
+        #panel-settings .settings-search { height:39px;padding:0 10px;margin-bottom:7px;border-radius:9px; }
+        #panel-settings .settings-search svg { width:15px;height:15px; }
+        #panel-settings .settings-search input { font-size:11.5px; }
+        #panel-settings .settings-nav-group { margin:13px 9px 4px;font-size:8px;letter-spacing:.1em; }
+        #panel-settings .settings-nav-group:first-child { margin-top:6px; }
+        #panel-settings .settings-navigation nav button { min-height:39px;gap:9px;padding:0 9px;border-radius:9px;font-size:11.5px;font-weight:650; }
+        #panel-settings .settings-navigation nav button>span { width:25px;height:25px;flex-basis:25px;border-radius:7px; }
+        #panel-settings .settings-navigation nav button>span svg { width:14px;height:14px; }
+        #panel-settings .settings-navigation nav button.active { box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--settings-accent) 12%,transparent); }
+
+        /* Polished customizer proportions */
+        #panel-settings .customizer-toolbar { min-height:52px;padding:8px 11px; }
+        #panel-settings .customizer-window-tabs button { min-height:34px;padding:0 12px;font-size:10.5px; }
+        #panel-settings .customizer-toolbar small { font-size:9.5px; }
+        #panel-settings .customizer-grid { grid-template-columns:220px minmax(0,1fr)!important;gap:14px; }
+        #panel-settings .customizer-pane-head { padding:14px; }
+        #panel-settings .customizer-pane-head strong { font-size:12px; }
+        #panel-settings .customizer-pane-head span { font-size:9.5px; }
+        #panel-settings .customizer-element-list { gap:6px;padding:9px; }
+        #panel-settings .customizer-element { min-height:58px;padding:9px;font-size:9.5px;border-radius:9px; }
+        #panel-settings .customizer-element svg { width:15px;height:15px; }
+        #panel-settings .customizer-preview-stage { min-height:520px;padding:17px; }
+        #panel-settings .layout-preview-top { padding:13px 15px; }
+        #panel-settings .layout-preview-top strong { font-size:17px; }
+        #panel-settings .layout-preview-body { padding:14px; }
+        #panel-settings .layout-preview-item,#panel-settings .layout-preview-item:nth-child(2n) { min-height:67px;padding:13px!important;border-radius:9px; }
+        #panel-settings .layout-preview-item label { font-size:7.5px; }
+        #panel-settings .layout-preview-item>span { margin-top:6px;font-size:10.5px; }
+        #panel-settings .layout-field-controls { top:7px;right:7px; }
+        #panel-settings .layout-field-action { width:23px;height:23px;border-radius:6px; }
+        #panel-settings .layout-field-action svg { width:12px;height:12px; }
+
+        /* Finished inline field editor */
+        #panel-settings .layout-preview-item.inline-editing { padding:0!important;overflow:hidden;border-color:color-mix(in srgb,var(--settings-accent) 30%,var(--border))!important;box-shadow:0 8px 24px rgba(26,49,38,.055); }
+        #panel-settings .inline-field-editor { gap:0; }
+        #panel-settings .inline-field-editor-head { display:block;padding:14px 16px 11px;border-bottom:1px solid var(--border);background:color-mix(in srgb,var(--surface) 72%,var(--bg-card)); }
+        #panel-settings .inline-field-editor-head strong,#panel-settings .inline-field-editor-head small { display:block; }
+        #panel-settings .inline-field-editor-head strong { font-size:12px;line-height:1.35; }
+        #panel-settings .inline-field-editor-head small { margin-top:3px;font-size:9px;line-height:1.4; }
+        #panel-settings .inline-label-row { display:grid;grid-template-columns:minmax(0,1fr) auto;gap:9px;padding:12px 16px; }
+        #panel-settings .inline-label-input { height:38px;padding:0 10px;border-radius:8px;font-size:11px; }
+        #panel-settings .inline-edit-actions { align-items:center;gap:6px; }
+        #panel-settings .inline-edit-actions button { min-height:34px;padding:0 11px;border-radius:8px;font-size:9.5px; }
+        #panel-settings .inline-choice-panel { gap:6px;padding:12px 16px 15px;border-top:1px solid var(--border); }
+        #panel-settings .inline-choice-panel-head { min-height:28px;margin-bottom:1px; }
+        #panel-settings .inline-choice-panel-head span { font-size:8px; }
+        #panel-settings .inline-choice-panel-head button { min-height:28px;padding:0 8px;border:1px solid color-mix(in srgb,var(--settings-accent) 22%,var(--border));border-radius:7px;background:color-mix(in srgb,var(--settings-accent) 5%,transparent);font-size:9px; }
+        #panel-settings .inline-choice-row { position:relative;grid-template-columns:18px minmax(0,1fr);gap:6px; }
+        #panel-settings .inline-choice-row>span { font-size:12px; }
+        #panel-settings .inline-choice-row input { height:38px;padding:0 35px 0 10px;border-radius:8px;font-size:10.5px; }
+        #panel-settings .inline-choice-row button { position:absolute;right:5px;top:5px;width:28px;height:28px;font-size:15px; }
+        #panel-settings .inline-editor-message { padding:0 16px; }
+        #panel-settings .layout-drag-placeholder { min-height:67px; }
+
+        @media(max-width:900px){#panel-settings .settings-shell{grid-template-columns:1fr}#panel-settings .settings-navigation nav button{font-size:11px}#panel-settings .customizer-grid{grid-template-columns:190px minmax(0,1fr)!important}}
+        @media(max-width:700px){#panel-settings .customizer-grid{grid-template-columns:1fr!important}#panel-settings .inline-label-row{grid-template-columns:1fr}#panel-settings .inline-edit-actions{justify-content:flex-end}}
+    </style>
 </head>
 
 
@@ -7288,11 +7349,11 @@
                                     <aside class="customizer-pane customizer-elements-pane"><div class="customizer-pane-head"><strong>Elements</strong><span>Click or drag an element into the window.</span></div><div id="customizerElementList" class="customizer-element-list"></div></aside>
                                     <section class="customizer-pane customizer-preview-pane"><div class="customizer-pane-head"><strong id="customizerPreviewTitle">Ticket window</strong><span>Drag fields to reposition them. Use Edit to rename or configure choices.</span></div><div class="customizer-preview-stage"><div id="customizerPreview"></div></div></section>
                                 </div>
-                                <div class="customizer-actions"><button id="customizerReset" class="settings-text-btn" type="button">Restore default layout</button><span class="customizer-storage-note">Saved to this browser in the prototype</span><button id="customizerPublish" class="settings-primary-btn" type="button">Save layout</button></div>
+                                <div class="customizer-actions"><button id="customizerReset" class="settings-text-btn" type="button">Restore default layout</button><span class="customizer-storage-note">Changes are saved on this device</span><button id="customizerPublish" class="settings-primary-btn" type="button">Save layout</button></div>
                             </div>
                         </section>
 
-                        <footer class="settings-save-bar"><div><strong>Workspace settings</strong><span id="settingsFooterState">Changes are saved locally in this prototype.</span></div><button id="settingsReset" class="settings-secondary-btn" type="button">Reset section</button><button id="settingsSave" class="settings-primary-btn" type="button">Save changes</button></footer>
+                        <footer class="settings-save-bar"><div><strong>Workspace settings</strong><span id="settingsFooterState">Settings are saved on this device.</span></div><button id="settingsReset" class="settings-secondary-btn" type="button">Reset section</button><button id="settingsSave" class="settings-primary-btn" type="button">Save changes</button></footer>
                     </div>
                 </div>
             </section>
@@ -15729,7 +15790,7 @@ ORDER BY created_date DESC, ticket_count DESC`;
 
     const escape = value => typeof escapeHtml === "function" ? escapeHtml(String(value ?? "")) : String(value ?? "").replace(/[&<>"']/g, character => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[character]));
     const initials = value => String(value || "Agent").split(/\s+/).slice(0,2).map(part=>part[0]).join("").toUpperCase();
-    function setDirty(value=true) { dirty=value;const state=document.getElementById("settingsSaveState");if(state){state.textContent=value?"Unsaved changes":"All changes saved";state.classList.toggle("unsaved",value);}const footer=document.getElementById("settingsFooterState");if(footer)footer.textContent=value?"Review and save your changes.":"Changes are saved locally in this prototype."; }
+    function setDirty(value=true) { dirty=value;const state=document.getElementById("settingsSaveState");if(state){state.textContent=value?"Unsaved changes":"All changes saved";state.classList.toggle("unsaved",value);}const footer=document.getElementById("settingsFooterState");if(footer)footer.textContent=value?"Review and save your changes.":"Settings are saved on this device."; }
     function showSection(section) { if(!SETTINGS_META[section])return;activeSection=section;document.querySelectorAll("[data-settings-section]").forEach(button=>button.classList.toggle("active",button.dataset.settingsSection===section));document.querySelectorAll("[data-settings-panel]").forEach(panel=>panel.classList.toggle("active",panel.dataset.settingsPanel===section));document.getElementById("settingsSectionTitle").textContent=SETTINGS_META[section][0];document.getElementById("settingsSectionDescription").textContent=SETTINGS_META[section][1]; }
     function renderAgents(){const host=document.getElementById("settingsAgentList");if(!host)return;host.innerHTML=agents.map(agent=>`<div class="settings-agent-row"><div class="settings-agent-identity"><span class="settings-agent-avatar">${escape(initials(agent.name||agent.email))}</span><div><strong>${escape(agent.name||agent.email.split("@")[0])}</strong><small>${escape(agent.email)}</small></div></div><div class="settings-row-actions"><span class="settings-badge connected">${escape(agent.status)}</span><span class="settings-badge">${escape(agent.role)}</span>${agent.id!=="agent-1"?`<button class="settings-row-action" data-remove-agent="${escape(agent.id)}" type="button">Remove</button>`:""}</div></div>`).join("");}
     function renderFields(){const host=document.getElementById("settingsCustomerFields");if(!host)return;host.innerHTML=fields.map(field=>`<div class="settings-field-row"><div class="settings-field-identity"><div><strong>${escape(field.name)}</strong><small>${escape(field.type)} · ${field.required?"Required":"Optional"}</small></div></div><div class="settings-row-actions">${field.system?'<span class="settings-badge">System</span>':`<button class="settings-row-action" data-remove-field="${escape(field.id)}" type="button">Delete</button>`}</div></div>`).join("");}
