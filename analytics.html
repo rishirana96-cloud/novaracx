@@ -5492,6 +5492,306 @@
         @media(max-width:900px){#panel-settings .settings-shell{grid-template-columns:1fr;gap:18px}#panel-settings .settings-navigation nav button{font-size:12px}#panel-settings .settings-content-head h2{font-size:26px}}
         @media(max-width:760px){#panel-settings .customizer-grid{grid-template-columns:1fr}#panel-settings .customizer-field-list{grid-template-columns:1fr 1fr}#panel-settings .customizer-preview-stage{padding:11px}}
     </style>
+
+    <style id="novaradesk-settings-visual-refinement-v13">
+        /* Settings v13 — quieter, more polished enterprise administration */
+        #panel-settings { --settings-accent:#3f745d; }
+        #panel-settings.view-panel.active {
+            background:linear-gradient(180deg,color-mix(in srgb,var(--settings-accent) 2.2%,var(--bg)) 0,var(--bg) 260px);
+        }
+        #panel-settings .settings-shell {
+            grid-template-columns:244px minmax(0,1fr);
+            gap:32px;
+            max-width:1320px;
+            padding:8px 8px 40px;
+        }
+        #panel-settings .settings-navigation {
+            top:22px;
+            padding:8px;
+            border:1px solid color-mix(in srgb,var(--border) 72%,transparent);
+            border-radius:15px;
+            background:color-mix(in srgb,var(--bg-card) 96%,var(--surface));
+            box-shadow:0 8px 26px rgba(25,45,35,.045);
+        }
+        #panel-settings .settings-search {
+            height:42px;
+            margin-bottom:8px;
+            border-color:transparent;
+            background:color-mix(in srgb,var(--surface) 70%,var(--bg-card));
+        }
+        #panel-settings .settings-search:focus-within {
+            border-color:color-mix(in srgb,var(--settings-accent) 28%,var(--border));
+            box-shadow:0 0 0 3px color-mix(in srgb,var(--settings-accent) 7%,transparent);
+        }
+        #panel-settings .settings-search input { font-size:12.5px; }
+        #panel-settings .settings-navigation nav { gap:1px; }
+        #panel-settings .settings-navigation nav button {
+            min-height:44px;
+            padding:0 10px;
+            border-radius:9px;
+            font-size:12.5px;
+            font-weight:620;
+            color:var(--text-secondary);
+        }
+        #panel-settings .settings-navigation nav button>span {
+            width:26px;height:26px;flex-basis:26px;
+            border-radius:7px;
+            background:transparent;
+            color:var(--text-muted);
+            font-size:8px;
+            font-weight:760;
+        }
+        #panel-settings .settings-navigation nav button:hover {
+            background:color-mix(in srgb,var(--surface-hover) 80%,transparent);
+            color:var(--text);
+        }
+        #panel-settings .settings-navigation nav button.active {
+            background:color-mix(in srgb,var(--settings-accent) 8%,var(--surface));
+            box-shadow:none;
+            color:var(--text);
+        }
+        #panel-settings .settings-navigation nav button.active>span {
+            background:color-mix(in srgb,var(--settings-accent) 13%,var(--surface));
+            color:var(--settings-accent);
+        }
+
+        #panel-settings .settings-content-head {
+            min-height:auto;
+            align-items:flex-end;
+            padding:5px 0 22px;
+            border-bottom:1px solid color-mix(in srgb,var(--border) 72%,transparent);
+        }
+        #panel-settings .settings-content-head .report-eyebrow {
+            font-size:9.5px;
+            letter-spacing:.14em;
+            color:var(--settings-accent);
+        }
+        #panel-settings .settings-content-head h2 {
+            margin-top:7px;
+            font-size:30px;
+            font-weight:720;
+            letter-spacing:-.035em;
+        }
+        #panel-settings .settings-content-head p {
+            max-width:650px;
+            margin-top:7px;
+            font-size:12.5px;
+            line-height:1.55;
+        }
+        #panel-settings .settings-save-state {
+            min-height:28px;
+            padding:0 10px;
+            border:1px solid color-mix(in srgb,var(--success) 18%,transparent);
+            background:color-mix(in srgb,var(--success) 6%,transparent);
+            font-size:9.5px;
+        }
+
+        #panel-settings .settings-section { padding-top:24px; }
+        #panel-settings .settings-section.active { gap:18px; }
+        #panel-settings .settings-block {
+            padding:22px 24px;
+            border:1px solid color-mix(in srgb,var(--border) 74%,transparent);
+            border-radius:14px;
+            background:color-mix(in srgb,var(--bg-card) 98%,var(--surface));
+            box-shadow:none;
+        }
+        #panel-settings .settings-block:hover {
+            border-color:color-mix(in srgb,var(--border-strong) 70%,transparent);
+        }
+        #panel-settings .settings-block-head {
+            margin-bottom:20px;
+            padding-bottom:15px;
+            border-bottom:1px solid color-mix(in srgb,var(--border) 66%,transparent);
+        }
+        #panel-settings .settings-block-head h3 {
+            font-size:15px;
+            font-weight:700;
+            letter-spacing:-.012em;
+        }
+        #panel-settings .settings-block-head p {
+            max-width:650px;
+            margin-top:5px;
+            font-size:11.5px;
+            line-height:1.5;
+        }
+
+        #panel-settings .settings-form-grid { gap:18px 16px; }
+        #panel-settings .settings-form-grid>label:not(.settings-switch-row) { gap:7px; }
+        #panel-settings .settings-form-grid>label>span {
+            font-size:9.5px;
+            font-weight:700;
+            letter-spacing:.055em;
+            color:var(--text-secondary);
+        }
+        #panel-settings .settings-form-grid input:not([type="checkbox"]),
+        #panel-settings .settings-form-grid select,
+        #panel-settings .settings-inline-form input,
+        #panel-settings .settings-inline-form select {
+            height:44px;
+            padding:0 12px;
+            border:1px solid color-mix(in srgb,var(--border) 82%,transparent);
+            border-radius:9px;
+            background:color-mix(in srgb,var(--surface) 76%,var(--bg-card));
+            font-size:12.5px;
+            transition:border-color .16s ease,box-shadow .16s ease,background .16s ease;
+        }
+        #panel-settings .settings-form-grid input:hover,
+        #panel-settings .settings-form-grid select:hover,
+        #panel-settings .settings-inline-form input:hover,
+        #panel-settings .settings-inline-form select:hover {
+            border-color:var(--border-strong);
+            background:var(--surface);
+        }
+        #panel-settings .settings-form-grid input:focus,
+        #panel-settings .settings-form-grid select:focus,
+        #panel-settings .settings-inline-form input:focus,
+        #panel-settings .settings-inline-form select:focus {
+            border-color:color-mix(in srgb,var(--settings-accent) 60%,var(--border));
+            box-shadow:0 0 0 3px color-mix(in srgb,var(--settings-accent) 8%,transparent);
+        }
+
+        #panel-settings .settings-switch-row {
+            min-height:62px;
+            padding:12px 0;
+        }
+        #panel-settings .settings-switch-row strong { font-size:12.5px;font-weight:650; }
+        #panel-settings .settings-switch-row small { font-size:10.5px;line-height:1.45; }
+        #panel-settings .settings-switch-row i {
+            width:40px;height:23px;flex-basis:40px;
+            background:color-mix(in srgb,var(--border-strong) 75%,var(--surface));
+        }
+        #panel-settings .settings-switch-row i::after { width:17px;height:17px; }
+        #panel-settings .settings-switch-row input:checked+i::after { transform:translateX(17px); }
+
+        #panel-settings .settings-primary-btn,
+        #panel-settings .settings-secondary-btn,
+        #panel-settings .settings-text-btn {
+            min-height:38px;
+            padding:0 13px;
+            border-radius:8px;
+            font-size:11px;
+            font-weight:700;
+            transition:transform .14s ease,border-color .14s ease,background .14s ease;
+        }
+        #panel-settings .settings-primary-btn:hover,
+        #panel-settings .settings-secondary-btn:hover,
+        #panel-settings .settings-row-action:hover { transform:translateY(-1px); }
+        #panel-settings .settings-primary-btn {
+            box-shadow:0 4px 12px color-mix(in srgb,var(--settings-accent) 14%,transparent);
+        }
+
+        #panel-settings .settings-agent-row,
+        #panel-settings .settings-field-row,
+        #panel-settings .settings-connection-row {
+            min-height:66px;
+            padding:12px 4px;
+            border-top-color:color-mix(in srgb,var(--border) 66%,transparent);
+        }
+        #panel-settings .settings-agent-avatar,
+        #panel-settings .settings-connection-icon {
+            width:36px;height:36px;flex-basis:36px;
+            border:1px solid color-mix(in srgb,var(--settings-accent) 10%,var(--border));
+            background:color-mix(in srgb,var(--settings-accent) 6%,var(--surface));
+        }
+        #panel-settings .settings-agent-row strong,
+        #panel-settings .settings-field-row strong,
+        #panel-settings .settings-connection-row strong { font-size:12.5px;font-weight:650; }
+        #panel-settings .settings-agent-row small,
+        #panel-settings .settings-field-row small,
+        #panel-settings .settings-connection-row small { font-size:10.5px; }
+        #panel-settings .settings-badge { min-height:25px;font-size:8.5px; }
+        #panel-settings .settings-row-action {
+            min-height:32px;
+            background:color-mix(in srgb,var(--surface) 65%,transparent);
+            font-size:9.5px;
+            cursor:pointer;
+        }
+
+        #panel-settings .settings-permission-grid { gap:14px; }
+        #panel-settings .settings-permission-grid>div {
+            padding:16px 17px;
+            border-color:color-mix(in srgb,var(--border) 72%,transparent);
+            border-radius:11px;
+            background:color-mix(in srgb,var(--surface) 58%,var(--bg-card));
+        }
+        #panel-settings .settings-permission-grid>div>strong { font-size:13px;font-weight:700; }
+        #panel-settings .settings-permission-grid label { font-size:11.5px; }
+
+        #panel-settings .settings-inline-form {
+            padding:14px;
+            border-style:solid;
+            border-color:color-mix(in srgb,var(--border) 76%,transparent);
+            background:color-mix(in srgb,var(--surface) 64%,var(--bg-card));
+        }
+        #panel-settings .settings-save-bar {
+            bottom:14px;
+            padding:12px 14px;
+            border:1px solid color-mix(in srgb,var(--border-strong) 72%,transparent);
+            border-radius:12px;
+            background:color-mix(in srgb,var(--bg-card) 92%,transparent);
+            box-shadow:0 14px 34px rgba(20,42,31,.12);
+        }
+
+        /* Workspace customizer — make the actual product preview the hero */
+        #panel-settings .customizer-toolbar {
+            min-height:56px;
+            padding:9px 12px;
+            border-color:color-mix(in srgb,var(--border) 72%,transparent);
+            border-radius:13px;
+            background:color-mix(in srgb,var(--bg-card) 97%,var(--surface));
+        }
+        #panel-settings .customizer-window-tabs {
+            border:1px solid color-mix(in srgb,var(--border) 68%,transparent);
+            background:color-mix(in srgb,var(--surface) 65%,var(--bg-card));
+        }
+        #panel-settings .customizer-window-tabs button { font-size:11.5px;font-weight:650; }
+        #panel-settings .customizer-grid {
+            grid-template-columns:210px minmax(430px,1fr) 226px;
+            gap:14px;
+        }
+        #panel-settings .customizer-pane {
+            border-color:color-mix(in srgb,var(--border) 72%,transparent);
+            border-radius:13px;
+            box-shadow:none;
+            overflow:hidden;
+        }
+        #panel-settings .customizer-preview-pane {
+            border-color:color-mix(in srgb,var(--settings-accent) 18%,var(--border));
+            box-shadow:0 14px 34px rgba(26,49,38,.055);
+        }
+        #panel-settings .customizer-pane-head { padding:14px 15px; }
+        #panel-settings .customizer-pane-head strong { font-size:12.5px;font-weight:700; }
+        #panel-settings .customizer-pane-head span { font-size:9.5px; }
+        #panel-settings .customizer-field-list { padding:7px; }
+        #panel-settings .customizer-field { min-height:48px;padding:7px;border-radius:8px; }
+        #panel-settings .customizer-field:hover { background:color-mix(in srgb,var(--surface-hover) 82%,transparent); }
+        #panel-settings .customizer-field.active {
+            border-color:color-mix(in srgb,var(--settings-accent) 22%,var(--border));
+            background:color-mix(in srgb,var(--settings-accent) 6%,var(--surface));
+        }
+        #panel-settings .customizer-preview-stage {
+            min-height:540px;
+            padding:24px;
+            background:
+              radial-gradient(circle at 50% 0,color-mix(in srgb,var(--settings-accent) 5%,transparent),transparent 42%),
+              color-mix(in srgb,var(--surface) 78%,var(--bg));
+        }
+        #panel-settings .layout-preview-window {
+            border:1px solid color-mix(in srgb,var(--border) 78%,transparent);
+            box-shadow:0 18px 44px rgba(20,42,31,.09);
+        }
+        #panel-settings .customizer-inspector { padding:14px; }
+        #panel-settings .customizer-inspector label>span { color:var(--text-secondary);font-weight:700; }
+
+        @media(max-width:1180px){
+            #panel-settings .settings-shell{max-width:100%;grid-template-columns:226px minmax(0,1fr);gap:22px}
+            #panel-settings .customizer-grid{grid-template-columns:190px minmax(340px,1fr)}
+        }
+        @media(max-width:900px){
+            #panel-settings .settings-shell{grid-template-columns:1fr;gap:18px;padding-inline:0}
+        }
+    </style>
+
 </head>
 
 
