@@ -5341,7 +5341,62 @@
         .settings-save-bar strong { font-size:10px; }
         .settings-save-bar span { margin-top:3px;color:var(--text-muted);font-size:8px; }
         .settings-empty-search { padding:55px 20px;text-align:center;color:var(--text-muted);font-size:10px; }
+        /* Live workspace customizer */
+        .workspace-customizer { display:grid;gap:12px; }
+        .customizer-toolbar { display:flex;align-items:center;justify-content:space-between;gap:14px;padding:10px 12px;border:1px solid var(--border);border-radius:12px;background:var(--bg-card); }
+        .customizer-window-tabs { display:flex;gap:3px;padding:3px;border-radius:9px;background:var(--surface); }
+        .customizer-window-tabs button { min-height:34px;padding:0 13px;border:0;border-radius:7px;background:transparent;color:var(--text-muted);font:750 9px/1 inherit;cursor:pointer; }
+        .customizer-window-tabs button.active { background:var(--bg-card);color:var(--text);box-shadow:0 1px 5px rgba(0,0,0,.08); }
+        .customizer-toolbar small { color:var(--text-muted);font-size:8px; }
+        .customizer-grid { display:grid;grid-template-columns:210px minmax(380px,1fr) 220px;gap:12px;align-items:start; }
+        .customizer-pane { min-width:0;border:1px solid var(--border);border-radius:13px;background:var(--bg-card);overflow:hidden; }
+        .customizer-pane-head { padding:13px 14px;border-bottom:1px solid var(--border); }
+        .customizer-pane-head strong { display:block;font-size:10px; }
+        .customizer-pane-head span { display:block;margin-top:3px;color:var(--text-muted);font-size:7.5px;line-height:1.4; }
+        .customizer-field-list { display:grid;padding:7px;max-height:560px;overflow:auto; }
+        .customizer-field { display:flex;align-items:center;gap:8px;min-height:43px;padding:7px;border:1px solid transparent;border-radius:8px;background:transparent;color:var(--text-secondary);text-align:left;cursor:pointer; }
+        .customizer-field:hover { background:var(--surface); }
+        .customizer-field.active { border-color:color-mix(in srgb,var(--settings-accent) 28%,var(--border));background:color-mix(in srgb,var(--settings-accent) 7%,var(--surface));color:var(--text); }
+        .customizer-field.hidden-field { opacity:.55; }
+        .customizer-field-icon { width:27px;height:27px;display:grid;place-items:center;flex:0 0 27px;border-radius:7px;background:var(--surface);color:var(--settings-accent);font-size:9px;font-weight:850; }
+        .customizer-field strong,.customizer-field small { display:block; }
+        .customizer-field strong { font-size:8.5px; }
+        .customizer-field small { margin-top:2px;color:var(--text-muted);font-size:7px; }
+        .customizer-preview-pane { background:var(--surface); }
+        .customizer-preview-stage { padding:18px;min-height:500px;background:linear-gradient(145deg,color-mix(in srgb,var(--settings-accent) 5%,var(--surface)),var(--surface)); }
+        .layout-preview-window { overflow:hidden;border:1px solid var(--border);border-radius:14px;background:var(--bg-card);box-shadow:0 16px 35px rgba(27,52,39,.08); }
+        .layout-preview-top { display:flex;align-items:center;justify-content:space-between;gap:12px;padding:13px 15px;border-bottom:1px solid var(--border); }
+        .layout-preview-top strong { font-size:14px;letter-spacing:-.02em; }
+        .layout-preview-top span { min-height:25px;display:inline-flex;align-items:center;padding:0 8px;border:1px solid color-mix(in srgb,var(--success) 30%,var(--border));border-radius:7px;color:var(--success);font-size:7px;font-weight:800; }
+        .layout-preview-body { padding:14px; }
+        .layout-preview-title { display:flex;align-items:center;justify-content:space-between;padding-bottom:10px;border-bottom:1px solid var(--border); }
+        .layout-preview-title strong { font-size:11px; }
+        .layout-preview-title small { color:var(--text-muted);font-size:7px; }
+        .layout-preview-fields { display:grid;grid-template-columns:1fr 1fr;margin-top:10px;border:1px solid var(--border);border-radius:10px;overflow:hidden; }
+        .layout-preview-item { min-height:64px;padding:11px;border-right:1px solid var(--border);border-bottom:1px solid var(--border);cursor:pointer;transition:background .14s; }
+        .layout-preview-item:nth-child(2n) { border-right:0; }
+        .layout-preview-item.full { grid-column:1/-1;border-right:0; }
+        .layout-preview-item:hover,.layout-preview-item.selected { background:color-mix(in srgb,var(--settings-accent) 7%,var(--surface)); }
+        .layout-preview-item label { display:block;color:var(--text-muted);font-size:6.7px;font-weight:800;letter-spacing:.08em;text-transform:uppercase; }
+        .layout-preview-item span { display:block;margin-top:7px;color:var(--text);font-size:9px; }
+        .layout-preview-section { margin-top:10px;padding:12px;border:1px solid var(--border);border-radius:10px; }
+        .layout-preview-section strong { font-size:9px; }
+        .layout-preview-section p { margin:5px 0 0;color:var(--text-muted);font-size:7.5px; }
+        .customizer-inspector { padding:13px;display:grid;gap:12px; }
+        .customizer-inspector label { display:grid;gap:6px; }
+        .customizer-inspector label>span { color:var(--text-muted);font-size:7px;font-weight:800;text-transform:uppercase;letter-spacing:.07em; }
+        .customizer-inspector input,.customizer-inspector select { width:100%;height:38px;padding:0 9px;border:1px solid var(--border);border-radius:8px;background:var(--surface);color:var(--text);font:500 9px/1 inherit; }
+        .customizer-inspector-actions { display:grid;grid-template-columns:1fr 1fr;gap:7px; }
+        .customizer-mini-btn { min-height:34px;border:1px solid var(--border);border-radius:8px;background:var(--bg-card);color:var(--text-secondary);font:750 8px/1 inherit;cursor:pointer; }
+        .customizer-mini-btn:hover { border-color:var(--settings-accent);color:var(--settings-accent); }
+        .customizer-visibility { display:flex!important;align-items:center;justify-content:space-between;gap:10px;padding-top:10px;border-top:1px solid var(--border); }
+        .customizer-visibility input { width:17px;height:17px;accent-color:var(--settings-accent); }
+        .customizer-empty-inspector { padding:22px 14px;color:var(--text-muted);font-size:8px;line-height:1.55;text-align:center; }
+        .customizer-actions { display:flex;align-items:center;justify-content:flex-end;gap:8px; }
+        .customizer-actions .settings-text-btn { margin-right:auto; }
+        @media(max-width:1180px){.customizer-grid{grid-template-columns:180px minmax(340px,1fr)}.customizer-properties-pane{grid-column:1/-1}.customizer-inspector{grid-template-columns:repeat(3,1fr)}.customizer-empty-inspector{grid-column:1/-1}}
         @media(max-width:900px){.settings-shell{grid-template-columns:1fr}.settings-navigation{position:static}.settings-navigation nav{display:flex;overflow:auto;padding-bottom:2px}.settings-navigation nav button{min-width:max-content}.settings-form-grid,.settings-permission-grid{grid-template-columns:1fr}.settings-form-grid .wide{grid-column:auto}.settings-inline-form{grid-template-columns:1fr}.settings-audit-list>div{grid-template-columns:1fr;gap:4px}.settings-save-bar{bottom:8px;flex-wrap:wrap}.settings-save-bar>div{width:100%;margin:0 0 4px}.settings-content-head{padding-top:0}}
+        @media(max-width:760px){.customizer-toolbar{align-items:flex-start;flex-direction:column}.customizer-grid{grid-template-columns:1fr}.customizer-field-list{grid-template-columns:1fr 1fr;max-height:230px}.customizer-preview-stage{padding:10px;min-height:420px}.customizer-inspector{grid-template-columns:1fr}.layout-preview-fields{grid-template-columns:1fr}.layout-preview-item,.layout-preview-item:nth-child(2n){border-right:0}.layout-preview-item.full{grid-column:auto}}
     </style>
 </head>
 
@@ -6971,6 +7026,7 @@
                             <button data-settings-section="channels" type="button"><span>05</span>Channels and integrations</button>
                             <button data-settings-section="notifications" type="button"><span>06</span>Notifications</button>
                             <button data-settings-section="security" type="button"><span>07</span>Security</button>
+                            <button data-settings-section="customize" type="button"><span>08</span>Customize workspace</button>
                         </nav>
                     </aside>
                     <div class="settings-content">
@@ -7008,6 +7064,18 @@
                         <section class="settings-section" data-settings-panel="security">
                             <article class="settings-block"><div class="settings-block-head"><div><h3>Access security</h3><p>Protect administrative and customer information.</p></div></div><div class="settings-form-grid"><label><span>Session timeout</span><select data-setting-key="sessionTimeout"><option value="30">30 minutes</option><option value="60">1 hour</option><option value="480">8 hours</option><option value="1440">24 hours</option></select></label><label><span>Allowed email domain</span><input data-setting-key="allowedDomain" placeholder="novaracx.com"></label><label class="settings-switch-row wide"><span><strong>Require two-factor authentication</strong><small>Require an additional verification step for administrators.</small></span><input data-setting-key="require2fa" type="checkbox"><i></i></label><label class="settings-switch-row wide"><span><strong>Allow API access</strong><small>Enable authenticated access for integrations.</small></span><input data-setting-key="apiAccess" type="checkbox" checked><i></i></label></div></article>
                             <article class="settings-block"><div class="settings-block-head"><div><h3>Recent administrative activity</h3><p>Prototype audit trail for critical changes.</p></div><button id="settingsExportAudit" class="settings-text-btn" type="button">Export log</button></div><div class="settings-audit-list"><div><span>Today, 10:42 am</span><strong>Workspace settings reviewed</strong><small>Novara CX Support</small></div><div><span>Yesterday, 06:18 pm</span><strong>Agent permissions updated</strong><small>Administrator</small></div><div><span>26 Aug, 03:24 pm</span><strong>API access enabled</strong><small>Administrator</small></div></div></article>
+                        </section>
+
+                        <section class="settings-section" data-settings-panel="customize">
+                            <div class="workspace-customizer">
+                                <div class="customizer-toolbar"><div class="customizer-window-tabs" role="tablist" aria-label="Window to customize"><button class="active" data-customizer-window="ticket" type="button">Ticket window</button><button data-customizer-window="customer" type="button">Customer profile</button></div><small>Changes affect every agent using this workspace.</small></div>
+                                <div class="customizer-grid">
+                                    <aside class="customizer-pane"><div class="customizer-pane-head"><strong>Field library</strong><span>Select a field to configure it. Hidden fields remain available here.</span></div><div id="customizerFieldList" class="customizer-field-list"></div></aside>
+                                    <section class="customizer-pane customizer-preview-pane"><div class="customizer-pane-head"><strong id="customizerPreviewTitle">Ticket window preview</strong><span>This preview mirrors the agent-facing workspace.</span></div><div class="customizer-preview-stage"><div id="customizerPreview"></div></div></section>
+                                    <aside class="customizer-pane customizer-properties-pane"><div class="customizer-pane-head"><strong>Field properties</strong><span>Control presentation without changing stored data.</span></div><div id="customizerInspector"></div></aside>
+                                </div>
+                                <div class="customizer-actions"><button id="customizerReset" class="settings-text-btn" type="button">Restore default layout</button><button id="customizerSaveDraft" class="settings-secondary-btn" type="button">Save draft</button><button id="customizerPublish" class="settings-primary-btn" type="button">Publish layout</button></div>
+                            </div>
                         </section>
 
                         <footer class="settings-save-bar"><div><strong>Workspace settings</strong><span id="settingsFooterState">Changes are saved locally in this prototype.</span></div><button id="settingsReset" class="settings-secondary-btn" type="button">Reset section</button><button id="settingsSave" class="settings-primary-btn" type="button">Save changes</button></footer>
@@ -15423,7 +15491,8 @@ ORDER BY created_date DESC, ticket_count DESC`;
         customers:["Customer fields","Control the data captured on unified customer profiles."],
         channels:["Channels and integrations","Connect customer channels and operational systems."],
         notifications:["Notifications","Choose which service events should alert your team."],
-        security:["Security","Protect workspace access, integrations and customer data."]
+        security:["Security","Protect workspace access, integrations and customer data."],
+        customize:["Customize workspace","Choose which fields agents see and how Ticket and Customer Profile windows are arranged."]
     };
     const defaultAgents = [{id:"agent-1",name:"Novara CX Support",email:"support@novaracx.com",role:"Admin",status:"Active"}];
     const defaultFields = [
@@ -15469,6 +15538,56 @@ ORDER BY created_date DESC, ticket_count DESC`;
     document.getElementById("panel-settings")?.addEventListener("click",event=>{const button=event.target.closest("[data-toggle-connection]");if(!button)return;const [type,id]=button.dataset.toggleConnection.split(":");const item=(connections[type]||[]).find(connection=>connection.id===id);if(item){item.connected=!item.connected;renderConnectionRows(type);setDirty();}});
     document.getElementById("settingsExportAudit")?.addEventListener("click",()=>{const csv='"Timestamp","Activity","Actor"\n"28 Aug 2026 10:42","Workspace settings reviewed","Novara CX Support"\n"27 Aug 2026 18:18","Agent permissions updated","Administrator"';const link=document.createElement("a");link.href=URL.createObjectURL(new Blob([csv],{type:"text/csv"}));link.download="novaradesk-audit-log.csv";link.click();URL.revokeObjectURL(link.href);});
     window.addEventListener("beforeunload",event=>{if(!dirty)return;event.preventDefault();event.returnValue="";});
+})();
+</script>
+<script id="novaradesk-workspace-customizer-v11">
+(() => {
+    const STORAGE_KEY = "novaradesk_workspace_layouts_v1";
+    const defaults = {
+        ticket:[
+            {id:"customer",label:"Customer name",value:"Aarav Mehta",type:"Text",width:"half",visible:true,system:true},
+            {id:"phone",label:"Phone number",value:"+91 98765 43210",type:"Phone",width:"half",visible:true,system:true},
+            {id:"createdDate",label:"Created date",value:"28 Aug 2026",type:"Date",width:"half",visible:true,system:true},
+            {id:"createdTime",label:"Created time",value:"10:42 am",type:"Time",width:"half",visible:true,system:true},
+            {id:"query",label:"Original query",value:"I need help with my recent order",type:"Long text",width:"full",visible:true,system:true},
+            {id:"reason",label:"Escalation reason",value:"Requested human support",type:"Text",width:"half",visible:true,system:true},
+            {id:"sentiment",label:"Sentiment",value:"Neutral",type:"Dropdown",width:"half",visible:true,system:true},
+            {id:"priority",label:"Priority",value:"Normal",type:"Dropdown",width:"half",visible:false,system:true}
+        ],
+        customer:[
+            {id:"name",label:"Customer name",value:"Aarav Mehta",type:"Text",width:"half",visible:true,system:true},
+            {id:"email",label:"Email",value:"aarav@example.com",type:"Email",width:"half",visible:true,system:true},
+            {id:"customerPhone",label:"Phone number",value:"+91 98765 43210",type:"Phone",width:"half",visible:true,system:true},
+            {id:"organisation",label:"Organisation",value:"Arcade Commerce",type:"Text",width:"half",visible:true,system:false},
+            {id:"segment",label:"Customer segment",value:"VIP",type:"Dropdown",width:"half",visible:true,system:false},
+            {id:"owner",label:"Account owner",value:"Novara CX Support",type:"Agent",width:"half",visible:true,system:false},
+            {id:"language",label:"Preferred language",value:"English",type:"Dropdown",width:"half",visible:true,system:false},
+            {id:"consent",label:"Contact consent",value:"Recorded",type:"Checkbox",width:"half",visible:true,system:false},
+            {id:"brief",label:"Customer brief",value:"High-value customer with an active order enquiry.",type:"Long text",width:"full",visible:true,system:false}
+        ]
+    };
+    const cloneDefaults = () => JSON.parse(JSON.stringify(defaults));
+    let layouts = cloneDefaults();
+    try { const stored=JSON.parse(localStorage.getItem(STORAGE_KEY)||"null");if(stored?.ticket&&stored?.customer)layouts=stored; } catch {}
+    let windowType="ticket",selectedId=layouts.ticket[0]?.id;
+    const esc = value => typeof escapeHtml === "function" ? escapeHtml(String(value??"")) : String(value??"").replace(/[&<>\"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'\"':"&quot;","'":"&#39;"}[c]));
+    const current = () => layouts[windowType];
+    const selected = () => current().find(field=>field.id===selectedId);
+    function renderList(){const host=document.getElementById("customizerFieldList");if(!host)return;host.innerHTML=current().map((field,index)=>`<button class="customizer-field ${field.id===selectedId?"active":""} ${field.visible?"":"hidden-field"}" data-customizer-field="${esc(field.id)}" type="button"><span class="customizer-field-icon">${index+1}</span><span><strong>${esc(field.label)}</strong><small>${field.visible?`${esc(field.width)} width`:"Hidden from window"}</small></span></button>`).join("");}
+    function renderPreview(){const host=document.getElementById("customizerPreview");if(!host)return;const visible=current().filter(field=>field.visible);const isTicket=windowType==="ticket";document.getElementById("customizerPreviewTitle").textContent=`${isTicket?"Ticket window":"Customer profile"} preview`;host.innerHTML=`<div class="layout-preview-window"><div class="layout-preview-top"><strong>${isTicket?"NX-1042":"Aarav Mehta"}</strong><span>${isTicket?"● In progress":"● Healthy"}</span></div><div class="layout-preview-body"><div class="layout-preview-title"><strong>${isTicket?"Ticket Information":"Customer Information"}</strong><small>${visible.length} visible fields</small></div><div class="layout-preview-fields">${visible.length?visible.map(field=>`<div class="layout-preview-item ${field.width==="full"?"full":""} ${field.id===selectedId?"selected":""}" data-preview-field="${esc(field.id)}"><label>${esc(field.label)}</label><span>${esc(field.value)}</span></div>`).join(""):'<div class="layout-preview-item full"><span>No fields are visible. Restore a field from the library.</span></div>'}</div>${isTicket?'<div class="layout-preview-section"><strong>Conversation · Click to view</strong><p>Conversation tools remain below the configurable information area.</p></div>':'<div class="layout-preview-section"><strong>Customer timeline</strong><p>Tickets, calls, notes and commerce activity remain available below.</p></div>'}</div></div>`;}
+    function renderInspector(){const host=document.getElementById("customizerInspector");if(!host)return;const field=selected();if(!field){host.innerHTML='<div class="customizer-empty-inspector">Select a field from the library or preview to edit its presentation.</div>';return;}host.innerHTML=`<div class="customizer-inspector"><label><span>Display label</span><input id="customizerLabel" value="${esc(field.label)}"></label><label><span>Field type</span><input value="${esc(field.type)}" disabled></label><label><span>Width</span><select id="customizerWidth"><option value="half" ${field.width==="half"?"selected":""}>Half width</option><option value="full" ${field.width==="full"?"selected":""}>Full width</option></select></label><div class="customizer-inspector-actions"><button class="customizer-mini-btn" data-customizer-move="up" type="button">Move up</button><button class="customizer-mini-btn" data-customizer-move="down" type="button">Move down</button></div><label class="customizer-visibility"><span>Show in window</span><input id="customizerVisible" type="checkbox" ${field.visible?"checked":""}></label><small style="color:var(--text-muted);font-size:7px;line-height:1.5">Hiding this field does not delete its stored data.</small></div>`;}
+    function render(){renderList();renderPreview();renderInspector();}
+    function markChanged(message="Layout draft updated") { const state=document.getElementById("settingsSaveState");if(state){state.textContent="Unsaved changes";state.classList.add("unsaved");}const footer=document.getElementById("settingsFooterState");if(footer)footer.textContent=message; }
+    document.querySelector(".customizer-window-tabs")?.addEventListener("click",event=>{const button=event.target.closest("[data-customizer-window]");if(!button)return;windowType=button.dataset.customizerWindow;selectedId=current()[0]?.id;document.querySelectorAll("[data-customizer-window]").forEach(item=>item.classList.toggle("active",item===button));render();});
+    document.getElementById("customizerFieldList")?.addEventListener("click",event=>{const button=event.target.closest("[data-customizer-field]");if(button){selectedId=button.dataset.customizerField;render();}});
+    document.getElementById("customizerPreview")?.addEventListener("click",event=>{const item=event.target.closest("[data-preview-field]");if(item){selectedId=item.dataset.previewField;render();}});
+    document.getElementById("customizerInspector")?.addEventListener("input",event=>{const field=selected();if(!field)return;if(event.target.id==="customizerLabel")field.label=event.target.value||"Untitled field";if(event.target.id==="customizerVisible")field.visible=event.target.checked;markChanged();renderList();renderPreview();});
+    document.getElementById("customizerInspector")?.addEventListener("change",event=>{const field=selected();if(!field)return;if(event.target.id==="customizerWidth")field.width=event.target.value;markChanged();render();});
+    document.getElementById("customizerInspector")?.addEventListener("click",event=>{const button=event.target.closest("[data-customizer-move]");if(!button)return;const list=current(),index=list.findIndex(field=>field.id===selectedId),next=button.dataset.customizerMove==="up"?index-1:index+1;if(index<0||next<0||next>=list.length)return;[list[index],list[next]]=[list[next],list[index]];markChanged();render();});
+    document.getElementById("customizerReset")?.addEventListener("click",()=>{layouts[windowType]=cloneDefaults()[windowType];selectedId=current()[0]?.id;markChanged("Default layout restored. Publish to apply it.");render();});
+    document.getElementById("customizerSaveDraft")?.addEventListener("click",()=>{localStorage.setItem(STORAGE_KEY,JSON.stringify(layouts));const footer=document.getElementById("settingsFooterState");if(footer)footer.textContent="Workspace layout draft saved locally.";});
+    document.getElementById("customizerPublish")?.addEventListener("click",()=>{localStorage.setItem(STORAGE_KEY,JSON.stringify(layouts));const state=document.getElementById("settingsSaveState");if(state){state.textContent="Layout published";state.classList.remove("unsaved");}const footer=document.getElementById("settingsFooterState");if(footer)footer.textContent=`${windowType==="ticket"?"Ticket":"Customer profile"} layout published.`;});
+    render();
 })();
 </script>
 </body>
