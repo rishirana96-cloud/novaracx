@@ -5408,8 +5408,11 @@
         #panel-settings .settings-search svg { width:17px;height:17px; }
         #panel-settings .settings-search input { font-size:13px;line-height:1.4; }
         #panel-settings .settings-navigation nav { gap:2px; }
+        #panel-settings .settings-nav-group { margin:15px 10px 5px;color:var(--text-muted);font-size:9px;font-weight:800;letter-spacing:.11em;text-transform:uppercase; }
+        #panel-settings .settings-nav-group:first-child { margin-top:7px; }
         #panel-settings .settings-navigation nav button { min-height:46px;gap:11px;padding:0 11px;border-radius:10px;font-size:13px;font-weight:650;letter-spacing:-.005em; }
         #panel-settings .settings-navigation nav button>span { width:28px;height:28px;flex-basis:28px;border-radius:8px;font-size:9px;letter-spacing:.02em; }
+        #panel-settings .settings-navigation nav button>span svg { width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round; }
         #panel-settings .settings-navigation nav button.active { background:color-mix(in srgb,var(--settings-accent) 9%,var(--surface));box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--settings-accent) 13%,transparent); }
         #panel-settings .settings-content { padding-bottom:88px; }
         #panel-settings .settings-content-head { min-height:94px;align-items:center;padding:8px 3px 20px;border-bottom-color:color-mix(in srgb,var(--border) 86%,transparent); }
@@ -5419,7 +5422,10 @@
         #panel-settings .settings-save-state { min-height:30px;padding:0 11px;font-size:10px;font-weight:750; }
         #panel-settings .settings-section { padding-top:20px; }
         #panel-settings .settings-section.active { gap:16px; }
+        #panel-settings .settings-section:not([data-settings-panel="customize"]).active { display:grid;gap:0;margin-top:20px;padding-top:0;overflow:hidden;border:1px solid color-mix(in srgb,var(--border) 84%,transparent);border-radius:16px;background:var(--bg-card);box-shadow:0 10px 28px rgba(26,49,38,.045); }
         #panel-settings .settings-block { padding:22px;border-color:color-mix(in srgb,var(--border) 84%,transparent);border-radius:16px;box-shadow:0 10px 28px rgba(26,49,38,.045); }
+        #panel-settings .settings-section:not([data-settings-panel="customize"]) .settings-block { border:0;border-top:1px solid color-mix(in srgb,var(--border) 82%,transparent);border-radius:0;box-shadow:none; }
+        #panel-settings .settings-section:not([data-settings-panel="customize"]) .settings-block:first-child { border-top:0; }
         #panel-settings .settings-block-head { align-items:center;margin-bottom:19px;padding-bottom:16px; }
         #panel-settings .settings-block-head h3 { font-size:16px;line-height:1.3;letter-spacing:-.012em; }
         #panel-settings .settings-block-head p { margin-top:5px;font-size:12px;line-height:1.55; }
@@ -5463,6 +5469,9 @@
         #panel-settings .customizer-pane-head span { margin-top:4px;font-size:10px;line-height:1.5; }
         #panel-settings .customizer-field-list { gap:2px;padding:8px; }
         #panel-settings .customizer-field { min-height:51px;gap:10px;padding:8px;border-radius:9px; }
+        #panel-settings .customizer-field[draggable="true"] { cursor:grab; }
+        #panel-settings .customizer-field[draggable="true"]:active { cursor:grabbing; }
+        #panel-settings .customizer-drag-grip { width:15px;display:grid;place-items:center;flex:0 0 15px;color:var(--text-muted);font-size:13px;line-height:1;letter-spacing:-3px;opacity:.68; }
         #panel-settings .customizer-field-icon { width:30px;height:30px;flex-basis:30px;border-radius:8px;font-size:10px; }
         #panel-settings .customizer-field strong { font-size:12px;line-height:1.3; }
         #panel-settings .customizer-field small { margin-top:3px;font-size:9px; }
@@ -5475,6 +5484,13 @@
         #panel-settings .layout-preview-title strong { font-size:14px; }
         #panel-settings .layout-preview-title small { font-size:9px; }
         #panel-settings .layout-preview-item { min-height:72px;padding:13px; }
+        #panel-settings .layout-preview-item[draggable="true"] { position:relative;cursor:grab; }
+        #panel-settings .layout-preview-item[draggable="true"]:active { cursor:grabbing; }
+        #panel-settings .layout-preview-grip { position:absolute;top:8px;right:9px;color:var(--text-muted);font-size:11px;letter-spacing:-3px;opacity:0;transition:opacity .15s; }
+        #panel-settings .layout-preview-item:hover .layout-preview-grip,#panel-settings .layout-preview-item.dragging .layout-preview-grip { opacity:.8; }
+        #panel-settings [data-drop-position="before"] { box-shadow:inset 0 3px 0 var(--settings-accent); }
+        #panel-settings [data-drop-position="after"] { box-shadow:inset 0 -3px 0 var(--settings-accent); }
+        #panel-settings .customizer-field.dragging,#panel-settings .layout-preview-item.dragging { opacity:.42; }
         #panel-settings .layout-preview-item label { font-size:8.5px; }
         #panel-settings .layout-preview-item span { margin-top:8px;font-size:12px;line-height:1.35; }
         #panel-settings .layout-preview-section { padding:14px; }
@@ -5487,311 +5503,70 @@
         #panel-settings .customizer-mini-btn { min-height:38px;border-radius:9px;font-size:10px; }
         #panel-settings .customizer-inspector small { font-size:10px!important; }
         #panel-settings .customizer-empty-inspector { padding:28px 17px;font-size:11px; }
+        #panel-settings .customizer-storage-note { margin-left:auto;color:var(--text-muted);font-size:10px; }
+        #panel-settings .settings-form-grid input.invalid-setting,#panel-settings .settings-form-grid select.invalid-setting { border-color:#b84d4d;box-shadow:0 0 0 3px rgba(184,77,77,.09); }
+        #panel-settings:has([data-settings-panel="customize"].active) .settings-save-bar { display:none; }
 
         @media(max-width:1180px){#panel-settings .customizer-grid{grid-template-columns:200px minmax(340px,1fr)}#panel-settings .customizer-properties-pane{grid-column:1/-1}}
         @media(max-width:900px){#panel-settings .settings-shell{grid-template-columns:1fr;gap:18px}#panel-settings .settings-navigation nav button{font-size:12px}#panel-settings .settings-content-head h2{font-size:26px}}
-        @media(max-width:760px){#panel-settings .customizer-grid{grid-template-columns:1fr}#panel-settings .customizer-field-list{grid-template-columns:1fr 1fr}#panel-settings .customizer-preview-stage{padding:11px}}
+        @media(max-width:760px){#panel-settings .customizer-grid{grid-template-columns:1fr}#panel-settings .customizer-field-list{grid-template-columns:1fr 1fr}#panel-settings .customizer-preview-stage{padding:11px}#panel-settings .customizer-actions{flex-wrap:wrap}#panel-settings .customizer-storage-note{width:100%;margin:0;order:-1}#panel-settings .customizer-drag-grip,#panel-settings .layout-preview-grip{display:none}}
     </style>
+    <style id="novaradesk-customizer-lean-builder-v14">
+        /* One consistent Settings surface hierarchy */
+        #panel-settings.view-panel.active { background:var(--bg)!important; }
+        #panel-settings .settings-shell,#panel-settings .settings-content,#panel-settings .settings-content-head { background:transparent!important; }
+        #panel-settings .settings-navigation,#panel-settings .settings-section:not([data-settings-panel="customize"]).active,#panel-settings .customizer-pane,#panel-settings .settings-save-bar { background:var(--bg-card)!important; }
+        #panel-settings .settings-form-grid input:not([type="checkbox"]),#panel-settings .settings-form-grid select,#panel-settings .settings-inline-form input,#panel-settings .settings-inline-form select { background:var(--surface)!important; }
 
-    <style id="novaradesk-settings-visual-refinement-v13">
-        /* Settings v13 — quieter, more polished enterprise administration */
-        #panel-settings { --settings-accent:#3f745d; }
-        #panel-settings.view-panel.active {
-            background:linear-gradient(180deg,color-mix(in srgb,var(--settings-accent) 2.2%,var(--bg)) 0,var(--bg) 260px);
-        }
-        #panel-settings .settings-shell {
-            grid-template-columns:244px minmax(0,1fr);
-            gap:32px;
-            max-width:1320px;
-            padding:8px 8px 40px;
-        }
-        #panel-settings .settings-navigation {
-            top:22px;
-            padding:8px;
-            border:1px solid color-mix(in srgb,var(--border) 72%,transparent);
-            border-radius:15px;
-            background:color-mix(in srgb,var(--bg-card) 96%,var(--surface));
-            box-shadow:0 8px 26px rgba(25,45,35,.045);
-        }
-        #panel-settings .settings-search {
-            height:42px;
-            margin-bottom:8px;
-            border-color:transparent;
-            background:color-mix(in srgb,var(--surface) 70%,var(--bg-card));
-        }
-        #panel-settings .settings-search:focus-within {
-            border-color:color-mix(in srgb,var(--settings-accent) 28%,var(--border));
-            box-shadow:0 0 0 3px color-mix(in srgb,var(--settings-accent) 7%,transparent);
-        }
-        #panel-settings .settings-search input { font-size:12.5px; }
-        #panel-settings .settings-navigation nav { gap:1px; }
-        #panel-settings .settings-navigation nav button {
-            min-height:44px;
-            padding:0 10px;
-            border-radius:9px;
-            font-size:12.5px;
-            font-weight:620;
-            color:var(--text-secondary);
-        }
-        #panel-settings .settings-navigation nav button>span {
-            width:26px;height:26px;flex-basis:26px;
-            border-radius:7px;
-            background:transparent;
-            color:var(--text-muted);
-            font-size:8px;
-            font-weight:760;
-        }
-        #panel-settings .settings-navigation nav button:hover {
-            background:color-mix(in srgb,var(--surface-hover) 80%,transparent);
-            color:var(--text);
-        }
-        #panel-settings .settings-navigation nav button.active {
-            background:color-mix(in srgb,var(--settings-accent) 8%,var(--surface));
-            box-shadow:none;
-            color:var(--text);
-        }
-        #panel-settings .settings-navigation nav button.active>span {
-            background:color-mix(in srgb,var(--settings-accent) 13%,var(--surface));
-            color:var(--settings-accent);
-        }
+        /* Lean two-column layout builder */
+        #panel-settings .customizer-grid { grid-template-columns:236px minmax(0,1fr)!important;gap:16px; }
+        #panel-settings .customizer-elements-pane { position:sticky;top:18px; }
+        #panel-settings .customizer-element-list { display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:12px; }
+        #panel-settings .customizer-element { min-height:76px;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:8px;padding:11px;border:1px solid var(--border);border-radius:11px;background:var(--surface);color:var(--text-secondary);font:700 10px/1.25 inherit;text-align:left;cursor:grab;transition:border-color .15s,background .15s,transform .15s; }
+        #panel-settings .customizer-element:hover { border-color:color-mix(in srgb,var(--settings-accent) 42%,var(--border));background:color-mix(in srgb,var(--settings-accent) 5%,var(--surface));transform:translateY(-1px); }
+        #panel-settings .customizer-element:active { cursor:grabbing; }
+        #panel-settings .customizer-element svg { width:18px;height:18px;fill:none;stroke:var(--settings-accent);stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round; }
+        #panel-settings .customizer-preview-pane { min-width:0;background:var(--bg-card)!important; }
+        #panel-settings .customizer-preview-stage { min-height:590px;background:var(--surface)!important; }
+        #panel-settings .layout-preview-fields.builder-drop-active { outline:2px dashed color-mix(in srgb,var(--settings-accent) 55%,transparent);outline-offset:5px; }
+        #panel-settings .layout-preview-item { position:relative;padding-top:32px!important; }
+        #panel-settings .layout-field-controls { position:absolute;top:6px;right:7px;display:flex;align-items:center;gap:4px;opacity:0;transform:translateY(-2px);transition:opacity .14s,transform .14s; }
+        #panel-settings .layout-preview-item:hover .layout-field-controls,#panel-settings .layout-preview-item.selected .layout-field-controls,#panel-settings .layout-preview-item:focus-within .layout-field-controls { opacity:1;transform:none; }
+        #panel-settings .layout-field-action { width:27px;height:27px;display:grid;place-items:center;padding:0;border:1px solid var(--border);border-radius:7px;background:var(--bg-card);color:var(--text-muted);cursor:pointer; }
+        #panel-settings .layout-field-action:hover { border-color:var(--settings-accent);color:var(--settings-accent); }
+        #panel-settings .layout-field-action.drag-handle { cursor:move; }
+        #panel-settings .layout-field-action.danger:hover { border-color:#b84d4d;color:#b84d4d; }
+        #panel-settings .layout-field-action svg { width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round; }
+        #panel-settings .layout-preview-item.dragging { opacity:.38; }
+        #panel-settings .layout-preview-empty { grid-column:1/-1;padding:42px 20px;color:var(--text-muted);font-size:11px;text-align:center; }
 
-        #panel-settings .settings-content-head {
-            min-height:auto;
-            align-items:flex-end;
-            padding:5px 0 22px;
-            border-bottom:1px solid color-mix(in srgb,var(--border) 72%,transparent);
-        }
-        #panel-settings .settings-content-head .report-eyebrow {
-            font-size:9.5px;
-            letter-spacing:.14em;
-            color:var(--settings-accent);
-        }
-        #panel-settings .settings-content-head h2 {
-            margin-top:7px;
-            font-size:30px;
-            font-weight:720;
-            letter-spacing:-.035em;
-        }
-        #panel-settings .settings-content-head p {
-            max-width:650px;
-            margin-top:7px;
-            font-size:12.5px;
-            line-height:1.55;
-        }
-        #panel-settings .settings-save-state {
-            min-height:28px;
-            padding:0 10px;
-            border:1px solid color-mix(in srgb,var(--success) 18%,transparent);
-            background:color-mix(in srgb,var(--success) 6%,transparent);
-            font-size:9.5px;
-        }
-
-        #panel-settings .settings-section { padding-top:24px; }
-        #panel-settings .settings-section.active { gap:18px; }
-        #panel-settings .settings-block {
-            padding:22px 24px;
-            border:1px solid color-mix(in srgb,var(--border) 74%,transparent);
-            border-radius:14px;
-            background:color-mix(in srgb,var(--bg-card) 98%,var(--surface));
-            box-shadow:none;
-        }
-        #panel-settings .settings-block:hover {
-            border-color:color-mix(in srgb,var(--border-strong) 70%,transparent);
-        }
-        #panel-settings .settings-block-head {
-            margin-bottom:20px;
-            padding-bottom:15px;
-            border-bottom:1px solid color-mix(in srgb,var(--border) 66%,transparent);
-        }
-        #panel-settings .settings-block-head h3 {
-            font-size:15px;
-            font-weight:700;
-            letter-spacing:-.012em;
-        }
-        #panel-settings .settings-block-head p {
-            max-width:650px;
-            margin-top:5px;
-            font-size:11.5px;
-            line-height:1.5;
-        }
-
-        #panel-settings .settings-form-grid { gap:18px 16px; }
-        #panel-settings .settings-form-grid>label:not(.settings-switch-row) { gap:7px; }
-        #panel-settings .settings-form-grid>label>span {
-            font-size:9.5px;
-            font-weight:700;
-            letter-spacing:.055em;
-            color:var(--text-secondary);
-        }
-        #panel-settings .settings-form-grid input:not([type="checkbox"]),
-        #panel-settings .settings-form-grid select,
-        #panel-settings .settings-inline-form input,
-        #panel-settings .settings-inline-form select {
-            height:44px;
-            padding:0 12px;
-            border:1px solid color-mix(in srgb,var(--border) 82%,transparent);
-            border-radius:9px;
-            background:color-mix(in srgb,var(--surface) 76%,var(--bg-card));
-            font-size:12.5px;
-            transition:border-color .16s ease,box-shadow .16s ease,background .16s ease;
-        }
-        #panel-settings .settings-form-grid input:hover,
-        #panel-settings .settings-form-grid select:hover,
-        #panel-settings .settings-inline-form input:hover,
-        #panel-settings .settings-inline-form select:hover {
-            border-color:var(--border-strong);
-            background:var(--surface);
-        }
-        #panel-settings .settings-form-grid input:focus,
-        #panel-settings .settings-form-grid select:focus,
-        #panel-settings .settings-inline-form input:focus,
-        #panel-settings .settings-inline-form select:focus {
-            border-color:color-mix(in srgb,var(--settings-accent) 60%,var(--border));
-            box-shadow:0 0 0 3px color-mix(in srgb,var(--settings-accent) 8%,transparent);
-        }
-
-        #panel-settings .settings-switch-row {
-            min-height:62px;
-            padding:12px 0;
-        }
-        #panel-settings .settings-switch-row strong { font-size:12.5px;font-weight:650; }
-        #panel-settings .settings-switch-row small { font-size:10.5px;line-height:1.45; }
-        #panel-settings .settings-switch-row i {
-            width:40px;height:23px;flex-basis:40px;
-            background:color-mix(in srgb,var(--border-strong) 75%,var(--surface));
-        }
-        #panel-settings .settings-switch-row i::after { width:17px;height:17px; }
-        #panel-settings .settings-switch-row input:checked+i::after { transform:translateX(17px); }
-
-        #panel-settings .settings-primary-btn,
-        #panel-settings .settings-secondary-btn,
-        #panel-settings .settings-text-btn {
-            min-height:38px;
-            padding:0 13px;
-            border-radius:8px;
-            font-size:11px;
-            font-weight:700;
-            transition:transform .14s ease,border-color .14s ease,background .14s ease;
-        }
-        #panel-settings .settings-primary-btn:hover,
-        #panel-settings .settings-secondary-btn:hover,
-        #panel-settings .settings-row-action:hover { transform:translateY(-1px); }
-        #panel-settings .settings-primary-btn {
-            box-shadow:0 4px 12px color-mix(in srgb,var(--settings-accent) 14%,transparent);
-        }
-
-        #panel-settings .settings-agent-row,
-        #panel-settings .settings-field-row,
-        #panel-settings .settings-connection-row {
-            min-height:66px;
-            padding:12px 4px;
-            border-top-color:color-mix(in srgb,var(--border) 66%,transparent);
-        }
-        #panel-settings .settings-agent-avatar,
-        #panel-settings .settings-connection-icon {
-            width:36px;height:36px;flex-basis:36px;
-            border:1px solid color-mix(in srgb,var(--settings-accent) 10%,var(--border));
-            background:color-mix(in srgb,var(--settings-accent) 6%,var(--surface));
-        }
-        #panel-settings .settings-agent-row strong,
-        #panel-settings .settings-field-row strong,
-        #panel-settings .settings-connection-row strong { font-size:12.5px;font-weight:650; }
-        #panel-settings .settings-agent-row small,
-        #panel-settings .settings-field-row small,
-        #panel-settings .settings-connection-row small { font-size:10.5px; }
-        #panel-settings .settings-badge { min-height:25px;font-size:8.5px; }
-        #panel-settings .settings-row-action {
-            min-height:32px;
-            background:color-mix(in srgb,var(--surface) 65%,transparent);
-            font-size:9.5px;
-            cursor:pointer;
-        }
-
-        #panel-settings .settings-permission-grid { gap:14px; }
-        #panel-settings .settings-permission-grid>div {
-            padding:16px 17px;
-            border-color:color-mix(in srgb,var(--border) 72%,transparent);
-            border-radius:11px;
-            background:color-mix(in srgb,var(--surface) 58%,var(--bg-card));
-        }
-        #panel-settings .settings-permission-grid>div>strong { font-size:13px;font-weight:700; }
-        #panel-settings .settings-permission-grid label { font-size:11.5px; }
-
-        #panel-settings .settings-inline-form {
-            padding:14px;
-            border-style:solid;
-            border-color:color-mix(in srgb,var(--border) 76%,transparent);
-            background:color-mix(in srgb,var(--surface) 64%,var(--bg-card));
-        }
-        #panel-settings .settings-save-bar {
-            bottom:14px;
-            padding:12px 14px;
-            border:1px solid color-mix(in srgb,var(--border-strong) 72%,transparent);
-            border-radius:12px;
-            background:color-mix(in srgb,var(--bg-card) 92%,transparent);
-            box-shadow:0 14px 34px rgba(20,42,31,.12);
-        }
-
-        /* Workspace customizer — make the actual product preview the hero */
-        #panel-settings .customizer-toolbar {
-            min-height:56px;
-            padding:9px 12px;
-            border-color:color-mix(in srgb,var(--border) 72%,transparent);
-            border-radius:13px;
-            background:color-mix(in srgb,var(--bg-card) 97%,var(--surface));
-        }
-        #panel-settings .customizer-window-tabs {
-            border:1px solid color-mix(in srgb,var(--border) 68%,transparent);
-            background:color-mix(in srgb,var(--surface) 65%,var(--bg-card));
-        }
-        #panel-settings .customizer-window-tabs button { font-size:11.5px;font-weight:650; }
-        #panel-settings .customizer-grid {
-            grid-template-columns:210px minmax(430px,1fr) 226px;
-            gap:14px;
-        }
-        #panel-settings .customizer-pane {
-            border-color:color-mix(in srgb,var(--border) 72%,transparent);
-            border-radius:13px;
-            box-shadow:none;
-            overflow:hidden;
-        }
-        #panel-settings .customizer-preview-pane {
-            border-color:color-mix(in srgb,var(--settings-accent) 18%,var(--border));
-            box-shadow:0 14px 34px rgba(26,49,38,.055);
-        }
-        #panel-settings .customizer-pane-head { padding:14px 15px; }
-        #panel-settings .customizer-pane-head strong { font-size:12.5px;font-weight:700; }
-        #panel-settings .customizer-pane-head span { font-size:9.5px; }
-        #panel-settings .customizer-field-list { padding:7px; }
-        #panel-settings .customizer-field { min-height:48px;padding:7px;border-radius:8px; }
-        #panel-settings .customizer-field:hover { background:color-mix(in srgb,var(--surface-hover) 82%,transparent); }
-        #panel-settings .customizer-field.active {
-            border-color:color-mix(in srgb,var(--settings-accent) 22%,var(--border));
-            background:color-mix(in srgb,var(--settings-accent) 6%,var(--surface));
-        }
-        #panel-settings .customizer-preview-stage {
-            min-height:540px;
-            padding:24px;
-            background:
-              radial-gradient(circle at 50% 0,color-mix(in srgb,var(--settings-accent) 5%,transparent),transparent 42%),
-              color-mix(in srgb,var(--surface) 78%,var(--bg));
-        }
-        #panel-settings .layout-preview-window {
-            border:1px solid color-mix(in srgb,var(--border) 78%,transparent);
-            box-shadow:0 18px 44px rgba(20,42,31,.09);
-        }
-        #panel-settings .customizer-inspector { padding:14px; }
-        #panel-settings .customizer-inspector label>span { color:var(--text-secondary);font-weight:700; }
-
-        @media(max-width:1180px){
-            #panel-settings .settings-shell{max-width:100%;grid-template-columns:226px minmax(0,1fr);gap:22px}
-            #panel-settings .customizer-grid{grid-template-columns:190px minmax(340px,1fr)}
-        }
-        @media(max-width:900px){
-            #panel-settings .settings-shell{grid-template-columns:1fr;gap:18px;padding-inline:0}
-        }
+        /* Compact inline field editor */
+        #panel-settings .customizer-editor[hidden] { display:none!important; }
+        #panel-settings .customizer-editor { position:fixed;z-index:1600;inset:0;display:grid;place-items:center;padding:20px;background:rgba(13,24,18,.28);backdrop-filter:blur(3px); }
+        #panel-settings .customizer-editor-card { width:min(460px,calc(100vw - 32px));max-height:min(680px,calc(100vh - 40px));overflow:auto;padding:20px;border:1px solid var(--border);border-radius:16px;background:var(--bg-card);box-shadow:0 28px 80px rgba(16,35,25,.24); }
+        #panel-settings .customizer-editor-head { display:flex;align-items:flex-start;justify-content:space-between;gap:15px;margin-bottom:18px;padding-bottom:14px;border-bottom:1px solid var(--border); }
+        #panel-settings .customizer-editor-head strong,#panel-settings .customizer-editor-head span { display:block; }
+        #panel-settings .customizer-editor-head strong { font-size:16px; }
+        #panel-settings .customizer-editor-head span { margin-top:4px;color:var(--text-muted);font-size:11px; }
+        #panel-settings .customizer-editor-head button { width:34px;height:34px;border:1px solid var(--border);border-radius:9px;background:transparent;color:var(--text);font-size:20px;cursor:pointer; }
+        #panel-settings .customizer-editor-card>label { display:grid;gap:7px; }
+        #panel-settings .customizer-editor-card>label>span,#panel-settings .customizer-choice-head>span { color:var(--text-muted);font-size:9px;font-weight:800;letter-spacing:.08em;text-transform:uppercase; }
+        #panel-settings .customizer-editor-card input { width:100%;height:44px;padding:0 12px;border:1px solid var(--border);border-radius:9px;background:var(--surface);color:var(--text);font:500 12px/1 inherit;outline:0; }
+        #panel-settings .customizer-editor-card input:focus { border-color:var(--settings-accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--settings-accent) 10%,transparent); }
+        #panel-settings #customizerChoiceArea { margin-top:18px;padding-top:16px;border-top:1px solid var(--border); }
+        #panel-settings #customizerChoiceArea[hidden] { display:none; }
+        #panel-settings .customizer-choice-head { display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:9px; }
+        #panel-settings .customizer-choice-head button { border:0;background:transparent;color:var(--settings-accent);font:750 10px/1 inherit;cursor:pointer; }
+        #panel-settings #customizerChoiceList { display:grid;gap:7px; }
+        #panel-settings .customizer-choice-row { display:grid;grid-template-columns:28px 1fr 30px;gap:7px;align-items:center; }
+        #panel-settings .customizer-choice-grip { color:var(--text-muted);font-size:15px;text-align:center;cursor:move; }
+        #panel-settings .customizer-choice-row button { width:30px;height:30px;border:0;border-radius:7px;background:transparent;color:var(--text-muted);font-size:18px;cursor:pointer; }
+        #panel-settings .customizer-choice-row button:hover { background:color-mix(in srgb,#b84d4d 8%,transparent);color:#b84d4d; }
+        #panel-settings .customizer-editor-message { min-height:18px;margin-top:9px;color:#b84d4d;font-size:10px; }
+        #panel-settings .customizer-editor-actions { display:flex;justify-content:flex-end;gap:8px;margin-top:14px;padding-top:14px;border-top:1px solid var(--border); }
+        @media(max-width:900px){#panel-settings .customizer-grid{grid-template-columns:200px minmax(0,1fr)!important}#panel-settings .customizer-element-list{grid-template-columns:1fr}}
+        @media(max-width:700px){#panel-settings .customizer-grid{grid-template-columns:1fr!important}#panel-settings .customizer-elements-pane{position:static}#panel-settings .customizer-element-list{grid-template-columns:repeat(2,1fr)}#panel-settings .layout-field-controls{opacity:1;transform:none}}
     </style>
-
 </head>
 
 
@@ -7413,21 +7188,24 @@
                     <aside class="settings-navigation">
                         <label class="settings-search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m16 16 4 4"/></svg><input id="settingsSearch" type="search" placeholder="Search settings…" aria-label="Search settings"></label>
                         <nav id="settingsNav" aria-label="Settings sections">
-                            <button class="active" data-settings-section="general" type="button"><span>01</span>General</button>
-                            <button data-settings-section="agents" type="button"><span>02</span>Agents and roles</button>
-                            <button data-settings-section="tickets" type="button"><span>03</span>Ticket configuration</button>
-                            <button data-settings-section="customers" type="button"><span>04</span>Customer fields</button>
-                            <button data-settings-section="channels" type="button"><span>05</span>Channels and integrations</button>
-                            <button data-settings-section="notifications" type="button"><span>06</span>Notifications</button>
-                            <button data-settings-section="security" type="button"><span>07</span>Security</button>
-                            <button data-settings-section="customize" type="button"><span>08</span>Customize workspace</button>
+                            <p class="settings-nav-group">Workspace</p>
+                            <button class="active" data-settings-section="general" type="button"><span><svg viewBox="0 0 24 24"><path d="M4 5h16v14H4zM8 9h8M8 13h5"/></svg></span>General</button>
+                            <button data-settings-section="customize" type="button"><span><svg viewBox="0 0 24 24"><path d="M4 4h7v7H4zM13 4h7v4h-7zM13 10h7v10h-7zM4 13h7v7H4z"/></svg></span>Customize workspace</button>
+                            <p class="settings-nav-group">People &amp; data</p>
+                            <button data-settings-section="agents" type="button"><span><svg viewBox="0 0 24 24"><path d="M16 20v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2M9.5 10a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM17 8h4M19 6v4"/></svg></span>Agents and roles</button>
+                            <button data-settings-section="customers" type="button"><span><svg viewBox="0 0 24 24"><path d="M4 5h16v14H4zM8 9h8M8 13h5M16 13h.01"/></svg></span>Customer fields</button>
+                            <p class="settings-nav-group">Support operations</p>
+                            <button data-settings-section="tickets" type="button"><span><svg viewBox="0 0 24 24"><path d="M5 4h14v16H5zM8 8h8M8 12h8M8 16h5"/></svg></span>Ticket configuration</button>
+                            <button data-settings-section="channels" type="button"><span><svg viewBox="0 0 24 24"><path d="M8 12h8M12 8v8M5 5l14 14M19 5 5 19"/></svg></span>Channels and integrations</button>
+                            <button data-settings-section="notifications" type="button"><span><svg viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/></svg></span>Notifications</button>
+                            <button data-settings-section="security" type="button"><span><svg viewBox="0 0 24 24"><path d="M6 10V7a6 6 0 0 1 12 0v3M5 10h14v10H5zM12 14v3"/></svg></span>Security</button>
                         </nav>
                     </aside>
                     <div class="settings-content">
                         <header class="settings-content-head"><div><span class="report-eyebrow">Administration</span><h2 id="settingsSectionTitle">General</h2><p id="settingsSectionDescription">Configure the identity and operating defaults for this workspace.</p></div><span id="settingsSaveState" class="settings-save-state">All changes saved</span></header>
 
                         <section class="settings-section active" data-settings-panel="general">
-                            <article class="settings-block"><div class="settings-block-head"><div><h3>Workspace identity</h3><p>How NovaraDesk appears to agents and customers.</p></div></div><div class="settings-form-grid"><label><span>Workspace name</span><input data-setting-key="workspaceName" value="NovaraDesk"></label><label><span>Support email</span><input data-setting-key="supportEmail" type="email" value="support@novaracx.com"></label><label><span>Default language</span><select data-setting-key="language"><option>English</option><option>Hindi</option><option>Hinglish</option></select></label><label><span>Time zone</span><select data-setting-key="timezone"><option>Asia/Kolkata</option><option>UTC</option><option>Asia/Dubai</option></select></label></div></article>
+                            <article class="settings-block"><div class="settings-block-head"><div><h3>Workspace identity</h3><p>How NovaraDesk appears to agents and customers.</p></div></div><div class="settings-form-grid"><label><span>Workspace name</span><input data-setting-key="workspaceName" value="NovaraDesk" required></label><label><span>Support email</span><input data-setting-key="supportEmail" type="email" value="support@novaracx.com" required></label><label><span>Default language</span><select data-setting-key="language"><option>English</option><option>Hindi</option><option>Hinglish</option></select></label><label><span>Time zone</span><select data-setting-key="timezone"><option>Asia/Kolkata</option><option>UTC</option><option>Asia/Dubai</option></select></label></div></article>
                             <article class="settings-block"><div class="settings-block-head"><div><h3>Business hours</h3><p>Used for SLA calculations and channel availability.</p></div></div><div class="settings-form-grid"><label><span>Working day starts</span><input data-setting-key="businessStart" type="time" value="09:00"></label><label><span>Working day ends</span><input data-setting-key="businessEnd" type="time" value="18:00"></label><label class="settings-switch-row wide"><span><strong>Include Saturdays</strong><small>Count Saturday inside business-hour SLAs.</small></span><input data-setting-key="includeSaturday" type="checkbox"><i></i></label></div></article>
                         </section>
 
@@ -7464,11 +7242,11 @@
                             <div class="workspace-customizer">
                                 <div class="customizer-toolbar"><div class="customizer-window-tabs" role="tablist" aria-label="Window to customize"><button class="active" data-customizer-window="ticket" type="button">Ticket window</button><button data-customizer-window="customer" type="button">Customer profile</button></div><small>Changes affect every agent using this workspace.</small></div>
                                 <div class="customizer-grid">
-                                    <aside class="customizer-pane"><div class="customizer-pane-head"><strong>Field library</strong><span>Select a field to configure it. Hidden fields remain available here.</span></div><div id="customizerFieldList" class="customizer-field-list"></div></aside>
-                                    <section class="customizer-pane customizer-preview-pane"><div class="customizer-pane-head"><strong id="customizerPreviewTitle">Ticket window preview</strong><span>This preview mirrors the agent-facing workspace.</span></div><div class="customizer-preview-stage"><div id="customizerPreview"></div></div></section>
-                                    <aside class="customizer-pane customizer-properties-pane"><div class="customizer-pane-head"><strong>Field properties</strong><span>Control presentation without changing stored data.</span></div><div id="customizerInspector"></div></aside>
+                                    <aside class="customizer-pane customizer-elements-pane"><div class="customizer-pane-head"><strong>Elements</strong><span>Click or drag an element into the window.</span></div><div id="customizerElementList" class="customizer-element-list"></div></aside>
+                                    <section class="customizer-pane customizer-preview-pane"><div class="customizer-pane-head"><strong id="customizerPreviewTitle">Ticket window</strong><span>Drag fields to reposition them. Use Edit to rename or configure choices.</span></div><div class="customizer-preview-stage"><div id="customizerPreview"></div></div></section>
                                 </div>
-                                <div class="customizer-actions"><button id="customizerReset" class="settings-text-btn" type="button">Restore default layout</button><button id="customizerSaveDraft" class="settings-secondary-btn" type="button">Save draft</button><button id="customizerPublish" class="settings-primary-btn" type="button">Publish layout</button></div>
+                                <div id="customizerEditor" class="customizer-editor" hidden aria-label="Edit field"><div class="customizer-editor-card"><div class="customizer-editor-head"><div><strong id="customizerEditorTitle">Edit field</strong><span id="customizerEditorHint">Change how this field appears.</span></div><button id="customizerEditorClose" type="button" aria-label="Close editor">×</button></div><label><span>Field name</span><input id="customizerEditorLabel" maxlength="60"></label><div id="customizerChoiceArea" hidden><div class="customizer-choice-head"><span>Dropdown choices</span><button id="customizerAddChoice" type="button">+ Add choice</button></div><div id="customizerChoiceList"></div></div><div id="customizerEditorMessage" class="customizer-editor-message"></div><div class="customizer-editor-actions"><button id="customizerEditorCancel" class="settings-secondary-btn" type="button">Cancel</button><button id="customizerEditorSave" class="settings-primary-btn" type="button">Save field</button></div></div></div>
+                                <div class="customizer-actions"><button id="customizerReset" class="settings-text-btn" type="button">Restore default layout</button><span class="customizer-storage-note">Saved to this browser in the prototype</span><button id="customizerPublish" class="settings-primary-btn" type="button">Save layout</button></div>
                             </div>
                         </section>
 
@@ -15916,13 +15694,18 @@ ORDER BY created_date DESC, ticket_count DESC`;
     function renderConnectionRows(type){const host=document.getElementById(type==="channels"?"settingsChannelList":"settingsIntegrationList");if(!host)return;host.innerHTML=(connections[type]||[]).map(item=>`<div class="settings-connection-row"><div class="settings-connection-identity"><span class="settings-connection-icon">${escape(item.name[0])}</span><div><strong>${escape(item.name)}</strong><small>${escape(item.detail)}</small></div></div><div class="settings-row-actions"><span class="settings-badge ${item.connected?"connected":""}">${item.connected?"Connected":"Not connected"}</span><button class="settings-row-action" data-toggle-connection="${escape(type)}:${escape(item.id)}" type="button">${item.connected?"Disconnect":"Connect"}</button></div></div>`).join("");}
     function collectValues(){const values={};document.querySelectorAll("[data-setting-key]").forEach(input=>{values[input.dataset.settingKey]=input.type==="checkbox"?input.checked:input.value;});return values;}
     function applyValues(values={}){document.querySelectorAll("[data-setting-key]").forEach(input=>{input.dataset.defaultValue=input.type==="checkbox"?String(input.checked):input.value;if(!(input.dataset.settingKey in values))return;if(input.type==="checkbox")input.checked=Boolean(values[input.dataset.settingKey]);else input.value=values[input.dataset.settingKey];});}
-    function saveSettings(){saved={values:collectValues(),agents,fields,connections};localStorage.setItem(SETTINGS_KEY,JSON.stringify(saved));setDirty(false);}
+    function saveSettings(){
+        const invalid=[...document.querySelectorAll("#panel-settings [data-setting-key][required],#panel-settings input[type='email'][data-setting-key]")].filter(input=>!input.checkValidity());
+        document.querySelectorAll("#panel-settings .invalid-setting").forEach(input=>input.classList.remove("invalid-setting"));
+        if(invalid.length){invalid.forEach(input=>input.classList.add("invalid-setting"));invalid[0].focus();const state=document.getElementById("settingsSaveState");if(state){state.textContent="Check highlighted fields";state.classList.add("unsaved");}const footer=document.getElementById("settingsFooterState");if(footer)footer.textContent="Correct the highlighted information before saving.";return;}
+        saved={values:collectValues(),agents,fields,connections};localStorage.setItem(SETTINGS_KEY,JSON.stringify(saved));setDirty(false);
+    }
     applyValues(saved.values||{});renderAgents();renderFields();renderConnectionRows("channels");renderConnectionRows("integrations");showSection("general");
     document.getElementById("settingsNav")?.addEventListener("click",event=>{const button=event.target.closest("[data-settings-section]");if(button)showSection(button.dataset.settingsSection);});
-    document.getElementById("settingsSearch")?.addEventListener("input",event=>{const query=event.target.value.trim().toLowerCase();let first=null;document.querySelectorAll("[data-settings-section]").forEach(button=>{const section=button.dataset.settingsSection;const match=!query||`${button.textContent} ${SETTINGS_META[section].join(" ")}`.toLowerCase().includes(query);button.hidden=!match;if(match&&!first)first=section;});if(query&&first)showSection(first);});
-    document.getElementById("panel-settings")?.addEventListener("input",event=>{if(event.target.matches("[data-setting-key]"))setDirty();});document.getElementById("panel-settings")?.addEventListener("change",event=>{if(event.target.matches("[data-setting-key]"))setDirty();});
+    document.getElementById("settingsSearch")?.addEventListener("input",event=>{const query=event.target.value.trim().toLowerCase();let first=null;document.querySelectorAll("[data-settings-section]").forEach(button=>{const section=button.dataset.settingsSection;const match=!query||`${button.textContent} ${SETTINGS_META[section].join(" ")}`.toLowerCase().includes(query);button.hidden=!match;if(match&&!first)first=section;});document.querySelectorAll(".settings-nav-group").forEach(group=>{let item=group.nextElementSibling,hasVisible=false;while(item&&!item.classList.contains("settings-nav-group")){if(item.matches("[data-settings-section]")&&!item.hidden)hasVisible=true;item=item.nextElementSibling;}group.hidden=!hasVisible;});if(query&&first)showSection(first);});
+    document.getElementById("panel-settings")?.addEventListener("input",event=>{if(event.target.matches("[data-setting-key]")){event.target.classList.remove("invalid-setting");setDirty();}});document.getElementById("panel-settings")?.addEventListener("change",event=>{if(event.target.matches("[data-setting-key]"))setDirty();});
     document.getElementById("settingsSave")?.addEventListener("click",saveSettings);
-    document.getElementById("settingsReset")?.addEventListener("click",()=>{const panel=document.querySelector(`[data-settings-panel="${activeSection}"]`);panel?.querySelectorAll("[data-setting-key]").forEach(input=>{const value=input.dataset.defaultValue;if(input.type==="checkbox")input.checked=value==="true";else input.value=value||"";});setDirty();});
+    document.getElementById("settingsReset")?.addEventListener("click",event=>{const button=event.currentTarget;if(button.dataset.confirming!=="true"){button.dataset.confirming="true";button.textContent="Confirm reset";setTimeout(()=>{if(button.dataset.confirming==="true"){delete button.dataset.confirming;button.textContent="Reset section";}},3000);return;}delete button.dataset.confirming;button.textContent="Reset section";const panel=document.querySelector(`[data-settings-panel="${activeSection}"]`);panel?.querySelectorAll("[data-setting-key]").forEach(input=>{const value=input.dataset.defaultValue;if(input.type==="checkbox")input.checked=value==="true";else input.value=value||"";input.classList.remove("invalid-setting");});setDirty();});
     document.getElementById("settingsInviteAgent")?.addEventListener("click",()=>{const form=document.getElementById("settingsInviteForm");form.hidden=!form.hidden;if(!form.hidden)document.getElementById("settingsAgentEmail").focus();});
     document.getElementById("settingsAddAgent")?.addEventListener("click",()=>{const email=document.getElementById("settingsAgentEmail").value.trim();if(!email)return document.getElementById("settingsAgentEmail").focus();agents.push({id:`agent-${Date.now()}`,name:email.split("@")[0].replace(/[._-]/g," ").replace(/\b\w/g,c=>c.toUpperCase()),email,role:document.getElementById("settingsAgentRole").value,status:"Invited"});document.getElementById("settingsAgentEmail").value="";document.getElementById("settingsInviteForm").hidden=true;renderAgents();setDirty();});
     document.getElementById("settingsAgentList")?.addEventListener("click",event=>{const button=event.target.closest("[data-remove-agent]");if(!button)return;agents=agents.filter(agent=>agent.id!==button.dataset.removeAgent);renderAgents();setDirty();});
@@ -15934,53 +15717,88 @@ ORDER BY created_date DESC, ticket_count DESC`;
     window.addEventListener("beforeunload",event=>{if(!dirty)return;event.preventDefault();event.returnValue="";});
 })();
 </script>
-<script id="novaradesk-workspace-customizer-v11">
+<script id="novaradesk-workspace-customizer-v14">
 (() => {
-    const STORAGE_KEY = "novaradesk_workspace_layouts_v1";
-    const defaults = {
+    const STORAGE_KEY="novaradesk_workspace_layouts_v2";
+    const moveIcon='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2v20M2 12h20M12 2 9 5M12 2l3 3M12 22l-3-3M12 22l3-3M2 12l3-3M2 12l3 3M22 12l-3-3M22 12l-3 3"/></svg>';
+    const editIcon='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m4 20 4.5-1 10-10a2.1 2.1 0 0 0-3-3l-10 10L4 20ZM14 7l3 3"/></svg>';
+    const removeIcon='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 7h14M9 7V4h6v3M8 10v8M12 10v8M16 10v8M7 7l1 14h8l1-14"/></svg>';
+    const elementTypes=[
+        {type:"Short text",label:"Short text",value:"Text value",icon:'<svg viewBox="0 0 24 24"><path d="M5 6h14M12 6v12M8 18h8"/></svg>'},
+        {type:"Long paragraph",label:"Long paragraph",value:"Detailed information entered by an agent.",full:true,icon:'<svg viewBox="0 0 24 24"><path d="M5 6h14M5 10h14M5 14h10M5 18h8"/></svg>'},
+        {type:"Number",label:"Number",value:"125",icon:'<svg viewBox="0 0 24 24"><path d="m9 4-2 16M17 4l-2 16M4 9h16M3 15h16"/></svg>'},
+        {type:"Date",label:"Date",value:"28 Aug 2026",icon:'<svg viewBox="0 0 24 24"><path d="M5 5h14v15H5zM8 3v4M16 3v4M5 9h14"/></svg>'},
+        {type:"Dropdown",label:"Dropdown",value:"Option 1",options:["Option 1","Option 2"],icon:'<svg viewBox="0 0 24 24"><path d="M5 6h14M5 12h10M5 18h7M17 15l3 3 3-3"/></svg>'},
+        {type:"Multi-select",label:"Multi-select",value:"Option 1",options:["Option 1","Option 2"],icon:'<svg viewBox="0 0 24 24"><path d="M9 6h11M9 12h11M9 18h11M4 6l1 1 2-2M4 12l1 1 2-2M4 18l1 1 2-2"/></svg>'},
+        {type:"Checkbox",label:"Checkbox",value:"Checked",icon:'<svg viewBox="0 0 24 24"><path d="M5 5h14v14H5zM8 12l3 3 5-6"/></svg>'},
+        {type:"Email",label:"Email",value:"customer@example.com",icon:'<svg viewBox="0 0 24 24"><path d="M4 6h16v12H4zM4 7l8 6 8-6"/></svg>'},
+        {type:"Phone number",label:"Phone number",value:"+91 98765 43210",icon:'<svg viewBox="0 0 24 24"><path d="M7 3h4l1 5-3 2a14 14 0 0 0 5 5l2-3 5 1v4c0 2-2 4-4 4C9 20 4 15 3 7c0-2 2-4 4-4Z"/></svg>'},
+        {type:"URL",label:"URL",value:"https://example.com",icon:'<svg viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7 0l2-2a5 5 0 0 0-7-7l-1 1M14 11a5 5 0 0 0-7 0l-2 2a5 5 0 0 0 7 7l1-1"/></svg>'}
+    ];
+    const defaults={
         ticket:[
-            {id:"customer",label:"Customer name",value:"Aarav Mehta",type:"Text",width:"half",visible:true,system:true},
-            {id:"phone",label:"Phone number",value:"+91 98765 43210",type:"Phone",width:"half",visible:true,system:true},
-            {id:"createdDate",label:"Created date",value:"28 Aug 2026",type:"Date",width:"half",visible:true,system:true},
-            {id:"createdTime",label:"Created time",value:"10:42 am",type:"Time",width:"half",visible:true,system:true},
-            {id:"query",label:"Original query",value:"I need help with my recent order",type:"Long text",width:"full",visible:true,system:true},
-            {id:"reason",label:"Escalation reason",value:"Requested human support",type:"Text",width:"half",visible:true,system:true},
-            {id:"sentiment",label:"Sentiment",value:"Neutral",type:"Dropdown",width:"half",visible:true,system:true},
-            {id:"priority",label:"Priority",value:"Normal",type:"Dropdown",width:"half",visible:false,system:true}
+            {id:"customer",label:"Customer name",value:"Aarav Mehta",type:"Short text",width:"half",system:true},
+            {id:"phone",label:"Phone number",value:"+91 98765 43210",type:"Phone number",width:"half",system:true},
+            {id:"status",label:"Status",value:"In Progress",type:"Dropdown",width:"half",options:["Open","In Progress","Waiting on Customer","Pending","Resolved","Closed"],system:true,statusField:true},
+            {id:"createdDate",label:"Created date",value:"28 Aug 2026",type:"Date",width:"half",system:true},
+            {id:"createdTime",label:"Created time",value:"10:42 am",type:"Short text",width:"half",system:true},
+            {id:"query",label:"Original query",value:"I need help with my recent order",type:"Long paragraph",width:"full",system:true},
+            {id:"reason",label:"Escalation reason",value:"Requested human support",type:"Short text",width:"half",system:true},
+            {id:"sentiment",label:"Sentiment",value:"Neutral",type:"Dropdown",width:"half",options:["Positive","Neutral","Negative"],system:true},
+            {id:"priority",label:"Priority",value:"Normal",type:"Dropdown",width:"half",options:["Low","Normal","High","Urgent"],system:true}
         ],
         customer:[
-            {id:"name",label:"Customer name",value:"Aarav Mehta",type:"Text",width:"half",visible:true,system:true},
-            {id:"email",label:"Email",value:"aarav@example.com",type:"Email",width:"half",visible:true,system:true},
-            {id:"customerPhone",label:"Phone number",value:"+91 98765 43210",type:"Phone",width:"half",visible:true,system:true},
-            {id:"organisation",label:"Organisation",value:"Arcade Commerce",type:"Text",width:"half",visible:true,system:false},
-            {id:"segment",label:"Customer segment",value:"VIP",type:"Dropdown",width:"half",visible:true,system:false},
-            {id:"owner",label:"Account owner",value:"Novara CX Support",type:"Agent",width:"half",visible:true,system:false},
-            {id:"language",label:"Preferred language",value:"English",type:"Dropdown",width:"half",visible:true,system:false},
-            {id:"consent",label:"Contact consent",value:"Recorded",type:"Checkbox",width:"half",visible:true,system:false},
-            {id:"brief",label:"Customer brief",value:"High-value customer with an active order enquiry.",type:"Long text",width:"full",visible:true,system:false}
+            {id:"name",label:"Customer name",value:"Aarav Mehta",type:"Short text",width:"half",system:true},
+            {id:"email",label:"Email",value:"aarav@example.com",type:"Email",width:"half",system:true},
+            {id:"customerPhone",label:"Phone number",value:"+91 98765 43210",type:"Phone number",width:"half",system:true},
+            {id:"organisation",label:"Organisation",value:"Arcade Commerce",type:"Short text",width:"half",system:true},
+            {id:"segment",label:"Customer segment",value:"VIP",type:"Dropdown",width:"half",options:["VIP","Loyal","New","At risk"],system:true},
+            {id:"owner",label:"Account owner",value:"Novara CX Support",type:"Short text",width:"half",system:true},
+            {id:"language",label:"Preferred language",value:"English",type:"Dropdown",width:"half",options:["English","Hindi","Hinglish"],system:true},
+            {id:"consent",label:"Contact consent",value:"Recorded",type:"Checkbox",width:"half",system:true},
+            {id:"brief",label:"Customer brief",value:"High-value customer with an active order enquiry.",type:"Long paragraph",width:"full",system:true}
         ]
     };
-    const cloneDefaults = () => JSON.parse(JSON.stringify(defaults));
-    let layouts = cloneDefaults();
-    try { const stored=JSON.parse(localStorage.getItem(STORAGE_KEY)||"null");if(stored?.ticket&&stored?.customer)layouts=stored; } catch {}
-    let windowType="ticket",selectedId=layouts.ticket[0]?.id;
-    const esc = value => typeof escapeHtml === "function" ? escapeHtml(String(value??"")) : String(value??"").replace(/[&<>\"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'\"':"&quot;","'":"&#39;"}[c]));
-    const current = () => layouts[windowType];
-    const selected = () => current().find(field=>field.id===selectedId);
-    function renderList(){const host=document.getElementById("customizerFieldList");if(!host)return;host.innerHTML=current().map((field,index)=>`<button class="customizer-field ${field.id===selectedId?"active":""} ${field.visible?"":"hidden-field"}" data-customizer-field="${esc(field.id)}" type="button"><span class="customizer-field-icon">${index+1}</span><span><strong>${esc(field.label)}</strong><small>${field.visible?`${esc(field.width)} width`:"Hidden from window"}</small></span></button>`).join("");}
-    function renderPreview(){const host=document.getElementById("customizerPreview");if(!host)return;const visible=current().filter(field=>field.visible);const isTicket=windowType==="ticket";document.getElementById("customizerPreviewTitle").textContent=`${isTicket?"Ticket window":"Customer profile"} preview`;host.innerHTML=`<div class="layout-preview-window"><div class="layout-preview-top"><strong>${isTicket?"NX-1042":"Aarav Mehta"}</strong><span>${isTicket?"● In progress":"● Healthy"}</span></div><div class="layout-preview-body"><div class="layout-preview-title"><strong>${isTicket?"Ticket Information":"Customer Information"}</strong><small>${visible.length} visible fields</small></div><div class="layout-preview-fields">${visible.length?visible.map(field=>`<div class="layout-preview-item ${field.width==="full"?"full":""} ${field.id===selectedId?"selected":""}" data-preview-field="${esc(field.id)}"><label>${esc(field.label)}</label><span>${esc(field.value)}</span></div>`).join(""):'<div class="layout-preview-item full"><span>No fields are visible. Restore a field from the library.</span></div>'}</div>${isTicket?'<div class="layout-preview-section"><strong>Conversation · Click to view</strong><p>Conversation tools remain below the configurable information area.</p></div>':'<div class="layout-preview-section"><strong>Customer timeline</strong><p>Tickets, calls, notes and commerce activity remain available below.</p></div>'}</div></div>`;}
-    function renderInspector(){const host=document.getElementById("customizerInspector");if(!host)return;const field=selected();if(!field){host.innerHTML='<div class="customizer-empty-inspector">Select a field from the library or preview to edit its presentation.</div>';return;}host.innerHTML=`<div class="customizer-inspector"><label><span>Display label</span><input id="customizerLabel" value="${esc(field.label)}"></label><label><span>Field type</span><input value="${esc(field.type)}" disabled></label><label><span>Width</span><select id="customizerWidth"><option value="half" ${field.width==="half"?"selected":""}>Half width</option><option value="full" ${field.width==="full"?"selected":""}>Full width</option></select></label><div class="customizer-inspector-actions"><button class="customizer-mini-btn" data-customizer-move="up" type="button">Move up</button><button class="customizer-mini-btn" data-customizer-move="down" type="button">Move down</button></div><label class="customizer-visibility"><span>Show in window</span><input id="customizerVisible" type="checkbox" ${field.visible?"checked":""}></label><small style="color:var(--text-muted);font-size:7px;line-height:1.5">Hiding this field does not delete its stored data.</small></div>`;}
-    function render(){renderList();renderPreview();renderInspector();}
-    function markChanged(message="Layout draft updated") { const state=document.getElementById("settingsSaveState");if(state){state.textContent="Unsaved changes";state.classList.add("unsaved");}const footer=document.getElementById("settingsFooterState");if(footer)footer.textContent=message; }
-    document.querySelector(".customizer-window-tabs")?.addEventListener("click",event=>{const button=event.target.closest("[data-customizer-window]");if(!button)return;windowType=button.dataset.customizerWindow;selectedId=current()[0]?.id;document.querySelectorAll("[data-customizer-window]").forEach(item=>item.classList.toggle("active",item===button));render();});
-    document.getElementById("customizerFieldList")?.addEventListener("click",event=>{const button=event.target.closest("[data-customizer-field]");if(button){selectedId=button.dataset.customizerField;render();}});
-    document.getElementById("customizerPreview")?.addEventListener("click",event=>{const item=event.target.closest("[data-preview-field]");if(item){selectedId=item.dataset.previewField;render();}});
-    document.getElementById("customizerInspector")?.addEventListener("input",event=>{const field=selected();if(!field)return;if(event.target.id==="customizerLabel")field.label=event.target.value||"Untitled field";if(event.target.id==="customizerVisible")field.visible=event.target.checked;markChanged();renderList();renderPreview();});
-    document.getElementById("customizerInspector")?.addEventListener("change",event=>{const field=selected();if(!field)return;if(event.target.id==="customizerWidth")field.width=event.target.value;markChanged();render();});
-    document.getElementById("customizerInspector")?.addEventListener("click",event=>{const button=event.target.closest("[data-customizer-move]");if(!button)return;const list=current(),index=list.findIndex(field=>field.id===selectedId),next=button.dataset.customizerMove==="up"?index-1:index+1;if(index<0||next<0||next>=list.length)return;[list[index],list[next]]=[list[next],list[index]];markChanged();render();});
-    document.getElementById("customizerReset")?.addEventListener("click",()=>{layouts[windowType]=cloneDefaults()[windowType];selectedId=current()[0]?.id;markChanged("Default layout restored. Publish to apply it.");render();});
-    document.getElementById("customizerSaveDraft")?.addEventListener("click",()=>{localStorage.setItem(STORAGE_KEY,JSON.stringify(layouts));const footer=document.getElementById("settingsFooterState");if(footer)footer.textContent="Workspace layout draft saved locally.";});
-    document.getElementById("customizerPublish")?.addEventListener("click",()=>{localStorage.setItem(STORAGE_KEY,JSON.stringify(layouts));const state=document.getElementById("settingsSaveState");if(state){state.textContent="Layout published";state.classList.remove("unsaved");}const footer=document.getElementById("settingsFooterState");if(footer)footer.textContent=`${windowType==="ticket"?"Ticket":"Customer profile"} layout published.`;});
+    const clone=value=>JSON.parse(JSON.stringify(value));
+    const esc=value=>typeof escapeHtml==="function"?escapeHtml(String(value??"")):String(value??"").replace(/[&<>\"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'\"':"&quot;","'":"&#39;"}[c]));
+    let layouts=clone(defaults),windowType="ticket",editingId=null,draggedFieldId=null,draggedElementType=null,draggedChoiceIndex=null;
+    try{const stored=JSON.parse(localStorage.getItem(STORAGE_KEY)||"null");if(stored?.ticket&&stored?.customer)layouts=stored;}catch{}
+    const current=()=>layouts[windowType];
+    const fieldById=id=>current().find(field=>field.id===id);
+    function markChanged(message="Layout changed. Save when ready."){const state=document.getElementById("settingsSaveState");if(state){state.textContent="Unsaved changes";state.classList.add("unsaved");}const footer=document.getElementById("settingsFooterState");if(footer)footer.textContent=message;}
+    function renderElements(){const host=document.getElementById("customizerElementList");if(!host)return;host.innerHTML=elementTypes.map(item=>`<button class="customizer-element" data-element-type="${esc(item.type)}" draggable="true" type="button">${item.icon}<span>${esc(item.label)}</span></button>`).join("");}
+    function fieldMarkup(field){return `<div class="layout-preview-item ${field.width==="full"?"full":""}" data-preview-field="${esc(field.id)}" draggable="true"><div class="layout-field-controls"><button class="layout-field-action drag-handle" data-drag-field="${esc(field.id)}" type="button" title="Drag to reposition" aria-label="Drag ${esc(field.label)}">${moveIcon}</button><button class="layout-field-action" data-edit-field="${esc(field.id)}" type="button" title="Rename or edit" aria-label="Edit ${esc(field.label)}">${editIcon}</button>${field.system?"":`<button class="layout-field-action danger" data-remove-field="${esc(field.id)}" type="button" title="Remove field" aria-label="Remove ${esc(field.label)}">${removeIcon}</button>`}</div><label>${esc(field.label)}</label><span>${esc(field.value||field.options?.[0]||"—")}</span></div>`;}
+    function renderPreview(){const host=document.getElementById("customizerPreview");if(!host)return;const isTicket=windowType==="ticket";document.getElementById("customizerPreviewTitle").textContent=isTicket?"Ticket window":"Customer profile window";host.innerHTML=`<div class="layout-preview-window"><div class="layout-preview-top"><strong>${isTicket?"NX-1042":"Aarav Mehta"}</strong><span>${isTicket?"Agent workspace":"Unified profile"}</span></div><div class="layout-preview-body"><div class="layout-preview-title"><strong>${isTicket?"Ticket Information":"Customer Information"}</strong><small>Drag fields using the move control</small></div><div class="layout-preview-fields" data-builder-dropzone="true">${current().length?current().map(fieldMarkup).join(""):'<div class="layout-preview-empty">Drag an element here to begin.</div>'}</div>${isTicket?'<div class="layout-preview-section"><strong>Conversation · Click to view</strong><p>Conversation tools remain below the configurable information area.</p></div>':'<div class="layout-preview-section"><strong>Customer timeline</strong><p>Tickets, calls, notes and commerce activity remain available below.</p></div>'}</div></div>`;}
+    function render(){renderElements();renderPreview();}
+    function addElement(type,index=current().length){const template=elementTypes.find(item=>item.type===type);if(!template)return;const field={id:`custom-${Date.now()}-${Math.random().toString(36).slice(2,6)}`,label:template.label,value:template.value,type:template.type,width:template.full?"full":"half",system:false};if(template.options)field.options=[...template.options];current().splice(Math.max(0,Math.min(index,current().length)),0,field);markChanged(`${template.label} added.`);renderPreview();openEditor(field.id);}
+    function moveField(sourceId,targetId,position="before"){const list=current(),from=list.findIndex(field=>field.id===sourceId),target=list.findIndex(field=>field.id===targetId);if(from<0||target<0||from===target)return;const [field]=list.splice(from,1);let to=list.findIndex(item=>item.id===targetId);if(position==="after")to+=1;list.splice(to,0,field);markChanged("Field repositioned.");renderPreview();}
+    function clearDropIndicators(){document.querySelectorAll("#customizerPreview [data-drop-position]").forEach(item=>item.removeAttribute("data-drop-position"));document.querySelector("#customizerPreview .builder-drop-active")?.classList.remove("builder-drop-active");}
+    function openEditor(id){const field=fieldById(id);if(!field)return;editingId=id;document.getElementById("customizerEditorLabel").value=field.label;document.getElementById("customizerEditorTitle").textContent=field.statusField?"Edit ticket statuses":`Edit ${field.type.toLowerCase()}`;document.getElementById("customizerEditorHint").textContent=field.statusField?"Rename Status and manage the ticket lifecycle choices.":"Rename this field without changing existing data.";document.getElementById("customizerChoiceArea").hidden=!Array.isArray(field.options);document.getElementById("customizerEditorMessage").textContent="";renderChoices(field);document.getElementById("customizerEditor").hidden=false;setTimeout(()=>document.getElementById("customizerEditorLabel").focus(),0);}
+    function closeEditor(){editingId=null;document.getElementById("customizerEditor").hidden=true;}
+    function renderChoices(field=fieldById(editingId)){const host=document.getElementById("customizerChoiceList");if(!host)return;host.innerHTML=(field?.options||[]).map((choice,index)=>`<div class="customizer-choice-row" data-choice-index="${index}" draggable="true"><span class="customizer-choice-grip" title="Drag to reorder">⠿</span><input value="${esc(choice)}" aria-label="Choice ${index+1}"><button data-remove-choice="${index}" type="button" aria-label="Delete choice">×</button></div>`).join("");}
+    function saveEditor(){const field=fieldById(editingId);if(!field)return;const label=document.getElementById("customizerEditorLabel").value.trim();if(!label){document.getElementById("customizerEditorMessage").textContent="Enter a field name.";return;}field.label=label;if(Array.isArray(field.options)){const options=[...document.querySelectorAll("#customizerChoiceList input")].map(input=>input.value.trim()).filter(Boolean);if(!options.length){document.getElementById("customizerEditorMessage").textContent="A dropdown needs at least one choice.";return;}field.options=options;if(!options.includes(field.value))field.value=options[0];}markChanged(`${field.label} updated.`);renderPreview();closeEditor();}
+    document.querySelector(".customizer-window-tabs")?.addEventListener("click",event=>{const button=event.target.closest("[data-customizer-window]");if(!button)return;windowType=button.dataset.customizerWindow;document.querySelectorAll("[data-customizer-window]").forEach(item=>item.classList.toggle("active",item===button));renderPreview();});
+    document.getElementById("customizerElementList")?.addEventListener("click",event=>{const element=event.target.closest("[data-element-type]");if(element)addElement(element.dataset.elementType);});
+    document.getElementById("customizerElementList")?.addEventListener("dragstart",event=>{const element=event.target.closest("[data-element-type]");if(!element)return;draggedElementType=element.dataset.elementType;draggedFieldId=null;event.dataTransfer.effectAllowed="copy";event.dataTransfer.setData("text/plain",`element:${draggedElementType}`);});
+    document.getElementById("customizerElementList")?.addEventListener("dragend",()=>{draggedElementType=null;clearDropIndicators();});
+    document.getElementById("customizerPreview")?.addEventListener("click",event=>{const edit=event.target.closest("[data-edit-field]");if(edit)return openEditor(edit.dataset.editField);const remove=event.target.closest("[data-remove-field]");if(remove){const field=fieldById(remove.dataset.removeField);if(!field)return;if(remove.dataset.confirming!=="true"){remove.dataset.confirming="true";remove.title="Click again to remove";setTimeout(()=>{if(remove.isConnected)delete remove.dataset.confirming;},2500);return;}layouts[windowType]=current().filter(item=>item.id!==field.id);markChanged(`${field.label} removed.`);renderPreview();}});
+    document.getElementById("customizerPreview")?.addEventListener("dragstart",event=>{const item=event.target.closest("[data-preview-field]");const handle=event.target.closest("[data-drag-field]");if(!item||!handle){event.preventDefault();return;}draggedFieldId=item.dataset.previewField;draggedElementType=null;item.classList.add("dragging");event.dataTransfer.effectAllowed="move";event.dataTransfer.setData("text/plain",`field:${draggedFieldId}`);});
+    document.getElementById("customizerPreview")?.addEventListener("dragover",event=>{const zone=event.target.closest("[data-builder-dropzone]");if(!zone)return;event.preventDefault();zone.classList.add("builder-drop-active");const target=event.target.closest("[data-preview-field]");clearDropIndicators();zone.classList.add("builder-drop-active");if(target&&target.dataset.previewField!==draggedFieldId){const rect=target.getBoundingClientRect(),position=event.clientY<rect.top+rect.height/2?"before":"after";target.dataset.dropPosition=position;}event.dataTransfer.dropEffect=draggedElementType?"copy":"move";});
+    document.getElementById("customizerPreview")?.addEventListener("drop",event=>{const zone=event.target.closest("[data-builder-dropzone]");if(!zone)return;event.preventDefault();const target=event.target.closest("[data-preview-field]"),position=target?.dataset.dropPosition||"after";if(draggedElementType){let index=current().length;if(target){index=current().findIndex(field=>field.id===target.dataset.previewField)+(position==="after"?1:0);}addElement(draggedElementType,index);}else if(draggedFieldId&&target)moveField(draggedFieldId,target.dataset.previewField,position);draggedFieldId=null;draggedElementType=null;clearDropIndicators();});
+    document.getElementById("customizerPreview")?.addEventListener("dragend",()=>{draggedFieldId=null;document.querySelector("#customizerPreview .dragging")?.classList.remove("dragging");clearDropIndicators();});
+    ["customizerEditorClose","customizerEditorCancel"].forEach(id=>document.getElementById(id)?.addEventListener("click",closeEditor));
+    document.getElementById("customizerEditor")?.addEventListener("click",event=>{if(event.target.id==="customizerEditor")closeEditor();});
+    document.getElementById("customizerEditorSave")?.addEventListener("click",saveEditor);
+    document.getElementById("customizerEditorLabel")?.addEventListener("keydown",event=>{if(event.key==="Enter")saveEditor();});
+    document.getElementById("customizerAddChoice")?.addEventListener("click",()=>{const field=fieldById(editingId);if(!field)return;field.options||=[];field.options.push(`Option ${field.options.length+1}`);renderChoices(field);document.querySelector("#customizerChoiceList .customizer-choice-row:last-child input")?.select();});
+    document.getElementById("customizerChoiceList")?.addEventListener("click",event=>{const button=event.target.closest("[data-remove-choice]");if(!button)return;const field=fieldById(editingId);if(!field)return;if(field.options.length<=1){document.getElementById("customizerEditorMessage").textContent="Keep at least one dropdown choice.";return;}field.options.splice(Number(button.dataset.removeChoice),1);renderChoices(field);});
+    document.getElementById("customizerChoiceList")?.addEventListener("input",event=>{const row=event.target.closest("[data-choice-index]");const field=fieldById(editingId);if(row&&field)field.options[Number(row.dataset.choiceIndex)]=event.target.value;});
+    document.getElementById("customizerChoiceList")?.addEventListener("dragstart",event=>{const row=event.target.closest("[data-choice-index]");if(!row)return;draggedChoiceIndex=Number(row.dataset.choiceIndex);event.dataTransfer.effectAllowed="move";});
+    document.getElementById("customizerChoiceList")?.addEventListener("dragover",event=>{if(event.target.closest("[data-choice-index]"))event.preventDefault();});
+    document.getElementById("customizerChoiceList")?.addEventListener("drop",event=>{const row=event.target.closest("[data-choice-index]"),field=fieldById(editingId);if(!row||!field||draggedChoiceIndex===null)return;event.preventDefault();const target=Number(row.dataset.choiceIndex);const [choice]=field.options.splice(draggedChoiceIndex,1);field.options.splice(target,0,choice);draggedChoiceIndex=null;renderChoices(field);});
+    document.getElementById("customizerReset")?.addEventListener("click",event=>{const button=event.currentTarget;if(button.dataset.confirming!=="true"){button.dataset.confirming="true";button.textContent="Confirm restore";setTimeout(()=>{if(button.dataset.confirming==="true"){delete button.dataset.confirming;button.textContent="Restore default layout";}},3000);return;}delete button.dataset.confirming;button.textContent="Restore default layout";layouts[windowType]=clone(defaults[windowType]);markChanged("Default layout restored. Save the layout to keep it.");renderPreview();});
+    document.getElementById("customizerPublish")?.addEventListener("click",()=>{localStorage.setItem(STORAGE_KEY,JSON.stringify(layouts));const state=document.getElementById("settingsSaveState");if(state){state.textContent="Layout saved";state.classList.remove("unsaved");}const footer=document.getElementById("settingsFooterState");if(footer)footer.textContent=`${windowType==="ticket"?"Ticket":"Customer profile"} layout saved to this browser.`;});
+    document.addEventListener("keydown",event=>{if(event.key==="Escape"&&!document.getElementById("customizerEditor")?.hidden)closeEditor();});
     render();
 })();
 </script>
