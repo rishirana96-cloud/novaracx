@@ -6086,7 +6086,7 @@
 
                 <div id="reportModeToolbar" class="report-mode-toolbar">
                     <span>Report type</span>
-                    <select id="reportMode" aria-label="Report type"><option value="standard">Chart or summary table</option><option value="pivot">Pivot table</option><option value="sql">Create Custom Data-Set</option></select>
+                    <select id="reportMode" aria-label="Report type"><option value="standard">Chart or summary table</option><option value="kpi">KPI Cards</option><option value="pivot">Pivot table</option><option value="sql">Create Custom Data-Set</option></select>
                     <button id="reportWorkspaceJump" class="report-workspace-jump" type="button" title="Go to generated report" aria-label="Go to generated report">
                         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
                     </button>
@@ -7297,7 +7297,6 @@
                             <button data-settings-section="customize" type="button"><span><svg viewBox="0 0 24 24"><path d="M4 4h7v7H4zM13 4h7v4h-7zM13 10h7v10h-7zM4 13h7v7H4z"/></svg></span>Customize workspace</button>
                             <p class="settings-nav-group">People &amp; data</p>
                             <button data-settings-section="agents" type="button"><span><svg viewBox="0 0 24 24"><path d="M16 20v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2M9.5 10a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM17 8h4M19 6v4"/></svg></span>Agents and roles</button>
-                            <button data-settings-section="customers" type="button"><span><svg viewBox="0 0 24 24"><path d="M4 5h16v14H4zM8 9h8M8 13h5M16 13h.01"/></svg></span>Customer fields</button>
                             <p class="settings-nav-group">Support operations</p>
                             <button data-settings-section="tickets" type="button"><span><svg viewBox="0 0 24 24"><path d="M5 4h14v16H5zM8 8h8M8 12h8M8 16h5"/></svg></span>Ticket configuration</button>
                             <button data-settings-section="channels" type="button"><span><svg viewBox="0 0 24 24"><path d="M8 12h8M12 8v8M5 5l14 14M19 5 5 19"/></svg></span>Channels and integrations</button>
@@ -7321,11 +7320,6 @@
                         <section class="settings-section" data-settings-panel="tickets">
                             <article class="settings-block"><div class="settings-block-head"><div><h3>Ticket defaults</h3><p>Standardise how new support cases are created and managed.</p></div></div><div class="settings-form-grid"><label><span>Ticket prefix</span><input data-setting-key="ticketPrefix" value="NX-"></label><label><span>Default status</span><select data-setting-key="defaultStatus"><option>Open</option><option>In Progress</option><option>Pending</option></select></label><label><span>Default priority</span><select data-setting-key="defaultPriority"><option>Normal</option><option>High</option><option>Low</option></select></label><label><span>Auto-close resolved tickets</span><select data-setting-key="autoCloseDays"><option value="0">Never</option><option value="3">After 3 days</option><option value="7">After 7 days</option><option value="14">After 14 days</option></select></label><label class="settings-switch-row wide"><span><strong>Allow ticket reopening</strong><small>Customers and agents may reopen resolved tickets.</small></span><input data-setting-key="allowReopen" type="checkbox" checked><i></i></label></div></article>
                             <article class="settings-block"><div class="settings-block-head"><div><h3>Service levels</h3><p>Default response and resolution expectations.</p></div></div><div class="settings-form-grid"><label><span>First response target</span><select data-setting-key="firstResponseSla"><option value="1">1 hour</option><option value="2">2 hours</option><option value="4">4 hours</option></select></label><label><span>Resolution target</span><select data-setting-key="resolutionSla"><option value="8">8 hours</option><option value="24">24 hours</option><option value="48">48 hours</option></select></label></div></article>
-                        </section>
-
-                        <section class="settings-section" data-settings-panel="customers">
-                            <article class="settings-block"><div class="settings-block-head"><div><h3>Customer profile fields</h3><p>Control the information available across customer profiles and tickets.</p></div><button id="settingsAddField" class="settings-primary-btn" type="button">Add field</button></div><div id="settingsCustomerFields" class="settings-field-list"></div><div id="settingsFieldForm" class="settings-inline-form" hidden><input id="settingsFieldName" placeholder="Field name"><select id="settingsFieldType"><option>Text</option><option>Number</option><option>Date</option><option>Dropdown</option><option>Checkbox</option></select><label class="settings-compact-check"><input id="settingsFieldRequired" type="checkbox"> Required</label><button id="settingsCreateField" class="settings-primary-btn" type="button">Create field</button></div></article>
-                            <article class="settings-block"><div class="settings-block-head"><div><h3>Identity controls</h3><p>Protect profile quality and customer consent.</p></div></div><div class="settings-form-grid"><label class="settings-switch-row wide"><span><strong>Detect potential duplicates</strong><small>Flag customers sharing an email address or phone number.</small></span><input data-setting-key="detectDuplicates" type="checkbox" checked><i></i></label><label class="settings-switch-row wide"><span><strong>Require contact consent</strong><small>Agents must record consent before outbound contact.</small></span><input data-setting-key="requireConsent" type="checkbox" checked><i></i></label></div></article>
                         </section>
 
                         <section class="settings-section" data-settings-panel="channels">
@@ -12199,6 +12193,11 @@ ORDER BY ticket_count DESC</textarea>
             sort: document.getElementById("reportSort").value,
             palette: selectedReportPalette,
             colors: currentReportColors(),
+            kpi: {
+                label: document.getElementById("kpiLabel")?.value.trim() || "Key metric",
+                format: document.getElementById("kpiFormat")?.value || "number",
+                comparison: document.getElementById("kpiComparison")?.value.trim() || ""
+            },
             limit: null,
             filters: getReportFilters(),
             rawSql: {
@@ -12522,6 +12521,7 @@ ORDER BY ticket_count DESC</textarea>
         chartWrap.hidden = false;
         const isCircular = config.visual === "doughnut";
         const palette = config.colors?.length ? config.colors : REPORT_PALETTES.novara;
+        if (!document.getElementById("customReportChart")) chartWrap.innerHTML = '<canvas id="customReportChart"></canvas>';
         const context = document.getElementById("customReportChart").getContext("2d");
         customReportChart = new Chart(context, {
             type: config.visual,
@@ -12774,7 +12774,9 @@ ORDER BY ticket_count DESC</textarea>
         const mode = document.getElementById("reportMode")?.value;
         const isPivot = mode === "pivot";
         const isSql = mode === "sql";
+        const isKpi = mode === "kpi";
         document.getElementById("panel-reports")?.classList.toggle("sql-runner-mode", isSql);
+        document.getElementById("panel-reports")?.classList.toggle("kpi-mode", isKpi);
         document.querySelectorAll(".standard-report-control").forEach(element => element.hidden = isPivot || isSql);
         document.querySelectorAll(".pivot-report-control").forEach(element => element.hidden = !isPivot);
         document.querySelectorAll(".visual-report-control").forEach(element => element.hidden = isSql);
@@ -12805,6 +12807,25 @@ ORDER BY ticket_count DESC</textarea>
             const result = buildPivotResult(config);
             renderPivotReport(result);
             setReportMessage(result.rowsAnalysed ? `Pivot table generated from ${result.rowsAnalysed.toLocaleString("en-IN")} records.` : "No records found in this date range.");
+            return;
+        }
+        if (config.mode === "kpi") {
+            const result = buildReportResult(config);
+            currentReportResult = result;
+            const value = result.total;
+            const display = config.kpi.format === "currency" ? `₹${formatReportValue(value)}` : config.kpi.format === "percent" ? `${Number(value).toFixed(1)}%` : formatReportValue(value);
+            document.getElementById("reportPreviewTitle").textContent = config.name || config.kpi.label;
+            document.getElementById("reportPreviewMeta").textContent = `${reportDateDescription()} · KPI card`;
+            document.getElementById("reportRowsAnalysed").textContent = result.rowsAnalysed.toLocaleString("en-IN");
+            document.getElementById("reportGroupsShown").textContent = "1";
+            document.getElementById("reportTotalValue").textContent = display;
+            document.getElementById("reportPreviewEmpty").hidden = true;
+            document.getElementById("reportTableWrap").hidden = true;
+            document.getElementById("pivotTableWrap").hidden = true;
+            document.getElementById("rawSqlTableWrap").hidden = true;
+            const wrap = document.getElementById("reportChartWrap");wrap.hidden=false;wrap.innerHTML=`<div class="dashboard-kpi-card"><span>${escapeHtml(config.kpi.label)}</span><strong>${escapeHtml(display)}</strong><small>${escapeHtml(config.kpi.comparison||`${result.rowsAnalysed.toLocaleString("en-IN")} records analysed`)}</small></div>`;
+            document.getElementById("reportExportBtn").disabled = false;
+            setReportMessage(`KPI card generated from ${result.rowsAnalysed.toLocaleString("en-IN")} records.`);
             return;
         }
         if (!config.dimension) {
@@ -12848,7 +12869,7 @@ ORDER BY ticket_count DESC</textarea>
             <div class="saved-report-item">
                 <button class="saved-report-main" type="button" data-report-load="${escapeHtml(report.id)}">
                     <strong>${escapeHtml(report.name)}</strong>
-                    <span>${report.mode === "sql" ? "Raw SQL" : escapeHtml(reportLabel(report.dataset))} · ${report.mode === "pivot" ? "Pivot table" : report.mode === "sql" ? escapeHtml(reportLabel(report.rawSql?.visual || "table")) : escapeHtml(reportLabel(report.visual))} · ${escapeHtml(report.updatedLabel || "Saved report")}</span>
+                    <span>${report.mode === "sql" ? "Raw SQL" : escapeHtml(reportLabel(report.dataset))} · ${report.mode === "kpi" ? "KPI card" : report.mode === "pivot" ? "Pivot table" : report.mode === "sql" ? escapeHtml(reportLabel(report.rawSql?.visual || "table")) : escapeHtml(reportLabel(report.visual))} · ${escapeHtml(report.updatedLabel || "Saved report")}</span>
                 </button>
                 <button class="saved-report-delete" type="button" data-report-delete="${escapeHtml(report.id)}" aria-label="Delete ${escapeHtml(report.name)}" title="Delete report">
                     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M9 7V4h6v3M7 7l1 13h8l1-13M10 11v5M14 11v5"/></svg>
@@ -12895,6 +12916,11 @@ ORDER BY ticket_count DESC</textarea>
             document.getElementById("rawSqlVisual").value = config.rawSql.visual || "table";
             document.getElementById("rawSqlX").dataset.pendingValue = config.rawSql.x || "";
             document.getElementById("rawSqlY").dataset.pendingValue = config.rawSql.y || "";
+        }
+        if (config.kpi) {
+            if(document.getElementById("kpiLabel")) document.getElementById("kpiLabel").value=config.kpi.label||"Key metric";
+            if(document.getElementById("kpiFormat")) document.getElementById("kpiFormat").value=config.kpi.format||"number";
+            if(document.getElementById("kpiComparison")) document.getElementById("kpiComparison").value=config.kpi.comparison||"";
         }
         document.getElementById("reportFilters").innerHTML = "";
         (config.filters || []).forEach(addReportFilter);
@@ -13256,7 +13282,7 @@ ORDER BY created_date DESC, ticket_count DESC`;
     }
 
     function dashboardWidgetMarkup(widget, report) {
-        const type = report?.mode === "pivot" ? "Pivot table" : report?.mode === "sql" ? `SQL · ${reportLabel(report.rawSql?.visual || "table")}` : report ? reportLabel(report.visual) : "Missing report";
+        const type = report?.mode === "kpi" ? "KPI card" : report?.mode === "pivot" ? "Pivot table" : report?.mode === "sql" ? `SQL · ${reportLabel(report.rawSql?.visual || "table")}` : report ? reportLabel(report.visual) : "Missing report";
         return `<article class="dashboard-widget" draggable="${dashboardArrangeMode ? "true" : "false"}" data-widget-id="${escapeHtml(widget.id)}" style="grid-column:span ${Math.max(3, Number(widget.colSpan) || 6)};grid-row:span ${Math.max(5, Number(widget.rowSpan) || 8)}">
             <div class="dashboard-widget-head">
                 <div class="dashboard-widget-title"><strong>${escapeHtml(report?.name || "Report unavailable")}</strong><span>${escapeHtml(report ? `${report.mode === "sql" ? "Raw SQL" : reportLabel(report.dataset)} · ${type}` : "The saved report was deleted")}</span></div>
@@ -13312,6 +13338,12 @@ ORDER BY created_date DESC, ticket_count DESC`;
             return;
         }
         const result = report.mode === "pivot" ? buildPivotResult(report) : buildReportResult(report);
+        if (report.mode === "kpi") {
+            const value=result.total,format=report.kpi?.format||"number";
+            const display=format==="currency"?`₹${formatReportValue(value)}`:format==="percent"?`${Number(value).toFixed(1)}%`:formatReportValue(value);
+            body.innerHTML=`<div class="dashboard-kpi-card"><span>${escapeHtml(report.kpi?.label||report.name)}</span><strong>${escapeHtml(display)}</strong><small>${escapeHtml(report.kpi?.comparison||`${result.rowsAnalysed.toLocaleString("en-IN")} records analysed`)}</small></div>`;
+            return;
+        }
         if (report.mode === "pivot") renderDashboardPivot(body, result);
         else if (report.visual === "table") renderDashboardTable(body, result);
         else renderDashboardChart(body, result, widget.id);
@@ -13520,13 +13552,14 @@ ORDER BY created_date DESC, ticket_count DESC`;
     function renderDashboardReportPicker(query = "") {
         const reports = loadSavedReports().filter(report => report.name.toLowerCase().includes(query.toLowerCase()));
         const list = document.getElementById("dashboardReportPickerList");
-        list.innerHTML = reports.length ? reports.map(report => `<div class="dashboard-picker-item"><div><strong>${escapeHtml(report.name)}</strong><span>${report.mode === "sql" ? "Raw SQL" : escapeHtml(reportLabel(report.dataset))} · ${report.mode === "pivot" ? "Pivot table" : report.mode === "sql" ? escapeHtml(reportLabel(report.rawSql?.visual || "table")) : escapeHtml(reportLabel(report.visual))}</span></div><button class="report-secondary-btn" type="button" data-add-report="${escapeHtml(report.id)}">Add</button></div>`).join("") : `<div class="dashboard-picker-empty">${loadSavedReports().length ? "No reports match your search." : "No saved reports yet. Create and save a report first."}</div>`;
+        list.innerHTML = reports.length ? reports.map(report => `<div class="dashboard-picker-item"><div><strong>${escapeHtml(report.name)}</strong><span>${report.mode === "sql" ? "Raw SQL" : escapeHtml(reportLabel(report.dataset))} · ${report.mode === "kpi" ? "KPI card" : report.mode === "pivot" ? "Pivot table" : report.mode === "sql" ? escapeHtml(reportLabel(report.rawSql?.visual || "table")) : escapeHtml(reportLabel(report.visual))}</span></div><button class="report-secondary-btn" type="button" data-add-report="${escapeHtml(report.id)}">Add</button></div>`).join("") : `<div class="dashboard-picker-empty">${loadSavedReports().length ? "No reports match your search." : "No saved reports yet. Create and save a report first."}</div>`;
         list.querySelectorAll("[data-add-report]").forEach(button => button.addEventListener("click", () => addReportToDashboard(button.dataset.addReport)));
     }
 
     function addReportToDashboard(reportId) {
         const dashboards = loadCustomDashboards(); const active = activeCustomDashboard(dashboards);
-        active.widgets.push({ id:`widget_${Date.now()}_${Math.random().toString(36).slice(2,7)}`, reportId, colSpan:6, rowSpan:8 });
+        const report=dashboardReportById(reportId),isKpi=report?.mode==="kpi";
+        active.widgets.push({ id:`widget_${Date.now()}_${Math.random().toString(36).slice(2,7)}`, reportId, colSpan:isKpi?3:6, rowSpan:isKpi?5:8 });
         persistDashboardWidgets(dashboards,active); renderCustomDashboard(); setDashboardStatus("Report added to dashboard.");
     }
 
@@ -15753,6 +15786,7 @@ ORDER BY created_date DESC, ticket_count DESC`;
     document.getElementById("customerProfileNewTicket")?.addEventListener("click",()=>{closeCustomer();showWorkspace("tickets")});
     document.getElementById("customerExportBtn")?.addEventListener("click",()=>{const rows=[["Customer ID","Name","Email","Phone","Organisation","Segment","Health score","Tickets","CSAT","Lifetime value"],...customers.map(c=>[c.id,c.name,c.email,c.phone,c.organisation,c.segment,c.healthScore,c.tickets,c.csat,c.value])];const csv=rows.map(row=>row.map(value=>`"${String(value??"").replace(/"/g,'""')}"`).join(",")).join("\n");const link=document.createElement("a");link.href=URL.createObjectURL(new Blob([csv],{type:"text/csv"}));link.download="novaradesk-customer-profiles.csv";link.click();URL.revokeObjectURL(link.href)});
     document.addEventListener("keydown",event=>{if(event.key==="Escape"&&document.getElementById("customerProfileBackdrop")?.classList.contains("open"))closeCustomer()});
+    window.customerProfileBridge={get active(){return activeCustomer},get customers(){return customers},render:renderCustomerProfile,save:()=>{saveCustomers();renderCustomerDirectory();}};
     renderCustomerDirectory();
 })();
 </script>
@@ -15895,6 +15929,88 @@ ORDER BY created_date DESC, ticket_count DESC`;
     document.getElementById("customizerReset")?.addEventListener("click",event=>{const button=event.currentTarget;if(button.dataset.confirming!=="true"){button.dataset.confirming="true";button.textContent="Confirm restore";setTimeout(()=>{if(button.dataset.confirming==="true"){delete button.dataset.confirming;button.textContent="Restore default layout";}},3000);return;}delete button.dataset.confirming;button.textContent="Restore default layout";layouts[windowType]=clone(defaults[windowType]);markChanged("Default layout restored. Save the layout to keep it.");renderPreview();});
     document.getElementById("customizerPublish")?.addEventListener("click",()=>{localStorage.setItem(STORAGE_KEY,JSON.stringify(layouts));const state=document.getElementById("settingsSaveState");if(state){state.textContent="Layout saved";state.classList.remove("unsaved");}const footer=document.getElementById("settingsFooterState");if(footer)footer.textContent=`${windowType==="ticket"?"Ticket":"Customer profile"} layout saved to this browser.`;});
     render();
+})();
+</script>
+<style id="final-enterprise-refinements">
+/* Centered profile workspace */
+.customer-profile-backdrop.open{display:grid!important;place-items:center!important;padding:24px!important;overflow:hidden!important}
+.customer-profile-drawer{position:relative!important;inset:auto!important;margin:auto!important;width:min(1540px,calc(100vw - 48px))!important;height:min(940px,calc(100vh - 48px))!important;max-height:calc(100vh - 48px)!important;border-radius:22px!important;box-shadow:0 28px 90px rgba(0,0,0,.3)!important}
+.customer-profile-scroll{overscroll-behavior:contain}
+.customer-inline-input,.customer-inline-select{width:100%;min-height:34px;padding:7px 9px;border:1px solid var(--border);border-radius:8px;background:var(--surface);color:var(--text);font:650 10px/1.3 inherit}
+.customer-inline-input:focus,.customer-inline-select:focus{outline:2px solid color-mix(in srgb,var(--accent) 20%,transparent);border-color:var(--accent)}
+.customer-profile-name-row .customer-inline-input{font-size:18px;font-weight:800;max-width:340px}
+.customer-profile-cancel{display:none}.customer-profile-drawer.inline-editing .customer-profile-cancel{display:inline-flex}
+.customer-profile-drawer.inline-editing .customer-profile-tags span{border-style:dashed}
+@media(max-width:760px){.customer-profile-backdrop.open{padding:6px!important}.customer-profile-drawer{width:calc(100vw - 12px)!important;height:calc(100vh - 12px)!important;max-height:calc(100vh - 12px)!important}}
+
+/* Lean settings navigation */
+#panel-settings .settings-navigation nav button>span{background:transparent!important;border:0!important;box-shadow:none!important;color:var(--text-muted)!important;width:28px!important;height:28px!important}
+#panel-settings .settings-navigation nav button>span svg{width:19px!important;height:19px!important;stroke-width:1.65!important}
+#panel-settings .settings-navigation nav button:hover{background:color-mix(in srgb,var(--accent) 6%,transparent)!important}
+#panel-settings .settings-navigation nav button.active>span{background:var(--accent)!important;color:#fff!important;border-radius:8px!important}
+#panel-settings .settings-navigation nav button{font-size:10.5px!important;min-height:38px!important}
+#panel-settings .customizer-window-tabs button{font-weight:700!important}
+
+/* Exact insertion affordance */
+#panel-settings .layout-drop-placeholder,#panel-settings .layout-drag-placeholder{min-height:78px;border:2px dashed color-mix(in srgb,var(--accent) 72%,transparent)!important;border-radius:11px;background:color-mix(in srgb,var(--accent) 9%,transparent)!important;grid-column:span 1;box-shadow:inset 0 0 0 3px color-mix(in srgb,var(--accent) 3%,transparent)}
+#panel-settings .layout-drop-placeholder.full,#panel-settings .layout-drag-placeholder.full{grid-column:1/-1}
+#panel-settings .layout-drop-placeholder::after{content:"Drop field here";display:grid;place-items:center;height:100%;min-height:74px;color:var(--accent);font-size:10px;font-weight:800}
+#panel-settings .customizer-drag-ghost{opacity:.76!important;transform:scale(.96)!important}
+
+/* KPI report cards */
+.kpi-builder-controls{display:none;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:10px}
+#panel-reports.kpi-mode .kpi-builder-controls{display:grid}
+.kpi-builder-controls label{display:grid;gap:6px;color:var(--text-muted);font-size:9px;font-weight:800;text-transform:uppercase}
+.kpi-builder-controls input,.kpi-builder-controls select{min-height:40px;padding:0 11px;border:1px solid var(--border);border-radius:9px;background:var(--surface);color:var(--text);font:inherit;font-size:11px}
+.dashboard-kpi-card{height:100%;display:flex;flex-direction:column;justify-content:center;padding:18px 20px;background:linear-gradient(145deg,color-mix(in srgb,var(--accent) 10%,var(--bg-card)),var(--bg-card));border-radius:12px}
+.dashboard-kpi-card span{color:var(--text-muted);font-size:9px;font-weight:800;letter-spacing:.08em;text-transform:uppercase}.dashboard-kpi-card strong{margin:9px 0 7px;color:var(--text);font-size:30px;line-height:1}.dashboard-kpi-card small{color:var(--accent);font-size:10px;font-weight:750}
+
+/* Match index.html launcher */
+.ticket-workspace-floater{right:28px!important;bottom:28px!important;width:62px!important;height:62px!important;border:0!important;border-radius:50%!important;background:linear-gradient(135deg,#8eaa9b,#6f9582)!important;color:#101512!important;box-shadow:0 10px 34px rgba(124,155,138,.4)!important;transition:transform .2s ease,box-shadow .2s ease!important}
+.ticket-workspace-floater::before{content:"";position:absolute;inset:-6px;border-radius:50%;border:1.5px solid rgba(124,155,138,.35);animation:workspace-ring-pulse 2.6s ease-out infinite}
+@keyframes workspace-ring-pulse{0%{transform:scale(.9);opacity:.8}80%,100%{transform:scale(1.28);opacity:0}}
+.ticket-workspace-floater:hover{transform:scale(1.07)!important;box-shadow:0 12px 50px rgba(124,155,138,.55)!important}
+.ticket-workspace-floater svg{width:26px!important;height:26px!important;stroke:#101512!important;stroke-width:2!important}
+.ticket-workspace-floater.open{background:linear-gradient(135deg,#8eaa9b,#6f9582)!important;color:#101512!important}
+@media(max-width:720px){.ticket-workspace-floater{right:18px!important;bottom:18px!important;width:58px!important;height:58px!important}}
+</style>
+<script id="final-enterprise-behaviour">
+(() => {
+  const mode=document.getElementById('reportMode');
+  const toolbar=document.getElementById('reportModeToolbar');
+  if(toolbar&&!document.getElementById('kpiBuilderControls')){
+    const controls=document.createElement('div');controls.id='kpiBuilderControls';controls.className='kpi-builder-controls';
+    controls.innerHTML='<label>Card label<input id="kpiLabel" value="Total tickets"></label><label>Number format<select id="kpiFormat"><option value="number">Number</option><option value="currency">Currency</option><option value="percent">Percentage</option></select></label><label>Comparison text<input id="kpiComparison" value="vs previous period"></label>';
+    toolbar.insertAdjacentElement('afterend',controls);
+  }
+  const syncKpi=()=>document.getElementById('panel-reports')?.classList.toggle('kpi-mode',mode?.value==='kpi');
+  mode?.addEventListener('change',syncKpi);syncKpi();
+
+  // Inline profile editing: no secondary editor surface.
+  const drawer=document.querySelector('.customer-profile-drawer');
+  const edit=document.getElementById('customerProfileEdit');
+  if(edit&&drawer){
+    const cancel=document.createElement('button');cancel.id='customerProfileInlineCancel';cancel.className='customer-secondary-btn customer-profile-cancel';cancel.type='button';cancel.textContent='Cancel';edit.before(cancel);
+    let editing=false,snapshot=null;
+    const val=(key,fallback='')=>window.customerProfileBridge?.active?.[key]??fallback;
+    const field=(label,key,type='text',options=[])=>`<div class="customer-detail-row"><span>${label}</span>${type==='select'?`<select class="customer-inline-select" data-profile-field="${key}">${options.map(v=>`<option ${v===val(key)?'selected':''}>${v}</option>`).join('')}</select>`:`<input class="customer-inline-input" data-profile-field="${key}" type="${type}" value="${String(val(key)).replace(/&/g,'&amp;').replace(/"/g,'&quot;')}">`}</div>`;
+    const start=()=>{const customer=window.customerProfileBridge?.active;if(!customer)return;editing=true;snapshot=JSON.stringify(customer);drawer.classList.add('inline-editing');edit.textContent='Save changes';document.getElementById('customerProfileName').innerHTML=`<input class="customer-inline-input" data-profile-field="name" value="${String(val('name')).replace(/"/g,'&quot;')}">`;document.getElementById('customerContactDetails').innerHTML=field('Email','email','email')+field('Phone','phone','tel')+field('Organisation','organisation')+field('Location','city')+field('Time zone','timezone')+field('Owner','owner');document.getElementById('customerPreferences').innerHTML=field('Preferred channel','preferredChannel','select',['Email','Chat','WhatsApp','Phone'])+field('Language','language','select',['English','Hindi','Hinglish'])+field('Marketing consent','marketingConsent','select',['Granted','Not recorded','Declined'])+field('Identity & data consent','dataConsent','select',['Recorded','Not recorded','Declined']);};
+    const finish=(save)=>{const bridge=window.customerProfileBridge,customer=bridge?.active;if(!customer)return;if(save){drawer.querySelectorAll('[data-profile-field]').forEach(input=>customer[input.dataset.profileField]=input.value);bridge.save();}else if(snapshot)Object.assign(customer,JSON.parse(snapshot));editing=false;drawer.classList.remove('inline-editing');edit.textContent='Edit profile';bridge.render(customer);};
+    edit.addEventListener('click',event=>{event.preventDefault();event.stopImmediatePropagation();editing?finish(true):start();},true);
+    cancel.addEventListener('click',()=>finish(false));
+  }
+
+  // Native element drag placeholder at the exact insertion point.
+  const preview=document.getElementById('customizerPreview');
+  let placeholder=null;
+  const clear=()=>{placeholder?.remove();placeholder=null};
+  preview?.addEventListener('dragover',event=>{const zone=event.target.closest('[data-builder-dropzone]');if(!zone)return;event.preventDefault();const source=document.querySelector('.customizer-element:active');const full=source?.dataset.elementType==='Long paragraph';if(!placeholder){placeholder=document.createElement('div');placeholder.className='layout-drop-placeholder';}placeholder.classList.toggle('full',full);const target=event.target.closest('[data-preview-field]');if(target){const rect=target.getBoundingClientRect();target[event.clientY>rect.top+rect.height/2?'after':'before'](placeholder)}else zone.append(placeholder);},true);
+  preview?.addEventListener('drop',()=>setTimeout(clear,0),true);document.getElementById('customizerElementList')?.addEventListener('dragend',clear,true);
+
+  // Use the index launcher glyph exactly.
+  const launcher=document.getElementById('ticketWorkspaceFloater');
+  const icon=launcher?.querySelector('.ticket-floater-message-icon');
+  if(icon)icon.innerHTML='<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><path d="M8 10h.01"/><path d="M12 10h.01"/><path d="M16 10h.01"/>';
 })();
 </script>
 </body>
