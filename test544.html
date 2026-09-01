@@ -2097,5 +2097,30 @@ body>header .nav-cta{padding-inline:14px!important}
 })();
 </script>
 
+
+<style>
+/* === Temporary price suppression === */
+#mvp-pricing .currency-switcher{display:none!important}
+#mvp-pricing .mvp-plan-price{min-height:51px;display:flex;align-items:center}
+#mvp-pricing .price-placeholder{color:#6c7b72;font-size:2rem;font-weight:500}
+#mvp-pricing .comparison-tax{display:none!important}
+</style>
+<script>
+(()=>{
+  const suppressPricing=()=>{
+    const pricing=document.querySelector('#mvp-pricing');
+    if(!pricing)return;
+    pricing.querySelectorAll('[data-plan-price],.mvp-plan-price').forEach(el=>{el.innerHTML='<span class="price-placeholder">-</span>'});
+    pricing.querySelectorAll('[data-compare-price]').forEach(el=>{el.textContent='-'});
+    const switcher=pricing.querySelector('.currency-switcher');
+    if(switcher)switcher.hidden=true;
+    const note=pricing.querySelector('.mvp-plan-note');
+    if(note)note.textContent='Implementation scope, coverage hours and channel integrations are confirmed during discovery.';
+  };
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>window.setTimeout(suppressPricing,340));
+  else window.setTimeout(suppressPricing,340);
+})();
+</script>
+
 </body>
 </html>
