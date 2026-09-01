@@ -644,7 +644,7 @@ updateProgress();
   if(oldStage){
     const definitions=[
       {key:'routine',title:'REPETITIVE QUERIES',mode:'AI-ONLY',label:'Repetitive queries — AI-only',placeholder:'Try: Where is my order?',defaultMessage:'Hi, where is my order NC-1842?',reply:'Your order is out for delivery and should arrive today between 4–6 PM.',outcome:'✓ Resolved by Novara AI'},
-      {key:'payment',title:'HUMAN INTERVENTION',mode:'AI + HUMAN',label:'Human intervention — AI plus human',placeholder:'Try: I was charged twice',defaultMessage:'I was charged twice for my subscription.',reply:'I’m checking your account and recent payments now.',agent:'I found the duplicate payment. I’ve initiated the refund and will keep you updated here.',outcome:'✓ Resolved by Aarav'}
+      {key:'payment',title:'COMPLEX ISSUE RESOLUTION',mode:'AI + HUMAN',label:'Complex issue resolution — AI plus human',placeholder:'Try: I was charged twice',defaultMessage:'I was charged twice for my subscription.',reply:'I’m checking your account and recent payments now.',agent:'I found the duplicate payment. I’ve initiated the refund and will keep you updated here.',outcome:'✓ Resolved by Aarav'}
     ];
     const gallery=document.createElement('div');gallery.className='wa-gallery';gallery.setAttribute('aria-label','Two interactive WhatsApp customer-support demonstrations');
     const topbar=oldStage.querySelector('.wa-topbar');
@@ -776,7 +776,7 @@ updateProgress();
   const tour=document.querySelector('#mvp-product-tour');
   if(tour){
     tour.className='product-studio';
-    tour.innerHTML=`<div class="mvp-shell"><div class="product-studio-head"><div><span class="mvp-kicker editorial-label">05 / Inside NovaraDesk</span><h2>Move from performance signals to the customer conversation.</h2></div><p>One operational workspace connects AI activity, human tickets, customer context, reporting and escalation workflows.</p></div><div class="product-studio-shell"><nav class="studio-nav" aria-label="NovaraDesk capabilities"><div class="studio-brand">Novara<span>Desk</span></div><button class="studio-tab active" type="button" data-studio-tab="analytics"><svg viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20V7"/></svg>Analytics</button><button class="studio-tab" type="button" data-studio-tab="tickets"><svg viewBox="0 0 24 24"><path d="M5 4h14v16H5zM8 8h8M8 12h8M8 16h5"/></svg>Tickets</button><button class="studio-tab" type="button" data-studio-tab="customers"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="4"/><path d="M2 21c0-4 3-7 7-7s7 3 7 7M17 8h5"/></svg>Customers</button><button class="studio-tab" type="button" data-studio-tab="reports"><svg viewBox="0 0 24 24"><path d="M4 19V5M4 19h16M8 16v-5M12 16V7M16 16v-3"/></svg>Reports</button><button class="studio-tab" type="button" data-studio-tab="workflows"><svg viewBox="0 0 24 24"><circle cx="5" cy="5" r="2"/><circle cx="19" cy="5" r="2"/><circle cx="12" cy="19" r="2"/><path d="M7 5h10M6 7l5 10M18 7l-5 10"/></svg>Workflows</button></nav><div class="studio-main"><div class="studio-top"><div><span>Live workspace</span><strong data-studio-title>Support performance</strong></div><span class="studio-live">● Updated now</span></div><section class="studio-pane active" data-studio-pane="analytics"><div class="studio-kpis"><div class="studio-kpi"><span>AI resolution</span><strong>74%</strong><small>↑ 8% this month</small></div><div class="studio-kpi"><span>Average CSAT</span><strong>4.7</strong><small>Healthy</small></div><div class="studio-kpi"><span>Open escalations</span><strong>12</strong><small>3 high priority</small></div></div><div class="studio-chart"><div class="studio-chart-head"><strong>Conversations resolved</strong><span>Last 30 days</span></div><div class="studio-bars"><i></i><i></i><i></i><i></i><i></i><i></i></div></div></section><section class="studio-pane" data-studio-pane="tickets"><div class="studio-list"><div class="studio-list-row"><span>Ticket</span><span>Owner</span><span>Status</span></div><div class="studio-list-row"><strong>Duplicate payment</strong><span>Aarav</span><span class="studio-status warn">Priority</span></div><div class="studio-list-row"><strong>Delivery exception</strong><span>Novara AI</span><span class="studio-status">Resolved</span></div><div class="studio-list-row"><strong>Subscription change</strong><span>Meera</span><span class="studio-status">In progress</span></div><div class="studio-list-row"><strong>Return eligibility</strong><span>Novara AI</span><span class="studio-status">Resolved</span></div></div></section><section class="studio-pane" data-studio-pane="customers"><div class="studio-profiles"><article class="studio-profile"><span class="studio-avatar">AS</span><div><strong>Ananya Sharma</strong><span>6 conversations · CSAT 5.0</span></div></article><article class="studio-profile"><span class="studio-avatar">RM</span><div><strong>Rohan Mehta</strong><span>2 tickets · Refund pending</span></div></article><article class="studio-profile"><span class="studio-avatar">NK</span><div><strong>Neha Kapoor</strong><span>4 conversations · Returning</span></div></article><article class="studio-profile"><span class="studio-avatar">AV</span><div><strong>Arjun Verma</strong><span>1 escalation · Resolved</span></div></article></div></section><section class="studio-pane" data-studio-pane="reports"><div class="studio-report-grid"><article class="studio-report"><strong>Resolution quality</strong><span>AI and human outcomes by intent, channel and customer segment.</span></article><article class="studio-report"><strong>Escalation patterns</strong><span>See where customers need judgement, empathy or policy exceptions.</span></article><article class="studio-report"><strong>Response performance</strong><span>First-response and resolution trends across the operation.</span></article><article class="studio-report"><strong>Customer signals</strong><span>Sentiment, satisfaction and repeat-contact indicators.</span></article></div></section><section class="studio-pane" data-studio-pane="workflows"><div class="studio-workflow"><article class="studio-flow-node"><strong>Conversation received</strong><span>Intent and customer context identified.</span></article><article class="studio-flow-node"><strong>Confidence checked</strong><span>AI resolves or applies an escalation rule.</span></article><article class="studio-flow-node"><strong>Human takes ownership</strong><span>Full conversation context remains attached.</span></article><article class="studio-flow-node"><strong>Outcome measured</strong><span>Resolution and quality feed continuous improvement.</span></article></div></section></div><aside class="studio-aside"><span class="studio-aside-label" data-studio-label>Analytics</span><h3 data-studio-heading>AI and human performance, side by side.</h3><p data-studio-copy>Track resolution, CSAT, response times, intents and escalation patterns from one operational view.</p><ul data-studio-points><li>AI-agent and human-agent analytics</li><li>Flexible date ranges and filters</li><li>Performance trends and customer signals</li></ul></aside></div></div>`;
+    tour.innerHTML=`<div class="mvp-shell"><div class="product-studio-head"><div><span class="mvp-kicker editorial-label">05 / Inside NovaraDesk</span><h2>Live Preview</h2></div><p>One operational workspace connects AI activity, human tickets, customer context, reporting and escalation workflows.</p></div><div class="product-studio-shell"><nav class="studio-nav" aria-label="NovaraDesk capabilities"><div class="studio-brand">Novara<span>Desk</span></div><button class="studio-tab active" type="button" data-studio-tab="analytics"><svg viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20V7"/></svg>Analytics</button><button class="studio-tab" type="button" data-studio-tab="tickets"><svg viewBox="0 0 24 24"><path d="M5 4h14v16H5zM8 8h8M8 12h8M8 16h5"/></svg>Tickets</button><button class="studio-tab" type="button" data-studio-tab="customers"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="4"/><path d="M2 21c0-4 3-7 7-7s7 3 7 7M17 8h5"/></svg>Customers</button><button class="studio-tab" type="button" data-studio-tab="reports"><svg viewBox="0 0 24 24"><path d="M4 19V5M4 19h16M8 16v-5M12 16V7M16 16v-3"/></svg>Reports</button><button class="studio-tab" type="button" data-studio-tab="workflows"><svg viewBox="0 0 24 24"><circle cx="5" cy="5" r="2"/><circle cx="19" cy="5" r="2"/><circle cx="12" cy="19" r="2"/><path d="M7 5h10M6 7l5 10M18 7l-5 10"/></svg>Workflows</button></nav><div class="studio-main"><div class="studio-top"><div><span>Live workspace</span><strong data-studio-title>Support performance</strong></div><span class="studio-live">● Updated now</span></div><section class="studio-pane active" data-studio-pane="analytics"><div class="studio-kpis"><div class="studio-kpi"><span>AI resolution</span><strong>74%</strong><small>↑ 8% this month</small></div><div class="studio-kpi"><span>Average CSAT</span><strong>4.7</strong><small>Healthy</small></div><div class="studio-kpi"><span>Open escalations</span><strong>12</strong><small>3 high priority</small></div></div><div class="studio-chart"><div class="studio-chart-head"><strong>Conversations resolved</strong><span>Last 30 days</span></div><div class="studio-bars"><i></i><i></i><i></i><i></i><i></i><i></i></div></div></section><section class="studio-pane" data-studio-pane="tickets"><div class="studio-list"><div class="studio-list-row"><span>Ticket</span><span>Owner</span><span>Status</span></div><div class="studio-list-row"><strong>Duplicate payment</strong><span>Aarav</span><span class="studio-status warn">Priority</span></div><div class="studio-list-row"><strong>Delivery exception</strong><span>Novara AI</span><span class="studio-status">Resolved</span></div><div class="studio-list-row"><strong>Subscription change</strong><span>Meera</span><span class="studio-status">In progress</span></div><div class="studio-list-row"><strong>Return eligibility</strong><span>Novara AI</span><span class="studio-status">Resolved</span></div></div></section><section class="studio-pane" data-studio-pane="customers"><div class="studio-profiles"><article class="studio-profile"><span class="studio-avatar">AS</span><div><strong>Ananya Sharma</strong><span>6 conversations · CSAT 5.0</span></div></article><article class="studio-profile"><span class="studio-avatar">RM</span><div><strong>Rohan Mehta</strong><span>2 tickets · Refund pending</span></div></article><article class="studio-profile"><span class="studio-avatar">NK</span><div><strong>Neha Kapoor</strong><span>4 conversations · Returning</span></div></article><article class="studio-profile"><span class="studio-avatar">AV</span><div><strong>Arjun Verma</strong><span>1 escalation · Resolved</span></div></article></div></section><section class="studio-pane" data-studio-pane="reports"><div class="studio-report-grid"><article class="studio-report"><strong>Resolution quality</strong><span>AI and human outcomes by intent, channel and customer segment.</span></article><article class="studio-report"><strong>Escalation patterns</strong><span>See where customers need judgement, empathy or policy exceptions.</span></article><article class="studio-report"><strong>Response performance</strong><span>First-response and resolution trends across the operation.</span></article><article class="studio-report"><strong>Customer signals</strong><span>Sentiment, satisfaction and repeat-contact indicators.</span></article></div></section><section class="studio-pane" data-studio-pane="workflows"><div class="studio-workflow"><article class="studio-flow-node"><strong>Conversation received</strong><span>Intent and customer context identified.</span></article><article class="studio-flow-node"><strong>Confidence checked</strong><span>AI resolves or applies an escalation rule.</span></article><article class="studio-flow-node"><strong>Human takes ownership</strong><span>Full conversation context remains attached.</span></article><article class="studio-flow-node"><strong>Outcome measured</strong><span>Resolution and quality feed continuous improvement.</span></article></div></section></div><aside class="studio-aside"><span class="studio-aside-label" data-studio-label>Analytics</span><h3 data-studio-heading>AI and human performance, side by side.</h3><p data-studio-copy>Track resolution, CSAT, response times, intents and escalation patterns from one operational view.</p><ul data-studio-points><li>AI-agent and human-agent analytics</li><li>Flexible date ranges and filters</li><li>Performance trends and customer signals</li></ul></aside></div></div>`;
     const studioCopy={analytics:['Support performance','Analytics','AI and human performance, side by side.','Track resolution, CSAT, response times, intents and escalation patterns from one operational view.',['AI-agent and human-agent analytics','Flexible date ranges and filters','Performance trends and customer signals']],tickets:['Tickets and escalations','Tickets','Every escalation retains its context.','Agents can prioritise, respond and resolve without asking customers to repeat the issue.',['Conversation history stays attached','Clear ownership and ticket status','AI-assisted human responses']],customers:['Customer context','Customer profiles','Understand the person behind each conversation.','Bring conversations, tickets and satisfaction history into one view for more informed support.',['Unified conversation history','Contact and satisfaction context','Repeat-contact visibility']],reports:['Operational reporting','Reports','Turn conversations into management visibility.','Build a clear view of quality, workload and customer outcomes without managing every ticket personally.',['Custom KPIs and filters','Resolution and escalation trends','Decision-ready performance views']],workflows:['Escalation workflows','Workflows','Control what AI handles—and when people step in.','Define confidence, sentiment and issue-based rules so the right conversations reach trained support.',['Rule-based human handoff','Priority and ownership controls','Continuous workflow improvement']]};
     const activateStudio=key=>{const copy=studioCopy[key];tour.querySelectorAll('[data-studio-tab]').forEach(b=>{const active=b.dataset.studioTab===key;b.classList.toggle('active',active);b.setAttribute('aria-pressed',String(active))});tour.querySelectorAll('[data-studio-pane]').forEach(p=>p.classList.toggle('active',p.dataset.studioPane===key));tour.querySelector('[data-studio-title]').textContent=copy[0];tour.querySelector('[data-studio-label]').textContent=copy[1];tour.querySelector('[data-studio-heading]').textContent=copy[2];tour.querySelector('[data-studio-copy]').textContent=copy[3];tour.querySelector('[data-studio-points]').innerHTML=copy[4].map(x=>`<li>${x}</li>`).join('')};
     tour.querySelectorAll('[data-studio-tab]').forEach(button=>button.addEventListener('click',()=>activateStudio(button.dataset.studioTab)));
@@ -940,4 +940,249 @@ updateProgress();
   document.querySelector('.cx-model')?.remove();
 })();
 </script>
-</body></html>
+
+<style>
+/* === Approved September 2026 change set === */
+/* Hero: the approved positioning is fully bold. */
+#mvp-home.hero-v3 h1.hero-positioning,
+#mvp-home.hero-v3 h1.hero-positioning span,
+#mvp-home.hero-v3 .hero-positioning .overhead-line{
+  font-weight:700!important;
+}
+
+/* Hero demo labels: centred, dot-free and legible. */
+#mvp-home .wa-shot-label{
+  position:relative;
+  justify-content:center!important;
+  text-align:center;
+  padding-inline:42px!important;
+}
+#mvp-home .wa-shot-label>span{
+  justify-content:center;
+  text-align:center;
+}
+#mvp-home .wa-shot-label>span:before{display:none!important}
+#mvp-home .wa-replay{position:absolute;right:10px;top:50%;transform:translateY(-50%)}
+#mvp-home .wa-replay:hover{transform:translateY(-50%) rotate(-25deg)}
+
+/* Contrast repairs. */
+.gapc-card.featured .gapc-card-head strong,
+.gapc-card.featured .gapc-card-head span{
+  color:#f2faf4!important;
+}
+.gapc-card.featured .gapc-card-head small{color:#b8dfc5!important}
+.product-v2 .mvp-product-list span{
+  color:#244638!important;
+  background:#f4f7f4!important;
+  border-color:#cfddd4!important;
+}
+.product-v2 .mvp-product-list span:before{background:#4a9b6a!important}
+
+/* Problem cards: use the empty lower area for the illustrations, not larger type. */
+.problem-signals{align-items:stretch}
+.problem-signal{
+  min-height:280px!important;
+  grid-template-rows:165px auto auto!important;
+  align-content:start;
+}
+.problem-motion{
+  height:165px!important;
+  margin:-18px -18px 0!important;
+}
+.problem-motion>*:not(:after){transform:scale(1.16);transform-origin:center}
+.problem-signal h3{margin-top:14px!important}
+.problem-signal p{margin-top:8px!important;margin-bottom:0!important}
+
+/* Product-studio interaction and accessible motion. */
+.product-studio-head h2{max-width:none!important}
+.studio-main,.studio-aside{transition:opacity .18s ease,transform .18s ease}
+.product-studio-shell.is-updating .studio-main,
+.product-studio-shell.is-updating .studio-aside{
+  opacity:.25;
+  transform:translateY(4px);
+}
+
+/* Complete desktop navigation. */
+body>header .nav{max-width:1380px}
+body>header .nav-links{gap:2px}
+body>header .nav-links a{padding:8px 7px;font-size:.72rem;white-space:nowrap}
+body>header .nav-cta{padding-inline:14px!important}
+#mvp-problem,#mvp-product-tour,#mvp-deployment,#mvp-about,#mvp-faq{scroll-margin-top:72px}
+
+/* Currency controls and tax notes. */
+.currency-switcher{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:4px;
+  width:max-content;
+  margin:26px auto 0;
+  padding:4px;
+  border:1px solid rgba(24,62,39,.18);
+  border-radius:999px;
+  background:rgba(255,255,255,.68);
+}
+.currency-switcher button{
+  min-width:68px;
+  padding:8px 15px;
+  border:0;
+  border-radius:999px;
+  background:transparent;
+  color:#607168;
+  font-size:.72rem;
+  font-weight:700;
+}
+.currency-switcher button.active{
+  background:#143b28;
+  color:#fff;
+  box-shadow:0 6px 16px rgba(20,59,40,.16);
+}
+.mvp-plan-price .price-tax{
+  display:block;
+  margin-top:3px;
+  color:#687970;
+  font-size:.68rem;
+  font-weight:600;
+  letter-spacing:0;
+}
+.mvp-plan.managed .mvp-plan-price .price-tax{color:#587166}
+
+@media(max-width:1180px) and (min-width:761px){
+  body>header .nav-links a{padding-inline:5px;font-size:.66rem}
+}
+@media(max-width:760px){
+  body>header .nav-links a{font-size:.82rem;padding:9px 11px}
+  .problem-signal{min-height:270px!important}
+  .problem-motion{height:155px!important}
+}
+@media(prefers-reduced-motion:reduce){
+  .studio-main,.studio-aside{transition:none}
+}
+</style>
+<script>
+(()=>{
+  const runApprovedChanges=()=>{
+    // Stable IDs for every major page section.
+    const problem=document.querySelector('.mvp-problem.gap-matrix');
+    const about=document.querySelector('.about-v2');
+    const faq=document.querySelector('.mvp-faq');
+    const deployment=document.querySelector('.deployment-section');
+    if(problem)problem.id='mvp-problem';
+    if(about)about.id='mvp-about';
+    if(faq)faq.id='mvp-faq';
+    if(deployment)deployment.id='mvp-deployment';
+
+    // Complete navigation in the page's actual buying-journey order.
+    const nav=document.querySelector('body>header .nav-links');
+    if(nav){
+      nav.innerHTML=
+        '<li><a class="nav-link" href="#mvp-problem">The problem</a></li>'+
+        '<li><a class="nav-link" href="#mvp-how">How it works</a></li>'+
+        '<li><a class="nav-link" href="#mvp-platform">NovaraDesk</a></li>'+
+        '<li><a class="nav-link" href="#mvp-product-tour">Live Preview</a></li>'+
+        '<li><a class="nav-link" href="#mvp-pricing">Plans</a></li>'+
+        (deployment?'<li><a class="nav-link" href="#mvp-deployment">Implementation</a></li>':'')+
+        (about?'<li><a class="nav-link" href="#mvp-about">About</a></li>':'')+
+        (faq?'<li><a class="nav-link" href="#mvp-faq">FAQ</a></li>':'')+
+        '<li><a class="nav-cta" href="#mvp-contact">Book a call</a></li>';
+      nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>nav.classList.remove('open')));
+    }
+
+    // Ensure the approved labels remain correct even when the gallery was created earlier.
+    document.querySelectorAll('.wa-shot').forEach(shot=>{
+      const label=shot.querySelector('.wa-shot-label strong');
+      const mode=shot.querySelector('.wa-shot-label small');
+      if(!label)return;
+      if(/human intervention/i.test(label.textContent)){
+        label.textContent='COMPLEX ISSUE RESOLUTION';
+        if(mode)mode.textContent='AI + HUMAN';
+      }
+    });
+
+    // Resilient product-studio tabs: screen and right-side narrative change together.
+    const tour=document.querySelector('#mvp-product-tour');
+    const studioData={
+      analytics:['Support performance','Analytics','AI and human performance, side by side.','Track resolution, CSAT, response times, intents and escalation patterns from one operational view.',['AI-agent and human-agent analytics','Flexible date ranges and filters','Performance trends and customer signals']],
+      tickets:['Tickets and escalations','Tickets','Every escalation retains its context.','Agents can prioritise, respond and resolve without asking customers to repeat the issue.',['Conversation history stays attached','Clear ownership and ticket status','AI-assisted human responses']],
+      customers:['Customer context','Customer profiles','Understand the person behind each conversation.','Bring conversations, tickets and satisfaction history into one view for more informed support.',['Unified conversation history','Contact and satisfaction context','Repeat-contact visibility']],
+      reports:['Operational reporting','Reports','Turn conversations into management visibility.','Build a clear view of quality, workload and customer outcomes without managing every ticket personally.',['Custom KPIs and filters','Resolution and escalation trends','Decision-ready performance views']],
+      workflows:['Escalation workflows','Workflows','Control what AI handles—and when people step in.','Define confidence, sentiment and issue-based rules so the right conversations reach trained support.',['Rule-based human handoff','Priority and ownership controls','Continuous workflow improvement']]
+    };
+    if(tour){
+      const shell=tour.querySelector('.product-studio-shell');
+      const activate=key=>{
+        const data=studioData[key];
+        if(!data)return;
+        if(shell)shell.classList.add('is-updating');
+        window.setTimeout(()=>{
+          tour.querySelectorAll('[data-studio-tab]').forEach(button=>{
+            const active=button.dataset.studioTab===key;
+            button.classList.toggle('active',active);
+            button.setAttribute('aria-selected',String(active));
+            button.setAttribute('aria-pressed',String(active));
+          });
+          tour.querySelectorAll('[data-studio-pane]').forEach(pane=>{
+            pane.classList.toggle('active',pane.dataset.studioPane===key);
+          });
+          const title=tour.querySelector('[data-studio-title]');
+          const label=tour.querySelector('[data-studio-label]');
+          const heading=tour.querySelector('[data-studio-heading]');
+          const copy=tour.querySelector('[data-studio-copy]');
+          const points=tour.querySelector('[data-studio-points]');
+          if(title)title.textContent=data[0];
+          if(label)label.textContent=data[1];
+          if(heading)heading.textContent=data[2];
+          if(copy)copy.textContent=data[3];
+          if(points)points.innerHTML=data[4].map(item=>'<li>'+item+'</li>').join('');
+          if(shell)shell.classList.remove('is-updating');
+        },90);
+      };
+      tour.querySelectorAll('[data-studio-tab]').forEach(button=>{
+        button.onclick=event=>{
+          event.preventDefault();
+          event.stopImmediatePropagation();
+          activate(button.dataset.studioTab);
+        };
+      });
+    }
+
+    // INR/USD pricing with explicit tax treatment.
+    const pricing=document.querySelector('#mvp-pricing');
+    const cards=pricing?[...pricing.querySelectorAll('.mvp-plan')]:[];
+    if(pricing && cards.length>=2){
+      let switcher=pricing.querySelector('.currency-switcher');
+      if(!switcher){
+        switcher=document.createElement('div');
+        switcher.className='currency-switcher';
+        switcher.setAttribute('role','group');
+        switcher.setAttribute('aria-label','Select pricing currency');
+        switcher.innerHTML='<button type="button" class="active" data-currency="INR" aria-pressed="true">INR</button><button type="button" data-currency="USD" aria-pressed="false">USD</button>';
+        const plans=pricing.querySelector('.mvp-plans');
+        plans?.before(switcher);
+      }
+      const prices=[
+        {INR:'₹24,999',USD:'$299'},
+        {INR:'₹84,999',USD:'$999'}
+      ];
+      const render=currency=>{
+        cards.slice(0,2).forEach((card,index)=>{
+          const el=card.querySelector('.mvp-plan-price');
+          if(el)el.innerHTML=prices[index][currency]+' <small>/month</small><small class="price-tax">'+(currency==='INR'?'+ GST':'+ applicable taxes')+'</small>';
+        });
+        switcher.querySelectorAll('button').forEach(button=>{
+          const active=button.dataset.currency===currency;
+          button.classList.toggle('active',active);
+          button.setAttribute('aria-pressed',String(active));
+        });
+      };
+      switcher.querySelectorAll('button').forEach(button=>button.onclick=()=>render(button.dataset.currency));
+      render('INR');
+    }
+  };
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>window.setTimeout(runApprovedChanges,0));
+  else window.setTimeout(runApprovedChanges,0);
+})();
+</script>
+
+</body>
+</html>
