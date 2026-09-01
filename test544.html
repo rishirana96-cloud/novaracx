@@ -1600,5 +1600,238 @@ body>header .nav-cta{padding-inline:14px!important}
 })();
 </script>
 
+
+<style>
+/* === Approved light hero and Try It Out composition === */
+/* Light, page-integrated hero diagram at the existing visual scale. */
+.hero-system{
+  width:100%;
+  max-width:760px;
+  min-height:510px;
+  margin-left:auto;
+  overflow:visible;
+  border:0;
+  border-radius:0;
+  background:radial-gradient(circle at 50% 50%,rgba(91,158,115,.16),rgba(91,158,115,.06) 28%,transparent 58%);
+  box-shadow:none;
+}
+.hero-system:before{
+  inset:3%;
+  background-image:radial-gradient(rgba(43,105,67,.1) .72px,transparent .72px);
+  background-size:18px 18px;
+  opacity:.46;
+  mask-image:radial-gradient(circle at center,black,transparent 78%);
+}
+.hero-system:after{
+  content:"";
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:280px;
+  height:280px;
+  border-radius:50%;
+  background:rgba(94,165,119,.09);
+  filter:blur(32px);
+  transform:translate(-50%,-50%);
+  pointer-events:none;
+}
+.hero-system-orbit{z-index:1;width:48%;border-color:rgba(39,102,63,.18)}
+.hero-system-orbit:before{border-color:rgba(39,102,63,.11)}
+.hero-system-pulse{z-index:1;width:245px;height:245px;border-color:rgba(55,131,82,.15)}
+@keyframes heroOrbitPulse{50%{width:282px;height:282px;opacity:.38}}
+.hero-system-customer{
+  z-index:5;
+  width:152px;
+  height:152px;
+  background:linear-gradient(145deg,#174c31,#0b2f1e);
+  color:#f5f3ea;
+  box-shadow:0 0 0 15px rgba(65,142,91,.08),0 20px 42px rgba(19,65,39,.2);
+}
+.hero-system-customer svg{width:40px;stroke:#d9ecdf}
+.hero-system-customer strong{color:#eff7f1;font-size:.68rem;letter-spacing:.12em}
+.hero-system-lines{z-index:2}
+.hero-system-lines path{stroke:rgba(45,113,69,.34);stroke-width:1.15;stroke-dasharray:5 8}
+.hero-system-lines circle{fill:#4b9a68;filter:drop-shadow(0 0 5px rgba(68,154,99,.58))}
+.hero-system-node{
+  z-index:4;
+  width:205px;
+  min-height:84px;
+  padding:14px;
+  border:1px solid rgba(45,103,65,.16);
+  border-radius:17px;
+  background:rgba(250,249,244,.92);
+  color:#173a27;
+  box-shadow:0 14px 34px rgba(29,70,44,.08);
+  backdrop-filter:blur(12px);
+  transition:transform .28s ease,border-color .28s ease,box-shadow .28s ease;
+}
+.hero-system-node:hover{border-color:rgba(52,127,79,.34);box-shadow:0 18px 42px rgba(29,70,44,.13);transform:translateY(-3px)}
+.hero-system-node i{
+  width:43px;
+  height:43px;
+  border:1px solid rgba(52,122,76,.12);
+  border-radius:12px;
+  background:#e7f1ea;
+  color:#2f7950;
+}
+.hero-system-node i svg{
+  width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.7;
+  stroke-linecap:round;stroke-linejoin:round
+}
+.hero-system-node strong{color:#183b28;font-size:.72rem}
+.hero-system-node small{color:#687a70;font-size:.53rem}
+.hero-system-node.ai{left:2%;top:10%}.hero-system-node.human{right:2%;top:10%}
+.hero-system-node.desk{left:2%;bottom:10%}.hero-system-node.manage{right:2%;bottom:10%}
+
+/* Split editorial product-demo section. */
+.novara-mechanism{padding:92px 0;background:#0b281a}
+.novara-mechanism>.mvp-shell{
+  display:grid;
+  grid-template-columns:minmax(340px,1fr) 560px;
+  gap:clamp(52px,6vw,100px);
+  align-items:center;
+  max-width:1320px;
+}
+.novara-mechanism .mechanism-head{
+  display:block!important;
+  margin:0!important;
+  max-width:630px;
+}
+.novara-mechanism .mechanism-head>div>span{
+  display:block;
+  margin-bottom:25px;
+  color:#9ecdb0;
+  font-size:.72rem;
+  font-weight:750;
+  letter-spacing:.1em;
+}
+.novara-mechanism .mechanism-head h2{
+  max-width:none;
+  margin:0;
+  font-size:clamp(5.3rem,8.1vw,9.4rem);
+  font-weight:650;
+  line-height:.78;
+  letter-spacing:-.075em;
+  text-transform:uppercase;
+}
+.novara-mechanism .mechanism-head h2 .try-arrow{
+  display:inline-block;
+  color:#96cdaa;
+  font-weight:450;
+  transition:transform .3s cubic-bezier(.2,.8,.2,1);
+}
+.novara-mechanism .mechanism-head:hover .try-arrow{transform:translateX(16px)}
+.novara-mechanism .mechanism-head p{
+  max-width:430px;
+  margin-top:34px;
+  color:rgba(255,255,255,.58);
+  font-size:.84rem;
+  line-height:1.7;
+}
+.novara-mechanism .mechanism-gallery{width:560px;justify-self:end}
+.novara-mechanism .wa-gallery{
+  display:grid!important;
+  grid-template-columns:repeat(2,270px)!important;
+  gap:20px!important;
+  width:560px!important;
+  max-width:560px!important;
+  margin:0!important;
+  overflow:visible!important;
+}
+.novara-mechanism .wa-shot{
+  width:270px!important;
+  min-height:0!important;
+  border-radius:19px!important;
+}
+.novara-mechanism .wa-shot .wa-chat{height:320px!important}
+.novara-mechanism .wa-shot-label{min-height:46px}
+.novara-mechanism .wa-live-composer{height:44px}
+.novara-mechanism .wa-prompts{padding-block:8px}
+.novara-mechanism .mechanism-flow{display:none}
+.novara-mechanism .wa-shot-disclaimer{display:none}
+
+/* Make the giant prompt function as the visual entry point. */
+.try-it-link{display:block;color:inherit;text-decoration:none}
+.try-it-link:focus-visible{border-radius:8px}
+
+@media(max-width:1120px){
+  .hero-system{margin-left:0}
+  .novara-mechanism>.mvp-shell{grid-template-columns:1fr;gap:45px}
+  .novara-mechanism .mechanism-head{max-width:850px}
+  .novara-mechanism .mechanism-head h2{font-size:clamp(5rem,14vw,8.5rem)}
+  .novara-mechanism .mechanism-gallery{justify-self:start}
+}
+@media(max-width:760px){
+  .hero-system{min-height:565px}
+  .hero-system-node{width:158px;grid-template-columns:35px 1fr;gap:8px;padding:10px}
+  .hero-system-node i{width:35px;height:35px}.hero-system-node i svg{width:18px;height:18px}
+  .hero-system-node.ai{left:1%;top:6%}.hero-system-node.human{right:1%;top:6%}
+  .hero-system-node.desk{left:1%;bottom:6%}.hero-system-node.manage{right:1%;bottom:6%}
+  .hero-system-customer{width:124px;height:124px}
+  .novara-mechanism{padding:72px 0}
+  .novara-mechanism .mechanism-head h2{font-size:clamp(4.2rem,22vw,7rem);line-height:.82}
+  .novara-mechanism .mechanism-head h2 .try-arrow{transform:rotate(90deg)}
+  .novara-mechanism .mechanism-head:hover h2 .try-arrow{transform:translateY(10px) rotate(90deg)}
+  .novara-mechanism .mechanism-gallery{
+    width:calc(100vw - 30px);
+    max-width:none;
+    overflow:hidden;
+  }
+  .novara-mechanism .wa-gallery{
+    display:flex!important;
+    width:auto!important;
+    max-width:none!important;
+    gap:14px!important;
+    overflow-x:auto!important;
+    scroll-snap-type:x mandatory;
+    scrollbar-width:none;
+    padding:0 4vw 14px;
+    margin-inline:-4vw!important;
+  }
+  .novara-mechanism .wa-gallery::-webkit-scrollbar{display:none}
+  .novara-mechanism .wa-shot{flex:0 0 270px!important;scroll-snap-align:center}
+}
+@media(max-width:430px){
+  .hero-system{min-height:535px}
+  .hero-system-node{width:142px}.hero-system-node small{font-size:.44rem}
+  .hero-system-customer{width:116px;height:116px}
+}
+</style>
+<script>
+(()=>{
+  const applyTryItComposition=()=>{
+    const system=document.querySelector('.hero-system');
+    if(system){
+      const icons={
+        ai:'<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="5" cy="7" r="2"/><circle cx="19" cy="7" r="2"/><circle cx="12" cy="17" r="2"/><path d="M7 8.5l4 6M17 8.5l-4 6M7 7h10"/></svg>',
+        human:'<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.5"/><path d="M3 21c0-5 2-8 6-8s6 3 6 8M14 14c3 0 5 2.5 5 7"/></svg>',
+        desk:'<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M7 10h10M7 14h7"/></svg>',
+        manage:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V10M10 20V5M16 20v-8M22 20V3"/><path d="M3 8l6-4 6 5 7-7"/></svg>'
+      };
+      Object.entries(icons).forEach(([key,svg])=>{
+        const target=system.querySelector('.hero-system-node.'+key+' i');
+        if(target)target.innerHTML=svg;
+      });
+    }
+
+    const section=document.querySelector('.novara-mechanism');
+    if(section){
+      const label=section.querySelector('.mechanism-head>div>span');
+      const heading=section.querySelector('.mechanism-head h2');
+      const copy=section.querySelector('.mechanism-head p');
+      if(label)label.textContent='04 / SEE NOVARA IN ACTION';
+      if(heading){
+        heading.innerHTML='<a class="try-it-link" href="#novara-live-demos">TRY IT<br>OUT <span class="try-arrow" aria-hidden="true">→</span></a>';
+      }
+      if(copy)copy.textContent='Choose a question and watch Novara resolve a routine request—or transfer a complex issue to a trained human with full context.';
+      const gallery=section.querySelector('.mechanism-gallery');
+      if(gallery)gallery.id='novara-live-demos';
+    }
+  };
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>window.setTimeout(applyTryItComposition,130));
+  else window.setTimeout(applyTryItComposition,130);
+})();
+</script>
+
 </body>
 </html>
