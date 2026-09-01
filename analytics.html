@@ -1,6 +1,7 @@
 
 
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5719,7 +5720,7 @@
 
             <!-- Analytics -->
 
-            <div class="nav-group open" id="analyticsNavGroup">
+            <div class="nav-group" id="analyticsNavGroup">
             <div class="nav-parent-row">
             <a
                 href="#ai"
@@ -5778,12 +5779,12 @@
                 <span>Analytics</span>
 
             </a>
-            <button id="analyticsNavToggle" class="nav-expand-toggle" type="button" aria-label="Expand Analytics menu" aria-expanded="true">
+            <button id="analyticsNavToggle" class="nav-expand-toggle" type="button" aria-label="Expand Analytics menu" aria-expanded="false">
                 <svg class="nav-chevron" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m8 10 4 4 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </button>
             </div>
 
-            <div id="analyticsSubnav" class="nav-submenu open">
+            <div id="analyticsSubnav" class="nav-submenu">
                 <a href="#ai" id="sidebarAiAgent" class="nav-subitem active"><svg class="nav-subicon" viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 1.5 4.5L18 9l-4.5 1.5L12 15l-1.5-4.5L6 9l4.5-1.5L12 3ZM18.5 15l.8 2.2 2.2.8-2.2.8-.8 2.2-.8-2.2-2.2-.8 2.2-.8.8-2.2Z"/></svg><span>AI Agent</span></a>
                 <a href="#human" id="sidebarHumanAgent" class="nav-subitem"><svg class="nav-subicon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 13v-2a7 7 0 0 1 14 0v2M5 13H3v5h4v-5H5ZM19 13h2v5h-4v-5h2ZM17 20c-1 .7-2.5 1-4 1"/></svg><span>Human Agent</span></a>
                 <a href="#dashboards" id="sidebarCustomDashboards" class="nav-subitem"><svg class="nav-subicon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="8" height="7" rx="1.5"/><rect x="13" y="3" width="8" height="11" rx="1.5"/><rect x="3" y="12" width="8" height="9" rx="1.5"/><rect x="13" y="16" width="8" height="5" rx="1.5"/></svg><span>Custom Dashboards</span></a>
@@ -6087,7 +6088,7 @@
                 <div id="reportModeToolbar" class="report-mode-toolbar">
                     <span>Report type</span>
                     <select id="reportMode" aria-label="Report type"><option value="standard">Chart or summary table</option><option value="kpi">KPI Cards</option><option value="pivot">Pivot table</option><option value="sql">Create Custom Data-Set</option></select>
-                    <button id="reportWorkspaceJump" class="report-workspace-jump" type="button" title="Go to generated report" aria-label="Go to generated report">
+                    <button id="reportWorkspaceJump" class="report-workspace-jump" type="button" title="Go to Build a report" aria-label="Go to Build a report">
                         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
                     </button>
                 </div>
@@ -8551,6 +8552,7 @@ ORDER BY ticket_count DESC</textarea>
 
     sidebarAnalytics?.addEventListener("click", event => {
         event.preventDefault();
+        setSidebarGroup("analytics", true);
         showWorkspace("ai");
     });
     function setSidebarGroup(group, open) {
@@ -13125,7 +13127,7 @@ ORDER BY ticket_count DESC</textarea>
 
     document.getElementById("reportMode")?.addEventListener("change", () => { syncReportMode(); scheduleCustomReport(); });
     document.getElementById("reportWorkspaceJump")?.addEventListener("click", () => {
-        const workspace = document.querySelector("#panel-reports .report-preview-card") || document.getElementById("reportWorkspace");
+        const workspace = document.querySelector("#panel-reports .report-builder-card");
         if (!workspace) return;
         const stickyOffset = 18;
         const top = workspace.getBoundingClientRect().top + window.scrollY - stickyOffset;
@@ -16121,13 +16123,28 @@ html[data-theme="light"] .ticket-history-section,html[data-theme="light"] .ticke
 .ticket-workspace-floater svg{width:26px!important;height:26px!important;stroke:#101512!important;stroke-width:2!important}
 .ticket-workspace-floater.open{background:linear-gradient(135deg,#8eaa9b,#6f9582)!important;color:#101512!important}
 @media(max-width:720px){.ticket-workspace-floater{right:18px!important;bottom:18px!important;width:58px!important;height:58px!important}}
+
+/* Final ticket-header refinement: browser-style connected tabs and compact top controls. */
+.ticket-drawer-head{background:var(--surface)!important}
+.ticket-drawer-head>div:first-child{padding-right:250px!important}
+.ticket-head-side{align-self:stretch!important}
+.ticket-head-controls{position:absolute!important;top:10px!important;right:18px!important;z-index:12!important;margin:0!important;padding:0!important}
+.ticket-channel-switch{right:18px!important;bottom:-1px!important;height:42px!important}
+.ticket-channel-switch button{min-height:42px!important;border-color:transparent!important;border-bottom-color:var(--border)!important;border-radius:12px 12px 0 0!important;background:transparent!important;color:var(--text-muted)!important;overflow:visible!important;transition:background .2s ease,color .2s ease,border-color .2s ease!important}
+.ticket-channel-switch button:hover{background:color-mix(in srgb,var(--bg-card) 45%,transparent)!important;color:var(--text-secondary)!important}
+.ticket-channel-switch button.active{z-index:3!important;border:1px solid var(--border)!important;border-bottom-color:var(--bg-card)!important;background:var(--bg-card)!important;color:var(--text)!important;box-shadow:0 -5px 14px rgba(24,46,32,.045)!important}
+.ticket-channel-switch button.active::before,.ticket-channel-switch button.active::after{content:""!important;position:absolute!important;display:block!important;bottom:-1px!important;width:13px!important;height:13px!important;pointer-events:none!important}
+.ticket-channel-switch button.active::before{left:-13px!important;border-bottom-right-radius:12px!important;box-shadow:5px 5px 0 4px var(--bg-card)!important}
+.ticket-channel-switch button.active::after{right:-13px!important;border-bottom-left-radius:12px!important;box-shadow:-5px 5px 0 4px var(--bg-card)!important}
+.ticket-workspace-scroll{border-top:0!important;background:var(--bg-card)!important}
+@media(max-width:900px){.ticket-drawer-head>div:first-child{padding-right:0!important}.ticket-head-controls{position:static!important;justify-content:flex-end!important}.ticket-channel-switch{position:relative!important;right:auto!important;bottom:auto!important}.ticket-channel-switch button.active::before,.ticket-channel-switch button.active::after{display:none!important}}
 </style>
 <script id="final-enterprise-behaviour">
 (() => {
   const mode=document.getElementById('reportMode');
   const toolbar=document.getElementById('reportModeToolbar');
   const studio=document.getElementById('kpiCardStudio'),workspace=document.getElementById('reportWorkspace');
-  const topSave=document.createElement('button');topSave.id='kpiToolbarSave';topSave.className='report-primary-btn';topSave.type='button';topSave.textContent='Save report';topSave.hidden=true;toolbar?.append(topSave);
+  const topSave=null;
   const escape=value=>typeof escapeHtml==='function'?escapeHtml(String(value??'')):String(value??'').replace(/[&<>"']/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
   const studioFilters=()=>[...document.querySelectorAll('#kpiStudioFilters .kpi-filter-row')].map(row=>({field:row.querySelector('[data-kpi-filter-field]')?.value||'',operator:row.querySelector('[data-kpi-filter-operator]')?.value||'equals',value:row.querySelector('[data-kpi-filter-value]')?.value||''})).filter(item=>item.field);
   function syncNativeFilters(){const host=document.getElementById('reportFilters');if(!host)return;host.innerHTML='';studioFilters().forEach(filter=>typeof addReportFilter==='function'&&addReportFilter(filter));}
@@ -16161,13 +16178,13 @@ html[data-theme="light"] .ticket-history-section,html[data-theme="light"] .ticke
     const points=(result.points||[]).slice(0,5),max=Math.max(1,...points.map(point=>Number(point.value)||0));document.getElementById('kpiPreviewBreakdown').innerHTML=points.length?`<div class="kpi-breakdown-list">${points.map(point=>`<div class="kpi-breakdown-item"><span>${escape(point.label)}</span><span class="kpi-breakdown-bar"><i style="width:${Math.max(3,(Number(point.value)||0)/max*100)}%"></i></span><strong>${escape(formatKpi(point.value))}</strong></div>`).join('')}</div>`:`This KPI card shows the selected metric across ${Number(result.rowsAnalysed||0).toLocaleString('en-IN')} matching records.`;
     document.getElementById('kpiPreviewSummary').innerHTML=`<strong>${escape(name)}</strong><br>${escape(description||'No description added.')}<br><br><b>Dataset:</b> ${escape(document.getElementById('kpiStudioDataset').selectedOptions[0]?.textContent)} · <b>Rows analysed:</b> ${Number(result.rowsAnalysed||0).toLocaleString('en-IN')} · <b>Filters:</b> ${studioFilters().length}`;
   }
-  function syncKpi(config){const active=mode?.value==='kpi';document.getElementById('panel-reports')?.classList.toggle('kpi-mode',active);if(studio)studio.hidden=!active;if(workspace)workspace.hidden=active;topSave.hidden=!active;if(active){if(config?.kpi){document.getElementById('kpiStudioName').value=config.name||config.kpi.label||'Untitled KPI';document.getElementById('kpiStudioDescription').value=config.kpi.description||'';document.getElementById('kpiStudioFormat').value=config.kpi.format||'number';document.getElementById('kpiStudioDecimals').value=String(config.kpi.decimals??0);document.getElementById('kpiStudioSize').value=config.kpi.size||'compact';document.getElementById('kpiComparisonEnabled').checked=config.kpi.comparisonEnabled!==false;document.getElementById('kpiCompareWith').value=config.kpi.compareWith||'previous';document.getElementById('kpiTargetValue').value=String(config.kpi.target||1000);document.getElementById('kpiStudioDataset').value=config.dataset||'tickets';}populateStudioMetrics();if(config?.metric&&[...document.getElementById('kpiStudioMetric').options].some(option=>option.value===config.metric))document.getElementById('kpiStudioMetric').value=config.metric;if(config?.aggregation)document.getElementById('kpiStudioAggregation').value=config.aggregation;if(config?.filters){document.getElementById('kpiStudioFilters').innerHTML='';config.filters.forEach(addStudioFilter)}document.getElementById('kpiComparisonFields').hidden=!document.getElementById('kpiComparisonEnabled').checked;document.getElementById('kpiTargetField').hidden=document.getElementById('kpiCompareWith').value!=='target';renderKpiStudio();}}
+  function syncKpi(config){const active=mode?.value==='kpi';document.getElementById('panel-reports')?.classList.toggle('kpi-mode',active);if(studio)studio.hidden=!active;if(workspace)workspace.hidden=active;if(active){if(config?.kpi){document.getElementById('kpiStudioName').value=config.name||config.kpi.label||'Untitled KPI';document.getElementById('kpiStudioDescription').value=config.kpi.description||'';document.getElementById('kpiStudioFormat').value=config.kpi.format||'number';document.getElementById('kpiStudioDecimals').value=String(config.kpi.decimals??0);document.getElementById('kpiStudioSize').value=config.kpi.size||'compact';document.getElementById('kpiComparisonEnabled').checked=config.kpi.comparisonEnabled!==false;document.getElementById('kpiCompareWith').value=config.kpi.compareWith||'previous';document.getElementById('kpiTargetValue').value=String(config.kpi.target||1000);document.getElementById('kpiStudioDataset').value=config.dataset||'tickets';}populateStudioMetrics();if(config?.metric&&[...document.getElementById('kpiStudioMetric').options].some(option=>option.value===config.metric))document.getElementById('kpiStudioMetric').value=config.metric;if(config?.aggregation)document.getElementById('kpiStudioAggregation').value=config.aggregation;if(config?.filters){document.getElementById('kpiStudioFilters').innerHTML='';config.filters.forEach(addStudioFilter)}document.getElementById('kpiComparisonFields').hidden=!document.getElementById('kpiComparisonEnabled').checked;document.getElementById('kpiTargetField').hidden=document.getElementById('kpiCompareWith').value!=='target';renderKpiStudio();}}
   window.syncKpiStudio=syncKpi;
   mode?.addEventListener('change',syncKpi);document.getElementById('kpiStudioDataset')?.addEventListener('change',()=>{document.getElementById('kpiStudioFilters').innerHTML='';populateStudioMetrics();renderKpiStudio()});document.getElementById('kpiStudioMetric')?.addEventListener('change',()=>{populateStudioMetrics();renderKpiStudio()});document.getElementById('kpiStudioAddFilter')?.addEventListener('click',()=>{addStudioFilter();renderKpiStudio()});document.getElementById('kpiCompareWith')?.addEventListener('change',event=>{document.getElementById('kpiTargetField').hidden=event.target.value!=='target';renderKpiStudio()});document.getElementById('kpiComparisonEnabled')?.addEventListener('change',event=>{document.getElementById('kpiComparisonFields').hidden=!event.target.checked;renderKpiStudio()});document.getElementById('kpiRefreshPreview')?.addEventListener('click',renderKpiStudio);
   studio?.addEventListener('input',event=>{if(!event.target.closest('.kpi-filter-row')||event.target.matches('input'))renderKpiStudio()});studio?.addEventListener('change',renderKpiStudio);
   document.querySelectorAll('[data-kpi-preview-tab]').forEach(button=>button.addEventListener('click',()=>{document.querySelectorAll('[data-kpi-preview-tab]').forEach(item=>item.classList.toggle('active',item===button));document.getElementById('kpiPreviewBreakdown').hidden=button.dataset.kpiPreviewTab!=='breakdown';document.getElementById('kpiPreviewSummary').hidden=button.dataset.kpiPreviewTab!=='summary'}));
   document.querySelectorAll('[data-kpi-period]').forEach(button=>button.addEventListener('click',()=>{document.querySelectorAll('[data-kpi-period]').forEach(item=>item.classList.toggle('active',item===button));document.querySelector(`#periodSelector [data-period="${button.dataset.kpiPeriod}"]`)?.click();setTimeout(renderKpiStudio,450)}));
-  const saveKpi=()=>{syncStudioToNative();if(typeof saveCustomReport==='function')saveCustomReport()};topSave.addEventListener('click',saveKpi);
+  const saveKpi=()=>{syncStudioToNative();if(typeof saveCustomReport==='function')saveCustomReport()};
   populateStudioMetrics();syncKpi();
 
   // Inline profile editing: no secondary editor surface.
