@@ -2005,5 +2005,97 @@ body>header .nav-cta{padding-inline:14px!important}
 })();
 </script>
 
+
+<style>
+/* === Three-plan pricing and responsibility comparison === */
+#mvp-pricing .mvp-plans{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:16px!important;max-width:1320px;margin-inline:auto}
+#mvp-pricing .mvp-plan{display:flex;flex-direction:column;min-width:0;padding:27px!important}
+#mvp-pricing .mvp-plan.middle{border-color:#679579!important;background:linear-gradient(145deg,#f5faf6,#edf4ef)!important;box-shadow:0 22px 52px rgba(29,75,46,.1)}
+#mvp-pricing .mvp-plan.middle .mvp-plan-badge{background:#dcebe1!important;color:#245c3c!important}
+#mvp-pricing .mvp-plan h3{font-size:1.13rem!important}
+#mvp-pricing .mvp-plan-for{min-height:43px}
+#mvp-pricing .mvp-plan-price{font-size:2.15rem!important}
+#mvp-pricing .mvp-plan-desc{min-height:62px!important}
+#mvp-pricing .mvp-features{flex:1}
+#mvp-pricing .mvp-features li{position:relative;padding-left:24px!important}
+#mvp-pricing .mvp-features li:before{content:"✓";position:absolute;left:0;top:9px;color:#338157;font-weight:800}
+#mvp-pricing .mvp-features li.client-owned:before{content:"↗";color:#a96b2d}
+#mvp-pricing .mvp-features li.client-owned{color:#6d5a45!important}
+.plan-comparison{margin-top:44px;overflow:hidden;border:1px solid rgba(28,64,40,.16);border-radius:20px;background:#faf9f5;box-shadow:0 18px 48px rgba(31,66,43,.06)}
+.plan-comparison-head{display:flex;align-items:end;justify-content:space-between;gap:24px;padding:25px 28px;border-bottom:1px solid rgba(28,64,40,.13)}
+.plan-comparison-head h3{font-family:"Cabinet Grotesk","General Sans",sans-serif;font-size:1.45rem}
+.plan-comparison-head p{color:#69786f;font-size:.72rem}
+.plan-comparison-scroll{overflow-x:auto}
+.plan-comparison table{width:100%;min-width:880px;border-collapse:collapse;table-layout:fixed}
+.plan-comparison th,.plan-comparison td{padding:15px 18px;border-top:1px solid rgba(28,64,40,.11);border-left:1px solid rgba(28,64,40,.09);color:#344b3d;font-size:.72rem;text-align:center;vertical-align:middle}
+.plan-comparison thead th{border-top:0;background:#edf2ee;color:#173a27;font-family:"Cabinet Grotesk","General Sans",sans-serif;font-size:.78rem;font-weight:700}
+.plan-comparison th:first-child,.plan-comparison td:first-child{width:28%;border-left:0;text-align:left}
+.plan-comparison tbody tr:hover td{background:#f4f7f4}
+.cmp-yes{display:inline-grid;place-items:center;width:25px;height:25px;border-radius:50%;background:#dceee2;color:#28764b;font-size:.78rem;font-weight:900}
+.cmp-no{color:#9aa69f;font-size:1rem}
+.cmp-owner{display:inline-flex;align-items:center;justify-content:center;padding:5px 9px;border-radius:999px;background:#dceee2;color:#286d47;font-size:.59rem;font-weight:750;white-space:nowrap}
+.cmp-owner.client{background:#f5e8d6;color:#965f2c}
+.cmp-detail{color:#65756b;font-size:.66rem}
+.cmp-price{font-weight:800;color:#173c28!important}
+.comparison-tax{display:block;margin-top:3px;color:#77867d;font-size:.52rem;font-weight:550}
+@media(max-width:1020px){#mvp-pricing .mvp-plans{grid-template-columns:repeat(2,minmax(0,1fr))!important}#mvp-pricing .mvp-plan.managed{grid-column:1/-1;max-width:620px;width:100%;justify-self:center}}
+@media(max-width:700px){#mvp-pricing .mvp-plans{grid-template-columns:1fr!important}#mvp-pricing .mvp-plan.managed{grid-column:auto}.plan-comparison-head{align-items:flex-start;flex-direction:column}}
+</style>
+<script>
+(()=>{
+  const installThreePlanPricing=()=>{
+    const pricing=document.querySelector('#mvp-pricing');
+    const plans=pricing?.querySelector('.mvp-plans');
+    if(!pricing||!plans)return;
+    const heading=pricing.querySelector('.mvp-pricing-head h2');
+    const intro=pricing.querySelector('.mvp-pricing-head>p');
+    if(heading)heading.textContent='Choose who should manage your customer-support operation.';
+    if(intro)intro.textContent='Start with managed AI, add a human agent under your management, or let Novara operate the complete CX layer.';
+    plans.innerHTML=
+      '<article class="mvp-plan" data-plan="ai"><h3>Managed AI Support</h3><p class="mvp-plan-for">For companies managing human escalations internally</p><div class="mvp-plan-price" data-plan-price="ai"></div><p class="mvp-plan-desc">A Novara-managed AI support layer for repetitive customer conversations.</p><ul class="mvp-features"><li>AI chatbot for customer support</li><li>Support console</li><li>Knowledge-base setup and maintenance</li><li>Continuous AI training and tuning by Novara</li><li>Conversation analytics</li><li>Human escalation readiness</li><li>Monthly performance review</li></ul><a class="mvp-btn secondary" href="#mvp-contact">Discuss AI Support</a></article>'+
+      '<article class="mvp-plan middle" data-plan="hybrid"><span class="mvp-plan-badge">Your team manages</span><h3>Self-Managed AI + Human</h3><p class="mvp-plan-for">For companies that want the technology and agent—but will manage both internally</p><div class="mvp-plan-price" data-plan-price="hybrid"></div><p class="mvp-plan-desc">NovaraDesk with its AI chatbot and a dedicated human support agent.</p><ul class="mvp-features"><li>NovaraDesk with AI chatbot</li><li>Dedicated human support agent</li><li>Seamless AI-to-human handoff</li><li>Tickets, customer profiles and analytics</li><li class="client-owned">AI training and tuning managed by your team</li><li class="client-owned">Agent supervision and QA managed by your team</li><li class="client-owned">Ticket ownership remains with your team</li></ul><a class="mvp-btn secondary" href="#mvp-contact">Discuss AI + Human</a></article>'+
+      '<article class="mvp-plan managed" data-plan="managed"><span class="mvp-plan-badge">Complete service</span><h3>Fully Managed CX</h3><p class="mvp-plan-for">For companies that want Novara to operate the complete support layer</p><div class="mvp-plan-price" data-plan-price="managed"></div><p class="mvp-plan-desc">AI automation, dedicated human support and continuous CX oversight.</p><ul class="mvp-features"><li>NovaraDesk with AI chatbot</li><li>Dedicated human support agent</li><li>Continuous AI training and tuning by Novara</li><li>Agent management, QA and coaching</li><li>Ticket and escalation ownership</li><li>Managed reporting and CX oversight</li><li>Continuous workflow optimisation</li></ul><a class="mvp-btn primary" href="#mvp-contact">Discuss Managed CX</a></article>';
+
+    let comparison=pricing.querySelector('.plan-comparison');
+    if(!comparison){
+      comparison=document.createElement('section');
+      comparison.className='plan-comparison';
+      const note=pricing.querySelector('.mvp-plan-note');
+      (note||plans).insertAdjacentElement(note?'beforebegin':'afterend',comparison);
+    }
+    comparison.innerHTML=
+      '<div class="plan-comparison-head"><div><h3>Compare plans</h3><p>See exactly what is included—and who manages each part of the operation.</p></div></div><div class="plan-comparison-scroll"><table aria-label="Comparison of Novara CX plans"><thead><tr><th scope="col">Capability</th><th scope="col">Managed AI Support</th><th scope="col">Self-Managed AI + Human</th><th scope="col">Fully Managed CX</th></tr></thead><tbody>'+
+      '<tr><td>Platform</td><td><span class="cmp-detail">Support console</span></td><td><span class="cmp-detail">NovaraDesk</span></td><td><span class="cmp-detail">NovaraDesk</span></td></tr>'+
+      '<tr><td>AI chatbot</td><td><span class="cmp-yes" aria-label="Included">✓</span></td><td><span class="cmp-yes" aria-label="Included">✓</span></td><td><span class="cmp-yes" aria-label="Included">✓</span></td></tr>'+
+      '<tr><td>AI training and tuning</td><td><span class="cmp-owner">Novara-managed</span></td><td><span class="cmp-owner client">Client-managed</span></td><td><span class="cmp-owner">Novara-managed</span></td></tr>'+
+      '<tr><td>Dedicated human agent</td><td><span class="cmp-no" aria-label="Not included">—</span></td><td><span class="cmp-yes" aria-label="Included">✓</span></td><td><span class="cmp-yes" aria-label="Included">✓</span></td></tr>'+
+      '<tr><td>Human-agent management</td><td><span class="cmp-no" aria-label="Not included">—</span></td><td><span class="cmp-owner client">Client-managed</span></td><td><span class="cmp-owner">Novara-managed</span></td></tr>'+
+      '<tr><td>Quality assurance and coaching</td><td><span class="cmp-detail">Monthly AI review</span></td><td><span class="cmp-owner client">Client-managed</span></td><td><span class="cmp-owner">Novara-managed</span></td></tr>'+
+      '<tr><td>Ticket and escalation ownership</td><td><span class="cmp-owner client">Your team</span></td><td><span class="cmp-owner client">Your team</span></td><td><span class="cmp-owner">Novara</span></td></tr>'+
+      '<tr><td>Monthly price</td><td class="cmp-price" data-compare-price="ai"></td><td class="cmp-price" data-compare-price="hybrid"></td><td class="cmp-price" data-compare-price="managed"></td></tr>'+
+      '</tbody></table></div>';
+
+    let switcher=pricing.querySelector('.currency-switcher');
+    if(!switcher){switcher=document.createElement('div');switcher.className='currency-switcher';plans.before(switcher)}
+    switcher.setAttribute('role','group');
+    switcher.setAttribute('aria-label','Select pricing currency');
+    switcher.innerHTML='<button type="button" class="active" data-currency="INR" aria-pressed="true">INR</button><button type="button" data-currency="USD" aria-pressed="false">USD</button>';
+    const values={INR:{ai:'₹24,999',hybrid:'₹44,999',managed:'₹84,999',tax:'+ GST'},USD:{ai:'$299',hybrid:'$539',managed:'$999',tax:'+ applicable taxes'}};
+    const render=currency=>{
+      const value=values[currency]||values.INR;
+      pricing.querySelectorAll('[data-plan-price]').forEach(el=>{const key=el.dataset.planPrice;el.innerHTML=value[key]+' <small>/month</small><small class="price-tax">'+value.tax+'</small>'});
+      pricing.querySelectorAll('[data-compare-price]').forEach(el=>{const key=el.dataset.comparePrice;el.innerHTML=value[key]+'<span class="comparison-tax">/month · '+value.tax+'</span>'});
+      switcher.querySelectorAll('button').forEach(button=>{const active=button.dataset.currency===currency;button.classList.toggle('active',active);button.setAttribute('aria-pressed',String(active))});
+    };
+    switcher.querySelectorAll('button').forEach(button=>button.onclick=()=>render(button.dataset.currency));
+    render('INR');
+    const note=pricing.querySelector('.mvp-plan-note');
+    if(note)note.textContent='All prices are monthly and exclude GST. Implementation scope, coverage hours and channel integrations are confirmed during discovery.';
+  };
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>window.setTimeout(installThreePlanPricing,260));
+  else window.setTimeout(installThreePlanPricing,260);
+})();
+</script>
+
 </body>
 </html>
