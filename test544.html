@@ -1833,5 +1833,177 @@ body>header .nav-cta{padding-inline:14px!important}
 })();
 </script>
 
+
+<style>
+/* === Approved preview scale, single-line CTA and capacity indicator === */
+/* Scale the live product as one sharp desktop canvas inside the preview. */
+.live-product-viewport{isolation:isolate}
+.live-product-viewport iframe[data-live-frame]{
+  position:absolute!important;
+  left:0!important;
+  top:0!important;
+  max-width:none!important;
+  transform-origin:top left!important;
+  border:0!important;
+}
+
+/* One-line editorial prompt with a restrained directional signal. */
+.novara-mechanism .mechanism-head h2{
+  font-size:clamp(4.1rem,6.1vw,7.1rem)!important;
+  line-height:.86!important;
+  letter-spacing:-.068em!important;
+  white-space:nowrap!important;
+}
+.novara-mechanism .mechanism-head h2 .try-arrow{
+  display:inline-block;
+  margin-left:.05em;
+  animation:tryArrowGuide 2.5s cubic-bezier(.2,.75,.25,1) infinite;
+}
+@keyframes tryArrowGuide{
+  0%,58%,100%{transform:translateX(0)}
+  72%{transform:translateX(13px)}
+  84%{transform:translateX(5px)}
+}
+.novara-mechanism .mechanism-head:hover h2 .try-arrow{
+  animation:none;
+  transform:translateX(18px);
+}
+
+/* Static team-capacity indicator replacing the moving clock. */
+.pm-queue .pm-clock,.pm-queue .pm-time-label{display:none!important}
+.pm-capacity{
+  position:absolute;
+  right:7%;
+  top:22px;
+  z-index:3;
+  display:grid;
+  grid-template-columns:18px minmax(0,1fr);
+  grid-template-rows:auto auto;
+  column-gap:11px;
+  width:126px;
+  min-height:128px;
+  padding:14px;
+  border:1px solid #bdd1c3;
+  border-radius:16px;
+  background:rgba(255,255,255,.92);
+  box-shadow:0 12px 27px rgba(27,74,44,.09);
+}
+.pm-capacity-rail{
+  grid-row:1/3;
+  position:relative;
+  align-self:stretch;
+  overflow:hidden;
+  width:18px;
+  min-height:98px;
+  border:1px solid #c7d9ce;
+  border-radius:999px;
+  background:#edf4ef;
+}
+.pm-capacity-fill{
+  position:absolute;
+  left:3px;
+  right:3px;
+  bottom:3px;
+  height:72%;
+  border-radius:999px;
+  background:linear-gradient(to top,#b87435,#d9a562);
+}
+.pm-capacity strong{
+  align-self:end;
+  color:#315743;
+  font-family:"Cabinet Grotesk","General Sans",sans-serif;
+  font-size:.55rem;
+  line-height:1.18;
+  letter-spacing:.06em;
+}
+.pm-capacity small{
+  align-self:start;
+  margin-top:7px;
+  color:#a3632d;
+  font-size:.43rem;
+  font-weight:750;
+  line-height:1.28;
+  letter-spacing:.07em;
+  text-transform:uppercase;
+}
+
+@media(max-width:1120px){
+  .novara-mechanism .mechanism-head h2{
+    font-size:clamp(4rem,12vw,7rem)!important;
+  }
+}
+@media(max-width:760px){
+  .novara-mechanism .mechanism-head h2{
+    white-space:normal!important;
+    font-size:clamp(4rem,20vw,6.6rem)!important;
+  }
+  .novara-mechanism .mechanism-head h2 .try-arrow{
+    animation:tryArrowDown 2.5s cubic-bezier(.2,.75,.25,1) infinite;
+    transform:rotate(90deg);
+  }
+  @keyframes tryArrowDown{
+    0%,58%,100%{transform:translateY(0) rotate(90deg)}
+    72%{transform:translateY(11px) rotate(90deg)}
+    84%{transform:translateY(4px) rotate(90deg)}
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  .novara-mechanism .mechanism-head h2 .try-arrow{animation:none!important}
+}
+</style>
+<script>
+(()=>{
+  const applyFinalPendingChanges=()=>{
+    // Keep TRY IT OUT and its arrow on one desktop line.
+    const tryHeading=document.querySelector('.novara-mechanism .mechanism-head h2');
+    if(tryHeading){
+      tryHeading.innerHTML='<a class="try-it-link" href="#novara-live-demos">TRY IT OUT <span class="try-arrow" aria-hidden="true">→</span></a>';
+    }
+
+    // Replace the rotating clock with a static capacity-drain graphic.
+    const queue=document.querySelector('.problem-motion.pm-queue');
+    if(queue && !queue.querySelector('.pm-capacity')){
+      queue.querySelector('.pm-clock')?.remove();
+      queue.querySelector('.pm-time-label')?.remove();
+      queue.insertAdjacentHTML('beforeend','<div class="pm-capacity" aria-hidden="true"><span class="pm-capacity-rail"><i class="pm-capacity-fill"></i></span><strong>TEAM<br>CAPACITY</strong><small>Consumed by<br>routine work</small></div>');
+    }
+
+    // Render the same-origin NovaraDesk iframe as a 55–65% scaled desktop canvas.
+    const frame=document.querySelector('iframe[data-live-frame]');
+    const viewport=frame?.closest('.live-product-viewport');
+    if(frame && viewport){
+      const resize=()=>{
+        const available=viewport.clientWidth||900;
+        const scale=Math.max(.55,Math.min(.65,available/1440));
+        frame.style.width=(100/scale)+'%';
+        frame.style.height=(100/scale)+'%';
+        frame.style.transform='scale('+scale+')';
+        frame.dataset.previewScale=scale.toFixed(3);
+      };
+      const hideEmbeddedChat=()=>{
+        try{
+          const doc=frame.contentDocument;
+          if(!doc?.head)return;
+          let style=doc.getElementById('novara-preview-hide-chat');
+          if(!style){
+            style=doc.createElement('style');
+            style.id='novara-preview-hide-chat';
+            style.textContent='.chat-toggle,.chat-window,#chatToggle,#chatWindow,[data-chat-toggle],[class*="chat-launcher"],[class*="chat-widget"]{display:none!important}';
+            doc.head.appendChild(style);
+          }
+        }catch(error){}
+      };
+      frame.addEventListener('load',()=>{resize();window.setTimeout(hideEmbeddedChat,80)});
+      resize();
+      hideEmbeddedChat();
+      if('ResizeObserver' in window)new ResizeObserver(resize).observe(viewport);
+      else window.addEventListener('resize',resize,{passive:true});
+    }
+  };
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>window.setTimeout(applyFinalPendingChanges,180));
+  else window.setTimeout(applyFinalPendingChanges,180);
+})();
+</script>
+
 </body>
 </html>
