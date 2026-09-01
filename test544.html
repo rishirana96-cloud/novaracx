@@ -1261,5 +1261,40 @@ body>header .nav-cta{padding-inline:14px!important}
 })();
 </script>
 
+
+<style>
+/* === Full-width distributed navigation trial === */
+@media(min-width:761px){
+  body>header .nav{
+    display:grid!important;
+    grid-template-columns:auto minmax(0,1fr)!important;
+    gap:clamp(28px,4vw,72px)!important;
+    width:min(100% - 48px,1440px)!important;
+    max-width:1440px!important;
+  }
+  body>header .nav-links{
+    display:grid!important;
+    grid-template-columns:repeat(8,max-content)!important;
+    justify-content:space-between!important;
+    align-items:center!important;
+    width:100%!important;
+    gap:clamp(8px,1.25vw,24px)!important;
+  }
+  body>header .nav-links a{
+    padding:8px 4px!important;
+    font-size:clamp(.68rem,.78vw,.8rem)!important;
+  }
+  body>header .nav-links .nav-cta{
+    padding:10px clamp(14px,1.4vw,21px)!important;
+  }
+}
+@media(min-width:761px) and (max-width:1100px){
+  body>header .nav{gap:20px!important;width:min(100% - 28px,1440px)!important}
+  body>header .nav-links{gap:5px!important}
+  body>header .nav-links a{font-size:.64rem!important}
+  body>header .nav-links .nav-cta{padding-inline:11px!important}
+}
+</style>
+
 </body>
 </html>
