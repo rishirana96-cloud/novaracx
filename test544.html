@@ -1184,5 +1184,82 @@ body>header .nav-cta{padding-inline:14px!important}
 })();
 </script>
 
+
+<style>
+/* === Analytics sub-tab narrative correction === */
+#mm-analytics-context{display:none}
+</style>
+<script>
+(()=>{
+  const installAnalyticsNarrativeSync=()=>{
+    const tour=document.querySelector('#mvp-product-tour');
+    if(!tour)return;
+
+    const analyticsCopy={
+      'ai agent':{
+        label:'AI AGENT ANALYTICS',
+        heading:'See what AI resolves—and where it needs help.',
+        copy:'Monitor automated conversations, deflection, response quality, customer intent and the issues that move to human support.',
+        points:['AI resolution and deflection performance','Intent, sentiment and response-quality signals','Escalation reasons and unresolved queries']
+      },
+      'human agent':{
+        label:'HUMAN AGENT ANALYTICS',
+        heading:'Human-support performance, clearly measured.',
+        copy:'Track escalations, handling times, resolution outcomes and customer satisfaction for conversations owned by your support team.',
+        points:['Escalation volume and resolution rate','Handling time and human-agent CSAT','Ownership, workload and service outcomes']
+      },
+      'custom dashboards':{
+        label:'CUSTOM DASHBOARDS',
+        heading:'Build the operational view your team needs.',
+        copy:'Combine AI, human-support and customer metrics into focused dashboards for different teams, goals and reporting routines.',
+        points:['Custom KPIs, reports and dashboard layouts','Flexible date ranges and saved views','Decision-ready performance reporting']
+      }
+    };
+
+    const updateAside=key=>{
+      const data=analyticsCopy[key];
+      if(!data)return;
+      const shell=tour.querySelector('.product-studio-shell')||tour.querySelector('.desk-stage');
+      shell?.classList.add('is-updating');
+      window.setTimeout(()=>{
+        const label=tour.querySelector('[data-studio-label]')||tour.querySelector('.desk-pane.active .desk-pane-number');
+        const heading=tour.querySelector('[data-studio-heading]')||tour.querySelector('.desk-pane.active .desk-pane-copy h3');
+        const copy=tour.querySelector('[data-studio-copy]')||tour.querySelector('.desk-pane.active .desk-pane-copy p');
+        const points=tour.querySelector('[data-studio-points]')||tour.querySelector('.desk-pane.active .desk-capabilities');
+        if(label)label.textContent=data.label;
+        if(heading)heading.textContent=data.heading;
+        if(copy)copy.textContent=data.copy;
+        if(points)points.innerHTML=data.points.map(item=>'<li>'+item+'</li>').join('');
+        shell?.classList.remove('is-updating');
+      },70);
+    };
+
+    // Capture dynamically rendered Analytics controls by their visible labels.
+    tour.addEventListener('click',event=>{
+      const control=event.target.closest('button,[role="tab"],a');
+      if(!control)return;
+      const key=control.textContent.replace(/\s+/g,' ').trim().toLowerCase();
+      if(analyticsCopy[key])updateAside(key);
+    },true);
+
+    // Also support keyboard-driven tab changes and class changes made by the preview.
+    const observer=new MutationObserver(records=>{
+      for(const record of records){
+        const element=record.target.nodeType===1?record.target:null;
+        if(!element)continue;
+        const active=element.matches?.('.active,[aria-selected="true"]')?element:null;
+        if(!active)continue;
+        const key=active.textContent.replace(/\s+/g,' ').trim().toLowerCase();
+        if(analyticsCopy[key]){updateAside(key);break;}
+      }
+    });
+    observer.observe(tour,{subtree:true,attributes:true,attributeFilter:['class','aria-selected']});
+  };
+
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>window.setTimeout(installAnalyticsNarrativeSync,30));
+  else window.setTimeout(installAnalyticsNarrativeSync,30);
+})();
+</script>
+
 </body>
 </html>
