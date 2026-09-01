@@ -1296,5 +1296,309 @@ body>header .nav-cta{padding-inline:14px!important}
 }
 </style>
 
+
+<style>
+/* === Combined hero, mechanism, animation and nav revision === */
+/* Restore a focused conversion-oriented navigation. */
+@media(min-width:761px){
+  body>header .nav{
+    display:flex!important;
+    width:min(100% - 48px,1280px)!important;
+    max-width:1280px!important;
+    gap:32px!important;
+  }
+  body>header .nav-links{
+    display:flex!important;
+    justify-content:flex-end!important;
+    align-items:center!important;
+    width:auto!important;
+    margin-left:auto!important;
+    gap:clamp(7px,1.15vw,17px)!important;
+  }
+  body>header .nav-links a{
+    padding:8px 10px!important;
+    font-size:.8rem!important;
+  }
+  body>header .nav-links .nav-cta{padding:10px 18px!important}
+}
+
+/* Customer-centred hero operating system. */
+.hero-system{
+  position:relative;
+  min-height:510px;
+  overflow:hidden;
+  border:1px solid rgba(166,211,182,.19);
+  border-radius:30px;
+  background:
+    radial-gradient(circle at 50% 50%,rgba(107,179,133,.16),transparent 34%),
+    linear-gradient(145deg,#0d3321,#071f15);
+  box-shadow:0 30px 80px rgba(0,0,0,.27);
+}
+.hero-system:before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background-image:radial-gradient(rgba(167,217,185,.1) .75px,transparent .75px);
+  background-size:19px 19px;
+  mask-image:radial-gradient(circle at center,black,transparent 82%);
+}
+.hero-system-orbit{
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:48%;
+  aspect-ratio:1;
+  border:1px solid rgba(169,218,187,.16);
+  border-radius:50%;
+  transform:translate(-50%,-50%);
+}
+.hero-system-orbit:before{
+  content:"";
+  position:absolute;
+  inset:17%;
+  border:1px solid rgba(169,218,187,.1);
+  border-radius:50%;
+}
+.hero-system-customer{
+  position:absolute;
+  left:50%;
+  top:50%;
+  z-index:4;
+  display:grid;
+  place-items:center;
+  width:154px;
+  height:154px;
+  border-radius:50%;
+  background:#f3f1e8;
+  color:#16412b;
+  box-shadow:0 0 0 18px rgba(124,188,147,.09),0 22px 50px rgba(0,0,0,.22);
+  transform:translate(-50%,-50%);
+}
+.hero-system-customer svg{width:42px;fill:none;stroke:currentColor;stroke-width:1.7}
+.hero-system-customer strong{margin-top:-35px;font-size:.7rem;letter-spacing:.1em}
+.hero-system-lines{position:absolute;inset:0;width:100%;height:100%}
+.hero-system-lines path{fill:none;stroke:rgba(157,210,177,.27);stroke-width:1.2;stroke-dasharray:5 7}
+.hero-system-lines circle{fill:#a6d9b8;filter:drop-shadow(0 0 5px #88cba1)}
+.hero-system-lines circle:nth-of-type(1){animation:heroSignalA 4s linear infinite}
+.hero-system-lines circle:nth-of-type(2){animation:heroSignalB 4.8s linear infinite}
+@keyframes heroSignalA{0%{offset-distance:0%}100%{offset-distance:100%}}
+@keyframes heroSignalB{0%{offset-distance:100%}100%{offset-distance:0%}}
+.hero-system-node{
+  position:absolute;
+  z-index:3;
+  display:grid;
+  grid-template-columns:43px 1fr;
+  gap:12px;
+  align-items:center;
+  width:205px;
+  min-height:82px;
+  padding:14px;
+  border:1px solid rgba(177,218,190,.2);
+  border-radius:18px;
+  background:rgba(255,255,255,.07);
+  color:#f1f8f3;
+  backdrop-filter:blur(10px);
+}
+.hero-system-node i{
+  display:grid;
+  place-items:center;
+  width:43px;
+  height:43px;
+  border-radius:12px;
+  background:rgba(151,209,171,.12);
+  color:#b7dfc5;
+  font-style:normal;
+  font-size:1rem;
+}
+.hero-system-node strong,.hero-system-node small{display:block}
+.hero-system-node strong{font-size:.72rem;letter-spacing:.02em}
+.hero-system-node small{margin-top:4px;color:rgba(255,255,255,.52);font-size:.53rem;line-height:1.35}
+.hero-system-node.ai{left:5%;top:10%}
+.hero-system-node.human{right:5%;top:10%}
+.hero-system-node.desk{left:5%;bottom:10%}
+.hero-system-node.manage{right:5%;bottom:10%}
+.hero-system-pulse{
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:250px;
+  height:250px;
+  border:1px solid rgba(153,210,173,.13);
+  border-radius:50%;
+  transform:translate(-50%,-50%);
+  animation:heroOrbitPulse 3.4s ease-in-out infinite;
+}
+@keyframes heroOrbitPulse{50%{width:290px;height:290px;opacity:.35}}
+
+/* New mechanism section containing the existing live demonstrations. */
+.novara-mechanism{
+  padding:96px 0;
+  overflow:hidden;
+  background:#0b281a;
+  color:#fff;
+}
+.mechanism-head{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(300px,.55fr);
+  gap:65px;
+  align-items:end;
+  margin-bottom:38px;
+}
+.mechanism-head span{color:#9ecdb0;font-size:.76rem;font-weight:700}
+.mechanism-head h2{
+  max-width:800px;
+  margin-top:13px;
+  font-family:"Cabinet Grotesk","General Sans",sans-serif;
+  font-size:clamp(2.7rem,4.7vw,4.75rem);
+  line-height:.95;
+  letter-spacing:-.055em;
+}
+.mechanism-head p{color:rgba(255,255,255,.58);font-size:.88rem;line-height:1.7}
+.novara-mechanism .wa-gallery{
+  max-width:100%!important;
+  margin:0!important;
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  gap:18px!important;
+}
+.novara-mechanism .wa-shot{min-height:520px}
+.novara-mechanism .wa-shot .wa-chat{height:365px!important}
+.mechanism-flow{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-top:30px;
+  color:rgba(255,255,255,.62);
+  font-size:.68rem;
+}
+.mechanism-flow span{
+  padding:8px 12px;
+  border:1px solid rgba(174,216,188,.15);
+  border-radius:999px;
+  background:rgba(255,255,255,.04);
+}
+.mechanism-flow i{color:#8bc8a2;font-style:normal}
+
+/* Fill each problem-card illustration stage with a deliberate composition. */
+.problem-signal{min-height:305px!important;padding-bottom:18px!important}
+.problem-motion{height:182px!important;margin:-18px -18px 0!important}
+.problem-motion>*{transform:none}
+.pm-leader .pm-ticket,.pm-queue .pm-ticket{
+  left:6%!important;width:142px!important;padding:9px 12px!important;
+  border-radius:9px!important;font-size:.61rem!important
+}
+.pm-leader .pm-ticket:nth-child(1),.pm-queue .pm-ticket:nth-child(1){top:18px!important}
+.pm-leader .pm-ticket:nth-child(2),.pm-queue .pm-ticket:nth-child(2){top:70px!important}
+.pm-leader .pm-ticket:nth-child(3),.pm-queue .pm-ticket:nth-child(3){top:122px!important}
+.pm-leader .pm-person{right:7%!important;bottom:40px!important;width:68px!important;height:68px!important}
+.pm-leader .pm-person svg{width:36px!important;height:36px!important}
+.pm-queue .pm-clock{right:7%!important;top:22px!important;width:104px!important;height:104px!important}
+.pm-queue .pm-clock:before{height:29px!important;width:2px!important}
+.pm-queue .pm-time-label{right:6.5%!important;bottom:10px!important;width:110px!important;font-size:.52rem!important}
+.pm-gap .pm-bot{left:7%!important;top:36px!important;width:92px!important;height:78px!important;border-radius:18px!important}
+.pm-gap .pm-bot svg{width:48px!important;height:43px!important}
+.pm-gap .pm-person{right:7%!important;bottom:34px!important;width:68px!important;height:68px!important}
+.pm-gap .pm-person svg{width:36px!important;height:36px!important}
+.pm-gap .pm-broken{left:25%!important;right:18%!important;top:82px!important}
+.pm-gap .pm-question{right:6%!important;top:-5px!important;font-size:4.4rem!important}
+.pm-cost .pm-cost-stack{left:5%!important;top:18px!important;width:54%!important;gap:5px!important}
+.pm-cost .pm-cost-row{grid-template-columns:72px 1fr!important;gap:9px!important;height:21px!important}
+.pm-cost .pm-cost-row b{font-size:.52rem!important}.pm-cost .pm-cost-row i{height:11px!important}
+.pm-cost .pm-cost-total{right:4%!important;top:28px!important;width:124px!important;height:118px!important;padding:13px!important;border-radius:18px!important}
+.pm-cost .pm-cost-total span{font-size:.56rem!important}.pm-cost .pm-cost-total b{font-size:1.45rem!important}.pm-cost .pm-cost-total small{font-size:.4rem!important}
+.pm-quality .pm-answer{left:6%!important;width:158px!important;padding:10px 12px!important;border-radius:9px!important;font-size:.58rem!important}
+.pm-quality .pm-answer:nth-child(1){top:18px!important}.pm-quality .pm-answer:nth-child(2){top:72px!important}.pm-quality .pm-answer:nth-child(3){top:126px!important}
+.pm-quality .pm-approved{right:7%!important;top:42px!important;width:86px!important;height:86px!important;border-radius:20px!important;font-size:1.8rem!important}
+.pm-quality .pm-approved:after{top:96px!important;width:112px!important;font-size:.49rem!important}
+.pm-report .pm-dashboard{inset:13px 16px!important;padding:15px 17px!important;border-radius:14px!important}
+.pm-report .pm-dash-head{font-size:.51rem!important}.pm-report .pm-dash-head b{font-size:.48rem!important}
+.pm-report .pm-report-kpis{gap:9px!important;margin-top:12px!important}.pm-report .pm-report-kpis span{padding:8px!important;border-radius:8px!important}
+.pm-report .pm-report-kpis small{font-size:.4rem!important}.pm-report .pm-report-kpis strong{font-size:.66rem!important}
+.pm-report .pm-trend{height:39px!important;margin-top:7px!important}
+.pm-report .pm-insight{right:16px!important;bottom:10px!important;padding:5px 8px!important;font-size:.38rem!important}
+
+@media(max-width:1050px){
+  .hero-system{min-height:470px}
+  .hero-system-node{width:180px}
+}
+@media(max-width:760px){
+  .hero-system{min-height:590px}
+  .hero-system-node{width:160px;grid-template-columns:34px 1fr;padding:10px}
+  .hero-system-node i{width:34px;height:34px}
+  .hero-system-node.ai{left:4%;top:5%}.hero-system-node.human{right:4%;top:5%}
+  .hero-system-node.desk{left:4%;bottom:5%}.hero-system-node.manage{right:4%;bottom:5%}
+  .hero-system-customer{width:128px;height:128px}
+  .mechanism-head{grid-template-columns:1fr;gap:18px}
+  .novara-mechanism .wa-gallery{display:flex!important;overflow-x:auto}
+  .novara-mechanism .wa-shot{flex:0 0:min(84vw,390px)}
+  .problem-motion{height:170px!important}
+}
+@media(max-width:520px){
+  .hero-system-node{width:142px}
+  .hero-system-node small{font-size:.46rem}
+  .hero-system-customer{width:116px;height:116px}
+  .problem-motion{height:158px!important}
+}
+</style>
+<script>
+(()=>{
+  const applyCombinedRevision=()=>{
+    const hero=document.querySelector('#mvp-home');
+    const gallery=hero?.querySelector('.wa-gallery');
+    const gap=document.querySelector('.mvp-problem.gap-matrix')||document.querySelector('#mvp-problem');
+
+    if(hero && gallery && !hero.querySelector('.hero-system')){
+      const visualHost=gallery.parentElement;
+      const mechanism=document.createElement('section');
+      mechanism.className='novara-mechanism';
+      mechanism.id='mvp-mechanism';
+      mechanism.innerHTML='<div class="mvp-shell"><div class="mechanism-head"><div><span>04 / HOW NOVARA RESPONDS</span><h2>Routine questions resolved instantly. Complex issues transferred with context.</h2></div><p>See the same support system take two different paths: confident automation for the routine, and a seamless human takeover when judgement or empathy is required.</p></div><div class="mechanism-gallery"></div><div class="mechanism-flow"><span>Customer</span><i>→</i><span>AI assessment</span><i>→</i><span>AI resolution or human takeover</span><i>→</i><span>Measured outcome</span></div></div>';
+      mechanism.querySelector('.mechanism-gallery').appendChild(gallery);
+      if(gap)gap.insertAdjacentElement('afterend',mechanism);
+
+      const system=document.createElement('div');
+      system.className='hero-system';
+      system.setAttribute('role','img');
+      system.setAttribute('aria-label','Customer connected to AI Support, Human Experts, NovaraDesk and CX Management');
+      system.innerHTML=
+        '<div class="hero-system-orbit"></div><div class="hero-system-pulse"></div>'+
+        '<svg class="hero-system-lines" viewBox="0 0 600 510" preserveAspectRatio="none" aria-hidden="true">'+
+          '<path id="heroLineA" d="M120 90 L300 255 L480 90"/><path id="heroLineB" d="M120 420 L300 255 L480 420"/>'+
+          '<circle r="5"><animateMotion dur="4s" repeatCount="indefinite"><mpath href="#heroLineA"/></animateMotion></circle>'+
+          '<circle r="5"><animateMotion dur="4.8s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1"><mpath href="#heroLineB"/></animateMotion></circle>'+
+        '</svg>'+
+        '<div class="hero-system-customer"><svg viewBox="0 0 24 24"><circle cx="12" cy="7" r="3"/><path d="M5 21c0-6 2-10 7-10s7 4 7 10"/></svg><strong>CUSTOMER</strong></div>'+
+        '<div class="hero-system-node ai"><i>✦</i><div><strong>AI Support</strong><small>Instant answers for routine conversations</small></div></div>'+
+        '<div class="hero-system-node human"><i>◎</i><div><strong>Human Experts</strong><small>Judgement and empathy when required</small></div></div>'+
+        '<div class="hero-system-node desk"><i>▤</i><div><strong>NovaraDesk</strong><small>One workspace for the support operation</small></div></div>'+
+        '<div class="hero-system-node manage"><i>↗</i><div><strong>CX Management</strong><small>Quality, reporting and continuous improvement</small></div></div>';
+      visualHost?.appendChild(system);
+    }
+
+    // Keep the buying journey numbering coherent after inserting the mechanism.
+    document.querySelectorAll('.editorial-label,.mvp-kicker,.journey-num').forEach(el=>{
+      const value=el.textContent.trim();
+      if(value==='03 / How Novara works')el.textContent='05 / How Novara works';
+      if(value==='05 / Inside NovaraDesk')el.textContent='07 / Inside NovaraDesk';
+    });
+
+    // Restore the approved concise navigation.
+    const nav=document.querySelector('body>header .nav-links');
+    if(nav){
+      nav.innerHTML=
+        '<li><a class="nav-link" href="#mvp-how">How it works</a></li>'+
+        '<li><a class="nav-link" href="#mvp-platform">NovaraDesk</a></li>'+
+        '<li><a class="nav-link" href="#mvp-pricing">Plans</a></li>'+
+        '<li><a class="nav-link" href="#mvp-about">About</a></li>'+
+        '<li><a class="nav-cta" href="#mvp-contact">Book a call</a></li>';
+      nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>nav.classList.remove('open')));
+    }
+  };
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>window.setTimeout(applyCombinedRevision,80));
+  else window.setTimeout(applyCombinedRevision,80);
+})();
+</script>
+
 </body>
 </html>
