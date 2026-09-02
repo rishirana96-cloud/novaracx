@@ -2,6 +2,7 @@
 
 
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16214,79 +16215,5 @@ html[data-theme="light"] .ticket-history-section,html[data-theme="light"] .ticke
   if(icon)icon.innerHTML='<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><path d="M8 10h.01"/><path d="M12 10h.01"/><path d="M16 10h.01"/>';
 })();
 </script>
-
-<style>
-/* === Temporary interview anonymization === */
-img[alt*="Novara" i], .brand-endorsement, .brand-logo img {display:none!important}
-.brand-logo,.brand-mark{background:none!important;box-shadow:none!important}
-.brand-name{margin-left:0!important}
-</style>
-<script>
-(()=>{
- const replacements=[
-  [/Novara CX Support/gi,'Support Agent'],
-  [/Novara CX AI/gi,'AI Assistant'],
-  [/NovaraDesk/gi,'Desk'],
-  [/Novara CX/gi,'Customer Support'],
-  [/support@novaracx\.com/gi,'support@example.com'],
-  [/novaracx\.com/gi,'example.com'],
-  [/\bNX-(?=\d)/g,'TK-']
- ];
- const clean=value=>replacements.reduce((text,[find,replace])=>text.replace(find,replace),String(value));
- const scrub=root=>{
-  if(!root)return;
-  if(root.nodeType===Node.TEXT_NODE){
-   if(!root.parentElement?.closest('script,style')){const next=clean(root.nodeValue);if(next!==root.nodeValue)root.nodeValue=next}
-   return;
-  }
-  if(root.nodeType!==Node.ELEMENT_NODE&&root.nodeType!==Node.DOCUMENT_NODE&&root.nodeType!==Node.DOCUMENT_FRAGMENT_NODE)return;
-  const scope=root.nodeType===Node.ELEMENT_NODE?root:document;
-  const walker=document.createTreeWalker(scope,NodeFilter.SHOW_TEXT);
-  let node;while(node=walker.nextNode()){
-   if(node.parentElement?.closest('script,style'))continue;
-   const next=clean(node.nodeValue);if(next!==node.nodeValue)node.nodeValue=next;
-  }
-  const elements=[];
-  if(scope.nodeType===Node.ELEMENT_NODE)elements.push(scope);
-  elements.push(...scope.querySelectorAll('*'));
-  elements.forEach(el=>{
-   ['title','aria-label','placeholder','alt'].forEach(attr=>{if(el.hasAttribute?.(attr)){const old=el.getAttribute(attr),next=clean(old);if(next!==old)el.setAttribute(attr,next)}});
-   if(el.matches?.('input,textarea,option')&&typeof el.value==='string'){const next=clean(el.value);if(next!==el.value)el.value=next}
-   if(el.matches?.('img[alt*="Desk" i],img[alt*="Customer Support" i]'))el.hidden=true;
-  });
- };
- const apply=()=>{
-  document.title='Analytics Dashboard';
-  scrub(document.body);
-  document.querySelectorAll('.agent-profile-avatar,.ticket-assignment-avatar').forEach(el=>{if(el.textContent.trim()==='NC')el.textContent='SA'});
- };
- let queued=false;
- const observer=new MutationObserver(records=>{
-  if(queued)return;queued=true;
-  requestAnimationFrame(()=>{queued=false;records.forEach(record=>record.addedNodes.forEach(scrub));apply()});
- });
- const start=()=>{apply();observer.observe(document.body,{subtree:true,childList:true,characterData:true});setTimeout(apply,400);setTimeout(apply,1200)};
- if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start);else start();
-})();
-</script>
-
-<style>
-/* === Split brand lockup correction === */
-.brand-endorsement,.brand-logo img,.brand-mark img,[class*="brand"] img[alt*="Novara" i]{display:none!important}
-</style>
-<script>
-(()=>{
- const neutralizeBrand=()=>{
-  document.querySelectorAll('.brand-name').forEach(el=>{el.textContent='Analytics'});
-  document.querySelectorAll('.brand-endorsement').forEach(el=>{el.hidden=true});
-  document.querySelectorAll('img[alt*="Novara" i],img[alt*="Supportlk" i]').forEach(el=>{el.hidden=true;el.style.display='none'});
-  document.querySelectorAll('.agent-profile-avatar,.ticket-assignment-avatar').forEach(el=>{if(el.textContent.trim()==='NC')el.textContent='SA'});
- };
- if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',neutralizeBrand);else neutralizeBrand();
- new MutationObserver(neutralizeBrand).observe(document.documentElement,{subtree:true,childList:true});
- setTimeout(neutralizeBrand,250);setTimeout(neutralizeBrand,1000);
-})();
-</script>
-
 </body>
 </html>
