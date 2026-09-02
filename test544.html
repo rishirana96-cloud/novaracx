@@ -2301,5 +2301,124 @@ body>header .nav-cta{padding-inline:14px!important}
 })();
 </script>
 
+<style>
+/* === Hero orbit visual polish only === */
+/* Visual treatment only: positions and dimensions remain unchanged. */
+.hero-system{
+  background:
+    radial-gradient(circle at 50% 50%,rgba(67,145,94,.17) 0,rgba(91,158,115,.09) 24%,rgba(91,158,115,.025) 46%,transparent 68%),
+    linear-gradient(145deg,rgba(250,249,243,.12),rgba(242,247,242,.04))!important;
+}
+.hero-system:before{
+  background-image:
+    radial-gradient(rgba(39,103,63,.12) .72px,transparent .72px),
+    linear-gradient(rgba(43,99,62,.018) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(43,99,62,.018) 1px,transparent 1px)!important;
+  background-size:18px 18px,54px 54px,54px 54px!important;
+  opacity:.55!important;
+}
+.hero-system:after{
+  background:radial-gradient(circle,rgba(73,151,100,.15),rgba(73,151,100,.055) 42%,transparent 70%)!important;
+  filter:blur(24px)!important;
+}
+.hero-system-orbit{
+  border-color:rgba(38,104,62,.24)!important;
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,.45),
+    0 0 48px rgba(54,125,79,.055)!important;
+}
+.hero-system-orbit:before{
+  border-color:rgba(42,111,67,.16)!important;
+  box-shadow:0 0 0 15px rgba(75,145,98,.018)!important;
+}
+.hero-system-orbit:after{
+  content:"";
+  position:absolute;
+  inset:33%;
+  border:1px dashed rgba(48,121,74,.18);
+  border-radius:50%;
+}
+.hero-system-pulse{
+  border-color:rgba(46,122,73,.2)!important;
+  box-shadow:0 0 32px rgba(65,143,92,.07)!important;
+  opacity:.76;
+}
+.hero-system-lines path{
+  stroke:rgba(47,112,69,.39)!important;
+  stroke-width:1.25!important;
+  stroke-dasharray:5 8!important;
+}
+.hero-system-lines circle{
+  fill:#429562!important;
+  filter:drop-shadow(0 0 3px #fff) drop-shadow(0 0 8px rgba(54,145,87,.6))!important;
+}
+.hero-system-customer{
+  border:1px solid rgba(137,194,157,.38)!important;
+  background:
+    radial-gradient(circle at 36% 28%,rgba(255,255,255,.075),transparent 27%),
+    linear-gradient(145deg,#17583a,#0b3a25 72%)!important;
+  box-shadow:
+    0 0 0 11px rgba(74,147,99,.065),
+    0 0 0 24px rgba(74,147,99,.032),
+    0 22px 45px rgba(20,70,41,.22),
+    inset 0 1px 0 rgba(255,255,255,.1)!important;
+}
+.hero-system-customer svg{
+  stroke:#e1f0e5!important;
+  filter:drop-shadow(0 3px 8px rgba(0,0,0,.16));
+}
+.hero-system-customer strong{
+  color:#f7faf7!important;
+  font-weight:750!important;
+  letter-spacing:.16em!important;
+  text-shadow:0 1px 10px rgba(0,0,0,.15);
+}
+.hero-system-node{
+  border-color:rgba(38,101,60,.19)!important;
+  background:linear-gradient(145deg,rgba(255,255,252,.98),rgba(244,248,244,.95))!important;
+  box-shadow:
+    0 16px 34px rgba(26,69,42,.085),
+    0 2px 7px rgba(26,69,42,.035),
+    inset 0 1px 0 rgba(255,255,255,.95)!important;
+}
+.hero-system-node:after{
+  content:"";
+  position:absolute;
+  top:13px;
+  right:13px;
+  width:5px;
+  height:5px;
+  border-radius:50%;
+  background:#78ad8a;
+  box-shadow:0 0 0 4px rgba(75,145,99,.07);
+}
+.hero-system-node:hover{
+  transform:none!important;
+  border-color:rgba(44,119,71,.3)!important;
+  box-shadow:
+    0 19px 40px rgba(26,69,42,.115),
+    inset 0 1px 0 rgba(255,255,255,.95)!important;
+}
+.hero-system-node i{
+  border-color:rgba(43,111,67,.16)!important;
+  background:linear-gradient(145deg,#edf6ef,#deece2)!important;
+  color:#28754a!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.9),0 5px 12px rgba(35,97,58,.055)!important;
+}
+.hero-system-node i svg{filter:drop-shadow(0 2px 4px rgba(37,100,60,.1))}
+.hero-system-node.human i{background:linear-gradient(145deg,#f2f4e9,#e4ebdc)!important;color:#47734c!important}
+.hero-system-node.desk i{background:linear-gradient(145deg,#edf5f2,#dceae5)!important;color:#2d7157!important}
+.hero-system-node.manage i{background:linear-gradient(145deg,#f4f2e8,#e8eadb)!important;color:#557343!important}
+.hero-system-node strong{
+  color:#123b25!important;
+  font-weight:750!important;
+  letter-spacing:.025em!important;
+}
+.hero-system-node small{
+  color:#66786d!important;
+  line-height:1.42!important;
+}
+</style>
+
 </body>
 </html>
