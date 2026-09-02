@@ -16226,7 +16226,7 @@ img[alt*="Novara" i], .brand-endorsement, .brand-logo img {display:none!importan
  const replacements=[
   [/Novara CX Support/gi,'Support Agent'],
   [/Novara CX AI/gi,'AI Assistant'],
-  [/NovaraDesk/gi,'Support Desk'],
+  [/NovaraDesk/gi,'Desk'],
   [/Novara CX/gi,'Customer Support'],
   [/support@novaracx\.com/gi,'support@example.com'],
   [/novaracx\.com/gi,'example.com'],
@@ -16252,7 +16252,7 @@ img[alt*="Novara" i], .brand-endorsement, .brand-logo img {display:none!importan
   elements.forEach(el=>{
    ['title','aria-label','placeholder','alt'].forEach(attr=>{if(el.hasAttribute?.(attr)){const old=el.getAttribute(attr),next=clean(old);if(next!==old)el.setAttribute(attr,next)}});
    if(el.matches?.('input,textarea,option')&&typeof el.value==='string'){const next=clean(el.value);if(next!==el.value)el.value=next}
-   if(el.matches?.('img[alt*="Support Desk" i],img[alt*="Customer Support" i]'))el.hidden=true;
+   if(el.matches?.('img[alt*="Desk" i],img[alt*="Customer Support" i]'))el.hidden=true;
   });
  };
  const apply=()=>{
