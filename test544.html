@@ -3158,5 +3158,38 @@ body.preview-is-expanded{overflow:hidden!important}
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>setTimeout(refineApprovedBatch,1700));else setTimeout(refineApprovedBatch,1700);
 })();
 </script>
+
+<style>
+/* === Futuristic AI neural-core icon === */
+.ai-neural-core{width:112px;height:112px;overflow:visible;filter:drop-shadow(0 12px 22px rgba(25,106,61,.12))}
+.ai-neural-core .ai-ring-outer{transform-origin:60px 60px;animation:aiCoreSpin 11s linear infinite}
+.ai-neural-core .ai-ring-inner{transform-origin:60px 60px;animation:aiCoreSpinReverse 7s linear infinite}
+.ai-neural-core .ai-hex{transform-origin:60px 60px;animation:aiCoreBreathe 3.8s ease-in-out infinite}
+.ai-neural-core .ai-link{stroke-dasharray:4 6;animation:aiCoreFlow 2.8s linear infinite}
+.ai-neural-core .ai-node{transform-box:fill-box;transform-origin:center;animation:aiNodePulse 2.8s ease-in-out infinite}
+.ai-neural-core .ai-node.n2{animation-delay:.45s}.ai-neural-core .ai-node.n3{animation-delay:.9s}.ai-neural-core .ai-node.n4{animation-delay:1.35s}
+.ai-neural-core .ai-spark{transform-origin:60px 60px;animation:aiSpark 3.2s ease-in-out infinite}
+@keyframes aiCoreSpin{to{transform:rotate(360deg)}}@keyframes aiCoreSpinReverse{to{transform:rotate(-360deg)}}@keyframes aiCoreBreathe{50%{transform:scale(1.07);opacity:1}}@keyframes aiCoreFlow{to{stroke-dashoffset:-20}}@keyframes aiNodePulse{0%,100%{opacity:.42;transform:scale(.72)}50%{opacity:1;transform:scale(1.15)}}@keyframes aiSpark{0%,100%{transform:scale(.88);opacity:.72}50%{transform:scale(1.12);opacity:1}}
+@media(prefers-reduced-motion:reduce){.ai-neural-core *{animation:none!important}}
+</style>
+<script>
+(()=>{
+ const installNeuralCore=()=>{
+  const card=document.querySelector('.hero-cap-card');
+  const visual=card?.querySelector('.hero-cap-visual');
+  if(!visual||visual.querySelector('.ai-neural-core'))return;
+  visual.innerHTML=`<svg class="ai-neural-core" viewBox="0 0 120 120" aria-hidden="true">
+   <defs><linearGradient id="coreStroke" x1="18" y1="16" x2="103" y2="105"><stop stop-color="#0f5e37"/><stop offset=".5" stop-color="#54a875"/><stop offset="1" stop-color="#173f2b"/></linearGradient><radialGradient id="coreFill"><stop stop-color="#dff3e5"/><stop offset=".7" stop-color="#a8d2b6" stop-opacity=".55"/><stop offset="1" stop-color="#4d9d6b" stop-opacity=".12"/></radialGradient></defs>
+   <g class="ai-ring-outer" fill="none" stroke="#4d9870" stroke-width="1.2" opacity=".55"><circle cx="60" cy="60" r="47" stroke-dasharray="7 9"/><circle cx="60" cy="13" r="2.5" fill="#2e8355" stroke="none"/><circle cx="107" cy="60" r="2" fill="#71b68a" stroke="none"/></g>
+   <g class="ai-ring-inner" fill="none" stroke="#2f7d53" stroke-width="1.4" opacity=".72"><circle cx="60" cy="60" r="36" stroke-dasharray="20 8 3 8"/><circle cx="35" cy="35" r="2" fill="#2f7d53" stroke="none"/></g>
+   <path class="ai-link" d="M30 60H45M75 60h15M60 30v15M60 75v15M39 39l11 11M70 70l11 11M81 39L70 50M50 70L39 81" fill="none" stroke="#3b9160" stroke-width="1.5"/>
+   <circle class="ai-node n1" cx="28" cy="60" r="3.4" fill="#176b40"/><circle class="ai-node n2" cx="92" cy="60" r="3.4" fill="#3b9863"/><circle class="ai-node n3" cx="60" cy="28" r="3.4" fill="#5aaa79"/><circle class="ai-node n4" cx="60" cy="92" r="3.4" fill="#176b40"/>
+   <path class="ai-hex" d="M60 40l17 10v20L60 80 43 70V50z" fill="url(#coreFill)" stroke="url(#coreStroke)" stroke-width="2"/>
+   <g class="ai-spark" fill="none" stroke="#145f39" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2"><path d="M60 48v24M48 60h24M51.5 51.5l17 17M68.5 51.5l-17 17"/><circle cx="60" cy="60" r="6" fill="#eff8f1"/></g>
+  </svg>`;
+ };
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>setTimeout(installNeuralCore,1900));else setTimeout(installNeuralCore,1900);
+})();
+</script>
 </body>
 </html>
