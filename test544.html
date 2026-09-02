@@ -3013,64 +3013,35 @@ body.preview-is-expanded{overflow:hidden!important}
 </script>
 
 <style>
-/* === Unified pricing comparison v2 === */
-#mvp-pricing .pricing-summary-grid,#mvp-pricing .pricing-compare-wrap{display:none!important}
-.pricing-unified-shell{overflow-x:auto;border:1px solid rgba(22,72,43,.22);border-radius:22px;background:#fff;box-shadow:0 18px 48px rgba(10,48,28,.08)}
-.pricing-unified{width:100%;min-width:1020px;border-collapse:separate;border-spacing:0;table-layout:fixed}
-.pricing-unified th,.pricing-unified td{color:#244735!important}
-.pricing-unified .label-col{width:23%;text-align:left}
-.pricing-unified thead th{position:relative;vertical-align:top;padding:28px 24px 24px;background:#f4f7f3;border-right:1px solid rgba(22,72,43,.13);border-bottom:1px solid rgba(22,72,43,.18);text-align:left}
-.pricing-unified thead th:last-child{border-right:0}.pricing-unified thead th.plan-featured{background:linear-gradient(145deg,#e5f2e8,#f4f8f3)}
-.pricing-unified .compare-intro{vertical-align:bottom;background:#eaf1eb}.pricing-unified .compare-intro span{color:#2f6949;font-size:.68rem;font-weight:800;letter-spacing:.13em;text-transform:uppercase}.pricing-unified .compare-intro strong{display:block;margin-top:10px;color:#153b27;font-size:1.15rem;line-height:1.25}
-.pricing-unified .plan-name{display:block;padding-right:92px;color:#102f20;font:700 1.18rem/1.15 "Cabinet Grotesk",sans-serif}
-.pricing-unified .plan-badge{position:absolute;right:16px;top:18px;padding:6px 8px;border-radius:999px;background:#cae7d3;color:#185c36;font-size:.5rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
-.pricing-unified .plan-coverage{display:block;min-height:48px;margin:14px 0 20px;color:#355c46!important;font-size:.75rem;line-height:1.42}
-.pricing-unified .plan-price{display:flex;align-items:baseline;flex-wrap:wrap;gap:6px;color:#0e3924;font:800 2rem/1 "Cabinet Grotesk",sans-serif}
-.pricing-unified .plan-price small{color:#476957!important;font:650 .65rem/1.25 "General Sans",sans-serif}
-.pricing-unified .plan-desc{display:block;min-height:82px;margin:17px 0;color:#516f5f!important;font-size:.7rem;line-height:1.55;font-weight:500}
-.pricing-unified .table-cta{display:block;padding:12px 10px;border:1px solid #173b28;border-radius:999px;color:#173b28!important;text-align:center;text-decoration:none;font-size:.7rem;font-weight:800}
-.pricing-unified .plan-featured .table-cta{background:#0b301f;color:#fff!important;border-color:#0b301f}
-.pricing-unified tbody td{padding:16px 22px;background:#fff;border-right:1px solid rgba(22,72,43,.09);border-bottom:1px solid rgba(22,72,43,.11);text-align:center;font-size:.74rem;font-weight:650}
-.pricing-unified tbody td:first-child{text-align:left;color:#274c38!important;font-weight:700}.pricing-unified tbody td:last-child{border-right:0;background:rgba(230,242,233,.36)}.pricing-unified tbody tr:last-child td{border-bottom:0}
-.pricing-unified .yes{color:#1c8148!important;font-size:1rem;font-weight:900}.pricing-unified .dash{color:#7c9185!important}.pricing-unified .value{color:#264b37!important}
-.pricing-unified-note{margin:14px 0 0;color:#607568!important;text-align:center;font-size:.68rem}
-@media(max-width:760px){.pricing-unified-shell{border-radius:16px}.pricing-unified{min-width:940px}.pricing-unified thead th{padding:22px 18px}.pricing-unified tbody td{padding:14px 18px}}
+/* === Restored standalone Console vs Desk comparison === */
+.console-desk-section{background:#f3f6f3;color:#173b28}
+.console-desk-section .mvp-shell{max-width:1240px}
+.console-desk-section-head{display:grid;grid-template-columns:1fr .8fr;gap:40px;align-items:end;margin-bottom:34px}
+.console-desk-section-head h2{margin:10px 0 0;color:#102e1f;font:700 clamp(2rem,4vw,3.8rem)/1 "Cabinet Grotesk",sans-serif;letter-spacing:-.045em}
+.console-desk-section-head p{color:#61766a;font-size:.95rem;line-height:1.6}
+.console-desk-table{overflow-x:auto;border:1px solid rgba(26,81,49,.17);border-radius:20px;background:#fff}
+.console-desk-table table{width:100%;min-width:720px;border-collapse:collapse}
+.console-desk-table th,.console-desk-table td{padding:17px 22px;border-bottom:1px solid rgba(26,81,49,.11);color:#294c38;text-align:center;font-size:.78rem}
+.console-desk-table th:first-child,.console-desk-table td:first-child{width:45%;text-align:left}
+.console-desk-table thead th{background:#eaf1eb;color:#173b28;font-weight:800}
+.console-desk-table tbody tr:last-child td{border-bottom:0}
+.console-desk-table .mvp-check{color:#21804a!important;font-size:1.05rem;font-weight:800}
+.console-desk-table .product-fit{display:block;margin-top:5px;color:#708378;font-size:.61rem;font-weight:500}
+.console-desk-table .product-no{color:#87988e}.console-desk-table .product-level{color:#285a3d;font-weight:750}
+@media(max-width:760px){.console-desk-section-head{grid-template-columns:1fr;gap:15px}}
 </style>
 <script>
 (()=>{
- const unifyPricing=()=>{
-  const section=document.querySelector('#mvp-pricing');
-  if(!section||section.querySelector('.pricing-unified-shell'))return;
-  const oldPlans=section.querySelector('.pricing-summary-grid');
-  const oldCompare=section.querySelector('.pricing-compare-wrap');
-  if(!oldPlans)return;
-  const unified=document.createElement('div');
-  unified.className='pricing-unified-shell';
-  unified.innerHTML=`
-   <table class="pricing-unified">
-    <thead><tr>
-     <th class="label-col compare-intro"><span>Plan comparison</span><strong>Everything in one view.</strong></th>
-     <th><span class="plan-name">AI Support</span><span class="plan-coverage">24/7 AI Chatbot</span><span class="plan-price">₹24,999 <small>/month + GST</small></span><span class="plan-desc">Automated support for companies that want routine customer queries handled around the clock.</span><a class="table-cta" href="#mvp-contact">Discuss AI Support</a></th>
-     <th><span class="plan-name">AI + Human Lite</span><span class="plan-coverage">24/7 AI Chatbot + 4.5 Human Support Hours</span><span class="plan-price">₹53,999 <small>/month + GST</small></span><span class="plan-desc">Continuous AI support backed by a dedicated human agent for escalations requiring judgement, investigation or empathy.</span><a class="table-cta" href="#mvp-contact">Discuss AI + Human</a></th>
-     <th class="plan-featured"><span class="plan-badge">Complete coverage</span><span class="plan-name">AI + Human Full</span><span class="plan-coverage">24/7 AI Chatbot + 9 Human Support Hours</span><span class="plan-price">₹84,999 <small>/month + GST</small></span><span class="plan-desc">Continuous AI support with full-day human coverage and managed oversight for higher-volume support operations.</span><a class="table-cta" href="#mvp-contact">Discuss Full Coverage</a></th>
-    </tr></thead>
-    <tbody>
-     <tr><td>AI chatbot availability</td><td class="value">24/7</td><td class="value">24/7</td><td class="value">24/7</td></tr>
-     <tr><td>Dedicated human-agent coverage</td><td class="dash">—</td><td class="value">4.5 hours / working day</td><td class="value">9 hours / working day</td></tr>
-     <tr><td>Continuous AI training and tuning</td><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td></tr>
-     <tr><td>NovaraDesk workspace</td><td class="dash">—</td><td class="yes">✓</td><td class="yes">✓</td></tr>
-     <tr><td>AI-to-human handoff</td><td class="dash">—</td><td class="yes">✓</td><td class="yes">✓</td></tr>
-     <tr><td>Human-agent management</td><td class="dash">—</td><td class="yes">✓</td><td class="yes">✓</td></tr>
-     <tr><td>Analytics and reporting</td><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td></tr>
-     <tr><td>Quality monitoring</td><td class="value">AI performance</td><td class="value">AI + human</td><td class="value">AI + human</td></tr>
-     <tr><td>Ticket ownership</td><td class="value">Your team</td><td class="value">Novara</td><td class="value">Novara</td></tr>
-    </tbody>
-   </table>`;
-  oldPlans.insertAdjacentElement('beforebegin',unified);
-  const note=document.createElement('p');note.className='pricing-unified-note';note.textContent='AI support operates 24/7. Human-agent coverage applies on working days. Implementation scope and channel integrations are confirmed during discovery.';
-  unified.insertAdjacentElement('afterend',note);
+ const restoreProductComparison=()=>{
+  if(document.querySelector('.console-desk-section'))return;
+  const platform=document.querySelector('#mvp-platform');
+  if(!platform)return;
+  const section=document.createElement('section');
+  section.className='mvp-section console-desk-section';
+  section.innerHTML=`<div class="mvp-shell"><div class="console-desk-section-head"><div><span class="mvp-kicker">Choose your workspace</span><h2>NovaraConsole vs NovaraDesk</h2></div><p>Choose focused AI-chatbot operations or a complete workspace for both AI and human support.</p></div><div class="console-desk-table"><table aria-label="Comparison of NovaraConsole and NovaraDesk"><thead><tr><th>Capability</th><th>NovaraConsole<span class="product-fit">AI support operations</span></th><th>NovaraDesk<span class="product-fit">AI + human workspace</span></th></tr></thead><tbody><tr><td>AI chatbot</td><td class="mvp-check">✓</td><td class="mvp-check">✓</td></tr><tr><td>Continuous AI training</td><td class="mvp-check">✓</td><td class="mvp-check">✓</td></tr><tr><td>Conversation analytics</td><td class="mvp-check">✓</td><td class="mvp-check">✓</td></tr><tr><td>Human-escalation readiness</td><td class="mvp-check">✓</td><td class="mvp-check">✓</td></tr><tr><td>Ticket and agent workspace</td><td><span class="product-no">—</span></td><td class="mvp-check">✓</td></tr><tr><td>Customer profiles</td><td><span class="product-no">—</span></td><td class="mvp-check">✓</td></tr><tr><td>Knowledge base</td><td><span class="product-level">Basic</span></td><td><span class="product-level">Advanced</span></td></tr><tr><td>Human-agent analytics</td><td><span class="product-no">—</span></td><td class="mvp-check">✓</td></tr><tr><td>Custom reports and dashboards</td><td><span class="product-no">—</span></td><td class="mvp-check">✓</td></tr><tr><td>Workflows and automations</td><td><span class="product-no">—</span></td><td class="mvp-check">✓</td></tr><tr><td>Omnichannel and call management</td><td><span class="product-no">—</span></td><td class="mvp-check">✓</td></tr></tbody></table></div></div>`;
+  platform.insertAdjacentElement('afterend',section);
  };
- if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>setTimeout(unifyPricing,1300));else setTimeout(unifyPricing,1300);
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>setTimeout(restoreProductComparison,1800));else setTimeout(restoreProductComparison,1800);
 })();
 </script>
 </body>
