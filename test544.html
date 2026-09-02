@@ -2213,5 +2213,62 @@ body>header .nav-cta{padding-inline:14px!important}
 }
 </style>
 
+<style>
+/* === Visual compact approach grid === */
+.novara-approach{padding:76px 0!important}
+.approach-intro{display:grid!important;grid-template-columns:minmax(0,1.05fr) minmax(320px,.95fr)!important;column-gap:70px!important;align-items:end!important}
+.approach-intro h2{font-size:clamp(2.35rem,3.5vw,3.75rem)!important;max-width:690px!important}
+.approach-intro>p{font-size:.84rem!important;line-height:1.65!important;max-width:540px!important}
+.approach-principle{display:none!important}
+.approach-steps{display:grid!important;grid-template-columns:repeat(12,minmax(0,1fr))!important;gap:13px!important;margin-top:40px!important}
+.approach-step{grid-column:span 3!important}
+.approach-step:nth-child(n+5){grid-column:span 4!important}
+.approach-step:last-child{grid-column:span 4!important}
+.approach-number{top:17px!important;left:17px!important;width:38px!important;height:38px!important;border-radius:11px!important;background:#e4f0e7!important;box-shadow:none!important;font-size:.61rem!important}
+.approach-card,.approach-step:last-child .approach-card{display:flex!important;flex-direction:column!important;min-height:165px!important;padding:67px 17px 17px!important}
+.approach-card h3{font-size:.98rem!important;line-height:1.18!important}
+.approach-card p{margin-top:8px!important;font-size:.68rem!important;line-height:1.5!important}
+.approach-tag{display:none!important}
+@media(max-width:1050px){
+ .approach-step{grid-column:span 6!important}
+ .approach-step:nth-child(n+5),.approach-step:last-child{grid-column:span 6!important}
+ .approach-step:last-child{grid-column:4/span 6!important}
+}
+@media(max-width:760px){
+ .approach-intro{display:block!important}
+ .approach-intro>p{margin-top:20px!important}
+ .approach-steps{grid-template-columns:1fr!important;gap:10px!important;margin-top:32px!important}
+ .approach-step,.approach-step:nth-child(n+5),.approach-step:last-child{grid-column:auto!important}
+ .approach-card,.approach-step:last-child .approach-card{min-height:0!important;padding:18px 18px 18px 70px!important}
+ .approach-number{top:17px!important}
+}
+</style>
+<script>
+(()=>{
+ const compactApproach=()=>{
+  const section=document.querySelector('#novara-operating-approach');if(!section)return false;
+  const copy=[
+   ['Map customer issues','Review conversations and classify issues by volume, effort, risk and complexity.'],
+   ['Prioritise automation','Start with frequent queries that have dependable, low-risk answers.'],
+   ['Build SOPs and ownership','Define responses, escalation rules, quality checks and clear points of contact.'],
+   ['Train AI and agents','Train AI for routine queries and agents for routine exceptions and complex cases.'],
+   ['Launch controlled handoffs','Route low-confidence or sensitive cases to agents with full customer context.'],
+   ['Measure performance','Track daily AI and human KPIs, supported by interpreted weekly reporting.'],
+   ['Expand automation','Use human-handled queries to identify and train the next automation opportunities.']
+  ];
+  section.querySelectorAll('.approach-step').forEach((step,index)=>{
+   const item=copy[index];if(!item)return;
+   const h=step.querySelector('h3'),p=step.querySelector('p');
+   if(h)h.textContent=item[0];if(p)p.textContent=item[1];
+  });
+  const intro=section.querySelector('.approach-intro>p');
+  if(intro)intro.textContent='We create a dependable support foundation, automate suitable high-volume queries and improve the operation continuously using real performance data.';
+  return true;
+ };
+ let attempts=0;const run=()=>{if(compactApproach()||++attempts>30)return;setTimeout(run,100)};
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',run);else run();
+})();
+</script>
+
 </body>
 </html>
