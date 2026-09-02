@@ -2916,5 +2916,100 @@ body.preview-is-expanded{overflow:hidden!important}
 .analytics-icon .trend{stroke:#17673e!important;stroke-width:3.5!important}
 .analytics-icon .point{fill:#17673e!important}
 </style>
+
+<style>
+/* === Three-plan pricing comparison v1 === */
+#mvp-pricing .mvp-pricing-head{margin-bottom:34px}
+#mvp-pricing .mvp-pricing-head>p{max-width:520px}
+.pricing-summary-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-bottom:16px}
+.pricing-summary{
+  position:relative;display:flex;flex-direction:column;min-height:285px;padding:26px;
+  border:1px solid rgba(30,88,55,.17);border-radius:20px;background:rgba(255,255,252,.9);
+  box-shadow:0 14px 34px rgba(24,64,41,.06)
+}
+.pricing-summary.featured{background:linear-gradient(150deg,#edf6f0,#f9fbf8);border-color:rgba(33,111,66,.34)}
+.pricing-summary-badge{position:absolute;right:18px;top:18px;padding:7px 10px;border-radius:999px;background:#dceee2;color:#236642;font-size:.63rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase}
+.pricing-summary h3{max-width:92%;margin:0;color:#102d20;font:700 clamp(1.1rem,1.5vw,1.4rem)/1.16 "Cabinet Grotesk",sans-serif}
+.pricing-summary .coverage{min-height:58px;margin:14px 0 20px;color:#3b5848;font:600 .83rem/1.45 "General Sans",sans-serif}
+.pricing-price{display:flex;align-items:baseline;flex-wrap:wrap;gap:7px;margin-top:auto;color:#0e3522;font:800 clamp(1.75rem,2.5vw,2.45rem)/1 "Cabinet Grotesk",sans-serif}
+.pricing-price small{font:600 .76rem/1 "General Sans",sans-serif;color:#5a7164}
+.pricing-summary p.description{min-height:72px;margin:18px 0 22px;color:#64766c;font-size:.78rem;line-height:1.55}
+.pricing-summary .mvp-btn{margin-top:0}
+.pricing-compare-wrap{overflow-x:auto;border:1px solid rgba(28,80,49,.16);border-radius:20px;background:#fff}
+.pricing-compare{width:100%;min-width:760px;border-collapse:collapse;table-layout:fixed}
+.pricing-compare th,.pricing-compare td{padding:17px 20px;border-bottom:1px solid rgba(28,80,49,.11);text-align:center;font-size:.78rem;line-height:1.35}
+.pricing-compare th:first-child,.pricing-compare td:first-child{width:31%;text-align:left}
+.pricing-compare thead th{background:#eef4ef;color:#173c28;font-weight:800}
+.pricing-compare thead th.featured-col{background:#deeee3;color:#155c35}
+.pricing-compare tbody tr:last-child td{border-bottom:0}
+.pricing-compare tbody tr:hover td{background:rgba(232,242,235,.45)}
+.pricing-compare td:first-child{color:#31513f;font-weight:650}
+.pricing-compare .yes{color:#24824d;font-size:1rem;font-weight:800}
+.pricing-compare .dash{color:#9aa89f}
+.pricing-footnote{margin:15px 0 0;text-align:center;color:#718078;font-size:.7rem}
+#mvp-pricing .cx-model{display:none!important}
+#mvp-pricing .mvp-plan-note{display:none!important}
+@media(max-width:900px){.pricing-summary-grid{grid-template-columns:1fr}.pricing-summary{min-height:auto}.pricing-summary .coverage,.pricing-summary p.description{min-height:0}.pricing-summary-badge{position:static;align-self:flex-start;margin-bottom:14px}}
+</style>
+<script>
+(()=>{
+ const buildPricingComparison=()=>{
+  const section=document.querySelector('#mvp-pricing');
+  if(!section||section.dataset.comparisonReady==='true')return;
+  section.dataset.comparisonReady='true';
+  const head=section.querySelector('.mvp-pricing-head');
+  if(head)head.innerHTML='<div><span class="mvp-kicker">Simple MVP plans</span><h2 class="mvp-heading">Choose the right balance of AI and human support.</h2></div><p>AI handles routine conversations around the clock. Add dedicated human-agent coverage based on the attention your customers need.</p>';
+  const plans=section.querySelector('.mvp-plans');
+  if(plans){
+   plans.className='pricing-summary-grid';
+   plans.innerHTML=`
+    <article class="pricing-summary">
+     <h3>AI Support</h3>
+     <div class="coverage">24/7 AI Chatbot</div>
+     <div class="pricing-price">₹24,999 <small>/month + GST</small></div>
+     <p class="description">Automated support for companies that want routine customer queries handled around the clock.</p>
+     <a class="mvp-btn secondary" href="#mvp-contact">Discuss AI Support</a>
+    </article>
+    <article class="pricing-summary">
+     <h3>AI + Human Lite</h3>
+     <div class="coverage">24/7 AI Chatbot + 4.5 Human Support Hours</div>
+     <div class="pricing-price">₹53,999 <small>/month + GST</small></div>
+     <p class="description">Continuous AI support backed by a dedicated human agent for escalations requiring judgement, investigation or empathy.</p>
+     <a class="mvp-btn secondary" href="#mvp-contact">Discuss AI + Human</a>
+    </article>
+    <article class="pricing-summary featured">
+     <span class="pricing-summary-badge">Complete coverage</span>
+     <h3>AI + Human Full</h3>
+     <div class="coverage">24/7 AI Chatbot + 9 Human Support Hours</div>
+     <div class="pricing-price">₹84,999 <small>/month + GST</small></div>
+     <p class="description">Continuous AI support with full-day human coverage and managed oversight for higher-volume support operations.</p>
+     <a class="mvp-btn primary" href="#mvp-contact">Discuss Full Coverage</a>
+    </article>`;
+  }
+  const compare=section.querySelector('.mvp-compare');
+  if(compare){
+   compare.className='pricing-compare-wrap';
+   compare.innerHTML=`
+    <table class="pricing-compare">
+     <thead><tr><th>Capability</th><th>AI Support</th><th>AI + Human Lite</th><th class="featured-col">AI + Human Full</th></tr></thead>
+     <tbody>
+      <tr><td>AI chatbot availability</td><td>24/7</td><td>24/7</td><td>24/7</td></tr>
+      <tr><td>Dedicated human-agent coverage</td><td class="dash">—</td><td>4.5 hours / working day</td><td>9 hours / working day</td></tr>
+      <tr><td>Continuous AI training and tuning</td><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td></tr>
+      <tr><td>NovaraDesk workspace</td><td class="dash">—</td><td class="yes">✓</td><td class="yes">✓</td></tr>
+      <tr><td>AI-to-human handoff</td><td>Escalates to your team</td><td class="yes">✓</td><td class="yes">✓</td></tr>
+      <tr><td>Human-agent management</td><td class="dash">—</td><td class="yes">✓</td><td class="yes">✓</td></tr>
+      <tr><td>Analytics and reporting</td><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td></tr>
+      <tr><td>Quality monitoring</td><td>AI performance</td><td>AI + human support</td><td>AI + human support</td></tr>
+      <tr><td>Ticket ownership</td><td>Your team</td><td>Novara</td><td>Novara</td></tr>
+     </tbody>
+    </table>`;
+  }
+  const shell=section.querySelector('.mvp-shell');
+  if(shell&&!shell.querySelector('.pricing-footnote'))shell.insertAdjacentHTML('beforeend','<p class="pricing-footnote">Human-agent coverage applies on working days. Implementation scope and channel integrations are confirmed during discovery.</p>');
+ };
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>setTimeout(buildPricingComparison,900));else setTimeout(buildPricingComparison,900);
+})();
+</script>
 </body>
 </html>
