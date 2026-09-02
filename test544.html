@@ -2556,5 +2556,47 @@ body.preview-is-expanded{overflow:hidden!important}
 })();
 </script>
 
+<style>
+/* === Simplified pricing and coverage clarification === */
+#mvp-pricing .price-breakdown,
+#mvp-pricing .plan-comparison{display:none!important}
+</style>
+<script>
+(()=>{
+ const simplifyPricing=()=>{
+  const pricing=document.querySelector('#mvp-pricing');if(!pricing)return false;
+  pricing.querySelectorAll('.price-breakdown').forEach(el=>el.remove());
+  pricing.querySelectorAll('.plan-comparison').forEach(el=>el.remove());
+  const plans=pricing.querySelectorAll('.mvp-plan');if(plans.length<3)return false;
+  const copy=[
+   {
+    forText:'With NovaraConsole',
+    desc:'24/7 AI support for repetitive and routine customer queries.'
+   },
+   {
+    forText:'With NovaraDesk + Managed Services',
+    desc:'24/7 AI support with a managed human agent covering 4.5 hours each working day.'
+   },
+   {
+    forText:'With NovaraDesk + Managed Services',
+    desc:'24/7 AI support with a managed human agent covering 9 hours each working day.'
+   }
+  ];
+  plans.forEach((card,index)=>{
+   const item=copy[index];if(!item)return;
+   const forText=card.querySelector('.mvp-plan-for');if(forText)forText.textContent=item.forText;
+   const desc=card.querySelector('.mvp-plan-desc');if(desc)desc.textContent=item.desc;
+  });
+  const note=pricing.querySelector('.mvp-plan-note');
+  if(note)note.textContent='AI support operates 24/7. Human-agent coverage applies on working days. Prices are monthly and exclude GST.';
+  return true;
+ };
+ let attempts=0;
+ const run=()=>{if(simplifyPricing()||++attempts>30)return;setTimeout(run,100)};
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>setTimeout(run,1650));else setTimeout(run,1650);
+ setTimeout(simplifyPricing,2300);
+})();
+</script>
+
 </body>
 </html>
