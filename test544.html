@@ -2826,5 +2826,61 @@ body.preview-is-expanded{overflow:hidden!important}
   .hero-cap-visual{height:124px!important}
 }
 </style>
+
+<style>
+/* === Open light hero capability cards === */
+.hero-system.hero-capability-grid{
+  width:92%!important;
+  max-width:690px!important;
+  min-height:500px!important;
+  padding:0!important;
+  gap:14px!important;
+  background:transparent!important;
+  border:0!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+  overflow:visible!important
+}
+.hero-system.hero-capability-grid:before,
+.hero-system.hero-capability-grid:after{display:none!important}
+.hero-cap-card{
+  padding:12px 12px 18px!important;
+  background:linear-gradient(145deg,rgba(239,247,241,.82),rgba(223,239,228,.56))!important;
+  border:1px solid rgba(58,121,79,.16)!important;
+  border-radius:16px!important;
+  box-shadow:0 12px 30px rgba(35,82,51,.075),inset 0 1px 0 rgba(255,255,255,.72)!important;
+  backdrop-filter:blur(12px) saturate(110%)!important;
+  -webkit-backdrop-filter:blur(12px) saturate(110%)!important
+}
+.hero-cap-card:hover{
+  background:linear-gradient(145deg,rgba(247,250,246,.92),rgba(222,240,228,.72))!important;
+  border-color:rgba(48,118,72,.25)!important;
+  box-shadow:0 16px 36px rgba(35,82,51,.1)!important
+}
+.hero-cap-visual{
+  background:linear-gradient(145deg,rgba(213,235,220,.48),rgba(244,248,244,.68))!important;
+  border-color:rgba(58,121,79,.12)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.66)!important
+}
+.hero-cap-card h3{color:#163d2b!important}
+.hero-cap-card p{color:rgba(31,67,48,.64)!important}
+.ai-orb{filter:drop-shadow(0 0 12px rgba(70,151,103,.1))!important}
+.ai-orb circle{opacity:.09!important}
+.ai-orb path:nth-of-type(1){stroke:#277b4e!important}
+.ai-orb path:nth-of-type(2){stroke:#59a978!important}
+.ai-orb path:nth-of-type(3){stroke:#8bc4a1!important}
+.human-scene{stroke:#2d7950!important;opacity:.78!important}
+.human-scene .task rect{fill:rgba(255,255,255,.48)!important;stroke:rgba(46,120,79,.58)!important}
+.human-scene .tick{stroke:#43a56b!important}
+.desk-logo{
+  border-color:rgba(39,105,67,.15)!important;
+  background:rgba(26,78,52,.08)!important
+}
+.desk-logo i{background:#79b68f!important}.desk-logo i:nth-child(1),.desk-logo i:nth-child(4){background:#cfe6d7!important}
+.analytics-icon .bar{fill:rgba(60,145,93,.43)!important}
+.analytics-icon .trend{stroke:#277b4e!important}
+.analytics-icon .point{fill:#3f9662!important;filter:drop-shadow(0 0 5px rgba(63,150,98,.24))!important}
+@media(max-width:760px){.hero-system.hero-capability-grid{width:100%!important}}
+</style>
 </body>
 </html>
