@@ -16270,5 +16270,23 @@ img[alt*="Novara" i], .brand-endorsement, .brand-logo img {display:none!importan
 })();
 </script>
 
+<style>
+/* === Split brand lockup correction === */
+.brand-endorsement,.brand-logo img,.brand-mark img,[class*="brand"] img[alt*="Novara" i]{display:none!important}
+</style>
+<script>
+(()=>{
+ const neutralizeBrand=()=>{
+  document.querySelectorAll('.brand-name').forEach(el=>{el.textContent='Analytics'});
+  document.querySelectorAll('.brand-endorsement').forEach(el=>{el.hidden=true});
+  document.querySelectorAll('img[alt*="Novara" i],img[alt*="Supportlk" i]').forEach(el=>{el.hidden=true;el.style.display='none'});
+  document.querySelectorAll('.agent-profile-avatar,.ticket-assignment-avatar').forEach(el=>{if(el.textContent.trim()==='NC')el.textContent='SA'});
+ };
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',neutralizeBrand);else neutralizeBrand();
+ new MutationObserver(neutralizeBrand).observe(document.documentElement,{subtree:true,childList:true});
+ setTimeout(neutralizeBrand,250);setTimeout(neutralizeBrand,1000);
+})();
+</script>
+
 </body>
 </html>
