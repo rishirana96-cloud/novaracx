@@ -2157,5 +2157,69 @@ body>header .nav-cta{padding-inline:14px!important}
 })();
 </script>
 
+<style>
+/* === Agent-count pricing calculator === */
+#mvp-pricing .currency-switcher{display:flex!important}
+#mvp-pricing .mvp-plan-price{display:block;min-height:66px}
+#mvp-pricing .price-placeholder{display:none!important}
+.agent-pricing{margin:14px 0 18px;padding:14px;border:1px solid rgba(29,78,48,.14);border-radius:14px;background:rgba(231,241,234,.58)}
+.agent-pricing-label{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:11px}
+.agent-pricing-label strong{color:#173a27;font-size:.72rem}.agent-pricing-label span{color:#6d7b72;font-size:.59rem;text-align:right}
+.agent-stepper{display:grid;grid-template-columns:42px minmax(50px,1fr) 42px;align-items:center;max-width:180px;border:1px solid rgba(29,78,48,.18);border-radius:999px;background:#fff;overflow:hidden}
+.agent-stepper button{height:38px;border:0;background:transparent;color:#245e3d;font-size:1.2rem;font-weight:700}.agent-stepper button:hover{background:#e6f0e9}
+.agent-stepper output{text-align:center;color:#173a27;font-size:.85rem;font-weight:800}.agent-stepper button:disabled{color:#abb5ae;cursor:not-allowed}
+.agent-rate{display:block;margin-top:8px;color:#758279;font-size:.56rem}
+#mvp-pricing .mvp-plan-price small{display:inline;font-size:.68rem;color:#6f7d74;font-weight:550}
+#mvp-pricing .mvp-plan-price .price-tax{display:block;margin-top:2px;font-size:.54rem}
+.plan-comparison .cmp-price{font-size:.78rem}.plan-comparison .comparison-tax{display:block!important}
+.plan-comparison .agent-count-row td{background:#f5f7f4}.plan-comparison .agent-count-value{font-weight:800;color:#245e3d}
+@media(max-width:700px){.agent-pricing-label{align-items:flex-start;flex-direction:column}.agent-pricing-label span{text-align:left}}
+</style>
+<script>
+(()=>{
+ const install=()=>{
+  const p=document.querySelector('#mvp-pricing');if(!p||p.dataset.agentCalculator==='ready')return;
+  const cards={ai:p.querySelector('[data-plan="ai"]'),hybrid:p.querySelector('[data-plan="hybrid"]'),managed:p.querySelector('[data-plan="managed"]')};
+  if(!cards.ai||!cards.hybrid||!cards.managed)return;p.dataset.agentCalculator='ready';
+  const setCopy=(key,title,forText,desc)=>{cards[key].querySelector('h3').textContent=title;cards[key].querySelector('.mvp-plan-for').textContent=forText;cards[key].querySelector('.mvp-plan-desc').textContent=desc};
+  setCopy('ai','AI Only','For teams using the support console while managing all human escalations internally','AI chatbot with continuous training and tuning by Novara.');
+  setCopy('hybrid','AI + Human · 4.5 hours','NovaraDesk, AI support and managed human coverage for a focused daily shift','A managed-service model with 4.5 hours of human-agent coverage per agent.');
+  setCopy('managed','AI + Human · 9 hours','NovaraDesk, AI support and full-day managed human coverage','The complete managed-service model with 9 hours of human-agent coverage per agent.');
+  const state={currency:'INR',hybrid:1,managed:1};
+  const money={INR:{symbol:'₹',aiBase:24999,hybridBase:53999,managedBase:84999,hybridAdd:22250,managedAdd:45500,tax:'+ GST'},USD:{symbol:',aiBase:299,hybridBase:649,managedBase:999,hybridAdd:269,managedAdd:549,tax:'+ applicable taxes'}};
+  const format=(n,c)=>money[c].symbol+n.toLocaleString(c==='INR'?'en-IN':'en-US');
+  const total=k=>k==='ai'?money[state.currency].aiBase:money[state.currency][k+'Base']+(state[k]-1)*money[state.currency][k+'Add'];
+  ['hybrid','managed'].forEach(k=>{
+   const coverage=k==='hybrid'?'4.5 hours/day':'9 hours/day',box=document.createElement('div');box.className='agent-pricing';
+   box.innerHTML='<div class="agent-pricing-label"><strong>Number of agents</strong><span>'+coverage+' each</span></div><div class="agent-stepper" role="group" aria-label="Number of agents for '+coverage+'"><button type="button" data-step="-1" aria-label="Remove one agent">−</button><output aria-live="polite">1</output><button type="button" data-step="1" aria-label="Add one agent">+</button></div><small class="agent-rate"></small>';
+   cards[k].querySelector('.mvp-plan-price').insertAdjacentElement('afterend',box);
+   box.querySelectorAll('button').forEach(b=>b.onclick=()=>{state[k]=Math.max(1,Math.min(25,state[k]+Number(b.dataset.step)));render()});
+  });
+  const tbody=p.querySelector('.plan-comparison tbody'),priceRow=tbody?.querySelector('[data-compare-price]')?.closest('tr');
+  if(priceRow){
+   priceRow.firstElementChild.textContent='Monthly total';
+   priceRow.insertAdjacentHTML('beforebegin','<tr class="agent-count-row"><td>Agents included</td><td>—</td><td><span class="agent-count-value" data-compare-agents="hybrid">1 agent · 4.5 hrs</span></td><td><span class="agent-count-value" data-compare-agents="managed">1 agent · 9 hrs</span></td></tr>');
+   priceRow.insertAdjacentHTML('afterend','<tr><td>Percentage of full-time cost</td><td>—</td><td>—</td><td><strong>76.23%</strong></td></tr>');
+  }
+  const sw=p.querySelector('.currency-switcher');if(sw){sw.hidden=false;sw.querySelectorAll('button').forEach(b=>b.onclick=()=>{state.currency=b.dataset.currency;render()})}
+  function render(){
+   const m=money[state.currency];
+   ['ai','hybrid','managed'].forEach(k=>{
+    const price=cards[k].querySelector('[data-plan-price]');if(price)price.innerHTML=format(total(k),state.currency)+' <small>/month</small><small class="price-tax">'+m.tax+'</small>';
+    const compare=p.querySelector('[data-compare-price="'+k+'"]');if(compare)compare.innerHTML=format(total(k),state.currency)+'<span class="comparison-tax">/month · '+m.tax+'</span>';
+   });
+   ['hybrid','managed'].forEach(k=>{
+    const box=cards[k].querySelector('.agent-pricing');box.querySelector('output').textContent=state[k];box.querySelector('[data-step="-1"]').disabled=state[k]===1;
+    box.querySelector('.agent-rate').textContent='Each additional agent: '+format(m[k+'Add'],state.currency)+' / month';
+    const c=p.querySelector('[data-compare-agents="'+k+'"]');if(c)c.textContent=state[k]+' '+(state[k]===1?'agent':'agents')+' · '+(k==='hybrid'?'4.5 hrs':'9 hrs')+' each';
+   });
+   if(sw)sw.querySelectorAll('button').forEach(b=>{const a=b.dataset.currency===state.currency;b.classList.toggle('active',a);b.setAttribute('aria-pressed',String(a))});
+   const note=p.querySelector('.mvp-plan-note');if(note)note.textContent='Totals update with the selected agent count. Prices are monthly and exclude GST. Final coverage and implementation scope are confirmed during discovery.';
+  }render();
+ };
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>setTimeout(install,460));else setTimeout(install,460);
+})();
+</script>
+
 </body>
 </html>
