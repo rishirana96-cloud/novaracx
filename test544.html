@@ -2270,5 +2270,36 @@ body>header .nav-cta{padding-inline:14px!important}
 })();
 </script>
 
+<style>
+/* === Final approach refinements and placement === */
+.approach-card,.approach-step:last-child .approach-card{min-height:136px!important;padding-top:63px!important;padding-bottom:15px!important}
+@media(max-width:680px){.approach-card,.approach-step:last-child .approach-card{min-height:0!important;padding-top:18px!important}}
+</style>
+<script>
+(()=>{
+ const refineApproach=()=>{
+  const section=document.querySelector('#novara-operating-approach');
+  const trySection=document.querySelector('.novara-mechanism');
+  const deskSection=document.querySelector('#mvp-product-tour');
+  if(!section)return false;
+  const title=section.querySelector('#approach-title');
+  if(title)title.textContent='How we build and improve your support operation.';
+  const secondTitle=section.querySelector('.approach-step:nth-child(2) h3');
+  if(secondTitle)secondTitle.textContentContent='Prioritise automation opportunities';
+  if(secondTitle)secondTitle.textContent='Prioritise automation opportunities';
+  if(trySection){
+   trySection.insertAdjacentElement('afterend',section);
+  }else if(deskSection){
+   deskSection.insertAdjacentElement('beforebegin',section);
+  }
+  return true;
+ };
+ let attempts=0;
+ const run=()=>{if(refineApproach()||++attempts>35)return;setTimeout(run,100)};
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',run);else run();
+ setTimeout(refineApproach,700);
+})();
+</script>
+
 </body>
 </html>
