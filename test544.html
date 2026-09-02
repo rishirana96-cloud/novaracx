@@ -2420,5 +2420,141 @@ body>header .nav-cta{padding-inline:14px!important}
 }
 </style>
 
+<style>
+/* === Consolidated noted revisions === */
+/* Leadership and chatbot illustrations */
+.pm-leader .pm-person svg{width:40px!important;height:40px!important;stroke-width:1.65!important}
+.pm-gap .pm-bot svg{width:48px!important;height:42px!important;stroke-width:1.65!important}
+.hero-system-node.ai i svg{width:25px!important;height:25px!important;stroke-width:1.75!important}
+
+/* Centred, larger WhatsApp demonstration labels; decorative dots removed. */
+.novara-mechanism .wa-shot-label{position:relative!important;display:flex!important;align-items:center!important;justify-content:center!important;min-height:64px!important;padding:11px 48px!important;text-align:center!important}
+.novara-mechanism .wa-shot-label>span{display:grid!important;width:100%!important;gap:5px!important;text-align:center!important}
+.novara-mechanism .wa-shot-label>span:before{display:none!important;content:none!important}
+.novara-mechanism .wa-shot-label strong{font-size:.78rem!important;font-weight:800!important;letter-spacing:.095em!important}
+.novara-mechanism .wa-shot-label small{font-size:.58rem!important;font-weight:750!important;letter-spacing:.12em!important}
+.novara-mechanism .wa-replay{position:absolute!important;right:14px!important;top:50%!important;transform:translateY(-50%)!important}
+
+/* Large directional arrow */
+.novara-mechanism .try-arrow{display:inline-flex!important;align-items:center!important;width:clamp(105px,9vw,165px)!important;height:1em!important;margin-left:.12em!important;vertical-align:middle!important}
+.novara-mechanism .try-arrow svg{display:block;width:100%;height:100%;overflow:visible;fill:none;stroke:#a8d8b7;stroke-width:2.25;stroke-linecap:round;stroke-linejoin:round}
+.novara-mechanism .mechanism-head:hover .try-arrow{transform:none!important}
+@keyframes tryArrowLarge{0%,55%,100%{transform:translateX(0)}72%{transform:translateX(16px)}84%{transform:translateX(6px)}}
+.novara-mechanism .try-arrow svg{animation:tryArrowLarge 2.7s cubic-bezier(.2,.75,.25,1) infinite}
+
+/* Deployment channels */
+.deployment-channels{margin-top:38px;padding-top:23px;border-top:1px solid rgba(181,220,194,.16)}
+.deployment-channels>span{display:block;margin-bottom:14px;color:#9ecdb0!important;font-size:.62rem!important;font-weight:800!important;letter-spacing:.13em!important;text-transform:uppercase}
+.deployment-channel-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.deployment-channel{display:inline-flex;align-items:center;gap:8px;padding:9px 12px;border:1px solid rgba(181,220,194,.16);border-radius:999px;background:rgba(255,255,255,.035);color:rgba(255,255,255,.7);font-size:.62rem;font-weight:650}
+.deployment-channel svg{width:17px;height:17px;fill:none;stroke:#a8d8b7;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.deployment-channel:hover{border-color:rgba(168,216,183,.4);background:rgba(255,255,255,.07);color:#fff}
+
+/* Stronger NovaraDesk greens */
+.novaradesk-lockup>strong span,.mvp-desk-top strong span,.studio-brand span{color:#2b7650!important}
+.novaradesk-lockup>i b{background:#38845d!important}
+.novaradesk-lockup>i{border-color:#b9d3c2!important;background:#edf5ef!important}
+
+/* Larger right-side product headers */
+.studio-aside-label,.desk-pane-number{font-size:.84rem!important;font-weight:850!important;letter-spacing:.15em!important;color:#28764b!important}
+
+/* Expandable product preview */
+.live-product-frame{isolation:isolate}
+.preview-expand{position:absolute;z-index:8;right:13px;top:13px;display:grid;place-items:center;width:34px;height:34px;border:1px solid rgba(35,79,50,.18);border-radius:10px;background:rgba(255,255,255,.68);color:#285e3e;backdrop-filter:blur(8px);box-shadow:0 5px 16px rgba(23,59,35,.08);transition:background .2s,border-color .2s}
+.preview-expand:hover{background:rgba(255,255,255,.95);border-color:rgba(35,105,61,.36)}
+.preview-expand svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.live-product-frame.preview-expanded{position:fixed!important;inset:16px!important;z-index:20000!important;height:auto!important;min-height:0!important;border:1px solid rgba(29,71,44,.2);border-radius:18px;background:#fff;box-shadow:0 30px 100px rgba(9,28,16,.35);overflow:hidden}
+.live-product-frame.preview-expanded .live-product-viewport{height:calc(100vh - 32px)!important;min-height:0!important}
+body.preview-is-expanded{overflow:hidden!important}
+
+/* Revealed pricing and compact cost breakdowns */
+#mvp-pricing .currency-switcher{display:none!important}
+#mvp-pricing .mvp-plan-price{display:block!important;min-height:70px!important;color:#10291b!important}
+#mvp-pricing .price-placeholder{display:none!important}
+#mvp-pricing .mvp-plan-price small{font-size:.72rem!important;color:#68776e!important;font-weight:550!important}
+#mvp-pricing .mvp-plan-price .price-tax{display:block;margin-top:2px;font-size:.57rem!important;color:#52705e!important}
+.price-breakdown{margin:5px 0 20px;padding:12px 13px;border:1px solid rgba(30,76,47,.11);border-radius:12px;background:rgba(237,244,239,.62);color:#607168;font-size:.62rem;line-height:1.65}
+.price-breakdown span{display:block}
+.price-breakdown b{color:#234d34;font-weight:750}
+
+/* Accessible comparison headings */
+.plan-comparison-head h3,.console-desk-head h3{color:#123b27!important}
+.plan-comparison-head p,.console-desk-head p{color:#52675a!important}
+
+/* Console versus Desk product comparison */
+.mvp-compare{overflow:hidden!important;border:1px solid rgba(29,73,45,.15)!important;border-radius:20px!important;background:#fbfaf6!important;box-shadow:0 16px 44px rgba(28,68,42,.06)!important}
+.console-desk-head{display:flex;align-items:end;justify-content:space-between;gap:28px;padding:24px 28px;border-bottom:1px solid rgba(29,73,45,.12);text-align:left}
+.console-desk-head h3{font-family:"Cabinet Grotesk","General Sans",sans-serif;font-size:1.5rem}
+.console-desk-head p{max-width:520px;font-size:.72rem}
+.mvp-compare table{min-width:760px!important}
+.mvp-compare th,.mvp-compare td{padding:14px 18px!important}
+.product-fit{display:block;margin-top:3px;color:#75857b;font-size:.57rem;font-weight:500}
+.product-level{display:inline-flex;padding:5px 9px;border-radius:999px;background:#e4efe7;color:#2b6d48;font-size:.58rem;font-weight:750}
+.product-no{color:#9aa69f;font-size:1rem}
+@media(max-width:760px){
+ .novara-mechanism .try-arrow{width:86px!important}
+ .deployment-channel{padding:8px 10px}
+ .console-desk-head{align-items:flex-start;flex-direction:column}
+ .live-product-frame.preview-expanded{inset:8px!important}
+ .live-product-frame.preview-expanded .live-product-viewport{height:calc(100vh - 16px)!important}
+}
+@media(prefers-reduced-motion:reduce){.novara-mechanism .try-arrow svg{animation:none!important}}
+</style>
+<script>
+(()=>{
+ const robotSvg='<svg viewBox="0 0 48 42" aria-hidden="true"><path d="M24 7V3m-3 0h6"/><rect x="7" y="9" width="34" height="25" rx="8"/><circle cx="18" cy="21" r="2"/><circle cx="30" cy="21" r="2"/><path d="M17 28h14M7 18H3v9h4m34-9h4v9h-4M16 34v5m16-5v5"/></svg>';
+ const leaderSvg='<svg viewBox="0 0 48 48" aria-label="Leadership"><path d="M24 22a7 7 0 1 0 0-14 7 7 0 0 0 0 14Z"/><path d="M12 43c0-10 4-17 12-17s12 7 12 17"/><path d="m39 7 1.7 3.5 3.8.6-2.8 2.7.7 3.8-3.4-1.8-3.4 1.8.7-3.8-2.8-2.7 3.8-.6Z"/><path d="M7 39v-7m34 7v-7"/></svg>';
+ const arrowSvg='<svg viewBox="0 0 170 54" aria-hidden="true"><path d="M3 27h153"/><path d="m137 8 20 19-20 19"/></svg>';
+ const channelData=[
+  ['Website','<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 4 6 4 9s-1 6-4 9c-3-3-4-6-4-9s1-6 4-9"/></svg>'],
+  ['WhatsApp','<svg viewBox="0 0 24 24"><path d="M5 19l1-4a8 8 0 1 1 3 3Z"/><path d="M9 8c1 4 3 6 7 7l1-2-3-1-1 1c-1.5-.8-2.2-1.5-3-3l1-1-1-3Z"/></svg>'],
+  ['Messenger','<svg viewBox="0 0 24 24"><path d="M4 11.5A8 8 0 0 1 12.5 4 8 8 0 0 1 21 11.5a8 8 0 0 1-8.5 7.5c-1 0-2-.2-3-.5L5 21l1-4a7 7 0 0 1-2-5.5Z"/><path d="m8 14 3-4 3 2 3-3"/></svg>'],
+  ['Instagram','<svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="6"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".7" fill="currentColor"/></svg>']
+ ];
+ const installVisuals=()=>{
+  const leader=document.querySelector('.pm-leader .pm-person');if(leader)leader.innerHTML=leaderSvg;
+  document.querySelectorAll('.pm-gap .pm-bot,.hero-system-node.ai i').forEach(el=>el.innerHTML=robotSvg);
+  const arrow=document.querySelector('.novara-mechanism .try-arrow');if(arrow)arrow.innerHTML=arrowSvg;
+  const head=document.querySelector('.novara-mechanism .mechanism-head');
+  if(head&&!head.querySelector('.deployment-channels')){
+   const box=document.createElement('div');box.className='deployment-channels';
+   box.innerHTML='<span>Deploy AI wherever your customers are</span><div class="deployment-channel-row">'+channelData.map(([name,svg])=>'<div class="deployment-channel">'+svg+'<b>'+name+'</b></div>').join('')+'</div>';
+   const copy=head.querySelector('p');(copy||head).insertAdjacentElement(copy?'afterend':'beforeend',box);
+  }
+ };
+ const installExpand=()=>{
+  document.querySelectorAll('.live-product-frame').forEach(frame=>{
+   if(frame.querySelector('.preview-expand'))return;
+   const btn=document.createElement('button');btn.type='button';btn.className='preview-expand';btn.setAttribute('aria-label','Expand preview');
+   const expand='<svg viewBox="0 0 24 24"><path d="M9 4H4v5M15 4h5v5M9 20H4v-5M15 20h5v-5"/></svg>';
+   const close='<svg viewBox="0 0 24 24"><path d="m8 8 8 8m0-8-8 8"/></svg>';
+   btn.innerHTML=expand;
+   btn.onclick=()=>{const open=frame.classList.toggle('preview-expanded');document.body.classList.toggle('preview-is-expanded',open);btn.innerHTML=open?close:expand;btn.setAttribute('aria-label',open?'Close expanded preview':'Expand preview')};
+   frame.appendChild(btn);
+  });
+  if(!window.__novaraPreviewEscape){window.__novaraPreviewEscape=true;document.addEventListener('keydown',event=>{if(event.key!=='Escape')return;document.querySelectorAll('.live-product-frame.preview-expanded').forEach(frame=>frame.classList.remove('preview-expanded'));document.body.classList.remove('preview-is-expanded')})}
+ };
+ const installPricing=()=>{
+  const pricing=document.querySelector('#mvp-pricing'),plans=pricing?.querySelectorAll('.mvp-plan');if(!pricing||plans.length<3)return;
+  const data=[
+   {name:'AI Only',forText:'With NovaraConsole',price:'₹24,999',desc:'AI chatbot with continuous training and tuning.',parts:['AI chatbot — <b>₹1,000</b>','Continuous training and tuning — <b>₹23,999</b>']},
+   {name:'AI + Human · 4.5 hours',forText:'With NovaraDesk + Managed Services',price:'₹53,999',desc:'AI support with a managed human agent covering 4.5 hours each working day.',parts:['NovaraDesk + AI chatbot — <b>₹3,000</b>','AI training and tuning — <b>₹19,999</b>','Human agent — <b>₹20,000</b>','Agent management — <b>₹11,000</b>']},
+   {name:'AI + Human · 9 hours',forText:'With NovaraDesk + Managed Services',price:'₹84,999',desc:'AI support with a managed human agent covering 9 hours each working day.',parts:['NovaraDesk + AI chatbot — <b>₹3,000</b>','AI training and tuning — <b>₹19,999</b>','Human agent — <b>₹40,000</b>','Agent management — <b>₹22,000</b>']}
+  ];
+  plans.forEach((card,index)=>{const d=data[index];if(!d)return;card.querySelector('h3').textContent=d.name;const f=card.querySelector('.mvp-plan-for');if(f)f.textContent=d.forText;const price=card.querySelector('.mvp-plan-price');if(price)price.innerHTML=d.price+' <small>/month</small><small class="price-tax">+ GST</small>';const desc=card.querySelector('.mvp-plan-desc');if(desc)desc.textContent=d.desc;let breakdown=card.querySelector('.price-breakdown');if(!breakdown){breakdown=document.createElement('div');breakdown.className='price-breakdown';price?.insertAdjacentElement('afterend',breakdown)}breakdown.innerHTML=d.parts.map(x=>'<span>'+x+'</span>').join('')});
+  const sw=pricing.querySelector('.currency-switcher');if(sw){sw.hidden=true;sw.style.display='none'};
+  const compare=pricing.querySelector('.plan-comparison');
+  if(compare)compare.innerHTML='<div class="plan-comparison-head"><div><h3>Pricing breakdown</h3><p>Transparent monthly components for each support model.</p></div></div><div class="plan-comparison-scroll"><table aria-label="Novara CX pricing breakdown"><thead><tr><th>Product / Service</th><th>Description</th><th>AI Only</th><th>AI + Human · 4.5 hrs</th><th>AI + Human · 9 hrs</th></tr></thead><tbody><tr><td>Product</td><td>AI chatbot</td><td>₹1,000</td><td>₹3,000</td><td>₹3,000</td></tr><tr><td>Service</td><td>Continuous AI training and tuning</td><td>₹23,999</td><td>₹19,999</td><td>₹19,999</td></tr><tr><td>Service</td><td>Human agent</td><td>—</td><td>₹20,000</td><td>₹40,000</td></tr><tr><td>Service</td><td>Human-agent management</td><td>—</td><td>₹11,000</td><td>₹22,000</td></tr><tr><td></td><td><strong>Total per month</strong></td><td><strong>₹24,999</strong><small class="comparison-tax">+ GST</small></td><td><strong>₹53,999</strong><small class="comparison-tax">+ GST</small></td><td><strong>₹84,999</strong><small class="comparison-tax">+ GST</small></td></tr><tr><td></td><td>Percentage of full-time cost</td><td>—</td><td>—</td><td><strong>76.23%</strong></td></tr></tbody></table></div>';
+  const note=pricing.querySelector('.mvp-plan-note');if(note)note.textContent='Prices are monthly and exclude GST. Coverage hours, channels and implementation scope are confirmed during discovery.';
+ };
+ const installProductComparison=()=>{
+  const table=document.querySelector('.mvp-compare');if(!table)return;
+  table.innerHTML='<div class="console-desk-head"><div><h3>NovaraConsole vs NovaraDesk</h3><p>Choose focused AI-chatbot operations or a complete workspace for both AI and human support.</p></div></div><div style="overflow-x:auto"><table aria-label="Comparison of NovaraConsole and NovaraDesk"><thead><tr><th>Capability</th><th>NovaraConsole<span class="product-fit">AI support operations</span></th><th>NovaraDesk<span class="product-fit">AI + human workspace</span></th></tr></thead><tbody><tr><td>AI chatbot</td><td class="mvp-check">✓</td><td class="mvp-check">✓</td></tr><tr><td>Continuous AI training</td><td class="mvp-check">✓</td><td class="mvp-check">✓</td></tr><tr><td>Conversation analytics</td><td class="mvp-check">✓</td><td class="mvp-check">✓</td></tr><tr><td>Human-escalation readiness</td><td class="mvp-check">✓</td><td class="mvp-check">✓</td></tr><tr><td>Ticket and agent workspace</td><td><span class="product-no">—</span></td><td class="mvp-check">✓</td></tr><tr><td>Customer profiles</td><td><span class="product-no">—</span></td><td class="mvp-check">✓</td></tr><tr><td>Knowledge base</td><td><span class="product-level">Basic</span></td><td><span class="product-level">Advanced</span></td></tr><tr><td>Human-agent analytics</td><td><span class="product-no">—</span></td><td class="mvp-check">✓</td></tr><tr><td>Custom reports and dashboards</td><td><span class="product-no">—</span></td><td class="mvp-check">✓</td></tr><tr><td>Workflows and automations</td><td><span class="product-no">—</span></td><td class="mvp-check">✓</td></tr><tr><td>Omnichannel and call management</td><td><span class="product-no">—</span></td><td class="mvp-check">✓</td></tr></tbody></table></div>';
+ };
+ const apply=()=>{installVisuals();installExpand();installPricing();installProductComparison()};
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>{setTimeout(apply,720);setTimeout(apply,1500)});else{setTimeout(apply,720);setTimeout(apply,1500)}
+})();
+</script>
+
 </body>
 </html>
