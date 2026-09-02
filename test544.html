@@ -1,5 +1,6 @@
 
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -2119,105 +2120,6 @@ body>header .nav-cta{padding-inline:14px!important}
   };
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>window.setTimeout(suppressPricing,340));
   else window.setTimeout(suppressPricing,340);
-})();
-</script>
-
-
-<style>
-/* === Hero decision-flow redesign === */
-.hero-flow{position:relative;width:100%;max-width:760px;min-height:510px;margin-left:auto;overflow:hidden;color:#173a27;background:radial-gradient(circle at 43% 48%,rgba(76,151,103,.12),transparent 29%),radial-gradient(circle at 78% 48%,rgba(76,151,103,.06),transparent 34%)}
-.hero-flow:before{content:"";position:absolute;inset:4%;background-image:radial-gradient(rgba(42,101,64,.09) .7px,transparent .7px);background-size:18px 18px;mask-image:linear-gradient(90deg,transparent,black 18%,black 82%,transparent)}
-.hf-lines{position:absolute;inset:0;z-index:1;width:100%;height:100%}.hf-lines path{fill:none;stroke:#8fb7a0;stroke-width:1.35;stroke-linecap:round}.hf-lines path.branch{stroke-dasharray:5 7}.hf-lines path.feedback{stroke:#b78a55;stroke-dasharray:3 7}.hf-lines circle{fill:#3f9862;filter:drop-shadow(0 0 5px rgba(63,152,98,.55))}
-.hf-node{position:absolute;z-index:3;display:flex;align-items:center;gap:11px;padding:13px 14px;border:1px solid rgba(42,101,64,.16);border-radius:15px;background:rgba(250,249,244,.94);box-shadow:0 12px 30px rgba(28,70,43,.08)}
-.hf-node-icon{display:grid;place-items:center;flex:0 0 auto;width:39px;height:39px;border-radius:11px;background:#e4efe7;color:#2f7c51}.hf-node-icon svg{width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}.hf-node strong,.hf-node small{display:block}.hf-node strong{font-family:"Cabinet Grotesk","General Sans",sans-serif;font-size:.73rem}.hf-node small{margin-top:3px;color:#6a7a70;font-size:.5rem;line-height:1.35}
-.hf-customer{left:2%;top:42%;width:132px}.hf-router{left:28%;top:35%;width:205px;min-height:112px;border-color:#17492f;background:linear-gradient(145deg,#174b31,#0c321f);color:#fff;box-shadow:0 18px 42px rgba(18,67,39,.2)}.hf-router .hf-node-icon{background:rgba(177,221,192,.12);color:#b9dfc5}.hf-router small{color:rgba(255,255,255,.58)}.hf-ai{left:64%;top:13%;width:190px}.hf-human{left:64%;top:61%;width:190px}
-.hf-outcome{right:1%;top:40%;display:grid;place-items:center;width:70px;height:70px;padding:0;border-radius:50%;background:#e0efe5;color:#237349}.hf-outcome svg{width:28px;height:28px;fill:none;stroke:currentColor;stroke-width:2}.hf-outcome-label{position:absolute;right:0;top:55%;z-index:3;width:74px;color:#4d6758;font-size:.48rem;font-weight:750;letter-spacing:.08em;text-align:center;text-transform:uppercase}
-.hf-management{position:absolute;left:28%;right:12%;bottom:5%;z-index:3;display:grid;grid-template-columns:40px 1fr auto;gap:11px;align-items:center;min-height:68px;padding:12px 15px;border:1px solid rgba(162,113,61,.19);border-radius:15px;background:#f4eee3;box-shadow:0 10px 26px rgba(61,45,27,.06)}.hf-management .hf-node-icon{background:#eadbc7;color:#97602d}.hf-management strong{font-size:.69rem}.hf-management small{margin-top:2px;color:#786a59;font-size:.49rem}.hf-loop{color:#9a6735;font-size:.52rem;font-weight:750;white-space:nowrap}
-.hf-path-label{position:absolute;z-index:4;padding:4px 7px;border:1px solid rgba(45,106,67,.12);border-radius:999px;background:#f7f6f0;color:#5a7465;font-size:.43rem;font-weight:700;letter-spacing:.04em}.hf-label-request{left:17%;top:43%}.hf-label-routine{left:53%;top:24%}.hf-label-complex{left:52%;top:65%}.hf-label-context{left:71%;top:46%}.hf-label-improve{left:43%;bottom:19%;border-color:rgba(158,105,51,.13);color:#916033;background:#f7f1e7}
-@media(max-width:1120px){.hero-flow{margin-left:0;max-width:760px}}
-@media(max-width:760px){.hero-flow{display:grid;grid-template-columns:1fr 1fr;gap:12px;min-height:0;padding:22px 0;overflow:visible;background:radial-gradient(circle at center,rgba(76,151,103,.1),transparent 55%)}.hf-lines,.hf-path-label,.hf-outcome-label{display:none}.hf-node,.hf-customer,.hf-router,.hf-ai,.hf-human,.hf-outcome,.hf-management{position:relative;inset:auto;width:auto;min-height:86px}.hf-customer,.hf-router,.hf-outcome,.hf-management{grid-column:1/-1}.hf-ai,.hf-human{min-height:105px}.hf-outcome{width:64px;height:64px;min-height:64px;justify-self:center}}
-@media(max-width:470px){.hero-flow{grid-template-columns:1fr}.hf-ai,.hf-human{min-height:86px}}
-@media(prefers-reduced-motion:reduce){.hf-lines circle{display:none}}
-</style>
-<script>
-(()=>{
- const buildHeroFlow=()=>{
-  const old=document.querySelector('.hero-system');if(!old||document.querySelector('.hero-flow'))return;
-  old.className='hero-flow';old.setAttribute('role','img');old.setAttribute('aria-label','Customer request routed through NovaraDesk to AI or a human expert, with outcomes measured and continuously improved');
-  old.innerHTML='<svg class="hf-lines" viewBox="0 0 760 510" preserveAspectRatio="none" aria-hidden="true"><path id="hf-request" d="M128 255 C165 255 188 255 215 255"/><path id="hf-ai" class="branch" d="M420 230 C468 211 478 150 492 113"/><path id="hf-human" class="branch" d="M420 278 C468 300 476 350 492 367"/><path id="hf-ai-out" d="M682 113 C714 135 716 195 718 220"/><path id="hf-human-out" d="M682 367 C714 343 716 305 718 290"/><path id="hf-measure" d="M718 290 C700 391 634 428 575 440"/><path id="hf-feedback" class="feedback" d="M350 440 C260 421 248 363 315 312"/><circle r="5"><animateMotion dur="3.8s" repeatCount="indefinite"><mpath href="#hf-request"/></animateMotion></circle><circle r="4.5"><animateMotion dur="4.6s" begin=".8s" repeatCount="indefinite"><mpath href="#hf-ai"/></animateMotion></circle><circle r="4.5"><animateMotion dur="4.6s" begin="3.1s" repeatCount="indefinite"><mpath href="#hf-human"/></animateMotion></circle></svg>'+
-  '<div class="hf-node hf-customer"><span class="hf-node-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="7" r="3"/><path d="M5 21c0-6 2-10 7-10s7 4 7 10"/></svg></span><div><strong>Customer</strong><small>A support request arrives</small></div></div>'+
-  '<div class="hf-node hf-router"><span class="hf-node-icon"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M7 10h10M7 14h7"/></svg></span><div><strong>NovaraDesk routes it</strong><small>Intent, confidence and context determine the right path.</small></div></div>'+
-  '<div class="hf-node hf-ai"><span class="hf-node-icon"><svg viewBox="0 0 24 24"><circle cx="5" cy="7" r="2"/><circle cx="19" cy="7" r="2"/><circle cx="12" cy="17" r="2"/><path d="M7 8.5l4 6M17 8.5l-4 6M7 7h10"/></svg></span><div><strong>AI resolves</strong><small>Routine requests answered instantly</small></div></div>'+
-  '<div class="hf-node hf-human"><span class="hf-node-icon"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.5"/><path d="M3 21c0-5 2-8 6-8s6 3 6 8M14 14c3 0 5 2.5 5 7"/></svg></span><div><strong>Human expert takes over</strong><small>Complex issues arrive with full context</small></div></div>'+
-  '<div class="hf-node hf-outcome"><svg viewBox="0 0 24 24"><path d="M5 12l4 4L19 7"/></svg></div><span class="hf-outcome-label">Outcome measured</span>'+
-  '<div class="hf-management"><span class="hf-node-icon"><svg viewBox="0 0 24 24"><path d="M4 20V10M10 20V5M16 20v-8M22 20V3"/><path d="M3 8l6-4 6 5 7-7"/></svg></span><div><strong>CX Management</strong><small>Quality, reporting and workflow improvement</small></div><span class="hf-loop">Feeds improvement ↺</span></div>'+
-  '<span class="hf-path-label hf-label-request">Request</span><span class="hf-path-label hf-label-routine">Routine</span><span class="hf-path-label hf-label-complex">Complex</span><span class="hf-path-label hf-label-context">Resolved</span><span class="hf-path-label hf-label-improve">Improve</span>';
- };
- if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>window.setTimeout(buildHeroFlow,210));else window.setTimeout(buildHeroFlow,210);
-})();
-</script>
-
-<style>
-/* === Agent-count pricing calculator === */
-#mvp-pricing .currency-switcher{display:flex!important}
-#mvp-pricing .mvp-plan-price{display:block;min-height:66px}
-#mvp-pricing .price-placeholder{display:none!important}
-.agent-pricing{margin:14px 0 18px;padding:14px;border:1px solid rgba(29,78,48,.14);border-radius:14px;background:rgba(231,241,234,.58)}
-.agent-pricing-label{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:11px}
-.agent-pricing-label strong{color:#173a27;font-size:.72rem}.agent-pricing-label span{color:#6d7b72;font-size:.59rem;text-align:right}
-.agent-stepper{display:grid;grid-template-columns:42px minmax(50px,1fr) 42px;align-items:center;max-width:180px;border:1px solid rgba(29,78,48,.18);border-radius:999px;background:#fff;overflow:hidden}
-.agent-stepper button{height:38px;border:0;background:transparent;color:#245e3d;font-size:1.2rem;font-weight:700}.agent-stepper button:hover{background:#e6f0e9}
-.agent-stepper output{text-align:center;color:#173a27;font-size:.85rem;font-weight:800}.agent-stepper button:disabled{color:#abb5ae;cursor:not-allowed}
-.agent-rate{display:block;margin-top:8px;color:#758279;font-size:.56rem}
-#mvp-pricing .mvp-plan-price small{display:inline;font-size:.68rem;color:#6f7d74;font-weight:550}
-#mvp-pricing .mvp-plan-price .price-tax{display:block;margin-top:2px;font-size:.54rem}
-.plan-comparison .cmp-price{font-size:.78rem}.plan-comparison .comparison-tax{display:block!important}
-.plan-comparison .agent-count-row td{background:#f5f7f4}.plan-comparison .agent-count-value{font-weight:800;color:#245e3d}
-@media(max-width:700px){.agent-pricing-label{align-items:flex-start;flex-direction:column}.agent-pricing-label span{text-align:left}}
-</style>
-<script>
-(()=>{
- const install=()=>{
-  const p=document.querySelector('#mvp-pricing');if(!p||p.dataset.agentCalculator==='ready')return;
-  const cards={ai:p.querySelector('[data-plan="ai"]'),hybrid:p.querySelector('[data-plan="hybrid"]'),managed:p.querySelector('[data-plan="managed"]')};
-  if(!cards.ai||!cards.hybrid||!cards.managed)return;p.dataset.agentCalculator='ready';
-  const setCopy=(key,title,forText,desc)=>{cards[key].querySelector('h3').textContent=title;cards[key].querySelector('.mvp-plan-for').textContent=forText;cards[key].querySelector('.mvp-plan-desc').textContent=desc};
-  setCopy('ai','AI Only','For teams using the support console while managing all human escalations internally','AI chatbot with continuous training and tuning by Novara.');
-  setCopy('hybrid','AI + Human · 4.5 hours','NovaraDesk, AI support and managed human coverage for a focused daily shift','A managed-service model with 4.5 hours of human-agent coverage per agent.');
-  setCopy('managed','AI + Human · 9 hours','NovaraDesk, AI support and full-day managed human coverage','The complete managed-service model with 9 hours of human-agent coverage per agent.');
-  const state={currency:'INR',hybrid:1,managed:1};
-  const money={INR:{symbol:'₹',aiBase:24999,hybridBase:53999,managedBase:84999,hybridAdd:22250,managedAdd:45500,tax:'+ GST'},USD:{symbol:',aiBase:299,hybridBase:649,managedBase:999,hybridAdd:269,managedAdd:549,tax:'+ applicable taxes'}};
-  const format=(n,c)=>money[c].symbol+n.toLocaleString(c==='INR'?'en-IN':'en-US');
-  const total=k=>k==='ai'?money[state.currency].aiBase:money[state.currency][k+'Base']+(state[k]-1)*money[state.currency][k+'Add'];
-  ['hybrid','managed'].forEach(k=>{
-   const coverage=k==='hybrid'?'4.5 hours/day':'9 hours/day',box=document.createElement('div');box.className='agent-pricing';
-   box.innerHTML='<div class="agent-pricing-label"><strong>Number of agents</strong><span>'+coverage+' each</span></div><div class="agent-stepper" role="group" aria-label="Number of agents for '+coverage+'"><button type="button" data-step="-1" aria-label="Remove one agent">−</button><output aria-live="polite">1</output><button type="button" data-step="1" aria-label="Add one agent">+</button></div><small class="agent-rate"></small>';
-   cards[k].querySelector('.mvp-plan-price').insertAdjacentElement('afterend',box);
-   box.querySelectorAll('button').forEach(b=>b.onclick=()=>{state[k]=Math.max(1,Math.min(25,state[k]+Number(b.dataset.step)));render()});
-  });
-  const tbody=p.querySelector('.plan-comparison tbody'),priceRow=tbody?.querySelector('[data-compare-price]')?.closest('tr');
-  if(priceRow){
-   priceRow.firstElementChild.textContent='Monthly total';
-   priceRow.insertAdjacentHTML('beforebegin','<tr class="agent-count-row"><td>Agents included</td><td>—</td><td><span class="agent-count-value" data-compare-agents="hybrid">1 agent · 4.5 hrs</span></td><td><span class="agent-count-value" data-compare-agents="managed">1 agent · 9 hrs</span></td></tr>');
-   priceRow.insertAdjacentHTML('afterend','<tr><td>Percentage of full-time cost</td><td>—</td><td>—</td><td><strong>76.23%</strong></td></tr>');
-  }
-  const sw=p.querySelector('.currency-switcher');if(sw){sw.hidden=false;sw.querySelectorAll('button').forEach(b=>b.onclick=()=>{state.currency=b.dataset.currency;render()})}
-  function render(){
-   const m=money[state.currency];
-   ['ai','hybrid','managed'].forEach(k=>{
-    const price=cards[k].querySelector('[data-plan-price]');if(price)price.innerHTML=format(total(k),state.currency)+' <small>/month</small><small class="price-tax">'+m.tax+'</small>';
-    const compare=p.querySelector('[data-compare-price="'+k+'"]');if(compare)compare.innerHTML=format(total(k),state.currency)+'<span class="comparison-tax">/month · '+m.tax+'</span>';
-   });
-   ['hybrid','managed'].forEach(k=>{
-    const box=cards[k].querySelector('.agent-pricing');box.querySelector('output').textContent=state[k];box.querySelector('[data-step="-1"]').disabled=state[k]===1;
-    box.querySelector('.agent-rate').textContent='Each additional agent: '+format(m[k+'Add'],state.currency)+' / month';
-    const c=p.querySelector('[data-compare-agents="'+k+'"]');if(c)c.textContent=state[k]+' '+(state[k]===1?'agent':'agents')+' · '+(k==='hybrid'?'4.5 hrs':'9 hrs')+' each';
-   });
-   if(sw)sw.querySelectorAll('button').forEach(b=>{const a=b.dataset.currency===state.currency;b.classList.toggle('active',a);b.setAttribute('aria-pressed',String(a))});
-   const note=p.querySelector('.mvp-plan-note');if(note)note.textContent='Totals update with the selected agent count. Prices are monthly and exclude GST. Final coverage and implementation scope are confirmed during discovery.';
-  }render();
- };
- if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>setTimeout(install,460));else setTimeout(install,460);
 })();
 </script>
 
