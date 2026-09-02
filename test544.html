@@ -3042,7 +3042,7 @@ body.preview-is-expanded{overflow:hidden!important}
   const section=document.querySelector('#mvp-pricing');
   if(!section||section.querySelector('.pricing-unified-shell'))return;
   const oldPlans=section.querySelector('.pricing-summary-grid');
-  const oldCompare=section.querySelector('.(null)');
+  const oldCompare=section.querySelector('.pricing-compare-wrap');
   if(!oldPlans)return;
   const unified=document.createElement('div');
   unified.className='pricing-unified-shell';
