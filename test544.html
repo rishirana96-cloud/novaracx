@@ -3191,5 +3191,50 @@ body.preview-is-expanded{overflow:hidden!important}
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>setTimeout(installNeuralCore,1900));else setTimeout(installNeuralCore,1900);
 })();
 </script>
+
+<style>
+/* === Recognisable futuristic AI chatbot icon === */
+.ai-chatbot-mark{width:116px;height:108px;overflow:visible;filter:drop-shadow(0 12px 20px rgba(22,98,57,.11))}
+.ai-chatbot-mark .chat-halo{transform-origin:60px 53px;animation:chatHalo 4.6s ease-out infinite}
+.ai-chatbot-mark .neural-link{stroke-dasharray:3 5;animation:chatData 3.6s linear infinite}
+.ai-chatbot-mark .neural-node{transform-box:fill-box;transform-origin:center;animation:chatNode 3.6s ease-in-out infinite}
+.ai-chatbot-mark .neural-node.n2{animation-delay:.6s}.ai-chatbot-mark .neural-node.n3{animation-delay:1.2s}
+.ai-chatbot-mark .eye-scan{animation:chatEyes 4.2s ease-in-out infinite;transform-origin:center}
+.ai-chatbot-mark .voice-wave{stroke-dasharray:4 4;animation:chatVoice 2.1s ease-in-out infinite}
+.ai-chatbot-mark .spark{transform-origin:91px 22px;animation:chatSpark 3.4s ease-in-out infinite}
+@keyframes chatHalo{0%{transform:scale(.84);opacity:.4}58%,100%{transform:scale(1.16);opacity:0}}
+@keyframes chatData{to{stroke-dashoffset:-16}}@keyframes chatNode{0%,100%{opacity:.35;transform:scale(.78)}50%{opacity:1;transform:scale(1.12)}}
+@keyframes chatEyes{0%,34%,100%{transform:translateX(0)}44%,55%{transform:translateX(2px)}65%,76%{transform:translateX(-2px)}}
+@keyframes chatVoice{0%,100%{stroke-dasharray:3 5}50%{stroke-dasharray:9 2}}
+@keyframes chatSpark{0%,100%{transform:scale(.78) rotate(0);opacity:.55}50%{transform:scale(1.12) rotate(45deg);opacity:1}}
+@media(prefers-reduced-motion:reduce){.ai-chatbot-mark *{animation:none!important}}
+</style>
+<script>
+(()=>{
+ const installRecognisableAI=()=>{
+  const visual=document.querySelector('.hero-cap-card .hero-cap-visual');
+  if(!visual||visual.querySelector('.ai-chatbot-mark'))return;
+  visual.innerHTML=`<svg class="ai-chatbot-mark" viewBox="0 0 120 108" aria-hidden="true">
+   <circle class="chat-halo" cx="60" cy="53" r="44" fill="none" stroke="#5fa47a" stroke-width="1.2" opacity=".4"/>
+   <g fill="none" stroke="#51956d" stroke-width="1.3">
+    <path class="neural-link" d="M20 27L35 38M100 30L85 40M18 75L35 68"/>
+    <circle class="neural-node n1" cx="18" cy="25" r="3" fill="#2e8153"/>
+    <circle class="neural-node n2" cx="102" cy="28" r="3" fill="#5aa376"/>
+    <circle class="neural-node n3" cx="16" cy="77" r="3" fill="#84bc98"/>
+   </g>
+   <path d="M31 25h49c9 0 16 7 16 16v31c0 9-7 16-16 16H58L43 100l2-12H31c-9 0-16-7-16-16V41c0-9 7-16 16-16z" fill="rgba(238,248,241,.92)" stroke="#17663e" stroke-width="2.5" stroke-linejoin="round"/>
+   <g fill="none" stroke="#17663e" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M42 42h31c7 0 12 5 12 12v15c0 7-5 12-12 12H42c-7 0-12-5-12-12V54c0-7 5-12 12-12z"/>
+    <path d="M57.5 42V35M53 35h9"/>
+    <path d="M30 58h-5v10h5M85 58h5v10h-5"/>
+   </g>
+   <g class="eye-scan" fill="#17663e"><rect x="43" y="55" width="7" height="5" rx="2.5"/><rect x="65" y="55" width="7" height="5" rx="2.5"/></g>
+   <path class="voice-wave" d="M43 70c3-5 6 5 9 0s6 5 9 0 6 5 9 0" fill="none" stroke="#3f9b64" stroke-width="2.2" stroke-linecap="round"/>
+   <path class="spark" d="M91 14l2.5 5.5L99 22l-5.5 2.5L91 30l-2.5-5.5L83 22l5.5-2.5z" fill="#2f8957"/>
+  </svg>`;
+ };
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>setTimeout(installRecognisableAI,2200));else setTimeout(installRecognisableAI,2200);
+})();
+</script>
 </body>
 </html>
