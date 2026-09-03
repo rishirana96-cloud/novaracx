@@ -3336,5 +3336,109 @@ body.preview-is-expanded{overflow:hidden!important}
 })();
 </script>
 
+
+<style id="pending-corrections-final">
+/* === Pending corrections: hero alignment, interactive preview, and comparison spacing === */
+
+/* Hero: align the visual with the headline and keep a clean shared baseline. */
+@media(min-width:981px){
+ #mvp-home .hero-copy-block{padding-top:20px!important}
+ #mvp-home .hero-positioning{
+  font-size:clamp(3.6rem,4.55vw,5.18rem)!important;
+  line-height:.965!important
+ }
+ #mvp-home .hero-visual-column{margin-top:42px!important}
+ #mvp-home .hero-system.hero-capability-grid{
+  width:100%!important;max-width:718px!important;min-height:430px!important
+ }
+ #mvp-home .hero-cap-visual{height:102px!important}
+ #mvp-home .hero-visual-column>.hero-stats{
+  width:calc(100% - 28px)!important;max-width:690px!important;
+  margin:10px auto 0!important
+ }
+ #mvp-home .hero-visual-column .hero-stat{
+  display:flex!important;align-items:center!important;min-height:72px!important;
+  padding:12px 16px!important
+ }
+}
+
+/* Interactive product preview: visible inactive tint and activation instruction. */
+.live-product-frame{position:relative!important}
+.preview-operate-overlay{
+ position:absolute;inset:0;z-index:10;display:flex;align-items:center;justify-content:center;
+ border:0;background:rgba(4,14,9,.55);color:#fff;cursor:pointer;
+ transition:opacity .24s ease,visibility .24s ease;
+ backdrop-filter:brightness(.72)
+}
+.preview-operate-overlay span{
+ display:inline-flex;align-items:center;gap:10px;padding:12px 18px;
+ border:1px solid rgba(255,255,255,.58);border-radius:999px;
+ background:rgba(8,29,18,.74);box-shadow:0 12px 34px rgba(0,0,0,.2);
+ color:#fff;font-size:.82rem;font-weight:750;letter-spacing:.02em
+}
+.preview-operate-overlay span:before{
+ content:"";width:9px;height:9px;border-radius:50%;background:#9bd0ae;
+ box-shadow:0 0 0 5px rgba(155,208,174,.15)
+}
+.live-product-frame.preview-operated .preview-operate-overlay{
+ opacity:0;visibility:hidden;pointer-events:none
+}
+.live-product-frame .preview-expand{z-index:12!important}
+
+/* Console vs Desk: remove redundant label and pull the comparison upward. */
+#mvp-pricing .console-desk-inline{margin-top:26px!important}
+#mvp-pricing .console-desk-inline .console-desk-section-head{
+ margin-bottom:20px!important;align-items:center!important
+}
+#mvp-pricing .console-desk-inline .console-desk-section-head h2{margin-top:0!important}
+@media(max-width:760px){
+ #mvp-pricing .console-desk-inline{margin-top:22px!important}
+}
+</style>
+<script id="pending-corrections-final-script">
+(()=>{
+ const applyPendingCorrections=()=>{
+  /* Requested shorter demo heading. */
+  document.querySelectorAll('.wa-shot-label strong').forEach(el=>{
+   if(el.textContent.trim()==='COMPLEX ISSUE RESOLUTION')el.textContent='COMPLEX ISSUES';
+  });
+
+  /* Remove the redundant comparison kicker and retain the same pricing background. */
+  const consoleDesk=document.querySelector('#console-vs-desk');
+  consoleDesk?.querySelector('.mvp-kicker')?.remove();
+
+  /* Add the inactive black tint and explicit activation control once. */
+  document.querySelectorAll('.live-product-frame').forEach(frame=>{
+   if(frame.querySelector('.preview-operate-overlay'))return;
+   frame.classList.remove('preview-operated');
+   const overlay=document.createElement('button');
+   overlay.type='button';
+   overlay.className='preview-operate-overlay';
+   overlay.setAttribute('aria-label','Click to operate the NovaraDesk preview');
+   overlay.innerHTML='<span>Click to operate</span>';
+   overlay.addEventListener('click',event=>{
+    event.preventDefault();event.stopPropagation();
+    frame.classList.add('preview-operated');
+    const interactive=frame.querySelector('iframe');
+    interactive?.focus();
+   });
+   frame.appendChild(overlay);
+  });
+
+  /* Restore the inactive treatment when another product view is selected. */
+  const studio=document.querySelector('.product-studio-shell');
+  if(studio&&!studio.dataset.operateReset){
+   studio.dataset.operateReset='true';
+   studio.addEventListener('click',event=>{
+    if(event.target.closest('.preview-operate-overlay,.preview-expand,.live-product-frame'))return;
+    studio.querySelectorAll('.live-product-frame').forEach(frame=>frame.classList.remove('preview-operated'));
+   });
+  }
+ };
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>setTimeout(applyPendingCorrections,3000));
+ else setTimeout(applyPendingCorrections,3000);
+})();
+</script>
+
 </body>
 </html>
