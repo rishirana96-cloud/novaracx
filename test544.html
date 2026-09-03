@@ -430,6 +430,13 @@ body>header .nav{height:68px}body>header .logo{color:#102018}body>header .nav-li
 .live-product-viewport iframe{min-width:0!important}
 @media(max-width:980px){.problem-signals .problem-signal,.problem-signals .problem-signal:nth-child(4),.problem-signals .problem-signal:nth-child(5),.problem-signals .problem-signal:nth-child(6){grid-column:span 1!important}}
 </style>
+
+<style id="critical-final-visual-guard">
+/* Final visuals only: prevent superseded demo and orbit stages from reaching first paint. */
+#mvp-home .wa-stage.wa-carousel{visibility:hidden!important}
+#mvp-home .hero-system:not(.hero-capability-grid){visibility:hidden!important}
+#mvp-home .hero-system.hero-capability-grid{visibility:visible!important}
+</style>
 </head>
 <body>
 <a class="skip-link" href="#mvp-home">Skip to main content</a>
@@ -1622,8 +1629,8 @@ body>header .nav-cta{padding-inline:14px!important}
       nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>nav.classList.remove('open')));
     }
   };
-  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>window.setTimeout(applyCombinedRevision,80));
-  else window.setTimeout(applyCombinedRevision,80);
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>window.setTimeout(applyCombinedRevision,0));
+  else window.setTimeout(applyCombinedRevision,0);
 })();
 </script>
 
@@ -1855,8 +1862,8 @@ body>header .nav-cta{padding-inline:14px!important}
       if(gallery)gallery.id='novara-live-demos';
     }
   };
-  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>window.setTimeout(applyTryItComposition,130));
-  else window.setTimeout(applyTryItComposition,130);
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>window.setTimeout(applyTryItComposition,0));
+  else window.setTimeout(applyTryItComposition,0);
 })();
 </script>
 
@@ -2701,7 +2708,7 @@ body.preview-is-expanded{overflow:hidden!important}
     </div><h3>CX Management</h3><p>Quality, reporting and continuous improvement</p>
    </article>`;
  };
- if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>setTimeout(upgradeHero,450));else setTimeout(upgradeHero,450);
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>setTimeout(upgradeHero,0));else setTimeout(upgradeHero,0);
 })();
 </script>
 
@@ -3155,7 +3162,7 @@ body.preview-is-expanded{overflow:hidden!important}
    motion.innerHTML='<span class="q-source">?</span><svg class="q-branches" viewBox="0 0 180 120" preserveAspectRatio="none"><path d="M0 60C58 60 60 15 150 15"/><path d="M0 60H150"/><path d="M0 60C58 60 60 105 150 105"/><circle cx="150" cy="15" r="5"/><circle cx="150" cy="60" r="5"/><circle cx="150" cy="105" r="5"/></svg><div class="q-outcomes"><span>AI answer<i></i></span><span>Agent answer<i></i></span><span>Policy answer<i></i></span></div><b class="q-alert">Conflicting answers</b>';
   }
  };
- if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>setTimeout(refineApprovedBatch,1700));else setTimeout(refineApprovedBatch,1700);
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>setTimeout(refineApprovedBatch,0));else setTimeout(refineApprovedBatch,0);
 })();
 </script>
 
@@ -3331,8 +3338,8 @@ body.preview-is-expanded{overflow:hidden!important}
   set('#novara-operating-approach .mvp-kicker','06 / HOW WE WORK');
   set('#mvp-product-tour .mvp-kicker','07 / INSIDE NOVARADESK');
  };
- if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>setTimeout(applyNotedChanges,2600));
- else setTimeout(applyNotedChanges,2600);
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>setTimeout(applyNotedChanges,0));
+ else setTimeout(applyNotedChanges,0);
 })();
 </script>
 
@@ -3435,8 +3442,8 @@ body.preview-is-expanded{overflow:hidden!important}
    });
   }
  };
- if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>setTimeout(applyPendingCorrections,3000));
- else setTimeout(applyPendingCorrections,3000);
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>setTimeout(applyPendingCorrections,0));
+ else setTimeout(applyPendingCorrections,0);
 })();
 </script>
 
