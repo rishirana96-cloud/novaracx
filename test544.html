@@ -2544,7 +2544,7 @@ body.preview-is-expanded{overflow:hidden!important}
   const head=document.querySelector('.novara-mechanism .mechanism-head');
   if(head&&!head.querySelector('.deployment-channels')){
    const box=document.createElement('div');box.className='deployment-channels';
-   box.innerHTML='<span>Deploy AI wherever your customers are</span><div class="deployment-channel-row">'+channelData.map(([name,svg])=>'<div class="deployment-channel">'+svg+'<b>'+name+'</b></div>').join('')+'</div>';
+   box.innerHTML='<span>Deploy AI and human agents wherever your customers are</span><div class="deployment-channel-row">'+channelData.map(([name,svg])=>'<div class="deployment-channel">'+svg+'<b>'+name+'</b></div>').join('')+'</div>';
    const copy=head.querySelector('p');(copy||head).insertAdjacentElement(copy?'afterend':'beforeend',box);
   }
  };
