@@ -3158,5 +3158,183 @@ body.preview-is-expanded{overflow:hidden!important}
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>setTimeout(refineApprovedBatch,1700));else setTimeout(refineApprovedBatch,1700);
 })();
 </script>
+
+<style id="noted-changes-final">
+/* === Approved noted changes: final consolidated pass === */
+
+/* Hero: balanced first viewport, visual higher, KPIs beneath visual */
+@media (min-width:981px){
+  #mvp-home{min-height:100vh!important;padding:112px 0 28px!important}
+  #mvp-home .mvp-hero-grid{
+    grid-template-columns:minmax(0,.94fr) minmax(500px,.92fr)!important;
+    gap:clamp(36px,4vw,68px)!important;
+    align-items:start!important
+  }
+  #mvp-home .hero-copy-block{padding-top:24px!important}
+  #mvp-home .hero-positioning{
+    max-width:720px!important;
+    font-size:clamp(3.8rem,4.8vw,5.5rem)!important;
+    line-height:.96!important
+  }
+  #mvp-home .hero-visual-column{align-self:start;margin-top:-4px}
+  #mvp-home .hero-system.hero-capability-grid{
+    max-width:690px!important;min-height:455px!important;
+    gap:13px!important;padding:13px!important
+  }
+  #mvp-home .hero-cap-card{padding:14px!important;border-radius:21px!important}
+  #mvp-home .hero-cap-visual{height:112px!important;margin-bottom:15px!important}
+  #mvp-home .hero-cap-card h3{font-size:1rem!important}
+  #mvp-home .hero-cap-card p{font-size:.7rem!important;line-height:1.45!important}
+}
+#mvp-home .hero-visual-column{display:flex;flex-direction:column;width:100%;min-width:0}
+#mvp-home .hero-visual-column>.hero-stats{
+  width:100%;max-width:690px;margin:14px auto 0!important;padding:0!important;
+  display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  gap:10px!important;border:0!important
+}
+#mvp-home .hero-visual-column .hero-stat{
+  min-height:76px;padding:13px 14px!important;border:1px solid rgba(31,91,54,.14)!important;
+  border-radius:15px!important;background:rgba(248,251,248,.82)!important
+}
+#mvp-home .hero-visual-column .hero-stat strong{font-size:1.35rem!important;line-height:1!important}
+#mvp-home .hero-visual-column .hero-stat small{font-size:.64rem!important;line-height:1.35!important}
+@media(max-width:980px){
+ #mvp-home .hero-visual-column>.hero-stats{max-width:none}
+}
+@media(max-width:620px){
+ #mvp-home .hero-visual-column>.hero-stats{grid-template-columns:1fr!important}
+}
+
+/* Problem section: remove the unnecessary gap */
+#mvp-fit{padding-top:70px!important;padding-bottom:72px!important}
+#mvp-fit .fit2-head{padding-bottom:28px!important;margin-bottom:0!important}
+#mvp-fit .problem-signals{margin-top:0!important}
+@media(max-width:760px){
+ #mvp-fit{padding-top:54px!important}
+ #mvp-fit .fit2-head{padding-bottom:22px!important}
+}
+
+/* Static WhatsApp demos: no hover lift, glow or highlight */
+.novara-mechanism .wa-shot,
+.novara-mechanism .wa-shot:hover,
+.novara-mechanism .wa-prompt,
+.novara-mechanism .wa-prompt:hover,
+.novara-mechanism .wa-prompt.active{
+ transform:none!important;box-shadow:none!important
+}
+.novara-mechanism .wa-shot:hover{border-color:rgba(190,218,199,.48)!important}
+.novara-mechanism .wa-prompt:hover,
+.novara-mechanism .wa-prompt.active{
+ background:transparent!important;color:inherit!important;border-color:rgba(151,199,168,.28)!important
+}
+.novara-mechanism .wa-replay{display:none!important}
+
+/* Five questions in a fixed-height scroll area */
+.novara-mechanism .wa-prompt-list{
+ max-height:154px!important;overflow-y:auto!important;overscroll-behavior:contain;
+ scrollbar-width:thin;scrollbar-color:#79ad8c rgba(255,255,255,.035)
+}
+.novara-mechanism .wa-prompt-list::-webkit-scrollbar{width:5px}
+.novara-mechanism .wa-prompt-list::-webkit-scrollbar-track{background:rgba(255,255,255,.035)}
+.novara-mechanism .wa-prompt-list::-webkit-scrollbar-thumb{background:#79ad8c;border-radius:10px}
+
+/* Deployment channel badges: larger and more noticeable */
+.deployment-channels{margin-top:46px!important;padding-top:30px!important}
+.deployment-channels>span{
+ margin-bottom:22px!important;color:#b9dfc6!important;
+ font-size:clamp(.78rem,.88vw,.94rem)!important;letter-spacing:.15em!important
+}
+.deployment-channel-row{gap:15px!important}
+.deployment-channel{
+ min-height:58px!important;gap:12px!important;padding:14px 22px!important;
+ border-color:rgba(181,220,194,.3)!important;background:rgba(255,255,255,.055)!important;
+ color:rgba(247,252,248,.88)!important;font-size:clamp(.78rem,.86vw,.9rem)!important;
+ font-weight:750!important
+}
+.deployment-channel svg{width:25px!important;height:25px!important;stroke:#b4dfc2!important;stroke-width:1.9!important}
+.deployment-channel:hover{transform:none!important;background:rgba(255,255,255,.055)!important}
+@media(max-width:760px){
+ .deployment-channels{margin-top:34px!important;padding-top:24px!important}
+ .deployment-channel-row{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important}
+ .deployment-channel{min-height:54px!important;padding:12px 15px!important}
+}
+
+/* Product tables: identical horizontal edges inside one pricing background */
+#mvp-pricing .console-desk-inline{
+ width:100%!important;max-width:none!important;margin:52px 0 0!important;padding:0!important
+}
+#mvp-pricing .pricing-compare-wrap,
+#mvp-pricing .console-desk-inline .console-desk-table{width:100%!important;max-width:none!important}
+</style>
+<script id="noted-changes-final-script">
+(()=>{
+ const applyNotedChanges=()=>{
+  /* Put the diagram and KPIs in one right-hand hero column. */
+  const hero=document.querySelector('#mvp-home .mvp-hero-grid');
+  const system=hero?.querySelector('.hero-system');
+  const stats=hero?.querySelector('.hero-stats');
+  if(hero&&system&&stats&&!hero.querySelector('.hero-visual-column')){
+   const column=document.createElement('div');
+   column.className='hero-visual-column';
+   system.before(column);
+   column.append(system,stats);
+  }
+
+  /* Keep Console vs Desk immediately after product comparison, within the same shell. */
+  const pricing=document.querySelector('#mvp-pricing');
+  const pricingShell=pricing?.querySelector('.mvp-shell');
+  const productCompare=pricing?.querySelector('.pricing-compare-wrap');
+  const consoleDesk=document.querySelector('#console-vs-desk');
+  if(pricingShell&&consoleDesk){
+   consoleDesk.classList.add('console-desk-inline');
+   if(productCompare)productCompare.insertAdjacentElement('afterend',consoleDesk);
+   else pricingShell.appendChild(consoleDesk);
+  }
+
+  /* Unmistakable chatbot symbol for the first icon in the automation-gap illustration. */
+  const bot=document.querySelector('.pm-gap .pm-bot');
+  if(bot){
+   bot.innerHTML='<svg viewBox="0 0 48 44" aria-hidden="true"><path d="M8 5h32a5 5 0 0 1 5 5v21a5 5 0 0 1-5 5H24l-9 6v-6H8a5 5 0 0 1-5-5V10a5 5 0 0 1 5-5Z"/><path d="M24 11V7m-3 4h6"/><rect x="11" y="13" width="26" height="17" rx="6"/><circle cx="18" cy="21" r="1.7"/><circle cx="30" cy="21" r="1.7"/><path d="M18 26h12"/></svg>';
+  }
+
+  /* Remove replay controls entirely. */
+  document.querySelectorAll('.novara-mechanism .wa-replay').forEach(el=>el.remove());
+
+  /* Expand each demo to five questions while preserving its click-to-run behaviour. */
+  const extra={
+   routine:['Do you offer cash on delivery?','How can I track my shipment?'],
+   payment:['My payment failed but money was deducted','I need help with a damaged order']
+  };
+  document.querySelectorAll('.wa-shot[data-live-demo]').forEach(shot=>{
+   const list=shot.querySelector('.wa-prompt-list');
+   const form=shot.querySelector('.wa-live-composer');
+   const input=form?.querySelector('input');
+   if(!list||!form||!input)return;
+   (extra[shot.dataset.liveDemo]||[]).forEach(question=>{
+    if([...list.children].some(el=>el.textContent.trim()===question))return;
+    const button=document.createElement('button');
+    button.type='button';button.className='wa-prompt';button.textContent=question;
+    button.addEventListener('click',()=>{
+     input.value=question;
+     form.dispatchEvent(new Event('submit',{bubbles:true,cancelable:true}));
+    });
+    list.appendChild(button);
+   });
+  });
+
+  /* Correct the visible numbered section headers in page order. */
+  const set=(selector,text)=>{const el=document.querySelector(selector);if(el)el.textContent=text};
+  set('#mvp-fit .mvp-kicker','02 / THE PROBLEM');
+  set('.gap-matrix .gapm-head .mvp-kicker','03 / THE GAP WE SOLVE');
+  set('.novara-mechanism .mechanism-head>div>span','04 / SEE NOVARA IN ACTION');
+  set('#mvp-how .mvp-kicker','05 / HOW NOVARA WORKS');
+  set('#novara-operating-approach .mvp-kicker','06 / HOW WE WORK');
+  set('#mvp-product-tour .mvp-kicker','07 / INSIDE NOVARADESK');
+ };
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>setTimeout(applyNotedChanges,2600));
+ else setTimeout(applyNotedChanges,2600);
+})();
+</script>
+
 </body>
 </html>
