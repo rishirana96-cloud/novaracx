@@ -439,6 +439,726 @@ body>header .nav{height:68px}body>header .logo{color:#102018}body>header .nav-li
 #mvp-home .hero-system:not(.hero-capability-grid){visibility:hidden!important}
 #mvp-home .hero-system.hero-capability-grid{visibility:visible!important}
 </style>
+
+<style id="index-chatbot-transplant-styles">
+/* ==========================================
+           CHATBOT — FLOATING WIDGET
+           ========================================== */
+        .chatbot-toggle {
+            position: fixed;
+            bottom: 28px;
+            right: 28px;
+            width: 62px;
+            height: 62px;
+            border-radius: 50%;
+            background: var(--accent-gradient);
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 10px 34px rgba(124, 155, 138, 0.4);
+            transition: var(--transition);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .chatbot-toggle::before {
+            content: '';
+            position: absolute;
+            inset: -6px;
+            border-radius: 50%;
+            border: 1.5px solid rgba(124, 155, 138, 0.35);
+            animation: ring-pulse 2.6s ease-out infinite;
+        }
+        @keyframes ring-pulse {
+            0% { transform: scale(0.9); opacity: 0.8; }
+            80% { transform: scale(1.28); opacity: 0; }
+            100% { transform: scale(1.28); opacity: 0; }
+        }
+        .chatbot-toggle:hover {
+            transform: scale(1.07);
+            box-shadow: 0 12px 50px rgba(124, 155, 138, 0.55);
+        }
+        .chatbot-toggle svg {
+            width: 26px;
+            height: 26px;
+            stroke: var(--bg-primary);
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            position: relative;
+            transition: var(--transition);
+        }
+        .chatbot-toggle .icon-close {
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            stroke: var(--bg-primary);
+            fill: none;
+            stroke-width: 2.2;
+            stroke-linecap: round;
+            opacity: 0;
+            transform: rotate(-45deg) scale(0.6);
+            transition: var(--transition);
+        }
+        .chatbot-toggle.is-open .icon-chat {
+            opacity: 0;
+            transform: rotate(45deg) scale(0.6);
+        }
+        .chatbot-toggle.is-open .icon-close {
+            opacity: 1;
+            transform: rotate(0deg) scale(1);
+        }
+
+        .chatbot-window {
+            position: fixed;
+            bottom: 104px;
+            right: 28px;
+            width: 392px;
+            max-width: calc(100vw - 40px);
+            height: 560px;
+            max-height: calc(100vh - 150px);
+            background: linear-gradient(180deg, #14141C 0%, #101016 100%);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 22px;
+            box-shadow: 0 24px 70px rgba(0, 0, 0, 0.55), 0 2px 0 rgba(124, 155, 138, 0.06) inset;
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+            z-index: 9998;
+            animation: chatPop 0.32s cubic-bezier(0.2, 0.9, 0.3, 1.2);
+            backdrop-filter: blur(20px);
+        }
+        .chatbot-window.open {
+            display: flex;
+        }
+
+        @keyframes chatPop {
+            from { opacity: 0; transform: translateY(16px) scale(0.97); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .chatbot-header-window {
+            padding: 18px 20px;
+            background: radial-gradient(120% 180% at 0% 0%, rgba(124, 155, 138, 0.16) 0%, transparent 55%), var(--bg-secondary);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            flex-shrink: 0;
+        }
+        .chatbot-header-window .header-id {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .chatbot-header-window .avatar {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: var(--accent-gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            box-shadow: 0 4px 16px var(--accent-glow);
+            overflow: hidden;
+        }
+        .chatbot-header-window .avatar img {
+            width: 22px;
+            height: 22px;
+            object-fit: contain;
+        }
+        .chatbot-header-window .title {
+            font-weight: 700;
+            font-size: 0.98rem;
+            line-height: 1.3;
+        }
+        .chatbot-header-window .title span {
+            color: var(--accent);
+        }
+        .chatbot-header-window .status {
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin-top: 1px;
+        }
+        .chatbot-header-window .status .status-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #7FD99A;
+            box-shadow: 0 0 6px #7FD99A;
+            animation: pulse-dot 2s infinite;
+        }
+        .chatbot-header-window .close-btn {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .chatbot-header-window .close-btn:hover {
+            color: var(--text-primary);
+            background: rgba(255, 255, 255, 0.1);
+            transform: rotate(90deg);
+        }
+
+        .chatbot-messages-window {
+            flex: 1;
+            padding: 18px 18px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            background: radial-gradient(ellipse at 15% 0%, rgba(124, 155, 138, 0.05) 0%, transparent 45%);
+        }
+        .chatbot-messages-window::-webkit-scrollbar {
+            width: 4px;
+        }
+        .chatbot-messages-window::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .chatbot-messages-window::-webkit-scrollbar-thumb {
+            background: rgba(124, 155, 138, 0.4);
+            border-radius: 10px;
+        }
+
+        .msg-row {
+            display: flex;
+            align-items: flex-end;
+            gap: 8px;
+            max-width: 88%;
+            animation: msgIn 0.25s ease;
+        }
+        @keyframes msgIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .msg-row.bot { align-self: flex-start; }
+        .msg-row.user { align-self: flex-end; flex-direction: row-reverse; }
+
+        .msg-avatar {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--accent-gradient);
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 2px;
+        }
+        .msg-avatar img {
+            width: 14px;
+            height: 14px;
+            object-fit: contain;
+        }
+
+        .msg {
+            padding: 11px 15px;
+            border-radius: 16px;
+            font-size: 0.87rem;
+            line-height: 1.6;
+        }
+        .msg.bot {
+            background: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            color: var(--text-secondary);
+            border-bottom-left-radius: 4px;
+        }
+        .msg.bot b,
+        .msg.bot strong {
+            color: var(--text-primary);
+            font-weight: 700;
+        }
+        .msg.bot a {
+            color: var(--accent);
+        }
+        .msg.user {
+            background: var(--accent-gradient);
+            color: var(--bg-primary);
+            border-bottom-right-radius: 4px;
+            box-shadow: 0 4px 16px rgba(124, 155, 138, 0.2);
+        }
+        .msg.user b,
+        .msg.user strong {
+            color: var(--bg-primary);
+            font-weight: 700;
+        }
+
+        /* ==========================================
+           ESCALATION BADGE & STATUS
+           ========================================== */
+        .escalation-badge {
+            display: inline-block;
+            padding: 2px 12px;
+            border-radius: 50px;
+            font-size: 0.6rem;
+            font-weight: 600;
+            background: var(--escalation-bg);
+            color: var(--escalation-color);
+            border: 1px solid rgba(231, 169, 140, 0.2);
+            margin-top: 6px;
+            animation: fadeIn 0.3s ease;
+        }
+        .escalation-badge .icon {
+            margin-right: 4px;
+        }
+
+        .escalation-status {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            background: var(--escalation-bg);
+            border-radius: var(--radius-sm);
+            border: 1px solid rgba(231, 169, 140, 0.15);
+            margin-top: 6px;
+            font-size: 0.75rem;
+            color: var(--escalation-color);
+        }
+        .escalation-status .pulse {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--escalation-color);
+            animation: pulse-dot 1.5s infinite;
+        }
+
+        /* ==========================================
+           RATING BUTTONS
+           ========================================== */
+        .rating-buttons {
+            display: flex;
+            gap: 8px;
+            margin-top: 8px;
+            flex-wrap: wrap;
+        }
+
+        .rating-btn {
+            padding: 8px 18px;
+            border-radius: 50px;
+            border: 1px solid var(--border-subtle);
+            background: var(--bg-card);
+            color: var(--text-secondary);
+            font-family: inherit;
+            font-size: 0.82rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .rating-btn:hover {
+            background: rgba(124, 155, 138, 0.12);
+            border-color: var(--accent);
+            color: var(--text-primary);
+            transform: translateY(-2px);
+        }
+
+        .rating-btn:active {
+            transform: scale(0.95);
+        }
+
+        .rating-btn.yes:hover {
+            background: rgba(46, 204, 113, 0.15);
+            border-color: #2ECC71;
+            color: #2ECC71;
+        }
+
+        .rating-btn.no:hover {
+            background: rgba(231, 76, 60, 0.15);
+            border-color: #E74C3C;
+            color: #E74C3C;
+        }
+
+        .rating-btn.partial:hover {
+            background: rgba(241, 196, 15, 0.15);
+            border-color: #F1C40F;
+            color: #F1C40F;
+        }
+
+        .chatbot-footer {
+            flex-shrink: 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            background: var(--bg-secondary);
+        }
+
+        .chatbot-input-window {
+            padding: 12px 14px;
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .chatbot-input-window input {
+            flex: 1;
+            padding: 11px 16px;
+            border-radius: 50px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(255, 255, 255, 0.03);
+            color: var(--text-primary);
+            font-size: 0.87rem;
+            font-family: inherit;
+            outline: none;
+            transition: var(--transition);
+        }
+
+        .chatbot-input-window input::placeholder {
+            color: var(--text-muted);
+        }
+
+        .chatbot-input-window input:focus {
+            border-color: var(--accent);
+            background: rgba(124, 155, 138, 0.05);
+            box-shadow: 0 0 0 3px var(--accent-glow);
+        }
+
+        .chatbot-input-window .send-btn {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            border: none;
+            background: var(--accent-gradient);
+            color: var(--bg-primary);
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: inherit;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .chatbot-input-window .send-btn svg {
+            width: 18px;
+            height: 18px;
+            stroke: var(--bg-primary);
+            fill: none;
+            stroke-width: 2.2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            transform: translateX(-1px);
+        }
+
+        .chatbot-input-window .send-btn:hover {
+            transform: scale(1.07);
+            box-shadow: 0 6px 20px var(--accent-glow);
+        }
+
+        .chatbot-input-window .send-btn:active {
+            transform: scale(0.96);
+        }
+
+        .quick-replies-window {
+            padding: 0 14px 12px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .quick-replies-window .qr-btn {
+            padding: 6px 14px;
+            border-radius: 50px;
+            background: rgba(124, 155, 138, 0.07);
+            border: 1px solid rgba(124, 155, 138, 0.14);
+            color: var(--text-secondary);
+            font-size: 0.72rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: inherit;
+        }
+
+        .quick-replies-window .qr-btn:hover {
+            background: rgba(124, 155, 138, 0.16);
+            border-color: var(--accent);
+            color: var(--text-primary);
+            transform: translateY(-1px);
+        }
+
+        .chatbot-powered-by {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            padding: 9px 0 11px;
+            border-top: 1px solid rgba(255, 255, 255, 0.04);
+            font-size: 0.68rem;
+            color: var(--text-muted);
+            letter-spacing: 0.2px;
+        }
+
+        .chatbot-powered-by img {
+            width: 13px;
+            height: 13px;
+            opacity: 0.85;
+        }
+
+        .chatbot-powered-by strong {
+            color: var(--text-secondary);
+            font-weight: 600;
+        }
+
+        .typing-indicator {
+            display: flex;
+            gap: 4px;
+            padding: 8px 2px;
+        }
+
+        .typing-indicator span {
+            width: 6px;
+            height: 6px;
+            background: var(--accent);
+            opacity: 0.6;
+            border-radius: 50%;
+            animation: typingBounce 1.4s infinite;
+        }
+
+        .typing-indicator span:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .typing-indicator span:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes typingBounce {
+            0%, 60%, 100% {
+                opacity: 0.25;
+                transform: translateY(0);
+            }
+
+            30% {
+                opacity: 1;
+                transform: translateY(-6px);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        
+
+        /* =====================================================
+           FOCUSED EXPERIENCE REFINEMENT
+           Preserves the original design and product structure.
+        ====================================================== */
+        /* Chat launcher: visible without feeling intrusive */
+        .chatbot-toggle {
+            width:60px; height:60px; right:24px; bottom:24px;
+            border:1px solid rgba(255,255,255,.12);
+            box-shadow:0 16px 48px rgba(0,0,0,.36),0 0 0 1px rgba(124,155,138,.06);
+        }
+        .chatbot-toggle::after {
+            content:"Chat with us"; position:absolute; right:72px; top:50%; width:max-content;
+            padding:9px 12px; border:1px solid rgba(255,255,255,.08); border-radius:10px;
+            background:rgba(20,20,28,.94); color:var(--text-primary);
+            font:600 .74rem/1 'Inter',sans-serif; letter-spacing:.01em;
+            box-shadow:0 10px 32px rgba(0,0,0,.28); transform:translateY(-50%);
+            pointer-events:none; transition:opacity .18s ease,transform .18s ease;
+        }
+        .chatbot-toggle.is-open::after { opacity:0; transform:translate(7px,-50%); }
+        .chatbot-toggle:hover { transform:translateY(-2px) scale(1.025); }
+
+        /* Chat shell */
+        .chatbot-window {
+            bottom:96px; right:24px; width:420px; height:min(680px,calc(100vh - 124px));
+            max-height:none; border-radius:24px; border-color:rgba(255,255,255,.105);
+            background:#111118;
+            box-shadow:0 32px 100px rgba(0,0,0,.58),0 1px 0 rgba(255,255,255,.045) inset;
+            transform-origin:bottom right;
+        }
+        .chatbot-header-window {
+            min-height:78px; padding:16px 18px;
+            background:linear-gradient(135deg,rgba(124,155,138,.18),rgba(17,17,24,.96) 58%);
+        }
+        .chatbot-header-window .header-id { gap:11px; }
+        .chatbot-header-window .avatar { width:42px; height:42px; border-radius:13px; }
+        .chatbot-header-window .avatar img { width:25px; height:25px; }
+        .chatbot-header-window .title { font-size:.96rem; letter-spacing:-.02em; }
+        .chatbot-header-window .status { max-width:260px; margin-top:3px; color:rgba(255,255,255,.48); font-size:.67rem; }
+        .chatbot-header-window .close-btn { width:34px; height:34px; border-radius:10px; }
+
+        /* Bright conversation canvas improves reading and visual separation */
+        .chatbot-messages-window {
+            padding:22px 18px 20px; gap:15px;
+            background:linear-gradient(180deg,#f2f5f2 0%,#eaf0ec 100%);
+            scrollbar-color:rgba(70,102,84,.28) transparent;
+        }
+        .chatbot-messages-window::-webkit-scrollbar-thumb { background:rgba(70,102,84,.28); }
+        .msg-row { max-width:91%; gap:7px; }
+        .msg-avatar { width:27px; height:27px; margin-bottom:1px; box-shadow:0 3px 10px rgba(22,46,32,.14); }
+        .msg { padding:11px 14px; border-radius:15px; font-size:.84rem; line-height:1.58; overflow-wrap:anywhere; }
+        .msg.bot { color:#26332c; background:#fff; border-color:#d8e1da; box-shadow:0 4px 16px rgba(25,55,37,.055); }
+        .msg.bot b,.msg.bot strong { color:#142119; }
+        .msg.bot a { color:#426b55; font-weight:650; }
+        .msg.user { color:#0c1711; background:#9fc0ae; box-shadow:0 5px 16px rgba(38,73,53,.14); }
+        .msg.user b,.msg.user strong { color:#0c1711; }
+        .typing-indicator span { background:#527463; }
+        .escalation-badge,.escalation-status { border-color:rgba(164,93,62,.16); background:#f8e9e1; color:#9c5436; }
+
+        /* Human handoff and feedback controls */
+        .rating-buttons { gap:7px; }
+        .rating-btn { min-height:38px; padding:8px 13px; border-color:#d3ddd6; background:#fff; color:#526159; }
+        .rating-btn:hover { color:#1f3328; background:#edf3ef; }
+        .ticket-contact-card,.ticket-choice-card,.past-ticket-card { border-radius:15px!important; box-shadow:0 6px 18px rgba(25,55,37,.06); }
+        .ticket-contact-card input { min-height:42px!important; border-color:#d4ddd7!important; background:#fff!important; color:#17241c!important; }
+        .ticket-contact-submit,.ticket-choice-btn { min-height:40px; border-radius:10px!important; }
+
+        /* Composer */
+        .chatbot-footer { border-top:0; background:#fff; }
+        .quick-replies-window { padding:13px 14px 7px; gap:7px; border-top:1px solid #dde4df; background:#f8faf8; overflow-x:auto; flex-wrap:nowrap; scrollbar-width:none; }
+        .quick-replies-window::-webkit-scrollbar { display:none; }
+        .quick-replies-window .qr-btn { flex:0 0 auto; min-height:34px; padding:7px 12px; border-color:#d7e0da; background:#fff; color:#425249; font-size:.7rem; }
+        .quick-replies-window .qr-btn:hover { color:#173023; border-color:#86a895; background:#edf4f0; transform:translateY(-1px); }
+        .chatbot-input-window { align-items:flex-end; gap:9px; padding:10px 13px 11px; background:#fff; }
+        .chatbot-input-window textarea {
+            flex:1; width:100%; min-height:46px; max-height:132px; resize:none; overflow-y:auto;
+            padding:12px 15px; border:1px solid #d5ded8; border-radius:17px;
+            outline:0; background:#f5f8f6; color:#17241c;
+            font:500 .84rem/1.45 'Inter',sans-serif;
+            transition:border-color .16s ease,box-shadow .16s ease,background .16s ease;
+        }
+        .chatbot-input-window textarea::placeholder { color:#78857d; }
+        .chatbot-input-window textarea:focus { border-color:#789b88; background:#fff; box-shadow:0 0 0 3px rgba(92,132,110,.11); }
+        .chatbot-input-window .send-btn { width:46px; height:46px; flex:0 0 46px; background:#6f9580; }
+        .chatbot-input-window .send-btn svg { stroke:#0b1710; }
+        .chatbot-input-window .send-btn:disabled { opacity:.42; cursor:not-allowed; transform:none; box-shadow:none; }
+        .chatbot-powered-by { padding:7px 0 9px; border-top:1px solid #eef1ef; background:#fff; color:#8a948e; font-size:.62rem; }
+        .chatbot-powered-by strong { color:#53635a; }
+
+        /* Private conversation history */
+        .chatbot-header-actions { display:flex; align-items:center; gap:7px; }
+        .chatbot-history-btn {
+            width:34px; height:34px; display:grid; place-items:center; border-radius:10px;
+            border:1px solid rgba(255,255,255,.07); background:rgba(255,255,255,.04);
+            color:rgba(255,255,255,.62); cursor:pointer; transition:var(--transition);
+        }
+        .chatbot-history-btn:hover,.chatbot-history-btn[aria-pressed="true"] { color:#fff; background:rgba(124,155,138,.16); border-color:rgba(124,155,138,.22); }
+        .chatbot-history-btn svg { width:17px; height:17px; fill:none; stroke:currentColor; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
+        .chat-history-view {
+            flex:1; min-height:0; display:none; flex-direction:column;
+            padding:0!important; margin:0!important;
+            background:#f2f5f2; color:#17241c;
+        }
+        .chatbot-window.history-open .chat-history-view { display:flex; }
+        .chatbot-window.history-open .chatbot-messages-window,
+        .chatbot-window.history-open .chatbot-footer { display:none; }
+        .chat-history-head { display:flex; align-items:center; justify-content:space-between; gap:12px; padding:17px 18px 13px; border-bottom:1px solid #dce4de; background:#fff; }
+        .chat-history-head h3 { margin:0; color:#17241c; font-size:.96rem; letter-spacing:-.02em; }
+        .chat-history-head p { margin:3px 0 0; color:#758179; font-size:.66rem; }
+        .chat-history-new { min-height:35px; padding:8px 11px; border:0; border-radius:9px; background:#668d77; color:#fff; font:700 .7rem/1 'Inter',sans-serif; cursor:pointer; }
+        .chat-history-new:hover { background:#547762; }
+        .chat-history-list,.chat-history-detail { flex:1; min-height:0; overflow-y:auto; padding:14px; }
+        .chat-history-list { display:grid; align-content:start; gap:9px; }
+        .chat-history-empty { padding:44px 24px; text-align:center; color:#758179; }
+        .chat-history-empty svg { width:34px; height:34px; margin-bottom:12px; fill:none; stroke:#8ca095; stroke-width:1.5; }
+        .chat-history-empty strong { display:block; margin-bottom:5px; color:#37483f; font-size:.84rem; }
+        .chat-history-empty span { display:block; font-size:.7rem; line-height:1.55; }
+        .chat-history-item { width:100%; display:grid; grid-template-columns:1fr auto; gap:12px; padding:13px 14px; border:1px solid #d7e0da; border-radius:13px; background:#fff; color:#17241c; text-align:left; cursor:pointer; transition:transform .16s ease,border-color .16s ease,box-shadow .16s ease; }
+        .chat-history-item:hover { transform:translateY(-1px); border-color:#9bb5a6; box-shadow:0 7px 20px rgba(25,55,37,.07); }
+        .chat-history-item strong { display:block; overflow:hidden; color:#223129; font-size:.76rem; white-space:nowrap; text-overflow:ellipsis; }
+        .chat-history-item span { display:block; margin-top:5px; color:#7a867f; font-size:.63rem; }
+        .chat-history-status { align-self:start; padding:5px 7px; border-radius:999px; background:#edf4f0; color:#557564; font-size:.57rem!important; font-weight:750; text-transform:capitalize; }
+        .chat-history-status.open,.chat-history-status.in_progress,.chat-history-status.reopened { background:#fff1e8; color:#9a5a39; }
+        .chat-history-detail { display:none; }
+        .chat-history-detail.open { display:block; }
+        .chat-history-list.detail-open { display:none; }
+        .chat-history-detail-head { position:sticky; top:-14px; z-index:2; display:flex; align-items:center; gap:10px; margin:-14px -14px 14px; padding:13px 14px; border-bottom:1px solid #dce4de; background:rgba(255,255,255,.96); backdrop-filter:blur(10px); }
+        .chat-history-back { width:34px; height:34px; display:grid; place-items:center; border:1px solid #d6dfd9; border-radius:9px; background:#fff; color:#43564b; cursor:pointer; }
+        .chat-history-detail-title { min-width:0; }
+        .chat-history-detail-title strong { display:block; overflow:hidden; color:#223129; font-size:.76rem; white-space:nowrap; text-overflow:ellipsis; }
+        .chat-history-detail-title span { display:block; margin-top:2px; color:#7a867f; font-size:.61rem; }
+        .chat-history-transcript { display:flex; flex-direction:column; gap:10px; }
+        .history-message { max-width:86%; padding:10px 12px; border:1px solid #d8e1da; border-radius:13px; background:#fff; color:#2a3931; font-size:.74rem; line-height:1.52; white-space:pre-wrap; overflow-wrap:anywhere; }
+        .history-message.user { align-self:flex-end; border-color:#9cbdab; background:#a9c8b7; color:#132019; }
+        .history-message-meta { display:block; margin-bottom:4px; color:#819087; font-size:.55rem; font-weight:700; text-transform:uppercase; }
+        .history-message.user .history-message-meta { color:#4c6859; }
+        .chat-history-continue { width:100%; min-height:42px; margin-top:14px; border:0; border-radius:11px; background:#668d77; color:#fff; font:700 .72rem/1 'Inter',sans-serif; cursor:pointer; }
+
+        /* Message delivery state: intentionally no read receipts. */
+        .msg.user { position:relative; padding-bottom:20px; }
+        .message-delivery {
+            position:absolute; right:9px; bottom:4px; display:inline-flex; align-items:center;
+            min-height:13px; color:rgba(17,34,25,.62); font-size:.57rem; line-height:1;
+        }
+        .message-delivery svg { width:16px; height:10px; overflow:visible; }
+        .message-delivery path,.message-delivery polyline {
+            fill:none; stroke:currentColor; stroke-width:1.7; stroke-linecap:round; stroke-linejoin:round;
+        }
+        .message-delivery.sending svg { width:11px; height:11px; }
+        .message-delivery.failed { position:static; gap:4px; margin:5px 2px 0 auto; color:#a33d34; cursor:pointer; }
+        .message-delivery.failed button { border:0; padding:0; background:none; color:inherit; font:700 .58rem/1 'Inter',sans-serif; cursor:pointer; }
+
+        /* Soft word streaming, followed by fully formatted message content. */
+        .msg-stream-cursor {
+            display:inline-block; width:1px; height:1.05em; margin-left:2px;
+            vertical-align:-.13em; background:#527463; animation:streamCursor .75s steps(1,end) infinite;
+        }
+        @keyframes streamCursor { 50% { opacity:0; } }
+
+        /* Compact CSAT: a closing line, not a survey card. */
+        .csat-prompt {
+            align-self:flex-start; display:flex; align-items:center; gap:8px; max-width:91%;
+            margin:-4px 0 2px 35px; padding:4px 7px; color:#708078;
+            font:500 .61rem/1.2 'Inter',sans-serif;
+        }
+        .csat-prompt > span { white-space:nowrap; }
+        .csat-options { display:flex; align-items:center; gap:3px; }
+        .csat-option {
+            width:23px; height:23px; display:grid; place-items:center; border:1px solid #d0dbd4;
+            border-radius:7px; background:rgba(255,255,255,.72); color:#52645a;
+            font:700 .6rem/1 'Inter',sans-serif; cursor:pointer;
+            transition:background .14s ease,border-color .14s ease,color .14s ease,transform .14s ease;
+        }
+        .csat-option:hover,.csat-option:focus-visible { border-color:#6f9580; background:#fff; color:#264333; transform:translateY(-1px); outline:none; }
+        .csat-option[aria-pressed="true"] { border-color:#557d68; background:#557d68; color:#fff; }
+        .csat-thanks { color:#557564; font-weight:650; }
+
+        @media(max-width:600px) {
+            body.chat-open { overflow:hidden; touch-action:none; }
+            .chatbot-window { touch-action:auto; }
+            .chatbot-toggle { right:18px; bottom:18px; width:58px; height:58px; }
+            .chatbot-toggle::after { display:none; }
+            .chatbot-window {
+                inset:0; width:100%; height:100dvh; max-width:none; max-height:none;
+                border:0; border-radius:0; animation:chatMobileIn .24s ease;
+            }
+            @keyframes chatMobileIn { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:none; } }
+            .chatbot-header-window { padding:max(14px,env(safe-area-inset-top)) 16px 14px; }
+            .chatbot-messages-window { padding:18px 14px; }
+            .chatbot-input-window { padding:10px 12px calc(10px + env(safe-area-inset-bottom)); }
+            .chatbot-powered-by { display:none; }
+            .chat-history-head { padding:14px 14px 12px; }
+            .chat-history-list,.chat-history-detail { padding:12px; }
+            .chat-history-detail-head { top:-12px; margin:-12px -12px 12px; padding:12px; }
+            .chat-history-item { min-height:64px; padding:13px; }
+            .csat-prompt { margin-left:34px; gap:6px; }
+        }
+        @media(prefers-reduced-motion:reduce) {
+            *,*::before,*::after { animation-duration:.01ms!important; animation-iteration-count:1!important; scroll-behavior:auto!important; transition-duration:.01ms!important; }
+        }
+    
+@media (max-width: 768px){.chatbot-window{width:calc(100vw - 32px);right:16px;bottom:94px;height:480px;border-radius:18px}}
+@media (max-width: 480px){.chatbot-window{height:420px;bottom:84px}}
+</style>
 </head>
 <body>
 <a class="skip-link" href="#mvp-home">Skip to main content</a>
@@ -544,10 +1264,200 @@ body>header .nav{height:68px}body>header .logo{color:#102018}body>header .nav-li
 
 <!-- chatbot -->
 <button class="chat-toggle" id="chatToggle" aria-label="Open chat"><svg class="chat" viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><path d="M8 10h.01M12 10h.01M16 10h.01"/></svg><svg class="x" viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
-<div class="chat-window" id="chatWindow"><div class="chat-head"><div class="chat-id"><div class="avatar"><img src="assets/logo-mark.png" alt=""></div><div><div class="chat-title">Novara <span>CX</span> AI</div><div class="chat-status"><i></i> AI support · Human handoff available</div></div></div><button class="chat-close" id="chatClose" aria-label="Close chat">✕</button></div><div class="chat-messages" id="chatMessages"></div><div class="chat-foot"><div class="quick" id="quickReplies"><button data-question="What is included in AI Support?">AI Support</button><button data-question="What is included in Managed CX?">Managed CX</button><button data-question="How much do the plans cost?">Pricing</button><button data-question="How do I book a discovery call?">Book a call</button></div><div class="input-row"><input id="chatInput" type="text" placeholder="Ask about Novara CX..."><button class="send" id="chatSend" aria-label="Send"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.1"><path d="M22 2 11 13"/><path d="m22 2-7 20-4-9-9-4 20-7z"/></svg></button></div><div class="powered"><img src="assets/logo-mark.png" alt=""> Powered by <strong>Novara CX AI</strong></div></div></div>
+<div
+        class="chatbot-window"
+        id="chatbotWindow"
+        role="dialog"
+        aria-modal="false"
+        aria-label="Novara CX support assistant"
+    >
 
-<!-- ticket modal -->
-<div class="ticket-modal" id="ticketModal" aria-hidden="true"><div class="ticket-card"><div class="ticket-head"><h3>Talk to a human</h3><button class="ticket-close" id="ticketClose">✕</button></div><div class="ticket-body"><p class="ticket-help">Your conversation is already linked to this request. Add your contact details and tell us what you need help with.</p><div class="field"><label for="ticketName">Name</label><input id="ticketName" type="text" placeholder="Your name"></div><div class="field"><label for="ticketContact">Email or phone</label><input id="ticketContact" type="text" placeholder="How should we contact you?"></div><div class="field"><label for="ticketPriority">Priority</label><select id="ticketPriority"><option value="normal">Normal</option><option value="high">High</option></select></div><div class="field"><label for="ticketMessage">What do you need help with?</label><textarea id="ticketMessage" placeholder="Tell the Novara CX team what went wrong or what you need."></textarea></div><div class="ticket-status" id="ticketStatus"></div></div><div class="ticket-foot"><button class="btn btn-secondary" id="ticketCancel">Cancel</button><button class="btn btn-primary" id="ticketSubmit">Create Ticket</button></div></div></div>
+        <div class="chatbot-header-window">
+
+            <div class="header-id">
+
+                <span class="avatar">
+                    <img
+                        src="assets/logo-mark.png"
+                        alt=""
+                    >
+                </span>
+
+                <div>
+
+                    <div class="title">
+                        Novara <span>CX</span> Assistant
+                    </div>
+
+                    <div class="status">
+
+                        <span class="status-dot"></span>
+
+                        AI support · Human handoff available
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="chatbot-header-actions">
+                <button
+                    class="chatbot-history-btn"
+                    id="chatHistoryBtn"
+                    type="button"
+                    aria-label="Open conversation history"
+                    aria-pressed="false"
+                >
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M3 12a9 9 0 1 0 3-6.7"/>
+                        <path d="M3 4v5h5"/>
+                        <path d="M12 7v5l3 2"/>
+                    </svg>
+                </button>
+
+                <button
+                    class="close-btn"
+                    id="chatbotClose"
+                    type="button"
+                    aria-label="Close chat"
+                >
+                    ✕
+                </button>
+            </div>
+
+        </div>
+
+        <section
+            id="chatHistoryView"
+            class="chat-history-view"
+            aria-label="Your conversation history"
+        >
+            <div class="chat-history-head">
+                <div>
+                    <h3>Your conversations</h3>
+                    <p>Private to this browser</p>
+                </div>
+                <button id="chatHistoryNew" class="chat-history-new" type="button">New chat</button>
+            </div>
+
+            <div id="chatHistoryList" class="chat-history-list"></div>
+
+            <div id="chatHistoryDetail" class="chat-history-detail">
+                <div class="chat-history-detail-head">
+                    <button id="chatHistoryBack" class="chat-history-back" type="button" aria-label="Back to conversation list">←</button>
+                    <div class="chat-history-detail-title">
+                        <strong id="chatHistoryDetailTitle"></strong>
+                        <span id="chatHistoryDetailMeta"></span>
+                    </div>
+                </div>
+                <div id="chatHistoryTranscript" class="chat-history-transcript"></div>
+                <button id="chatHistoryContinue" class="chat-history-continue" type="button">Back to current conversation</button>
+            </div>
+        </section>
+
+
+        <div
+            class="chatbot-messages-window"
+            id="chatMessages"
+            role="log"
+            aria-live="polite"
+            aria-relevant="additions"
+        ></div>
+
+
+        <div class="chatbot-footer">
+
+            <div
+                class="quick-replies-window"
+                id="quickReplies"
+            >
+
+                <button type="button"
+                    class="qr-btn"
+                    data-question="What services do you offer?"
+                >
+                    What services?
+                </button>
+
+                <button type="button"
+                    class="qr-btn"
+                    data-question="How much does the AI Chatbot cost?"
+                >
+                    Pricing
+                </button>
+
+                <button type="button"
+                    class="qr-btn"
+                    data-question="How do I book a discovery call?"
+                >
+                    Book a call
+                </button>
+
+                <button type="button"
+                    class="qr-btn"
+                    data-question="Can you help reduce refunds?"
+                >
+                    Reduce refunds
+                </button>
+
+                <button type="button"
+                    class="qr-btn"
+                    data-question="I would like to speak to a human"
+                >
+                    Talk to a person
+                </button>
+
+            </div>
+
+
+            <div class="chatbot-input-window">
+
+                <textarea
+                    id="chatInput"
+                    rows="1"
+                    maxlength="1200"
+                    aria-label="Message Novara CX"
+                    placeholder="Type your message…"
+                ></textarea>
+
+                <button
+                    type="button"
+                    class="send-btn"
+                    id="chatSend"
+                    aria-label="Send message"
+                >
+
+                    <svg viewBox="0 0 24 24">
+
+                        <path d="M22 2 11 13"/>
+                        <path d="M22 2 15 22l-4-9-9-4 20-7z"/>
+
+                    </svg>
+
+                </button>
+
+            </div>
+
+
+            <div class="chatbot-powered-by">
+
+                <img
+                    src="assets/logo-mark.png"
+                    alt=""
+                >
+
+                Powered by
+                <strong>
+                    Novara CX AI
+                </strong>
+
+            </div>
+
+        </div>
+
+    </div>
 
 <script>
 document.documentElement.classList.add('js');
@@ -562,20 +1472,8 @@ const sections=[...document.querySelectorAll('.mvp-site section[id]')],navItems=
 document.querySelectorAll('[data-desk-tab]').forEach(tab=>tab.addEventListener('click',()=>{const target=tab.dataset.deskTab;document.querySelectorAll('[data-desk-tab]').forEach(item=>{const active=item===tab;item.classList.toggle('active',active);item.setAttribute('aria-selected',String(active))});document.querySelectorAll('[data-desk-pane]').forEach(pane=>pane.classList.toggle('active',pane.dataset.deskPane===target))}));
 document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{const h=a.getAttribute('href');if(h==='#')return;const t=document.querySelector(h);if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth',block:'start'})}}));
 
-const chatToggle=document.getElementById('chatToggle'),chatWindow=document.getElementById('chatWindow'),chatClose=document.getElementById('chatClose'),chatMessages=document.getElementById('chatMessages'),chatInput=document.getElementById('chatInput'),chatSend=document.getElementById('chatSend');
-function openChat(){chatWindow.classList.add('open');chatToggle.classList.add('open');setTimeout(()=>chatInput.focus(),50)}function closeChat(){chatWindow.classList.remove('open');chatToggle.classList.remove('open')}chatToggle.addEventListener('click',()=>chatWindow.classList.contains('open')?closeChat():openChat());chatClose.addEventListener('click',closeChat);
-document.addEventListener('click',e=>{if(chatWindow.classList.contains('open')&&!chatWindow.contains(e.target)&&!chatToggle.contains(e.target))closeChat()});
-function escapeHtml(s){return String(s).replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','\'':'&#39;','"':'&quot;'}[c]))}
-function formatText(text){let html=escapeHtml(text);html=html.replace(/\*\*\*(.*?)\*\*\*/g,'<b><i>$1</i></b>');html=html.replace(/\*\*(.*?)\*\*/g,'<b>$1</b>');html=html.replace(/\*(.*?)\*/g,'<i>$1</i>');html=html.replace(/\[(.*?)\]\((https?:\/\/[^\s)]+)\)/g,'<a href="$2" target="_blank" rel="noopener">$1</a>');return html.replace(/\n/g,'<br>')}
-function addMessage(text,sender,meta={}){const row=document.createElement('div');row.className='row '+sender;if(sender==='bot'){const av=document.createElement('div');av.className='msg-avatar';av.innerHTML='<img src="assets/logo-mark.png" alt="">';row.appendChild(av)}const div=document.createElement('div');div.className='msg '+sender;let body=String(text);const hasRating=sender==='bot'&&body.includes('[✅ Yes]');if(hasRating){body=body.split('[✅ Yes]')[0].trim()}div.innerHTML=formatText(body);if(hasRating){const rate=document.createElement('div');rate.className='rate';rate.innerHTML='<button data-rate="yes">✅ Yes</button><button data-rate="no">❌ No</button><button data-rate="partial">🔄 Not really</button>';div.appendChild(rate)}if(meta.ticket){const ticket=document.createElement('button');ticket.className='ticket-link';ticket.textContent='Talk to a human →';ticket.addEventListener('click',()=>openTicketModal(meta.query||lastUserQuery,meta.reply||lastAIReply));div.appendChild(ticket)}row.appendChild(div);chatMessages.appendChild(row);chatMessages.scrollTop=chatMessages.scrollHeight;if(hasRating){div.querySelectorAll('[data-rate]').forEach(b=>b.addEventListener('click',()=>sendMessage(b.dataset.rate)))}return div}
-function showTyping(){if(document.getElementById('typing'))return;const row=document.createElement('div');row.id='typing';row.className='row bot';row.innerHTML='<div class="msg-avatar"><img src="assets/logo-mark.png" alt=""></div><div class="msg bot"><span style="display:inline-flex;gap:4px"><i style="width:6px;height:6px;background:var(--accent);border-radius:50%;display:block;opacity:.4"></i><i style="width:6px;height:6px;background:var(--accent);border-radius:50%;display:block;opacity:.7"></i><i style="width:6px;height:6px;background:var(--accent);border-radius:50%;display:block;opacity:.4"></i></span></div>';chatMessages.appendChild(row);chatMessages.scrollTop=chatMessages.scrollHeight}function hideTyping(){document.getElementById('typing')?.remove()}
-async function sendMessage(message){if(!message||!message.trim()||chatInput.disabled)return;lastUserQuery=message.trim();addMessage(lastUserQuery,'user');chatInput.value='';chatInput.disabled=true;chatSend.disabled=true;showTyping();try{const r=await fetch(WORKER_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({message:lastUserQuery,sessionId})});const data=await r.json();hideTyping();if(data.reply){lastAIReply=data.reply;const ticket=(data.rating==='no'||data.rating==='partial');addMessage(data.reply,'bot',{ticket,query:lastUserQuery,reply:data.reply})}else addMessage("I'm not sure how to answer that. Would you like to book a consultation?",'bot')}catch(err){hideTyping();console.error(err);addMessage('Something went wrong. You can try again or talk to a human from the button below.','bot',{ticket:true,query:lastUserQuery,reply:lastAIReply})}finally{chatInput.disabled=false;chatSend.disabled=false;chatInput.focus()}}
-chatSend.addEventListener('click',()=>sendMessage(chatInput.value));chatInput.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();sendMessage(chatInput.value)}});document.querySelectorAll('.quick button').forEach(b=>b.addEventListener('click',()=>sendMessage(b.dataset.question)));
+// Chatbot behavior is provided by the index.html widget transplant below.
 
-function openTicketModal(query='',reply=''){document.getElementById('ticketModal').classList.add('open');document.getElementById('ticketModal').setAttribute('aria-hidden','false');const m=document.getElementById('ticketMessage');if(query){m.value=`AI query: ${query}\n\nAI response: ${reply||''}\n\nMy issue: `}document.getElementById('ticketStatus').textContent='';setTimeout(()=>document.getElementById('ticketName').focus(),50)}function closeTicketModal(){document.getElementById('ticketModal').classList.remove('open');document.getElementById('ticketModal').setAttribute('aria-hidden','true')}document.getElementById('ticketClose').addEventListener('click',closeTicketModal);document.getElementById('ticketCancel').addEventListener('click',closeTicketModal);document.getElementById('ticketModal').addEventListener('click',e=>{if(e.target.id==='ticketModal')closeTicketModal()});
-document.getElementById('ticketSubmit').addEventListener('click',async()=>{const name=document.getElementById('ticketName').value.trim(),contact=document.getElementById('ticketContact').value.trim(),priority=document.getElementById('ticketPriority').value,message=document.getElementById('ticketMessage').value.trim(),status=document.getElementById('ticketStatus'),btn=document.getElementById('ticketSubmit');if(!name||!contact||!message){status.textContent='Please fill in your name, contact and issue.';return}btn.disabled=true;status.textContent='Creating your ticket…';try{const r=await fetch(`${WORKER_URL}/tickets`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({sessionId,name,contact,priority,message,source:'website_chatbot',originalQuery:lastUserQuery,aiReply:lastAIReply})});const data=await r.json();if(!r.ok)throw new Error(data?.error||'Ticket request failed');status.innerHTML=`<div class="success-box"><strong>Ticket created${data.ticketId?` — ${escapeHtml(data.ticketId)}`:''}.</strong><br>Our team now has your conversation context.</div>`;document.getElementById('ticketName').value='';document.getElementById('ticketContact').value='';document.getElementById('ticketMessage').value='';setTimeout(closeTicketModal,2600)}catch(err){console.error(err);status.textContent='We could not create the ticket right now. Please try again or call 9999251547.'}finally{btn.disabled=false}});
-
-window.addEventListener('load',()=>setTimeout(()=>addMessage("Hi — I’m Novara CX’s AI assistant. I can help you compare AI Support and Managed CX, understand pricing, or book a discovery call.",'bot'),500));
 
 const problemSection=document.querySelector('.mvp-problem');
 if(problemSection){
@@ -3449,5 +4347,1686 @@ body.preview-is-expanded{overflow:hidden!important}
 })();
 </script>
 
+
+<script id="index-chatbot-transplant-script">
+(() => {
+// ==========================================
+        // SESSION ID
+        // ==========================================
+
+        const urlParams =
+            new URLSearchParams(
+                window.location.search
+            );
+
+
+        const sessionFromUrl =
+            urlParams.get(
+                "session"
+            );
+
+
+        const SESSION_TIMEOUT_MS = 15 * 60 * 1000;
+
+        const createSessionId = () =>
+            `session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+
+        const createBrowserId = () =>
+            `browser_${Date.now()}_${Math.random().toString(36).substr(2, 12)}`;
+
+        const browserId =
+            localStorage.getItem("novara_browser_id") || createBrowserId();
+
+        localStorage.setItem("novara_browser_id", browserId);
+
+        const storedSessionId = localStorage.getItem("novara_session_id");
+        const lastActivity = Number(localStorage.getItem("novara_last_activity") || 0);
+        const sessionExpired = !lastActivity || (Date.now() - lastActivity) > SESSION_TIMEOUT_MS;
+
+        let sessionId =
+            sessionFromUrl ||
+            (!sessionExpired && storedSessionId ? storedSessionId : createSessionId());
+
+
+        localStorage.setItem(
+            "novara_session_id",
+            sessionId
+        );
+
+        localStorage.setItem("novara_last_activity", String(Date.now()));
+
+        function touchSessionActivity() {
+            localStorage.setItem("novara_last_activity", String(Date.now()));
+        }
+
+
+        // ==========================================
+        // CHATBOT
+        // ==========================================
+
+        const WORKER_URL =
+            "https://novara-cx-ai.rishi-rana96.workers.dev/";
+
+
+        const chatToggle =
+            document.getElementById(
+                "chatToggle"
+            );
+
+
+        const chatWindow =
+            document.getElementById(
+                "chatbotWindow"
+            );
+
+
+        const chatClose =
+            document.getElementById(
+                "chatbotClose"
+            );
+
+
+        const chatMessages =
+            document.getElementById(
+                "chatMessages"
+            );
+
+
+        const chatInput =
+            document.getElementById(
+                "chatInput"
+            );
+
+
+        const chatSend =
+            document.getElementById(
+                "chatSend"
+            );
+
+        const chatHistoryBtn = document.getElementById("chatHistoryBtn");
+        const chatHistoryList = document.getElementById("chatHistoryList");
+        const chatHistoryDetail = document.getElementById("chatHistoryDetail");
+        const chatHistoryTranscript = document.getElementById("chatHistoryTranscript");
+        const chatHistoryDetailTitle = document.getElementById("chatHistoryDetailTitle");
+        const chatHistoryDetailMeta = document.getElementById("chatHistoryDetailMeta");
+        const chatHistoryNew = document.getElementById("chatHistoryNew");
+        const chatHistoryBack = document.getElementById("chatHistoryBack");
+        const chatHistoryContinue = document.getElementById("chatHistoryContinue");
+
+
+        const quickReplyBtns =
+            document.querySelectorAll(
+                ".qr-btn"
+            );
+
+
+        let activeTicket = null;
+        let lastTicketMessageId = 0;
+        let lastTicketStatus = null;
+        let unresolvedBrowserTicket = null;
+        let unresolvedReminderShown = false;
+        let awaitingHumanName = false;
+
+        const CHAT_HISTORY_LIMIT = 20;
+        const CHAT_HISTORY_KEY = `novara_chat_history_${browserId}`;
+        const CHAT_DRAFT_KEY = `novara_chat_draft_${browserId}`;
+
+        function readChatHistory() {
+            try {
+                const history = JSON.parse(localStorage.getItem(CHAT_HISTORY_KEY) || "[]");
+                return Array.isArray(history) ? history : [];
+            } catch (_) {
+                return [];
+            }
+        }
+
+        function writeChatHistory(history) {
+            try {
+                localStorage.setItem(CHAT_HISTORY_KEY, JSON.stringify(history.slice(0, CHAT_HISTORY_LIMIT)));
+            } catch (_) {
+                // The live chat must keep working even when browser storage is unavailable.
+            }
+        }
+
+        function cleanHistoryText(text) {
+            return String(text || "")
+                .split("[✅ Yes]")[0]
+                .replace(/\*\*/g, "")
+                .trim();
+        }
+
+        function ticketStatusForHistory() {
+            return activeTicket?.status || "ai";
+        }
+
+        function recordHistoryMessage(text, sender) {
+            const cleaned = cleanHistoryText(text);
+            if (!cleaned || !["user", "bot", "agent"].includes(sender)) return;
+
+            const history = readChatHistory();
+            let conversation = history.find(item => item.sessionId === sessionId);
+            const now = new Date().toISOString();
+
+            if (!conversation) {
+                conversation = {
+                    sessionId,
+                    createdAt: now,
+                    updatedAt: now,
+                    title: "New conversation",
+                    status: ticketStatusForHistory(),
+                    ticketNumber: null,
+                    messages: []
+                };
+                history.push(conversation);
+            }
+
+            conversation.messages = Array.isArray(conversation.messages) ? conversation.messages : [];
+            const previousMessage = conversation.messages[conversation.messages.length - 1];
+            if (previousMessage?.sender === sender && previousMessage?.text === cleaned) return;
+            conversation.messages.push({ text: cleaned, sender, at: now });
+            conversation.messages = conversation.messages.slice(-120);
+            conversation.updatedAt = now;
+            conversation.status = ticketStatusForHistory();
+            conversation.ticketNumber = activeTicket?.ticket_number || activeTicket?.ticketNumber || conversation.ticketNumber || null;
+
+            const firstUserMessage = conversation.messages.find(message => message.sender === "user")?.text;
+            conversation.title = firstUserMessage
+                ? `${firstUserMessage.slice(0, 68)}${firstUserMessage.length > 68 ? "…" : ""}`
+                : conversation.title;
+
+            history.sort((a, b) => new Date(b.updatedAt || 0) - new Date(a.updatedAt || 0));
+            writeChatHistory(history);
+        }
+
+        function syncCurrentHistoryMetadata() {
+            const history = readChatHistory();
+            const conversation = history.find(item => item.sessionId === sessionId);
+            if (!conversation) return;
+            conversation.status = ticketStatusForHistory();
+            conversation.ticketNumber = activeTicket?.ticket_number || activeTicket?.ticketNumber || conversation.ticketNumber || null;
+            conversation.updatedAt = new Date().toISOString();
+            history.sort((a, b) => new Date(b.updatedAt || 0) - new Date(a.updatedAt || 0));
+            writeChatHistory(history);
+        }
+
+        function formatHistoryTime(value) {
+            const date = new Date(value);
+            if (Number.isNaN(date.getTime())) return "";
+            return date.toLocaleString(undefined, {
+                day: "numeric",
+                month: "short",
+                hour: "numeric",
+                minute: "2-digit"
+            });
+        }
+
+        function historyStatusLabel(status) {
+            const labels = {
+                ai: "AI chat",
+                open: "Open ticket",
+                in_progress: "In progress",
+                pending: "Pending",
+                reopened: "Reopened",
+                resolved: "Resolved"
+            };
+            return labels[status] || status || "AI chat";
+        }
+
+        function renderChatHistory() {
+            const history = readChatHistory();
+            chatHistoryList.classList.remove("detail-open");
+            chatHistoryDetail.classList.remove("open");
+            chatHistoryList.replaceChildren();
+
+            if (!history.length) {
+                const empty = document.createElement("div");
+                empty.className = "chat-history-empty";
+                empty.innerHTML = `
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/><path d="M8 10h8M8 14h5"/></svg>
+                    <strong>No conversations yet</strong>
+                    <span>Your chats will appear here on this browser.</span>
+                `;
+                chatHistoryList.appendChild(empty);
+                return;
+            }
+
+            history.forEach(conversation => {
+                const item = document.createElement("button");
+                item.type = "button";
+                item.className = "chat-history-item";
+
+                const summary = document.createElement("div");
+                const title = document.createElement("strong");
+                title.textContent = conversation.title || "Conversation";
+                const meta = document.createElement("span");
+                meta.textContent = [
+                    formatHistoryTime(conversation.updatedAt),
+                    conversation.ticketNumber
+                ].filter(Boolean).join(" · ");
+                summary.append(title, meta);
+
+                const status = document.createElement("span");
+                status.className = `chat-history-status ${conversation.status || "ai"}`;
+                status.textContent = historyStatusLabel(conversation.status);
+                item.append(summary, status);
+                item.addEventListener("click", () => openHistoryDetail(conversation));
+                chatHistoryList.appendChild(item);
+            });
+        }
+
+        function openHistoryDetail(conversation) {
+            chatHistoryDetailTitle.textContent = conversation.title || "Conversation";
+            chatHistoryDetailMeta.textContent = [
+                formatHistoryTime(conversation.createdAt),
+                conversation.ticketNumber,
+                historyStatusLabel(conversation.status)
+            ].filter(Boolean).join(" · ");
+            chatHistoryTranscript.replaceChildren();
+
+            (conversation.messages || []).forEach(message => {
+                const bubble = document.createElement("div");
+                bubble.className = `history-message ${message.sender || "bot"}`;
+                const meta = document.createElement("span");
+                meta.className = "history-message-meta";
+                meta.textContent = `${message.sender === "user" ? "You" : message.sender === "agent" ? "Support" : "Novara CX AI"} · ${formatHistoryTime(message.at)}`;
+                const content = document.createElement("span");
+                content.textContent = message.text || "";
+                bubble.append(meta, content);
+                chatHistoryTranscript.appendChild(bubble);
+            });
+
+            chatHistoryList.classList.add("detail-open");
+            chatHistoryDetail.classList.add("open");
+            chatHistoryDetail.scrollTop = 0;
+        }
+
+        function openChatHistory() {
+            chatWindow.classList.add("history-open");
+            chatHistoryBtn.setAttribute("aria-pressed", "true");
+            renderChatHistory();
+        }
+
+        function closeChatHistory() {
+            chatWindow.classList.remove("history-open");
+            chatHistoryBtn.setAttribute("aria-pressed", "false");
+            chatInput.focus();
+        }
+
+        function scrollChatToLatest() {
+            requestAnimationFrame(() => {
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            });
+        }
+
+
+        // ==========================================
+        // OPEN / CLOSE
+        // ==========================================
+
+        chatToggle.addEventListener(
+            "click",
+            () => {
+
+                chatWindow.classList.toggle(
+                    "open"
+                );
+
+
+                chatToggle.classList.toggle(
+                    "open",
+                    chatWindow.classList.contains(
+                        "open"
+                    )
+                );
+
+                chatToggle.setAttribute(
+                    "aria-expanded",
+                    chatWindow.classList.contains("open") ? "true" : "false"
+                );
+
+
+                if (
+                    chatWindow.classList.contains(
+                        "open"
+                    )
+                ) {
+
+                    unresolvedReminderShown = false;
+                    document.body.classList.add("chat-open");
+                    chatInput.focus();
+                    scrollChatToLatest();
+
+                } else {
+
+                    document.body.classList.remove("chat-open");
+
+                }
+
+            }
+        );
+
+
+        chatClose.addEventListener(
+            "click",
+            () => {
+
+                chatWindow.classList.remove(
+                    "open"
+                );
+
+
+                chatToggle.classList.remove(
+                    "open"
+                );
+
+                chatToggle.setAttribute("aria-expanded", "false");
+                document.body.classList.remove("chat-open");
+                chatWindow.classList.remove("history-open");
+                chatHistoryBtn.setAttribute("aria-pressed", "false");
+
+            }
+        );
+
+
+        // ==========================================
+        // MESSAGE FORMATTING, DELIVERY AND STREAMING
+        // ==========================================
+
+        function formatMessageHtml(text) {
+            return String(text || "")
+                .replace(/\*\*\*(.*?)\*\*\*/g, "<b><i>$1</i></b>")
+                .replace(/\*\*(.*?)\*\*/g, "<b>$1</b>")
+                .replace(/\*(.*?)\*/g, "<i>$1</i>")
+                .replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>')
+                .replace(/\n/g, "<br>");
+        }
+
+        const DELIVERY_ICONS = {
+            sending: '<svg viewBox="0 0 12 12" aria-hidden="true"><circle cx="6" cy="6" r="4.5"></circle><path d="M6 3.5v2.8l1.8 1"></path></svg>',
+            sent: '<svg viewBox="0 0 18 12" aria-hidden="true"><polyline points="2,6.5 5.1,9.4 11.5,2.7"></polyline></svg>',
+            delivered: '<svg viewBox="0 0 20 12" aria-hidden="true"><polyline points="1.5,6.5 4.6,9.4 11,2.7"></polyline><polyline points="7.2,7.2 9.5,9.4 16.3,2.7"></polyline></svg>'
+        };
+
+        function setMessageDelivery(row, state, retry = null) {
+            if (!row || !row.classList.contains("user")) return;
+            let status = row.querySelector(".message-delivery");
+            if (!status) {
+                status = document.createElement("span");
+                status.className = "message-delivery";
+                row.querySelector(".msg.user")?.appendChild(status);
+            }
+            status.className = `message-delivery ${state}`;
+            status.setAttribute("aria-label", state === "sending" ? "Sending" : state === "sent" ? "Sent" : state === "delivered" ? "Delivered" : "Message failed");
+            if (state === "failed") {
+                status.innerHTML = '<span>Not sent</span><button type="button">Retry</button>';
+                if (retry) status.querySelector("button").addEventListener("click", retry, { once:true });
+                return;
+            }
+            status.innerHTML = DELIVERY_ICONS[state] || DELIVERY_ICONS.sent;
+        }
+
+        async function streamMessage(text, sender = "bot", escalationData = null, allowRating = true) {
+            const row = renderMessage("", sender, false, null, false);
+            const bubble = row.querySelector(".msg");
+            const words = String(text || "").split(/(\s+)/).filter(Boolean);
+            const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+            const chunkSize = Math.max(1, Math.ceil(words.length / 75));
+            const delay = reducedMotion ? 0 : Math.max(12, Math.min(30, Math.floor(2200 / Math.max(words.length / chunkSize, 1))));
+            let visible = "";
+
+            bubble.setAttribute("aria-busy", "true");
+            for (let index = 0; index < words.length; index += chunkSize) {
+                visible += words.slice(index, index + chunkSize).join("");
+                bubble.textContent = visible;
+                const cursor = document.createElement("i");
+                cursor.className = "msg-stream-cursor";
+                cursor.setAttribute("aria-hidden", "true");
+                bubble.appendChild(cursor);
+                scrollChatToLatest();
+                if (delay) await new Promise(resolve => setTimeout(resolve, delay));
+            }
+
+            row.remove();
+            return renderMessage(text, sender, allowRating, escalationData, true);
+        }
+
+        const CSAT_LABELS = {
+            1: "Very Dissatisfied",
+            2: "Dissatisfied",
+            3: "Neutral",
+            4: "Satisfied",
+            5: "Very Satisfied"
+        };
+
+        function showCsatPrompt() {
+            document.getElementById("chatCsatPrompt")?.remove();
+            const prompt = document.createElement("div");
+            prompt.id = "chatCsatPrompt";
+            prompt.className = "csat-prompt";
+            prompt.setAttribute("role", "group");
+            prompt.setAttribute("aria-label", "Rate this chat from 1 to 5");
+            prompt.innerHTML = `
+                <span>Was this helpful?</span>
+                <div class="csat-options">
+                    ${Object.entries(CSAT_LABELS).map(([score, label]) => `
+                        <button class="csat-option" type="button" data-score="${score}" aria-label="${score}, ${label}" title="${label}" aria-pressed="false">${score}</button>
+                    `).join("")}
+                </div>
+            `;
+            chatMessages.appendChild(prompt);
+            scrollChatToLatest();
+
+            prompt.querySelectorAll(".csat-option").forEach(button => {
+                button.addEventListener("click", async () => {
+                    const score = Number(button.dataset.score);
+                    prompt.querySelectorAll(".csat-option").forEach(option => {
+                        option.disabled = true;
+                        option.setAttribute("aria-pressed", option === button ? "true" : "false");
+                    });
+                    const history = readChatHistory();
+                    const conversation = history.find(item => item.sessionId === sessionId);
+                    if (conversation) {
+                        conversation.csat = score;
+                        conversation.csatLabel = CSAT_LABELS[score];
+                        writeChatHistory(history);
+                    }
+                    try {
+                        await fetch(WORKER_URL, {
+                            method: "POST",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify({ message: `csat:${score}`, sessionId })
+                        });
+                    } catch (error) {
+                        console.error("CSAT submission error:", error);
+                    }
+                    prompt.replaceChildren();
+                    const thanks = document.createElement("span");
+                    thanks.className = "csat-thanks";
+                    thanks.textContent = `Thanks · ${score}/5`;
+                    prompt.appendChild(thanks);
+                }, { once:true });
+            });
+        }
+
+        // ==========================================
+        // RENDER MESSAGE
+        // ==========================================
+
+        function renderMessage(
+            text,
+            sender,
+            allowRating = true,
+            escalationData = null,
+            persistHistory = true,
+            deliveryState = null
+        ) {
+
+            const row =
+                document.createElement(
+                    "div"
+                );
+
+
+            row.classList.add(
+                "msg-row",
+                sender
+            );
+
+
+            if (
+                sender === "bot" ||
+                sender === "agent"
+            ) {
+
+                const avatar =
+                    document.createElement(
+                        "span"
+                    );
+
+
+                avatar.classList.add(
+                    "msg-avatar"
+                );
+
+
+                avatar.innerHTML =
+                    '<img src="assets/logo-mark.png" alt="">';
+
+
+                row.appendChild(
+                    avatar
+                );
+
+            }
+
+
+            const div =
+                document.createElement(
+                    "div"
+                );
+
+
+            div.classList.add(
+                "msg",
+                sender
+            );
+
+
+            const shouldAskCsat =
+
+                sender === "bot" &&
+
+                allowRating &&
+
+                text.includes(
+                    "[✅ Yes]"
+                );
+
+
+            let displayText =
+                text;
+
+
+            const hasRating = false;
+
+            let ratingHtml =
+                "";
+
+
+            if (
+                shouldAskCsat
+            ) {
+
+                const parts =
+                    text.split(
+                        "[✅ Yes]"
+                    );
+
+
+                displayText =
+                    parts[0].trim();
+
+
+            }
+
+
+            const html = formatMessageHtml(displayText);
+
+
+            div.innerHTML =
+                html;
+
+
+            // ==========================================
+            // ESCALATION BADGE & WAITING STATUS
+            // ==========================================
+
+            if (
+                escalationData &&
+                escalationData.escalatedToHuman === 1
+            ) {
+
+                // Always show the waiting status when escalated
+                const status =
+                    document.createElement(
+                        "div"
+                    );
+
+                status.className =
+                    "escalation-status";
+
+                status.innerHTML =
+                    `<span class="pulse"></span> Details required for human support`;
+
+                div.appendChild(
+                    status
+                );
+
+                // Only show the badge if the AI didn't already mention it
+                const alreadyMentionsHuman =
+                    displayText.toLowerCase().includes('human') ||
+                    displayText.toLowerCase().includes('agent') ||
+                    displayText.toLowerCase().includes('speak') ||
+                    displayText.toLowerCase().includes('contact') ||
+                    displayText.toLowerCase().includes('call') ||
+                    displayText.toLowerCase().includes('team') ||
+                    displayText.toLowerCase().includes('connect') ||
+                    displayText.toLowerCase().includes('someone');
+
+                if (!alreadyMentionsHuman) {
+
+                    const badge =
+                        document.createElement(
+                            "div"
+                        );
+
+                    badge.className =
+                        "escalation-badge";
+
+                    badge.innerHTML =
+                        `<span class="icon">👤</span> Human Handoff Available`;
+
+                    div.appendChild(
+                        badge
+                    );
+
+                }
+
+            }
+
+
+            if (
+                ratingHtml
+            ) {
+
+                const tempDiv =
+                    document.createElement(
+                        "div"
+                    );
+
+
+                tempDiv.innerHTML =
+                    ratingHtml;
+
+
+                while (
+                    tempDiv.firstChild
+                ) {
+
+                    div.appendChild(
+                        tempDiv.firstChild
+                    );
+
+                }
+
+            }
+
+
+            row.appendChild(
+                div
+            );
+
+            if (sender === "user" && deliveryState) {
+                setMessageDelivery(row, deliveryState);
+            }
+
+
+            chatMessages.appendChild(
+                row
+            );
+
+
+            chatMessages.scrollTop =
+                chatMessages.scrollHeight;
+
+            if (persistHistory) {
+                recordHistoryMessage(displayText, sender);
+            }
+
+
+            if (
+                hasRating
+            ) {
+
+                div
+                    .querySelectorAll(
+                        ".rating-btn"
+                    )
+                    .forEach(
+                        btn => {
+
+                            btn.addEventListener(
+                                "click",
+                                function(e) {
+
+                                    e.stopPropagation();
+
+                                    sendMessage(
+                                        this.dataset.rating
+                                    );
+
+                                }
+                            );
+
+                        }
+                    );
+
+            }
+
+            if (shouldAskCsat) {
+                showCsatPrompt();
+            }
+
+            return row;
+
+        }
+
+
+        // ==========================================
+        // HUMAN TICKET HANDOFF
+        // ==========================================
+
+        function showTicketContactForm() {
+            if (activeTicket || awaitingHumanName) return;
+            awaitingHumanName = true;
+            renderMessage("Before I connect you, what name should I share with the support agent?", "bot", false);
+            chatInput.placeholder = "Type your name…";
+            chatInput.focus();
+        }
+
+
+        async function createHumanTicket(name, outgoingRow = null) {
+            try {
+                const response = await fetch(`${WORKER_URL}ticket/create`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ sessionId, browserId, name })
+                });
+                const data = await response.json();
+                if (!response.ok) throw new Error(data.error || "Could not create ticket.");
+
+                activeTicket = data.ticket;
+                lastTicketStatus = data.ticket.status;
+                awaitingHumanName = false;
+                chatInput.placeholder = "Type your message…";
+                setMessageDelivery(outgoingRow, "delivered");
+                renderMessage(
+                    `Your ticket **${data.ticket.ticketNumber}** has been created. Novara CX Support will reply here shortly.`,
+                    "agent",
+                    false
+                );
+                updateHumanChatStatus();
+            } catch (error) {
+                awaitingHumanName = true;
+                setMessageDelivery(outgoingRow, "failed", () => createHumanTicket(name, outgoingRow));
+                renderMessage(error.message || "I could not connect you just now. Please try your name again.", "bot", false);
+            }
+
+        }
+
+
+        function updateHumanChatStatus() {
+            let status = document.getElementById("humanChatStatus");
+            if (!activeTicket) {
+                status?.remove();
+                return;
+            }
+            if (!status) {
+                status = document.createElement("div");
+                status.id = "humanChatStatus";
+                status.className = "human-chat-status";
+                chatMessages.appendChild(status);
+            }
+            const labels = {
+                open: "Waiting for Novara CX Support",
+                in_progress: "Connected to Novara CX Support",
+                pending: "Waiting for your response",
+                reopened: "Ticket reopened",
+                resolved: "Ticket resolved"
+            };
+            status.textContent = `${activeTicket.ticket_number || activeTicket.ticketNumber || "Ticket"} · ${labels[activeTicket.status] || activeTicket.status}`;
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+            syncCurrentHistoryMetadata();
+        }
+
+
+        function startFreshAiSession() {
+            sessionId = createSessionId();
+            localStorage.setItem("novara_session_id", sessionId);
+            touchSessionActivity();
+            activeTicket = null;
+            lastTicketStatus = null;
+            lastTicketMessageId = 0;
+            unresolvedBrowserTicket = null;
+            awaitingHumanName = false;
+            chatInput.placeholder = "Type your message…";
+            document.getElementById("humanChatStatus")?.remove();
+            document.getElementById("ticketResolutionChoices")?.remove();
+            chatInput.disabled = false;
+            chatSend.disabled = false;
+            renderMessage("You’re now chatting with Novara CX AI. How can I help?", "bot", false);
+            chatInput.focus();
+        }
+
+        function startNewConversationFromHistory() {
+            if (activeTicket && activeTicket.status !== "resolved") {
+                closeChatHistory();
+                renderMessage("Your human-support ticket is still active, so I’ve kept you in the same conversation.", "agent", false);
+                return;
+            }
+
+            sessionId = createSessionId();
+            localStorage.setItem("novara_session_id", sessionId);
+            touchSessionActivity();
+            activeTicket = null;
+            lastTicketStatus = null;
+            lastTicketMessageId = 0;
+            unresolvedBrowserTicket = null;
+            unresolvedReminderShown = false;
+            awaitingHumanName = false;
+            chatInput.placeholder = "Type your message…";
+            chatMessages.replaceChildren();
+            chatInput.disabled = false;
+            chatSend.disabled = false;
+            document.getElementById("quickReplies")?.removeAttribute("hidden");
+            closeChatHistory();
+            renderMessage("You’re now chatting with Novara CX AI. How can I help?", "bot", false);
+            chatInput.focus();
+        }
+
+
+        function showResolutionChoices(ticket) {
+            if (document.getElementById("ticketResolutionChoices")) return;
+
+            const card = document.createElement("div");
+            card.id = "ticketResolutionChoices";
+            card.className = "ticket-choice-card";
+            card.innerHTML = `
+                <strong>${ticket.ticket_number || "Your ticket"} has been resolved.</strong><br>
+                What would you like to do?
+                <div class="ticket-choice-actions">
+                    <button id="continueWithAi" class="ticket-choice-btn primary" type="button">Continue chatting with AI</button>
+                    <button id="reopenResolvedTicket" class="ticket-choice-btn" type="button">Reopen ticket</button>
+                </div>
+            `;
+            chatMessages.appendChild(card);
+            showCsatPrompt();
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+            chatInput.disabled = true;
+            chatSend.disabled = true;
+
+            document.getElementById("continueWithAi").addEventListener("click", startFreshAiSession);
+            document.getElementById("reopenResolvedTicket").addEventListener("click", async () => {
+                try {
+                    const response = await fetch(`${WORKER_URL}ticket/update`, {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ ticketId: ticket.id, action: "reopen" })
+                    });
+                    const data = await response.json();
+                    if (!response.ok) throw new Error(data.error || "Could not reopen ticket.");
+                    activeTicket = data.ticket;
+                    lastTicketStatus = data.ticket.status;
+                    card.remove();
+                    chatInput.disabled = false;
+                    chatSend.disabled = false;
+                    renderMessage("Your ticket has been reopened. Continue your conversation with Novara CX Support here.", "agent", false);
+                    updateHumanChatStatus();
+                    chatInput.focus();
+                } catch (error) {
+                    renderMessage(error.message || "Could not reopen the ticket.", "agent", false);
+                }
+            });
+        }
+
+
+        async function findUnresolvedBrowserTicket() {
+            try {
+                const response = await fetch(`${WORKER_URL}browser-ticket?browser=${encodeURIComponent(browserId)}`);
+                if (!response.ok) return;
+                const data = await response.json();
+                if (data.ticket && (!activeTicket || Number(data.ticket.id) !== Number(activeTicket.id))) {
+                    unresolvedBrowserTicket = data.ticket;
+                }
+            } catch (error) {
+                console.error("Past ticket lookup error:", error);
+            }
+        }
+
+
+        function showUnresolvedTicketReminder() {
+            if (!unresolvedBrowserTicket || unresolvedReminderShown || activeTicket) return;
+            unresolvedReminderShown = true;
+
+            const card = document.createElement("div");
+            card.className = "ticket-choice-card";
+            card.innerHTML = `
+                You still have an unresolved support request: <strong>${unresolvedBrowserTicket.ticket_number}</strong>.
+                <div class="ticket-choice-actions">
+                    <button class="ticket-choice-btn primary" type="button">Continue chat with human</button>
+                </div>
+            `;
+            chatMessages.appendChild(card);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+
+            card.querySelector("button").addEventListener("click", async () => {
+                sessionId = unresolvedBrowserTicket.session_id;
+                localStorage.setItem("novara_session_id", sessionId);
+                touchSessionActivity();
+                activeTicket = unresolvedBrowserTicket;
+                lastTicketStatus = unresolvedBrowserTicket.status;
+                lastTicketMessageId = 0;
+                card.remove();
+                await pollTicketMessages();
+                updateHumanChatStatus();
+                chatInput.focus();
+            });
+        }
+
+
+        async function pollTicketMessages() {
+            try {
+                const response = await fetch(`${WORKER_URL}ticket-status?session=${encodeURIComponent(sessionId)}&after=${lastTicketMessageId}`);
+                if (!response.ok) return;
+                const data = await response.json();
+                if (!data.ticket) return;
+
+                const previousStatus = lastTicketStatus;
+                activeTicket = data.ticket;
+                lastTicketStatus = data.ticket.status;
+
+                (data.messages || []).forEach(item => {
+                    lastTicketMessageId = Math.max(lastTicketMessageId, Number(item.id) || 0);
+                    renderMessage(item.message, item.sender_type === "agent" ? "agent" : "user", false);
+                });
+
+                if (data.ticket.status === "resolved" && previousStatus !== "resolved") {
+                    renderMessage(
+                        `This ticket has been resolved. ${data.ticket.resolution_note ? `Resolution: ${data.ticket.resolution_note}` : ""}`,
+                        "agent",
+                        false
+                    );
+                    showResolutionChoices(data.ticket);
+                }
+
+                updateHumanChatStatus();
+            } catch (error) {
+                console.error("Ticket polling error:", error);
+            }
+        }
+
+
+        async function sendCustomerTicketMessage(message) {
+            if (activeTicket?.status === "resolved") {
+                showResolutionChoices(activeTicket);
+                return;
+            }
+
+            const response = await fetch(`${WORKER_URL}ticket/customer-message`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ sessionId, message })
+            });
+            const data = await response.json();
+            if (!response.ok) throw new Error(data.error || "Message could not be sent.");
+            lastTicketMessageId = Math.max(lastTicketMessageId, Number(data.messageId) || 0);
+        }
+
+
+        // ==========================================
+        // TYPING
+        // ==========================================
+
+        function showTyping() {
+
+            const row =
+                document.createElement(
+                    "div"
+                );
+
+
+            row.classList.add(
+                "msg-row",
+                "bot"
+            );
+
+
+            row.id =
+                "typingIndicator";
+
+
+            row.innerHTML = `
+
+                <span class="msg-avatar">
+
+                    <img
+                        src="assets/logo-mark.png"
+                        alt=""
+                    >
+
+                </span>
+
+                <div class="msg bot">
+
+                    <div class="typing-indicator">
+
+                        <span></span>
+                        <span></span>
+                        <span></span>
+
+                    </div>
+
+                </div>
+
+            `;
+
+
+            chatMessages.appendChild(
+                row
+            );
+
+
+            chatMessages.scrollTop =
+                chatMessages.scrollHeight;
+
+        }
+
+
+        function hideTyping() {
+
+            const typing =
+                document.getElementById(
+                    "typingIndicator"
+                );
+
+
+            if (
+                typing
+            ) {
+
+                typing.remove();
+
+            }
+
+        }
+
+
+        // ==========================================
+        // SEND MESSAGE
+        // ==========================================
+
+        async function sendMessage(
+            message
+        ) {
+
+            if (
+                !message ||
+                message.trim() === ""
+            ) {
+
+                return;
+
+            }
+
+            touchSessionActivity();
+
+
+            const outgoingRow = renderMessage(
+                message,
+                "user",
+                false,
+                null,
+                true,
+                "sending"
+            );
+
+
+            chatInput.value =
+                "";
+
+            chatInput.style.height = "auto";
+            localStorage.removeItem(CHAT_DRAFT_KEY);
+
+
+            chatInput.disabled =
+                true;
+
+
+            chatSend.disabled =
+                true;
+
+            if (awaitingHumanName && !activeTicket) {
+                const name = message.trim();
+                if (name.length < 2) {
+                    setMessageDelivery(outgoingRow, "delivered");
+                    renderMessage("Please enter the name you would like the support agent to use.", "bot", false);
+                    chatInput.disabled = false;
+                    chatSend.disabled = false;
+                    chatInput.focus();
+                    return;
+                }
+                setMessageDelivery(outgoingRow, "sent");
+                await createHumanTicket(name, outgoingRow);
+                chatInput.disabled = false;
+                chatSend.disabled = false;
+                chatInput.focus();
+                return;
+            }
+
+
+            if (activeTicket && activeTicket.status !== "resolved") {
+                try {
+                    await sendCustomerTicketMessage(message);
+                    setMessageDelivery(outgoingRow, "delivered");
+                } catch (error) {
+                    setMessageDelivery(outgoingRow, "failed", () => {
+                        outgoingRow.remove();
+                        sendMessage(message);
+                    });
+                    renderMessage(error.message || "Your message could not be sent.", "agent", false);
+                } finally {
+                    chatInput.disabled = false;
+                    chatSend.disabled = false;
+                    chatInput.focus();
+                }
+                return;
+            }
+
+            showTyping();
+
+
+            try {
+
+                const response =
+                    await fetch(
+                        WORKER_URL,
+                        {
+
+                            method:
+                                "POST",
+
+                            headers:
+                            {
+                                "Content-Type":
+                                    "application/json"
+                            },
+
+                            body:
+                                JSON.stringify({
+
+                                    message:
+                                        message,
+
+                                    sessionId:
+                                        sessionId
+
+                                })
+
+                        }
+                    );
+
+                if (!response.ok) {
+                    throw new Error(`Chat request failed (${response.status})`);
+                }
+
+                setMessageDelivery(outgoingRow, "sent");
+
+
+                const data =
+                    await response.json();
+
+                setMessageDelivery(outgoingRow, "delivered");
+
+
+                hideTyping();
+
+
+                if (
+                    data.sessionId
+                ) {
+
+                    sessionId =
+                        data.sessionId;
+
+
+                    localStorage.setItem(
+                        "novara_session_id",
+                        sessionId
+                    );
+
+                }
+
+
+                // ==========================================
+                // ESCALATION DATA
+                // ==========================================
+
+                const escalationData = {
+                    escalatedToHuman: data.escalatedToHuman || 0,
+                    escalationReason: data.escalationReason || null,
+                    escalationMessage: data.escalationMessage || null
+                };
+
+
+                if (
+                    data.reply
+                ) {
+
+                    await streamMessage(
+                        data.reply,
+                        "bot",
+                        escalationData
+                    );
+
+                } else {
+
+                    await streamMessage(
+                        "I'm not sure how to answer that. Would you like to book a discovery call?",
+                        "bot",
+                        escalationData
+                    );
+
+                }
+
+                if (escalationData.escalatedToHuman === 1) {
+                    showTicketContactForm();
+                } else {
+                    showUnresolvedTicketReminder();
+                }
+
+            } catch (error) {
+
+                hideTyping();
+
+
+                console.error(
+                    "Chatbot error:",
+                    error
+                );
+
+                setMessageDelivery(outgoingRow, "failed", () => {
+                    outgoingRow.remove();
+                    sendMessage(message);
+                });
+
+
+                renderMessage(
+                    "Something went wrong. Please try again or book a discovery call directly.",
+                    "bot"
+                );
+
+            } finally {
+
+                chatInput.disabled =
+                    false;
+
+
+                chatSend.disabled =
+                    false;
+
+
+                chatInput.focus();
+
+            }
+
+        }
+
+
+        // ==========================================
+        // LOAD EXISTING CONVERSATION
+        // ==========================================
+
+        async function loadExistingConversation() {
+
+            if (
+                !sessionFromUrl
+            ) {
+
+                return false;
+
+            }
+
+
+            try {
+
+                const response =
+                    await fetch(
+
+                        `${WORKER_URL}conversation?session=${encodeURIComponent(
+                            sessionFromUrl
+                        )}`
+
+                    );
+
+
+                if (
+                    !response.ok
+                ) {
+
+                    console.error(
+                        "Conversation restore failed:",
+                        response.status
+                    );
+
+                    return false;
+
+                }
+
+
+                const messages =
+                    await response.json();
+
+
+                if (
+                    !Array.isArray(
+                        messages
+                    ) ||
+                    messages.length === 0
+                ) {
+
+                    return false;
+
+                }
+
+
+                chatMessages.innerHTML =
+                    "";
+
+
+                messages.forEach(
+                    conversation => {
+
+                        if (
+                            conversation.user_message
+                        ) {
+
+                            renderMessage(
+
+                                conversation.user_message,
+
+                                "user",
+
+                                false,
+
+                                null,
+
+                                false
+
+                            );
+
+                        }
+
+
+                        if (
+                            conversation.bot_reply
+                        ) {
+
+                            const isEscalated =
+                                conversation.escalated_to_human === 1;
+
+
+                            const escalationData = {
+                                escalatedToHuman: isEscalated ? 1 : 0,
+                                escalationReason: conversation.escalation_reason || null,
+                                escalationMessage: null
+                            };
+
+
+                            renderMessage(
+
+                                conversation.bot_reply,
+
+                                "bot",
+
+                                false,
+
+                                escalationData,
+
+                                false
+
+                            );
+
+                        }
+
+                    }
+                );
+
+
+                return true;
+
+            } catch (error) {
+
+                console.error(
+                    "Conversation restore error:",
+                    error
+                );
+
+
+                return false;
+
+            }
+
+        }
+
+
+        // ==========================================
+        // EVENTS
+        // ==========================================
+
+        chatSend.addEventListener(
+            "click",
+            () => {
+
+                const msg =
+                    chatInput.value.trim();
+
+
+                if (
+                    msg
+                ) {
+
+                    sendMessage(
+                        msg
+                    );
+
+                }
+
+            }
+        );
+
+
+        chatInput.addEventListener(
+            "keydown",
+            e => {
+
+                if (
+                    e.key === "Enter" && !e.shiftKey
+                ) {
+
+                    e.preventDefault();
+
+
+                    const msg =
+                        chatInput.value.trim();
+
+
+                    if (
+                        msg
+                    ) {
+
+                        sendMessage(
+                            msg
+                        );
+
+                    }
+
+                }
+
+            }
+        );
+
+        chatInput.addEventListener(
+            "input",
+            () => {
+                chatInput.style.height = "auto";
+                chatInput.style.height = `${Math.min(chatInput.scrollHeight, 132)}px`;
+                try {
+                    localStorage.setItem(CHAT_DRAFT_KEY, chatInput.value);
+                } catch (_) {}
+            }
+        );
+
+        chatInput.addEventListener("focus", () => {
+            setTimeout(scrollChatToLatest, 250);
+        });
+
+        chatHistoryBtn.addEventListener("click", () => {
+            if (chatWindow.classList.contains("history-open")) {
+                closeChatHistory();
+            } else {
+                openChatHistory();
+            }
+        });
+
+        chatHistoryBack.addEventListener("click", renderChatHistory);
+        chatHistoryContinue.addEventListener("click", closeChatHistory);
+        chatHistoryNew.addEventListener("click", startNewConversationFromHistory);
+
+        if (window.visualViewport) {
+            window.visualViewport.addEventListener("resize", () => {
+                if (chatWindow.classList.contains("open")) scrollChatToLatest();
+            });
+        }
+
+
+        quickReplyBtns.forEach(
+            btn => {
+
+                btn.addEventListener(
+                    "click",
+                    () => {
+
+                        const q =
+                            btn.getAttribute(
+                                "data-question"
+                            );
+
+
+                        sendMessage(
+                            q
+                        );
+
+                    }
+                );
+
+            }
+        );
+
+
+        // ==========================================
+        // INITIAL CHAT LOAD
+        // ==========================================
+
+        window.addEventListener(
+            "load",
+            async () => {
+
+                await pollTicketMessages();
+                setInterval(pollTicketMessages, 3000);
+
+                const savedDraft = localStorage.getItem(CHAT_DRAFT_KEY) || "";
+                if (savedDraft) {
+                    chatInput.value = savedDraft;
+                    chatInput.style.height = "auto";
+                    chatInput.style.height = `${Math.min(chatInput.scrollHeight, 132)}px`;
+                }
+
+                if (activeTicket) {
+                    chatWindow.classList.add("open");
+                    chatToggle.classList.add("open");
+                    chatToggle.setAttribute("aria-expanded", "true");
+                    document.body.classList.add("chat-open");
+                    chatInput.focus();
+                    return;
+                }
+
+                await findUnresolvedBrowserTicket();
+
+                const restored =
+                    await loadExistingConversation();
+
+
+                if (
+                    restored
+                ) {
+
+                    chatWindow.classList.add(
+                        "open"
+                    );
+
+
+                    chatToggle.classList.add(
+                        "open"
+                    );
+
+                    chatToggle.setAttribute("aria-expanded", "true");
+                    document.body.classList.add("chat-open");
+
+
+                    chatInput.focus();
+
+
+                    return;
+
+                }
+
+
+                setTimeout(
+                    () => {
+
+                        renderMessage(
+
+                            "👋 Hi! I’m the Novara CX assistant. Ask me about our services, pricing, reducing support workload—or connect with a person whenever you need.",
+
+                            "bot"
+
+                        );
+
+                    },
+
+                    600
+
+                );
+
+            }
+        );
+
+
+        // ==========================================
+        // CLICK OUTSIDE
+        // ==========================================
+
+        document.addEventListener(
+            "click",
+            e => {
+
+                if (
+
+                    chatWindow.classList.contains(
+                        "open"
+                    ) &&
+
+                    !chatWindow.contains(
+                        e.target
+                    ) &&
+
+                    !chatToggle.contains(
+                        e.target
+                    )
+
+                ) {
+
+                    chatWindow.classList.remove(
+                        "open"
+                    );
+
+
+                    chatToggle.classList.remove(
+                        "open"
+                    );
+
+                    chatToggle.setAttribute("aria-expanded", "false");
+                    document.body.classList.remove("chat-open");
+                    chatWindow.classList.remove("history-open");
+                    chatHistoryBtn.setAttribute("aria-pressed", "false");
+
+                }
+
+            }
+        );
+
+    
+})();
+</script>
 </body>
 </html>
