@@ -1160,11 +1160,6 @@ body>header .nav{height:68px}body>header .logo{color:#102018}body>header .nav-li
 @media (max-width: 480px){.chatbot-window{height:420px;bottom:84px}}
 </style>
 
-<style id="temporary-live-preview-removal">
-/* Temporarily remove the embedded NovaraDesk live-site preview without affecting surrounding sections. */
-#mvp-product-tour{display:none!important}
-a[href="#mvp-product-tour"]{display:none!important}
-</style>
 </head>
 <body>
 <a class="skip-link" href="#mvp-home">Skip to main content</a>
@@ -6035,18 +6030,5 @@ body.preview-is-expanded{overflow:hidden!important}
 })();
 </script>
 
-<script id="temporary-live-preview-removal-script">
-(() => {
-  const removeLivePreview = () => {
-    document.querySelector('#mvp-product-tour')?.remove();
-    document.querySelectorAll('a[href="#mvp-product-tour"]').forEach(link => {
-      const item = link.closest('li');
-      (item || link).remove();
-    });
-  };
-  removeLivePreview();
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', removeLivePreview, { once:true });
-})();
-</script>
 </body>
 </html>
