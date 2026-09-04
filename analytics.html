@@ -5909,6 +5909,197 @@
         }
     </style>
 
+
+    <style id="model-workspace-redesign">
+        #chatbotTab-model .admin-grid-2{
+            grid-template-columns:minmax(0,1.45fr) minmax(340px,.8fr);
+            align-items:start;
+            gap:18px;
+        }
+        #chatbotTab-model .admin-card{
+            border-radius:18px;
+            box-shadow:0 12px 30px rgba(0,0,0,.07);
+        }
+        #chatbotTab-model .model-config-card{padding:26px}
+        #chatbotTab-model .model-profile-card{
+            padding:26px;
+            background:color-mix(in srgb,var(--surface) 96%,var(--accent) 4%);
+        }
+        #chatbotTab-model .admin-card-head{margin-bottom:24px}
+        #chatbotTab-model .admin-card-head h3{
+            margin:4px 0 5px;
+            font-size:19px;
+            letter-spacing:-.35px;
+        }
+        #chatbotTab-model .admin-card-head p{font-size:12px;line-height:1.5}
+        #chatbotTab-model .model-eyebrow{
+            display:block;
+            color:var(--accent);
+            font-size:9px;
+            font-weight:800;
+            letter-spacing:.14em;
+            text-transform:uppercase;
+        }
+        #chatbotTab-model .model-connection-state{
+            display:inline-flex;
+            align-items:center;
+            gap:7px;
+            color:var(--text-secondary);
+            font-size:11px;
+            font-weight:700;
+        }
+        #chatbotTab-model .model-connection-state i{
+            width:7px;height:7px;border-radius:50%;
+            background:var(--success);
+        }
+        #chatbotTab-model .model-connection-state.disconnected i{background:var(--text-muted)}
+        #chatbotTab-model .admin-form-grid{gap:16px}
+        #chatbotTab-model .admin-field > span{
+            margin-bottom:8px;
+            font-size:10px;
+            letter-spacing:.1em;
+        }
+        #chatbotTab-model .admin-field input,
+        #chatbotTab-model .admin-field select{
+            min-height:48px;
+            background:color-mix(in srgb,var(--surface-light) 82%,transparent);
+        }
+        #chatbotTab-model .response-style-options{
+            padding:4px;
+            border:1px solid var(--border);
+            border-radius:13px;
+            background:var(--surface-alt);
+        }
+        #chatbotTab-model .response-style-btn{
+            min-height:42px;
+            border:0;
+            border-radius:9px;
+        }
+        #chatbotTab-model .response-style-btn.active{
+            color:#fff;
+            background:var(--accent-dark);
+            box-shadow:0 5px 14px color-mix(in srgb,var(--accent-dark) 22%,transparent);
+        }
+        #chatbotTab-model .advanced-settings{
+            margin-top:18px;
+            border-radius:13px;
+            background:transparent;
+        }
+        #chatbotTab-model .advanced-settings summary{
+            min-height:50px;
+            display:flex;
+            align-items:center;
+            padding:0 16px;
+            font-size:12px;
+        }
+        #chatbotTab-model .advanced-settings summary::after{
+            content:"+";
+            margin-left:auto;
+            color:var(--muted);
+            font-size:18px;
+            font-weight:500;
+        }
+        #chatbotTab-model .advanced-settings[open] summary::after{content:"−"}
+        #chatbotTab-model .model-save-row{
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            gap:16px;
+            margin-top:20px;
+            padding-top:18px;
+            border-top:1px solid var(--border);
+        }
+        #chatbotTab-model .model-save-row strong{display:block;font-size:12px}
+        #chatbotTab-model .model-save-row span{
+            display:block;
+            margin-top:3px;
+            color:var(--muted);
+            font-size:10px;
+        }
+        #chatbotTab-model .model-save-status:empty{display:none}
+        #chatbotTab-model .model-save-status{margin-top:10px}
+
+        #chatbotTab-model .model-preset-list{display:grid;gap:10px}
+        #chatbotTab-model .model-preset{
+            position:relative;
+            display:grid;
+            grid-template-columns:30px minmax(0,1fr) auto;
+            align-items:center;
+            gap:12px;
+            width:100%;
+            min-height:76px;
+            padding:13px 14px;
+            border:1px solid var(--border);
+            border-radius:13px;
+            color:var(--text);
+            background:transparent;
+            text-align:left;
+            font:inherit;
+            cursor:pointer;
+            transition:border-color .18s ease,background .18s ease,transform .18s ease;
+        }
+        #chatbotTab-model .model-preset:hover{
+            transform:translateY(-1px);
+            border-color:color-mix(in srgb,var(--accent) 36%,var(--border));
+            background:color-mix(in srgb,var(--accent) 5%,var(--surface));
+        }
+        #chatbotTab-model .model-preset.active{
+            border-color:color-mix(in srgb,var(--accent) 52%,var(--border));
+            background:color-mix(in srgb,var(--accent) 11%,var(--surface));
+        }
+        #chatbotTab-model .model-preset.active::before{
+            content:"";
+            position:absolute;
+            top:14px;bottom:14px;left:-1px;
+            width:3px;
+            border-radius:0 4px 4px 0;
+            background:var(--accent);
+        }
+        #chatbotTab-model .model-preset-number{
+            color:var(--muted);
+            font-size:10px;
+            font-weight:800;
+            letter-spacing:.08em;
+        }
+        #chatbotTab-model .model-preset strong{display:block;font-size:12px}
+        #chatbotTab-model .model-preset div > span{
+            display:block;
+            margin-top:4px;
+            color:var(--muted);
+            font-size:10px;
+            line-height:1.4;
+        }
+        #chatbotTab-model .model-preset-action{
+            color:var(--text-secondary);
+            font-size:10px;
+            font-weight:750;
+        }
+        #chatbotTab-model .model-recommended{
+            padding:5px 7px;
+            border-radius:7px;
+            color:var(--accent-light);
+            background:color-mix(in srgb,var(--accent) 12%,transparent);
+            font-size:9px;
+            font-weight:800;
+        }
+        html[data-theme="light"] #chatbotTab-model .model-profile-card{background:#fbfdfc}
+        html[data-theme="light"] #chatbotTab-model .response-style-options{background:#f2f6f3}
+        html[data-theme="light"] #chatbotTab-model .response-style-btn.active{color:#fff;background:#426f58}
+        html[data-theme="light"] #chatbotTab-model .model-preset.active{background:rgba(87,139,111,.09)}
+        html[data-theme="light"] #chatbotTab-model .model-recommended{color:#356149;background:rgba(87,139,111,.12)}
+        @media(max-width:1040px){
+            #chatbotTab-model .admin-grid-2{grid-template-columns:1fr}
+        }
+        @media(max-width:620px){
+            #chatbotTab-model .model-config-card,
+            #chatbotTab-model .model-profile-card{padding:20px}
+            #chatbotTab-model .model-save-row{align-items:flex-start;flex-direction:column}
+            #chatbotTab-model .model-preset{grid-template-columns:26px minmax(0,1fr)}
+            #chatbotTab-model .model-preset-action,
+            #chatbotTab-model .model-recommended{grid-column:2;justify-self:start}
+        }
+    </style>
+
 </head>
 
 
@@ -8026,7 +8217,7 @@ ORDER BY ticket_count DESC</textarea>
 
                     <div id="chatbotTab-model" class="admin-tab-panel">
                         <div class="admin-grid-2">
-                            <div class="admin-card"><div class="admin-card-head"><div><h3>Model configuration</h3><p>Choose the model used for live customer conversations.</p></div><span id="modelConnectionBadge" class="status-dot">Connected</span></div>
+                            <div class="admin-card model-config-card"><div class="admin-card-head"><div><span class="model-eyebrow">Live configuration</span><h3>Model configuration</h3><p>Choose the model used for customer conversations.</p></div><span id="modelConnectionBadge" class="model-connection-state"><i aria-hidden="true"></i>Connected</span></div>
                                 <div class="admin-form-grid">
                                     <label class="admin-field"><span>Provider</span><select id="chatbotProvider"><option value="deepseek">DeepSeek</option><option value="openai">OpenAI</option><option value="anthropic">Anthropic</option><option value="google">Google Gemini</option></select></label>
                                     <label class="admin-field"><span>Model</span><input id="chatbotModel" type="text" placeholder="deepseek-chat"></label>
@@ -8034,13 +8225,13 @@ ORDER BY ticket_count DESC</textarea>
                                     <div class="admin-field wide"><span>Response style</span><div class="response-style-options"><button class="response-style-btn" data-response-style="precise" type="button">Precise</button><button class="response-style-btn active" data-response-style="balanced" type="button">Balanced</button><button class="response-style-btn" data-response-style="creative" type="button">Creative</button></div></div>
                                 </div>
                                 <details class="advanced-settings"><summary>Advanced settings</summary><div class="advanced-settings-body"><p class="advanced-warning">Only change these settings if you understand their impact on response quality, speed and cost.</p><div class="admin-form-grid"><label class="admin-field"><span>Temperature</span><input id="chatbotTemperature" type="number" min="0" max="1.5" step="0.05"></label><label class="admin-field"><span>Maximum output tokens</span><input id="chatbotMaxTokens" type="number" min="100" max="8000" step="100"></label><label class="admin-field"><span>Request timeout (milliseconds)</span><input id="chatbotTimeout" type="number" min="5000" max="90000" step="1000"></label><label class="admin-field"><span>Fallback model</span><input id="chatbotFallbackModel" type="text" placeholder="Optional"></label><label class="admin-field"><span>Retry attempts</span><input id="chatbotRetryAttempts" type="number" min="0" max="5" value="1"></label></div></div></details>
-                                <div class="admin-command-actions" style="margin-top:16px"><button id="saveModelSettings" class="admin-btn primary" type="button">Save model settings</button></div><div id="modelSaveStatus" class="admin-status"></div>
+                                <div class="model-save-row"><div><strong>Configuration changes</strong><span>Changes take effect after you save.</span></div><button id="saveModelSettings" class="admin-btn primary" type="button">Save settings</button></div><div id="modelSaveStatus" class="admin-status model-save-status"></div>
                             </div>
-                            <div class="admin-card"><div class="admin-card-head"><div><h3>Recommended operating profile</h3><p>Balanced settings for concise customer support.</p></div></div>
-                                <div class="connection-list">
-                                    <button class="connection-row" data-model-preset="economy" type="button"><div><strong>Fast & economical</strong><span>Low creativity · shorter answers</span></div><span>Apply →</span></button>
-                                    <button class="connection-row" data-model-preset="balanced" type="button"><div><strong>Balanced · Recommended</strong><span>Reliable tone and useful detail</span></div><span>Apply →</span></button>
-                                    <button class="connection-row" data-model-preset="quality" type="button"><div><strong>Highest quality</strong><span>More reasoning and longer outputs</span></div><span>Apply →</span></button>
+                            <div class="admin-card model-profile-card"><div class="admin-card-head"><div><span class="model-eyebrow">Starting points</span><h3>Operating profile</h3><p>Apply a preset, then fine-tune it if needed.</p></div></div>
+                                <div class="model-preset-list">
+                                    <button class="model-preset" data-model-preset="economy" type="button" aria-pressed="false"><span class="model-preset-number">01</span><div><strong>Fast & economical</strong><span>Short, focused answers with lower usage</span></div><span class="model-preset-action">Apply</span></button>
+                                    <button class="model-preset active" data-model-preset="balanced" type="button" aria-pressed="true"><span class="model-preset-number">02</span><div><strong>Balanced</strong><span>Reliable tone with useful detail</span></div><span class="model-recommended">Recommended</span></button>
+                                    <button class="model-preset" data-model-preset="quality" type="button" aria-pressed="false"><span class="model-preset-number">03</span><div><strong>Highest quality</strong><span>Deeper reasoning and longer answers</span></div><span class="model-preset-action">Apply</span></button>
                                 </div>
                             </div>
                         </div>
@@ -15318,8 +15509,8 @@ ORDER BY created_date DESC, ticket_count DESC`;
         document.querySelectorAll("[data-response-style]").forEach(button => button.classList.toggle("active", button.dataset.responseStyle === responseStyle));
         const connected = Boolean(chatbotControlState?.connections?.[profile.provider]);
         const badge = document.getElementById("modelConnectionBadge");
-        badge.textContent = connected ? "Connected" : "Not connected";
-        badge.className = `status-dot ${connected ? "" : "disconnected"}`;
+        badge.innerHTML = `<i aria-hidden="true"></i>${connected ? "Connected" : "Not connected"}`;
+        badge.className = `model-connection-state ${connected ? "" : "disconnected"}`;
     }
 
     function renderChatbotVersions() {
@@ -15426,7 +15617,7 @@ ORDER BY created_date DESC, ticket_count DESC`;
     document.getElementById("saveModelSettings")?.addEventListener("click",saveModelSettings);
     document.getElementById("chatbotPauseBtn")?.addEventListener("click",()=>{ const select=document.getElementById("chatbotOperationalStatus"); select.value=chatbotControlState?.profile?.status==="paused"?"active":"paused"; saveModelSettings(); });
     document.getElementById("chatbotHeaderStatus")?.addEventListener("change",event=>{const select=document.getElementById("chatbotOperationalStatus");select.value=event.target.value;document.getElementById("chatbotStatusControl")?.classList.toggle("paused",event.target.value==="paused");saveModelSettings();});
-    document.querySelectorAll("[data-model-preset]").forEach(button=>button.addEventListener("click",()=>{const preset={economy:[.2,650,20000],balanced:[.35,1200,30000],quality:[.5,2200,45000]}[button.dataset.modelPreset]; document.getElementById("chatbotTemperature").value=preset[0];document.getElementById("chatbotMaxTokens").value=preset[1];document.getElementById("chatbotTimeout").value=preset[2];document.getElementById("modelSaveStatus").textContent="Preset applied. Save model settings to activate it.";}));
+    document.querySelectorAll("[data-model-preset]").forEach(button=>button.addEventListener("click",()=>{const preset={economy:[.2,650,20000],balanced:[.35,1200,30000],quality:[.5,2200,45000]}[button.dataset.modelPreset]; document.getElementById("chatbotTemperature").value=preset[0];document.getElementById("chatbotMaxTokens").value=preset[1];document.getElementById("chatbotTimeout").value=preset[2];document.querySelectorAll("[data-model-preset]").forEach(item=>{item.classList.toggle("active",item===button);item.setAttribute("aria-pressed",String(item===button));const action=item.querySelector(".model-preset-action");if(action)action.textContent=item===button?"Selected":"Apply";});document.getElementById("modelSaveStatus").textContent="Preset applied. Save settings to activate it.";}));
     document.querySelectorAll("[data-response-style]").forEach(button=>button.addEventListener("click",()=>{const temperatures={precise:.2,balanced:.35,creative:.65};document.querySelectorAll("[data-response-style]").forEach(item=>item.classList.toggle("active",item===button));document.getElementById("chatbotTemperature").value=temperatures[button.dataset.responseStyle];document.getElementById("modelSaveStatus").textContent="Response style selected. Save model settings to activate it.";}));
     document.getElementById("chatbotTestSend")?.addEventListener("click",sendChatbotTest);
     document.getElementById("chatbotTestInput")?.addEventListener("keydown",event=>{if(event.key==="Enter"&&!event.shiftKey){event.preventDefault();sendChatbotTest();}});
