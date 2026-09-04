@@ -1621,7 +1621,9 @@ updateProgress();
       const addBubble=(type,html,time='now')=>{const bubble=document.createElement('div');bubble.className=`wa-bubble ${type}`;bubble.innerHTML=`${html}<small>${time} ${type.includes('wa-out')?'<i>✓✓</i>':''}</small>`;scene.appendChild(bubble);chat.scrollTop=chat.scrollHeight;return bubble};
       const addSystem=(text,state='')=>{const system=document.createElement('div');system.className=`wa-system ${state}`;system.textContent=text;scene.appendChild(system);chat.scrollTop=chat.scrollHeight};
       const typing=()=>{const el=document.createElement('div');el.className='wa-typing';el.innerHTML='<i></i><i></i><i></i>';scene.appendChild(el);chat.scrollTop=chat.scrollHeight;return el};
-      const play=(message=def.defaultMessage)=>{const flow=demoFlows[def.key]?.[message.trim()]||def;run++;const thisRun=run;clearTimers();scene.innerHTML='<div class="wa-encryption">🔒 Messages are end-to-end encrypted.</div><div class="wa-date">Today</div>';input.disabled=true;send.disabled=true;addBubble('wa-in',`<p>${safe(message)}</p>`,'now');let indicator;later(()=>{if(run!==thisRun)return;indicator=typing()},420);later(()=>{if(run!==thisRun)return;indicator?.remove();addBubble('wa-out wa-ai',`<b>Novara AI</b><p>${flow.reply}</p>`,'now');if(flow.agent)addSystem(flow.status||'Reviewing the request…')},1120);if(flow.agent){later(()=>{if(run!==thisRun)return;addSystem(flow.handoff||'Transferred to a Novara agent with full context')},1830);later(()=>{if(run!==thisRun)return;addBubble('wa-out wa-human',`<b>Aarav · Novara Support</b><p>${flow.agent}</p>`,'now')},2460);later(()=>{if(run!==thisRun)return;addSystem(flow.outcome,'resolved');input.disabled=false;send.disabled=false},3130)}else later(()=>{if(run!==thisRun)return;addSystem(flow.outcome,'resolved');input.disabled=false;send.disabled=false},1750)};
+      const normalizeQuestion=value=>String(value||'').trim().toLowerCase().replace(/[’‘]/g,"'").replace(/[^a-z0-9]+/g,' ').trim();
+      const findFlow=message=>Object.entries(demoFlows[def.key]||{}).find(([question])=>normalizeQuestion(question)===normalizeQuestion(message))?.[1]||def;
+      const play=(message=def.defaultMessage)=>{const flow=findFlow(message);run++;const thisRun=run;clearTimers();scene.innerHTML='<div class="wa-encryption">🔒 Messages are end-to-end encrypted.</div><div class="wa-date">Today</div>';input.disabled=true;send.disabled=true;addBubble('wa-in',`<p>${safe(message)}</p>`,'now');let indicator;later(()=>{if(run!==thisRun)return;indicator=typing()},420);later(()=>{if(run!==thisRun)return;indicator?.remove();addBubble('wa-out wa-ai',`<b>Novara AI</b><p>${flow.reply}</p>`,'now');if(flow.agent)addSystem(flow.status||'Reviewing the request…')},1120);if(flow.agent){later(()=>{if(run!==thisRun)return;addSystem(flow.handoff||'Transferred to a Novara agent with full context')},1830);later(()=>{if(run!==thisRun)return;addBubble('wa-out wa-human',`<b>Aarav · Novara Support</b><p>${flow.agent}</p>`,'now')},2460);later(()=>{if(run!==thisRun)return;addSystem(flow.outcome,'resolved');input.disabled=false;send.disabled=false},3130)}else later(()=>{if(run!==thisRun)return;addSystem(flow.outcome,'resolved');input.disabled=false;send.disabled=false},1750)};
       composer.addEventListener('submit',event=>{event.preventDefault();const value=input.value.trim();if(!value)return;input.value='';play(value)});replay.addEventListener('click',()=>play());later(()=>play(),def.key==='routine'?350:850);
     });
     const note=document.createElement('p');note.className='wa-shot-disclaimer';note.textContent='Illustrative WhatsApp Business experience. WhatsApp is a trademark of Meta.';gallery.appendChild(note);
@@ -1773,7 +1775,7 @@ updateProgress();
     const key=shot.dataset.liveDemo,form=shot.querySelector('.wa-live-composer'),input=form?.querySelector('input');
     if(!form||!input||!promptSets[key])return;
     const prompts=document.createElement('div');prompts.className='wa-prompt-list';prompts.setAttribute('aria-label','Choose a demonstration question');
-    promptSets[key].forEach((question,index)=>{const button=document.createElement('button');button.type='button';button.className='wa-prompt'+(index===0?' active':'');button.textContent=question;button.addEventListener('click',()=>{prompts.querySelectorAll('button').forEach(item=>item.classList.toggle('active',item===button));input.value=question;form.dispatchEvent(new Event('submit',{bubbles:true,cancelable:true}))});prompts.appendChild(button)});
+    promptSets[key].forEach((question,index)=>{const button=document.createElement('button');button.type='button';button.className='wa-prompt'+(index===0?' active':'');button.textContent=question;button.setAttribute('aria-pressed',index===0?'true':'false');button.addEventListener('click',()=>{prompts.querySelectorAll('button').forEach(item=>{const selected=item===button;item.classList.toggle('active',selected);item.setAttribute('aria-pressed',selected?'true':'false')});input.value=question;form.dispatchEvent(new Event('submit',{bubbles:true,cancelable:true}))});prompts.appendChild(button)});
     shot.querySelector('.wa-phone')?.after(prompts);
     const hint=shot.querySelector('.wa-demo-hint');if(hint)hint.textContent='Choose a question to run the demonstration';
   });
@@ -4228,28 +4230,6 @@ body.preview-is-expanded{overflow:hidden!important}
 
   /* Remove replay controls entirely. */
   document.querySelectorAll('.novara-mechanism .wa-replay').forEach(el=>el.remove());
-
-  /* Expand each demo to five questions while preserving its click-to-run behaviour. */
-  const extra={
-   routine:['Do you offer cash on delivery?','How can I track my shipment?'],
-   payment:['My payment failed but money was deducted','I need help with a damaged order']
-  };
-  document.querySelectorAll('.wa-shot[data-live-demo]').forEach(shot=>{
-   const list=shot.querySelector('.wa-prompt-list');
-   const form=shot.querySelector('.wa-live-composer');
-   const input=form?.querySelector('input');
-   if(!list||!form||!input)return;
-   (extra[shot.dataset.liveDemo]||[]).forEach(question=>{
-    if([...list.children].some(el=>el.textContent.trim()===question))return;
-    const button=document.createElement('button');
-    button.type='button';button.className='wa-prompt';button.textContent=question;
-    button.addEventListener('click',()=>{
-     input.value=question;
-     form.dispatchEvent(new Event('submit',{bubbles:true,cancelable:true}));
-    });
-    list.appendChild(button);
-   });
-  });
 
   /* Correct the visible numbered section headers in page order. */
   const set=(selector,text)=>{const el=document.querySelector(selector);if(el)el.textContent=text};
