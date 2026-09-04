@@ -2575,6 +2575,14 @@
         .agent-profile:hover { background: rgba(255,255,255,.04); border-color: var(--border-strong); }
         .agent-profile-avatar { width: 36px; height: 36px; flex-basis: 36px; background: linear-gradient(145deg, rgba(146,181,162,.22), rgba(146,181,162,.08)); }
         .agent-profile-name { font-size: 10px; }
+        .authenticated-profile{position:relative;gap:10px;padding-right:42px}
+        .agent-profile-initials{font-size:13px;font-weight:800;letter-spacing:-.03em;color:var(--text);text-transform:uppercase}
+        .agent-profile-copy{min-width:0}
+        .agent-profile-copy .agent-profile-name,.agent-profile-copy .agent-profile-role{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+        .agent-profile-copy .agent-profile-name{font-size:11px}
+        .agent-profile-copy .agent-profile-role{font-size:8.5px}
+        .sidebar-profile-logout{position:absolute;right:9px;top:50%;transform:translateY(-50%);display:grid;place-items:center;width:27px;height:27px;border:1px solid var(--border);border-radius:8px;background:transparent;color:var(--text-muted);font-size:14px;transition:var(--transition)}
+        .sidebar-profile-logout:hover{color:var(--text);border-color:var(--border-strong);background:rgba(255,255,255,.045)}
 
         .main { padding: 30px 34px 44px; }
         .main-inner { width: min(1540px, 100%); }
@@ -5714,10 +5722,7 @@
         .novara-auth-card h2{margin:0 0 12px;font-size:34px;line-height:1.08;letter-spacing:-.04em}.novara-auth-card>p{margin:0 0 30px;color:#68776f;line-height:1.6}
         #novaraGoogleButton{min-height:44px;display:flex;justify-content:center}.novara-auth-status{min-height:20px;margin-top:18px;color:#9a5d12;font-size:13px;line-height:1.5;text-align:center}
         .novara-auth-legal{margin-top:28px!important;font-size:12px;text-align:center}.novara-auth-legal a{color:var(--auth-green)}
-        .novara-user-chip{position:fixed;z-index:9999;top:18px;right:24px;display:none;align-items:center;gap:10px;padding:7px 8px 7px 10px;border:1px solid rgba(127,157,141,.3);border-radius:999px;color:#eaf3ee;background:rgba(8,45,32,.94);box-shadow:0 10px 30px rgba(0,0,0,.15)}
-        body.novara-authenticated .novara-user-chip{display:flex}.novara-user-chip img{width:30px;height:30px;border-radius:50%;object-fit:cover;background:#dcebe2}.novara-user-copy{display:grid;min-width:0}.novara-user-copy strong{max-width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:12px}.novara-user-copy small{color:rgba(234,243,238,.62);font-size:10px}
-        .novara-logout{width:30px;height:30px;border:0;border-radius:50%;cursor:pointer;color:#eaf3ee;background:rgba(255,255,255,.08);font-size:16px}.novara-logout:hover{background:rgba(255,255,255,.16)}
-        @media(max-width:850px){.novara-auth-screen{grid-template-columns:1fr}.novara-auth-brand{min-height:34vh;padding:30px}.novara-auth-promise h1{font-size:42px}.novara-auth-promise p,.novara-auth-points{display:none}.novara-auth-panel{padding:22px}.novara-auth-card{padding:30px 24px}.novara-user-chip{top:10px;right:10px}.novara-user-copy{display:none}}
+        @media(max-width:850px){.novara-auth-screen{grid-template-columns:1fr}.novara-auth-brand{min-height:34vh;padding:30px}.novara-auth-promise h1{font-size:42px}.novara-auth-promise p,.novara-auth-points{display:none}.novara-auth-panel{padding:22px}.novara-auth-card{padding:30px 24px}}
     </style>
 
 </head>
@@ -5745,14 +5750,6 @@
         </div>
     </section>
 </div>
-<div class="novara-user-chip" id="novaraUserChip" aria-label="Signed-in account">
-    <img id="novaraUserAvatar" alt="" referrerpolicy="no-referrer">
-    <span class="novara-user-copy"><strong id="novaraUserName"></strong><small id="novaraUserEmail"></small></span>
-    <button class="novara-logout" id="novaraLogout" type="button" title="Sign out" aria-label="Sign out">↗</button>
-</div>
-
-
-
 <div class="app">
 
 
@@ -5984,14 +5981,13 @@
 
 
         <div class="sidebar-bottom">
-            <div class="agent-profile" aria-label="Current support agent">
-                <div class="agent-profile-avatar" aria-label="Agent profile photo placeholder">
-                    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.5"></circle><path d="M5.5 19c.7-3.4 3-5.2 6.5-5.2s5.8 1.8 6.5 5.2"></path></svg>
+            <div class="agent-profile authenticated-profile" aria-label="Signed-in user">
+                <div class="agent-profile-avatar agent-profile-initials" id="sidebarUserInitials" aria-hidden="true">—</div>
+                <div class="agent-profile-copy">
+                    <div class="agent-profile-name" id="sidebarUserName">Signed in</div>
+                    <div class="agent-profile-role" id="sidebarUserRole">Workspace member</div>
                 </div>
-                <div>
-                    <div class="agent-profile-name">Novara CX Support</div>
-                    <div class="agent-profile-role">Support agent</div>
-                </div>
+                <button class="sidebar-profile-logout" id="sidebarLogout" type="button" aria-label="Sign out" title="Sign out">↗</button>
             </div>
 
         </div>
@@ -16298,10 +16294,13 @@ html[data-theme="light"] .ticket-history-section,html[data-theme="light"] .ticke
     const setStatus=message=>{if(status)status.textContent=message||""};
 
     function showWorkspace(user){
-        document.getElementById("novaraUserName").textContent=user?.name||"Signed in";
-        document.getElementById("novaraUserEmail").textContent=user?.email||"";
-        const avatar=document.getElementById("novaraUserAvatar");
-        if(user?.picture)avatar.src=user.picture;else avatar.style.display="none";
+        const name=String(user?.name||user?.email||"Signed in").trim();
+        const initials=name.split(/\\s+/).filter(Boolean).slice(0,2).map(part=>part[0]).join("").toUpperCase()||"U";
+        const company=user?.company_name||(user?.workspace_id==="novara"?"Novara CX":"Workspace");
+        const role=user?.role==="admin"?company+" Administrator":company+" Member";
+        document.getElementById("sidebarUserInitials").textContent=initials;
+        document.getElementById("sidebarUserName").textContent=name;
+        document.getElementById("sidebarUserRole").textContent=role;
         document.body.classList.add("novara-authenticated");
     }
 
@@ -16345,7 +16344,7 @@ html[data-theme="light"] .ticket-history-section,html[data-theme="light"] .ticke
         else setStatus("Google sign-in is temporarily unavailable. Please refresh the page.");
     }
 
-    document.getElementById("novaraLogout").addEventListener("click",()=>{
+    document.getElementById("sidebarLogout").addEventListener("click",()=>{
         try{window.google?.accounts?.id?.disableAutoSelect()}catch(error){}
         sessionStorage.removeItem(tokenKey);
         window.location.replace(window.location.pathname);
