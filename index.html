@@ -1586,6 +1586,22 @@ updateProgress();
       {key:'routine',title:'REPETITIVE QUERIES',mode:'AI-ONLY',label:'Repetitive queries — AI-only',placeholder:'Try: Where is my order?',defaultMessage:'Hi, where is my order NC-1842?',reply:'Your order is out for delivery and should arrive today between 4–6 PM.',outcome:'✓ Resolved by Novara AI'},
       {key:'payment',title:'COMPLEX ISSUE RESOLUTION',mode:'AI + HUMAN',label:'Complex issue resolution — AI plus human',placeholder:'Try: I was charged twice',defaultMessage:'I was charged twice for my subscription.',reply:'I’m checking your account and recent payments now.',agent:'I found the duplicate payment. I’ve initiated the refund and will keep you updated here.',outcome:'✓ Resolved by Aarav'}
     ];
+    const demoFlows={
+      routine:{
+        'Where is my order?':{reply:'Your order is out for delivery and should arrive today between 4–6 PM.',outcome:'✓ Resolved by Novara AI'},
+        'What is your return policy?':{reply:'You can return eligible unused items within 30 days of delivery. I can also guide you through the return steps.',outcome:'✓ Policy explained by Novara AI'},
+        'Can I change my delivery address?':{reply:'If the order has not been dispatched, the delivery address can still be updated. Please open the order and choose “Change address.”',outcome:'✓ Resolved by Novara AI'},
+        'Do you offer cash on delivery?':{reply:'Cash on delivery is available for eligible PIN codes and orders. You will see the option at checkout when it is available.',outcome:'✓ Resolved by Novara AI'},
+        'How can I track my shipment?':{reply:'Open the tracking link in your shipping confirmation. Your parcel is currently in transit and the next scan will show the updated delivery time.',outcome:'✓ Resolved by Novara AI'}
+      },
+      payment:{
+        'I was charged twice':{reply:'I’m checking your account and recent payments now.',status:'Checking account and payments…',handoff:'Transferred to a Novara agent with payment context',agent:'I found the duplicate payment. I’ve initiated the refund and will keep you updated here.',outcome:'✓ Refund initiated · Resolved by Aarav'},
+        'My refund has not arrived':{reply:'I can see that the refund was initiated, but it has not reached your account yet.',status:'Checking refund timeline…',handoff:'Transferred to a Novara agent with refund history',agent:'I’ve confirmed the refund reference. It should reflect within 3–5 business days, and I’ll monitor it until it arrives.',outcome:'✓ Refund traced · Resolved by Aarav'},
+        'I want to speak to a person':{reply:'Of course. I’ll connect you with a support specialist and pass along this conversation.',status:'Finding the right specialist…',handoff:'A Novara agent joined with full context',agent:'Hi, I’m Aarav. I have the full conversation and I’m ready to help—there’s no need to repeat anything.',outcome:'✓ Connected to Aarav'},
+        'My payment failed but money was deducted':{reply:'This may be a temporary bank authorization. I’m checking the payment status before advising you.',status:'Verifying the transaction…',handoff:'Transferred to a Novara agent with transaction details',agent:'The order was not created, so the amount should reverse automatically. I’ve logged the bank reference and will track it with you.',outcome:'✓ Transaction tracked · Resolved by Aarav'},
+        'I need help with a damaged order':{reply:'I’m sorry your order arrived damaged. I’ll bring in a specialist to arrange the fastest resolution.',status:'Preparing order and delivery context…',handoff:'Transferred to a Novara agent with order context',agent:'I have the order details. Please share one photo of the damage here, and I’ll arrange a replacement or refund.',outcome:'✓ Resolution started by Aarav'}
+      }
+    };
     const gallery=document.createElement('div');gallery.className='wa-gallery';gallery.setAttribute('aria-label','Two interactive WhatsApp customer-support demonstrations');
     const topbar=oldStage.querySelector('.wa-topbar');
     definitions.forEach(def=>{
@@ -1605,7 +1621,7 @@ updateProgress();
       const addBubble=(type,html,time='now')=>{const bubble=document.createElement('div');bubble.className=`wa-bubble ${type}`;bubble.innerHTML=`${html}<small>${time} ${type.includes('wa-out')?'<i>✓✓</i>':''}</small>`;scene.appendChild(bubble);chat.scrollTop=chat.scrollHeight;return bubble};
       const addSystem=(text,state='')=>{const system=document.createElement('div');system.className=`wa-system ${state}`;system.textContent=text;scene.appendChild(system);chat.scrollTop=chat.scrollHeight};
       const typing=()=>{const el=document.createElement('div');el.className='wa-typing';el.innerHTML='<i></i><i></i><i></i>';scene.appendChild(el);chat.scrollTop=chat.scrollHeight;return el};
-      const play=(message=def.defaultMessage)=>{run++;const thisRun=run;clearTimers();scene.innerHTML='<div class="wa-encryption">🔒 Messages are end-to-end encrypted.</div><div class="wa-date">Today</div>';input.disabled=true;send.disabled=true;addBubble('wa-in',`<p>${safe(message)}</p>`,'now');let indicator;later(()=>{if(run!==thisRun)return;indicator=typing()},420);later(()=>{if(run!==thisRun)return;indicator?.remove();addBubble('wa-out wa-ai',`<b>Novara AI</b><p>${def.reply}</p>`,'now');if(def.agent)addSystem('Checking account and payments…')},1120);if(def.agent){later(()=>{if(run!==thisRun)return;addSystem('Transferred to a Novara agent with full context')},1830);later(()=>{if(run!==thisRun)return;addBubble('wa-out wa-human',`<b>Aarav · Novara Support</b><p>${def.agent}</p>`,'now')},2460);later(()=>{if(run!==thisRun)return;addSystem(def.outcome,'resolved');input.disabled=false;send.disabled=false},3130)}else later(()=>{if(run!==thisRun)return;addSystem(def.outcome,'resolved');input.disabled=false;send.disabled=false},1750)};
+      const play=(message=def.defaultMessage)=>{const flow=demoFlows[def.key]?.[message.trim()]||def;run++;const thisRun=run;clearTimers();scene.innerHTML='<div class="wa-encryption">🔒 Messages are end-to-end encrypted.</div><div class="wa-date">Today</div>';input.disabled=true;send.disabled=true;addBubble('wa-in',`<p>${safe(message)}</p>`,'now');let indicator;later(()=>{if(run!==thisRun)return;indicator=typing()},420);later(()=>{if(run!==thisRun)return;indicator?.remove();addBubble('wa-out wa-ai',`<b>Novara AI</b><p>${flow.reply}</p>`,'now');if(flow.agent)addSystem(flow.status||'Reviewing the request…')},1120);if(flow.agent){later(()=>{if(run!==thisRun)return;addSystem(flow.handoff||'Transferred to a Novara agent with full context')},1830);later(()=>{if(run!==thisRun)return;addBubble('wa-out wa-human',`<b>Aarav · Novara Support</b><p>${flow.agent}</p>`,'now')},2460);later(()=>{if(run!==thisRun)return;addSystem(flow.outcome,'resolved');input.disabled=false;send.disabled=false},3130)}else later(()=>{if(run!==thisRun)return;addSystem(flow.outcome,'resolved');input.disabled=false;send.disabled=false},1750)};
       composer.addEventListener('submit',event=>{event.preventDefault();const value=input.value.trim();if(!value)return;input.value='';play(value)});replay.addEventListener('click',()=>play());later(()=>play(),def.key==='routine'?350:850);
     });
     const note=document.createElement('p');note.className='wa-shot-disclaimer';note.textContent='Illustrative WhatsApp Business experience. WhatsApp is a trademark of Meta.';gallery.appendChild(note);
@@ -1750,8 +1766,8 @@ updateProgress();
 
   // Prepared choices make the demo immediate and predictable.
   const promptSets={
-    routine:['Where is my order?','What is your return policy?','Can I change my delivery address?'],
-    payment:['I was charged twice','My refund has not arrived','I want to speak to a person']
+    routine:['Where is my order?','What is your return policy?','Can I change my delivery address?','Do you offer cash on delivery?','How can I track my shipment?'],
+    payment:['I was charged twice','My refund has not arrived','I want to speak to a person','My payment failed but money was deducted','I need help with a damaged order']
   };
   document.querySelectorAll('.wa-shot[data-live-demo]').forEach(shot=>{
     const key=shot.dataset.liveDemo,form=shot.querySelector('.wa-live-composer'),input=form?.querySelector('input');
