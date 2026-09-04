@@ -5268,7 +5268,8 @@
         /* Report Builder action hierarchy */
         #panel-reports .report-save-primary { min-width:112px;min-height:40px;padding:0 16px;border:1px solid var(--accent-dark);border-radius:9px;background:var(--accent-dark);color:#fff;font-family:inherit;font-size:10px;font-weight:800;line-height:1;white-space:nowrap;box-shadow:0 6px 16px rgba(38,88,63,.16); }
         #panel-reports .report-save-primary:hover { filter:brightness(1.06);transform:translateY(-1px); }
-        #panel-reports .report-clear-row { display:flex;justify-content:flex-end;margin:-3px 0 10px; }
+        #panel-reports .report-name-heading { display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 0 6px 2px; }
+        #panel-reports .report-name-heading label { color:var(--text-muted);font-size:8px;font-weight:700;letter-spacing:.09em;text-transform:uppercase; }
         #panel-reports .report-inline-clear { min-height:28px;padding:0;border:0;background:transparent;color:var(--text-muted);font-family:inherit;font-size:8.5px;font-weight:760;text-decoration:none;cursor:pointer; }
         #panel-reports .report-inline-clear:hover { color:var(--accent);text-decoration:underline;text-underline-offset:3px; }
         #panel-reports .report-filter-actions { display:flex;align-items:center;gap:13px; }
@@ -8000,13 +8001,14 @@
                             </div>
                             <div class="report-heading-actions"><button id="reportSaveBtn" class="report-primary-btn report-save-primary" type="button">Save report</button></div>
                         </div>
-                        <div class="report-clear-row"><button id="reportClearInputs" class="report-inline-clear" type="button">Clear main inputs</button></div>
-
                         <div class="report-form-grid">
-                            <label class="report-field report-field-wide">
-                                <span>Report name</span>
+                            <div class="report-field report-field-wide">
+                                <div class="report-name-heading">
+                                    <label for="reportName">Report name</label>
+                                    <button id="reportClearInputs" class="report-inline-clear" type="button">Clear main inputs</button>
+                                </div>
                                 <input id="reportName" type="text" maxlength="80" placeholder="e.g. Weekly escalation overview">
-                            </label>
+                            </div>
 
                             <label class="report-field report-field-wide visual-report-control">
                                 <span>Dataset</span>
