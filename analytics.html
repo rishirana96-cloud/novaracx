@@ -16964,5 +16964,31 @@ html[data-theme="light"] .ticket-history-section,html[data-theme="light"] .ticke
 }
 </style>
 
+
+<style id="ticket-header-spacing-refinement">
+.ticket-drawer-head{
+    padding-bottom:8px!important;
+}
+.ticket-drawer-head .ticket-sla-state{
+    top:auto!important;
+    right:18px!important;
+    bottom:61px!important;
+    width:min(546px,calc(100% - 36px))!important;
+    transform:none!important;
+    text-align:center!important;
+}
+@media(max-width:620px){
+    .ticket-drawer-head{padding-bottom:12px!important}
+    .ticket-drawer-head .ticket-sla-state{
+        position:relative!important;
+        right:auto!important;
+        bottom:auto!important;
+        width:100%!important;
+        margin:4px 0 0!important;
+        text-align:center!important;
+    }
+}
+</style>
+
 </body>
 </html>
