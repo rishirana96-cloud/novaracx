@@ -5891,18 +5891,11 @@
         }
         #chatbotTab-versions .version-summary{font-size:12px;margin-top:7px;color:var(--text-secondary)}
         #chatbotTab-versions .version-copy time{display:block;margin-top:4px;color:var(--muted);font-size:10px}
-        #chatbotTab-versions .version-live-badge{
-            display:inline-flex;align-items:center;gap:7px;padding:7px 10px;border-radius:999px;
-            color:var(--accent-light);background:color-mix(in srgb,var(--accent) 13%,var(--surface));
-            border:1px solid color-mix(in srgb,var(--accent) 25%,var(--border));font-size:11px;font-weight:800;
-        }
-        #chatbotTab-versions .version-live-badge i{width:7px;height:7px;border-radius:50%;background:var(--success);box-shadow:0 0 0 4px color-mix(in srgb,var(--success) 15%,transparent)}
         #chatbotTab-versions .version-restore-btn{white-space:nowrap}
         #chatbotTab-versions .version-restore-btn:hover{border-color:var(--accent);color:var(--accent-light)}
         html[data-theme="light"] #chatbotTab-versions .version-row.is-live{
             background:linear-gradient(100deg,rgba(102,151,125,.12),#fff);
         }
-        html[data-theme="light"] #chatbotTab-versions .version-live-badge{color:#2e684a;background:rgba(102,151,125,.12)}
         @media(max-width:640px){
             #chatbotTab-versions .version-row{grid-template-columns:36px minmax(0,1fr)}
             #chatbotTab-versions .version-actions{grid-column:2;justify-content:flex-start}
@@ -5940,19 +5933,6 @@
             letter-spacing:.14em;
             text-transform:uppercase;
         }
-        #chatbotTab-model .model-connection-state{
-            display:inline-flex;
-            align-items:center;
-            gap:7px;
-            color:var(--text-secondary);
-            font-size:11px;
-            font-weight:700;
-        }
-        #chatbotTab-model .model-connection-state i{
-            width:7px;height:7px;border-radius:50%;
-            background:var(--success);
-        }
-        #chatbotTab-model .model-connection-state.disconnected i{background:var(--text-muted)}
         #chatbotTab-model .admin-form-grid{gap:16px}
         #chatbotTab-model .admin-field > span{
             margin-bottom:8px;
@@ -8217,7 +8197,7 @@ ORDER BY ticket_count DESC</textarea>
 
                     <div id="chatbotTab-model" class="admin-tab-panel">
                         <div class="admin-grid-2">
-                            <div class="admin-card model-config-card"><div class="admin-card-head"><div><span class="model-eyebrow">Live configuration</span><h3>Model configuration</h3><p>Choose the model used for customer conversations.</p></div><span id="modelConnectionBadge" class="model-connection-state"><i aria-hidden="true"></i>Connected</span></div>
+                            <div class="admin-card model-config-card"><div class="admin-card-head"><div><span class="model-eyebrow">Live configuration</span><h3>Model configuration</h3><p>Choose the model used for customer conversations.</p></div></div>
                                 <div class="admin-form-grid">
                                     <label class="admin-field"><span>Provider</span><select id="chatbotProvider"><option value="deepseek">DeepSeek</option><option value="openai">OpenAI</option><option value="anthropic">Anthropic</option><option value="google">Google Gemini</option></select></label>
                                     <label class="admin-field"><span>Model</span><input id="chatbotModel" type="text" placeholder="deepseek-chat"></label>
@@ -8238,7 +8218,7 @@ ORDER BY ticket_count DESC</textarea>
                     </div>
 
                     <div id="chatbotTab-channels" class="admin-tab-panel">
-                        <div class="admin-card"><div class="admin-card-head"><div><h3>Customer channels</h3><p>Deploy the same published intelligence while preserving channel-specific identity and replies.</p></div><span class="status-dot">Unified inbox</span></div><div id="chatbotChannelGrid" class="channel-grid"><div class="admin-loading">Loading channels…</div></div></div>
+                        <div class="admin-card"><div class="admin-card-head"><div><h3>Customer channels</h3><p>Deploy the same published intelligence while preserving channel-specific identity and replies.</p></div></div><div id="chatbotChannelGrid" class="channel-grid"><div class="admin-loading">Loading channels…</div></div></div>
                     </div>
 
                     <div id="chatbotTab-versions" class="admin-tab-panel">
@@ -15508,15 +15488,13 @@ ORDER BY created_date DESC, ticket_count DESC`;
         const responseStyle = temperature <= .25 ? "precise" : temperature >= .5 ? "creative" : "balanced";
         document.querySelectorAll("[data-response-style]").forEach(button => button.classList.toggle("active", button.dataset.responseStyle === responseStyle));
         const connected = Boolean(chatbotControlState?.connections?.[profile.provider]);
-        const badge = document.getElementById("modelConnectionBadge");
-        badge.innerHTML = `<i aria-hidden="true"></i>${connected ? "Connected" : "Not connected"}`;
-        badge.className = `model-connection-state ${connected ? "" : "disconnected"}`;
+        // Connection availability is represented by the provider controls, without a decorative status badge.
     }
 
     function renderChatbotVersions() {
         const list = document.getElementById("chatbotVersionList");
         const versions = chatbotControlState?.versions || [];
-        list.innerHTML = versions.length ? versions.map(version => { const isLive = version.status === "published"; return `<div class="version-row ${isLive ? "is-live" : "is-archived"}"><div class="version-marker" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M4.5 8V4.5H8M4.8 4.8A8 8 0 1 1 4 13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 8v4.5l3 1.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></div><div class="version-copy"><strong>Version ${version.version_number}<span class="version-state">${escapeHtml(version.status)}</span></strong><span class="version-summary">${escapeHtml(version.change_summary || "No change summary")}</span><time>${escapeHtml(formatAdminDate(version.published_at || version.created_at))}</time></div><div class="version-actions">${isLive ? `<span class="version-live-badge"><i></i>Live</span>` : `<button class="admin-btn version-restore-btn" data-restore-prompt="${version.id}" type="button">Restore as draft</button>`}</div></div>`; }).join("") : `<div class="empty-state">No prompt versions yet.</div>`;
+        list.innerHTML = versions.length ? versions.map(version => { const isLive = version.status === "published"; return `<div class="version-row ${isLive ? "is-live" : "is-archived"}"><div class="version-marker" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M4.5 8V4.5H8M4.8 4.8A8 8 0 1 1 4 13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 8v4.5l3 1.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></div><div class="version-copy"><strong>Version ${version.version_number}<span class="version-state">${escapeHtml(version.status)}</span></strong><span class="version-summary">${escapeHtml(version.change_summary || "No change summary")}</span><time>${escapeHtml(formatAdminDate(version.published_at || version.created_at))}</time></div><div class="version-actions">${isLive ? `` : `<button class="admin-btn version-restore-btn" data-restore-prompt="${version.id}" type="button">Restore as draft</button>`}</div></div>`; }).join("") : `<div class="empty-state">No prompt versions yet.</div>`;
         list.querySelectorAll("[data-restore-prompt]").forEach(button => button.addEventListener("click", () => restorePromptVersion(Number(button.dataset.restorePrompt))));
     }
 
@@ -15531,7 +15509,7 @@ ORDER BY created_date DESC, ticket_count DESC`;
         };
         grid.innerHTML = (chatbotControlState?.channels || []).map(channel => {
             let settings = {}; try { settings = JSON.parse(channel.settings_json || "{}"); } catch {}
-            return `<article class="channel-card" data-channel-card="${escapeHtml(channel.channel)}"><div class="channel-card-head"><div class="channel-icon">${icon[channel.channel] || escapeHtml(channel.display_name.slice(0,2))}</div><div><h3>${escapeHtml(channel.display_name)}</h3><p>${escapeHtml(channel.account_label || (channel.channel === "website" ? "Novara CX website" : "Not configured"))}</p></div></div><div class="channel-actions"><span class="status-dot ${["connected","testing"].includes(channel.status) ? "" : "disconnected"}">${escapeHtml(channel.status)}</span><button class="admin-btn" data-channel-configure="${escapeHtml(channel.channel)}" type="button">Configure</button></div><div class="channel-config"><label class="admin-field"><span>Account label</span><input data-channel-account value="${escapeHtml(channel.account_label || "")}" placeholder="Business account or phone"></label><label class="admin-field"><span>External account ID</span><input data-channel-id value="${escapeHtml(channel.external_account_id || "")}" placeholder="Configured provider identifier"></label><label class="admin-field"><span>Mode</span><select data-channel-status><option value="disconnected" ${channel.status==="disconnected"?"selected":""}>Disconnected</option><option value="testing" ${channel.status==="testing"?"selected":""}>Testing</option><option value="connected" ${channel.status==="connected"?"selected":""}>Connected</option><option value="paused" ${channel.status==="paused"?"selected":""}>Paused</option></select></label><label class="admin-field"><span>Welcome message</span><input data-channel-welcome value="${escapeHtml(settings.welcomeMessage || "")}" placeholder="Optional channel greeting"></label><button class="admin-btn primary" data-channel-save="${escapeHtml(channel.channel)}" type="button">Save channel</button><div class="admin-status" data-channel-status-text></div></div></article>`;
+            return `<article class="channel-card" data-channel-card="${escapeHtml(channel.channel)}"><div class="channel-card-head"><div class="channel-icon">${icon[channel.channel] || escapeHtml(channel.display_name.slice(0,2))}</div><div><h3>${escapeHtml(channel.display_name)}</h3><p>${escapeHtml(channel.account_label || (channel.channel === "website" ? "Novara CX website" : "Not configured"))}</p></div></div><div class="channel-actions"><span aria-hidden="true"></span><button class="admin-btn" data-channel-configure="${escapeHtml(channel.channel)}" type="button">Configure</button></div><div class="channel-config"><label class="admin-field"><span>Account label</span><input data-channel-account value="${escapeHtml(channel.account_label || "")}" placeholder="Business account or phone"></label><label class="admin-field"><span>External account ID</span><input data-channel-id value="${escapeHtml(channel.external_account_id || "")}" placeholder="Configured provider identifier"></label><label class="admin-field"><span>Mode</span><select data-channel-status><option value="disconnected" ${channel.status==="disconnected"?"selected":""}>Disconnected</option><option value="testing" ${channel.status==="testing"?"selected":""}>Testing</option><option value="connected" ${channel.status==="connected"?"selected":""}>Connected</option><option value="paused" ${channel.status==="paused"?"selected":""}>Paused</option></select></label><label class="admin-field"><span>Welcome message</span><input data-channel-welcome value="${escapeHtml(settings.welcomeMessage || "")}" placeholder="Optional channel greeting"></label><button class="admin-btn primary" data-channel-save="${escapeHtml(channel.channel)}" type="button">Save channel</button><div class="admin-status" data-channel-status-text></div></div></article>`;
         }).join("");
         grid.querySelectorAll("[data-channel-configure]").forEach(button => button.addEventListener("click", () => button.closest(".channel-card").classList.toggle("open")));
         grid.querySelectorAll("[data-channel-save]").forEach(button => button.addEventListener("click", () => saveChannel(button.closest(".channel-card"), button.dataset.channelSave)));
