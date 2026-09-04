@@ -5820,6 +5820,95 @@
         }
     </style>
 
+
+    <style id="approved-interface-refinements">
+        /* Analytics mode selection mirrors the date selector's clear active state */
+        #tabSwitcher .tab.active,
+        html[data-theme="light"] #tabSwitcher .tab.active{
+            background:var(--accent);
+            color:#fff;
+            border-color:var(--accent);
+            box-shadow:0 7px 18px color-mix(in srgb,var(--accent) 28%,transparent);
+        }
+        #tabSwitcher .tab.active:hover{color:#fff;background:var(--accent-dark)}
+
+        /* Preserve legibility on the primary dashboard action */
+        #dashboardAddReportsBtn,
+        #dashboardAddReportsBtn svg{
+            color:#fff;
+            stroke:#fff;
+        }
+
+        /* Instruction editor typography */
+        #chatbotTab-instructions .prompt-section-head strong{font-size:15px;letter-spacing:-.1px}
+        #chatbotTab-instructions .prompt-section-head > span{font-size:12px}
+        #chatbotTab-instructions .prompt-section textarea{
+            font-size:14px;
+            line-height:1.65;
+        }
+        #chatbotTab-instructions .custom-instruction-title{font-size:15px;font-weight:750}
+        #chatbotTab-instructions .custom-instruction-card textarea{font-size:14px;line-height:1.65}
+        #addCustomInstruction[hidden]{display:none!important}
+
+        /* Recognizable channel identities */
+        #chatbotTab-channels .channel-icon{display:grid;place-items:center}
+        #chatbotTab-channels .channel-icon svg{width:25px;height:25px}
+        #chatbotTab-channels [data-channel-card="whatsapp"] .channel-icon{color:#25D366;background:rgba(37,211,102,.10)}
+        #chatbotTab-channels [data-channel-card="instagram"] .channel-icon{
+            color:#C13584;
+            background:linear-gradient(145deg,rgba(253,29,29,.10),rgba(131,58,180,.10));
+        }
+        #chatbotTab-channels [data-channel-card="messenger"] .channel-icon{color:#0084FF;background:rgba(0,132,255,.09)}
+        #chatbotTab-channels [data-channel-card="website"] .channel-icon,
+        #chatbotTab-channels [data-channel-card="email"] .channel-icon{color:var(--accent-dark)}
+
+        /* Version history hierarchy */
+        #chatbotTab-versions > .admin-card{padding:26px}
+        #chatbotTab-versions .admin-card-head h3{font-size:20px;letter-spacing:-.35px}
+        #chatbotTab-versions .admin-card-head p{font-size:13px;line-height:1.55}
+        #chatbotTab-versions .version-list{position:relative;gap:11px;margin-top:20px}
+        #chatbotTab-versions .version-row{
+            grid-template-columns:42px minmax(0,1fr) auto;
+            min-height:92px;
+            padding:16px 18px;
+            transition:transform .2s ease,border-color .2s ease,box-shadow .2s ease,background .2s ease;
+        }
+        #chatbotTab-versions .version-row:hover{transform:translateY(-1px);border-color:var(--border-strong);box-shadow:var(--shadow-soft)}
+        #chatbotTab-versions .version-row.is-live{
+            border-color:color-mix(in srgb,var(--accent) 34%,var(--border));
+            background:linear-gradient(100deg,color-mix(in srgb,var(--accent) 10%,var(--surface)),var(--surface));
+        }
+        #chatbotTab-versions .version-marker{
+            width:36px;height:36px;border-radius:11px;display:grid;place-items:center;
+            color:var(--muted);background:var(--surface-alt);border:1px solid var(--border);
+        }
+        #chatbotTab-versions .is-live .version-marker{color:var(--accent-light);background:color-mix(in srgb,var(--accent) 14%,var(--surface))}
+        #chatbotTab-versions .version-marker svg{width:18px;height:18px}
+        #chatbotTab-versions .version-copy strong{display:flex;align-items:center;gap:8px;font-size:14px}
+        #chatbotTab-versions .version-state{
+            display:inline-flex;margin:0;padding:4px 7px;border-radius:999px;
+            color:var(--muted);background:var(--surface-alt);font-size:9px;text-transform:uppercase;letter-spacing:.08em;
+        }
+        #chatbotTab-versions .version-summary{font-size:12px;margin-top:7px;color:var(--text-secondary)}
+        #chatbotTab-versions .version-copy time{display:block;margin-top:4px;color:var(--muted);font-size:10px}
+        #chatbotTab-versions .version-live-badge{
+            display:inline-flex;align-items:center;gap:7px;padding:7px 10px;border-radius:999px;
+            color:var(--accent-light);background:color-mix(in srgb,var(--accent) 13%,var(--surface));
+            border:1px solid color-mix(in srgb,var(--accent) 25%,var(--border));font-size:11px;font-weight:800;
+        }
+        #chatbotTab-versions .version-live-badge i{width:7px;height:7px;border-radius:50%;background:var(--success);box-shadow:0 0 0 4px color-mix(in srgb,var(--success) 15%,transparent)}
+        #chatbotTab-versions .version-restore-btn{white-space:nowrap}
+        #chatbotTab-versions .version-restore-btn:hover{border-color:var(--accent);color:var(--accent-light)}
+        html[data-theme="light"] #chatbotTab-versions .version-row.is-live{
+            background:linear-gradient(100deg,rgba(102,151,125,.12),#fff);
+        }
+        html[data-theme="light"] #chatbotTab-versions .version-live-badge{color:#2e684a;background:rgba(102,151,125,.12)}
+        @media(max-width:640px){
+            #chatbotTab-versions .version-row{grid-template-columns:36px minmax(0,1fr)}
+            #chatbotTab-versions .version-actions{grid-column:2;justify-content:flex-start}
+        }
+    </style>
+
 </head>
 
 
@@ -7891,7 +7980,7 @@ ORDER BY ticket_count DESC</textarea>
             <section id="panel-chatbot" class="view-panel">
                 <div class="admin-workspace">
                     <div class="admin-tabs" id="chatbotTabs" role="tablist" aria-label="AI Agent settings">
-                        <button class="admin-tab active" data-chatbot-tab="overview" type="button" role="tab" aria-selected="true" aria-controls="chatbotTab-overview"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3.5" y="3.5" width="6.5" height="6.5" rx="1.5" stroke="currentColor" stroke-width="1.8"/><rect x="14" y="3.5" width="6.5" height="6.5" rx="1.5" stroke="currentColor" stroke-width="1.8"/><rect x="3.5" y="14" width="6.5" height="6.5" rx="1.5" stroke="currentColor" stroke-width="1.8"/><rect x="14" y="14" width="6.5" height="6.5" rx="1.5" stroke="currentColor" stroke-width="1.8"/></svg><span>Overview</span></button>
+                        <button class="admin-tab active" data-chatbot-tab="overview" type="button" role="tab" aria-selected="true" aria-controls="chatbotTab-overview"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 17a8 8 0 1 1 16 0" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="m12 13 4-4M7 17h10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="13" r="1.35" fill="currentColor"/></svg><span>Overview</span></button>
                         <button class="admin-tab" data-chatbot-tab="instructions" type="button" role="tab" aria-selected="false" aria-controls="chatbotTab-instructions"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 3.5h9l3 3V20.5H6z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M15 3.5v4h3M9 11h6M9 15h6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span>Instructions</span></button>
                         <button class="admin-tab" data-chatbot-tab="model" type="button" role="tab" aria-selected="false" aria-controls="chatbotTab-model"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m12 3 1.15 3.1L16 7.25l-2.85 1.15L12 11.5 10.85 8.4 8 7.25l2.85-1.15L12 3ZM6.5 12.5l.85 2.15L9.5 15.5l-2.15.85L6.5 18.5l-.85-2.15-2.15-.85 2.15-.85.85-2.15ZM17.5 13l.75 1.75 1.75.75-1.75.75L17.5 18l-.75-1.75L15 15.5l1.75-.75L17.5 13Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg><span>Model & performance</span></button>
                         <button class="admin-tab" data-chatbot-tab="channels" type="button" role="tab" aria-selected="false" aria-controls="chatbotTab-channels"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="6" cy="12" r="2.4" stroke="currentColor" stroke-width="1.8"/><circle cx="18" cy="6" r="2.4" stroke="currentColor" stroke-width="1.8"/><circle cx="18" cy="18" r="2.4" stroke="currentColor" stroke-width="1.8"/><path d="m8.2 10.9 7.6-3.8M8.2 13.1l7.6 3.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span>Channels</span></button>
@@ -15141,9 +15230,23 @@ ORDER BY created_date DESC, ticket_count DESC`;
         if (!customPromptSections.length && importedValue.trim()) customPromptSections = [{ id:`custom-${Date.now()}`, title:"Additional instructions", instruction:importedValue.trim() }];
         host.innerHTML = customPromptSections.map(section => `<article class="custom-instruction-card" data-custom-instruction="${escapeHtml(section.id)}"><div class="custom-instruction-card-head"><input class="custom-instruction-title" value="${escapeHtml(section.title || "")}" placeholder="Custom header" aria-label="Custom instruction header"><button class="custom-instruction-remove" type="button" aria-label="Delete custom instruction">×</button></div><textarea placeholder="Write the instruction the AI should follow…" aria-label="Custom instruction">${escapeHtml(section.instruction || "")}</textarea></article>`).join("");
         syncCustomPromptSections();
+        updateCustomInstructionAdder();
+    }
+
+    function updateCustomInstructionAdder() {
+        const addButton = document.getElementById("addCustomInstruction");
+        if (!addButton) return;
+        const hasIncompleteInstruction = customPromptSections.some(section => !String(section.title || "").trim() || !String(section.instruction || "").trim());
+        addButton.hidden = hasIncompleteInstruction;
+        addButton.setAttribute("aria-hidden", String(hasIncompleteInstruction));
     }
 
     document.getElementById("addCustomInstruction")?.addEventListener("click", () => {
+        const existingIncomplete = customPromptSections.find(section => !String(section.title || "").trim() || !String(section.instruction || "").trim());
+        if (existingIncomplete) {
+            document.querySelector(`[data-custom-instruction="${existingIncomplete.id}"] .custom-instruction-title`)?.focus();
+            return;
+        }
         const section = { id:`custom-${Date.now()}`, title:"", instruction:"" };
         customPromptSections.push(section);
         renderCustomPromptSections();
@@ -15156,6 +15259,7 @@ ORDER BY created_date DESC, ticket_count DESC`;
         if (event.target.matches(".custom-instruction-title")) section.title = event.target.value;
         if (event.target.matches("textarea")) section.instruction = event.target.value;
         syncCustomPromptSections();
+        updateCustomInstructionAdder();
     });
     document.getElementById("customInstructionCards")?.addEventListener("click", event => {
         const remove = event.target.closest(".custom-instruction-remove");
@@ -15221,16 +15325,22 @@ ORDER BY created_date DESC, ticket_count DESC`;
     function renderChatbotVersions() {
         const list = document.getElementById("chatbotVersionList");
         const versions = chatbotControlState?.versions || [];
-        list.innerHTML = versions.length ? versions.map(version => `<div class="version-row"><div><strong>Version ${version.version_number} · ${escapeHtml(version.status)}</strong><span>${escapeHtml(version.change_summary || "No change summary")} · ${escapeHtml(formatAdminDate(version.published_at || version.created_at))}</span></div><div class="version-actions">${version.status === "published" ? `<span class="status-dot">Live</span>` : `<button class="admin-btn" data-restore-prompt="${version.id}" type="button">Restore as draft</button>`}</div></div>`).join("") : `<div class="empty-state">No prompt versions yet.</div>`;
+        list.innerHTML = versions.length ? versions.map(version => { const isLive = version.status === "published"; return `<div class="version-row ${isLive ? "is-live" : "is-archived"}"><div class="version-marker" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M4.5 8V4.5H8M4.8 4.8A8 8 0 1 1 4 13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 8v4.5l3 1.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></div><div class="version-copy"><strong>Version ${version.version_number}<span class="version-state">${escapeHtml(version.status)}</span></strong><span class="version-summary">${escapeHtml(version.change_summary || "No change summary")}</span><time>${escapeHtml(formatAdminDate(version.published_at || version.created_at))}</time></div><div class="version-actions">${isLive ? `<span class="version-live-badge"><i></i>Live</span>` : `<button class="admin-btn version-restore-btn" data-restore-prompt="${version.id}" type="button">Restore as draft</button>`}</div></div>`; }).join("") : `<div class="empty-state">No prompt versions yet.</div>`;
         list.querySelectorAll("[data-restore-prompt]").forEach(button => button.addEventListener("click", () => restorePromptVersion(Number(button.dataset.restorePrompt))));
     }
 
     function renderChatbotChannels() {
         const grid = document.getElementById("chatbotChannelGrid");
-        const icon = { website:"W", whatsapp:"WA", instagram:"IG", messenger:"M", email:"@" };
+        const icon = {
+            website:`<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="3" stroke="currentColor" stroke-width="1.8"/><path d="M3 8h18M7 6h.01M10 6h.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M8 12h8M8 16h5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>`,
+            whatsapp:`<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12.04 2a9.82 9.82 0 0 0-8.5 14.73L2 22l5.4-1.42A9.95 9.95 0 1 0 12.04 2Zm0 17.98a8.08 8.08 0 0 1-4.12-1.13l-.3-.18-3.2.84.86-3.12-.2-.32a8.03 8.03 0 1 1 6.96 3.91Zm4.42-6.04c-.24-.12-1.43-.71-1.65-.79-.22-.08-.38-.12-.54.12-.16.24-.62.79-.76.95-.14.16-.28.18-.52.06-.24-.12-1.02-.38-1.95-1.2-.72-.64-1.2-1.44-1.34-1.68-.14-.24-.02-.37.1-.49.11-.11.24-.28.36-.42.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.54-1.3-.74-1.78-.2-.47-.4-.4-.54-.41h-.46c-.16 0-.42.06-.64.3-.22.24-.84.82-.84 2s.86 2.32.98 2.48c.12.16 1.69 2.58 4.1 3.62.57.25 1.02.4 1.37.51.58.18 1.1.16 1.51.1.46-.07 1.43-.59 1.63-1.15.2-.56.2-1.04.14-1.14-.06-.1-.22-.16-.46-.28Z"/></svg>`,
+            instagram:`<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5.2" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4.1" stroke="currentColor" stroke-width="2"/><circle cx="17.6" cy="6.5" r="1.15" fill="currentColor"/></svg>`,
+            messenger:`<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2C6.48 2 2 6.15 2 11.27c0 2.91 1.45 5.5 3.72 7.2V22l3.4-1.86c.91.25 1.88.39 2.88.39 5.52 0 10-4.15 10-9.26S17.52 2 12 2Zm1 12.48-2.55-2.72-4.98 2.72 5.48-5.82 2.61 2.72 4.92-2.72L13 14.48Z"/></svg>`,
+            email:`<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3" stroke="currentColor" stroke-width="1.8"/><path d="m5 8 7 5 7-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>`
+        };
         grid.innerHTML = (chatbotControlState?.channels || []).map(channel => {
             let settings = {}; try { settings = JSON.parse(channel.settings_json || "{}"); } catch {}
-            return `<article class="channel-card" data-channel-card="${escapeHtml(channel.channel)}"><div class="channel-card-head"><div class="channel-icon">${escapeHtml(icon[channel.channel] || channel.display_name.slice(0,2))}</div><div><h3>${escapeHtml(channel.display_name)}</h3><p>${escapeHtml(channel.account_label || (channel.channel === "website" ? "Novara CX website" : "Not configured"))}</p></div></div><div class="channel-actions"><span class="status-dot ${["connected","testing"].includes(channel.status) ? "" : "disconnected"}">${escapeHtml(channel.status)}</span><button class="admin-btn" data-channel-configure="${escapeHtml(channel.channel)}" type="button">Configure</button></div><div class="channel-config"><label class="admin-field"><span>Account label</span><input data-channel-account value="${escapeHtml(channel.account_label || "")}" placeholder="Business account or phone"></label><label class="admin-field"><span>External account ID</span><input data-channel-id value="${escapeHtml(channel.external_account_id || "")}" placeholder="Configured provider identifier"></label><label class="admin-field"><span>Mode</span><select data-channel-status><option value="disconnected" ${channel.status==="disconnected"?"selected":""}>Disconnected</option><option value="testing" ${channel.status==="testing"?"selected":""}>Testing</option><option value="connected" ${channel.status==="connected"?"selected":""}>Connected</option><option value="paused" ${channel.status==="paused"?"selected":""}>Paused</option></select></label><label class="admin-field"><span>Welcome message</span><input data-channel-welcome value="${escapeHtml(settings.welcomeMessage || "")}" placeholder="Optional channel greeting"></label><button class="admin-btn primary" data-channel-save="${escapeHtml(channel.channel)}" type="button">Save channel</button><div class="admin-status" data-channel-status-text></div></div></article>`;
+            return `<article class="channel-card" data-channel-card="${escapeHtml(channel.channel)}"><div class="channel-card-head"><div class="channel-icon">${icon[channel.channel] || escapeHtml(channel.display_name.slice(0,2))}</div><div><h3>${escapeHtml(channel.display_name)}</h3><p>${escapeHtml(channel.account_label || (channel.channel === "website" ? "Novara CX website" : "Not configured"))}</p></div></div><div class="channel-actions"><span class="status-dot ${["connected","testing"].includes(channel.status) ? "" : "disconnected"}">${escapeHtml(channel.status)}</span><button class="admin-btn" data-channel-configure="${escapeHtml(channel.channel)}" type="button">Configure</button></div><div class="channel-config"><label class="admin-field"><span>Account label</span><input data-channel-account value="${escapeHtml(channel.account_label || "")}" placeholder="Business account or phone"></label><label class="admin-field"><span>External account ID</span><input data-channel-id value="${escapeHtml(channel.external_account_id || "")}" placeholder="Configured provider identifier"></label><label class="admin-field"><span>Mode</span><select data-channel-status><option value="disconnected" ${channel.status==="disconnected"?"selected":""}>Disconnected</option><option value="testing" ${channel.status==="testing"?"selected":""}>Testing</option><option value="connected" ${channel.status==="connected"?"selected":""}>Connected</option><option value="paused" ${channel.status==="paused"?"selected":""}>Paused</option></select></label><label class="admin-field"><span>Welcome message</span><input data-channel-welcome value="${escapeHtml(settings.welcomeMessage || "")}" placeholder="Optional channel greeting"></label><button class="admin-btn primary" data-channel-save="${escapeHtml(channel.channel)}" type="button">Save channel</button><div class="admin-status" data-channel-status-text></div></div></article>`;
         }).join("");
         grid.querySelectorAll("[data-channel-configure]").forEach(button => button.addEventListener("click", () => button.closest(".channel-card").classList.toggle("open")));
         grid.querySelectorAll("[data-channel-save]").forEach(button => button.addEventListener("click", () => saveChannel(button.closest(".channel-card"), button.dataset.channelSave)));
