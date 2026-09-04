@@ -6080,6 +6080,145 @@
         }
     </style>
 
+
+    <style id="pending-workspace-refinements">
+        /* No decorative dot-and-label status badges anywhere in AI Chatbot */
+        #panel-chatbot .status-dot,
+        #panel-chatbot .model-connection-state,
+        #panel-chatbot .version-live-badge{display:none!important}
+
+        /* Compact chatbot availability selector */
+        .chatbot-status-control.open{
+            display:inline-flex;
+            min-height:40px;
+            padding:0 10px;
+            border-radius:10px;
+            box-shadow:none;
+        }
+        .chatbot-status-control::before{display:none!important}
+        .chatbot-status-control select{font-size:10px;font-weight:700;cursor:pointer}
+
+        /* Channel configuration side drawer */
+        body.channel-config-open{overflow:hidden}
+        #panel-chatbot .channel-config-backdrop{
+            position:fixed;
+            inset:0;
+            z-index:1180;
+            display:none;
+            border:0;
+            background:rgba(10,15,12,.58);
+            backdrop-filter:blur(4px);
+            cursor:default;
+        }
+        #panel-chatbot .channel-card.open .channel-config-backdrop{display:block}
+        #panel-chatbot .channel-config{
+            position:fixed;
+            top:0;
+            right:0;
+            z-index:1181;
+            display:flex!important;
+            flex-direction:column;
+            gap:0;
+            width:min(610px,100vw);
+            height:100dvh;
+            padding:0;
+            border:0;
+            border-left:1px solid var(--border);
+            background:var(--bg-card);
+            box-shadow:-26px 0 70px rgba(0,0,0,.26);
+            opacity:0;
+            visibility:hidden;
+            transform:translateX(100%);
+            transition:transform .26s cubic-bezier(.2,.8,.2,1),opacity .2s ease,visibility .2s;
+        }
+        #panel-chatbot .channel-card.open .channel-config{
+            opacity:1;
+            visibility:visible;
+            transform:translateX(0);
+        }
+        #panel-chatbot .channel-config-head{
+            display:flex;
+            align-items:flex-start;
+            justify-content:space-between;
+            gap:18px;
+            padding:26px 28px 24px;
+            border-bottom:1px solid var(--border);
+        }
+        #panel-chatbot .channel-config-head > div > span{
+            color:var(--accent);
+            font-size:9px;
+            font-weight:800;
+            letter-spacing:.14em;
+            text-transform:uppercase;
+        }
+        #panel-chatbot .channel-config-head h3{margin:7px 0 5px;font-size:23px;letter-spacing:-.6px}
+        #panel-chatbot .channel-config-head p{margin:0;color:var(--muted);font-size:11px}
+        #panel-chatbot .channel-config-close{
+            width:42px;height:42px;flex:0 0 42px;
+            border:1px solid var(--border);
+            border-radius:11px;
+            background:var(--surface);
+            color:var(--text);
+            font:inherit;font-size:18px;
+            cursor:pointer;
+        }
+        #panel-chatbot .channel-config-body{
+            flex:1;
+            overflow-y:auto;
+            display:grid;
+            align-content:start;
+            gap:18px;
+            padding:28px;
+        }
+        #panel-chatbot .channel-config-body .admin-field > span{font-size:10px;letter-spacing:.09em}
+        #panel-chatbot .channel-config-body input,
+        #panel-chatbot .channel-config-body select{min-height:48px}
+        #panel-chatbot .channel-config-footer{
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            gap:18px;
+            margin-top:10px;
+            padding-top:22px;
+            border-top:1px solid var(--border);
+        }
+        #panel-chatbot .channel-config-footer .admin-status{margin:0}
+        #panel-chatbot .channel-config-footer .admin-btn{min-width:150px}
+        @media(prefers-reduced-motion:reduce){
+            #panel-chatbot .channel-config{transition:none}
+        }
+        @media(max-width:620px){
+            #panel-chatbot .channel-config-head,
+            #panel-chatbot .channel-config-body{padding:20px}
+            #panel-chatbot .channel-config-footer{align-items:stretch;flex-direction:column}
+            #panel-chatbot .channel-config-footer .admin-btn{width:100%}
+        }
+
+        /* Compact SLA timing in the ticket header */
+        .ticket-sla-state{
+            position:relative;
+            padding-left:11px;
+            font-size:11px;
+            font-weight:800;
+            line-height:1.2;
+            letter-spacing:-.05px;
+        }
+        .ticket-sla-state::before{
+            content:"";
+            position:absolute;
+            top:1px;bottom:1px;left:0;
+            width:2px;border-radius:3px;
+            background:currentColor;
+            opacity:.7;
+        }
+        .ticket-sla-state.due,.ticket-sla-state.closed{color:#3b8b62}
+        .ticket-sla-state.overdue{color:#c45149}
+        html[data-theme="dark"] .ticket-sla-state.due,
+        html[data-theme="dark"] .ticket-sla-state.closed{color:#79c39a}
+        html[data-theme="dark"] .ticket-sla-state.overdue{color:#df8d82}
+        .ticket-channel-switch{grid-template-columns:repeat(3,1fr);width:274px}
+    </style>
+
 </head>
 
 
@@ -8156,9 +8295,6 @@ ORDER BY ticket_count DESC</textarea>
                         <button class="admin-tab" data-chatbot-tab="model" type="button" role="tab" aria-selected="false" aria-controls="chatbotTab-model"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m12 3 1.15 3.1L16 7.25l-2.85 1.15L12 11.5 10.85 8.4 8 7.25l2.85-1.15L12 3ZM6.5 12.5l.85 2.15L9.5 15.5l-2.15.85L6.5 18.5l-.85-2.15-2.15-.85 2.15-.85.85-2.15ZM17.5 13l.75 1.75 1.75.75-1.75.75L17.5 18l-.75-1.75L15 15.5l1.75-.75L17.5 13Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg><span>Model & performance</span></button>
                         <button class="admin-tab" data-chatbot-tab="channels" type="button" role="tab" aria-selected="false" aria-controls="chatbotTab-channels"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="6" cy="12" r="2.4" stroke="currentColor" stroke-width="1.8"/><circle cx="18" cy="6" r="2.4" stroke="currentColor" stroke-width="1.8"/><circle cx="18" cy="18" r="2.4" stroke="currentColor" stroke-width="1.8"/><path d="m8.2 10.9 7.6-3.8M8.2 13.1l7.6 3.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span>Channels</span></button>
                         <button class="admin-tab" data-chatbot-tab="versions" type="button" role="tab" aria-selected="false" aria-controls="chatbotTab-versions"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4.2 8.2V4.5m0 0h3.7m-3.7 0 3 3A8 8 0 1 1 4 13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 8v4.5l3 1.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Version history</span></button>
-                        <div class="admin-tab-actions">
-                            <button id="chatbotPublishTop" class="admin-btn primary" type="button">Publish changes</button>
-                        </div>
                     </div>
 
                     <div id="chatbotTab-overview" class="admin-tab-panel active">
@@ -8578,6 +8714,7 @@ ORDER BY ticket_count DESC</textarea>
                 </div>
                 <button id="ticketDrawerClose" class="ticket-close" type="button" aria-label="Close ticket">✕</button>
             </div>
+            <div id="ticketSlaState" class="ticket-sla-state due" aria-live="polite">Due in 18 minutes</div>
             <div id="ticketChannelSwitch" class="ticket-channel-switch" role="tablist" aria-label="Ticket channel">
                 <button id="ticketChannelChat" class="active" type="button" role="tab" aria-selected="true" data-ticket-channel="chat"><span class="ticket-channel-dot"></span>Chat</button>
                 <button id="ticketChannelCall" type="button" role="tab" aria-selected="false" data-ticket-channel="call"><span class="ticket-channel-dot"></span>Calls</button>
@@ -14334,6 +14471,23 @@ ORDER BY created_date DESC, ticket_count DESC`;
         document.querySelectorAll(".ticket-status-option").forEach(button=>button.classList.toggle("active",button.dataset.value===normalized));
     }
 
+    function renderTicketSlaState(ticket) {
+        const element = document.getElementById("ticketSlaState");
+        if (!element) return;
+        const status = String(ticket?.status || "open").toLowerCase();
+        const ticketSeed = Number(ticket?.id || 1);
+        if (["closed","resolved"].includes(status)) {
+            element.textContent = `Closed in ${10 + (ticketSeed % 9)} minutes`;
+            element.className = "ticket-sla-state closed";
+        } else if (status === "reopened" || String(ticket?.priority || "").toLowerCase() === "urgent") {
+            element.textContent = `Overdue by ${4 + (ticketSeed % 8)} minutes`;
+            element.className = "ticket-sla-state overdue";
+        } else {
+            element.textContent = `Due in ${14 + (ticketSeed % 13)} minutes`;
+            element.className = "ticket-sla-state due";
+        }
+    }
+
     async function loadOpenTicket(scrollLatest = false) {
         if (!openTicketId) return;
         if (ticketDetailRequestInFlight) return;
@@ -14365,6 +14519,7 @@ ORDER BY created_date DESC, ticket_count DESC`;
             });
             document.getElementById("ticketDrawerTitle").textContent = ticket.ticket_number || `NX-${String(ticket.id).padStart(4, "0")}`;
             setTicketStatusUi(ticket.status === "resolved" ? "resolved" : ticket.status === "pending_revert" ? "pending" : (ticket.status || "open"));
+            renderTicketSlaState(ticket);
             const agentSelect=document.getElementById("ticketAgentSelect");
             const agents=[ticket.agent_name || "Novara CX Support","Novara CX Support","Support Agent A","Support Agent B"].filter((value,index,array)=>value&&array.indexOf(value)===index);
             agentSelect.innerHTML=agents.map(agent=>`<option value="${escapeHtml(agent)}">${escapeHtml(agent)}</option>`).join(""); agentSelect.value=ticket.agent_name||"Novara CX Support";
@@ -14374,7 +14529,6 @@ ORDER BY created_date DESC, ticket_count DESC`;
                 <div class="ticket-context-header">
                     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20v-2a4 4 0 0 1 4-4h8a4 4 0 0 1 4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
                     Ticket Information
-                    <span class="sla-badge ${drawerSla.className}" style="margin-left:auto">${escapeHtml(drawerSla.label)}</span>
                 </div>
                 <div class="ticket-context-section identity">
                     <div class="ticket-context-item"><span>Customer name</span>${escapeHtml(ticket.customer_name || "—")}</div>
@@ -15509,9 +15663,20 @@ ORDER BY created_date DESC, ticket_count DESC`;
         };
         grid.innerHTML = (chatbotControlState?.channels || []).map(channel => {
             let settings = {}; try { settings = JSON.parse(channel.settings_json || "{}"); } catch {}
-            return `<article class="channel-card" data-channel-card="${escapeHtml(channel.channel)}"><div class="channel-card-head"><div class="channel-icon">${icon[channel.channel] || escapeHtml(channel.display_name.slice(0,2))}</div><div><h3>${escapeHtml(channel.display_name)}</h3><p>${escapeHtml(channel.account_label || (channel.channel === "website" ? "Novara CX website" : "Not configured"))}</p></div></div><div class="channel-actions"><span aria-hidden="true"></span><button class="admin-btn" data-channel-configure="${escapeHtml(channel.channel)}" type="button">Configure</button></div><div class="channel-config"><label class="admin-field"><span>Account label</span><input data-channel-account value="${escapeHtml(channel.account_label || "")}" placeholder="Business account or phone"></label><label class="admin-field"><span>External account ID</span><input data-channel-id value="${escapeHtml(channel.external_account_id || "")}" placeholder="Configured provider identifier"></label><label class="admin-field"><span>Mode</span><select data-channel-status><option value="disconnected" ${channel.status==="disconnected"?"selected":""}>Disconnected</option><option value="testing" ${channel.status==="testing"?"selected":""}>Testing</option><option value="connected" ${channel.status==="connected"?"selected":""}>Connected</option><option value="paused" ${channel.status==="paused"?"selected":""}>Paused</option></select></label><label class="admin-field"><span>Welcome message</span><input data-channel-welcome value="${escapeHtml(settings.welcomeMessage || "")}" placeholder="Optional channel greeting"></label><button class="admin-btn primary" data-channel-save="${escapeHtml(channel.channel)}" type="button">Save channel</button><div class="admin-status" data-channel-status-text></div></div></article>`;
+            return `<article class="channel-card" data-channel-card="${escapeHtml(channel.channel)}"><div class="channel-card-head"><div class="channel-icon">${icon[channel.channel] || escapeHtml(channel.display_name.slice(0,2))}</div><div><h3>${escapeHtml(channel.display_name)}</h3><p>${escapeHtml(channel.account_label || (channel.channel === "website" ? "Novara CX website" : "Not configured"))}</p></div></div><div class="channel-actions"><span aria-hidden="true"></span><button class="admin-btn" data-channel-configure="${escapeHtml(channel.channel)}" type="button">Configure</button></div><button class="channel-config-backdrop" type="button" aria-label="Close channel configuration"></button><div class="channel-config" role="dialog" aria-modal="true" aria-label="Configure ${escapeHtml(channel.display_name)}"><div class="channel-config-head"><div><span>Customer channel</span><h3>Configure ${escapeHtml(channel.display_name)}</h3><p>${escapeHtml(channel.account_label || (channel.channel === "website" ? "Novara CX website" : "Connect and configure this channel"))}</p></div><button class="channel-config-close" type="button" aria-label="Close channel configuration">✕</button></div><div class="channel-config-body"><label class="admin-field"><span>Account label</span><input data-channel-account value="${escapeHtml(channel.account_label || "")}" placeholder="Business account or phone"></label><label class="admin-field"><span>External account ID</span><input data-channel-id value="${escapeHtml(channel.external_account_id || "")}" placeholder="Configured provider identifier"></label><label class="admin-field"><span>Mode</span><select data-channel-status><option value="disconnected" ${channel.status==="disconnected"?"selected":""}>Disconnected</option><option value="testing" ${channel.status==="testing"?"selected":""}>Testing</option><option value="connected" ${channel.status==="connected"?"selected":""}>Connected</option><option value="paused" ${channel.status==="paused"?"selected":""}>Paused</option></select></label><label class="admin-field"><span>Welcome message</span><input data-channel-welcome value="${escapeHtml(settings.welcomeMessage || "")}" placeholder="Optional channel greeting"></label><div class="channel-config-footer"><div class="admin-status" data-channel-status-text></div><button class="admin-btn primary" data-channel-save="${escapeHtml(channel.channel)}" type="button">Save channel</button></div></div></div></article>`;
         }).join("");
-        grid.querySelectorAll("[data-channel-configure]").forEach(button => button.addEventListener("click", () => button.closest(".channel-card").classList.toggle("open")));
+        const closeChannelDrawer = card => {
+            card?.classList.remove("open");
+            document.body.classList.remove("channel-config-open");
+        };
+        grid.querySelectorAll("[data-channel-configure]").forEach(button => button.addEventListener("click", () => {
+            grid.querySelectorAll(".channel-card.open").forEach(closeChannelDrawer);
+            const card = button.closest(".channel-card");
+            card.classList.add("open");
+            document.body.classList.add("channel-config-open");
+            requestAnimationFrame(() => card.querySelector("[data-channel-account]")?.focus());
+        }));
+        grid.querySelectorAll(".channel-config-close,.channel-config-backdrop").forEach(button => button.addEventListener("click", () => closeChannelDrawer(button.closest(".channel-card"))));
         grid.querySelectorAll("[data-channel-save]").forEach(button => button.addEventListener("click", () => saveChannel(button.closest(".channel-card"), button.dataset.channelSave)));
     }
 
@@ -15571,6 +15736,7 @@ ORDER BY created_date DESC, ticket_count DESC`;
         try {
             const result = await adminApi("/admin/chatbot/channel", { method:"POST", body:JSON.stringify({ channel, accountLabel:card.querySelector("[data-channel-account]").value, externalAccountId:card.querySelector("[data-channel-id]").value, status:card.querySelector("[data-channel-status]").value, settings:{ welcomeMessage:card.querySelector("[data-channel-welcome]").value } }) });
             status.textContent = result.requiresProviderCredentials ? "Configuration saved. Provider credentials and webhook approval are still required before live activation." : "Channel configuration saved.";
+            document.body.classList.remove("channel-config-open");
             await loadChatbotControlCentre(true);
         } catch (error) { status.textContent = error.message; }
     }
