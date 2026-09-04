@@ -16307,7 +16307,7 @@ html[data-theme="light"] .ticket-history-section,html[data-theme="light"] .ticke
 
     async function verifySession(){
         const token=sessionStorage.getItem(tokenKey);
-        if(!token)return false;
+        if(!token){setStatus("");return false;}
         try{
             const response=await fetch(API+"/auth/me");
             const data=await response.json();
