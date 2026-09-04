@@ -5725,6 +5725,101 @@
         @media(max-width:850px){.novara-auth-screen{grid-template-columns:1fr}.novara-auth-brand{min-height:34vh;padding:30px}.novara-auth-promise h1{font-size:42px}.novara-auth-promise p,.novara-auth-points{display:none}.novara-auth-panel{padding:22px}.novara-auth-card{padding:30px 24px}}
     </style>
 
+
+    <style id="chatbot-tabs-elegance">
+        /* AI Agent navigation: refined without changing its established sizing or spacing */
+        #panel-chatbot .admin-tabs{
+            isolation:isolate;
+            scrollbar-width:none;
+            overscroll-behavior-x:contain;
+            -webkit-overflow-scrolling:touch;
+            border-color:color-mix(in srgb,var(--border-strong) 72%,transparent);
+            background:
+                linear-gradient(135deg,
+                    color-mix(in srgb,var(--surface-light) 84%,var(--accent) 16%),
+                    color-mix(in srgb,var(--surface) 95%,var(--accent) 5%));
+            box-shadow:
+                0 12px 32px rgba(0,0,0,.10),
+                inset 0 1px 0 color-mix(in srgb,var(--text) 7%,transparent);
+        }
+        #panel-chatbot .admin-tabs::-webkit-scrollbar{display:none}
+        #panel-chatbot .admin-tab{
+            position:relative;
+            display:inline-flex;
+            align-items:center;
+            justify-content:center;
+            gap:9px;
+            overflow:hidden;
+            border:1px solid transparent;
+            transition:
+                color .24s ease,
+                background-color .24s ease,
+                border-color .24s ease,
+                box-shadow .24s ease,
+                transform .24s cubic-bezier(.2,.8,.2,1);
+        }
+        #panel-chatbot .admin-tab svg{
+            width:16px;
+            height:16px;
+            flex:0 0 16px;
+            color:currentColor;
+            opacity:.72;
+            transition:opacity .24s ease,transform .24s cubic-bezier(.2,.8,.2,1);
+        }
+        #panel-chatbot .admin-tab:hover{
+            border-color:color-mix(in srgb,var(--accent) 18%,transparent);
+            background:color-mix(in srgb,var(--surface-hover) 88%,var(--accent) 12%);
+        }
+        #panel-chatbot .admin-tab:hover svg{opacity:.92;transform:translateY(-1px)}
+        #panel-chatbot .admin-tab.active{
+            z-index:1;
+            border-color:color-mix(in srgb,var(--accent) 22%,var(--border));
+            background:linear-gradient(180deg,
+                color-mix(in srgb,var(--surface-light) 96%,var(--accent) 4%),
+                var(--surface-light));
+            color:var(--text);
+            box-shadow:
+                0 8px 18px rgba(0,0,0,.09),
+                inset 0 1px 0 color-mix(in srgb,var(--text) 8%,transparent);
+        }
+        #panel-chatbot .admin-tab.active::after{
+            content:"";
+            position:absolute;
+            left:22%;
+            right:22%;
+            bottom:0;
+            height:2px;
+            border-radius:999px 999px 0 0;
+            background:var(--accent);
+            box-shadow:0 -2px 10px color-mix(in srgb,var(--accent) 42%,transparent);
+        }
+        #panel-chatbot .admin-tab.active svg{opacity:1;color:var(--accent-light)}
+        #panel-chatbot .admin-tab:focus-visible{
+            outline:2px solid var(--accent);
+            outline-offset:-3px;
+        }
+        #panel-chatbot .admin-tab-panel.active{
+            animation:chatbotPanelReveal .28s cubic-bezier(.2,.8,.2,1);
+        }
+        @keyframes chatbotPanelReveal{
+            from{opacity:.72;transform:translateY(5px)}
+            to{opacity:1;transform:translateY(0)}
+        }
+        html[data-theme="light"] #panel-chatbot .admin-tabs{
+            border-color:rgba(46,88,66,.15);
+            background:linear-gradient(135deg,rgba(239,246,242,.96),rgba(250,252,251,.94));
+            box-shadow:0 12px 30px rgba(39,70,54,.08),inset 0 1px 0 #fff;
+        }
+        html[data-theme="light"] #panel-chatbot .admin-tab.active{
+            border-color:rgba(66,112,88,.15);
+            background:linear-gradient(180deg,#fff,#fbfdfc);
+            box-shadow:0 8px 20px rgba(39,70,54,.09),inset 0 1px 0 #fff;
+        }
+        @media (prefers-reduced-motion:reduce){
+            #panel-chatbot .admin-tab-panel.active{animation:none}
+        }
+    </style>
+
 </head>
 
 
@@ -7795,12 +7890,12 @@ ORDER BY ticket_count DESC</textarea>
             ================================================== -->
             <section id="panel-chatbot" class="view-panel">
                 <div class="admin-workspace">
-                    <div class="admin-tabs" id="chatbotTabs">
-                        <button class="admin-tab active" data-chatbot-tab="overview" type="button">Overview</button>
-                        <button class="admin-tab" data-chatbot-tab="instructions" type="button">Instructions</button>
-                        <button class="admin-tab" data-chatbot-tab="model" type="button">Model & performance</button>
-                        <button class="admin-tab" data-chatbot-tab="channels" type="button">Channels</button>
-                        <button class="admin-tab" data-chatbot-tab="versions" type="button">Version history</button>
+                    <div class="admin-tabs" id="chatbotTabs" role="tablist" aria-label="AI Agent settings">
+                        <button class="admin-tab active" data-chatbot-tab="overview" type="button" role="tab" aria-selected="true" aria-controls="chatbotTab-overview"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3.5" y="3.5" width="6.5" height="6.5" rx="1.5" stroke="currentColor" stroke-width="1.8"/><rect x="14" y="3.5" width="6.5" height="6.5" rx="1.5" stroke="currentColor" stroke-width="1.8"/><rect x="3.5" y="14" width="6.5" height="6.5" rx="1.5" stroke="currentColor" stroke-width="1.8"/><rect x="14" y="14" width="6.5" height="6.5" rx="1.5" stroke="currentColor" stroke-width="1.8"/></svg><span>Overview</span></button>
+                        <button class="admin-tab" data-chatbot-tab="instructions" type="button" role="tab" aria-selected="false" aria-controls="chatbotTab-instructions"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 3.5h9l3 3V20.5H6z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M15 3.5v4h3M9 11h6M9 15h6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span>Instructions</span></button>
+                        <button class="admin-tab" data-chatbot-tab="model" type="button" role="tab" aria-selected="false" aria-controls="chatbotTab-model"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m12 3 1.15 3.1L16 7.25l-2.85 1.15L12 11.5 10.85 8.4 8 7.25l2.85-1.15L12 3ZM6.5 12.5l.85 2.15L9.5 15.5l-2.15.85L6.5 18.5l-.85-2.15-2.15-.85 2.15-.85.85-2.15ZM17.5 13l.75 1.75 1.75.75-1.75.75L17.5 18l-.75-1.75L15 15.5l1.75-.75L17.5 13Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg><span>Model & performance</span></button>
+                        <button class="admin-tab" data-chatbot-tab="channels" type="button" role="tab" aria-selected="false" aria-controls="chatbotTab-channels"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="6" cy="12" r="2.4" stroke="currentColor" stroke-width="1.8"/><circle cx="18" cy="6" r="2.4" stroke="currentColor" stroke-width="1.8"/><circle cx="18" cy="18" r="2.4" stroke="currentColor" stroke-width="1.8"/><path d="m8.2 10.9 7.6-3.8M8.2 13.1l7.6 3.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span>Channels</span></button>
+                        <button class="admin-tab" data-chatbot-tab="versions" type="button" role="tab" aria-selected="false" aria-controls="chatbotTab-versions"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4.2 8.2V4.5m0 0h3.7m-3.7 0 3 3A8 8 0 1 1 4 13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 8v4.5l3 1.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Version history</span></button>
                         <div class="admin-tab-actions">
                             <button id="chatbotPublishTop" class="admin-btn primary" type="button">Publish changes</button>
                         </div>
@@ -15215,7 +15310,7 @@ ORDER BY created_date DESC, ticket_count DESC`;
         thread.scrollTop = thread.scrollHeight;
     }
 
-    document.getElementById("chatbotTabs")?.addEventListener("click", event => { const tab=event.target.closest("[data-chatbot-tab]"); if(!tab)return; document.querySelectorAll("#chatbotTabs .admin-tab").forEach(item=>item.classList.remove("active")); document.querySelectorAll("#panel-chatbot .admin-tab-panel").forEach(item=>item.classList.remove("active")); tab.classList.add("active"); document.getElementById(`chatbotTab-${tab.dataset.chatbotTab}`)?.classList.add("active"); });
+    document.getElementById("chatbotTabs")?.addEventListener("click", event => { const tab=event.target.closest("[data-chatbot-tab]"); if(!tab)return; document.querySelectorAll("#chatbotTabs .admin-tab").forEach(item=>{item.classList.remove("active");item.setAttribute("aria-selected","false")}); document.querySelectorAll("#panel-chatbot .admin-tab-panel").forEach(item=>item.classList.remove("active")); tab.classList.add("active"); tab.setAttribute("aria-selected","true"); document.getElementById(`chatbotTab-${tab.dataset.chatbotTab}`)?.classList.add("active"); });
     ["chatbotSaveDraft","chatbotSaveDraftTop"].forEach(id=>document.getElementById(id)?.addEventListener("click",savePromptDraft));
     ["chatbotPublish","chatbotPublishTop"].forEach(id=>document.getElementById(id)?.addEventListener("click",publishPrompt));
     document.getElementById("saveModelSettings")?.addEventListener("click",saveModelSettings);
