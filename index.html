@@ -4558,6 +4558,8 @@ body.preview-is-expanded{overflow:hidden!important}
 
 
         let activeTicket = null;
+        let activeTicketSessionId = localStorage.getItem("novara_active_ticket_session") || null;
+        let chatMode = "ai";
         let lastTicketMessageId = 0;
         let lastTicketStatus = null;
         let awaitingHumanName = false;
@@ -5264,6 +5266,9 @@ body.preview-is-expanded{overflow:hidden!important}
                 if (!response.ok) throw new Error(data.error || "Could not create ticket.");
 
                 activeTicket = data.ticket;
+                activeTicketSessionId = sessionId;
+                localStorage.setItem("novara_active_ticket_session", activeTicketSessionId);
+                chatMode = "human";
                 lastTicketStatus = data.ticket.status;
                 awaitingHumanName = false;
                 chatInput.placeholder = "Type your message…";
@@ -5291,10 +5296,24 @@ body.preview-is-expanded{overflow:hidden!important}
                 return;
             }
             if (!status) {
-                status = document.createElement("div");
+                status = document.createElement("button");
+                status.type = "button";
                 status.id = "humanChatStatus";
                 status.className = "human-chat-status";
                 chatMessages.appendChild(status);
+                status.addEventListener("click", async () => {
+                    chatMode = chatMode === "human" ? "ai" : "human";
+                    updateHumanChatStatus();
+                    if (chatMode === "human") await pollTicketMessages();
+                    renderMessage(
+                        chatMode === "human"
+                            ? "You’re now messaging Novara CX Support. Select the ticket status again whenever you want to return to the AI assistant."
+                            : "You’re now chatting with Novara CX AI. Your human-support ticket remains active in the background.",
+                        chatMode === "human" ? "agent" : "bot",
+                        false
+                    );
+                    chatInput.focus();
+                });
             }
             const labels = {
                 open: "Waiting for Novara CX Support",
@@ -5303,7 +5322,9 @@ body.preview-is-expanded{overflow:hidden!important}
                 reopened: "Ticket reopened",
                 resolved: "Ticket resolved"
             };
-            status.textContent = `${activeTicket.ticket_number || activeTicket.ticketNumber || "Ticket"} · ${labels[activeTicket.status] || activeTicket.status}`;
+            const modeAction = chatMode === "human" ? "Switch to AI" : "Open support chat";
+            status.textContent = `${activeTicket.ticket_number || activeTicket.ticketNumber || "Ticket"} · ${labels[activeTicket.status] || activeTicket.status} · ${modeAction}`;
+            status.setAttribute("aria-label", `${status.textContent}. Activate to ${modeAction.toLowerCase()}.`);
             scrollChatToLatest();
             syncCurrentHistoryMetadata();
         }
@@ -5315,6 +5336,9 @@ body.preview-is-expanded{overflow:hidden!important}
             touchSessionActivity();
 
             activeTicket = null;
+            activeTicketSessionId = null;
+            localStorage.removeItem("novara_active_ticket_session");
+            chatMode = "ai";
             lastTicketStatus = null;
             lastTicketMessageId = 0;
             awaitingHumanName = false;
@@ -5328,16 +5352,10 @@ body.preview-is-expanded{overflow:hidden!important}
         }
 
         function startNewConversationFromHistory() {
-            if (activeTicket && activeTicket.status !== "resolved") {
-                closeChatHistory();
-                renderMessage("Your human-support ticket is still active, so I’ve kept you in the same conversation.", "agent", false);
-                return;
-            }
-
             sessionId = createSessionId();
             localStorage.setItem("novara_session_id", sessionId);
             touchSessionActivity();
-            activeTicket = null;
+            chatMode = "ai";
             lastTicketStatus = null;
             lastTicketMessageId = 0;
             awaitingHumanName = false;
@@ -5349,6 +5367,7 @@ body.preview-is-expanded{overflow:hidden!important}
             document.getElementById("quickReplies")?.removeAttribute("hidden");
             closeChatHistory();
             renderMessage("You’re now chatting with Novara CX AI. How can I help?", "bot", false);
+            if (activeTicket) updateHumanChatStatus();
             chatInput.focus();
         }
 
@@ -5400,18 +5419,23 @@ body.preview-is-expanded{overflow:hidden!important}
 
         async function pollTicketMessages() {
             try {
-                const response = await fetch(`${WORKER_URL}ticket-status?session=${encodeURIComponent(sessionId)}&after=${lastTicketMessageId}`);
+                const ticketSession = activeTicketSessionId || sessionId;
+                const response = await fetch(`${WORKER_URL}ticket-status?session=${encodeURIComponent(ticketSession)}&after=${lastTicketMessageId}`);
                 if (!response.ok) return;
                 const data = await response.json();
                 if (!data.ticket) return;
 
                 const previousStatus = lastTicketStatus;
                 activeTicket = data.ticket;
+                activeTicketSessionId = ticketSession;
+                localStorage.setItem("novara_active_ticket_session", activeTicketSessionId);
                 lastTicketStatus = data.ticket.status;
 
                 (data.messages || []).forEach(item => {
-                    lastTicketMessageId = Math.max(lastTicketMessageId, Number(item.id) || 0);
-                    renderMessage(item.message, item.sender_type === "agent" ? "agent" : "user", false);
+                    if (chatMode === "human") {
+                        lastTicketMessageId = Math.max(lastTicketMessageId, Number(item.id) || 0);
+                        renderMessage(item.message, item.sender_type === "agent" ? "agent" : "user", false);
+                    }
                 });
 
                 if (data.ticket.status === "resolved" && previousStatus !== "resolved") {
@@ -5439,7 +5463,7 @@ body.preview-is-expanded{overflow:hidden!important}
             const response = await fetch(`${WORKER_URL}ticket/customer-message`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ sessionId, message })
+                body: JSON.stringify({ sessionId: activeTicketSessionId || sessionId, message })
             });
             const data = await response.json();
             if (!response.ok) throw new Error(data.error || "Message could not be sent.");
@@ -5597,7 +5621,7 @@ body.preview-is-expanded{overflow:hidden!important}
             }
 
 
-            if (activeTicket && activeTicket.status !== "resolved") {
+            if (chatMode === "human" && activeTicket && activeTicket.status !== "resolved") {
                 try {
                     await sendCustomerTicketMessage(message);
                     setMessageDelivery(outgoingRow, "delivered");
