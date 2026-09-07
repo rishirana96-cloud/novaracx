@@ -4465,8 +4465,6 @@ body.preview-is-expanded{overflow:hidden!important}
         let activeTicket = null;
         let lastTicketMessageId = 0;
         let lastTicketStatus = null;
-        let unresolvedBrowserTicket = null;
-        let unresolvedReminderShown = false;
         let awaitingHumanName = false;
 
         const CHAT_HISTORY_LIMIT = 20;
@@ -4693,7 +4691,6 @@ body.preview-is-expanded{overflow:hidden!important}
                     )
                 ) {
 
-                    unresolvedReminderShown = false;
                     document.body.classList.add("chat-open");
                     chatInput.focus();
                     scrollChatToLatest();
@@ -5179,7 +5176,6 @@ body.preview-is-expanded{overflow:hidden!important}
             activeTicket = null;
             lastTicketStatus = null;
             lastTicketMessageId = 0;
-            unresolvedBrowserTicket = null;
             awaitingHumanName = false;
             chatInput.placeholder = "Type your message…";
             document.getElementById("humanChatStatus")?.remove();
@@ -5203,8 +5199,6 @@ body.preview-is-expanded{overflow:hidden!important}
             activeTicket = null;
             lastTicketStatus = null;
             lastTicketMessageId = 0;
-            unresolvedBrowserTicket = null;
-            unresolvedReminderShown = false;
             awaitingHumanName = false;
             chatInput.placeholder = "Type your message…";
             chatMessages.replaceChildren();
@@ -5258,50 +5252,6 @@ body.preview-is-expanded{overflow:hidden!important}
                 } catch (error) {
                     renderMessage(error.message || "Could not reopen the ticket.", "agent", false);
                 }
-            });
-        }
-
-
-        async function findUnresolvedBrowserTicket() {
-            try {
-                const response = await fetch(`${WORKER_URL}browser-ticket?browser=${encodeURIComponent(browserId)}`);
-                if (!response.ok) return;
-                const data = await response.json();
-                if (data.ticket && (!activeTicket || Number(data.ticket.id) !== Number(activeTicket.id))) {
-                    unresolvedBrowserTicket = data.ticket;
-                }
-            } catch (error) {
-                console.error("Past ticket lookup error:", error);
-            }
-        }
-
-
-        function showUnresolvedTicketReminder() {
-            if (!unresolvedBrowserTicket || unresolvedReminderShown || activeTicket) return;
-            unresolvedReminderShown = true;
-
-            const card = document.createElement("div");
-            card.className = "ticket-choice-card";
-            card.innerHTML = `
-                You still have an unresolved support request: <strong>${unresolvedBrowserTicket.ticket_number}</strong>.
-                <div class="ticket-choice-actions">
-                    <button class="ticket-choice-btn primary" type="button">Continue chat with human</button>
-                </div>
-            `;
-            chatMessages.appendChild(card);
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-
-            card.querySelector("button").addEventListener("click", async () => {
-                sessionId = unresolvedBrowserTicket.session_id;
-                localStorage.setItem("novara_session_id", sessionId);
-                touchSessionActivity();
-                activeTicket = unresolvedBrowserTicket;
-                lastTicketStatus = unresolvedBrowserTicket.status;
-                lastTicketMessageId = 0;
-                card.remove();
-                await pollTicketMessages();
-                updateHumanChatStatus();
-                chatInput.focus();
             });
         }
 
@@ -5612,8 +5562,6 @@ body.preview-is-expanded{overflow:hidden!important}
 
                 if (escalationData.escalatedToHuman === 1) {
                     showTicketContactForm();
-                } else {
-                    showUnresolvedTicketReminder();
                 }
 
             } catch (error) {
@@ -5931,8 +5879,6 @@ body.preview-is-expanded{overflow:hidden!important}
                     chatInput.focus();
                     return;
                 }
-
-                await findUnresolvedBrowserTicket();
 
                 const restored =
                     await loadExistingConversation();
