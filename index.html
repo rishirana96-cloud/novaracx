@@ -1290,20 +1290,38 @@ body>header .nav{height:68px}body>header .logo{color:#102018}body>header .nav-li
 
 <style id="chatbot-professional-refinement">
 .chatbot-window{width:410px;height:min(640px,calc(100vh - 124px));border-radius:20px;box-shadow:0 24px 70px rgba(0,0,0,.42)}
-.chatbot-header-window{min-height:64px;padding:12px 16px;background:linear-gradient(135deg,rgba(124,155,138,.12),rgba(17,17,24,.98) 62%)}
+.chatbot-header-window{position:relative;min-height:62px;padding:11px 16px;background:linear-gradient(115deg,#11141a 0%,#0d0e14 72%);border-bottom-color:rgba(255,255,255,.09)}
+.chatbot-header-window::before{content:"";position:absolute;inset:0 0 auto;height:1px;background:linear-gradient(90deg,transparent,rgba(140,240,178,.46),transparent)}
 .chatbot-header-window .avatar{width:36px;height:36px;border-radius:11px;box-shadow:none}
 .chatbot-header-window .avatar img{width:22px;height:22px}
+.chatbot-header-window .title{color:#fff;font-size:1rem;font-weight:760;letter-spacing:-.025em}
+.chatbot-header-window .title span{color:#8cf0b2;text-shadow:0 0 18px rgba(108,235,156,.26)}
+.chatbot-header-window .status{display:none!important}
 .chatbot-header-window .close-btn,.chatbot-history-btn{width:34px;height:34px}
+.chatbot-header-window .close-btn,.chatbot-history-btn{border-color:rgba(255,255,255,.1);background:rgba(255,255,255,.035);box-shadow:inset 0 1px 0 rgba(255,255,255,.04)}
 .chatbot-messages-window{padding:18px 16px;gap:10px;background:#eef3ef}
 .msg-row{max-width:78%;gap:7px}
 .msg-row.continuation{margin-top:-5px}
-.msg-row.continuation .msg-avatar{visibility:hidden}
-.msg-avatar{width:25px;height:25px;box-shadow:none}
+.msg-row.grouped-before .msg-avatar{visibility:hidden}
+.msg-avatar{width:27px;height:27px;border:1px solid #d0ddd5;background:#fff;box-shadow:0 2px 8px rgba(25,55,37,.045)}
+.msg-avatar img{width:15px;height:15px}
 .msg-avatar.agent-avatar{background:#d7e7de;color:#345745;border:1px solid #bdd0c4;font:800 .55rem/1 'Inter',sans-serif}
 .msg{padding:9px 13px;border-radius:14px;font-size:.84rem;line-height:1.55}
 .msg.bot{border-color:#d8e1da;box-shadow:0 2px 8px rgba(25,55,37,.035)}
 .msg.agent{position:relative;padding-top:24px;border-color:#bfd2c6;background:#e1ede6;box-shadow:0 2px 8px rgba(25,55,37,.04)}
+.msg.has-sender-label{padding-top:24px}
 .message-sender-label{position:absolute;top:7px;left:13px;color:#597064;font:750 .56rem/1 'Inter',sans-serif;letter-spacing:.02em}
+.message-time{display:block;margin:5px 0 -1px;color:#829087;font:600 .55rem/1 'Inter',sans-serif;text-align:right;white-space:nowrap}
+.msg.user .message-time{color:rgba(19,42,29,.58)}
+.conversation-time-heading{align-self:center;display:flex;align-items:center;gap:9px;width:100%;margin:1px 0 4px;color:#7a8981;font:700 .58rem/1 'Inter',sans-serif;white-space:nowrap}
+.conversation-time-heading::before,.conversation-time-heading::after{content:"";height:1px;flex:1;background:#d5dfd9}
+.msg.bot,.msg.agent,.msg.user{position:relative}
+.msg.bot::after,.msg.agent::after,.msg.user::after{content:"";position:absolute;bottom:-1px;width:10px;height:12px;background:inherit}
+.msg.bot::after,.msg.agent::after{left:-6px;clip-path:polygon(100% 0,100% 100%,0 100%)}
+.msg.user::after{right:-6px;clip-path:polygon(0 0,100% 100%,0 100%)}
+.msg-row.grouped-before .msg::after{display:none}
+.msg-row.grouped-before .msg.bot,.msg-row.grouped-before .msg.agent{border-bottom-left-radius:14px}
+.msg-row.grouped-before .msg.user{border-bottom-right-radius:14px}
 .msg.user{padding-bottom:9px;box-shadow:0 2px 8px rgba(38,73,53,.1)}
 .message-delivery:not(.failed){display:none!important}
 .human-chat-status{align-self:stretch;display:flex;align-items:center;gap:9px;max-width:none;padding:2px 0;border:0;background:transparent;color:#5b7065;font-size:.62rem;font-weight:700;box-shadow:none}
@@ -1313,6 +1331,10 @@ body>header .nav{height:68px}body>header .logo{color:#102018}body>header .nav-li
 .chatbot-input-window .send-btn{width:44px;height:44px;flex-basis:44px;box-shadow:none}
 .chatbot-powered-by{padding:5px 0 7px;font-size:.59rem}
 .typing-indicator{padding:6px 1px}
+.typing-indicator span{width:3px;height:11px;border-radius:2px;background:#718078;animation-name:typingBar}
+.typing-indicator span:nth-child(2){height:15px}
+@keyframes typingBar{0%,60%,100%{opacity:.35;transform:scaleY(.62)}30%{opacity:1;transform:scaleY(1)}}
+.escalation-status .pulse{display:none!important}
 @media(max-width:600px){
   .chatbot-window{inset:0;width:100%;height:100dvh;max-width:none;border-radius:0}
   .chatbot-header-window{min-height:62px;padding:max(11px,env(safe-area-inset-top)) 14px 11px}
@@ -1453,15 +1475,7 @@ a[href="#mvp-product-tour"]{display:none!important}
                 <div>
 
                     <div class="title">
-                        Novara <span>CX</span> Assistant
-                    </div>
-
-                    <div class="status">
-
-                        <span class="status-dot"></span>
-
-                        AI support · Human handoff available
-
+                        Novara CX <span>Support</span>
                     </div>
 
                 </div>
@@ -4888,7 +4902,7 @@ body.preview-is-expanded{overflow:hidden!important}
             lastTicketMessageId = 0;
             lastTicketStatus = conversation.status;
             chatMessages.replaceChildren();
-            (conversation.messages || []).forEach(message => renderMessage(message.text, message.sender || "bot", false, null, false));
+            (conversation.messages || []).forEach(message => renderMessage(message.text, message.sender || "bot", false, null, false, null, message.at));
             closeChatHistory();
             await pollTicketMessages();
             updateHumanChatStatus();
@@ -5054,6 +5068,28 @@ body.preview-is-expanded{overflow:hidden!important}
                 }
                 return `<p>${formatInlineMessage(block).replace(/\n/g, "<br>")}</p>`;
             }).join("");
+        }
+
+        function chatMessageDate(value = null) {
+            const date = value ? new Date(value) : new Date();
+            return Number.isNaN(date.getTime()) ? new Date() : date;
+        }
+
+        function chatClock(value = null) {
+            return chatMessageDate(value).toLocaleTimeString([], {
+                hour: "2-digit",
+                minute: "2-digit",
+                hour12: false
+            });
+        }
+
+        function ensureConversationTimeHeading(value = null) {
+            if (chatMessages.querySelector(".conversation-time-heading")) return;
+            const date = chatMessageDate(value);
+            const heading = document.createElement("div");
+            heading.className = "conversation-time-heading";
+            heading.textContent = `${date.toLocaleDateString([], { weekday:"long" })}, ${chatClock(date)}`;
+            chatMessages.appendChild(heading);
         }
 
         const DELIVERY_ICONS = {
@@ -5252,8 +5288,12 @@ body.preview-is-expanded{overflow:hidden!important}
             allowRating = true,
             escalationData = null,
             persistHistory = true,
-            deliveryState = null
+            deliveryState = null,
+            messageTime = null
         ) {
+
+            const displayableMessage = String(text || "").trim();
+            if (displayableMessage) ensureConversationTimeHeading(messageTime);
 
             const row =
                 document.createElement(
@@ -5267,13 +5307,18 @@ body.preview-is-expanded{overflow:hidden!important}
             );
             row.dataset.messageText = cleanHistoryText(text);
             row.dataset.messageSender = sender;
+            row.dataset.messageAt = chatMessageDate(messageTime).toISOString();
 
-            const previousRow = [...chatMessages.querySelectorAll(".msg-row")].at(-1);
+            const previousRow = chatMessages.lastElementChild?.classList.contains("msg-row")
+                ? chatMessages.lastElementChild
+                : null;
             const continuesSender = (
-                (sender === "bot" || sender === "agent") &&
                 previousRow?.dataset.messageSender === sender
             );
-            if (continuesSender) row.classList.add("continuation");
+            if (continuesSender) {
+                row.classList.add("continuation");
+                previousRow.classList.add("grouped-before");
+            }
 
 
             if (
@@ -5359,11 +5404,20 @@ body.preview-is-expanded{overflow:hidden!important}
             div.innerHTML =
                 html;
 
-            if (sender === "agent") {
+            if ((sender === "bot" || sender === "agent") && displayText.trim()) {
                 const senderLabel = document.createElement("span");
                 senderLabel.className = "message-sender-label";
-                senderLabel.textContent = "Novara CX Support";
+                senderLabel.textContent = sender === "agent" ? "Novara CX Support" : "Novara CX AI Support";
                 div.prepend(senderLabel);
+                div.classList.add("has-sender-label");
+            }
+
+            if (displayText.trim()) {
+                const timestamp = document.createElement("time");
+                timestamp.className = "message-time";
+                timestamp.dateTime = row.dataset.messageAt;
+                timestamp.textContent = chatClock(messageTime);
+                div.appendChild(timestamp);
             }
 
 
@@ -5712,7 +5766,7 @@ body.preview-is-expanded{overflow:hidden!important}
                         const duplicate = [...chatMessages.querySelectorAll(".msg-row")].slice(-30).some(row =>
                             row.dataset.messageSender === sender && row.dataset.messageText === cleanHistoryText(item.message)
                         );
-                        if (!duplicate) renderMessage(item.message, sender, false);
+                        if (!duplicate) renderMessage(item.message, sender, false, null, true, null, item.created_at);
                     }
                 });
 
@@ -6154,7 +6208,9 @@ body.preview-is-expanded{overflow:hidden!important}
 
                                 null,
 
-                                false
+                                false,
+                                null,
+                                conversation.created_at
 
                             );
 
@@ -6186,7 +6242,9 @@ body.preview-is-expanded{overflow:hidden!important}
 
                                 escalationData,
 
-                                false
+                                false,
+                                null,
+                                conversation.created_at
 
                             );
 
@@ -6222,7 +6280,7 @@ body.preview-is-expanded{overflow:hidden!important}
                 localStorage.setItem("novara_active_ticket_session", activeTicketSessionId);
             }
             conversation.messages.forEach(message => {
-                renderMessage(message.text, message.sender || "bot", false, null, false);
+                renderMessage(message.text, message.sender || "bot", false, null, false, null, message.at);
             });
             chatFooter?.classList.toggle("conversation-started", conversation.messages.some(message => message.sender === "user"));
             return true;
