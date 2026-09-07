@@ -1046,7 +1046,7 @@ body>header .nav{height:68px}body>header .logo{color:#102018}body>header .nav-li
 
         /* Composer */
         .chatbot-footer { border-top:0; background:#fff; }
-        .quick-replies-window { padding:13px 14px 7px; gap:7px; border-top:1px solid #dde4df; background:#f8faf8; overflow-x:auto; flex-wrap:nowrap; scrollbar-width:none; }
+        .quick-replies-window { display:none!important; }
         .quick-replies-window::-webkit-scrollbar { display:none; }
         .quick-replies-window .qr-btn { flex:0 0 auto; min-height:34px; padding:7px 12px; border-color:#d7e0da; background:#fff; color:#425249; font-size:.7rem; }
         .quick-replies-window .qr-btn:hover { color:#173023; border-color:#86a895; background:#edf4f0; transform:translateY(-1px); }
@@ -1179,7 +1179,7 @@ body>header .nav{height:68px}body>header .logo{color:#102018}body>header .nav-li
         .chat-jump-latest {
             position:absolute;
             left:50%;
-            bottom:116px;
+            bottom:92px;
             z-index:4;
             display:flex;
             align-items:center;
@@ -1240,6 +1240,25 @@ body>header .nav{height:68px}body>header .logo{color:#102018}body>header .nav-li
         .message-actions.is-leaving { opacity:0; transform:translateY(5px); transition:opacity .18s ease,transform .18s ease; }
         @keyframes chatActionsIn { from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:none} }
         .human-chat-status { cursor:default; }
+        .ticket-choice-card {
+            align-self:stretch;
+            padding:16px!important;
+            border:1px solid #cbd9d0!important;
+            border-radius:16px!important;
+            background:#fff!important;
+            color:#26382e!important;
+            font-size:.82rem!important;
+            line-height:1.5!important;
+            box-shadow:0 7px 22px rgba(25,55,37,.07)!important;
+        }
+        .ticket-choice-card strong { color:#173d29!important; }
+        .ticket-choice-actions { display:flex; flex-wrap:wrap; gap:7px; margin-top:12px; }
+        .ticket-choice-btn {
+            min-height:36px!important; padding:8px 12px!important; border:1px solid #c7d5cc!important;
+            border-radius:999px!important; background:#f6f9f7!important; color:#355043!important;
+            font-size:.68rem!important; font-weight:750!important;
+        }
+        .ticket-choice-btn.primary { border-color:#173d29!important; background:#173d29!important; color:#fff!important; }
 
         @media(max-width:600px) {
             body.chat-open { overflow:hidden; touch-action:none; }
@@ -4682,6 +4701,19 @@ body.preview-is-expanded{overflow:hidden!important}
             writeChatHistory(history);
         }
 
+        function syncTicketHistoryMetadata(ticketSession, ticket) {
+            const history = readChatHistory();
+            const conversation = history.find(item => item.sessionId === ticketSession);
+            if (!conversation) return;
+            const statusChanged = conversation.status !== ticket.status;
+            conversation.status = ticket.status || conversation.status;
+            conversation.ticketNumber = ticket.ticket_number || ticket.ticketNumber || conversation.ticketNumber || null;
+            conversation.ticketId = ticket.id || conversation.ticketId || null;
+            if (statusChanged) conversation.updatedAt = new Date().toISOString();
+            history.sort((a, b) => new Date(b.updatedAt || 0) - new Date(a.updatedAt || 0));
+            writeChatHistory(history);
+        }
+
         function formatHistoryTime(value) {
             const date = new Date(value);
             if (Number.isNaN(date.getTime())) return "";
@@ -5491,7 +5523,7 @@ body.preview-is-expanded{overflow:hidden!important}
             activeTicketSessionId = null;
             localStorage.removeItem("novara_active_ticket_session");
             chatMode = "ai";
-            lastTicketStatus = null;
+            lastTicketStatus = activeTicket?.status || null;
             lastTicketMessageId = 0;
             awaitingHumanName = false;
             chatInput.placeholder = "Type your message…";
@@ -5590,6 +5622,7 @@ body.preview-is-expanded{overflow:hidden!important}
                 activeTicketSessionId = ticketSession;
                 localStorage.setItem("novara_active_ticket_session", activeTicketSessionId);
                 lastTicketStatus = data.ticket.status;
+                syncTicketHistoryMetadata(ticketSession, data.ticket);
 
                 (data.messages || []).forEach(item => {
                     if (chatMode === "human") {
@@ -5602,7 +5635,8 @@ body.preview-is-expanded{overflow:hidden!important}
                     }
                 });
 
-                if (data.ticket.status === "resolved" && previousStatus !== "resolved") {
+                const visibleTicketConversation = chatMode === "human" && ticketSession === sessionId;
+                if (visibleTicketConversation && data.ticket.status === "resolved" && previousStatus !== "resolved") {
                     renderMessage(
                         `This ticket has been resolved. ${data.ticket.resolution_note ? `Resolution: ${data.ticket.resolution_note}` : ""}`,
                         "agent",
