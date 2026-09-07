@@ -1114,6 +1114,7 @@ body>header .nav{height:68px}body>header .logo{color:#102018}body>header .nav-li
         .history-message-meta { display:block; margin-bottom:4px; color:#819087; font-size:.55rem; font-weight:700; text-transform:uppercase; }
         .history-message.user .history-message-meta { color:#4c6859; }
         .chat-history-continue { width:100%; min-height:42px; margin-top:14px; border:0; border-radius:11px; background:#668d77; color:#fff; font:700 .72rem/1 'Inter',sans-serif; cursor:pointer; }
+        .chat-history-continue.ticket { background:#173d29; box-shadow:0 7px 18px rgba(23,61,41,.14); }
 
         /* Message delivery state: intentionally no read receipts. */
         .msg.user { position:relative; padding-bottom:20px; }
@@ -1218,6 +1219,27 @@ body>header .nav{height:68px}body>header .logo{color:#102018}body>header .nav-li
         .csat-option:hover,.csat-option:focus-visible { border-color:#6f9580; background:#fff; color:#264333; transform:translateY(-1px); outline:none; }
         .csat-option[aria-pressed="true"] { border-color:#557d68; background:#557d68; color:#fff; }
         .csat-thanks { color:#557564; font-weight:650; }
+        .csat-prompt.is-settled { opacity:0; transform:translateY(-3px); transition:opacity .45s ease,transform .45s ease; }
+
+        /* Compact, readable AI answers without decorative ticks or dense cards. */
+        .msg.bot,.msg.agent { width:fit-content; max-width:100%; }
+        .msg p { margin:0; }
+        .msg p+p { margin-top:.72em; }
+        .msg ol { display:grid; gap:.48em; margin:.7em 0 0 1.25em; padding:0; }
+        .msg li { padding-left:.18em; }
+        .message-actions {
+            display:flex; flex-wrap:wrap; gap:6px; margin:2px 0 2px 35px;
+            animation:chatActionsIn .28s .06s cubic-bezier(.22,.8,.3,1) both;
+        }
+        .message-action {
+            min-height:34px; padding:7px 11px; border:1px solid #cbd9d0; border-radius:999px;
+            background:rgba(255,255,255,.9); color:#365243; font:700 .66rem/1 'Inter',sans-serif;
+            box-shadow:0 3px 10px rgba(28,58,40,.045); transition:background .16s ease,border-color .16s ease,transform .16s ease;
+        }
+        .message-action:hover { transform:translateY(-1px); border-color:#87a895; background:#fff; }
+        .message-actions.is-leaving { opacity:0; transform:translateY(5px); transition:opacity .18s ease,transform .18s ease; }
+        @keyframes chatActionsIn { from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:none} }
+        .human-chat-status { cursor:default; }
 
         @media(max-width:600px) {
             body.chat-open { overflow:hidden; touch-action:none; }
@@ -4473,8 +4495,9 @@ body.preview-is-expanded{overflow:hidden!important}
         const sessionExpired = !lastActivity || (Date.now() - lastActivity) > SESSION_TIMEOUT_MS;
 
         let sessionId =
-            sessionFromUrl ||
-            (!sessionExpired && storedSessionId ? storedSessionId : createSessionId());
+            !sessionExpired && (sessionFromUrl || storedSessionId)
+                ? (sessionFromUrl || storedSessionId)
+                : createSessionId();
 
 
         localStorage.setItem(
@@ -4587,13 +4610,19 @@ body.preview-is-expanded{overflow:hidden!important}
 
         function cleanHistoryText(text) {
             return String(text || "")
-                .split("[✅ Yes]")[0]
+                .split(/\[CSAT\]|\[✅ Yes\]/)[0]
                 .replace(/\*\*/g, "")
                 .trim();
         }
 
+        function isOpenTicketStatus(status) {
+            return ["open", "in_progress", "pending", "reopened"].includes(status);
+        }
+
         function ticketStatusForHistory() {
-            return activeTicket?.status || "ai";
+            return chatMode === "human" && activeTicketSessionId === sessionId
+                ? activeTicket?.status || "open"
+                : "ai";
         }
 
         function recordHistoryMessage(text, sender) {
@@ -4612,6 +4641,7 @@ body.preview-is-expanded{overflow:hidden!important}
                     title: "New conversation",
                     status: ticketStatusForHistory(),
                     ticketNumber: null,
+                    ticketId: null,
                     messages: []
                 };
                 history.push(conversation);
@@ -4624,7 +4654,12 @@ body.preview-is-expanded{overflow:hidden!important}
             conversation.messages = conversation.messages.slice(-120);
             conversation.updatedAt = now;
             conversation.status = ticketStatusForHistory();
-            conversation.ticketNumber = activeTicket?.ticket_number || activeTicket?.ticketNumber || conversation.ticketNumber || null;
+            conversation.ticketNumber = conversation.status === "ai"
+                ? conversation.ticketNumber || null
+                : activeTicket?.ticket_number || activeTicket?.ticketNumber || conversation.ticketNumber || null;
+            conversation.ticketId = conversation.status === "ai"
+                ? conversation.ticketId || null
+                : activeTicket?.id || conversation.ticketId || null;
 
             const firstUserMessage = conversation.messages.find(message => message.sender === "user")?.text;
             conversation.title = firstUserMessage
@@ -4641,6 +4676,7 @@ body.preview-is-expanded{overflow:hidden!important}
             if (!conversation) return;
             conversation.status = ticketStatusForHistory();
             conversation.ticketNumber = activeTicket?.ticket_number || activeTicket?.ticketNumber || conversation.ticketNumber || null;
+            conversation.ticketId = activeTicket?.id || conversation.ticketId || null;
             conversation.updatedAt = new Date().toISOString();
             history.sort((a, b) => new Date(b.updatedAt || 0) - new Date(a.updatedAt || 0));
             writeChatHistory(history);
@@ -4734,7 +4770,64 @@ body.preview-is-expanded{overflow:hidden!important}
 
             chatHistoryList.classList.add("detail-open");
             chatHistoryDetail.classList.add("open");
+            const canContinueTicket = Boolean(conversation.ticketNumber && isOpenTicketStatus(conversation.status));
+            const canReopenTicket = Boolean(conversation.ticketNumber && conversation.status === "resolved");
+            chatHistoryContinue.textContent = canContinueTicket ? "Continue this ticket" : canReopenTicket ? "Reopen ticket" : "Back to current conversation";
+            chatHistoryContinue.classList.toggle("ticket", canContinueTicket || canReopenTicket);
+            chatHistoryContinue.dataset.sessionId = canContinueTicket || canReopenTicket ? conversation.sessionId : "";
+            chatHistoryContinue.dataset.action = canReopenTicket ? "reopen" : canContinueTicket ? "continue" : "back";
             chatHistoryDetail.scrollTop = 0;
+        }
+
+        async function continueHistoryConversation() {
+            const ticketSession = chatHistoryContinue.dataset.sessionId;
+            if (!ticketSession) {
+                closeChatHistory();
+                return;
+            }
+            const conversation = readChatHistory().find(item => item.sessionId === ticketSession);
+            if (!conversation) {
+                renderChatHistory();
+                return;
+            }
+            if (chatHistoryContinue.dataset.action === "reopen") {
+                let ticketId = conversation.ticketId;
+                if (!ticketId) {
+                    const statusResponse = await fetch(`${WORKER_URL}ticket-status?session=${encodeURIComponent(ticketSession)}`);
+                    const statusData = await statusResponse.json();
+                    ticketId = statusData.ticket?.id;
+                }
+                if (!ticketId) return;
+                const response = await fetch(`${WORKER_URL}ticket/update`, {
+                    method:"POST",
+                    headers:{ "Content-Type":"application/json" },
+                    body:JSON.stringify({ ticketId, action:"reopen" })
+                });
+                const data = await response.json();
+                if (!response.ok) throw new Error(data.error || "Could not reopen ticket.");
+                conversation.status = "reopened";
+                conversation.ticketId = data.ticket?.id || ticketId;
+                writeChatHistory(readChatHistory().map(item => item.sessionId === conversation.sessionId ? conversation : item));
+            } else if (!isOpenTicketStatus(conversation.status)) {
+                closeChatHistory();
+                return;
+            }
+            sessionId = ticketSession;
+            activeTicketSessionId = ticketSession;
+            localStorage.setItem("novara_session_id", sessionId);
+            localStorage.setItem("novara_active_ticket_session", activeTicketSessionId);
+            touchSessionActivity();
+            chatMode = "human";
+            lastTicketMessageId = 0;
+            lastTicketStatus = conversation.status;
+            chatMessages.replaceChildren();
+            (conversation.messages || []).forEach(message => renderMessage(message.text, message.sender || "bot", false, null, false));
+            closeChatHistory();
+            await pollTicketMessages();
+            updateHumanChatStatus();
+            chatInput.disabled = false;
+            chatSend.disabled = false;
+            chatInput.focus();
         }
 
         function openChatHistory() {
@@ -4873,13 +4966,27 @@ body.preview-is-expanded{overflow:hidden!important}
         // MESSAGE FORMATTING, DELIVERY AND STREAMING
         // ==========================================
 
-        function formatMessageHtml(text) {
+        function formatInlineMessage(text) {
             return String(text || "")
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
                 .replace(/\*\*\*(.*?)\*\*\*/g, "<b><i>$1</i></b>")
                 .replace(/\*\*(.*?)\*\*/g, "<b>$1</b>")
                 .replace(/\*(.*?)\*/g, "<i>$1</i>")
-                .replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>')
-                .replace(/\n/g, "<br>");
+                .replace(/\[(.*?)\]\((https?:\/\/[^\s)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
+        }
+
+        function formatMessageHtml(text) {
+            const cleaned = String(text || "").replace(/^\s*[✓✔✅]\s*/gm, "").trim();
+            const blocks = cleaned.split(/\n{2,}/).filter(Boolean);
+            return blocks.map(block => {
+                const lines = block.split("\n").filter(line => line.trim());
+                if (lines.length && lines.every(line => /^\s*\d+[.)]\s+/.test(line))) {
+                    return `<ol>${lines.map(line => `<li>${formatInlineMessage(line.replace(/^\s*\d+[.)]\s+/, ""))}</li>`).join("")}</ol>`;
+                }
+                return `<p>${formatInlineMessage(block).replace(/\n/g, "<br>")}</p>`;
+            }).join("");
         }
 
         const DELIVERY_ICONS = {
@@ -4927,8 +5034,69 @@ body.preview-is-expanded{overflow:hidden!important}
                 if (delay) await new Promise(resolve => setTimeout(resolve, delay));
             }
 
+            const finalRow = renderMessage(text, sender, allowRating, escalationData, true);
+            finalRow.style.animation = "none";
             row.remove();
-            return renderMessage(text, sender, allowRating, escalationData, true);
+            return finalRow;
+        }
+
+        function contextualActionsFor(message, reply, escalationData) {
+            if (escalationData?.escalatedToHuman === 1 || chatMode === "human") return [];
+            const context = `${message || ""} ${reply || ""}`.toLowerCase();
+            if (/book|call|meeting|consultation|discovery/.test(context)) {
+                return [
+                    { label:"Book a call", target:"#mvp-contact" },
+                    { label:"View plans", target:"#mvp-pricing" }
+                ];
+            }
+            if (/price|pricing|cost|plan|package/.test(context)) {
+                return [
+                    { label:"View plans", target:"#mvp-pricing" },
+                    { label:"Book a call", target:"#mvp-contact" }
+                ];
+            }
+            if (/service|support|chatbot|agent|novara/.test(context)) {
+                return [
+                    { label:"Explore NovaraDesk", target:"#mvp-platform" },
+                    { label:"View plans", target:"#mvp-pricing" },
+                    { label:"Talk to a person", question:"I would like to speak to a human" }
+                ];
+            }
+            return [
+                { label:"Explore services", target:"#mvp-platform" },
+                { label:"Book a call", target:"#mvp-contact" }
+            ];
+        }
+
+        function showMessageActions(actions) {
+            document.querySelectorAll(".message-actions").forEach(group => group.remove());
+            if (!actions.length) return;
+            const group = document.createElement("div");
+            group.className = "message-actions";
+            group.setAttribute("aria-label", "Suggested next steps");
+            actions.forEach(action => {
+                const button = document.createElement("button");
+                button.type = "button";
+                button.className = "message-action";
+                button.textContent = action.label;
+                button.addEventListener("click", () => {
+                    group.classList.add("is-leaving");
+                    window.setTimeout(() => group.remove(), 190);
+                    if (action.question) {
+                        sendMessage(action.question);
+                        return;
+                    }
+                    const target = document.querySelector(action.target);
+                    if (target) target.scrollIntoView({ behavior:"smooth", block:"start" });
+                    chatWindow.classList.remove("open");
+                    chatToggle.classList.remove("open");
+                    chatToggle.setAttribute("aria-expanded", "false");
+                    document.body.classList.remove("chat-open");
+                });
+                group.appendChild(button);
+            });
+            chatMessages.appendChild(group);
+            scrollChatToLatest();
         }
 
         const CSAT_LABELS = {
@@ -4939,7 +5107,7 @@ body.preview-is-expanded{overflow:hidden!important}
             5: "Very Satisfied"
         };
 
-        function showCsatPrompt() {
+        function showCsatPrompt(anchorRow = null) {
             document.getElementById("chatCsatPrompt")?.remove();
             const prompt = document.createElement("div");
             prompt.id = "chatCsatPrompt";
@@ -4954,7 +5122,8 @@ body.preview-is-expanded{overflow:hidden!important}
                     `).join("")}
                 </div>
             `;
-            chatMessages.appendChild(prompt);
+            if (anchorRow?.parentNode === chatMessages) anchorRow.insertAdjacentElement("afterend", prompt);
+            else chatMessages.appendChild(prompt);
             scrollChatToLatest();
 
             prompt.querySelectorAll(".csat-option").forEach(button => {
@@ -4985,6 +5154,8 @@ body.preview-is-expanded{overflow:hidden!important}
                     thanks.className = "csat-thanks";
                     thanks.textContent = `Thanks · ${score}/5`;
                     prompt.appendChild(thanks);
+                    window.setTimeout(() => prompt.classList.add("is-settled"), 1700);
+                    window.setTimeout(() => prompt.remove(), 2200);
                 }, { once:true });
             });
         }
@@ -5012,6 +5183,8 @@ body.preview-is-expanded{overflow:hidden!important}
                 "msg-row",
                 sender
             );
+            row.dataset.messageText = cleanHistoryText(text);
+            row.dataset.messageSender = sender;
 
 
             if (
@@ -5059,9 +5232,7 @@ body.preview-is-expanded{overflow:hidden!important}
 
                 allowRating &&
 
-                text.includes(
-                    "[✅ Yes]"
-                );
+                (text.includes("[CSAT]") || text.includes("[✅ Yes]"));
 
 
             let displayText =
@@ -5078,10 +5249,7 @@ body.preview-is-expanded{overflow:hidden!important}
                 shouldAskCsat
             ) {
 
-                const parts =
-                    text.split(
-                        "[✅ Yes]"
-                    );
+                const parts = text.split(/\[CSAT\]|\[✅ Yes\]/);
 
 
                 displayText =
@@ -5234,7 +5402,7 @@ body.preview-is-expanded{overflow:hidden!important}
             }
 
             if (shouldAskCsat) {
-                showCsatPrompt();
+                showCsatPrompt(row);
             }
 
             return row;
@@ -5247,7 +5415,7 @@ body.preview-is-expanded{overflow:hidden!important}
         // ==========================================
 
         async function showTicketContactForm() {
-            if (activeTicket || awaitingHumanName) return;
+            if ((activeTicket && activeTicketSessionId === sessionId) || awaitingHumanName) return;
             awaitingHumanName = true;
             await streamMessage("Before I connect you, what name should I share with the support agent?", "bot", null, false);
             chatInput.placeholder = "Type your name…";
@@ -5291,29 +5459,15 @@ body.preview-is-expanded{overflow:hidden!important}
 
         function updateHumanChatStatus() {
             let status = document.getElementById("humanChatStatus");
-            if (!activeTicket) {
+            if (!activeTicket || chatMode !== "human") {
                 status?.remove();
                 return;
             }
             if (!status) {
-                status = document.createElement("button");
-                status.type = "button";
+                status = document.createElement("div");
                 status.id = "humanChatStatus";
                 status.className = "human-chat-status";
                 chatMessages.appendChild(status);
-                status.addEventListener("click", async () => {
-                    chatMode = chatMode === "human" ? "ai" : "human";
-                    updateHumanChatStatus();
-                    if (chatMode === "human") await pollTicketMessages();
-                    renderMessage(
-                        chatMode === "human"
-                            ? "You’re now messaging Novara CX Support. Select the ticket status again whenever you want to return to the AI assistant."
-                            : "You’re now chatting with Novara CX AI. Your human-support ticket remains active in the background.",
-                        chatMode === "human" ? "agent" : "bot",
-                        false
-                    );
-                    chatInput.focus();
-                });
             }
             const labels = {
                 open: "Waiting for Novara CX Support",
@@ -5322,9 +5476,7 @@ body.preview-is-expanded{overflow:hidden!important}
                 reopened: "Ticket reopened",
                 resolved: "Ticket resolved"
             };
-            const modeAction = chatMode === "human" ? "Switch to AI" : "Open support chat";
-            status.textContent = `${activeTicket.ticket_number || activeTicket.ticketNumber || "Ticket"} · ${labels[activeTicket.status] || activeTicket.status} · ${modeAction}`;
-            status.setAttribute("aria-label", `${status.textContent}. Activate to ${modeAction.toLowerCase()}.`);
+            status.textContent = `${activeTicket.ticket_number || activeTicket.ticketNumber || "Ticket"} · ${labels[activeTicket.status] || activeTicket.status}`;
             scrollChatToLatest();
             syncCurrentHistoryMetadata();
         }
@@ -5367,7 +5519,12 @@ body.preview-is-expanded{overflow:hidden!important}
             document.getElementById("quickReplies")?.removeAttribute("hidden");
             closeChatHistory();
             renderMessage("You’re now chatting with Novara CX AI. How can I help?", "bot", false);
-            if (activeTicket) updateHumanChatStatus();
+            showMessageActions([
+                { label:"Explore services", target:"#mvp-platform" },
+                { label:"View plans", target:"#mvp-pricing" },
+                { label:"Talk to a person", question:"I would like to speak to a human" }
+            ]);
+            updateHumanChatStatus();
             chatInput.focus();
         }
 
@@ -5403,6 +5560,9 @@ body.preview-is-expanded{overflow:hidden!important}
                     const data = await response.json();
                     if (!response.ok) throw new Error(data.error || "Could not reopen ticket.");
                     activeTicket = data.ticket;
+                    activeTicketSessionId = sessionId;
+                    localStorage.setItem("novara_active_ticket_session", activeTicketSessionId);
+                    chatMode = "human";
                     lastTicketStatus = data.ticket.status;
                     card.remove();
                     chatInput.disabled = false;
@@ -5434,7 +5594,11 @@ body.preview-is-expanded{overflow:hidden!important}
                 (data.messages || []).forEach(item => {
                     if (chatMode === "human") {
                         lastTicketMessageId = Math.max(lastTicketMessageId, Number(item.id) || 0);
-                        renderMessage(item.message, item.sender_type === "agent" ? "agent" : "user", false);
+                        const sender = item.sender_type === "agent" ? "agent" : "user";
+                        const duplicate = [...chatMessages.querySelectorAll(".msg-row")].slice(-30).some(row =>
+                            row.dataset.messageSender === sender && row.dataset.messageText === cleanHistoryText(item.message)
+                        );
+                        if (!duplicate) renderMessage(item.message, sender, false);
                     }
                 });
 
@@ -5569,6 +5733,10 @@ body.preview-is-expanded{overflow:hidden!important}
 
             shouldFollowConversation = true;
             chatFooter?.classList.add("conversation-started");
+            document.querySelectorAll(".message-actions").forEach(group => {
+                group.classList.add("is-leaving");
+                window.setTimeout(() => group.remove(), 190);
+            });
 
 
             const outgoingRow = renderMessage(
@@ -5598,7 +5766,7 @@ body.preview-is-expanded{overflow:hidden!important}
             chatSend.classList.add("is-generating");
             chatSend.setAttribute("aria-label", "Generating response");
 
-            if (awaitingHumanName && !activeTicket) {
+            if (awaitingHumanName) {
                 const name = message.trim();
                 if (name.length < 2) {
                     setMessageDelivery(outgoingRow, "delivered");
@@ -5739,6 +5907,8 @@ body.preview-is-expanded{overflow:hidden!important}
 
                 if (escalationData.escalatedToHuman === 1) {
                     await showTicketContactForm();
+                } else {
+                    showMessageActions(contextualActionsFor(message, data.reply, escalationData));
                 }
 
             } catch (error) {
@@ -5920,6 +6090,22 @@ body.preview-is-expanded{overflow:hidden!important}
 
         }
 
+        function restoreLocalConversation() {
+            const conversation = readChatHistory().find(item => item.sessionId === sessionId);
+            if (!conversation?.messages?.length) return false;
+            chatMessages.replaceChildren();
+            chatMode = isOpenTicketStatus(conversation.status) ? "human" : "ai";
+            if (chatMode === "human") {
+                activeTicketSessionId = sessionId;
+                localStorage.setItem("novara_active_ticket_session", activeTicketSessionId);
+            }
+            conversation.messages.forEach(message => {
+                renderMessage(message.text, message.sender || "bot", false, null, false);
+            });
+            chatFooter?.classList.toggle("conversation-started", conversation.messages.some(message => message.sender === "user"));
+            return true;
+        }
+
 
         // ==========================================
         // EVENTS
@@ -6001,7 +6187,7 @@ body.preview-is-expanded{overflow:hidden!important}
         });
 
         chatHistoryBack.addEventListener("click", renderChatHistory);
-        chatHistoryContinue.addEventListener("click", closeChatHistory);
+        chatHistoryContinue.addEventListener("click", continueHistoryConversation);
         chatHistoryNew.addEventListener("click", startNewConversationFromHistory);
 
         if (window.visualViewport) {
@@ -6042,23 +6228,20 @@ body.preview-is-expanded{overflow:hidden!important}
         window.addEventListener(
             "load",
             async () => {
-
+                const restoredLocal = !sessionExpired && restoreLocalConversation();
                 await pollTicketMessages();
                 setInterval(pollTicketMessages, 3000);
 
-                const savedDraft = localStorage.getItem(CHAT_DRAFT_KEY) || "";
+                if (sessionExpired) localStorage.removeItem(CHAT_DRAFT_KEY);
+                const savedDraft = sessionExpired ? "" : localStorage.getItem(CHAT_DRAFT_KEY) || "";
                 if (savedDraft) {
                     chatInput.value = savedDraft;
                     chatInput.style.height = "auto";
                     chatInput.style.height = `${Math.min(chatInput.scrollHeight, 132)}px`;
                 }
 
-                if (activeTicket) {
-                    chatWindow.classList.add("open");
-                    chatToggle.classList.add("open");
-                    chatToggle.setAttribute("aria-expanded", "true");
-                    document.body.classList.add("chat-open");
-                    chatInput.focus();
+                if (restoredLocal) {
+                    updateHumanChatStatus();
                     return;
                 }
 
@@ -6094,13 +6277,12 @@ body.preview-is-expanded{overflow:hidden!important}
                 setTimeout(
                     () => {
 
-                        renderMessage(
-
-                            "👋 Hi! I’m the Novara CX assistant. Ask me about our services, pricing, reducing support workload—or connect with a person whenever you need.",
-
-                            "bot"
-
-                        );
+                        renderMessage("Hi! I’m the Novara CX assistant.\n\nHow can I help today?", "bot", false);
+                        showMessageActions([
+                            { label:"Explore services", target:"#mvp-platform" },
+                            { label:"View plans", target:"#mvp-pricing" },
+                            { label:"Talk to a person", question:"I would like to speak to a human" }
+                        ]);
 
                     },
 
