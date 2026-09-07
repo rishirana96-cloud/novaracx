@@ -1114,6 +1114,71 @@ body>header .nav{height:68px}body>header .logo{color:#102018}body>header .nav-li
         }
         @keyframes streamCursor { 50% { opacity:0; } }
 
+        /* ChatGPT-like conversation motion: quiet, responsive and interruptible. */
+        .chatbot-messages-window { scroll-behavior:auto; }
+        .msg-row {
+            transform-origin:bottom left;
+            animation:chatMessageIn .28s cubic-bezier(.22,.8,.3,1) both;
+        }
+        .msg-row.user { transform-origin:bottom right; }
+        @keyframes chatMessageIn {
+            from { opacity:0; transform:translateY(8px) scale(.985); }
+            to { opacity:1; transform:translateY(0) scale(1); }
+        }
+        .chatbot-footer .quick-replies-window {
+            max-height:70px;
+            transition:opacity .2s ease,transform .24s ease,max-height .28s ease,padding .28s ease;
+        }
+        .chatbot-footer.conversation-started .quick-replies-window {
+            max-height:0;
+            padding-top:0;
+            padding-bottom:0;
+            opacity:0;
+            transform:translateY(7px);
+            pointer-events:none;
+            overflow:hidden;
+        }
+        .send-btn.is-generating svg { display:none; }
+        .send-btn.is-generating::before {
+            content:"";
+            width:12px;
+            height:12px;
+            border:2px solid rgba(9,31,19,.3);
+            border-top-color:#0a2416;
+            border-radius:50%;
+            animation:chatSendSpin .7s linear infinite;
+        }
+        @keyframes chatSendSpin { to { transform:rotate(360deg); } }
+        @media(prefers-reduced-motion:reduce) {
+            .msg-row,.typing-indicator span,.msg-stream-cursor,.send-btn.is-generating::before { animation:none!important; }
+            .chatbot-footer .quick-replies-window,.chat-jump-latest { transition:none!important; }
+        }
+        .chat-jump-latest {
+            position:absolute;
+            left:50%;
+            bottom:116px;
+            z-index:4;
+            display:flex;
+            align-items:center;
+            gap:6px;
+            padding:7px 11px;
+            border:1px solid #d1ddd5;
+            border-radius:999px;
+            background:rgba(255,255,255,.96);
+            color:#40564a;
+            box-shadow:0 7px 22px rgba(30,60,42,.14);
+            font:700 .64rem/1 'Inter',sans-serif;
+            opacity:0;
+            transform:translate(-50%,8px);
+            pointer-events:none;
+            transition:opacity .18s ease,transform .18s ease;
+        }
+        .chat-jump-latest.visible {
+            opacity:1;
+            transform:translate(-50%,0);
+            pointer-events:auto;
+        }
+
         /* Compact CSAT: a closing line, not a survey card. */
         .csat-prompt {
             align-self:flex-start; display:flex; align-items:center; gap:8px; max-width:91%;
@@ -4445,6 +4510,14 @@ body.preview-is-expanded{overflow:hidden!important}
                 "chatSend"
             );
 
+        const chatFooter = chatWindow.querySelector(".chatbot-footer");
+        const jumpToLatest = document.createElement("button");
+        jumpToLatest.type = "button";
+        jumpToLatest.className = "chat-jump-latest";
+        jumpToLatest.setAttribute("aria-label", "Jump to the latest message");
+        jumpToLatest.innerHTML = '<span aria-hidden="true">↓</span> New message';
+        chatWindow.appendChild(jumpToLatest);
+
         const chatHistoryBtn = document.getElementById("chatHistoryBtn");
         const chatHistoryList = document.getElementById("chatHistoryList");
         const chatHistoryDetail = document.getElementById("chatHistoryDetail");
@@ -4652,11 +4725,56 @@ body.preview-is-expanded{overflow:hidden!important}
             chatInput.focus();
         }
 
-        function scrollChatToLatest() {
-            requestAnimationFrame(() => {
-                chatMessages.scrollTop = chatMessages.scrollHeight;
-            });
+        let shouldFollowConversation = true;
+        let chatScrollFrame = 0;
+
+        function isChatNearLatest() {
+            return chatMessages.scrollHeight - chatMessages.scrollTop - chatMessages.clientHeight < 72;
         }
+
+        function updateJumpToLatest() {
+            jumpToLatest.classList.toggle("visible", !shouldFollowConversation && !isChatNearLatest());
+        }
+
+        function scrollChatToLatest(force = false) {
+            if (!force && !shouldFollowConversation) {
+                updateJumpToLatest();
+                return;
+            }
+            shouldFollowConversation = true;
+            cancelAnimationFrame(chatScrollFrame);
+            const settle = () => {
+                const target = Math.max(0, chatMessages.scrollHeight - chatMessages.clientHeight);
+                const distance = target - chatMessages.scrollTop;
+                if (Math.abs(distance) < 1) {
+                    chatMessages.scrollTop = target;
+                    chatScrollFrame = 0;
+                    updateJumpToLatest();
+                    return;
+                }
+                chatMessages.scrollTop += distance * .24;
+                chatScrollFrame = requestAnimationFrame(settle);
+            };
+            chatScrollFrame = requestAnimationFrame(settle);
+        }
+
+        chatMessages.addEventListener("scroll", () => {
+            if (isChatNearLatest()) shouldFollowConversation = true;
+            else if (!chatScrollFrame) shouldFollowConversation = false;
+            updateJumpToLatest();
+        }, { passive:true });
+
+        const pauseChatFollow = () => {
+            if (isChatNearLatest()) return;
+            cancelAnimationFrame(chatScrollFrame);
+            chatScrollFrame = 0;
+            shouldFollowConversation = false;
+            updateJumpToLatest();
+        };
+        chatMessages.addEventListener("wheel", pauseChatFollow, { passive:true });
+        chatMessages.addEventListener("touchmove", pauseChatFollow, { passive:true });
+
+        jumpToLatest.addEventListener("click", () => scrollChatToLatest(true));
 
 
         // ==========================================
@@ -5055,8 +5173,7 @@ body.preview-is-expanded{overflow:hidden!important}
             );
 
 
-            chatMessages.scrollTop =
-                chatMessages.scrollHeight;
+            scrollChatToLatest();
 
             if (persistHistory) {
                 recordHistoryMessage(displayText, sender);
@@ -5105,10 +5222,10 @@ body.preview-is-expanded{overflow:hidden!important}
         // HUMAN TICKET HANDOFF
         // ==========================================
 
-        function showTicketContactForm() {
+        async function showTicketContactForm() {
             if (activeTicket || awaitingHumanName) return;
             awaitingHumanName = true;
-            renderMessage("Before I connect you, what name should I share with the support agent?", "bot", false);
+            await streamMessage("Before I connect you, what name should I share with the support agent?", "bot", null, false);
             chatInput.placeholder = "Type your name…";
             chatInput.focus();
         }
@@ -5129,16 +5246,17 @@ body.preview-is-expanded{overflow:hidden!important}
                 awaitingHumanName = false;
                 chatInput.placeholder = "Type your message…";
                 setMessageDelivery(outgoingRow, "delivered");
-                renderMessage(
+                await streamMessage(
                     `Your ticket **${data.ticket.ticketNumber}** has been created. Novara CX Support will reply here shortly.`,
                     "agent",
+                    null,
                     false
                 );
                 updateHumanChatStatus();
             } catch (error) {
                 awaitingHumanName = true;
                 setMessageDelivery(outgoingRow, "failed", () => createHumanTicket(name, outgoingRow));
-                renderMessage(error.message || "I could not connect you just now. Please try your name again.", "bot", false);
+                await streamMessage(error.message || "I could not connect you just now. Please try your name again.", "bot", null, false);
             }
 
         }
@@ -5164,7 +5282,7 @@ body.preview-is-expanded{overflow:hidden!important}
                 resolved: "Ticket resolved"
             };
             status.textContent = `${activeTicket.ticket_number || activeTicket.ticketNumber || "Ticket"} · ${labels[activeTicket.status] || activeTicket.status}`;
-            chatMessages.scrollTop = chatMessages.scrollHeight;
+            scrollChatToLatest();
             syncCurrentHistoryMetadata();
         }
 
@@ -5173,6 +5291,7 @@ body.preview-is-expanded{overflow:hidden!important}
             sessionId = createSessionId();
             localStorage.setItem("novara_session_id", sessionId);
             touchSessionActivity();
+
             activeTicket = null;
             lastTicketStatus = null;
             lastTicketMessageId = 0;
@@ -5202,6 +5321,7 @@ body.preview-is-expanded{overflow:hidden!important}
             awaitingHumanName = false;
             chatInput.placeholder = "Type your message…";
             chatMessages.replaceChildren();
+            chatFooter?.classList.remove("conversation-started");
             chatInput.disabled = false;
             chatSend.disabled = false;
             document.getElementById("quickReplies")?.removeAttribute("hidden");
@@ -5227,7 +5347,7 @@ body.preview-is-expanded{overflow:hidden!important}
             `;
             chatMessages.appendChild(card);
             showCsatPrompt();
-            chatMessages.scrollTop = chatMessages.scrollHeight;
+            scrollChatToLatest();
             chatInput.disabled = true;
             chatSend.disabled = true;
 
@@ -5358,8 +5478,7 @@ body.preview-is-expanded{overflow:hidden!important}
             );
 
 
-            chatMessages.scrollTop =
-                chatMessages.scrollHeight;
+            scrollChatToLatest();
 
         }
 
@@ -5402,6 +5521,9 @@ body.preview-is-expanded{overflow:hidden!important}
 
             touchSessionActivity();
 
+            shouldFollowConversation = true;
+            chatFooter?.classList.add("conversation-started");
+
 
             const outgoingRow = renderMessage(
                 message,
@@ -5427,13 +5549,18 @@ body.preview-is-expanded{overflow:hidden!important}
             chatSend.disabled =
                 true;
 
+            chatSend.classList.add("is-generating");
+            chatSend.setAttribute("aria-label", "Generating response");
+
             if (awaitingHumanName && !activeTicket) {
                 const name = message.trim();
                 if (name.length < 2) {
                     setMessageDelivery(outgoingRow, "delivered");
-                    renderMessage("Please enter the name you would like the support agent to use.", "bot", false);
+                    await streamMessage("Please enter the name you would like the support agent to use.", "bot", null, false);
                     chatInput.disabled = false;
                     chatSend.disabled = false;
+                    chatSend.classList.remove("is-generating");
+                    chatSend.setAttribute("aria-label", "Send message");
                     chatInput.focus();
                     return;
                 }
@@ -5441,6 +5568,8 @@ body.preview-is-expanded{overflow:hidden!important}
                 await createHumanTicket(name, outgoingRow);
                 chatInput.disabled = false;
                 chatSend.disabled = false;
+                chatSend.classList.remove("is-generating");
+                chatSend.setAttribute("aria-label", "Send message");
                 chatInput.focus();
                 return;
             }
@@ -5455,10 +5584,12 @@ body.preview-is-expanded{overflow:hidden!important}
                         outgoingRow.remove();
                         sendMessage(message);
                     });
-                    renderMessage(error.message || "Your message could not be sent.", "agent", false);
+                    await streamMessage(error.message || "Your message could not be sent.", "agent", null, false);
                 } finally {
                     chatInput.disabled = false;
                     chatSend.disabled = false;
+                    chatSend.classList.remove("is-generating");
+                    chatSend.setAttribute("aria-label", "Send message");
                     chatInput.focus();
                 }
                 return;
@@ -5561,7 +5692,7 @@ body.preview-is-expanded{overflow:hidden!important}
                 }
 
                 if (escalationData.escalatedToHuman === 1) {
-                    showTicketContactForm();
+                    await showTicketContactForm();
                 }
 
             } catch (error) {
@@ -5580,9 +5711,11 @@ body.preview-is-expanded{overflow:hidden!important}
                 });
 
 
-                renderMessage(
+                await streamMessage(
                     "Something went wrong. Please try again or book a discovery call directly.",
-                    "bot"
+                    "bot",
+                    null,
+                    false
                 );
 
             } finally {
@@ -5593,6 +5726,9 @@ body.preview-is-expanded{overflow:hidden!important}
 
                 chatSend.disabled =
                     false;
+
+                chatSend.classList.remove("is-generating");
+                chatSend.setAttribute("aria-label", "Send message");
 
 
                 chatInput.focus();
