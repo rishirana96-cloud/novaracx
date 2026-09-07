@@ -5268,8 +5268,7 @@
         /* Report Builder action hierarchy */
         #panel-reports .report-save-primary { min-width:112px;min-height:40px;padding:0 16px;border:1px solid var(--accent-dark);border-radius:9px;background:var(--accent-dark);color:#fff;font-family:inherit;font-size:10px;font-weight:800;line-height:1;white-space:nowrap;box-shadow:0 6px 16px rgba(38,88,63,.16); }
         #panel-reports .report-save-primary:hover { filter:brightness(1.06);transform:translateY(-1px); }
-        #panel-reports .report-name-heading { display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 0 6px 2px; }
-        #panel-reports .report-name-heading label { color:var(--text-muted);font-size:8px;font-weight:700;letter-spacing:.09em;text-transform:uppercase; }
+        #panel-reports .report-clear-row { display:flex;justify-content:flex-end;margin:-3px 0 10px; }
         #panel-reports .report-inline-clear { min-height:28px;padding:0;border:0;background:transparent;color:var(--text-muted);font-family:inherit;font-size:8.5px;font-weight:760;text-decoration:none;cursor:pointer; }
         #panel-reports .report-inline-clear:hover { color:var(--accent);text-decoration:underline;text-underline-offset:3px; }
         #panel-reports .report-filter-actions { display:flex;align-items:center;gap:13px; }
@@ -5823,6 +5822,16 @@
 
 
     <style id="approved-interface-refinements">
+        /* Analytics mode selection mirrors the date selector's clear active state */
+        #tabSwitcher .tab.active,
+        html[data-theme="light"] #tabSwitcher .tab.active{
+            background:var(--accent);
+            color:#fff;
+            border-color:var(--accent);
+            box-shadow:0 7px 18px color-mix(in srgb,var(--accent) 28%,transparent);
+        }
+        #tabSwitcher .tab.active:hover{color:#fff;background:var(--accent-dark)}
+
         /* Preserve legibility on the primary dashboard action */
         #dashboardAddReportsBtn,
         #dashboardAddReportsBtn svg{
@@ -7991,14 +8000,13 @@
                             </div>
                             <div class="report-heading-actions"><button id="reportSaveBtn" class="report-primary-btn report-save-primary" type="button">Save report</button></div>
                         </div>
+                        <div class="report-clear-row"><button id="reportClearInputs" class="report-inline-clear" type="button">Clear main inputs</button></div>
+
                         <div class="report-form-grid">
-                            <div class="report-field report-field-wide">
-                                <div class="report-name-heading">
-                                    <label for="reportName">Report name</label>
-                                    <button id="reportClearInputs" class="report-inline-clear" type="button">Clear main inputs</button>
-                                </div>
+                            <label class="report-field report-field-wide">
+                                <span>Report name</span>
                                 <input id="reportName" type="text" maxlength="80" placeholder="e.g. Weekly escalation overview">
-                            </div>
+                            </label>
 
                             <label class="report-field report-field-wide visual-report-control">
                                 <span>Dataset</span>
@@ -8762,7 +8770,7 @@ ORDER BY ticket_count DESC</textarea>
                     </summary>
                     <div class="ticket-call-panel-body ticket-call-history-wrap">
                         <table class="ticket-call-history-table">
-                            <thead><tr><th>Timestamp</th><th>Call type</th><th>Call outcome</th><th>Agent</th><th>Duration</th><th>Resolution outcome</th><th>Recording</th></tr></thead>
+                            <thead><tr><th>Timestamp</th><th>Notes</th><th>Call outcome</th><th>Agent</th><th>Call type</th><th>Duration</th><th>Resolution outcome</th><th>Recording</th></tr></thead>
                             <tbody id="ticketCallHistoryBody"></tbody>
                         </table>
                     </div>
@@ -8779,6 +8787,7 @@ ORDER BY ticket_count DESC</textarea>
                         <label class="ticket-call-field"><span>Call outcome</span><select id="ticketCallOutcome"><option value="connected">Connected</option><option value="no-answer">No answer</option><option value="busy">Busy</option><option value="callback">Asked to callback later</option></select></label>
                         <label class="ticket-call-field"><span>Agent</span><input id="ticketCallAgent" type="text" value="Novara CX Support"></label>
                         <label class="ticket-call-field"><span>Duration</span><input id="ticketCallDuration" type="text" inputmode="numeric" placeholder="00:00:00"></label>
+                        <label class="ticket-call-field wide"><span>Notes</span><textarea id="ticketCallNotes" rows="3" placeholder="Add notes from this call…"></textarea></label>
                         <label class="ticket-call-field wide ticket-call-recording"><span>Recording</span><input id="ticketCallRecording" type="file" accept="audio/*,.mp3,.wav,.m4a,.ogg"><small id="ticketCallRecordingHint">Upload a call recording manually when available.</small></label>
                     </div>
                 </details>
@@ -9138,6 +9147,7 @@ ORDER BY ticket_count DESC</textarea>
 
     sidebarAnalytics?.addEventListener("click", event => {
         event.preventDefault();
+        setSidebarGroup("analytics", true);
         showWorkspace("ai");
     });
     function setSidebarGroup(group, open) {
@@ -12556,6 +12566,26 @@ ORDER BY ticket_count DESC</textarea>
         return date.toLocaleTimeString("en-IN", { timeZone:"Asia/Kolkata", hour:"2-digit", minute:"2-digit" });
     }
 
+    function ticketTimestamp(value) {
+        if (!value) return null;
+        const date = new Date(String(value).includes("T") ? value : `${String(value).replace(" ", "T")}Z`);
+        return Number.isNaN(date.getTime()) ? null : date;
+    }
+
+    function formatTicketElapsed(startValue, endValue, pendingLabel) {
+        const start = ticketTimestamp(startValue);
+        const end = ticketTimestamp(endValue);
+        if (!end) return pendingLabel;
+        if (!start) return "—";
+        const totalSeconds = Math.max(0, Math.floor((end.getTime() - start.getTime()) / 1000));
+        const totalMinutes = Math.floor(totalSeconds / 60);
+        const totalHours = Math.floor(totalMinutes / 60);
+        const pad = value => String(value).padStart(2, "0");
+        if (totalHours >= 24) return `${pad(Math.floor(totalHours / 24))}:${pad(totalHours % 24)}`;
+        if (totalHours >= 1) return `${pad(totalHours)}:${pad(totalMinutes % 60)}`;
+        return `${pad(totalMinutes)}:${pad(totalSeconds % 60)}`;
+    }
+
     function renderTicketNotes(notes) {
         const container = document.getElementById("ticketNotesHistory");
         if (!Array.isArray(notes) || !notes.length) {
@@ -14557,6 +14587,8 @@ ORDER BY created_date DESC, ticket_count DESC`;
                     <div class="ticket-context-item"><span>Phone number</span>${escapeHtml(ticket.customer_phone || "—")}</div>
                     <div class="ticket-context-item"><span>Created date</span>${escapeHtml(ticketDatePart(ticket.created_at))}</div>
                     <div class="ticket-context-item"><span>Created time</span>${escapeHtml(ticketTimePart(ticket.created_at))}</div>
+                    <div class="ticket-context-item"><span>First response time</span>${escapeHtml(formatTicketElapsed(ticket.created_at, ticket.first_response_at, "Awaiting response"))}</div>
+                    <div class="ticket-context-item"><span>Resolution time</span>${escapeHtml(formatTicketElapsed(ticket.created_at, ticket.resolved_at, "In progress"))}</div>
                 </div>
                 <div class="ticket-context-section case">
                     <div class="ticket-context-item"><span>Original query</span>${escapeHtml(ticket.customer_query || "—")}</div>
@@ -16311,9 +16343,12 @@ ORDER BY created_date DESC, ticket_count DESC`;
     const callButton = document.getElementById("ticketChannelCall");
     const historyButton = document.getElementById("ticketChannelHistory");
     const HISTORY_KEY = "novaradesk_ticket_activity_v1";
+    const CALL_NOTES_KEY = "novaradesk_ticket_call_notes_v1";
 
     const historyStore = () => { try { const value=JSON.parse(localStorage.getItem(HISTORY_KEY)||"{}");return value&&typeof value==="object"?value:{}; } catch { return {}; } };
     const ticketId = () => String((window.lastOpenTicketData?.ticket || lastOpenTicketData?.ticket || {}).id || openTicketId || "");
+    const callNotesStore = () => { try { const value=JSON.parse(localStorage.getItem(CALL_NOTES_KEY)||"{}");return value&&typeof value==="object"?value:{}; } catch { return {}; } };
+    const saveCallNotes = value => { const id=ticketId();if(!id)return;const store=callNotesStore();store[id]=String(value||"").slice(0,4000);localStorage.setItem(CALL_NOTES_KEY,JSON.stringify(store)); };
     const recordAction = (type,title,detail,actor="Novara CX Support") => { const id=ticketId();if(!id)return;const store=historyStore();(store[id]||=[]).push({id:`event-${Date.now()}-${Math.random().toString(36).slice(2,6)}`,type,title,detail,actor,created_at:new Date().toISOString()});store[id]=store[id].slice(-120);localStorage.setItem(HISTORY_KEY,JSON.stringify(store));if(drawer?.classList.contains("ticket-history-view"))renderHistoryView(); };
     const historyTime = value => { const date=new Date(value||Date.now());return Number.isNaN(date.getTime())?"—":date.toLocaleString("en-IN",{day:"2-digit",month:"short",year:"numeric",hour:"2-digit",minute:"2-digit"}); };
     const renderHistoryView = () => {
@@ -16349,14 +16384,18 @@ ORDER BY created_date DESC, ticket_count DESC`;
         const agent = ticket.agent_name || document.getElementById("ticketAgentSelect")?.value || "Novara CX Support";
         const timestampInput = document.getElementById("ticketCallTimestamp");
         const agentInput = document.getElementById("ticketCallAgent");
+        const notesInput = document.getElementById("ticketCallNotes");
+        const notes = callNotesStore()[String(ticket.id || openTicketId || "")] || "";
         if (timestampInput && !timestampInput.value) timestampInput.value = localDateTimeValue(timestamp);
         if (agentInput) agentInput.value = agent;
+        if (notesInput && document.activeElement !== notesInput) notesInput.value = notes;
         const body = document.getElementById("ticketCallHistoryBody");
         if (body) body.innerHTML = `<tr>
             <td>${escapeHtml(callTimestampText(timestamp))}</td>
-            <td>Outgoing</td>
+            <td><span class="ticket-call-notes-preview" title="${escapeHtml(notes || "No notes added")}">${escapeHtml(notes || "—")}</span></td>
             <td><span class="ticket-call-outcome">Connected</span></td>
             <td>${escapeHtml(agent)}</td>
+            <td>Outgoing</td>
             <td>00:06:14</td>
             <td><span class="ticket-call-resolution">Resolved</span></td>
             <td><button class="ticket-call-recording-download" type="button" aria-label="Download recording" title="Recording will be available after Exotel integration"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg></button></td>
@@ -16388,6 +16427,13 @@ ORDER BY created_date DESC, ticket_count DESC`;
     document.getElementById("ticketCallRecording")?.addEventListener("change", event => {
         const hint = document.getElementById("ticketCallRecordingHint");
         if (hint) hint.textContent = event.target.files?.[0] ? `${event.target.files[0].name} selected for upload.` : "Upload a call recording manually when available.";
+    });
+    document.getElementById("ticketCallNotes")?.addEventListener("input", event => saveCallNotes(event.target.value));
+    document.getElementById("ticketCallNotes")?.addEventListener("change", event => {
+        const notes=event.target.value.trim();
+        saveCallNotes(notes);
+        if(notes)recordAction("call","Call notes updated",notes,document.getElementById("ticketCallAgent")?.value||"Novara CX Support");
+        renderCallView();
     });
     document.getElementById("ticketCallHistoryBody")?.addEventListener("click", event => {
         const download = event.target.closest(".ticket-call-recording-download");
@@ -17076,10 +17122,19 @@ html[data-theme="light"] .ticket-history-section,html[data-theme="light"] .ticke
 .ticket-drawer-head{padding-bottom:2px!important}
 .ticket-drawer-head .ticket-sla-state{bottom:48px!important}
 .ticket-drawer-head .ticket-channel-switch{bottom:-1px!important}
+.ticket-drawer-head .ticket-assignment{padding:3px 9px!important;align-items:center!important}
+.ticket-context-section.identity{grid-template-columns:repeat(3,minmax(0,1fr))!important}
+.ticket-call-history-table{min-width:1080px!important}
+.ticket-call-notes-preview{display:block;max-width:190px;overflow:hidden;color:var(--text-secondary);text-overflow:ellipsis;white-space:nowrap}
+.ticket-call-field textarea{width:100%;min-height:76px;padding:11px 12px;resize:vertical;border:1px solid var(--border);border-radius:10px;background:var(--surface);color:var(--text);font:inherit;font-size:12px;line-height:1.45}
+.ticket-call-field textarea:focus{outline:2px solid rgba(91,145,119,.16);border-color:var(--accent)}
+html[data-theme="light"] .ticket-call-field textarea{background:#f4f7f5}
+@media(max-width:1100px){.ticket-context-section.identity{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
 @media(max-width:620px){
     .ticket-drawer-head{padding-bottom:12px!important}
     .ticket-drawer-head .ticket-sla-state{bottom:auto!important}
     .ticket-drawer-head .ticket-channel-switch{bottom:auto!important}
+    .ticket-context-section.identity{grid-template-columns:1fr!important}
 }
 </style>
 
