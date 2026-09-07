@@ -1288,6 +1288,39 @@ body>header .nav{height:68px}body>header .logo{color:#102018}body>header .nav-li
 @media (max-width: 480px){.chatbot-window{height:420px;bottom:84px}}
 </style>
 
+<style id="chatbot-professional-refinement">
+.chatbot-window{width:410px;height:min(640px,calc(100vh - 124px));border-radius:20px;box-shadow:0 24px 70px rgba(0,0,0,.42)}
+.chatbot-header-window{min-height:64px;padding:12px 16px;background:linear-gradient(135deg,rgba(124,155,138,.12),rgba(17,17,24,.98) 62%)}
+.chatbot-header-window .avatar{width:36px;height:36px;border-radius:11px;box-shadow:none}
+.chatbot-header-window .avatar img{width:22px;height:22px}
+.chatbot-header-window .close-btn,.chatbot-history-btn{width:34px;height:34px}
+.chatbot-messages-window{padding:18px 16px;gap:10px;background:#eef3ef}
+.msg-row{max-width:78%;gap:7px}
+.msg-row.continuation{margin-top:-5px}
+.msg-row.continuation .msg-avatar{visibility:hidden}
+.msg-avatar{width:25px;height:25px;box-shadow:none}
+.msg-avatar.agent-avatar{background:#d7e7de;color:#345745;border:1px solid #bdd0c4;font:800 .55rem/1 'Inter',sans-serif}
+.msg{padding:9px 13px;border-radius:14px;font-size:.84rem;line-height:1.55}
+.msg.bot{border-color:#d8e1da;box-shadow:0 2px 8px rgba(25,55,37,.035)}
+.msg.agent{position:relative;padding-top:24px;border-color:#bfd2c6;background:#e1ede6;box-shadow:0 2px 8px rgba(25,55,37,.04)}
+.message-sender-label{position:absolute;top:7px;left:13px;color:#597064;font:750 .56rem/1 'Inter',sans-serif;letter-spacing:.02em}
+.msg.user{padding-bottom:9px;box-shadow:0 2px 8px rgba(38,73,53,.1)}
+.message-delivery:not(.failed){display:none!important}
+.human-chat-status{align-self:stretch;display:flex;align-items:center;gap:9px;max-width:none;padding:2px 0;border:0;background:transparent;color:#5b7065;font-size:.62rem;font-weight:700;box-shadow:none}
+.human-chat-status::before,.human-chat-status::after{content:"";height:1px;flex:1;background:#d4ded8}
+.chatbot-input-window{gap:8px;padding:8px 11px 9px}
+.chatbot-input-window textarea{min-height:44px;padding:11px 14px;border-radius:15px;background:#f8faf9}
+.chatbot-input-window .send-btn{width:44px;height:44px;flex-basis:44px;box-shadow:none}
+.chatbot-powered-by{padding:5px 0 7px;font-size:.59rem}
+.typing-indicator{padding:6px 1px}
+@media(max-width:600px){
+  .chatbot-window{inset:0;width:100%;height:100dvh;max-width:none;border-radius:0}
+  .chatbot-header-window{min-height:62px;padding:max(11px,env(safe-area-inset-top)) 14px 11px}
+  .chatbot-messages-window{padding:16px 13px}
+  .msg-row{max-width:84%}
+}
+</style>
+
 <style id="temporary-live-preview-removal">
 /* Temporarily remove the embedded NovaraDesk live-site preview without affecting surrounding sections. */
 #mvp-product-tour{display:none!important}
@@ -5031,6 +5064,10 @@ body.preview-is-expanded{overflow:hidden!important}
 
         function setMessageDelivery(row, state, retry = null) {
             if (!row || !row.classList.contains("user")) return;
+            if (state !== "failed") {
+                row.querySelector(".message-delivery")?.remove();
+                return;
+            }
             let status = row.querySelector(".message-delivery");
             if (!status) {
                 status = document.createElement("span");
@@ -5068,9 +5105,9 @@ body.preview-is-expanded{overflow:hidden!important}
                 if (delay) await new Promise(resolve => setTimeout(resolve, delay));
             }
 
+            row.remove();
             const finalRow = renderMessage(text, sender, allowRating, escalationData, true);
             finalRow.style.animation = "none";
-            row.remove();
             return finalRow;
         }
 
@@ -5231,6 +5268,13 @@ body.preview-is-expanded{overflow:hidden!important}
             row.dataset.messageText = cleanHistoryText(text);
             row.dataset.messageSender = sender;
 
+            const previousRow = [...chatMessages.querySelectorAll(".msg-row")].at(-1);
+            const continuesSender = (
+                (sender === "bot" || sender === "agent") &&
+                previousRow?.dataset.messageSender === sender
+            );
+            if (continuesSender) row.classList.add("continuation");
+
 
             if (
                 sender === "bot" ||
@@ -5248,8 +5292,13 @@ body.preview-is-expanded{overflow:hidden!important}
                 );
 
 
-                avatar.innerHTML =
-                    '<img src="assets/logo-mark.png" alt="">';
+                if (sender === "agent") {
+                    avatar.classList.add("agent-avatar");
+                    avatar.textContent = "NC";
+                    avatar.setAttribute("aria-label", "Novara CX Support");
+                } else {
+                    avatar.innerHTML = '<img src="assets/logo-mark.png" alt="Novara CX AI">';
+                }
 
 
                 row.appendChild(
@@ -5309,6 +5358,13 @@ body.preview-is-expanded{overflow:hidden!important}
 
             div.innerHTML =
                 html;
+
+            if (sender === "agent") {
+                const senderLabel = document.createElement("span");
+                senderLabel.className = "message-sender-label";
+                senderLabel.textContent = "Novara CX Support";
+                div.prepend(senderLabel);
+            }
 
 
             // ==========================================
