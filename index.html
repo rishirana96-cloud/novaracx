@@ -4605,6 +4605,7 @@ body.preview-is-expanded{overflow:hidden!important}
         let lastTicketMessageId = 0;
         let lastTicketStatus = null;
         let awaitingHumanName = false;
+        let ticketPollingGeneration = 0;
 
         const CHAT_HISTORY_LIMIT = 20;
         const CHAT_HISTORY_KEY = `novara_chat_history_${browserId}`;
@@ -4845,6 +4846,7 @@ body.preview-is-expanded{overflow:hidden!important}
                 return;
             }
             sessionId = ticketSession;
+            ticketPollingGeneration += 1;
             activeTicketSessionId = ticketSession;
             localStorage.setItem("novara_session_id", sessionId);
             localStorage.setItem("novara_active_ticket_session", activeTicketSessionId);
@@ -5098,6 +5100,17 @@ body.preview-is-expanded{overflow:hidden!important}
                 { label:"Explore services", target:"#mvp-platform" },
                 { label:"Book a call", target:"#mvp-contact" }
             ];
+        }
+
+        function requestsHumanSupport(message) {
+            const text = String(message || "").toLowerCase().replace(/\s+/g, " ").trim();
+            if (!text) return false;
+            return (
+                /\b(speak|talk|chat|connect|transfer|escalate)\b.{0,45}\b(human|person|someone|agent|representative|specialist|support|team|manager|supervisor)\b/.test(text) ||
+                /\b(human|person|agent|representative|specialist|support|team|manager|supervisor)\b.{0,45}\b(speak|talk|chat|connect|contact|call|reach out|respond|reply)\b/.test(text) ||
+                /\b(call me|contact me|reach out to me|have someone call|someone from (?:your|the) team|live agent|real person|human support|customer care|put me through|talk to someone|speak to someone)\b/.test(text) ||
+                /\b(want|need|prefer|would like|looking for|request)\b.{0,45}\b(human|person|agent|representative|specialist|support|team|callback|call back|conversation)\b/.test(text)
+            );
         }
 
         function showMessageActions(actions) {
@@ -5466,6 +5479,7 @@ body.preview-is-expanded{overflow:hidden!important}
                 if (!response.ok) throw new Error(data.error || "Could not create ticket.");
 
                 activeTicket = data.ticket;
+                ticketPollingGeneration += 1;
                 activeTicketSessionId = sessionId;
                 localStorage.setItem("novara_active_ticket_session", activeTicketSessionId);
                 chatMode = "human";
@@ -5515,6 +5529,7 @@ body.preview-is-expanded{overflow:hidden!important}
 
 
         function startFreshAiSession() {
+            ticketPollingGeneration += 1;
             sessionId = createSessionId();
             localStorage.setItem("novara_session_id", sessionId);
             touchSessionActivity();
@@ -5536,9 +5551,13 @@ body.preview-is-expanded{overflow:hidden!important}
         }
 
         function startNewConversationFromHistory() {
+            ticketPollingGeneration += 1;
             sessionId = createSessionId();
             localStorage.setItem("novara_session_id", sessionId);
             touchSessionActivity();
+            activeTicket = null;
+            activeTicketSessionId = null;
+            localStorage.removeItem("novara_active_ticket_session");
             chatMode = "ai";
             lastTicketStatus = null;
             lastTicketMessageId = 0;
@@ -5592,6 +5611,7 @@ body.preview-is-expanded{overflow:hidden!important}
                     const data = await response.json();
                     if (!response.ok) throw new Error(data.error || "Could not reopen ticket.");
                     activeTicket = data.ticket;
+                    ticketPollingGeneration += 1;
                     activeTicketSessionId = sessionId;
                     localStorage.setItem("novara_active_ticket_session", activeTicketSessionId);
                     chatMode = "human";
@@ -5612,17 +5632,22 @@ body.preview-is-expanded{overflow:hidden!important}
         async function pollTicketMessages() {
             try {
                 const ticketSession = activeTicketSessionId || sessionId;
+                const pollingGeneration = ticketPollingGeneration;
                 const response = await fetch(`${WORKER_URL}ticket-status?session=${encodeURIComponent(ticketSession)}&after=${lastTicketMessageId}`);
                 if (!response.ok) return;
                 const data = await response.json();
                 if (!data.ticket) return;
+                if (pollingGeneration !== ticketPollingGeneration) return;
+
+                const visibleTicketConversation = chatMode === "human" && ticketSession === sessionId;
+                syncTicketHistoryMetadata(ticketSession, data.ticket);
+                if (!visibleTicketConversation) return;
 
                 const previousStatus = lastTicketStatus;
                 activeTicket = data.ticket;
                 activeTicketSessionId = ticketSession;
                 localStorage.setItem("novara_active_ticket_session", activeTicketSessionId);
                 lastTicketStatus = data.ticket.status;
-                syncTicketHistoryMetadata(ticketSession, data.ticket);
 
                 (data.messages || []).forEach(item => {
                     if (chatMode === "human") {
@@ -5635,7 +5660,6 @@ body.preview-is-expanded{overflow:hidden!important}
                     }
                 });
 
-                const visibleTicketConversation = chatMode === "human" && ticketSession === sessionId;
                 if (visibleTicketConversation && data.ticket.status === "resolved" && previousStatus !== "resolved") {
                     renderMessage(
                         `This ticket has been resolved. ${data.ticket.resolution_note ? `Resolution: ${data.ticket.resolution_note}` : ""}`,
@@ -5848,6 +5872,8 @@ body.preview-is-expanded{overflow:hidden!important}
 
             try {
 
+                const clientRequestedHuman = requestsHumanSupport(message);
+
                 const response =
                     await fetch(
                         WORKER_URL,
@@ -5917,6 +5943,12 @@ body.preview-is-expanded{overflow:hidden!important}
                     escalationReason: data.escalationReason || null,
                     escalationMessage: data.escalationMessage || null
                 };
+
+                if (clientRequestedHuman && escalationData.escalatedToHuman !== 1) {
+                    escalationData.escalatedToHuman = 1;
+                    escalationData.escalationReason = "requested_human";
+                    data.reply = "Of course. I’ll connect you with Novara CX Support.";
+                }
 
 
                 if (
