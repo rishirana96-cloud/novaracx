@@ -1291,7 +1291,7 @@ body>header .nav{height:68px}body>header .logo{color:#102018}body>header .nav-li
 .msg.bot{border-color:#d9e2dc;background:rgba(255,255,255,.94);box-shadow:0 4px 14px rgba(25,55,37,.035)}
 .msg.agent{position:relative;padding-top:24px;border-color:#c4d6ca;background:#e4eee8;box-shadow:0 4px 14px rgba(25,55,37,.035)}
 .msg.has-sender-label{padding-top:24px}
-.message-sender-label{position:absolute;top:7px;left:13px;color:#597064;font:750 .56rem/1 'Inter',sans-serif;letter-spacing:.02em}
+.message-sender-label{position:absolute;top:7px;left:13px;color:#597064;font:750 .65rem/1 'Inter',sans-serif;letter-spacing:.015em}
 .msg.user .message-sender-label{color:rgba(19,42,29,.62)}
 .msg-row.grouped-before .message-sender-label{display:none}
 .msg-row.grouped-before .msg.has-sender-label{padding-top:9px}
@@ -4912,8 +4912,8 @@ body.preview-is-expanded{overflow:hidden!important}
 
         let shouldFollowConversation = true;
         let chatScrollFrame = 0;
-        let longMessageStreaming = false;
-        let streamFollowRequested = false;
+        let userPausedChatFollow = false;
+        let previousChatScrollTop = chatMessages.scrollTop;
 
         function isChatNearLatest() {
             return chatMessages.scrollHeight - chatMessages.scrollTop - chatMessages.clientHeight < 72;
@@ -4924,6 +4924,7 @@ body.preview-is-expanded{overflow:hidden!important}
         }
 
         function scrollChatToLatest(force = false) {
+            if (force) userPausedChatFollow = false;
             if (!force && !shouldFollowConversation) {
                 updateJumpToLatest();
                 return;
@@ -4946,25 +4947,31 @@ body.preview-is-expanded{overflow:hidden!important}
         }
 
         chatMessages.addEventListener("scroll", () => {
-            if (isChatNearLatest() && (!longMessageStreaming || streamFollowRequested)) shouldFollowConversation = true;
-            else if (!chatScrollFrame) shouldFollowConversation = false;
+            const currentScrollTop = chatMessages.scrollTop;
+            const movingTowardLatest = currentScrollTop >= previousChatScrollTop;
+            if (isChatNearLatest() && (!userPausedChatFollow || movingTowardLatest)) {
+                userPausedChatFollow = false;
+                shouldFollowConversation = true;
+            } else if (userPausedChatFollow || !chatScrollFrame) {
+                shouldFollowConversation = false;
+            }
+            previousChatScrollTop = currentScrollTop;
             updateJumpToLatest();
         }, { passive:true });
 
         const pauseChatFollow = () => {
-            if (isChatNearLatest()) return;
             cancelAnimationFrame(chatScrollFrame);
             chatScrollFrame = 0;
+            userPausedChatFollow = true;
             shouldFollowConversation = false;
             updateJumpToLatest();
         };
-        chatMessages.addEventListener("wheel", pauseChatFollow, { passive:true });
+        chatMessages.addEventListener("wheel", event => {
+            if (event.deltaY < 0 || !isChatNearLatest()) pauseChatFollow();
+        }, { passive:true });
         chatMessages.addEventListener("touchmove", pauseChatFollow, { passive:true });
 
-        jumpToLatest.addEventListener("click", () => {
-            if (longMessageStreaming) streamFollowRequested = true;
-            scrollChatToLatest(true);
-        });
+        jumpToLatest.addEventListener("click", () => scrollChatToLatest(true));
 
 
         // ==========================================
@@ -5123,22 +5130,11 @@ body.preview-is-expanded{overflow:hidden!important}
         async function streamMessage(text, sender = "bot", escalationData = null, allowRating = true) {
             const words = String(text || "").split(/(\s+)/).filter(Boolean);
             const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-            const isLongResponse = words.length > 55 || String(text || "").length > 340;
-            const row = renderMessage("", sender, false, null, false, null, null, !isLongResponse);
+            const row = renderMessage("", sender, false, null, false);
             const bubble = row.querySelector(".msg");
             const chunkSize = Math.max(1, Math.ceil(words.length / 75));
             const delay = reducedMotion ? 0 : Math.max(12, Math.min(30, Math.floor(2200 / Math.max(words.length / chunkSize, 1))));
             let visible = "";
-
-            longMessageStreaming = isLongResponse;
-            streamFollowRequested = false;
-            if (isLongResponse) {
-                cancelAnimationFrame(chatScrollFrame);
-                chatScrollFrame = 0;
-                const target = Math.max(0, row.offsetTop - 18);
-                chatMessages.scrollTo({ top:target, behavior:reducedMotion ? "auto" : "smooth" });
-                shouldFollowConversation = false;
-            }
 
             bubble.setAttribute("aria-busy", "true");
             for (let index = 0; index < words.length; index += chunkSize) {
@@ -5155,17 +5151,13 @@ body.preview-is-expanded{overflow:hidden!important}
                 cursor.className = "msg-stream-cursor";
                 cursor.setAttribute("aria-hidden", "true");
                 bubble.appendChild(cursor);
-                if (!isLongResponse || streamFollowRequested) scrollChatToLatest();
-                else updateJumpToLatest();
+                scrollChatToLatest();
                 if (delay) await new Promise(resolve => setTimeout(resolve, delay));
             }
 
             row.remove();
-            const finalRow = renderMessage(text, sender, allowRating, escalationData, true, null, null, !isLongResponse || streamFollowRequested);
+            const finalRow = renderMessage(text, sender, allowRating, escalationData, true);
             finalRow.style.animation = "none";
-            longMessageStreaming = false;
-            streamFollowRequested = false;
-            if (isLongResponse && !shouldFollowConversation) updateJumpToLatest();
             return finalRow;
         }
 
@@ -5771,6 +5763,7 @@ body.preview-is-expanded{overflow:hidden!important}
 
             touchSessionActivity();
 
+            userPausedChatFollow = false;
             shouldFollowConversation = true;
             chatFooter?.classList.add("conversation-started");
             document.querySelectorAll(".message-actions").forEach(group => {
