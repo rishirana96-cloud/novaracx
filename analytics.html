@@ -17120,9 +17120,9 @@ html[data-theme="light"] .ticket-history-section,html[data-theme="light"] .ticke
 
 <style id="ticket-header-boundary-lift">
 .ticket-drawer-head{padding-bottom:2px!important}
-.ticket-drawer-head .ticket-sla-state{bottom:48px!important}
+.ticket-drawer-head .ticket-sla-state{top:calc(50% + 4px)!important;bottom:auto!important;transform:translateY(-50%)!important}
 .ticket-drawer-head .ticket-channel-switch{bottom:-1px!important}
-.ticket-drawer-head .ticket-assignment{padding:3px 9px!important;margin-top:3px!important;margin-bottom:4px!important;align-items:center!important}
+.ticket-drawer-head .ticket-assignment{padding:3px 9px!important;margin-top:6px!important;margin-bottom:4px!important;align-items:center!important}
 .ticket-context-section.identity{grid-template-columns:repeat(3,minmax(0,1fr))!important}
 .ticket-call-history-table{min-width:1080px!important}
 .ticket-call-notes-preview{display:block;max-width:190px;overflow:hidden;color:var(--text-secondary);text-overflow:ellipsis;white-space:nowrap}
@@ -17133,6 +17133,7 @@ html[data-theme="light"] .ticket-call-field textarea{background:#f4f7f5}
 @media(max-width:620px){
     .ticket-drawer-head{padding-bottom:12px!important}
     .ticket-drawer-head .ticket-sla-state{bottom:auto!important}
+    .ticket-drawer-head .ticket-sla-state{top:auto!important;transform:none!important}
     .ticket-drawer-head .ticket-channel-switch{bottom:auto!important}
     .ticket-context-section.identity{grid-template-columns:1fr!important}
 }
