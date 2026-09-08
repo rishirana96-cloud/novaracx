@@ -6354,7 +6354,16 @@ body.preview-is-expanded{overflow:hidden!important}
             conversation.messages.forEach(message => {
                 renderMessage(message.text, message.sender || "bot", false, null, false, null, message.at);
             });
-            chatFooter?.classList.toggle("conversation-started", conversation.messages.some(message => message.sender === "user"));
+            const restoredHasUserMessage = conversation.messages.some(message => message.sender === "user");
+            chatFooter?.classList.toggle("conversation-started", restoredHasUserMessage);
+            if (!restoredHasUserMessage) {
+                const restoredWelcomeRow = [...chatMessages.querySelectorAll(".msg-row.bot")].at(-1);
+                openingQuickReplies.hidden = false;
+                openingQuickReplies.classList.add("opening-quick-replies");
+                if (restoredWelcomeRow) restoredWelcomeRow.after(openingQuickReplies);
+            } else {
+                openingQuickReplies.hidden = true;
+            }
             return true;
         }
 
