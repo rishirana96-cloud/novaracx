@@ -1297,11 +1297,18 @@ body>header .nav{height:68px}body>header .logo{color:#102018}body>header .nav-li
 @keyframes typingDot{0%,100%{opacity:.3;transform:scale(.82)}50%{opacity:1;transform:scale(1)}}
 .escalation-status .pulse{display:none!important}
 @media(max-width:600px){
-  .chatbot-window{top:var(--chat-viewport-top,0px);right:0;bottom:auto;left:0;width:100%;height:var(--chat-viewport-height,100dvh);max-width:none;max-height:none;border-radius:0}
+  .chatbot-window{top:var(--chat-viewport-top,0px);right:auto;bottom:auto;left:var(--chat-viewport-left,0px);width:var(--chat-viewport-width,100%);height:var(--chat-viewport-height,100dvh);max-width:none;max-height:none;border-radius:0;overscroll-behavior:none}
   .chat-toggle.open{display:none!important}
   .chatbot-header-window{min-height:62px;padding:max(9px,env(safe-area-inset-top)) 13px 9px}
   .chatbot-messages-window{padding:16px 13px}
   .msg-row{max-width:84%}
+  .chatbot-header-window .header-id{min-width:0}
+  .chatbot-header-window .chatbot-brand{min-width:0}
+  .chatbot-header-actions{flex:0 0 auto}
+  .chatbot-input-window{width:100%;min-width:0}
+  .chatbot-input-window textarea{min-width:0!important;font-size:16px!important}
+  .chatbot-input-window .send-btn{flex:0 0 44px!important;width:44px!important;height:44px!important}
+  .chatbot-messages-window{overscroll-behavior:contain}
 }
 </style>
 
@@ -6392,11 +6399,15 @@ body.preview-is-expanded{overflow:hidden!important}
             if (!window.matchMedia("(max-width:600px)").matches ||
                 !chatWindow.classList.contains("open")) {
                 chatWindow.style.removeProperty("--chat-viewport-top");
+                chatWindow.style.removeProperty("--chat-viewport-left");
+                chatWindow.style.removeProperty("--chat-viewport-width");
                 chatWindow.style.removeProperty("--chat-viewport-height");
                 return;
             }
             const viewport = window.visualViewport;
             chatWindow.style.setProperty("--chat-viewport-top", `${viewport?.offsetTop || 0}px`);
+            chatWindow.style.setProperty("--chat-viewport-left", `${viewport?.offsetLeft || 0}px`);
+            chatWindow.style.setProperty("--chat-viewport-width", `${viewport?.width || window.innerWidth}px`);
             chatWindow.style.setProperty("--chat-viewport-height", `${viewport?.height || window.innerHeight}px`);
         }
 
