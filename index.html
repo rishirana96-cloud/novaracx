@@ -1967,7 +1967,8 @@ updateProgress();
     const states=['open','in_progress','pending_revert','resolved','reopened','resolved'];
     const tickets=Array.from({length:18},(_,i)=>({id:i+1,ticket_number:`NX-${String(i+101).padStart(4,'0')}`,session_id:`demo_session_${i+1}`,status:states[i%states.length],priority:i%5===0?'urgent':i%3===0?'high':'normal',subject:issues[i%issues.length][0],customer_query:`Please help me with ${issues[i%issues.length][0].toLowerCase()}.`,intent:issues[i%issues.length][1],sentiment:issues[i%issues.length][2],escalation_reason:i%2?'human_judgement':'policy_exception',customer_name:people[i%people.length],customer_phone:`+91 98${String(41000000+i*731).slice(-8)}`,agent_name:i%4===0?'Support Agent A':i%4===1?'Support Agent B':'Novara CX Support',created_at:iso(2+i*7),updated_at:iso(.5+i*2),first_response_at:iso(1+i*3),resolved_at:states[i%states.length]==='resolved'?iso(.5+i*2):null,resolution_time_hours:states[i%states.length]==='resolved'?1.2+(i%4)*.7:0,latest_sender_type:['open','reopened'].includes(states[i%states.length])?'customer':'agent',needs_reply:['open','reopened'].includes(states[i%states.length]),unread_customer_messages:states[i%states.length]==='open'?1:0}));
     const conversations=Array.from({length:54},(_,i)=>({id:i+1,session_id:`demo_conversation_${i+1}`,customer_name:people[i%people.length],intent:issues[i%issues.length][1],sentiment:['positive','neutral','positive','negative'][i%4],resolution_status:i%5?'resolved':'escalated',started_at:iso(i*11+1),created_at:iso(i*11+1),response_time_seconds:7+i%18,message_count:3+i%8,channel:['website','whatsapp','instagram'][i%3]}));
-    const analytics=Array.from({length:28},(_,i)=>{const total=31+(i%7)*4+Math.round(i/6),escalated=4+i%4;return{date:new Date(now-(27-i)*86400000).toISOString().slice(0,10),total_conversations:total,resolved:total-escalated,escalated}});
+    const demoVolumes=[34,41,38,46,43,51,39,44,49,47,55,42,58,53,61,48,52,57,50,64,59,67,54,62,69,63,71,66],demoEscalations=[4,5,4,6,5,7,4,5,6,5,8,4,7,6,9,5,6,7,5,8,6,9,5,7,8,6,9,7];
+    const analytics=demoVolumes.map((total,i)=>({date:new Date(now-(27-i)*86400000).toISOString().slice(0,10),total_conversations:total,resolved:total-demoEscalations[i],escalated:demoEscalations[i]}));
     const ticketDetail=id=>{const ticket=tickets.find(t=>String(t.id)===String(id))||tickets[0];return{success:true,ticket,conversation:[{id:1,user_message:ticket.customer_query,bot_reply:'This needs a support specialist, so I am transferring the conversation with the full context attached.',created_at:ticket.created_at}],messages:[{id:1,sender_type:'customer',sender_name:ticket.customer_name,message:ticket.customer_query,created_at:ticket.created_at},{id:2,sender_type:'agent',sender_name:ticket.agent_name,message:'Thanks for sharing this. I’m reviewing the account and will update you shortly.',created_at:ticket.first_response_at}],notes:[{id:1,author_name:'Novara CX Support',note:'Customer context and the prior AI handoff are available here.',created_at:ticket.first_response_at}]}};
     const reply=data=>Promise.resolve(new win.Response(JSON.stringify(data),{status:200,headers:{'Content-Type':'application/json'}}));
     win.fetch=(input,init={})=>{
@@ -2021,8 +2022,12 @@ updateProgress();
       setText('sidebarUserInitials','ND');setText('sidebarUserName','Novara CX Demo');setText('sidebarUserRole','Novara CX Demo Administrator');
       doc.getElementById('novara-embedded-demo-style')?.remove();
       doc.documentElement.classList.add('novara-embedded-demo-safe');
-      doc.documentElement.style.overflow='hidden';
-      doc.body.style.overflow='hidden';
+      doc.documentElement.style.overflow='auto';
+      doc.body.style.overflow='auto';
+      doc.documentElement.style.overscrollBehavior='contain';
+      doc.body.style.overscrollBehavior='contain';
+      doc.body.style.height='auto';
+      doc.body.style.minHeight='100%';
       const sidebarCandidates=[...doc.querySelectorAll('.sidebar,#sidebar,[data-sidebar],[class*="sidebar"],[class*="side-nav"],[class*="sidenav"]')].filter(el=>el.offsetHeight>250&&el.querySelectorAll('a[href],button').length>=2);
       const sidebar=sidebarCandidates.sort((a,b)=>b.querySelectorAll('a[href],button').length-a.querySelectorAll('a[href],button').length)[0];
       if(sidebar){
@@ -2043,7 +2048,21 @@ updateProgress();
         }
       }
       syncCopy(keyFromPath(frame.contentWindow.location.pathname));
-      frame.contentWindow.updateDashboard?.(28);
+      const fillDemoKpis=()=>{
+        const setIfChanged=(id,value)=>{const node=doc.getElementById(id);if(node&&node.textContent!==value)node.textContent=value};
+        setIfChanged('aiAvgResponseTime','14s');
+        setIfChanged('aiAvgMessages','5.8');
+        const responseSub=doc.getElementById('aiAvgResponseTime')?.closest('.kpi-card')?.querySelector('.kpi-sub');
+        const messagesSub=doc.getElementById('aiAvgMessages')?.closest('.kpi-card')?.querySelector('.kpi-sub');
+        if(responseSub)responseSub.textContent='Across AI conversations';
+        if(messagesSub)messagesSub.textContent='Per conversation';
+      };
+      Promise.resolve(frame.contentWindow.updateDashboard?.(28)).finally(fillDemoKpis);
+      if(!doc.body.dataset.novaraDemoKpiObserver){
+        doc.body.dataset.novaraDemoKpiObserver='true';
+        const observer=new MutationObserver(()=>requestAnimationFrame(fillDemoKpis));
+        ['aiAvgResponseTime','aiAvgMessages'].forEach(id=>{const node=doc.getElementById(id);if(node)observer.observe(node,{childList:true,characterData:true,subtree:true})});
+      }
     }catch(error){syncCopy(keyFromPath(frame.src))}
   };
   frame.addEventListener('load',()=>{wrap.classList.add('loaded');applySafeDemoMode()});
