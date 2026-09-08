@@ -1806,6 +1806,38 @@ updateProgress();
     const label=tour.querySelector('[data-studio-label]'),heading=tour.querySelector('[data-studio-heading]'),copy=tour.querySelector('[data-studio-copy]'),points=tour.querySelector('[data-studio-points]');
     if(label)label.textContent=page.label;if(heading)heading.textContent=page.heading;if(copy)copy.textContent=page.copy;if(points)points.innerHTML=page.points.map(point=>`<li>${point}</li>`).join('');
   };
+  const installEmbeddedDemoApi=win=>{
+    if(!win||win.__novaraEmbeddedDemoInstalled)return;
+    win.__novaraEmbeddedDemoInstalled=true;
+    const nativeFetch=win.fetch.bind(win),now=Date.now(),iso=h=>new Date(now-h*3600000).toISOString();
+    const people=['Ananya Sharma','Rohan Mehta','Neha Kapoor','Arjun Verma','Kavya Nair','Dev Malhotra'];
+    const issues=[['Duplicate payment','payment_issue','negative'],['Delivery address change','order_change','neutral'],['Refund status','refund_status','negative'],['Subscription upgrade','subscription','positive'],['Return eligibility','returns','neutral'],['Damaged item received','product_issue','negative']];
+    const states=['open','in_progress','pending_revert','resolved','reopened','resolved'];
+    const tickets=Array.from({length:18},(_,i)=>({id:i+1,ticket_number:`NX-${String(i+101).padStart(4,'0')}`,session_id:`demo_session_${i+1}`,status:states[i%states.length],priority:i%5===0?'urgent':i%3===0?'high':'normal',subject:issues[i%issues.length][0],customer_query:`Please help me with ${issues[i%issues.length][0].toLowerCase()}.`,intent:issues[i%issues.length][1],sentiment:issues[i%issues.length][2],escalation_reason:i%2?'human_judgement':'policy_exception',customer_name:people[i%people.length],customer_phone:`+91 98${String(41000000+i*731).slice(-8)}`,agent_name:i%4===0?'Support Agent A':i%4===1?'Support Agent B':'Novara CX Support',created_at:iso(2+i*7),updated_at:iso(.5+i*2),first_response_at:iso(1+i*3),resolved_at:states[i%states.length]==='resolved'?iso(.5+i*2):null,resolution_time_hours:states[i%states.length]==='resolved'?1.2+(i%4)*.7:0,latest_sender_type:['open','reopened'].includes(states[i%states.length])?'customer':'agent',needs_reply:['open','reopened'].includes(states[i%states.length]),unread_customer_messages:states[i%states.length]==='open'?1:0}));
+    const conversations=Array.from({length:54},(_,i)=>({id:i+1,session_id:`demo_conversation_${i+1}`,customer_name:people[i%people.length],intent:issues[i%issues.length][1],sentiment:['positive','neutral','positive','negative'][i%4],resolution_status:i%5?'resolved':'escalated',started_at:iso(i*11+1),created_at:iso(i*11+1),response_time_seconds:7+i%18,message_count:3+i%8,channel:['website','whatsapp','instagram'][i%3]}));
+    const analytics=Array.from({length:28},(_,i)=>{const total=31+(i%7)*4+Math.round(i/6),escalated=4+i%4;return{date:new Date(now-(27-i)*86400000).toISOString().slice(0,10),total_conversations:total,resolved:total-escalated,escalated}});
+    const ticketDetail=id=>{const ticket=tickets.find(t=>String(t.id)===String(id))||tickets[0];return{success:true,ticket,conversation:[{id:1,user_message:ticket.customer_query,bot_reply:'This needs a support specialist, so I am transferring the conversation with the full context attached.',created_at:ticket.created_at}],messages:[{id:1,sender_type:'customer',sender_name:ticket.customer_name,message:ticket.customer_query,created_at:ticket.created_at},{id:2,sender_type:'agent',sender_name:ticket.agent_name,message:'Thanks for sharing this. I’m reviewing the account and will update you shortly.',created_at:ticket.first_response_at}],notes:[{id:1,author_name:'Novara CX Support',note:'Customer context and the prior AI handoff are available here.',created_at:ticket.first_response_at}]}};
+    const reply=data=>Promise.resolve(new win.Response(JSON.stringify(data),{status:200,headers:{'Content-Type':'application/json'}}));
+    win.fetch=(input,init={})=>{
+      const raw=typeof input==='string'?input:input?.url||'';
+      if(!raw.startsWith('https://novara-cx-ai.rishi-rana96.workers.dev'))return nativeFetch(input,init);
+      const url=new URL(raw),path=url.pathname,method=String(init.method||'GET').toUpperCase();
+      if(path.endsWith('/auth/me'))return reply({success:true,user:{name:'Novara CX Demo',email:'demo@novaracx.com',company_name:'Novara CX Demo',workspace_id:'novara-demo',role:'admin'}});
+      if(path.endsWith('/analytics'))return reply(analytics);
+      if(path.endsWith('/conversations'))return reply(conversations);
+      if(path.endsWith('/intents'))return reply(issues.map((x,i)=>({intent:x[1],count:18-i*2})));
+      if(path.endsWith('/ratings'))return reply([{rating:'yes',count:38},{rating:'partial',count:9},{rating:'no',count:4}]);
+      if(path.endsWith('/resolution'))return reply(analytics.map(x=>({date:x.date,total:x.total_conversations,resolved_count:x.resolved})));
+      if(path.endsWith('/sentiment'))return reply([{sentiment:'positive',count:34,avg_score:.82},{sentiment:'neutral',count:14,avg_score:.5},{sentiment:'negative',count:6,avg_score:.2}]);
+      if(path.endsWith('/tickets'))return reply(tickets);
+      if(path.endsWith('/ticket-detail'))return reply(ticketDetail(url.searchParams.get('id')));
+      if(path.endsWith('/conversation'))return reply({success:true,conversation:ticketDetail(1).conversation});
+      if(path.endsWith('/reports/sql'))return reply({success:true,columns:['status','count'],rows:[{status:'resolved',count:12},{status:'open',count:4}]});
+      if(path.includes('/agent-assist'))return reply({success:true,suggestion:'Thanks for sharing the details. I’m checking this now and will update you shortly.'});
+      if(method!=='GET')return reply({success:true,demo:true,message:'Saved in this demo session.'});
+      return reply([]);
+    };
+  };
   const applyDemoMode=()=>{
     try{
       const doc=frame.contentDocument;if(!doc?.body)return;
@@ -1831,6 +1863,10 @@ updateProgress();
   const applySafeDemoMode=()=>{
     try{
       const doc=frame.contentDocument;if(!doc?.body)return;
+      installEmbeddedDemoApi(frame.contentWindow);
+      doc.body.classList.add('novara-authenticated','novara-demo-mode');
+      const setText=(id,value)=>{const node=doc.getElementById(id);if(node)node.textContent=value};
+      setText('sidebarUserInitials','ND');setText('sidebarUserName','Novara CX Demo');setText('sidebarUserRole','Novara CX Demo Administrator');
       doc.getElementById('novara-embedded-demo-style')?.remove();
       doc.documentElement.classList.add('novara-embedded-demo-safe');
       doc.documentElement.style.overflow='hidden';
@@ -1855,6 +1891,7 @@ updateProgress();
         }
       }
       syncCopy(keyFromPath(frame.contentWindow.location.pathname));
+      frame.contentWindow.updateDashboard?.(28);
     }catch(error){syncCopy(keyFromPath(frame.src))}
   };
   frame.addEventListener('load',()=>{wrap.classList.add('loaded');applySafeDemoMode()});
