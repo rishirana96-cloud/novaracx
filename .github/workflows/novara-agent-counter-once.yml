@@ -8,81 +8,17 @@ on:
 
 permissions:
   contents: write
-  pages: write
-  id-token: write
-
-concurrency:
-  group: "novara-pricing-agent-note-v3"
-  cancel-in-progress: false
 
 jobs:
-  patch-and-deploy:
+  patch:
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
     steps:
       - uses: actions/checkout@v4
-      - name: Remove duplicate note and keep one
+      - name: Hide legacy duplicate pricing note
         shell: bash
         run: |
-          python - <<'PY'
-          from pathlib import Path
-          import re
-
-          p=Path('index.html')
-          t=p.read_text(encoding='utf-8')
-
-          # Remove both previous injected blocks completely.
-          t=re.sub(r'\n?<!-- NOVARA_ADDITIONAL_AGENT_PRICING_V1 -->.*?(?=\n<!--|\n</body>)','',t,flags=re.S)
-          t=re.sub(r'\n?<!-- NOVARA_ADDITIONAL_AGENT_PRICING_V2 -->.*?(?=\n<!--|\n</body>)','',t,flags=re.S)
-
-          marker='<!-- NOVARA_ADDITIONAL_AGENT_PRICING_V3 -->'
-          s=r'''
-<!-- NOVARA_ADDITIONAL_AGENT_PRICING_V3 -->
-<style id="novara-additional-agent-pricing-v3-style">
-.additional-agent-price-v3{display:block!important;margin:8px 0 0!important;color:#5d7467!important;font-size:14px!important;line-height:1.35!important;font-weight:600!important;letter-spacing:0!important}
-.additional-agent-price-v3 strong{color:#315746!important;font-weight:750!important}
-</style>
-<script id="novara-additional-agent-pricing-v3-script">
-(()=>{
-  const rates={'AI + Human Lite':'₹20,000/month','AI + Human Full':'₹40,000/month'};
-  const apply=()=>{
-    document.querySelectorAll('.pricing-summary').forEach(card=>{
-      const h=card.querySelector('h3');
-      if(!h)return;
-      const title=h.textContent.replace(/\s+/g,' ').trim();
-      if(!rates[title])return;
-
-      // Remove any legacy duplicates that may already exist in the DOM.
-      card.querySelectorAll('.additional-agent-price,.additional-agent-price-v2,.additional-agent-price-v3').forEach((el,i)=>{if(i>0)el.remove()});
-
-      const price=card.querySelector('.pricing-price');
-      if(!price)return;
-      let note=card.querySelector('.additional-agent-price-v3');
-      if(!note){
-        card.querySelectorAll('.additional-agent-price,.additional-agent-price-v2').forEach(el=>el.remove());
-        note=document.createElement('div');
-        note.className='additional-agent-price-v3';
-        price.insertAdjacentElement('afterend',note);
-      }
-      note.innerHTML='Additional agent: <strong>'+rates[title]+'</strong>';
-    });
-  };
-  apply();
-  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',apply,{once:true});
-  const mo=new MutationObserver(()=>{clearTimeout(mo._t);mo._t=setTimeout(apply,30)});
-  mo.observe(document.documentElement,{childList:true,subtree:true});
-  setTimeout(apply,250);setTimeout(apply,1000);
-})();
-</script>
-'''
-
-          if marker not in t:
-              head,tail=t.rsplit('</body>',1)
-              t=head+s+'\n</body>'+tail
-          p.write_text(t,encoding='utf-8')
-          PY
-      - name: Commit
+          python -c "from pathlib import Path; p=Path('index.html'); t=p.read_text(encoding='utf-8'); m='NOVARA_DEDUP_NOTE_V4'; ins='<style id=\"novara-dedup-note-v4\">.additional-agent-price{display:none!important}</style><!-- '+m+' -->'; p.write_text(t if m in t else t.replace('</body>',ins+'</body>',1),encoding='utf-8')"
+      - name: Commit index change
         shell: bash
         run: |
           if ! git diff --quiet -- index.html; then
@@ -92,8 +28,3 @@ jobs:
             git commit -m "Remove duplicate additional agent pricing note"
             git push origin main
           fi
-      - uses: actions/configure-pages@v5
-      - uses: actions/upload-pages-artifact@v3
-        with:
-          path: '.'
-      - uses: actions/deploy-pages@v5
