@@ -1,4 +1,4 @@
-name: Apply Novara pricing cleanup
+name: Apply Novara additional agent pricing note
 
 on:
   push:
@@ -12,7 +12,7 @@ permissions:
   id-token: write
 
 concurrency:
-  group: "novara-pricing-cleanup"
+  group: "novara-pricing-agent-note"
   cancel-in-progress: false
 
 jobs:
@@ -24,7 +24,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Remove complete coverage badge
+      - name: Add additional agent pricing notes
         shell: bash
         run: |
           python - <<'PY'
@@ -32,14 +32,69 @@ jobs:
 
           path = Path('index.html')
           text = path.read_text(encoding='utf-8')
-          old = '<span class="pricing-summary-badge">Complete coverage</span>'
+          marker = '<!-- NOVARA_ADDITIONAL_AGENT_PRICING_V1 -->'
 
-          if old not in text:
-              print('Complete coverage badge already absent.')
-          else:
-              text = text.replace(old, '', 1)
-              path.write_text(text, encoding='utf-8')
-              print('Removed Complete coverage badge.')
+          if marker in text:
+              print('Additional agent pricing notes already present.')
+              raise SystemExit(0)
+
+          snippet = r'''
+          <!-- NOVARA_ADDITIONAL_AGENT_PRICING_V1 -->
+          <style id="novara-additional-agent-pricing-style">
+          .pricing-summary .additional-agent-price{
+            margin-top:10px;
+            color:rgba(23,49,37,.68);
+            font-size:14px;
+            line-height:1.35;
+            font-weight:600;
+            letter-spacing:0;
+          }
+          .pricing-summary .additional-agent-price strong{
+            color:#315746;
+            font-weight:750;
+          }
+          </style>
+          <script id="novara-additional-agent-pricing-script">
+          (function(){
+            const prices = {
+              'AI + Human Lite': '₹20,000/month',
+              'AI + Human Full': '₹40,000/month'
+            };
+
+            function addNotes(){
+              document.querySelectorAll('.pricing-summary').forEach(function(card){
+                const heading = card.querySelector('h3');
+                if(!heading) return;
+                const title = heading.textContent.trim();
+                if(!prices[title] || card.querySelector('.additional-agent-price')) return;
+
+                const price = card.querySelector('.pricing-price');
+                if(!price) return;
+
+                const note = document.createElement('div');
+                note.className = 'additional-agent-price';
+                note.innerHTML = 'Additional agent: <strong>' + prices[title] + '</strong>';
+                price.insertAdjacentElement('afterend', note);
+              });
+            }
+
+            if(document.readyState === 'loading'){
+              document.addEventListener('DOMContentLoaded', addNotes, {once:true});
+            }else{
+              addNotes();
+            }
+            setTimeout(addNotes, 250);
+            setTimeout(addNotes, 1000);
+          })();
+          </script>
+          '''
+
+          if '</body>' not in text:
+              raise SystemExit('Could not find </body> in index.html')
+
+          head, tail = text.rsplit('</body>', 1)
+          path.write_text(head + snippet + '\n</body>' + tail, encoding='utf-8')
+          print('Added Lite and Full additional-agent pricing notes.')
           PY
 
       - name: Commit patched index
@@ -51,7 +106,7 @@ jobs:
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
             git add index.html
-            git commit -m "Remove complete coverage badge"
+            git commit -m "Show additional agent pricing on plan cards"
             git push origin main
           fi
 
