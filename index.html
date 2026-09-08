@@ -4959,13 +4959,43 @@ body.preview-is-expanded{overflow:hidden!important}
             requestAnimationFrame(() => {
                 if (latestPromptRow !== row) return;
                 settingPromptAnchor = true;
-                latestPromptAnchorTop = Math.max(0, row.offsetTop - 16);
-                chatMessages.scrollTop = latestPromptAnchorTop;
-                previousChatScrollTop = chatMessages.scrollTop;
-                requestAnimationFrame(() => {
+                const messageTopInViewport = row.getBoundingClientRect().top;
+                const chatTopInViewport = chatMessages.getBoundingClientRect().top;
+                const desiredTop = chatMessages.scrollTop +
+                    messageTopInViewport - chatTopInViewport - 18;
+                const maximumTop = Math.max(
+                    0,
+                    chatMessages.scrollHeight - chatMessages.clientHeight
+                );
+                latestPromptAnchorTop = Math.max(0, Math.min(desiredTop, maximumTop));
+
+                const startTop = chatMessages.scrollTop;
+                const distance = latestPromptAnchorTop - startTop;
+                const duration = window.matchMedia("(prefers-reduced-motion: reduce)").matches
+                    ? 0
+                    : 380;
+                const startedAt = performance.now();
+
+                const movePromptUp = now => {
+                    if (latestPromptRow !== row) return;
+                    const progress = duration === 0
+                        ? 1
+                        : Math.min(1, (now - startedAt) / duration);
+                    const eased = 1 - Math.pow(1 - progress, 3);
+                    chatMessages.scrollTop = startTop + distance * eased;
+                    previousChatScrollTop = chatMessages.scrollTop;
+
+                    if (progress < 1) {
+                        chatScrollFrame = requestAnimationFrame(movePromptUp);
+                        return;
+                    }
+
+                    chatScrollFrame = 0;
                     settingPromptAnchor = false;
                     updateJumpToLatest();
-                });
+                };
+
+                chatScrollFrame = requestAnimationFrame(movePromptUp);
             });
         }
 
@@ -5020,6 +5050,7 @@ body.preview-is-expanded{overflow:hidden!important}
         const pauseChatFollow = () => {
             cancelAnimationFrame(chatScrollFrame);
             chatScrollFrame = 0;
+            settingPromptAnchor = false;
             userPausedChatFollow = true;
             shouldFollowConversation = false;
             followLatestAfterJump = false;
@@ -5222,6 +5253,10 @@ body.preview-is-expanded{overflow:hidden!important}
             }
 
             row.remove();
+            // The extra space is only needed while positioning/generating.
+            // Remove it when the answer is complete so the user can never
+            // scroll into a large blank area beneath the conversation.
+            chatMessages.style.paddingBottom = "16px";
             const finalRow = renderMessage(text, sender, allowRating, escalationData, true);
             finalRow.style.animation = "none";
             return finalRow;
