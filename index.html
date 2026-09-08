@@ -1238,13 +1238,13 @@ body>header .nav{height:68px}body>header .logo{color:#102018}body>header .nav-li
 
 <style id="chatbot-professional-refinement">
 .chatbot-window{width:410px;height:min(640px,calc(100vh - 124px));border:1px solid rgba(15,24,19,.22);border-radius:20px;box-shadow:0 26px 72px rgba(7,14,10,.3),0 3px 12px rgba(7,14,10,.08)}
-.chatbot-header-window{position:relative;min-height:56px;padding:8px 14px;background:linear-gradient(120deg,rgba(47,78,64,.9),rgba(61,94,77,.86) 58%,rgba(75,108,89,.82));border-bottom-color:rgba(210,232,218,.28);-webkit-backdrop-filter:blur(18px) saturate(125%);backdrop-filter:blur(18px) saturate(125%);box-shadow:inset 0 1px 0 rgba(240,250,244,.1),inset 0 -1px 0 rgba(25,52,39,.18)}
+.chatbot-header-window{position:relative;min-height:62px;padding:9px 14px;background:linear-gradient(120deg,rgba(47,78,64,.76),rgba(61,94,77,.72) 58%,rgba(75,108,89,.68));border-bottom-color:rgba(210,232,218,.3);-webkit-backdrop-filter:blur(20px) saturate(132%);backdrop-filter:blur(20px) saturate(132%);box-shadow:inset 0 1px 0 rgba(240,250,244,.13),inset 0 -1px 0 rgba(25,52,39,.16)}
 .chatbot-header-window::before{content:"";position:absolute;inset:0 0 auto;height:1px;background:linear-gradient(90deg,transparent,rgba(235,247,239,.3),transparent)}
 .chatbot-header-window .avatar{width:36px;height:36px;border-radius:11px;box-shadow:none}
 .chatbot-header-window .avatar img{width:22px;height:22px}
 .chatbot-header-window .title{color:#fff;font-size:1rem;font-weight:760;letter-spacing:-.025em}
 .chatbot-header-window .title span{color:#a9e5c0;text-shadow:none}
-.chatbot-header-window .status{display:none!important}
+.chatbot-header-window .status{display:block!important;margin-top:2px;color:rgba(239,248,242,.72);font:550 .61rem/1.15 'General Sans','Inter',sans-serif;letter-spacing:.025em}
 .chatbot-header-window .close-btn,.chatbot-history-btn{width:34px;height:34px}
 .chatbot-header-window .close-btn,.chatbot-history-btn{border-color:rgba(225,240,231,.18);background:rgba(29,57,44,.28);box-shadow:inset 0 1px 0 rgba(255,255,255,.055);transition:background .18s ease,border-color .18s ease,transform .18s ease}
 .chatbot-header-window .close-btn:hover,.chatbot-history-btn:hover{background:rgba(24,49,37,.42);border-color:rgba(231,244,236,.3);transform:translateY(-1px)}
@@ -1259,14 +1259,20 @@ body>header .nav{height:68px}body>header .logo{color:#102018}body>header .nav-li
 .msg.bot{border-color:#d9e2dc;background:rgba(255,255,255,.94);box-shadow:0 4px 14px rgba(25,55,37,.035)}
 .msg.agent{position:relative;padding-top:24px;border-color:#c4d6ca;background:#e4eee8;box-shadow:0 4px 14px rgba(25,55,37,.035)}
 .msg.has-sender-label{padding-top:24px}
-.message-sender-label{position:absolute;top:7px;left:13px;color:#597064;font:750 .65rem/1 'Inter',sans-serif;letter-spacing:.015em}
-.msg.user .message-sender-label{color:rgba(19,42,29,.62)}
+.message-sender-label{position:absolute;top:7px;left:13px;color:#61766a;font:600 .67rem/1 'General Sans','Inter',sans-serif;letter-spacing:-.005em;-webkit-font-smoothing:antialiased}
+.msg.user .message-sender-label{color:rgba(23,53,36,.66)}
 .msg-row.grouped-before .message-sender-label{display:none}
 .msg-row.grouped-before .msg.has-sender-label{padding-top:9px}
 .message-time{display:block;margin:5px 0 -1px;color:#829087;font:600 .55rem/1 'Inter',sans-serif;text-align:right;white-space:nowrap}
 .msg.user .message-time{color:rgba(19,42,29,.58)}
 .conversation-time-heading{align-self:center;display:flex;align-items:center;gap:9px;width:100%;margin:1px 0 4px;color:#7a8981;font:700 .58rem/1 'Inter',sans-serif;white-space:nowrap}
 .conversation-time-heading::before,.conversation-time-heading::after{content:"";height:1px;flex:1;background:#d5dfd9}
+.message-stream-content{display:contents}
+.return-to-prompt{position:absolute;z-index:8;left:50%;bottom:76px;width:34px;height:34px;display:grid;place-items:center;border:1px solid rgba(83,113,96,.24);border-radius:50%;background:rgba(255,255,255,.92);color:#395848;box-shadow:0 6px 18px rgba(22,50,34,.13);opacity:0;visibility:hidden;transform:translate(-50%,7px);pointer-events:none;transition:opacity .18s ease,transform .22s cubic-bezier(.22,.8,.3,1),visibility .18s ease}
+.return-to-prompt.is-visible{opacity:1;visibility:visible;transform:translate(-50%,0);pointer-events:auto}
+.return-to-prompt:hover{background:#fff;border-color:rgba(62,98,77,.4);transform:translate(-50%,-1px)}
+.return-to-prompt svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.chatbot-window.history-open .return-to-prompt{display:none}
 .msg.bot,.msg.agent,.msg.user{position:relative}
 .msg.bot::after,.msg.agent::after,.msg.user::after{content:"";position:absolute;bottom:0;width:7px;height:9px;background:inherit}
 .msg.bot::after,.msg.agent::after{left:-4px;clip-path:polygon(100% 0,100% 100%,0 100%)}
@@ -1292,7 +1298,7 @@ body>header .nav{height:68px}body>header .logo{color:#102018}body>header .nav-li
 .escalation-status .pulse{display:none!important}
 @media(max-width:600px){
   .chatbot-window{inset:0;width:100%;height:100dvh;max-width:none;border-radius:0}
-  .chatbot-header-window{min-height:56px;padding:max(8px,env(safe-area-inset-top)) 13px 8px}
+  .chatbot-header-window{min-height:62px;padding:max(9px,env(safe-area-inset-top)) 13px 9px}
   .chatbot-messages-window{padding:16px 13px}
   .msg-row{max-width:84%}
 }
@@ -1433,6 +1439,8 @@ a[href="#mvp-product-tour"]{display:none!important}
                         Novara CX <span>Support</span>
                     </div>
 
+                    <div class="status">AI Live - 24/7</div>
+
                 </div>
 
             </div>
@@ -1501,6 +1509,10 @@ a[href="#mvp-product-tour"]{display:none!important}
             aria-live="polite"
             aria-relevant="additions"
         ></div>
+
+        <button class="return-to-prompt" id="returnToPrompt" type="button" aria-label="Return to latest message">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
 
 
         <div class="chatbot-footer">
@@ -4576,6 +4588,8 @@ body.preview-is-expanded{overflow:hidden!important}
                 "chatSend"
             );
 
+        const returnToPrompt = document.getElementById("returnToPrompt");
+
         const chatFooter = chatWindow.querySelector(".chatbot-footer");
 
         const chatHistoryBtn = document.getElementById("chatHistoryBtn");
@@ -4880,6 +4894,27 @@ body.preview-is-expanded{overflow:hidden!important}
         let latestPromptAnchorTop = null;
         let settingPromptAnchor = false;
         let chatScrollCeiling = null;
+        let latestPromptObserver = null;
+
+        function updateReturnToPromptVisibility() {
+            if (!latestPromptRow || latestPromptAnchorTop === null) {
+                returnToPrompt.classList.remove("is-visible");
+                return;
+            }
+            const promptRect = latestPromptRow.getBoundingClientRect();
+            const chatRect = chatMessages.getBoundingClientRect();
+            returnToPrompt.classList.toggle("is-visible", promptRect.top >= chatRect.bottom);
+        }
+
+        function observeLatestPrompt(row) {
+            latestPromptObserver?.disconnect();
+            if (!row) return;
+            latestPromptObserver = new IntersectionObserver(updateReturnToPromptVisibility, {
+                root: chatMessages,
+                threshold: [0, 0.01, 1]
+            });
+            latestPromptObserver.observe(row);
+        }
 
         function settleChatScrollCeiling() {
             requestAnimationFrame(() => requestAnimationFrame(() => {
@@ -4908,6 +4943,7 @@ body.preview-is-expanded{overflow:hidden!important}
             chatScrollFrame = 0;
             row.classList.add("prompt-anchor-moving");
             latestPromptRow = row;
+            observeLatestPrompt(row);
             latestPromptAnchorTop = null;
             userPausedChatFollow = false;
             shouldFollowConversation = false;
@@ -4969,6 +5005,7 @@ body.preview-is-expanded{overflow:hidden!important}
                     settingPromptAnchor = false;
                     latestPromptAnchorTop = chatMessages.scrollTop;
                     previousChatScrollTop = chatMessages.scrollTop;
+                    updateReturnToPromptVisibility();
                 };
 
                 chatScrollFrame = requestAnimationFrame(movePromptUp);
@@ -4999,6 +5036,7 @@ body.preview-is-expanded{overflow:hidden!important}
 
         chatMessages.addEventListener("scroll", () => {
             const currentScrollTop = chatMessages.scrollTop;
+            updateReturnToPromptVisibility();
             if (chatScrollCeiling !== null && currentScrollTop > chatScrollCeiling + 1) {
                 chatMessages.scrollTop = chatScrollCeiling;
                 previousChatScrollTop = chatScrollCeiling;
@@ -5034,6 +5072,16 @@ body.preview-is-expanded{overflow:hidden!important}
             if (event.deltaY < 0 || !isChatNearLatest()) pauseChatFollow();
         }, { passive:false });
         chatMessages.addEventListener("touchmove", pauseChatFollow, { passive:true });
+
+        returnToPrompt.addEventListener("click", () => {
+            if (latestPromptAnchorTop === null) return;
+            userPausedChatFollow = false;
+            returnToPrompt.classList.remove("is-visible");
+            chatMessages.scrollTo({
+                top: latestPromptAnchorTop,
+                behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth"
+            });
+        });
 
         // ==========================================
         // OPEN / CLOSE
@@ -5146,9 +5194,9 @@ body.preview-is-expanded{overflow:hidden!important}
 
         function chatClock(value = null) {
             return chatMessageDate(value).toLocaleTimeString([], {
-                hour: "2-digit",
+                hour: "numeric",
                 minute: "2-digit",
-                hour12: false
+                hour12: true
             });
         }
 
@@ -5198,17 +5246,22 @@ body.preview-is-expanded{overflow:hidden!important}
             const delay = reducedMotion ? 0 : 18;
             let visible = "";
 
+            if (sender === "bot" || sender === "agent") {
+                const senderLabel = document.createElement("span");
+                senderLabel.className = "message-sender-label";
+                senderLabel.textContent = sender === "agent" ? "Novara CX Support" : "Novara CX AI Support";
+                const streamContent = document.createElement("span");
+                streamContent.className = "message-stream-content";
+                bubble.replaceChildren(senderLabel, streamContent);
+                bubble.classList.add("has-sender-label");
+            }
+
             bubble.setAttribute("aria-busy", "true");
             for (let index = 0; index < characters.length; index += chunkSize) {
                 visible += characters.slice(index, index + chunkSize).join("");
-                bubble.innerHTML = formatStreamingMessageHtml(visible);
-                if (sender === "bot" || sender === "agent") {
-                    const senderLabel = document.createElement("span");
-                    senderLabel.className = "message-sender-label";
-                    senderLabel.textContent = sender === "agent" ? "Novara CX Support" : "Novara CX AI Support";
-                    bubble.prepend(senderLabel);
-                    bubble.classList.add("has-sender-label");
-                }
+                const streamContent = bubble.querySelector(".message-stream-content");
+                if (streamContent) streamContent.innerHTML = formatStreamingMessageHtml(visible);
+                else bubble.innerHTML = formatStreamingMessageHtml(visible);
                 scrollChatToLatest();
                 if (delay) await new Promise(resolve => setTimeout(resolve, delay));
             }
@@ -5872,6 +5925,8 @@ body.preview-is-expanded{overflow:hidden!important}
             shouldFollowConversation = false;
             latestPromptRow = null;
             latestPromptAnchorTop = null;
+            latestPromptObserver?.disconnect();
+            returnToPrompt.classList.remove("is-visible");
             chatScrollCeiling = null;
             chatMessages.style.paddingBottom = "16px";
             chatFooter?.classList.add("conversation-started");
