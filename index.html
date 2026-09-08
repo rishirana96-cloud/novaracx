@@ -1290,10 +1290,9 @@ body>header .nav{height:68px}body>header .logo{color:#102018}body>header .nav-li
 .chatbot-input-window .send-btn{width:44px;height:44px;flex-basis:44px;background:linear-gradient(145deg,#789f89,#668c77);box-shadow:0 5px 14px rgba(49,88,66,.16)}
 .chatbot-input-window .send-btn:hover{background:linear-gradient(145deg,#82aa93,#6b927c);box-shadow:0 7px 17px rgba(49,88,66,.2);transform:translateY(-1px)}
 .chatbot-powered-by{padding:5px 0 7px;font-size:.59rem}
-.typing-indicator{padding:6px 1px}
-.typing-indicator span{width:3px;height:11px;border-radius:2px;background:#718078;animation-name:typingBar}
-.typing-indicator span:nth-child(2){height:15px}
-@keyframes typingBar{0%,60%,100%{opacity:.35;transform:scaleY(.62)}30%{opacity:1;transform:scaleY(1)}}
+.typing-indicator{display:flex;align-items:center;width:22px;height:28px;padding:0 2px}
+.typing-indicator span{width:8px;height:8px;border-radius:50%;background:#587464;opacity:.38;animation:typingDot 1.15s ease-in-out infinite}
+@keyframes typingDot{0%,100%{opacity:.3;transform:scale(.82)}50%{opacity:1;transform:scale(1)}}
 .escalation-status .pulse{display:none!important}
 @media(max-width:600px){
   .chatbot-window{inset:0;width:100%;height:100dvh;max-width:none;border-radius:0}
@@ -4945,6 +4944,21 @@ body.preview-is-expanded{overflow:hidden!important}
 
                     chatScrollFrame = 0;
                     settingPromptAnchor = false;
+
+                    // Measure once more after the entrance/scroll animation.
+                    // This guarantees that the full bubble, including its label
+                    // and rounded top edge, remains below the fixed header.
+                    const settledChatTop = chatMessages.getBoundingClientRect().top;
+                    const settledMessageTop = row.getBoundingClientRect().top;
+                    const safeMessageTop = settledChatTop + 24;
+                    if (settledMessageTop < safeMessageTop) {
+                        chatMessages.scrollTop = Math.max(
+                            0,
+                            chatMessages.scrollTop - (safeMessageTop - settledMessageTop)
+                        );
+                    }
+                    latestPromptAnchorTop = chatMessages.scrollTop;
+                    previousChatScrollTop = chatMessages.scrollTop;
                 };
 
                 chatScrollFrame = requestAnimationFrame(movePromptUp);
@@ -5726,15 +5740,9 @@ body.preview-is-expanded{overflow:hidden!important}
 
                 </span>
 
-                <div class="msg bot">
+                <div class="typing-indicator" role="status" aria-label="Novara CX AI is typing">
 
-                    <div class="typing-indicator">
-
-                        <span></span>
-                        <span></span>
-                        <span></span>
-
-                    </div>
+                    <span aria-hidden="true"></span>
 
                 </div>
 
