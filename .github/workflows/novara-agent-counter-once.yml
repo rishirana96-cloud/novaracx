@@ -1,0 +1,221 @@
+name: Apply Novara pricing agent counter
+
+on:
+  push:
+    branches: ["main"]
+    paths:
+      - ".github/workflows/novara-agent-counter-once.yml"
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "novara-agent-counter-patch"
+  cancel-in-progress: false
+
+jobs:
+  patch-and-deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Add agent counters to pricing cards
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          path = Path('index.html')
+          text = path.read_text(encoding='utf-8')
+          marker = '<!-- NOVARA_AGENT_COUNTER_V1 -->'
+
+          if marker in text:
+              print('Agent counter already present; nothing to change.')
+              raise SystemExit(0)
+
+          snippet = r'''
+          <!-- NOVARA_AGENT_COUNTER_V1 -->
+          <style id="novara-agent-counter-style">
+          .pricing-price.agent-price-row{
+            display:flex!important;
+            align-items:center;
+            justify-content:space-between;
+            gap:22px;
+            width:100%;
+          }
+          .pricing-price.agent-price-row .agent-price-copy{
+            display:inline-flex;
+            align-items:baseline;
+            gap:8px;
+            min-width:0;
+          }
+          .pricing-price.agent-price-row .agent-price-value{
+            white-space:nowrap;
+          }
+          .pricing-price.agent-price-row .agent-counter{
+            display:inline-flex;
+            align-items:center;
+            justify-content:flex-end;
+            gap:11px;
+            flex:0 0 auto;
+            margin-left:auto;
+            font-size:15px;
+            font-weight:700;
+            letter-spacing:0;
+            color:#173125;
+          }
+          .agent-counter-btn{
+            width:38px;
+            height:38px;
+            display:grid;
+            place-items:center;
+            padding:0;
+            border:1px solid rgba(23,49,37,.38);
+            border-radius:50%;
+            background:rgba(255,255,255,.42);
+            color:#173125;
+            font:500 21px/1 Arial,sans-serif;
+            cursor:pointer;
+            transition:background .18s ease,border-color .18s ease,transform .18s ease,opacity .18s ease;
+          }
+          .agent-counter-btn:hover:not(:disabled){
+            background:#fff;
+            border-color:#173125;
+            transform:translateY(-1px);
+          }
+          .agent-counter-btn:active:not(:disabled){transform:translateY(0) scale(.97)}
+          .agent-counter-btn:disabled{
+            opacity:.32;
+            cursor:not-allowed;
+          }
+          .agent-counter-value{
+            min-width:62px;
+            text-align:center;
+            white-space:nowrap;
+            color:#173125;
+            font-size:15px;
+            font-weight:750;
+          }
+          @media(max-width:680px){
+            .pricing-price.agent-price-row{gap:12px}
+            .pricing-price.agent-price-row .agent-price-copy{gap:5px}
+            .pricing-price.agent-price-row .agent-counter{gap:7px}
+            .agent-counter-btn{width:34px;height:34px;font-size:19px}
+            .agent-counter-value{min-width:52px;font-size:13px}
+          }
+          </style>
+          <script id="novara-agent-counter-script">
+          (function(){
+            const EXTRA_AGENT_PRICE = 35000;
+            const PLAN_CONFIG = {
+              'AI + Human Lite': 54999,
+              'AI + Human Full': 84999
+            };
+
+            const formatINR = value => '₹' + Number(value).toLocaleString('en-IN');
+
+            function enhanceCard(card, basePrice){
+              if(!card || card.dataset.agentCounterReady === '1') return;
+              const price = card.querySelector('.pricing-price');
+              if(!price) return;
+
+              card.dataset.agentCounterReady = '1';
+              let count = 1;
+
+              price.classList.add('agent-price-row');
+              price.innerHTML = `
+                <span class="agent-price-copy">
+                  <span class="agent-price-value">${formatINR(basePrice)}</span>
+                  <small>/month + GST</small>
+                </span>
+                <span class="agent-counter" role="group" aria-label="Human agents">
+                  <button type="button" class="agent-counter-btn agent-minus" aria-label="Remove human agent" disabled>−</button>
+                  <span class="agent-counter-value" aria-live="polite">1 agent</span>
+                  <button type="button" class="agent-counter-btn agent-plus" aria-label="Add human agent">+</button>
+                </span>`;
+
+              const valueEl = price.querySelector('.agent-price-value');
+              const countEl = price.querySelector('.agent-counter-value');
+              const minus = price.querySelector('.agent-minus');
+              const plus = price.querySelector('.agent-plus');
+
+              function render(){
+                valueEl.textContent = formatINR(basePrice + ((count - 1) * EXTRA_AGENT_PRICE));
+                countEl.textContent = `${count} ${count === 1 ? 'agent' : 'agents'}`;
+                minus.disabled = count <= 1;
+                card.dataset.humanAgents = String(count);
+              }
+
+              minus.addEventListener('click', function(){
+                if(count > 1){ count -= 1; render(); }
+              });
+              plus.addEventListener('click', function(){
+                count += 1;
+                render();
+              });
+              render();
+            }
+
+            function applyCounters(){
+              document.querySelectorAll('.pricing-summary-grid .pricing-summary, .pricing-summary').forEach(card => {
+                const heading = card.querySelector('h3');
+                const title = heading ? heading.textContent.trim() : '';
+                if(Object.prototype.hasOwnProperty.call(PLAN_CONFIG, title)){
+                  enhanceCard(card, PLAN_CONFIG[title]);
+                }
+              });
+            }
+
+            if(document.readyState === 'loading'){
+              document.addEventListener('DOMContentLoaded', applyCounters, {once:true});
+            }else{
+              applyCounters();
+            }
+
+            const observer = new MutationObserver(function(){
+              window.clearTimeout(observer._t);
+              observer._t = window.setTimeout(applyCounters, 30);
+            });
+            observer.observe(document.documentElement, {childList:true, subtree:true});
+            window.setTimeout(applyCounters, 250);
+            window.setTimeout(applyCounters, 1000);
+          })();
+          </script>
+          '''
+
+          if '</body>' not in text:
+              raise SystemExit('Could not find </body> in index.html')
+
+          head, tail = text.rsplit('</body>', 1)
+          path.write_text(head + snippet + '\n</body>' + tail, encoding='utf-8')
+          print('Agent counter patch added to index.html')
+          PY
+
+      - name: Commit patched index
+        shell: bash
+        run: |
+          if git diff --quiet -- index.html; then
+            echo "No index change to commit."
+          else
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add index.html
+            git commit -m "Add human agent pricing counters"
+            git push origin main
+          fi
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload patched site
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: '.'
+
+      - name: Deploy patched site
+        uses: actions/deploy-pages@v5
