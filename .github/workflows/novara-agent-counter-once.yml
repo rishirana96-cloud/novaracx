@@ -1,4 +1,4 @@
-name: Apply Novara pricing agent counter
+name: Apply Novara pricing cleanup
 
 on:
   push:
@@ -12,7 +12,7 @@ permissions:
   id-token: write
 
 concurrency:
-  group: "novara-agent-counter-patch"
+  group: "novara-pricing-cleanup"
   cancel-in-progress: false
 
 jobs:
@@ -24,7 +24,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Move counters beside plan titles
+      - name: Remove complete coverage badge
         shell: bash
         run: |
           python - <<'PY'
@@ -32,124 +32,14 @@ jobs:
 
           path = Path('index.html')
           text = path.read_text(encoding='utf-8')
-          marker = '<!-- NOVARA_AGENT_COUNTER_TITLE_FIX_V3 -->'
+          old = '<span class="pricing-summary-badge">Complete coverage</span>'
 
-          if marker in text:
-              print('Title counter fix already present.')
-              raise SystemExit(0)
-
-          fix = r'''
-          <!-- NOVARA_AGENT_COUNTER_TITLE_FIX_V3 -->
-          <style id="novara-agent-counter-title-fix-v3">
-          .pricing-summary .pricing-title-row{
-            display:flex!important;
-            align-items:center!important;
-            justify-content:space-between!important;
-            gap:16px!important;
-            width:100%!important;
-          }
-          .pricing-summary .pricing-title-row h3{
-            margin:0!important;
-            min-width:0!important;
-          }
-          .pricing-summary .pricing-title-row .agent-counter{
-            position:static!important;
-            inset:auto!important;
-            transform:none!important;
-            display:inline-flex!important;
-            align-items:center!important;
-            justify-content:flex-end!important;
-            gap:10px!important;
-            margin:0 0 0 auto!important;
-            padding:0!important;
-            width:auto!important;
-            min-width:max-content!important;
-            flex:0 0 auto!important;
-          }
-          .pricing-summary .pricing-price.agent-price-row{
-            display:block!important;
-            width:auto!important;
-          }
-          .pricing-summary .pricing-price.agent-price-row .agent-price-copy{
-            display:inline-flex!important;
-            align-items:baseline!important;
-            gap:8px!important;
-          }
-          .pricing-summary .agent-counter-btn{
-            width:34px!important;
-            height:34px!important;
-            min-width:34px!important;
-            min-height:34px!important;
-            border-radius:50%!important;
-          }
-          .pricing-summary .agent-counter-value{
-            min-width:62px!important;
-            text-align:center!important;
-            font-size:14px!important;
-            white-space:nowrap!important;
-          }
-          @media(max-width:760px){
-            .pricing-summary .pricing-title-row{gap:10px!important}
-            .pricing-summary .pricing-title-row .agent-counter{gap:7px!important}
-            .pricing-summary .agent-counter-btn{
-              width:30px!important;
-              height:30px!important;
-              min-width:30px!important;
-              min-height:30px!important;
-            }
-            .pricing-summary .agent-counter-value{
-              min-width:52px!important;
-              font-size:12px!important;
-            }
-          }
-          </style>
-          <script id="novara-agent-counter-title-fix-script-v3">
-          (function(){
-            function moveCountersToTitles(){
-              document.querySelectorAll('.pricing-summary').forEach(function(card){
-                var heading = card.querySelector('h3');
-                var counter = card.querySelector('.agent-counter');
-                if(!heading || !counter) return;
-
-                var title = heading.textContent.trim();
-                if(title !== 'AI + Human Lite' && title !== 'AI + Human Full') return;
-
-                var row = card.querySelector('.pricing-title-row');
-                if(!row){
-                  row = document.createElement('div');
-                  row.className = 'pricing-title-row';
-                  heading.parentNode.insertBefore(row, heading);
-                  row.appendChild(heading);
-                }
-                if(counter.parentNode !== row){
-                  row.appendChild(counter);
-                }
-              });
-            }
-
-            if(document.readyState === 'loading'){
-              document.addEventListener('DOMContentLoaded', moveCountersToTitles, {once:true});
-            }else{
-              moveCountersToTitles();
-            }
-
-            var observer = new MutationObserver(function(){
-              clearTimeout(observer._t);
-              observer._t = setTimeout(moveCountersToTitles, 20);
-            });
-            observer.observe(document.documentElement, {childList:true, subtree:true});
-            setTimeout(moveCountersToTitles, 250);
-            setTimeout(moveCountersToTitles, 1000);
-          })();
-          </script>
-          '''
-
-          if '</body>' not in text:
-              raise SystemExit('Could not find </body> in index.html')
-
-          head, tail = text.rsplit('</body>', 1)
-          path.write_text(head + fix + '\n</body>' + tail, encoding='utf-8')
-          print('Moved counters beside AI + Human plan titles.')
+          if old not in text:
+              print('Complete coverage badge already absent.')
+          else:
+              text = text.replace(old, '', 1)
+              path.write_text(text, encoding='utf-8')
+              print('Removed Complete coverage badge.')
           PY
 
       - name: Commit patched index
@@ -161,7 +51,7 @@ jobs:
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
             git add index.html
-            git commit -m "Move human agent counters beside plan titles"
+            git commit -m "Remove complete coverage badge"
             git push origin main
           fi
 
