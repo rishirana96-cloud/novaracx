@@ -1047,6 +1047,11 @@ body>header .nav{height:68px}body>header .logo{color:#102018}body>header .nav-li
         /* Composer */
         .chatbot-footer { border-top:0; background:#fff; }
         .quick-replies-window { display:flex!important; }
+        .quick-replies-window[hidden] { display:none!important; }
+        .chatbot-messages-window > .quick-replies-window.opening-quick-replies {
+            align-self:flex-start; flex-wrap:wrap; width:auto; max-width:calc(88% - 32px);
+            margin:-4px 0 5px 32px; padding:0; gap:8px; background:transparent;
+        }
         .quick-replies-window::-webkit-scrollbar { display:none; }
         .quick-replies-window .qr-btn { flex:0 0 auto; min-height:34px; padding:7px 12px; border-color:#d7e0da; background:#fff; color:#425249; font-size:.7rem; }
         .quick-replies-window .qr-btn:hover { color:#173023; border-color:#86a895; background:#edf4f0; transform:translateY(-1px); }
@@ -4628,6 +4633,14 @@ body.preview-is-expanded{overflow:hidden!important}
             document.querySelectorAll(
                 ".qr-btn"
             );
+        const openingQuickReplies = document.getElementById("quickReplies");
+
+        function renderOpeningWelcome() {
+            const welcomeRow = renderMessage("Hi! I’m the Novara CX AI assistant. I can help you explore our support plans, understand NovaraDesk, or find the right service for your business.\n\nWhat would you like to know?", "bot", false);
+            openingQuickReplies.hidden = false;
+            openingQuickReplies.classList.add("opening-quick-replies");
+            welcomeRow.after(openingQuickReplies);
+        }
 
 
         let activeTicket = null;
@@ -5714,7 +5727,7 @@ body.preview-is-expanded{overflow:hidden!important}
             document.getElementById("ticketResolutionChoices")?.remove();
             chatInput.disabled = false;
             chatSend.disabled = false;
-            renderMessage("Hi! I’m the Novara CX AI assistant. I can help you explore our support plans, understand NovaraDesk, or find the right service for your business.\n\nWhat would you like to know?", "bot", false);
+            renderOpeningWelcome();
             chatInput.focus();
         }
 
@@ -5737,7 +5750,7 @@ body.preview-is-expanded{overflow:hidden!important}
             chatSend.disabled = false;
             document.getElementById("quickReplies")?.removeAttribute("hidden");
             closeChatHistory();
-            renderMessage("Hi! I’m the Novara CX AI assistant. I can help you explore our support plans, understand NovaraDesk, or find the right service for your business.\n\nWhat would you like to know?", "bot", false);
+            renderOpeningWelcome();
             updateHumanChatStatus();
             chatInput.focus();
         }
@@ -5954,6 +5967,7 @@ body.preview-is-expanded{overflow:hidden!important}
             chatScrollCeiling = null;
             chatMessages.style.paddingBottom = "16px";
             chatFooter?.classList.add("conversation-started");
+            openingQuickReplies.hidden = true;
             document.querySelectorAll(".message-actions").forEach(group => {
                 group.classList.add("is-leaving");
                 window.setTimeout(() => group.remove(), 190);
@@ -6553,7 +6567,7 @@ body.preview-is-expanded{overflow:hidden!important}
                 setTimeout(
                     () => {
 
-                        renderMessage("Hi! I’m the Novara CX AI assistant. I can help you explore our support plans, understand NovaraDesk, or find the right service for your business.\n\nWhat would you like to know?", "bot", false);
+                        renderOpeningWelcome();
 
                     },
 
