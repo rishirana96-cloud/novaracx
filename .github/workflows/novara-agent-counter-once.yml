@@ -1,4 +1,4 @@
-name: Fix Novara additional agent pricing visibility
+name: Deduplicate Novara additional agent pricing note
 
 on:
   push:
@@ -12,7 +12,7 @@ permissions:
   id-token: write
 
 concurrency:
-  group: "novara-pricing-agent-note-v2"
+  group: "novara-pricing-agent-note-v3"
   cancel-in-progress: false
 
 jobs:
@@ -22,48 +22,65 @@ jobs:
       name: github-pages
     steps:
       - uses: actions/checkout@v4
-      - name: Patch pricing notes
+      - name: Remove duplicate note and keep one
         shell: bash
         run: |
           python - <<'PY'
           from pathlib import Path
+          import re
+
           p=Path('index.html')
           t=p.read_text(encoding='utf-8')
-          marker='<!-- NOVARA_ADDITIONAL_AGENT_PRICING_V2 -->'
-          if marker in t:
-              raise SystemExit(0)
+
+          # Remove both previous injected blocks completely.
+          t=re.sub(r'\n?<!-- NOVARA_ADDITIONAL_AGENT_PRICING_V1 -->.*?(?=\n<!--|\n</body>)','',t,flags=re.S)
+          t=re.sub(r'\n?<!-- NOVARA_ADDITIONAL_AGENT_PRICING_V2 -->.*?(?=\n<!--|\n</body>)','',t,flags=re.S)
+
+          marker='<!-- NOVARA_ADDITIONAL_AGENT_PRICING_V3 -->'
           s=r'''
-          <!-- NOVARA_ADDITIONAL_AGENT_PRICING_V2 -->
-          <style>
-          .additional-agent-price-v2{display:block!important;margin:8px 0 0!important;color:#5d7467!important;font-size:14px!important;line-height:1.35!important;font-weight:600!important;letter-spacing:0!important}
-          .additional-agent-price-v2 strong{color:#315746!important;font-weight:750!important}
-          </style>
-          <script>
-          (()=>{
-            const rates={'AI + Human Lite':'₹20,000/month','AI + Human Full':'₹40,000/month'};
-            const apply=()=>{
-              document.querySelectorAll('article, .pricing-summary').forEach(card=>{
-                const h=card.querySelector('h3');
-                if(!h)return;
-                const title=h.textContent.replace(/\s+/g,' ').trim();
-                if(!rates[title])return;
-                const price=card.querySelector('.pricing-price');
-                if(!price)return;
-                let note=card.querySelector('.additional-agent-price-v2');
-                if(!note){note=document.createElement('div');note.className='additional-agent-price-v2';price.insertAdjacentElement('afterend',note)}
-                note.innerHTML='Additional agent: <strong>'+rates[title]+'</strong>';
-              });
-            };
-            apply();
-            document.addEventListener('DOMContentLoaded',apply,{once:true});
-            const mo=new MutationObserver(()=>{clearTimeout(mo._t);mo._t=setTimeout(apply,25)});
-            mo.observe(document.documentElement,{childList:true,subtree:true});
-            setTimeout(apply,100);setTimeout(apply,500);setTimeout(apply,1500);setTimeout(apply,3000);
-          })();
-          </script>
-          '''
-          head,tail=t.rsplit('</body>',1)
-          p.write_text(head+s+'\n</body>'+tail,encoding='utf-8')
+<!-- NOVARA_ADDITIONAL_AGENT_PRICING_V3 -->
+<style id="novara-additional-agent-pricing-v3-style">
+.additional-agent-price-v3{display:block!important;margin:8px 0 0!important;color:#5d7467!important;font-size:14px!important;line-height:1.35!important;font-weight:600!important;letter-spacing:0!important}
+.additional-agent-price-v3 strong{color:#315746!important;font-weight:750!important}
+</style>
+<script id="novara-additional-agent-pricing-v3-script">
+(()=>{
+  const rates={'AI + Human Lite':'₹20,000/month','AI + Human Full':'₹40,000/month'};
+  const apply=()=>{
+    document.querySelectorAll('.pricing-summary').forEach(card=>{
+      const h=card.querySelector('h3');
+      if(!h)return;
+      const title=h.textContent.replace(/\s+/g,' ').trim();
+      if(!rates[title])return;
+
+      // Remove any legacy duplicates that may already exist in the DOM.
+      card.querySelectorAll('.additional-agent-price,.additional-agent-price-v2,.additional-agent-price-v3').forEach((el,i)=>{if(i>0)el.remove()});
+
+      const price=card.querySelector('.pricing-price');
+      if(!price)return;
+      let note=card.querySelector('.additional-agent-price-v3');
+      if(!note){
+        card.querySelectorAll('.additional-agent-price,.additional-agent-price-v2').forEach(el=>el.remove());
+        note=document.createElement('div');
+        note.className='additional-agent-price-v3';
+        price.insertAdjacentElement('afterend',note);
+      }
+      note.innerHTML='Additional agent: <strong>'+rates[title]+'</strong>';
+    });
+  };
+  apply();
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',apply,{once:true});
+  const mo=new MutationObserver(()=>{clearTimeout(mo._t);mo._t=setTimeout(apply,30)});
+  mo.observe(document.documentElement,{childList:true,subtree:true});
+  setTimeout(apply,250);setTimeout(apply,1000);
+})();
+</script>
+'''
+
+          if marker not in t:
+              head,tail=t.rsplit('</body>',1)
+              t=head+s+'\n</body>'+tail
+          p.write_text(t,encoding='utf-8')
           PY
       - name: Commit
         shell: bash
@@ -72,7 +89,7 @@ jobs:
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
             git add index.html
-            git commit -m "Fix additional agent pricing visibility"
+            git commit -m "Remove duplicate additional agent pricing note"
             git push origin main
           fi
       - uses: actions/configure-pages@v5
