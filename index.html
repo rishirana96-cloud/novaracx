@@ -1046,7 +1046,7 @@ body>header .nav{height:68px}body>header .logo{color:#102018}body>header .nav-li
 
         /* Composer */
         .chatbot-footer { border-top:0; background:#fff; }
-        .quick-replies-window { display:none!important; }
+        .quick-replies-window { display:flex!important; }
         .quick-replies-window::-webkit-scrollbar { display:none; }
         .quick-replies-window .qr-btn { flex:0 0 auto; min-height:34px; padding:7px 12px; border-color:#d7e0da; background:#fff; color:#425249; font-size:.7rem; }
         .quick-replies-window .qr-btn:hover { color:#173023; border-color:#86a895; background:#edf4f0; transform:translateY(-1px); }
@@ -1528,39 +1528,20 @@ body>header .nav{height:68px}body>header .logo{color:#102018}body>header .nav-li
                 id="quickReplies"
             >
 
-                <button type="button"
-                    class="qr-btn"
-                    data-question="What services do you offer?"
-                >
-                    What services?
+                <button type="button" class="qr-btn" data-question="Show me the Novara CX support plans">
+                    Explore support plans
                 </button>
 
-                <button type="button"
-                    class="qr-btn"
-                    data-question="How much does the AI Chatbot cost?"
-                >
-                    Pricing
+                <button type="button" class="qr-btn" data-question="What is NovaraDesk and what does it include?">
+                    What is NovaraDesk?
                 </button>
 
-                <button type="button"
-                    class="qr-btn"
-                    data-question="How do I book a discovery call?"
-                >
-                    Book a call
+                <button type="button" class="qr-btn" data-question="How does Novara CX work?">
+                    How Novara works
                 </button>
 
-                <button type="button"
-                    class="qr-btn"
-                    data-question="Can you help reduce refunds?"
-                >
-                    Reduce refunds
-                </button>
-
-                <button type="button"
-                    class="qr-btn"
-                    data-question="I would like to speak to a human"
-                >
-                    Talk to a person
+                <button type="button" class="qr-btn" data-question="Help me choose the right Novara CX plan for my needs">
+                    Which plan fits me?
                 </button>
 
             </div>
@@ -5714,7 +5695,7 @@ body.preview-is-expanded{overflow:hidden!important}
             document.getElementById("ticketResolutionChoices")?.remove();
             chatInput.disabled = false;
             chatSend.disabled = false;
-            renderMessage("You’re now chatting with Novara CX AI. How can I help?", "bot", false);
+            renderMessage("Hi! I’m the Novara CX AI assistant. I can help you explore our support plans, understand NovaraDesk, or find the right service for your business.\n\nWhat would you like to know?", "bot", false);
             chatInput.focus();
         }
 
@@ -5737,7 +5718,7 @@ body.preview-is-expanded{overflow:hidden!important}
             chatSend.disabled = false;
             document.getElementById("quickReplies")?.removeAttribute("hidden");
             closeChatHistory();
-            renderMessage("You’re now chatting with Novara CX AI. How can I help?", "bot", false);
+            renderMessage("Hi! I’m the Novara CX AI assistant. I can help you explore our support plans, understand NovaraDesk, or find the right service for your business.\n\nWhat would you like to know?", "bot", false);
             updateHumanChatStatus();
             chatInput.focus();
         }
@@ -6553,7 +6534,7 @@ body.preview-is-expanded{overflow:hidden!important}
                 setTimeout(
                     () => {
 
-                        renderMessage("Hi! I’m the Novara CX assistant.\n\nHow can I help today?", "bot", false);
+                        renderMessage("Hi! I’m the Novara CX AI assistant. I can help you explore our support plans, understand NovaraDesk, or find the right service for your business.\n\nWhat would you like to know?", "bot", false);
 
                     },
 
