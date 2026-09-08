@@ -3757,20 +3757,28 @@ body.preview-is-expanded{overflow:hidden!important}
   system.innerHTML=`
    <article class="hero-cap-card">
     <div class="hero-cap-visual" aria-hidden="true">
-     <svg class="ai-orb ai-signal-orb" viewBox="0 0 120 120">
+     <svg class="ai-orb ai-spectrum-orb" viewBox="0 0 120 120">
       <defs>
-       <radialGradient id="aiSignalCore"><stop stop-color="#d8f6e3"/><stop offset=".48" stop-color="#61b984"/><stop offset="1" stop-color="#17673e"/></radialGradient>
-       <filter id="aiSignalGlow" x="-70%" y="-70%" width="240%" height="240%"><feGaussianBlur stdDeviation="4"/></filter>
+       <radialGradient id="spectrumSphere" cx="38%" cy="32%">
+        <stop stop-color="#313870"/><stop offset=".5" stop-color="#101b4a"/><stop offset="1" stop-color="#07152c"/>
+       </radialGradient>
+       <radialGradient id="spectrumCore"><stop stop-color="#fff"/><stop offset=".3" stop-color="#d8fbff" stop-opacity=".95"/><stop offset="1" stop-color="#76e9d2" stop-opacity="0"/></radialGradient>
+       <linearGradient id="ribbonCyan" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#16bfff"/><stop offset=".55" stop-color="#8ff9ff"/><stop offset="1" stop-color="#3ff1b0"/></linearGradient>
+       <linearGradient id="ribbonViolet" x1="0" y1="1" x2="1" y2="0"><stop stop-color="#3d69ff"/><stop offset=".5" stop-color="#a45cff"/><stop offset="1" stop-color="#ff4fb8"/></linearGradient>
+       <linearGradient id="ribbonRose" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#ff2d96"/><stop offset=".52" stop-color="#ff86df"/><stop offset="1" stop-color="#7c4dff"/></linearGradient>
+       <filter id="spectrumBlur" x="-45%" y="-45%" width="190%" height="190%"><feGaussianBlur stdDeviation="3.2"/></filter>
+       <clipPath id="spectrumClip"><circle cx="60" cy="60" r="48"/></clipPath>
       </defs>
-      <circle class="signal-halo" cx="60" cy="57" r="17" fill="#65bd87" opacity=".22" filter="url(#aiSignalGlow)"/>
-      <path class="signal-orbit orbit-one" d="M26 60c0-20 15-36 34-36s34 16 34 36-15 36-34 36c-8 0-15-3-21-7l-13 5 5-13c-3-6-5-13-5-21Z"/>
-      <path class="signal-orbit orbit-two" d="M38 35c16-10 38-5 46 12 8 18-1 39-19 46"/>
-      <circle class="signal-core" cx="60" cy="58" r="9" fill="url(#aiSignalCore)"/>
-      <circle class="signal-ring" cx="60" cy="58" r="16"/>
-      <g class="signal-nodes">
-       <circle cx="28" cy="55" r="3.4"/><circle cx="83" cy="32" r="3"/><circle cx="89" cy="77" r="3.4"/>
+      <circle class="spectrum-shell" cx="60" cy="60" r="51"/>
+      <circle class="spectrum-face" cx="60" cy="60" r="47.5" fill="url(#spectrumSphere)"/>
+      <g clip-path="url(#spectrumClip)">
+       <path class="spectrum-ribbon ribbon-cyan" d="M4 77C27 55 40 86 61 60S92 48 119 31"/>
+       <path class="spectrum-ribbon ribbon-violet" d="M1 43C28 72 45 20 64 54s35 28 58 45"/>
+       <path class="spectrum-ribbon ribbon-rose" d="M43 2c25 30 2 43 19 63s14 35 9 58"/>
+       <path class="spectrum-ribbon ribbon-green" d="M7 88c31-18 43-34 58-27s28 4 49-14"/>
+       <circle class="spectrum-core" cx="60" cy="60" r="20" fill="url(#spectrumCore)"/>
       </g>
-      <path class="signal-spark" d="M101 23v11M95.5 28.5h11"/>
+      <circle class="spectrum-rim" cx="60" cy="60" r="48"/>
      </svg>
     </div><h3>AI Support</h3><p>Instant answers for routine conversations</p>
    </article>
@@ -4022,6 +4030,17 @@ body.preview-is-expanded{overflow:hidden!important}
 .ai-signal-orb .signal-nodes circle:nth-child(2){animation-delay:-1s}.ai-signal-orb .signal-nodes circle:nth-child(3){animation-delay:-2s}
 .ai-signal-orb .signal-spark{fill:none;stroke:#2d8653!important;stroke-width:2!important;stroke-linecap:round;transform-box:fill-box;transform-origin:center;animation:signalSpark 3.4s ease-in-out infinite!important}
 @keyframes signalCorePulse{50%{transform:scale(1.13);filter:brightness(1.08)}}@keyframes signalRing{0%{transform:scale(.65);opacity:.6}75%,100%{transform:scale(1.45);opacity:0}}@keyframes signalOrbitPulse{50%{opacity:.62}}@keyframes signalOrbitTravel{to{stroke-dashoffset:-44}}@keyframes signalNode{50%{transform:scale(1.35);filter:brightness(1.15)}}@keyframes signalSpark{0%,100%{transform:scale(.75) rotate(0);opacity:.35}50%{transform:scale(1.08) rotate(90deg);opacity:1}}
+.ai-spectrum-orb{width:98px!important;height:98px!important;overflow:visible;filter:drop-shadow(0 12px 20px rgba(24,50,99,.24))!important;animation:spectrumFloat 5s ease-in-out infinite}
+.ai-spectrum-orb .spectrum-shell{fill:#f7faf8;stroke:rgba(31,72,52,.18);stroke-width:2;opacity:1!important;animation:none!important}
+.ai-spectrum-orb .spectrum-face{stroke:#13254c;stroke-width:2;opacity:1!important;animation:none!important}
+.ai-spectrum-orb .spectrum-ribbon{fill:none;stroke-linecap:round;stroke-width:11!important;opacity:.78;filter:url(#spectrumBlur);transform-box:fill-box;transform-origin:center;animation:spectrumFlow 5.8s ease-in-out infinite!important}
+.ai-spectrum-orb .ribbon-cyan{stroke:url(#ribbonCyan)!important}
+.ai-spectrum-orb .ribbon-violet{stroke:url(#ribbonViolet)!important;stroke-width:13!important;animation-delay:-1.4s!important}
+.ai-spectrum-orb .ribbon-rose{stroke:url(#ribbonRose)!important;stroke-width:10!important;animation-delay:-2.7s!important}
+.ai-spectrum-orb .ribbon-green{stroke:url(#ribbonCyan)!important;stroke-width:7!important;opacity:.68;animation-delay:-3.8s!important}
+.ai-spectrum-orb .spectrum-core{filter:url(#spectrumBlur);opacity:1!important;transform-box:fill-box;transform-origin:center;animation:spectrumGlow 3.2s ease-in-out infinite!important}
+.ai-spectrum-orb .spectrum-rim{fill:none;stroke:rgba(226,243,237,.68);stroke-width:1.5;opacity:1!important;animation:none!important}
+@keyframes spectrumFlow{0%,100%{transform:rotate(-3deg) scale(.96);opacity:.62}50%{transform:rotate(4deg) scale(1.08);opacity:.9}}@keyframes spectrumGlow{50%{transform:scale(1.28);opacity:.82}}@keyframes spectrumFloat{50%{transform:translateY(-2px)}}
 .human-scene{stroke:#17673e!important;opacity:1!important}
 .human-scene circle{fill:rgba(48,134,82,.12)!important}
 .human-scene .task rect{fill:rgba(255,255,255,.82)!important;stroke:#2f7650!important}
