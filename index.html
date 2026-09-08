@@ -1174,34 +1174,8 @@ body>header .nav{height:68px}body>header .logo{color:#102018}body>header .nav-li
         @keyframes chatSendSpin { to { transform:rotate(360deg); } }
         @media(prefers-reduced-motion:reduce) {
             .msg-row,.typing-indicator span,.msg-stream-cursor,.send-btn.is-generating::before { animation:none!important; }
-            .chatbot-footer .quick-replies-window,.chat-jump-latest { transition:none!important; }
+            .chatbot-footer .quick-replies-window { transition:none!important; }
         }
-        .chat-jump-latest {
-            position:absolute;
-            left:50%;
-            bottom:92px;
-            z-index:4;
-            display:flex;
-            align-items:center;
-            gap:6px;
-            padding:7px 11px;
-            border:1px solid #d1ddd5;
-            border-radius:999px;
-            background:rgba(255,255,255,.96);
-            color:#40564a;
-            box-shadow:0 7px 22px rgba(30,60,42,.14);
-            font:700 .64rem/1 'Inter',sans-serif;
-            opacity:0;
-            transform:translate(-50%,8px);
-            pointer-events:none;
-            transition:opacity .18s ease,transform .18s ease;
-        }
-        .chat-jump-latest.visible {
-            opacity:1;
-            transform:translate(-50%,0);
-            pointer-events:auto;
-        }
-
         /* Compact, readable AI answers without decorative ticks or dense cards. */
         .msg.bot,.msg.agent { width:fit-content; max-width:100%; }
         .msg p { margin:0; }
@@ -1315,7 +1289,6 @@ body>header .nav{height:68px}body>header .logo{color:#102018}body>header .nav-li
 .chatbot-input-window textarea:focus{border-color:#71927f;background:#fff;box-shadow:0 0 0 2px rgba(88,137,108,.12)}
 .chatbot-input-window .send-btn{width:44px;height:44px;flex-basis:44px;background:linear-gradient(145deg,#789f89,#668c77);box-shadow:0 5px 14px rgba(49,88,66,.16)}
 .chatbot-input-window .send-btn:hover{background:linear-gradient(145deg,#82aa93,#6b927c);box-shadow:0 7px 17px rgba(49,88,66,.2);transform:translateY(-1px)}
-.chat-jump-latest{bottom:102px;border-color:#d5e0d9;background:rgba(255,255,255,.94);box-shadow:0 5px 18px rgba(21,46,31,.1);backdrop-filter:blur(8px)}
 .chatbot-powered-by{padding:5px 0 7px;font-size:.59rem}
 .typing-indicator{padding:6px 1px}
 .typing-indicator span{width:3px;height:11px;border-radius:2px;background:#718078;animation-name:typingBar}
@@ -4609,12 +4582,6 @@ body.preview-is-expanded{overflow:hidden!important}
             );
 
         const chatFooter = chatWindow.querySelector(".chatbot-footer");
-        const jumpToLatest = document.createElement("button");
-        jumpToLatest.type = "button";
-        jumpToLatest.className = "chat-jump-latest";
-        jumpToLatest.setAttribute("aria-label", "Jump to the latest message");
-        jumpToLatest.innerHTML = '<span aria-hidden="true">↓</span> New message';
-        chatWindow.appendChild(jumpToLatest);
 
         const chatHistoryBtn = document.getElementById("chatHistoryBtn");
         const chatHistoryList = document.getElementById("chatHistoryList");
@@ -4916,21 +4883,10 @@ body.preview-is-expanded{overflow:hidden!important}
         let previousChatScrollTop = chatMessages.scrollTop;
         let latestPromptRow = null;
         let latestPromptAnchorTop = null;
-        let userScrolledAboveLatestPrompt = false;
         let settingPromptAnchor = false;
-        let followLatestAfterJump = false;
 
         function isChatNearLatest() {
             return chatMessages.scrollHeight - chatMessages.scrollTop - chatMessages.clientHeight < 72;
-        }
-
-        function updateJumpToLatest() {
-            const isAboveLatestPrompt = latestPromptAnchorTop !== null &&
-                chatMessages.scrollTop < latestPromptAnchorTop - 4;
-            jumpToLatest.classList.toggle(
-                "visible",
-                userScrolledAboveLatestPrompt && isAboveLatestPrompt
-            );
         }
 
         function anchorLatestPrompt(row) {
@@ -4940,11 +4896,8 @@ body.preview-is-expanded{overflow:hidden!important}
             chatScrollFrame = 0;
             latestPromptRow = row;
             latestPromptAnchorTop = null;
-            userScrolledAboveLatestPrompt = false;
-            followLatestAfterJump = false;
             userPausedChatFollow = false;
             shouldFollowConversation = false;
-            jumpToLatest.classList.remove("visible");
 
             // Let a new prompt reach the top before the answer becomes long.
             // Padding remains below the transcript, so the answer still begins
@@ -4992,7 +4945,6 @@ body.preview-is-expanded{overflow:hidden!important}
 
                     chatScrollFrame = 0;
                     settingPromptAnchor = false;
-                    updateJumpToLatest();
                 };
 
                 chatScrollFrame = requestAnimationFrame(movePromptUp);
@@ -5001,12 +4953,8 @@ body.preview-is-expanded{overflow:hidden!important}
 
         function scrollChatToLatest(force = false) {
             if (force) userPausedChatFollow = false;
-            if (!force && latestPromptAnchorTop !== null && !followLatestAfterJump) {
-                updateJumpToLatest();
-                return;
-            }
+            if (!force && latestPromptAnchorTop !== null) return;
             if (!force && !shouldFollowConversation) {
-                updateJumpToLatest();
                 return;
             }
             shouldFollowConversation = true;
@@ -5017,7 +4965,6 @@ body.preview-is-expanded{overflow:hidden!important}
                 if (Math.abs(distance) < 1) {
                     chatMessages.scrollTop = target;
                     chatScrollFrame = 0;
-                    updateJumpToLatest();
                     return;
                 }
                 chatMessages.scrollTop += distance * .24;
@@ -5029,11 +4976,7 @@ body.preview-is-expanded{overflow:hidden!important}
         chatMessages.addEventListener("scroll", () => {
             const currentScrollTop = chatMessages.scrollTop;
             if (latestPromptAnchorTop !== null) {
-                if (!settingPromptAnchor) {
-                    userScrolledAboveLatestPrompt = currentScrollTop < latestPromptAnchorTop - 4;
-                }
                 previousChatScrollTop = currentScrollTop;
-                updateJumpToLatest();
                 return;
             }
             const movingTowardLatest = currentScrollTop >= previousChatScrollTop;
@@ -5044,7 +4987,6 @@ body.preview-is-expanded{overflow:hidden!important}
                 shouldFollowConversation = false;
             }
             previousChatScrollTop = currentScrollTop;
-            updateJumpToLatest();
         }, { passive:true });
 
         const pauseChatFollow = () => {
@@ -5053,23 +4995,11 @@ body.preview-is-expanded{overflow:hidden!important}
             settingPromptAnchor = false;
             userPausedChatFollow = true;
             shouldFollowConversation = false;
-            followLatestAfterJump = false;
-            if (latestPromptAnchorTop !== null) {
-                userScrolledAboveLatestPrompt = chatMessages.scrollTop < latestPromptAnchorTop - 4;
-            }
-            updateJumpToLatest();
         };
         chatMessages.addEventListener("wheel", event => {
             if (event.deltaY < 0 || !isChatNearLatest()) pauseChatFollow();
         }, { passive:true });
         chatMessages.addEventListener("touchmove", pauseChatFollow, { passive:true });
-
-        jumpToLatest.addEventListener("click", () => {
-            userScrolledAboveLatestPrompt = false;
-            followLatestAfterJump = true;
-            scrollChatToLatest(true);
-        });
-
 
         // ==========================================
         // OPEN / CLOSE
@@ -5253,10 +5183,6 @@ body.preview-is-expanded{overflow:hidden!important}
             }
 
             row.remove();
-            // The extra space is only needed while positioning/generating.
-            // Remove it when the answer is complete so the user can never
-            // scroll into a large blank area beneath the conversation.
-            chatMessages.style.paddingBottom = "16px";
             const finalRow = renderMessage(text, sender, allowRating, escalationData, true);
             finalRow.style.animation = "none";
             return finalRow;
@@ -5519,7 +5445,6 @@ body.preview-is-expanded{overflow:hidden!important}
 
 
             if (autoScroll) scrollChatToLatest();
-            else updateJumpToLatest();
 
             if (persistHistory) {
                 recordHistoryMessage(displayText, sender);
@@ -5868,8 +5793,6 @@ body.preview-is-expanded{overflow:hidden!important}
             shouldFollowConversation = false;
             latestPromptRow = null;
             latestPromptAnchorTop = null;
-            userScrolledAboveLatestPrompt = false;
-            followLatestAfterJump = false;
             chatMessages.style.paddingBottom = "16px";
             chatFooter?.classList.add("conversation-started");
             document.querySelectorAll(".message-actions").forEach(group => {
