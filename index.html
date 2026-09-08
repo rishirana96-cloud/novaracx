@@ -1252,19 +1252,19 @@ body>header .nav{height:68px}body>header .logo{color:#102018}body>header .nav-li
 .msg-row{max-width:78%;gap:7px}
 .msg-row.continuation{margin-top:-7px}
 .msg-row.grouped-before .msg-avatar{visibility:hidden}
-.msg-avatar{width:27px;height:27px;border:1px solid #d4dfd8;background:rgba(255,255,255,.9);box-shadow:0 3px 10px rgba(25,55,37,.05)}
+.msg-avatar{width:27px;height:27px;border:1px solid #d4dfd8;background:rgba(255,255,255,.9);box-shadow:0 3px 10px rgba(25,55,37,.05);transform:translateY(-4px)}
 .msg-avatar img{width:15px;height:15px}
 .msg-avatar.agent-avatar{background:#d7e7de;color:#345745;border:1px solid #bdd0c4;font:800 .55rem/1 'Inter',sans-serif}
-.msg{padding:9px 13px;border-radius:14px;font-size:.84rem;line-height:1.55}
+.msg{padding:8px 12px;border-radius:13px;font-size:.84rem;line-height:1.48}
 .msg.bot{border-color:#d9e2dc;background:rgba(255,255,255,.94);box-shadow:0 4px 14px rgba(25,55,37,.035)}
 .msg.agent{position:relative;padding-top:24px;border-color:#c4d6ca;background:#e4eee8;box-shadow:0 4px 14px rgba(25,55,37,.035)}
-.msg.has-sender-label{padding-top:24px}
-.message-sender-label{position:absolute;top:7px;left:13px;color:#61766a;font:600 .67rem/1 'General Sans','Inter',sans-serif;letter-spacing:-.005em;-webkit-font-smoothing:antialiased}
-.msg.user .message-sender-label{color:rgba(23,53,36,.66)}
+.msg.has-sender-label{padding-top:23px}
+.message-sender-label{position:absolute;top:7px;left:12px;color:#66796f;font:590 .64rem/1 'General Sans','Inter',sans-serif;letter-spacing:-.005em;-webkit-font-smoothing:antialiased}
+.msg.user .message-sender-label{color:rgba(23,53,36,.6)}
 .msg-row.grouped-before .message-sender-label{display:none}
 .msg-row.grouped-before .msg.has-sender-label{padding-top:9px}
-.message-time{display:block;margin:5px 0 -1px;color:#829087;font:600 .55rem/1 'Inter',sans-serif;text-align:right;white-space:nowrap}
-.msg.user .message-time{color:rgba(19,42,29,.58)}
+.message-time{display:block;margin:5px 0 -1px;color:#89968e;font:550 .52rem/1 'General Sans','Inter',sans-serif;text-align:right;white-space:nowrap}
+.msg.user .message-time{color:rgba(19,42,29,.5)}
 .conversation-time-heading{align-self:center;display:flex;align-items:center;gap:9px;width:100%;margin:1px 0 4px;color:#7a8981;font:700 .58rem/1 'Inter',sans-serif;white-space:nowrap}
 .conversation-time-heading::before,.conversation-time-heading::after{content:"";height:1px;flex:1;background:#d5dfd9}
 .message-stream-content{display:contents}
@@ -1274,13 +1274,13 @@ body>header .nav{height:68px}body>header .logo{color:#102018}body>header .nav-li
 .return-to-prompt svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .chatbot-window.history-open .return-to-prompt{display:none}
 .msg.bot,.msg.agent,.msg.user{position:relative}
-.msg.bot::after,.msg.agent::after,.msg.user::after{content:"";position:absolute;bottom:0;width:7px;height:9px;background:inherit}
-.msg.bot::after,.msg.agent::after{left:-4px;clip-path:polygon(100% 0,100% 100%,0 100%)}
-.msg.user::after{right:-4px;clip-path:polygon(0 0,100% 100%,0 100%)}
+.msg.bot::after,.msg.agent::after,.msg.user::after{content:"";position:absolute;bottom:0;width:5px;height:7px;background:inherit}
+.msg.bot::after,.msg.agent::after{left:-3px;clip-path:polygon(100% 0,100% 100%,0 100%)}
+.msg.user::after{right:-3px;clip-path:polygon(0 0,100% 100%,0 100%)}
 .msg-row.grouped-before .msg::after{display:none}
 .msg-row.grouped-before .msg.bot,.msg-row.grouped-before .msg.agent{border-bottom-left-radius:14px}
 .msg-row.grouped-before .msg.user{border-bottom-right-radius:14px}
-.msg.user{padding-bottom:9px;border-color:#a9c9b7;background:#a9cbb8;box-shadow:0 4px 14px rgba(38,73,53,.07)}
+.msg.user{min-width:126px;padding-bottom:8px;border-color:#a2c3b0;background:#adcebc;box-shadow:0 4px 14px rgba(38,73,53,.065)}
 .message-delivery:not(.failed){display:none!important}
 .human-chat-status{align-self:stretch;display:flex;align-items:center;gap:9px;max-width:none;padding:2px 0;border:0;background:transparent;color:#5b7065;font-size:.62rem;font-weight:700;box-shadow:none}
 .human-chat-status::before,.human-chat-status::after{content:"";height:1px;flex:1;background:#d4ded8}
