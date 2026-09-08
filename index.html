@@ -1130,13 +1130,6 @@ body>header .nav{height:68px}body>header .logo{color:#102018}body>header .nav-li
         .message-delivery.failed { position:static; gap:4px; margin:5px 2px 0 auto; color:#a33d34; cursor:pointer; }
         .message-delivery.failed button { border:0; padding:0; background:none; color:inherit; font:700 .58rem/1 'Inter',sans-serif; cursor:pointer; }
 
-        /* Soft word streaming, followed by fully formatted message content. */
-        .msg-stream-cursor {
-            display:inline-block; width:1px; height:1.05em; margin-left:2px;
-            vertical-align:-.13em; background:#527463; animation:streamCursor .75s steps(1,end) infinite;
-        }
-        @keyframes streamCursor { 50% { opacity:0; } }
-
         /* ChatGPT-like conversation motion: quiet, responsive and interruptible. */
         .chatbot-messages-window { scroll-behavior:auto; }
         .msg-row {
@@ -1174,7 +1167,7 @@ body>header .nav{height:68px}body>header .logo{color:#102018}body>header .nav-li
         }
         @keyframes chatSendSpin { to { transform:rotate(360deg); } }
         @media(prefers-reduced-motion:reduce) {
-            .msg-row,.typing-indicator span,.msg-stream-cursor,.send-btn.is-generating::before { animation:none!important; }
+            .msg-row,.typing-indicator span,.send-btn.is-generating::before { animation:none!important; }
             .chatbot-footer .quick-replies-window { transition:none!important; }
         }
         /* Compact, readable AI answers without decorative ticks or dense cards. */
@@ -1245,7 +1238,7 @@ body>header .nav{height:68px}body>header .logo{color:#102018}body>header .nav-li
 
 <style id="chatbot-professional-refinement">
 .chatbot-window{width:410px;height:min(640px,calc(100vh - 124px));border:1px solid rgba(15,24,19,.22);border-radius:20px;box-shadow:0 26px 72px rgba(7,14,10,.3),0 3px 12px rgba(7,14,10,.08)}
-.chatbot-header-window{position:relative;min-height:62px;padding:11px 16px;background:linear-gradient(120deg,#11151a 0%,#0d0f14 68%,#10161a 100%);border-bottom-color:rgba(255,255,255,.08)}
+.chatbot-header-window{position:relative;min-height:62px;padding:11px 16px;background:linear-gradient(120deg,rgba(8,22,16,.9),rgba(8,15,14,.86) 62%,rgba(10,28,20,.88));border-bottom-color:rgba(35,220,145,.3);-webkit-backdrop-filter:blur(18px) saturate(145%);backdrop-filter:blur(18px) saturate(145%);box-shadow:inset 0 -1px 0 rgba(66,242,169,.08)}
 .chatbot-header-window::before{content:"";position:absolute;inset:0 0 auto;height:1px;background:linear-gradient(90deg,transparent,rgba(140,240,178,.46),transparent)}
 .chatbot-header-window .avatar{width:36px;height:36px;border-radius:11px;box-shadow:none}
 .chatbot-header-window .avatar img{width:22px;height:22px}
@@ -1287,9 +1280,10 @@ body>header .nav{height:68px}body>header .logo{color:#102018}body>header .nav-li
 .human-chat-status::before,.human-chat-status::after{content:"";height:1px;flex:1;background:#d4ded8}
 .chatbot-input-window{gap:8px;padding:9px 11px 10px;border-top:1px solid #e4ebe7;background:#fff}
 .chatbot-input-window textarea{min-height:44px;padding:11px 14px;border:1px solid #ccd8d1;border-radius:15px;background:#fbfcfb;box-shadow:inset 0 1px 2px rgba(19,40,28,.025);transition:border-color .18s ease,box-shadow .18s ease,background .18s ease}
-.chatbot-input-window textarea:focus{border-color:#71927f;background:#fff;box-shadow:0 0 0 2px rgba(88,137,108,.12)}
-.chatbot-input-window .send-btn{width:44px;height:44px;flex-basis:44px;background:linear-gradient(145deg,#789f89,#668c77);box-shadow:0 5px 14px rgba(49,88,66,.16)}
-.chatbot-input-window .send-btn:hover{background:linear-gradient(145deg,#82aa93,#6b927c);box-shadow:0 7px 17px rgba(49,88,66,.2);transform:translateY(-1px)}
+.chatbot-input-window textarea:focus{border-color:#435f50;background:#fff;box-shadow:inset 0 1px 2px rgba(19,40,28,.035)}
+.chatbot-input-window .send-btn{width:44px;height:44px;flex-basis:44px;background:linear-gradient(145deg,#19b979,#109763);box-shadow:0 6px 16px rgba(16,151,99,.25)}
+.chatbot-input-window .send-btn svg{stroke:#fff}
+.chatbot-input-window .send-btn:hover{background:linear-gradient(145deg,#20c985,#12a66d);box-shadow:0 8px 20px rgba(16,151,99,.3);transform:translateY(-1px)}
 .chatbot-powered-by{padding:5px 0 7px;font-size:.59rem}
 .typing-indicator{display:flex;align-items:center;width:22px;height:28px;padding:0 2px}
 .typing-indicator span{width:8px;height:8px;border-radius:50%;background:#587464;opacity:.38;animation:typingDot 1.15s ease-in-out infinite}
@@ -4915,8 +4909,17 @@ body.preview-is-expanded{overflow:hidden!important}
                 settingPromptAnchor = true;
                 const messageTopInViewport = row.getBoundingClientRect().top;
                 const chatTopInViewport = chatMessages.getBoundingClientRect().top;
-                const desiredTop = chatMessages.scrollTop +
-                    messageTopInViewport - chatTopInViewport - 24;
+                const messageRows = Array.from(chatMessages.querySelectorAll(".msg-row"));
+                const currentRowIndex = messageRows.indexOf(row);
+                const previousMessageRow = currentRowIndex > 0
+                    ? messageRows[currentRowIndex - 1]
+                    : null;
+                const desiredTop = previousMessageRow
+                    ? chatMessages.scrollTop +
+                        previousMessageRow.getBoundingClientRect().bottom -
+                        chatTopInViewport - 58
+                    : chatMessages.scrollTop +
+                        messageTopInViewport - chatTopInViewport - 24;
                 const maximumTop = Math.max(
                     0,
                     chatMessages.scrollHeight - chatMessages.clientHeight
@@ -5103,7 +5106,8 @@ body.preview-is-expanded{overflow:hidden!important}
             let streamingText = String(text || "");
             const boldMarkers = streamingText.match(/\*\*/g) || [];
             if (boldMarkers.length % 2) streamingText += "**";
-            if (/[^*]\*$/.test(streamingText)) streamingText = streamingText.slice(0, -1);
+            const italicMarkers = streamingText.match(/(^|[^*])\*(?!\*)/g) || [];
+            if (italicMarkers.length % 2) streamingText += "*";
             return formatMessageHtml(streamingText);
         }
 
@@ -5177,10 +5181,6 @@ body.preview-is-expanded{overflow:hidden!important}
                     bubble.prepend(senderLabel);
                     bubble.classList.add("has-sender-label");
                 }
-                const cursor = document.createElement("i");
-                cursor.className = "msg-stream-cursor";
-                cursor.setAttribute("aria-hidden", "true");
-                bubble.appendChild(cursor);
                 scrollChatToLatest();
                 if (delay) await new Promise(resolve => setTimeout(resolve, delay));
             }
@@ -5191,32 +5191,55 @@ body.preview-is-expanded{overflow:hidden!important}
             return finalRow;
         }
 
+        const selectedContextualActions = new Set();
+
         function contextualActionsFor(message, reply, escalationData) {
             if (escalationData?.escalatedToHuman === 1 || chatMode === "human") return [];
-            const context = `${message || ""} ${reply || ""}`.toLowerCase();
-            if (/book|call|meeting|consultation|discovery/.test(context)) {
-                return [
-                    { label:"Book a call", target:"#mvp-contact" },
-                    { label:"View plans", target:"#mvp-pricing" }
-                ];
+            const prompt = String(message || "").toLowerCase().replace(/\s+/g, " ").trim();
+            const context = `${prompt} ${String(reply || "").toLowerCase()}`;
+            if (!prompt || /^(hi|hello|hey|thanks|thank you|okay|ok)[!. ]*$/.test(prompt)) return [];
+
+            const actions = [];
+            const add = action => {
+                if (!actions.some(item => item.label === action.label) &&
+                    !selectedContextualActions.has(action.label)) actions.push(action);
+            };
+
+            if (/price|pricing|cost|plan|package|budget|quote|₹|\$/.test(context)) {
+                add({ label:"Compare plans", target:"#mvp-pricing" });
+                add({ label:"Which plan fits me?", question:"Help me choose the right Novara CX plan for my needs" });
             }
-            if (/price|pricing|cost|plan|package/.test(context)) {
-                return [
-                    { label:"View plans", target:"#mvp-pricing" },
-                    { label:"Book a call", target:"#mvp-contact" }
-                ];
+            if (/novaradesk|ticket|analytics|dashboard|workflow|report|knowledge base/.test(context)) {
+                add({ label:"Explore NovaraDesk", target:"#mvp-platform" });
+                add({ label:"See relevant features", question:"Which NovaraDesk features are most relevant for my use case?" });
             }
-            if (/service|support|chatbot|agent|novara/.test(context)) {
-                return [
-                    { label:"Explore NovaraDesk", target:"#mvp-platform" },
-                    { label:"View plans", target:"#mvp-pricing" },
-                    { label:"Talk to a person", question:"I would like to speak to a human" }
-                ];
+            if (/integrat|whatsapp|instagram|shopify|freshdesk|zendesk|zoho|channel|crm/.test(context)) {
+                add({ label:"Discuss integrations", question:"Which integrations would I need and how would they work?" });
+                add({ label:"Explore NovaraDesk", target:"#mvp-platform" });
             }
-            return [
-                { label:"Explore services", target:"#mvp-platform" },
-                { label:"Book a call", target:"#mvp-contact" }
-            ];
+            if (/implement|setup|launch|onboard|timeline|how long|process/.test(context)) {
+                add({ label:"Implementation steps", question:"Walk me through the Novara CX implementation process" });
+                add({ label:"Discuss integrations", question:"Which integrations would I need and how would they work?" });
+            }
+            if (/human|agent|coverage|hour|escalat|managed support/.test(context)) {
+                add({ label:"Compare coverage", target:"#mvp-pricing" });
+                add({ label:"Talk to a person", question:"I would like to speak to a human" });
+            }
+            if (/ai|chatbot|automat|deflect|bot/.test(context)) {
+                add({ label:"Explore AI support", target:"#mvp-platform" });
+                add({ label:"How would AI help me?", question:"How would Novara AI Support work for my business?" });
+            }
+            if (/audit|strategy|customer experience|cx process|retention|csat|refund/.test(context)) {
+                add({ label:"Explore CX services", target:"#mvp-platform" });
+            }
+            if (/book|call|meeting|demo|consultation|discovery|buy|start/.test(prompt)) {
+                add({ label:"Book a call", target:"#mvp-contact" });
+            }
+
+            if (actions.length && !actions.some(action => action.label === "Book a call")) {
+                add({ label:"Book a call", target:"#mvp-contact" });
+            }
+            return actions.slice(0, 3);
         }
 
         function requestsHumanSupport(message) {
@@ -5242,6 +5265,7 @@ body.preview-is-expanded{overflow:hidden!important}
                 button.className = "message-action";
                 button.textContent = action.label;
                 button.addEventListener("click", () => {
+                    selectedContextualActions.add(action.label);
                     group.classList.add("is-leaving");
                     window.setTimeout(() => group.remove(), 190);
                     if (action.question) {
@@ -5574,11 +5598,6 @@ body.preview-is-expanded{overflow:hidden!important}
             document.getElementById("quickReplies")?.removeAttribute("hidden");
             closeChatHistory();
             renderMessage("You’re now chatting with Novara CX AI. How can I help?", "bot", false);
-            showMessageActions([
-                { label:"Explore services", target:"#mvp-platform" },
-                { label:"View plans", target:"#mvp-pricing" },
-                { label:"Talk to a person", question:"I would like to speak to a human" }
-            ]);
             updateHumanChatStatus();
             chatInput.focus();
         }
@@ -6353,11 +6372,6 @@ body.preview-is-expanded{overflow:hidden!important}
                     () => {
 
                         renderMessage("Hi! I’m the Novara CX assistant.\n\nHow can I help today?", "bot", false);
-                        showMessageActions([
-                            { label:"Explore services", target:"#mvp-platform" },
-                            { label:"View plans", target:"#mvp-pricing" },
-                            { label:"Talk to a person", question:"I would like to speak to a human" }
-                        ]);
 
                     },
 
