@@ -6797,5 +6797,55 @@ body.preview-is-expanded{overflow:hidden!important}
 })();
 </script>
 
+
+<!-- NOVARA_ADDITIONAL_AGENT_PRICING_V1 -->
+<style id="novara-additional-agent-pricing-style">
+.pricing-summary .additional-agent-price{
+  margin-top:10px;
+  color:rgba(23,49,37,.68);
+  font-size:14px;
+  line-height:1.35;
+  font-weight:600;
+  letter-spacing:0;
+}
+.pricing-summary .additional-agent-price strong{
+  color:#315746;
+  font-weight:750;
+}
+</style>
+<script id="novara-additional-agent-pricing-script">
+(function(){
+  const prices = {
+    'AI + Human Lite': '₹20,000/month',
+    'AI + Human Full': '₹40,000/month'
+  };
+
+  function addNotes(){
+    document.querySelectorAll('.pricing-summary').forEach(function(card){
+      const heading = card.querySelector('h3');
+      if(!heading) return;
+      const title = heading.textContent.trim();
+      if(!prices[title] || card.querySelector('.additional-agent-price')) return;
+
+      const price = card.querySelector('.pricing-price');
+      if(!price) return;
+
+      const note = document.createElement('div');
+      note.className = 'additional-agent-price';
+      note.innerHTML = 'Additional agent: <strong>' + prices[title] + '</strong>';
+      price.insertAdjacentElement('afterend', note);
+    });
+  }
+
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', addNotes, {once:true});
+  }else{
+    addNotes();
+  }
+  setTimeout(addNotes, 250);
+  setTimeout(addNotes, 1000);
+})();
+</script>
+
 </body>
 </html>
