@@ -4914,17 +4914,67 @@ body.preview-is-expanded{overflow:hidden!important}
         let chatScrollFrame = 0;
         let userPausedChatFollow = false;
         let previousChatScrollTop = chatMessages.scrollTop;
+        let latestPromptRow = null;
+        let latestPromptAnchorTop = null;
+        let userScrolledAboveLatestPrompt = false;
+        let settingPromptAnchor = false;
+        let followLatestAfterJump = false;
 
         function isChatNearLatest() {
             return chatMessages.scrollHeight - chatMessages.scrollTop - chatMessages.clientHeight < 72;
         }
 
         function updateJumpToLatest() {
-            jumpToLatest.classList.toggle("visible", !shouldFollowConversation && !isChatNearLatest());
+            const isAboveLatestPrompt = latestPromptAnchorTop !== null &&
+                chatMessages.scrollTop < latestPromptAnchorTop - 4;
+            jumpToLatest.classList.toggle(
+                "visible",
+                userScrolledAboveLatestPrompt && isAboveLatestPrompt
+            );
+        }
+
+        function anchorLatestPrompt(row) {
+            if (!row) return;
+
+            cancelAnimationFrame(chatScrollFrame);
+            chatScrollFrame = 0;
+            latestPromptRow = row;
+            latestPromptAnchorTop = null;
+            userScrolledAboveLatestPrompt = false;
+            followLatestAfterJump = false;
+            userPausedChatFollow = false;
+            shouldFollowConversation = false;
+            jumpToLatest.classList.remove("visible");
+
+            // Let a new prompt reach the top before the answer becomes long.
+            // Padding remains below the transcript, so the answer still begins
+            // immediately beneath the prompt.
+            chatMessages.style.paddingBottom = "16px";
+            const availableSpace = Math.max(
+                16,
+                chatMessages.clientHeight - row.offsetHeight - 32
+            );
+            chatMessages.style.paddingBottom = `${availableSpace}px`;
+
+            requestAnimationFrame(() => {
+                if (latestPromptRow !== row) return;
+                settingPromptAnchor = true;
+                latestPromptAnchorTop = Math.max(0, row.offsetTop - 16);
+                chatMessages.scrollTop = latestPromptAnchorTop;
+                previousChatScrollTop = chatMessages.scrollTop;
+                requestAnimationFrame(() => {
+                    settingPromptAnchor = false;
+                    updateJumpToLatest();
+                });
+            });
         }
 
         function scrollChatToLatest(force = false) {
             if (force) userPausedChatFollow = false;
+            if (!force && latestPromptAnchorTop !== null && !followLatestAfterJump) {
+                updateJumpToLatest();
+                return;
+            }
             if (!force && !shouldFollowConversation) {
                 updateJumpToLatest();
                 return;
@@ -4948,6 +4998,14 @@ body.preview-is-expanded{overflow:hidden!important}
 
         chatMessages.addEventListener("scroll", () => {
             const currentScrollTop = chatMessages.scrollTop;
+            if (latestPromptAnchorTop !== null) {
+                if (!settingPromptAnchor) {
+                    userScrolledAboveLatestPrompt = currentScrollTop < latestPromptAnchorTop - 4;
+                }
+                previousChatScrollTop = currentScrollTop;
+                updateJumpToLatest();
+                return;
+            }
             const movingTowardLatest = currentScrollTop >= previousChatScrollTop;
             if (isChatNearLatest() && (!userPausedChatFollow || movingTowardLatest)) {
                 userPausedChatFollow = false;
@@ -4964,6 +5022,10 @@ body.preview-is-expanded{overflow:hidden!important}
             chatScrollFrame = 0;
             userPausedChatFollow = true;
             shouldFollowConversation = false;
+            followLatestAfterJump = false;
+            if (latestPromptAnchorTop !== null) {
+                userScrolledAboveLatestPrompt = chatMessages.scrollTop < latestPromptAnchorTop - 4;
+            }
             updateJumpToLatest();
         };
         chatMessages.addEventListener("wheel", event => {
@@ -4971,7 +5033,11 @@ body.preview-is-expanded{overflow:hidden!important}
         }, { passive:true });
         chatMessages.addEventListener("touchmove", pauseChatFollow, { passive:true });
 
-        jumpToLatest.addEventListener("click", () => scrollChatToLatest(true));
+        jumpToLatest.addEventListener("click", () => {
+            userScrolledAboveLatestPrompt = false;
+            followLatestAfterJump = true;
+            scrollChatToLatest(true);
+        });
 
 
         // ==========================================
@@ -5764,7 +5830,12 @@ body.preview-is-expanded{overflow:hidden!important}
             touchSessionActivity();
 
             userPausedChatFollow = false;
-            shouldFollowConversation = true;
+            shouldFollowConversation = false;
+            latestPromptRow = null;
+            latestPromptAnchorTop = null;
+            userScrolledAboveLatestPrompt = false;
+            followLatestAfterJump = false;
+            chatMessages.style.paddingBottom = "16px";
             chatFooter?.classList.add("conversation-started");
             document.querySelectorAll(".message-actions").forEach(group => {
                 group.classList.add("is-leaving");
@@ -5778,8 +5849,12 @@ body.preview-is-expanded{overflow:hidden!important}
                 false,
                 null,
                 true,
-                "sending"
+                "sending",
+                null,
+                false
             );
+
+            anchorLatestPrompt(outgoingRow);
 
 
             chatInput.value =
