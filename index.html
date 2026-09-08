@@ -370,7 +370,7 @@ body>header .nav{height:68px}body>header .logo{color:#102018}body>header .nav-li
 @media(max-width:650px){.problem-signals{grid-template-columns:1fr!important}.journey-summary{align-items:flex-start;flex-direction:column;gap:3px}.journey-summary i{transform:rotate(90deg)}}
 .gapc-brand-logo{position:relative;display:grid;place-items:center;width:100%;height:100%}.gapc-brand-logo img{width:28px;height:28px;object-fit:contain}.gapc-brand-logo b{position:absolute;right:1px;bottom:0;display:grid;place-items:center;width:17px;height:17px;border-radius:50%;background:#91d0a7;color:#123c27;font-size:.58rem;box-shadow:0 0 0 2px #275c40}
 /* Live NovaraDesk product embed */
-.product-studio-shell.live-embedded{grid-template-columns:minmax(0,1fr) 310px!important}.product-studio-shell.live-embedded>.studio-nav{display:none!important}.product-studio-shell.live-embedded .studio-main{min-height:610px;padding:0!important;background:#eef3ef;overflow:hidden}.live-product-frame{position:relative;height:100%;min-height:610px;background:#fff}.live-product-open{display:none!important}.live-product-viewport{position:relative;height:610px;overflow:hidden;background:#f7f9f7}.live-product-viewport iframe{display:block;width:100%;height:100%;border:0;background:#fff}.live-product-loading{position:absolute;inset:0;z-index:2;display:grid;place-items:center;background:#f2f6f3;color:#587064;font-size:.7rem;transition:opacity .3s,visibility .3s}.live-product-loading:before{content:"";width:24px;height:24px;margin:0 auto 10px;border:2px solid #bed2c5;border-top-color:#317c52;border-radius:50%;animation:liveSpin .8s linear infinite}.live-product-loading span{display:block}.live-product-frame.loaded .live-product-loading{opacity:0;visibility:hidden}@keyframes liveSpin{to{transform:rotate(360deg)}}
+.product-studio-shell.live-embedded{grid-template-columns:minmax(0,1fr) 310px!important}.product-studio-shell.live-embedded>.studio-nav{display:none!important}.product-studio-shell.live-embedded .studio-main{min-height:610px;padding:0!important;background:#eef3ef;overflow:hidden}.live-product-frame{position:relative;height:100%;min-height:610px;background:#fff}.live-product-open{display:none!important}.live-product-viewport{position:relative;height:610px;overflow:hidden;background:#f7f9f7}.live-product-viewport iframe{display:block;width:100%;height:100%;border:0;background:#fff;overflow:auto;touch-action:pan-y;-webkit-overflow-scrolling:touch}.live-product-loading{position:absolute;inset:0;z-index:2;display:grid;place-items:center;background:#f2f6f3;color:#587064;font-size:.7rem;transition:opacity .3s,visibility .3s}.live-product-loading:before{content:"";width:24px;height:24px;margin:0 auto 10px;border:2px solid #bed2c5;border-top-color:#317c52;border-radius:50%;animation:liveSpin .8s linear infinite}.live-product-loading span{display:block}.live-product-frame.loaded .live-product-loading{opacity:0;visibility:hidden}@keyframes liveSpin{to{transform:rotate(360deg)}}
 @media(max-width:1120px){.product-studio-shell.live-embedded .studio-main{min-height:560px}.live-product-viewport{height:560px}}
 @media(max-width:760px){.live-product-viewport{height:528px}.product-studio-shell.live-embedded .studio-main{min-height:528px}}
 /* Final section rhythm: alternating paper and sage surfaces, with dark operating moments. */
@@ -1531,6 +1531,7 @@ body>header .nav{height:68px}body>header .logo{color:#102018}body>header .nav-li
             <div
                 class="quick-replies-window"
                 id="quickReplies"
+                hidden
             >
 
                 <button type="button" class="qr-btn" data-question="Show me the Novara CX support plans">
@@ -2033,6 +2034,20 @@ updateProgress();
       doc.body.style.overscrollBehavior='contain';
       doc.body.style.height='auto';
       doc.body.style.minHeight='100%';
+      frame.setAttribute('scrolling','yes');
+      frame.style.touchAction='pan-y';
+      const enablePreviewScroll=()=>{
+        const candidates=[doc.scrollingElement,doc.body,...doc.querySelectorAll('main,.main-content,.content-area,.dashboard-content,[class*="main-content"],[class*="dashboard-content"]')].filter(Boolean);
+        const scroller=candidates.filter(el=>el.scrollHeight>el.clientHeight+4).sort((a,b)=>(b.scrollHeight-b.clientHeight)-(a.scrollHeight-a.clientHeight))[0];
+        if(scroller&&scroller!==doc.scrollingElement&&scroller!==doc.body){
+          scroller.style.overflowY='auto';
+          scroller.style.maxHeight='100vh';
+          scroller.style.overscrollBehavior='contain';
+          scroller.style.webkitOverflowScrolling='touch';
+        }
+      };
+      requestAnimationFrame(enablePreviewScroll);
+      setTimeout(enablePreviewScroll,350);
       const sidebarCandidates=[...doc.querySelectorAll('.sidebar,#sidebar,[data-sidebar],[class*="sidebar"],[class*="side-nav"],[class*="sidenav"]')].filter(el=>el.offsetHeight>250&&el.querySelectorAll('a[href],button').length>=2);
       const sidebar=sidebarCandidates.sort((a,b)=>b.querySelectorAll('a[href],button').length-a.querySelectorAll('a[href],button').length)[0];
       if(sidebar){
@@ -4637,9 +4652,9 @@ body.preview-is-expanded{overflow:hidden!important}
 
         function renderOpeningWelcome() {
             const welcomeRow = renderMessage("Hi! I’m the Novara CX AI assistant. I can help you explore our support plans, understand NovaraDesk, or find the right service for your business.\n\nWhat would you like to know?", "bot", false);
-            openingQuickReplies.hidden = false;
             openingQuickReplies.classList.add("opening-quick-replies");
             welcomeRow.after(openingQuickReplies);
+            openingQuickReplies.hidden = false;
         }
 
 
@@ -5748,7 +5763,7 @@ body.preview-is-expanded{overflow:hidden!important}
             chatFooter?.classList.remove("conversation-started");
             chatInput.disabled = false;
             chatSend.disabled = false;
-            document.getElementById("quickReplies")?.removeAttribute("hidden");
+            openingQuickReplies.hidden = true;
             closeChatHistory();
             renderOpeningWelcome();
             updateHumanChatStatus();
@@ -6358,9 +6373,9 @@ body.preview-is-expanded{overflow:hidden!important}
             chatFooter?.classList.toggle("conversation-started", restoredHasUserMessage);
             if (!restoredHasUserMessage) {
                 const restoredWelcomeRow = [...chatMessages.querySelectorAll(".msg-row.bot")].at(-1);
-                openingQuickReplies.hidden = false;
                 openingQuickReplies.classList.add("opening-quick-replies");
                 if (restoredWelcomeRow) restoredWelcomeRow.after(openingQuickReplies);
+                openingQuickReplies.hidden = false;
             } else {
                 openingQuickReplies.hidden = true;
             }
@@ -6573,16 +6588,9 @@ body.preview-is-expanded{overflow:hidden!important}
                 }
 
 
-                setTimeout(
-                    () => {
-
-                        renderOpeningWelcome();
-
-                    },
-
-                    600
-
-                );
+                requestAnimationFrame(() => {
+                    renderOpeningWelcome();
+                });
 
             }
         );
