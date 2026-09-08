@@ -6847,5 +6847,35 @@ body.preview-is-expanded{overflow:hidden!important}
 })();
 </script>
 
+
+<!-- NOVARA_ADDITIONAL_AGENT_PRICING_V2 -->
+<style>
+.additional-agent-price-v2{display:block!important;margin:8px 0 0!important;color:#5d7467!important;font-size:14px!important;line-height:1.35!important;font-weight:600!important;letter-spacing:0!important}
+.additional-agent-price-v2 strong{color:#315746!important;font-weight:750!important}
+</style>
+<script>
+(()=>{
+  const rates={'AI + Human Lite':'₹20,000/month','AI + Human Full':'₹40,000/month'};
+  const apply=()=>{
+    document.querySelectorAll('article, .pricing-summary').forEach(card=>{
+      const h=card.querySelector('h3');
+      if(!h)return;
+      const title=h.textContent.replace(/\s+/g,' ').trim();
+      if(!rates[title])return;
+      const price=card.querySelector('.pricing-price');
+      if(!price)return;
+      let note=card.querySelector('.additional-agent-price-v2');
+      if(!note){note=document.createElement('div');note.className='additional-agent-price-v2';price.insertAdjacentElement('afterend',note)}
+      note.innerHTML='Additional agent: <strong>'+rates[title]+'</strong>';
+    });
+  };
+  apply();
+  document.addEventListener('DOMContentLoaded',apply,{once:true});
+  const mo=new MutationObserver(()=>{clearTimeout(mo._t);mo._t=setTimeout(apply,25)});
+  mo.observe(document.documentElement,{childList:true,subtree:true});
+  setTimeout(apply,100);setTimeout(apply,500);setTimeout(apply,1500);setTimeout(apply,3000);
+})();
+</script>
+
 </body>
 </html>
