@@ -1299,7 +1299,7 @@ body>header .nav{height:68px}body>header .logo{color:#102018}body>header .nav-li
 .escalation-status .pulse{display:none!important}
 @media(max-width:600px){
   body.chat-open::before{content:"";position:fixed;inset:0;z-index:9997;background:#eef5f1;pointer-events:none}
-  .chatbot-window{top:0;right:auto;bottom:auto;left:0;width:100%;height:var(--chat-viewport-height,100dvh);max-width:none;max-height:none;border-radius:0;overscroll-behavior:none}
+  .chatbot-window{top:var(--chat-viewport-top,0px);right:auto;bottom:auto;left:0;width:100%;height:var(--chat-viewport-height,100dvh);max-width:none;max-height:none;border-radius:0;overscroll-behavior:none}
   .chat-toggle.open{display:none!important}
   .chatbot-header-window{min-height:62px;padding:max(9px,env(safe-area-inset-top)) 13px 9px}
   .chatbot-messages-window{padding:16px 13px}
@@ -6409,13 +6409,14 @@ body.preview-is-expanded{overflow:hidden!important}
         function syncMobileChatViewport() {
             if (!window.matchMedia("(max-width:600px)").matches ||
                 !chatWindow.classList.contains("open")) {
+                chatWindow.style.removeProperty("--chat-viewport-top");
                 chatWindow.style.removeProperty("--chat-viewport-height");
                 return;
             }
             const viewport = window.visualViewport;
-            const visibleHeight = viewport
-                ? Math.round(viewport.height)
-                : window.innerHeight;
+            const visibleTop = viewport ? Math.max(0, Math.round(viewport.offsetTop)) : 0;
+            const visibleHeight = viewport ? Math.round(viewport.height) : window.innerHeight;
+            chatWindow.style.setProperty("--chat-viewport-top", `${visibleTop}px`);
             chatWindow.style.setProperty("--chat-viewport-height", `${visibleHeight}px`);
         }
 
