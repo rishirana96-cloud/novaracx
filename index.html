@@ -1144,6 +1144,7 @@ body>header .nav{height:68px}body>header .logo{color:#102018}body>header .nav-li
             animation:chatMessageIn .28s cubic-bezier(.22,.8,.3,1) both;
         }
         .msg-row.user { transform-origin:bottom right; }
+        .msg-row.prompt-anchor-moving { animation:none; }
         @keyframes chatMessageIn {
             from { opacity:0; transform:translateY(8px) scale(.985); }
             to { opacity:1; transform:translateY(0) scale(1); }
@@ -4893,6 +4894,7 @@ body.preview-is-expanded{overflow:hidden!important}
 
             cancelAnimationFrame(chatScrollFrame);
             chatScrollFrame = 0;
+            row.classList.add("prompt-anchor-moving");
             latestPromptRow = row;
             latestPromptAnchorTop = null;
             userPausedChatFollow = false;
@@ -4914,7 +4916,7 @@ body.preview-is-expanded{overflow:hidden!important}
                 const messageTopInViewport = row.getBoundingClientRect().top;
                 const chatTopInViewport = chatMessages.getBoundingClientRect().top;
                 const desiredTop = chatMessages.scrollTop +
-                    messageTopInViewport - chatTopInViewport - 18;
+                    messageTopInViewport - chatTopInViewport - 24;
                 const maximumTop = Math.max(
                     0,
                     chatMessages.scrollHeight - chatMessages.clientHeight
@@ -4944,19 +4946,6 @@ body.preview-is-expanded{overflow:hidden!important}
 
                     chatScrollFrame = 0;
                     settingPromptAnchor = false;
-
-                    // Measure once more after the entrance/scroll animation.
-                    // This guarantees that the full bubble, including its label
-                    // and rounded top edge, remains below the fixed header.
-                    const settledChatTop = chatMessages.getBoundingClientRect().top;
-                    const settledMessageTop = row.getBoundingClientRect().top;
-                    const safeMessageTop = settledChatTop + 24;
-                    if (settledMessageTop < safeMessageTop) {
-                        chatMessages.scrollTop = Math.max(
-                            0,
-                            chatMessages.scrollTop - (safeMessageTop - settledMessageTop)
-                        );
-                    }
                     latestPromptAnchorTop = chatMessages.scrollTop;
                     previousChatScrollTop = chatMessages.scrollTop;
                 };
@@ -5169,17 +5158,17 @@ body.preview-is-expanded{overflow:hidden!important}
         }
 
         async function streamMessage(text, sender = "bot", escalationData = null, allowRating = true) {
-            const words = String(text || "").split(/(\s+)/).filter(Boolean);
+            const characters = Array.from(String(text || ""));
             const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
             const row = renderMessage("", sender, false, null, false);
             const bubble = row.querySelector(".msg");
-            const chunkSize = Math.max(1, Math.ceil(words.length / 75));
-            const delay = reducedMotion ? 0 : Math.max(12, Math.min(30, Math.floor(2200 / Math.max(words.length / chunkSize, 1))));
+            const chunkSize = reducedMotion ? Math.max(1, characters.length) : Math.max(1, Math.ceil(characters.length / 240));
+            const delay = reducedMotion ? 0 : 18;
             let visible = "";
 
             bubble.setAttribute("aria-busy", "true");
-            for (let index = 0; index < words.length; index += chunkSize) {
-                visible += words.slice(index, index + chunkSize).join("");
+            for (let index = 0; index < characters.length; index += chunkSize) {
+                visible += characters.slice(index, index + chunkSize).join("");
                 bubble.innerHTML = formatStreamingMessageHtml(visible);
                 if (sender === "bot" || sender === "agent") {
                     const senderLabel = document.createElement("span");
