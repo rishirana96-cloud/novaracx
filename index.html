@@ -3757,7 +3757,21 @@ body.preview-is-expanded{overflow:hidden!important}
   system.innerHTML=`
    <article class="hero-cap-card">
     <div class="hero-cap-visual" aria-hidden="true">
-     <svg class="ai-orb" viewBox="0 0 100 100"><defs><radialGradient id="aiGlow"><stop stop-color="#bdf0d0"/><stop offset="1" stop-color="#277b4d"/></radialGradient></defs><circle cx="50" cy="50" r="43" fill="url(#aiGlow)" opacity=".24"/><path d="M16 51c12-29 22 29 34 0s22 29 34 0" stroke="#17663e"/><path d="M18 40c11-20 20 20 31 0s20 20 31 0" stroke="#48a871" opacity=".75"/><path d="M20 63c10-16 19 16 29 0s19 16 29 0" stroke="#8bceb0" opacity=".9"/></svg>
+     <svg class="ai-orb ai-signal-orb" viewBox="0 0 120 120">
+      <defs>
+       <radialGradient id="aiSignalCore"><stop stop-color="#d8f6e3"/><stop offset=".48" stop-color="#61b984"/><stop offset="1" stop-color="#17673e"/></radialGradient>
+       <filter id="aiSignalGlow" x="-70%" y="-70%" width="240%" height="240%"><feGaussianBlur stdDeviation="4"/></filter>
+      </defs>
+      <circle class="signal-halo" cx="60" cy="57" r="17" fill="#65bd87" opacity=".22" filter="url(#aiSignalGlow)"/>
+      <path class="signal-orbit orbit-one" d="M26 60c0-20 15-36 34-36s34 16 34 36-15 36-34 36c-8 0-15-3-21-7l-13 5 5-13c-3-6-5-13-5-21Z"/>
+      <path class="signal-orbit orbit-two" d="M38 35c16-10 38-5 46 12 8 18-1 39-19 46"/>
+      <circle class="signal-core" cx="60" cy="58" r="9" fill="url(#aiSignalCore)"/>
+      <circle class="signal-ring" cx="60" cy="58" r="16"/>
+      <g class="signal-nodes">
+       <circle cx="28" cy="55" r="3.4"/><circle cx="83" cy="32" r="3"/><circle cx="89" cy="77" r="3.4"/>
+      </g>
+      <path class="signal-spark" d="M101 23v11M95.5 28.5h11"/>
+     </svg>
     </div><h3>AI Support</h3><p>Instant answers for routine conversations</p>
    </article>
    <article class="hero-cap-card">
@@ -3999,6 +4013,15 @@ body.preview-is-expanded{overflow:hidden!important}
 .ai-orb path:nth-of-type(1){stroke:#12623a!important}
 .ai-orb path:nth-of-type(2){stroke:#338b58!important;opacity:1!important}
 .ai-orb path:nth-of-type(3){stroke:#62a87d!important;opacity:.9!important}
+.ai-signal-orb{width:94px!important;height:94px!important;overflow:visible;filter:drop-shadow(0 10px 18px rgba(28,111,65,.16))!important}
+.ai-signal-orb .signal-orbit{fill:none;stroke:#26764a!important;stroke-width:1.7!important;stroke-linecap:round;stroke-dasharray:none!important;animation:signalOrbitPulse 4.8s ease-in-out infinite!important}
+.ai-signal-orb .orbit-two{stroke:#58a879!important;stroke-width:1.35!important;stroke-dasharray:4 7!important;animation:signalOrbitTravel 6s linear infinite!important}
+.ai-signal-orb .signal-core{transform-box:fill-box;transform-origin:center;animation:signalCorePulse 2.8s ease-in-out infinite!important}
+.ai-signal-orb .signal-ring{fill:none;stroke:#55a977;stroke-width:1.2;opacity:.48;transform-box:fill-box;transform-origin:center;animation:signalRing 2.8s ease-out infinite}
+.ai-signal-orb .signal-nodes circle{fill:#217345;stroke:#d7f0df;stroke-width:1.4;transform-box:fill-box;transform-origin:center;animation:signalNode 3s ease-in-out infinite}
+.ai-signal-orb .signal-nodes circle:nth-child(2){animation-delay:-1s}.ai-signal-orb .signal-nodes circle:nth-child(3){animation-delay:-2s}
+.ai-signal-orb .signal-spark{fill:none;stroke:#2d8653!important;stroke-width:2!important;stroke-linecap:round;transform-box:fill-box;transform-origin:center;animation:signalSpark 3.4s ease-in-out infinite!important}
+@keyframes signalCorePulse{50%{transform:scale(1.13);filter:brightness(1.08)}}@keyframes signalRing{0%{transform:scale(.65);opacity:.6}75%,100%{transform:scale(1.45);opacity:0}}@keyframes signalOrbitPulse{50%{opacity:.62}}@keyframes signalOrbitTravel{to{stroke-dashoffset:-44}}@keyframes signalNode{50%{transform:scale(1.35);filter:brightness(1.15)}}@keyframes signalSpark{0%,100%{transform:scale(.75) rotate(0);opacity:.35}50%{transform:scale(1.08) rotate(90deg);opacity:1}}
 .human-scene{stroke:#17673e!important;opacity:1!important}
 .human-scene circle{fill:rgba(48,134,82,.12)!important}
 .human-scene .task rect{fill:rgba(255,255,255,.82)!important;stroke:#2f7650!important}
