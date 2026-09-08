@@ -1297,7 +1297,8 @@ body>header .nav{height:68px}body>header .logo{color:#102018}body>header .nav-li
 @keyframes typingDot{0%,100%{opacity:.3;transform:scale(.82)}50%{opacity:1;transform:scale(1)}}
 .escalation-status .pulse{display:none!important}
 @media(max-width:600px){
-  .chatbot-window{inset:0;width:100%;height:100dvh;max-width:none;border-radius:0}
+  .chatbot-window{top:var(--chat-viewport-top,0px);right:0;bottom:auto;left:0;width:100%;height:var(--chat-viewport-height,100dvh);max-width:none;max-height:none;border-radius:0}
+  .chat-toggle.open{display:none!important}
   .chatbot-header-window{min-height:62px;padding:max(9px,env(safe-area-inset-top)) 13px 9px}
   .chatbot-messages-window{padding:16px 13px}
   .msg-row{max-width:84%}
@@ -5097,7 +5098,10 @@ body.preview-is-expanded{overflow:hidden!important}
                 ) {
 
                     document.body.classList.add("chat-open");
-                    chatInput.focus();
+                    syncMobileChatViewport();
+                    if (window.matchMedia("(hover:hover) and (pointer:fine)").matches) {
+                        chatInput.focus();
+                    }
                     scrollChatToLatest();
 
                 } else {
@@ -6384,11 +6388,38 @@ body.preview-is-expanded{overflow:hidden!important}
         chatHistoryContinue.addEventListener("click", continueHistoryConversation);
         chatHistoryNew.addEventListener("click", startNewConversationFromHistory);
 
-        if (window.visualViewport) {
-            window.visualViewport.addEventListener("resize", () => {
-                if (chatWindow.classList.contains("open")) scrollChatToLatest();
-            });
+        function syncMobileChatViewport() {
+            if (!window.matchMedia("(max-width:600px)").matches ||
+                !chatWindow.classList.contains("open")) {
+                chatWindow.style.removeProperty("--chat-viewport-top");
+                chatWindow.style.removeProperty("--chat-viewport-height");
+                return;
+            }
+            const viewport = window.visualViewport;
+            chatWindow.style.setProperty("--chat-viewport-top", `${viewport?.offsetTop || 0}px`);
+            chatWindow.style.setProperty("--chat-viewport-height", `${viewport?.height || window.innerHeight}px`);
         }
+
+        if (window.visualViewport) {
+            const handleVisualViewportChange = () => {
+                if (!chatWindow.classList.contains("open")) return;
+                syncMobileChatViewport();
+                if (document.activeElement === chatInput) {
+                    requestAnimationFrame(() => scrollChatToLatest());
+                }
+            };
+            window.visualViewport.addEventListener("resize", handleVisualViewportChange);
+            window.visualViewport.addEventListener("scroll", handleVisualViewportChange);
+        }
+
+        chatInput.addEventListener("focus", () => {
+            syncMobileChatViewport();
+            window.setTimeout(syncMobileChatViewport, 120);
+            window.setTimeout(syncMobileChatViewport, 320);
+        });
+        chatInput.addEventListener("blur", () => {
+            window.setTimeout(syncMobileChatViewport, 180);
+        });
 
 
         quickReplyBtns.forEach(
@@ -6458,9 +6489,10 @@ body.preview-is-expanded{overflow:hidden!important}
 
                     chatToggle.setAttribute("aria-expanded", "true");
                     document.body.classList.add("chat-open");
-
-
-                    chatInput.focus();
+                    syncMobileChatViewport();
+                    if (window.matchMedia("(hover:hover) and (pointer:fine)").matches) {
+                        chatInput.focus();
+                    }
 
 
                     return;
