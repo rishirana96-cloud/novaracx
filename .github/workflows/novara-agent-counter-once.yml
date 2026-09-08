@@ -24,7 +24,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Add agent counters to pricing cards
+      - name: Move counters beside plan titles
         shell: bash
         run: |
           python - <<'PY'
@@ -32,158 +32,114 @@ jobs:
 
           path = Path('index.html')
           text = path.read_text(encoding='utf-8')
-          marker = '<!-- NOVARA_AGENT_COUNTER_V1 -->'
+          marker = '<!-- NOVARA_AGENT_COUNTER_TITLE_FIX_V3 -->'
 
           if marker in text:
-              print('Agent counter already present; nothing to change.')
+              print('Title counter fix already present.')
               raise SystemExit(0)
 
-          snippet = r'''
-          <!-- NOVARA_AGENT_COUNTER_V1 -->
-          <style id="novara-agent-counter-style">
-          .pricing-price.agent-price-row{
+          fix = r'''
+          <!-- NOVARA_AGENT_COUNTER_TITLE_FIX_V3 -->
+          <style id="novara-agent-counter-title-fix-v3">
+          .pricing-summary .pricing-title-row{
             display:flex!important;
-            align-items:center;
-            justify-content:space-between;
-            gap:22px;
-            width:100%;
+            align-items:center!important;
+            justify-content:space-between!important;
+            gap:16px!important;
+            width:100%!important;
           }
-          .pricing-price.agent-price-row .agent-price-copy{
-            display:inline-flex;
-            align-items:baseline;
-            gap:8px;
-            min-width:0;
+          .pricing-summary .pricing-title-row h3{
+            margin:0!important;
+            min-width:0!important;
           }
-          .pricing-price.agent-price-row .agent-price-value{
-            white-space:nowrap;
+          .pricing-summary .pricing-title-row .agent-counter{
+            position:static!important;
+            inset:auto!important;
+            transform:none!important;
+            display:inline-flex!important;
+            align-items:center!important;
+            justify-content:flex-end!important;
+            gap:10px!important;
+            margin:0 0 0 auto!important;
+            padding:0!important;
+            width:auto!important;
+            min-width:max-content!important;
+            flex:0 0 auto!important;
           }
-          .pricing-price.agent-price-row .agent-counter{
-            display:inline-flex;
-            align-items:center;
-            justify-content:flex-end;
-            gap:11px;
-            flex:0 0 auto;
-            margin-left:auto;
-            font-size:15px;
-            font-weight:700;
-            letter-spacing:0;
-            color:#173125;
+          .pricing-summary .pricing-price.agent-price-row{
+            display:block!important;
+            width:auto!important;
           }
-          .agent-counter-btn{
-            width:38px;
-            height:38px;
-            display:grid;
-            place-items:center;
-            padding:0;
-            border:1px solid rgba(23,49,37,.38);
-            border-radius:50%;
-            background:rgba(255,255,255,.42);
-            color:#173125;
-            font:500 21px/1 Arial,sans-serif;
-            cursor:pointer;
-            transition:background .18s ease,border-color .18s ease,transform .18s ease,opacity .18s ease;
+          .pricing-summary .pricing-price.agent-price-row .agent-price-copy{
+            display:inline-flex!important;
+            align-items:baseline!important;
+            gap:8px!important;
           }
-          .agent-counter-btn:hover:not(:disabled){
-            background:#fff;
-            border-color:#173125;
-            transform:translateY(-1px);
+          .pricing-summary .agent-counter-btn{
+            width:34px!important;
+            height:34px!important;
+            min-width:34px!important;
+            min-height:34px!important;
+            border-radius:50%!important;
           }
-          .agent-counter-btn:active:not(:disabled){transform:translateY(0) scale(.97)}
-          .agent-counter-btn:disabled{
-            opacity:.32;
-            cursor:not-allowed;
+          .pricing-summary .agent-counter-value{
+            min-width:62px!important;
+            text-align:center!important;
+            font-size:14px!important;
+            white-space:nowrap!important;
           }
-          .agent-counter-value{
-            min-width:62px;
-            text-align:center;
-            white-space:nowrap;
-            color:#173125;
-            font-size:15px;
-            font-weight:750;
-          }
-          @media(max-width:680px){
-            .pricing-price.agent-price-row{gap:12px}
-            .pricing-price.agent-price-row .agent-price-copy{gap:5px}
-            .pricing-price.agent-price-row .agent-counter{gap:7px}
-            .agent-counter-btn{width:34px;height:34px;font-size:19px}
-            .agent-counter-value{min-width:52px;font-size:13px}
+          @media(max-width:760px){
+            .pricing-summary .pricing-title-row{gap:10px!important}
+            .pricing-summary .pricing-title-row .agent-counter{gap:7px!important}
+            .pricing-summary .agent-counter-btn{
+              width:30px!important;
+              height:30px!important;
+              min-width:30px!important;
+              min-height:30px!important;
+            }
+            .pricing-summary .agent-counter-value{
+              min-width:52px!important;
+              font-size:12px!important;
+            }
           }
           </style>
-          <script id="novara-agent-counter-script">
+          <script id="novara-agent-counter-title-fix-script-v3">
           (function(){
-            const EXTRA_AGENT_PRICE = 35000;
-            const PLAN_CONFIG = {
-              'AI + Human Lite': 54999,
-              'AI + Human Full': 84999
-            };
+            function moveCountersToTitles(){
+              document.querySelectorAll('.pricing-summary').forEach(function(card){
+                var heading = card.querySelector('h3');
+                var counter = card.querySelector('.agent-counter');
+                if(!heading || !counter) return;
 
-            const formatINR = value => '₹' + Number(value).toLocaleString('en-IN');
+                var title = heading.textContent.trim();
+                if(title !== 'AI + Human Lite' && title !== 'AI + Human Full') return;
 
-            function enhanceCard(card, basePrice){
-              if(!card || card.dataset.agentCounterReady === '1') return;
-              const price = card.querySelector('.pricing-price');
-              if(!price) return;
-
-              card.dataset.agentCounterReady = '1';
-              let count = 1;
-
-              price.classList.add('agent-price-row');
-              price.innerHTML = `
-                <span class="agent-price-copy">
-                  <span class="agent-price-value">${formatINR(basePrice)}</span>
-                  <small>/month + GST</small>
-                </span>
-                <span class="agent-counter" role="group" aria-label="Human agents">
-                  <button type="button" class="agent-counter-btn agent-minus" aria-label="Remove human agent" disabled>−</button>
-                  <span class="agent-counter-value" aria-live="polite">1 agent</span>
-                  <button type="button" class="agent-counter-btn agent-plus" aria-label="Add human agent">+</button>
-                </span>`;
-
-              const valueEl = price.querySelector('.agent-price-value');
-              const countEl = price.querySelector('.agent-counter-value');
-              const minus = price.querySelector('.agent-minus');
-              const plus = price.querySelector('.agent-plus');
-
-              function render(){
-                valueEl.textContent = formatINR(basePrice + ((count - 1) * EXTRA_AGENT_PRICE));
-                countEl.textContent = `${count} ${count === 1 ? 'agent' : 'agents'}`;
-                minus.disabled = count <= 1;
-                card.dataset.humanAgents = String(count);
-              }
-
-              minus.addEventListener('click', function(){
-                if(count > 1){ count -= 1; render(); }
-              });
-              plus.addEventListener('click', function(){
-                count += 1;
-                render();
-              });
-              render();
-            }
-
-            function applyCounters(){
-              document.querySelectorAll('.pricing-summary-grid .pricing-summary, .pricing-summary').forEach(card => {
-                const heading = card.querySelector('h3');
-                const title = heading ? heading.textContent.trim() : '';
-                if(Object.prototype.hasOwnProperty.call(PLAN_CONFIG, title)){
-                  enhanceCard(card, PLAN_CONFIG[title]);
+                var row = card.querySelector('.pricing-title-row');
+                if(!row){
+                  row = document.createElement('div');
+                  row.className = 'pricing-title-row';
+                  heading.parentNode.insertBefore(row, heading);
+                  row.appendChild(heading);
+                }
+                if(counter.parentNode !== row){
+                  row.appendChild(counter);
                 }
               });
             }
 
             if(document.readyState === 'loading'){
-              document.addEventListener('DOMContentLoaded', applyCounters, {once:true});
+              document.addEventListener('DOMContentLoaded', moveCountersToTitles, {once:true});
             }else{
-              applyCounters();
+              moveCountersToTitles();
             }
 
-            const observer = new MutationObserver(function(){
-              window.clearTimeout(observer._t);
-              observer._t = window.setTimeout(applyCounters, 30);
+            var observer = new MutationObserver(function(){
+              clearTimeout(observer._t);
+              observer._t = setTimeout(moveCountersToTitles, 20);
             });
             observer.observe(document.documentElement, {childList:true, subtree:true});
-            window.setTimeout(applyCounters, 250);
-            window.setTimeout(applyCounters, 1000);
+            setTimeout(moveCountersToTitles, 250);
+            setTimeout(moveCountersToTitles, 1000);
           })();
           </script>
           '''
@@ -192,8 +148,8 @@ jobs:
               raise SystemExit('Could not find </body> in index.html')
 
           head, tail = text.rsplit('</body>', 1)
-          path.write_text(head + snippet + '\n</body>' + tail, encoding='utf-8')
-          print('Agent counter patch added to index.html')
+          path.write_text(head + fix + '\n</body>' + tail, encoding='utf-8')
+          print('Moved counters beside AI + Human plan titles.')
           PY
 
       - name: Commit patched index
@@ -205,7 +161,7 @@ jobs:
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
             git add index.html
-            git commit -m "Add human agent pricing counters"
+            git commit -m "Move human agent counters beside plan titles"
             git push origin main
           fi
 
