@@ -6888,15 +6888,15 @@ body.preview-is-expanded{overflow:hidden!important}
 </style>
 <script id="novara-agent-counter-script">
 (function(){
-  const EXTRA_AGENT_PRICE = 35000;
   const PLAN_CONFIG = {
-    'AI + Human Lite': 54999,
-    'AI + Human Full': 84999
+    'AI + Human Lite': { basePrice: 54999, extraAgentPrice: 22500 },
+    'AI + Human Full': { basePrice: 84999, extraAgentPrice: 45000 }
   };
 
   const formatINR = value => '₹' + Number(value).toLocaleString('en-IN');
 
-  function enhanceCard(card, basePrice){
+  function enhanceCard(card, config){
+    const { basePrice, extraAgentPrice } = config;
     if(!card || card.dataset.agentCounterReady === '1') return;
     const price = card.querySelector('.pricing-price');
     if(!price) return;
@@ -6922,7 +6922,7 @@ body.preview-is-expanded{overflow:hidden!important}
     const plus = price.querySelector('.agent-plus');
 
     function render(){
-      valueEl.textContent = formatINR(basePrice + ((count - 1) * EXTRA_AGENT_PRICE));
+      valueEl.textContent = formatINR(basePrice + ((count - 1) * extraAgentPrice));
       countEl.textContent = `${count} ${count === 1 ? 'agent' : 'agents'}`;
       minus.disabled = count <= 1;
       card.dataset.humanAgents = String(count);
