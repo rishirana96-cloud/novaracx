@@ -1036,10 +1036,67 @@ body>header .nav{height:68px}body>header .logo{color:#102018}body>header .nav-li
             box-shadow:0 3px 12px rgba(25,55,37,.045);
         }
 
-        /* Human handoff and feedback controls */
-        .rating-buttons { gap:7px; }
-        .rating-btn { min-height:38px; padding:8px 13px; border-color:#d3ddd6; background:#fff; color:#526159; }
-        .rating-btn:hover { color:#1f3328; background:#edf3ef; }
+        /* Human handoff and contextual satisfaction control */
+        .csat-panel {
+            margin:11px -2px 1px;
+            padding:11px 12px 10px;
+            border:1px solid #d5e1d9;
+            border-radius:13px;
+            background:linear-gradient(145deg,#f6faf7,#eaf3ed);
+            box-shadow:inset 0 1px 0 rgba(255,255,255,.8);
+        }
+        .csat-panel__label {
+            display:block;
+            color:#344b3e;
+            font-size:.7rem;
+            font-weight:700;
+            line-height:1.35;
+        }
+        .csat-stars {
+            display:flex;
+            align-items:center;
+            gap:3px;
+            margin-top:6px;
+        }
+        .csat-star {
+            width:30px;
+            height:30px;
+            display:grid;
+            place-items:center;
+            padding:0;
+            border:0;
+            border-radius:8px;
+            background:transparent;
+            color:#afbeb5;
+            font-family:inherit;
+            font-size:1.38rem;
+            line-height:1;
+            cursor:pointer;
+            transition:color .14s ease,transform .14s ease,background .14s ease;
+        }
+        .csat-star:hover,.csat-star:focus-visible {
+            outline:0;
+            background:rgba(91,132,109,.1);
+            transform:translateY(-1px);
+        }
+        .csat-star.is-lit { color:#5f8b71; }
+        .csat-star.is-selected { color:#315f46; }
+        .csat-panel.is-submitting .csat-star,
+        .csat-panel.is-submitted .csat-star { pointer-events:none; }
+        .csat-panel.is-submitted .csat-star:not(.is-selected) { opacity:.48; }
+        .csat-panel__status {
+            min-height:1em;
+            margin-top:4px;
+            color:#5a6d62;
+            font-size:.62rem;
+            line-height:1.35;
+        }
+        .csat-panel__status.is-error { color:#9c5436; }
+        @media(max-width:480px) {
+            .csat-panel { padding:10px 11px 9px; }
+            .csat-stars { gap:2px; }
+            .csat-star { width:29px;height:29px;font-size:1.3rem; }
+        }
         .ticket-contact-card,.ticket-choice-card,.past-ticket-card { border-radius:15px!important; box-shadow:0 6px 18px rgba(25,55,37,.06); }
         .ticket-contact-card input { min-height:42px!important; border-color:#d4ddd7!important; background:#fff!important; color:#17241c!important; }
         .ticket-contact-submit,.ticket-choice-btn { min-height:40px; border-radius:10px!important; }
@@ -5454,6 +5511,102 @@ body.preview-is-expanded{overflow:hidden!important}
         }
 
         // ==========================================
+        // CONTEXTUAL SATISFACTION RATING
+        // ==========================================
+
+        function createCsatPanel() {
+            const panel = document.createElement("div");
+            panel.className = "csat-panel";
+            panel.setAttribute("role", "group");
+            panel.setAttribute("aria-label", "Rate this conversation");
+
+            const label = document.createElement("span");
+            label.className = "csat-panel__label";
+            label.textContent = "How helpful was this conversation?";
+
+            const stars = document.createElement("div");
+            stars.className = "csat-stars";
+            stars.setAttribute("role", "radiogroup");
+            stars.setAttribute("aria-label", "Choose a rating from 1 to 5 stars");
+
+            const status = document.createElement("div");
+            status.className = "csat-panel__status";
+            status.setAttribute("aria-live", "polite");
+
+            const buttons = [];
+            const paint = (value, selected = false) => {
+                buttons.forEach((button, index) => {
+                    const active = index < value;
+                    button.classList.toggle("is-lit", active);
+                    button.classList.toggle("is-selected", selected && active);
+                    button.setAttribute("aria-checked", selected && Number(button.dataset.score) === value ? "true" : "false");
+                });
+            };
+
+            for (let score = 1; score <= 5; score += 1) {
+                const button = document.createElement("button");
+                button.type = "button";
+                button.className = "csat-star";
+                button.dataset.score = String(score);
+                button.setAttribute("role", "radio");
+                button.setAttribute("aria-checked", "false");
+                button.setAttribute("aria-label", `Rate ${score} out of 5 stars`);
+                button.textContent = "★";
+                button.addEventListener("pointerenter", () => {
+                    if (!panel.classList.contains("is-submitted")) paint(score);
+                });
+                button.addEventListener("focus", () => {
+                    if (!panel.classList.contains("is-submitted")) paint(score);
+                });
+                button.addEventListener("click", () => submitCsatRating(score, panel, paint));
+                buttons.push(button);
+                stars.appendChild(button);
+            }
+
+            stars.addEventListener("pointerleave", () => {
+                if (!panel.classList.contains("is-submitted")) paint(0);
+            });
+            stars.addEventListener("focusout", event => {
+                if (!stars.contains(event.relatedTarget) && !panel.classList.contains("is-submitted")) paint(0);
+            });
+
+            panel.append(label, stars, status);
+            return panel;
+        }
+
+        async function submitCsatRating(score, panel, paint) {
+            if (panel.classList.contains("is-submitting") || panel.classList.contains("is-submitted")) return;
+            panel.classList.add("is-submitting");
+            const status = panel.querySelector(".csat-panel__status");
+            status.classList.remove("is-error");
+            status.textContent = "Saving your rating…";
+
+            try {
+                const response = await fetch(WORKER_URL, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        message: `csat:${score}`,
+                        sessionId
+                    })
+                });
+                const data = await response.json().catch(() => ({}));
+                if (!response.ok) throw new Error(data.error || "Rating could not be saved.");
+
+                panel.classList.remove("is-submitting");
+                panel.classList.add("is-submitted");
+                paint(score, true);
+                status.textContent = "Thank you — your feedback helps us improve.";
+            } catch (error) {
+                panel.classList.remove("is-submitting");
+                paint(0);
+                status.classList.add("is-error");
+                status.textContent = "Couldn’t save that rating. Please try again.";
+            }
+        }
+
+
+        // ==========================================
         // RENDER MESSAGE
         // ==========================================
 
@@ -5541,7 +5694,9 @@ body.preview-is-expanded{overflow:hidden!important}
             );
 
 
-            const displayText = String(text || "").split(/\[CSAT\]|\[✅ Yes\]/)[0].trim();
+            const rawMessage = String(text || "");
+            const requestsCsat = sender === "bot" && allowRating && /\[CSAT\]/i.test(rawMessage);
+            const displayText = rawMessage.split(/\[CSAT\]|\[✅ Yes\]/i)[0].trim();
 
 
             const html = formatMessageHtml(displayText);
@@ -5564,6 +5719,10 @@ body.preview-is-expanded{overflow:hidden!important}
                 timestamp.dateTime = row.dataset.messageAt;
                 timestamp.textContent = chatClock(messageTime);
                 div.appendChild(timestamp);
+            }
+
+            if (requestsCsat) {
+                div.appendChild(createCsatPanel());
             }
 
 
