@@ -7117,5 +7117,154 @@ body.preview-is-expanded{overflow:hidden!important}
 
 
 
+
+<!-- NOVARA_CURRENCY_SWITCHER_V2 -->
+<style id="novara-currency-switcher-style-v2">
+#mvp-pricing .currency-switcher{
+  display:flex!important;
+  align-items:center;
+  justify-content:center;
+  gap:4px;
+  width:max-content;
+  margin:28px auto 30px;
+  padding:4px;
+  border:1px solid rgba(24,62,39,.18);
+  border-radius:999px;
+  background:rgba(255,255,255,.72);
+  box-shadow:0 8px 24px rgba(24,64,41,.06);
+}
+#mvp-pricing .currency-switcher button{
+  min-width:72px;
+  padding:8px 16px;
+  border:0;
+  border-radius:999px;
+  background:transparent;
+  color:#607168;
+  font-size:.74rem;
+  font-weight:750;
+  transition:background .2s ease,color .2s ease,box-shadow .2s ease;
+}
+#mvp-pricing .currency-switcher button.active{
+  background:#143b28;
+  color:#fff;
+  box-shadow:0 6px 16px rgba(20,59,40,.16);
+}
+#mvp-pricing .currency-switcher button:focus-visible{
+  outline:2px solid #2f8050;
+  outline-offset:2px;
+}
+@media(max-width:600px){
+  #mvp-pricing .currency-switcher{margin:22px auto 24px}
+  #mvp-pricing .currency-switcher button{min-width:66px;padding:7px 13px}
+}
+</style>
+<script id="novara-currency-switcher-script-v2">
+(function(){
+  const PRICES={
+    INR:{
+      symbol:'₹',locale:'en-IN',
+      ai:24999,lite:54999,full:84999,
+      liteSecond:37500,liteLater:20000,fullExtra:40000,
+      tax:'+ GST'
+    },
+    USD:{
+      symbol:'$',locale:'en-US',
+      ai:299,lite:649,full:999,
+      liteSecond:449,liteLater:239,fullExtra:479,
+      tax:'+ applicable taxes'
+    }
+  };
+  let currency='INR';
+
+  const money=(value,data)=>data.symbol+Number(value).toLocaleString(data.locale);
+
+  function planKey(card){
+    const title=(card.querySelector('h3')?.textContent||'').trim();
+    if(title==='AI Support')return 'ai';
+    if(title==='AI + Human Lite')return 'lite';
+    if(title==='AI + Human Full')return 'full';
+    return '';
+  }
+
+  function render(){
+    const pricing=document.querySelector('#mvp-pricing');
+    if(!pricing)return;
+    const data=PRICES[currency];
+
+    pricing.querySelectorAll('.pricing-summary').forEach(card=>{
+      const key=planKey(card);
+      if(!key)return;
+      const count=Math.max(1,Number(card.dataset.humanAgents)||1);
+      let total=data[key];
+      if(key==='lite'&&count>1)total+=data.liteSecond+((count-2)*data.liteLater);
+      if(key==='full'&&count>1)total+=(count-1)*data.fullExtra;
+
+      const price=card.querySelector('.pricing-price');
+      if(!price)return;
+      const value=price.querySelector('.agent-price-value');
+      if(value){
+        value.textContent=money(total,data);
+        const suffix=price.querySelector('.agent-price-copy small');
+        if(suffix)suffix.textContent='/month '+data.tax;
+      }else{
+        price.innerHTML=money(total,data)+' <small>/month '+data.tax+'</small>';
+      }
+
+      const note=card.querySelector('.agent-pricing-note');
+      if(note&&key==='lite'){
+        note.innerHTML='<strong>Additional-agent pricing</strong>2nd agent +'+money(data.liteSecond,data)+' · Further agents +'+money(data.liteLater,data)+' each';
+      }
+      if(note&&key==='full'){
+        note.innerHTML='<strong>Additional-agent pricing</strong>Each additional agent +'+money(data.fullExtra,data);
+      }
+    });
+
+    pricing.querySelectorAll('.currency-switcher button').forEach(button=>{
+      const active=button.dataset.currency===currency;
+      button.classList.toggle('active',active);
+      button.setAttribute('aria-pressed',String(active));
+    });
+  }
+
+  function install(){
+    const pricing=document.querySelector('#mvp-pricing');
+    const plans=pricing?.querySelector('.pricing-summary-grid');
+    if(!pricing||!plans)return false;
+
+    let switcher=pricing.querySelector('.currency-switcher');
+    if(!switcher){
+      switcher=document.createElement('div');
+      switcher.className='currency-switcher';
+    }
+    switcher.hidden=false;
+    switcher.style.removeProperty('display');
+    switcher.setAttribute('role','group');
+    switcher.setAttribute('aria-label','Select pricing currency');
+    switcher.innerHTML='<button type="button" data-currency="INR">INR</button><button type="button" data-currency="USD">USD</button>';
+    plans.before(switcher);
+
+    switcher.addEventListener('click',event=>{
+      const button=event.target.closest('[data-currency]');
+      if(!button)return;
+      currency=button.dataset.currency;
+      render();
+    });
+
+    pricing.addEventListener('click',event=>{
+      if(event.target.closest('.agent-counter-btn'))setTimeout(render,0);
+    },true);
+
+    render();
+    return true;
+  }
+
+  let attempts=0;
+  const timer=setInterval(()=>{
+    attempts++;
+    if(install()||attempts>30)clearInterval(timer);
+  },100);
+})();
+</script>
+
 </body>
 </html>
