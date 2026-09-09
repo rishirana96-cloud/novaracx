@@ -8962,6 +8962,38 @@ ORDER BY ticket_count DESC</textarea>
     }
 
 
+    let agentPresenceTimer = null;
+
+    async function updateAgentPresence(status = "online") {
+        const tokenKey = window.NOVARA_AUTH_TOKEN_KEY || "novara_google_id_token";
+        if (!localStorage.getItem(tokenKey)) return;
+        try {
+            await fetch(`${API_URL}/admin/presence`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ status }),
+                keepalive: status === "offline"
+            });
+        } catch (error) {
+            console.debug("Presence update skipped:", error);
+        }
+    }
+
+    function startAgentPresenceHeartbeat() {
+        if (agentPresenceTimer) return;
+        updateAgentPresence(document.hidden ? "away" : "online");
+        agentPresenceTimer = setInterval(() => {
+            updateAgentPresence(document.hidden ? "away" : "online");
+        }, 60000);
+    }
+
+    document.addEventListener("visibilitychange", () => {
+        updateAgentPresence(document.hidden ? "away" : "online");
+    });
+    window.addEventListener("pagehide", () => updateAgentPresence("offline"));
+    startAgentPresenceHeartbeat();
+
+
     function analyticsDateQuery(period = currentPeriod) {
         if (currentDateRange?.start && currentDateRange?.end) {
             return `start=${encodeURIComponent(currentDateRange.start)}&end=${encodeURIComponent(currentDateRange.end)}`;
@@ -8974,6 +9006,15 @@ ORDER BY ticket_count DESC</textarea>
 
         return fetchJSON(
             `/analytics?${analyticsDateQuery(period)}`
+        );
+
+    }
+
+
+    async function fetchOperationalKpis(period) {
+
+        return fetchJSON(
+            `/analytics/kpis?${analyticsDateQuery(period)}`
         );
 
     }
@@ -9251,6 +9292,7 @@ ORDER BY ticket_count DESC</textarea>
             const [
 
                 analyticsData,
+                operationalKpis,
                 conversationsData,
                 intentsData,
                 ratingsData,
@@ -9261,6 +9303,10 @@ ORDER BY ticket_count DESC</textarea>
             ] = await Promise.all([
 
                 fetchAnalytics(
+                    period
+                ),
+
+                fetchOperationalKpis(
                     period
                 ),
 
@@ -9618,7 +9664,9 @@ ORDER BY ticket_count DESC</textarea>
                     "aiAvgResponseTime"
                 )
                 .textContent =
-                "—";
+                operationalKpis?.avgResponseSeconds == null
+                    ? "No data yet"
+                    : Number(operationalKpis.avgResponseSeconds).toFixed(1);
 
 
             document
@@ -9642,7 +9690,9 @@ ORDER BY ticket_count DESC</textarea>
                     "aiAvgMessages"
                 )
                 .textContent =
-                "—";
+                operationalKpis?.avgMessages == null
+                    ? "No data yet"
+                    : Number(operationalKpis.avgMessages).toFixed(1);
 
 
             /* =================================================
@@ -9678,7 +9728,9 @@ ORDER BY ticket_count DESC</textarea>
                     "humanAvgHandlingTime"
                 )
                 .textContent =
-                "—";
+                operationalKpis?.avgHandlingMinutes == null
+                    ? "No data yet"
+                    : Number(operationalKpis.avgHandlingMinutes).toFixed(1);
 
 
             document
@@ -9702,7 +9754,9 @@ ORDER BY ticket_count DESC</textarea>
                     "humanActiveAgents"
                 )
                 .textContent =
-                "—";
+                operationalKpis?.activeAgents == null
+                    ? "No data yet"
+                    : String(Math.max(0, Number(operationalKpis.activeAgents) || 0));
 
 
             /* =================================================
