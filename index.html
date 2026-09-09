@@ -4141,7 +4141,18 @@ body.preview-is-expanded{overflow:hidden!important}
 .pricing-price{display:flex;align-items:baseline;flex-wrap:wrap;gap:7px;margin-top:auto;color:#0e3522;font:800 clamp(1.75rem,2.5vw,2.45rem)/1 "Cabinet Grotesk",sans-serif}
 .pricing-price small{font:600 .76rem/1 "General Sans",sans-serif;color:#5a7164}
 .pricing-summary p.description{min-height:72px;margin:18px 0 22px;color:#64766c;font-size:.78rem;line-height:1.55}
-.pricing-summary .mvp-btn{margin-top:0}
+.pricing-summary .mvp-btn{margin-top:auto}
+.pricing-summary .plan-positioning{margin:10px 0 0;color:#64766c;font-size:.76rem;line-height:1.45}
+.pricing-summary .coverage-pills{display:flex;flex-wrap:wrap;gap:7px;margin:17px 0 4px}
+.pricing-summary .coverage-pill{display:inline-flex;align-items:center;min-height:29px;padding:6px 10px;border:1px solid rgba(35,101,61,.17);border-radius:999px;background:#edf4ef;color:#315943;font:700 .62rem/1.2 "General Sans",sans-serif;white-space:nowrap}
+.pricing-summary.featured .coverage-pill{background:#e2f0e6;border-color:rgba(35,101,61,.22)}
+.pricing-summary .pricing-price{margin-top:22px}
+.pricing-summary .agent-pricing-note{min-height:34px;margin:9px 0 0;color:#6b7c72;font-size:.61rem;line-height:1.4}
+.pricing-summary .agent-pricing-note strong{display:block;color:#3c5848;font-weight:750}
+.pricing-summary .plan-inclusions{display:grid;gap:8px;margin:20px 0 24px;padding:17px 0 0;border-top:1px solid rgba(28,80,49,.11);list-style:none}
+.pricing-summary .plan-inclusions li{position:relative;padding-left:18px;color:#53695d;font-size:.7rem;line-height:1.4}
+.pricing-summary .plan-inclusions li:before{content:"✓";position:absolute;left:0;top:0;color:#2f8050;font-weight:850}
+@media(max-width:900px){.pricing-summary .agent-pricing-note{min-height:0}}
 .pricing-compare-wrap{overflow-x:auto;border:1px solid rgba(28,80,49,.16);border-radius:20px;background:#fff}
 .pricing-compare{width:100%;min-width:760px;border-collapse:collapse;table-layout:fixed}
 .pricing-compare th,.pricing-compare td{padding:17px 20px;border-bottom:1px solid rgba(28,80,49,.11);text-align:center;font-size:.78rem;line-height:1.35}
@@ -4172,24 +4183,55 @@ body.preview-is-expanded{overflow:hidden!important}
    plans.innerHTML=`
     <article class="pricing-summary">
      <h3>AI Support</h3>
-     <div class="coverage">24/7 AI Chatbot</div>
+     <p class="plan-positioning">Managed AI support for companies that handle human escalations internally.</p>
+     <div class="coverage-pills" aria-label="Plan coverage">
+      <span class="coverage-pill">24/7 AI</span>
+      <span class="coverage-pill">Managed by Novara</span>
+     </div>
      <div class="pricing-price">₹24,999 <small>/month + GST</small></div>
-     <p class="description">Automated support for companies that want routine customer queries handled around the clock.</p>
-     <a class="mvp-btn secondary" href="#mvp-contact">Discuss AI Support</a>
+     <p class="agent-pricing-note"><strong>AI-first coverage</strong>Your team owns human escalations</p>
+     <ul class="plan-inclusions">
+      <li>Website AI chatbot</li>
+      <li>Continuous training and tuning</li>
+      <li>Conversation analytics and reporting</li>
+      <li>Human-escalation readiness</li>
+     </ul>
+     <a class="mvp-btn secondary" href="#mvp-contact">Explore AI Support</a>
     </article>
     <article class="pricing-summary">
      <h3>AI + Human Lite</h3>
-     <div class="coverage">24/7 AI Chatbot + 4.5 Hours of Daily Support per Agent</div>
+     <p class="plan-positioning">Managed support with part-day human coverage for complex conversations.</p>
+     <div class="coverage-pills" aria-label="Plan coverage">
+      <span class="coverage-pill">24/7 AI</span>
+      <span class="coverage-pill">4.5 hrs/day per agent</span>
+      <span class="coverage-pill">Managed by Novara</span>
+     </div>
      <div class="pricing-price">₹54,999 <small>/month + GST</small></div>
-     <p class="description">Continuous AI support backed by a dedicated human agent for escalations requiring judgement, investigation or empathy.</p>
-     <a class="mvp-btn secondary" href="#mvp-contact">Discuss AI + Human</a>
+     <p class="agent-pricing-note"><strong>Additional-agent pricing</strong>2nd agent +₹37,500 · Further agents +₹20,000 each</p>
+     <ul class="plan-inclusions">
+      <li>Routine queries handled by AI</li>
+      <li>Dedicated human escalation support</li>
+      <li>NovaraDesk ticketing included</li>
+      <li>Quality and performance oversight</li>
+     </ul>
+     <a class="mvp-btn secondary" href="#mvp-contact">Discuss Lite Coverage</a>
     </article>
     <article class="pricing-summary featured">
-     
      <h3>AI + Human Full</h3>
-     <div class="coverage">24/7 AI Chatbot + 9 Hours of Daily Support per Agent</div>
+     <p class="plan-positioning">Fully managed, full-day human coverage for higher-volume operations.</p>
+     <div class="coverage-pills" aria-label="Plan coverage">
+      <span class="coverage-pill">24/7 AI</span>
+      <span class="coverage-pill">9 hrs/day per agent</span>
+      <span class="coverage-pill">Managed by Novara</span>
+     </div>
      <div class="pricing-price">₹84,999 <small>/month + GST</small></div>
-     <p class="description">Continuous AI support with full-day human coverage and managed oversight for higher-volume support operations.</p>
+     <p class="agent-pricing-note"><strong>Additional-agent pricing</strong>Each additional agent +₹40,000</p>
+     <ul class="plan-inclusions">
+      <li>Full-day human support coverage</li>
+      <li>Complex issues owned through resolution</li>
+      <li>NovaraDesk ticketing included</li>
+      <li>Reporting and managed CX oversight</li>
+     </ul>
      <a class="mvp-btn primary" href="#mvp-contact">Discuss Full Coverage</a>
     </article>`;
   }
