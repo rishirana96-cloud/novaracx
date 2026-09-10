@@ -6068,46 +6068,59 @@ body.preview-is-expanded{overflow:hidden!important}
 </script>
 
 
-<!-- NOVARA_COST_ESTIMATOR_V1 -->
+<!-- NOVARA_COST_ESTIMATOR_V2 -->
 <style id="novara-cost-estimator-styles">
 .cost-estimator-section{position:relative;overflow:hidden;padding:104px 0;background:#f3f2ec;color:#13241a}
 .cost-estimator-section:before{content:"";position:absolute;right:-180px;top:-210px;width:560px;height:560px;border:1px solid rgba(50,119,80,.12);border-radius:50%;box-shadow:0 0 0 70px rgba(50,119,80,.025),0 0 0 140px rgba(50,119,80,.018)}
 .cost-estimator-shell{position:relative;z-index:1;width:min(100% - 48px,1180px);margin:auto}
 .cost-estimator-head{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(320px,.65fr);gap:60px;align-items:end;margin-bottom:42px}
 .cost-estimator-kicker{display:block;margin-bottom:14px;color:#347a53;font-size:.7rem;font-weight:800;letter-spacing:.13em;text-transform:uppercase}
-.cost-estimator-head h2{max-width:680px;margin:0;font-family:"Cabinet Grotesk","General Sans",sans-serif;font-size:clamp(2.4rem,4.7vw,4.7rem);line-height:.96;letter-spacing:-.06em}
+.cost-estimator-head h2{max-width:700px;margin:0;font-family:"Cabinet Grotesk","General Sans",sans-serif;font-size:clamp(2.4rem,4.7vw,4.7rem);line-height:.96;letter-spacing:-.06em}
 .cost-estimator-head p{margin:0;color:#627068;font-size:.96rem;line-height:1.7}
-.cost-estimator-card{display:grid;grid-template-columns:minmax(0,.9fr) minmax(360px,1.1fr);overflow:hidden;border:1px solid #d4ddd7;border-radius:26px;background:#fff;box-shadow:0 28px 75px rgba(17,48,30,.09)}
+.cost-estimator-card{display:grid;grid-template-columns:minmax(0,.92fr) minmax(390px,1.08fr);overflow:hidden;border:1px solid #d4ddd7;border-radius:26px;background:#fff;box-shadow:0 28px 75px rgba(17,48,30,.09)}
 .cost-estimator-inputs{padding:34px;border-right:1px solid #e0e6e2}
 .cost-estimator-inputs h3,.cost-estimator-results h3{margin:0 0 6px;font-size:1.18rem;letter-spacing:-.025em}
-.cost-estimator-inputs>p{margin:0 0 27px;color:#738078;font-size:.82rem;line-height:1.55}
-.cost-estimator-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.cost-estimator-inputs>p{margin:0 0 22px;color:#738078;font-size:.82rem;line-height:1.55}
+.cost-presets{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:23px}
+.cost-presets button{padding:8px 11px;border:1px solid #d6dfd9;border-radius:999px;background:#fff;color:#53645a;font:700 .66rem "General Sans",sans-serif;cursor:pointer}
+.cost-presets button.active{border-color:#347a53;background:#e6f0e9;color:#1e5737}
+.cost-estimator-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:17px}
 .cost-field{display:flex;flex-direction:column;gap:8px}
 .cost-field.full{grid-column:1/-1}
 .cost-field label{color:#405047;font-size:.72rem;font-weight:750}
 .cost-field-control{display:flex;align-items:center;min-height:48px;border:1px solid #d8e0db;border-radius:12px;background:#fbfcfa;transition:border-color .2s ease,box-shadow .2s ease}
 .cost-field-control:focus-within{border-color:#5d9874;box-shadow:0 0 0 3px rgba(52,122,83,.1)}
-.cost-field-control span{padding-left:14px;color:#76837b;font-size:.84rem}
+.cost-field-control span{padding-left:14px;color:#76837b;font-size:.78rem}
 .cost-field input,.cost-field select{width:100%;min-width:0;height:46px;padding:0 13px;border:0;outline:0;background:transparent;color:#173323;font:650 .88rem "General Sans",sans-serif}
 .cost-field select{appearance:auto}
 .cost-field small{color:#8a958e;font-size:.64rem;line-height:1.4}
+.cost-advanced{grid-column:1/-1;margin-top:2px;border-top:1px solid #e4e9e6}
+.cost-advanced summary{padding:15px 0 4px;color:#446052;font-size:.7rem;font-weight:750;cursor:pointer}
+.cost-advanced-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px;padding-top:12px}
 .cost-estimator-results{display:flex;flex-direction:column;padding:34px;background:linear-gradient(145deg,#0b3021,#08271b);color:#f5faf7}
-.cost-estimator-results>p{margin:0 0 24px;color:rgba(226,241,232,.62);font-size:.8rem}
+.cost-estimator-results>p{margin:0 0 20px;color:rgba(226,241,232,.62);font-size:.8rem}
+.cost-volume-flow{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-bottom:10px}
+.cost-flow-step{position:relative;padding:14px 11px;border:1px solid rgba(181,222,196,.14);border-radius:14px;background:rgba(255,255,255,.035)}
+.cost-flow-step:not(:last-child):after{content:"→";position:absolute;top:50%;right:-9px;z-index:2;transform:translateY(-50%);color:#91bca2;font-size:.72rem}
+.cost-flow-step span{display:block;color:rgba(218,237,225,.55);font-size:.57rem;font-weight:700;letter-spacing:.045em;text-transform:uppercase}
+.cost-flow-step strong{display:block;margin-top:6px;font-family:"Cabinet Grotesk","General Sans",sans-serif;font-size:1.2rem;letter-spacing:-.04em}
+.cost-flow-step small{display:block;margin-top:3px;color:rgba(218,237,225,.5);font-size:.57rem}
 .cost-result-summary{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
 .cost-result-box{padding:17px;border:1px solid rgba(181,222,196,.14);border-radius:15px;background:rgba(255,255,255,.035)}
 .cost-result-box span{display:block;color:rgba(218,237,225,.6);font-size:.65rem;font-weight:700;letter-spacing:.055em;text-transform:uppercase}
 .cost-result-box strong{display:block;margin-top:8px;font-family:"Cabinet Grotesk","General Sans",sans-serif;font-size:1.5rem;letter-spacing:-.045em}
+.cost-result-box small{display:block;margin-top:4px;color:rgba(218,237,225,.48);font-size:.6rem}
 .cost-saving-hero{margin-top:10px;padding:22px;border:1px solid rgba(167,216,189,.24);border-radius:17px;background:rgba(167,216,189,.1)}
 .cost-saving-hero span{display:block;color:#a7d8bd;font-size:.67rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
 .cost-saving-hero strong{display:block;margin-top:6px;font-family:"Cabinet Grotesk","General Sans",sans-serif;font-size:clamp(2rem,3.4vw,3.25rem);line-height:1;letter-spacing:-.055em}
 .cost-saving-hero small{display:block;margin-top:8px;color:rgba(231,244,236,.68);font-size:.74rem}
-.cost-breakdown{margin-top:20px;padding-top:18px;border-top:1px solid rgba(181,222,196,.14)}
-.cost-breakdown-row{display:flex;justify-content:space-between;gap:20px;padding:7px 0;color:rgba(225,239,230,.7);font-size:.72rem}
+.cost-breakdown{margin-top:17px;padding-top:15px;border-top:1px solid rgba(181,222,196,.14)}
+.cost-breakdown-row{display:flex;justify-content:space-between;gap:20px;padding:6px 0;color:rgba(225,239,230,.7);font-size:.7rem}
 .cost-breakdown-row b{color:#f3f9f5;font-weight:650;white-space:nowrap}
-.cost-estimator-note{margin-top:auto!important;padding-top:22px;color:rgba(218,235,224,.47)!important;font-size:.65rem!important;line-height:1.55}
-.cost-estimator-cta{display:inline-flex;align-items:center;justify-content:center;align-self:flex-start;margin-top:18px;padding:11px 17px;border-radius:999px;background:#a7d8bd;color:#09291c;font-size:.75rem;font-weight:800;text-decoration:none}
-@media(max-width:900px){.cost-estimator-head,.cost-estimator-card{grid-template-columns:1fr}.cost-estimator-head{gap:20px}.cost-estimator-inputs{border-right:0;border-bottom:1px solid #e0e6e2}}
-@media(max-width:600px){.cost-estimator-section{padding:72px 0}.cost-estimator-shell{width:min(100% - 30px,1180px)}.cost-estimator-inputs,.cost-estimator-results{padding:25px 20px}.cost-estimator-fields,.cost-result-summary{grid-template-columns:1fr}.cost-field.full{grid-column:auto}}
+.cost-estimator-note{margin-top:auto!important;padding-top:18px;color:rgba(218,235,224,.47)!important;font-size:.62rem!important;line-height:1.5}
+.cost-estimator-cta{display:inline-flex;align-items:center;justify-content:center;align-self:flex-start;margin-top:15px;padding:11px 17px;border-radius:999px;background:#a7d8bd;color:#09291c;font-size:.75rem;font-weight:800;text-decoration:none}
+@media(max-width:960px){.cost-estimator-head,.cost-estimator-card{grid-template-columns:1fr}.cost-estimator-head{gap:20px}.cost-estimator-inputs{border-right:0;border-bottom:1px solid #e0e6e2}}
+@media(max-width:600px){.cost-estimator-section{padding:72px 0}.cost-estimator-shell{width:min(100% - 30px,1180px)}.cost-estimator-inputs,.cost-estimator-results{padding:25px 20px}.cost-estimator-fields,.cost-advanced-grid,.cost-result-summary{grid-template-columns:1fr}.cost-field.full,.cost-advanced{grid-column:auto}.cost-volume-flow{grid-template-columns:1fr}.cost-flow-step:not(:last-child):after{content:"↓";top:auto;right:50%;bottom:-11px;transform:translateX(50%)}}
 </style>
 <script id="novara-cost-estimator-script">
 (function(){
@@ -6117,67 +6130,117 @@ body.preview-is-expanded{overflow:hidden!important}
  section.className='cost-estimator-section';
  section.id='mvp-savings';
  section.innerHTML=`
-  <div class="cost-estimator-shell">
-   <div class="cost-estimator-head">
-    <div><span class="cost-estimator-kicker">Cost comparison</span><h2>Estimate what managed CX could save.</h2></div>
-    <p>Compare the monthly cost of building an internal support team with a Novara-managed setup. Adjust every assumption to reflect your operation.</p>
-   </div>
-   <div class="cost-estimator-card">
-    <div class="cost-estimator-inputs">
-     <h3>Your current or planned support setup</h3>
-     <p>Use monthly figures excluding GST. Benefits and employer costs are calculated on agent salaries.</p>
-     <div class="cost-estimator-fields">
-      <div class="cost-field"><label for="ceAgents">Human agents required</label><div class="cost-field-control"><input id="ceAgents" type="number" min="1" max="25" step="1" value="2"></div></div>
-      <div class="cost-field"><label for="ceSalary">Salary per agent</label><div class="cost-field-control"><span>₹</span><input id="ceSalary" type="number" min="0" step="1000" value="30000"></div></div>
-      <div class="cost-field"><label for="ceLead">Team lead / QA cost</label><div class="cost-field-control"><span>₹</span><input id="ceLead" type="number" min="0" step="1000" value="35000"></div></div>
-      <div class="cost-field"><label for="ceTools">Ticketing and support tools</label><div class="cost-field-control"><span>₹</span><input id="ceTools" type="number" min="0" step="1000" value="15000"></div></div>
-      <div class="cost-field"><label for="ceHiring">Hiring and training allowance</label><div class="cost-field-control"><span>₹</span><input id="ceHiring" type="number" min="0" step="1000" value="10000"></div></div>
-      <div class="cost-field"><label for="ceOverhead">Benefits and employer overhead</label><div class="cost-field-control"><input id="ceOverhead" type="number" min="0" max="100" step="1" value="15"><span style="padding:0 14px 0 0">%</span></div></div>
-      <div class="cost-field full"><label for="cePlan">Compare against</label><div class="cost-field-control"><select id="cePlan"><option value="lite">AI + Human Lite · 4.5 hours</option><option value="full">AI + Human Full · 9 hours</option><option value="ai">Managed AI Support · no Novara human agent</option></select></div><small>Lite: ₹54,999 for one agent; second agent +₹37,500; each additional agent +₹20,000. Full: ₹84,999 for one agent; each additional agent +₹40,000.</small></div>
-     </div>
+ <div class="cost-estimator-shell">
+  <div class="cost-estimator-head">
+   <div><span class="cost-estimator-kicker">Ticket-volume estimator</span><h2>See where AI changes the cost of support.</h2></div>
+   <p>Start with monthly ticket volume. The estimator calculates how many conversations AI could resolve, the human capacity still required and the cost difference versus an internal team.</p>
+  </div>
+  <div class="cost-estimator-card">
+   <div class="cost-estimator-inputs">
+    <h3>Your monthly support workload</h3>
+    <p>Choose a starting scenario or adjust every assumption yourself.</p>
+    <div class="cost-presets" aria-label="AI performance assumptions">
+     <button type="button" data-eligible="70" data-resolution="70">Conservative · 49% AI resolved</button>
+     <button type="button" class="active" data-eligible="80" data-resolution="75">Expected · 60% AI resolved</button>
+     <button type="button" data-eligible="90" data-resolution="85">Optimised · 77% AI resolved</button>
     </div>
-    <div class="cost-estimator-results" aria-live="polite">
-     <h3>Your estimated comparison</h3><p>Updated instantly as you change the assumptions.</p>
-     <div class="cost-result-summary">
-      <div class="cost-result-box"><span>Internal team</span><strong id="ceInternal">₹0</strong></div>
-      <div class="cost-result-box"><span>Novara plan</span><strong id="ceNovara">₹0</strong></div>
-     </div>
-     <div class="cost-saving-hero"><span>Estimated monthly savings</span><strong id="ceMonthlySaving">₹0</strong><small id="ceSavingPercent">0% lower than the internal setup</small></div>
-     <div class="cost-breakdown">
-      <div class="cost-breakdown-row"><span>Estimated annual savings</span><b id="ceAnnualSaving">₹0</b></div>
-      <div class="cost-breakdown-row"><span>Internal cost per agent seat</span><b id="ceSeatCost">₹0</b></div>
-      <div class="cost-breakdown-row"><span>Selected Novara coverage</span><b id="cePlanLabel">Lite</b></div>
-     </div>
-     <a class="cost-estimator-cta" href="#mvp-contact">Discuss this estimate</a>
-     <p class="cost-estimator-note">Illustrative estimate only. Actual savings depend on coverage, volumes, channels, salaries and implementation scope. GST is excluded from both sides of the comparison.</p>
+    <div class="cost-estimator-fields">
+     <div class="cost-field full"><label for="ceTickets">Customer-support tickets per month</label><div class="cost-field-control"><input id="ceTickets" type="number" min="100" max="1000000" step="100" value="5000"></div><small>Include chat, WhatsApp, email and other support conversations.</small></div>
+     <div class="cost-field"><label for="ceEligible">Tickets eligible for AI</label><div class="cost-field-control"><input id="ceEligible" type="number" min="0" max="100" step="1" value="80"><span style="padding:0 14px 0 0">%</span></div></div>
+     <div class="cost-field"><label for="ceResolution">AI resolution rate</label><div class="cost-field-control"><input id="ceResolution" type="number" min="0" max="100" step="1" value="75"><span style="padding:0 14px 0 0">%</span></div></div>
+     <div class="cost-field"><label for="ceAht">Human handling time</label><div class="cost-field-control"><input id="ceAht" type="number" min="1" max="120" step="1" value="10"><span style="padding:0 14px 0 0">min</span></div></div>
+     <div class="cost-field"><label for="cePlan">Human coverage</label><div class="cost-field-control"><select id="cePlan"><option value="lite">Lite · 4.5 hours/day</option><option value="full" selected>Full · 9 hours/day</option></select></div></div>
+     <div class="cost-field full"><label for="ceSalary">Internal salary per agent</label><div class="cost-field-control"><span>₹</span><input id="ceSalary" type="number" min="0" step="1000" value="30000"></div></div>
+     <details class="cost-advanced"><summary>Advanced cost assumptions</summary><div class="cost-advanced-grid">
+      <div class="cost-field"><label for="ceLead">Team lead / QA</label><div class="cost-field-control"><span>₹</span><input id="ceLead" type="number" min="0" step="1000" value="35000"></div></div>
+      <div class="cost-field"><label for="ceTools">Support tools</label><div class="cost-field-control"><span>₹</span><input id="ceTools" type="number" min="0" step="1000" value="15000"></div></div>
+      <div class="cost-field"><label for="ceHiring">Hiring and training</label><div class="cost-field-control"><span>₹</span><input id="ceHiring" type="number" min="0" step="1000" value="10000"></div></div>
+      <div class="cost-field"><label for="ceOverhead">Employer overhead</label><div class="cost-field-control"><input id="ceOverhead" type="number" min="0" max="100" step="1" value="15"><span style="padding:0 14px 0 0">%</span></div></div>
+     </div></details>
     </div>
    </div>
-  </div>`;
+   <div class="cost-estimator-results" aria-live="polite">
+    <h3>How the workload changes</h3><p id="ceExplanation">Your calculation will appear here.</p>
+    <div class="cost-volume-flow">
+     <div class="cost-flow-step"><span>Monthly tickets</span><strong id="ceTotalTickets">0</strong><small>starting volume</small></div>
+     <div class="cost-flow-step"><span>Resolved by AI</span><strong id="ceAiTickets">0</strong><small id="ceOverallRate">0% overall</small></div>
+     <div class="cost-flow-step"><span>Need a human</span><strong id="ceHumanTickets">0</strong><small id="ceHumanHours">0 hours</small></div>
+    </div>
+    <div class="cost-result-summary">
+     <div class="cost-result-box"><span>Internal support</span><strong id="ceInternal">₹0</strong><small id="ceInternalAgents">0 agents</small></div>
+     <div class="cost-result-box"><span>Novara managed CX</span><strong id="ceNovara">₹0</strong><small id="ceNovaraAgents">0 agents</small></div>
+    </div>
+    <div class="cost-saving-hero"><span>Estimated monthly savings</span><strong id="ceMonthlySaving">₹0</strong><small id="ceSavingPercent">0% lower than an internal setup</small></div>
+    <div class="cost-breakdown">
+     <div class="cost-breakdown-row"><span>Estimated annual savings</span><b id="ceAnnualSaving">₹0</b></div>
+     <div class="cost-breakdown-row"><span>AI-resolved share of all tickets</span><b id="ceAiShare">0%</b></div>
+     <div class="cost-breakdown-row"><span>Human workload removed</span><b id="ceHoursRemoved">0 hours</b></div>
+    </div>
+    <a class="cost-estimator-cta" href="#mvp-contact">Discuss this estimate</a>
+    <p class="cost-estimator-note">Illustrative estimate, not a guaranteed outcome. Staffing is rounded up to whole agents. Calculations assume 22 working days, 75% productive occupancy, an 8-hour internal shift and the selected Novara coverage. GST is excluded.</p>
+   </div>
+  </div>
+ </div>`;
  pricing.parentNode.insertBefore(section,pricing);
  const byId=id=>section.querySelector('#'+id);
- const money=value=>'₹'+Math.round(Math.abs(value)).toLocaleString('en-IN');
+ const clamp=(number,min,max)=>Math.min(max,Math.max(min,number));
  const value=id=>Math.max(0,Number(byId(id).value)||0);
+ const money=number=>'₹'+Math.round(Math.abs(number)).toLocaleString('en-IN');
+ const plural=(number,word)=>number+' '+word+(number===1?'':'s');
  const calculate=()=>{
-  const agents=Math.max(1,Math.round(value('ceAgents')));
-  byId('ceAgents').value=agents;
-  const salary=value('ceSalary'),lead=value('ceLead'),tools=value('ceTools'),hiring=value('ceHiring'),overhead=value('ceOverhead')/100;
-  const internal=agents*salary*(1+overhead)+lead+tools+hiring;
+  const tickets=Math.max(100,Math.round(value('ceTickets')));
+  const eligible=clamp(value('ceEligible'),0,100)/100;
+  const resolution=clamp(value('ceResolution'),0,100)/100;
+  const aht=Math.max(1,value('ceAht'));
+  const salary=value('ceSalary'),lead=value('ceLead'),tools=value('ceTools'),hiring=value('ceHiring'),overhead=clamp(value('ceOverhead'),0,100)/100;
+  const aiTickets=Math.round(tickets*eligible*resolution);
+  const humanTickets=Math.max(0,tickets-aiTickets);
+  const totalHours=tickets*aht/60;
+  const humanHours=humanTickets*aht/60;
+  const hoursRemoved=totalHours-humanHours;
+  const internalCapacity=22*8*.75;
+  const internalAgents=Math.max(1,Math.ceil(totalHours/internalCapacity));
   const plan=byId('cePlan').value;
-  let novara=24999,label='Managed AI';
-  if(plan==='lite'){novara=54999+(agents>=2?37500:0)+(agents>2?(agents-2)*20000:0);label='Lite · '+agents+' agent'+(agents===1?'':'s')}
-  if(plan==='full'){novara=84999+Math.max(0,agents-1)*40000;label='Full · '+agents+' agent'+(agents===1?'':'s')}
+  const novaraCapacity=22*(plan==='lite'?4.5:9)*.75;
+  const novaraAgents=Math.max(1,Math.ceil(humanHours/novaraCapacity));
+  const internal=internalAgents*salary*(1+overhead)+lead+tools+hiring;
+  let novara,label;
+  if(plan==='lite'){
+   novara=54999+(novaraAgents>=2?37500:0)+(novaraAgents>2?(novaraAgents-2)*20000:0);
+   label='Lite';
+  }else{
+   novara=84999+Math.max(0,novaraAgents-1)*40000;
+   label='Full';
+  }
   const saving=internal-novara;
-  const percent=internal>0?saving/internal*100:0;
+  const percent=internal?saving/internal*100:0;
+  const overall=tickets?aiTickets/tickets*100:0;
+  byId('ceTotalTickets').textContent=tickets.toLocaleString('en-IN');
+  byId('ceAiTickets').textContent=aiTickets.toLocaleString('en-IN');
+  byId('ceHumanTickets').textContent=humanTickets.toLocaleString('en-IN');
+  byId('ceOverallRate').textContent=Math.round(overall)+'% overall';
+  byId('ceHumanHours').textContent=Math.round(humanHours).toLocaleString('en-IN')+' hours';
   byId('ceInternal').textContent=money(internal);
   byId('ceNovara').textContent=money(novara);
+  byId('ceInternalAgents').textContent=plural(internalAgents,'estimated agent');
+  byId('ceNovaraAgents').textContent=plural(novaraAgents,'managed agent')+' · '+label;
   byId('ceMonthlySaving').textContent=(saving<0?'−':'')+money(saving);
   byId('ceAnnualSaving').textContent=(saving<0?'−':'')+money(saving*12);
-  byId('ceSeatCost').textContent=money(internal/agents);
-  byId('cePlanLabel').textContent=label;
-  byId('ceSavingPercent').textContent=saving>=0?Math.round(percent)+'% lower than the internal setup':Math.round(Math.abs(percent))+'% above the internal setup';
+  byId('ceSavingPercent').textContent=saving>=0?Math.round(percent)+'% lower than an internal setup':Math.round(Math.abs(percent))+'% above the internal estimate';
+  byId('ceAiShare').textContent=Math.round(overall)+'%';
+  byId('ceHoursRemoved').textContent=Math.round(hoursRemoved).toLocaleString('en-IN')+' hours/month';
+  byId('ceExplanation').textContent='At these assumptions, AI resolves '+aiTickets.toLocaleString('en-IN')+' tickets before a human is needed, reducing the estimated human workload from '+Math.round(totalHours).toLocaleString('en-IN')+' to '+Math.round(humanHours).toLocaleString('en-IN')+' hours per month.';
   section.querySelector('.cost-saving-hero').style.borderColor=saving>=0?'rgba(167,216,189,.32)':'rgba(222,185,128,.38)';
+  section.querySelectorAll('.cost-presets button').forEach(button=>{
+   button.classList.toggle('active',Number(button.dataset.eligible)===Math.round(eligible*100)&&Number(button.dataset.resolution)===Math.round(resolution*100));
+  });
  };
  section.querySelectorAll('input,select').forEach(control=>control.addEventListener('input',calculate));
+ section.querySelectorAll('.cost-presets button').forEach(button=>button.addEventListener('click',()=>{
+  byId('ceEligible').value=button.dataset.eligible;
+  byId('ceResolution').value=button.dataset.resolution;
+  calculate();
+ }));
  calculate();
 })();
 </script>
