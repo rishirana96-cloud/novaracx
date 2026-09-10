@@ -1963,7 +1963,7 @@ updateProgress();
   const heroKicker=document.querySelector('#mvp-home .mvp-kicker');
   const heroCopy=document.querySelector('#mvp-home .hero-short-copy');
   if(heroKicker)heroKicker.textContent='AI support + human agents, fully managed';
-  if(heroCopy)heroCopy.textContent='Novara resolves routine customer conversations with AI and brings in trained agents when human judgement is needed—without requiring you to build an internal Customer Support team.';
+  if(heroCopy)heroCopy.textContent='Novara sets up, operates and continuously improves your customer support—combining AI automation, trained human agents and CX oversight in one managed service.';
 
   // Prepared choices make the demo immediate and predictable.
   const promptSets={
@@ -4410,8 +4410,13 @@ body.preview-is-expanded{overflow:hidden!important}
   #mvp-home .hero-cap-card p{font-size:.7rem!important;line-height:1.45!important}
 }
 #mvp-home .hero-visual-column{display:flex;flex-direction:column;width:100%;min-width:0}
+#mvp-home .hero-visual-column>.hero-outcomes-label{
+  width:100%;max-width:690px;margin:15px auto 0!important;
+  color:#52705e!important;font-size:.6rem!important;font-weight:800!important;
+  letter-spacing:.14em!important;text-transform:uppercase
+}
 #mvp-home .hero-visual-column>.hero-stats{
-  width:100%;max-width:690px;margin:14px auto 0!important;padding:0!important;
+  width:100%;max-width:690px;margin:7px auto 0!important;padding:0!important;
   display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;
   gap:10px!important;border:0!important
 }
@@ -4496,11 +4501,13 @@ body.preview-is-expanded{overflow:hidden!important}
   const hero=document.querySelector('#mvp-home .mvp-hero-grid');
   const system=hero?.querySelector('.hero-system');
   const stats=hero?.querySelector('.hero-stats');
+  const outcomes=hero?.querySelector('.hero-outcomes-label');
   if(hero&&system&&stats&&!hero.querySelector('.hero-visual-column')){
    const column=document.createElement('div');
    column.className='hero-visual-column';
    system.before(column);
-   column.append(system,stats);
+   if(outcomes)column.append(system,outcomes,stats);
+   else column.append(system,stats);
   }
 
   /* Keep Console vs Desk immediately after product comparison, within the same shell. */
