@@ -6068,7 +6068,7 @@ body.preview-is-expanded{overflow:hidden!important}
 </script>
 
 
-<!-- NOVARA_COST_ESTIMATOR_V2 -->
+<!-- NOVARA_COST_ESTIMATOR_V3 -->
 <style id="novara-cost-estimator-styles">
 .cost-estimator-section{position:relative;overflow:hidden;padding:104px 0;background:#f3f2ec;color:#13241a}
 .cost-estimator-section:before{content:"";position:absolute;right:-180px;top:-210px;width:560px;height:560px;border:1px solid rgba(50,119,80,.12);border-radius:50%;box-shadow:0 0 0 70px rgba(50,119,80,.025),0 0 0 140px rgba(50,119,80,.018)}
@@ -6081,8 +6081,8 @@ body.preview-is-expanded{overflow:hidden!important}
 .cost-estimator-inputs{padding:34px;border-right:1px solid #e0e6e2}
 .cost-estimator-inputs h3,.cost-estimator-results h3{margin:0 0 6px;font-size:1.18rem;letter-spacing:-.025em}
 .cost-estimator-inputs>p{margin:0 0 22px;color:#738078;font-size:.82rem;line-height:1.55}
-.cost-presets{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:23px}
-.cost-presets button{padding:8px 11px;border:1px solid #d6dfd9;border-radius:999px;background:#fff;color:#53645a;font:700 .66rem "General Sans",sans-serif;cursor:pointer}
+.cost-presets{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;margin-bottom:10px}
+.cost-presets button{min-height:52px;padding:9px 8px;border:1px solid #d6dfd9;border-radius:13px;background:#fff;color:#53645a;font:700 .66rem "General Sans",sans-serif;line-height:1.35;cursor:pointer}.cost-presets button b{display:block;color:#173d28;font-size:.84rem}.cost-preset-summary{margin:0 0 23px;color:#718078;font-size:.7rem;line-height:1.45}
 .cost-presets button.active{border-color:#347a53;background:#e6f0e9;color:#1e5737}
 .cost-estimator-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:17px}
 .cost-field{display:flex;flex-direction:column;gap:8px}
@@ -6138,20 +6138,21 @@ body.preview-is-expanded{overflow:hidden!important}
   <div class="cost-estimator-card">
    <div class="cost-estimator-inputs">
     <h3>Your monthly support workload</h3>
-    <p>Choose a starting scenario or adjust every assumption yourself.</p>
-    <div class="cost-presets" aria-label="AI performance assumptions">
-     <button type="button" data-eligible="70" data-resolution="70">Conservative · 49% AI resolved</button>
-     <button type="button" class="active" data-eligible="80" data-resolution="75">Expected · 60% AI resolved</button>
-     <button type="button" data-eligible="90" data-resolution="85">Optimised · 77% AI resolved</button>
+    <p>Enter your volume, then choose how much of it AI can handle.</p>
+    <div class="cost-presets" aria-label="AI handling scenarios">
+     <button type="button" data-eligible="70" data-resolution="70"><b>49%</b>Conservative</button>
+     <button type="button" class="active" data-eligible="80" data-resolution="75"><b>60%</b>Expected</button>
+     <button type="button" data-eligible="90" data-resolution="85"><b>77%</b>Optimised</button>
     </div>
+    <p class="cost-preset-summary" id="cePresetSummary">AI handles 60% of all conversations in this scenario.</p>
     <div class="cost-estimator-fields">
      <div class="cost-field full"><label for="ceTickets">Customer-support tickets per month</label><div class="cost-field-control"><input id="ceTickets" type="number" min="100" max="1000000" step="100" value="5000"></div><small>Include chat, WhatsApp, email and other support conversations.</small></div>
-     <div class="cost-field"><label for="ceEligible">Tickets eligible for AI</label><div class="cost-field-control"><input id="ceEligible" type="number" min="0" max="100" step="1" value="80"><span style="padding:0 14px 0 0">%</span></div></div>
-     <div class="cost-field"><label for="ceResolution">AI resolution rate</label><div class="cost-field-control"><input id="ceResolution" type="number" min="0" max="100" step="1" value="75"><span style="padding:0 14px 0 0">%</span></div></div>
      <div class="cost-field"><label for="ceAht">Human handling time</label><div class="cost-field-control"><input id="ceAht" type="number" min="1" max="120" step="1" value="10"><span style="padding:0 14px 0 0">min</span></div></div>
-     <div class="cost-field"><label for="cePlan">Human coverage</label><div class="cost-field-control"><select id="cePlan"><option value="lite">Lite · 4.5 hours/day</option><option value="full" selected>Full · 9 hours/day</option></select></div></div>
      <div class="cost-field full"><label for="ceSalary">Internal salary per agent</label><div class="cost-field-control"><span>₹</span><input id="ceSalary" type="number" min="0" step="1000" value="30000"></div></div>
-     <details class="cost-advanced"><summary>Advanced cost assumptions</summary><div class="cost-advanced-grid">
+     <details class="cost-advanced"><summary>Advanced assumptions and coverage</summary><div class="cost-advanced-grid">
+      <div class="cost-field"><label for="ceEligible">Tickets eligible for AI</label><div class="cost-field-control"><input id="ceEligible" type="number" min="0" max="100" step="1" value="80"><span style="padding:0 14px 0 0">%</span></div></div>
+      <div class="cost-field"><label for="ceResolution">AI resolution rate</label><div class="cost-field-control"><input id="ceResolution" type="number" min="0" max="100" step="1" value="75"><span style="padding:0 14px 0 0">%</span></div></div>
+      <div class="cost-field"><label for="cePlan">Human coverage</label><div class="cost-field-control"><select id="cePlan"><option value="lite">Lite · 4.5 hours/day</option><option value="full" selected>Full · 9 hours/day</option></select></div></div>
       <div class="cost-field"><label for="ceLead">Team lead / QA</label><div class="cost-field-control"><span>₹</span><input id="ceLead" type="number" min="0" step="1000" value="35000"></div></div>
       <div class="cost-field"><label for="ceTools">Support tools</label><div class="cost-field-control"><span>₹</span><input id="ceTools" type="number" min="0" step="1000" value="15000"></div></div>
       <div class="cost-field"><label for="ceHiring">Hiring and training</label><div class="cost-field-control"><span>₹</span><input id="ceHiring" type="number" min="0" step="1000" value="10000"></div></div>
@@ -6160,17 +6161,17 @@ body.preview-is-expanded{overflow:hidden!important}
     </div>
    </div>
    <div class="cost-estimator-results" aria-live="polite">
-    <h3>How the workload changes</h3><p id="ceExplanation">Your calculation will appear here.</p>
+    <h3>What this means for your support team</h3><p id="ceExplanation">Your calculation will appear here.</p>
     <div class="cost-volume-flow">
-     <div class="cost-flow-step"><span>Monthly tickets</span><strong id="ceTotalTickets">0</strong><small>starting volume</small></div>
-     <div class="cost-flow-step"><span>Resolved by AI</span><strong id="ceAiTickets">0</strong><small id="ceOverallRate">0% overall</small></div>
-     <div class="cost-flow-step"><span>Need a human</span><strong id="ceHumanTickets">0</strong><small id="ceHumanHours">0 hours</small></div>
+     <div class="cost-flow-step"><span>Monthly conversations</span><strong id="ceTotalTickets">0</strong><small>starting volume</small></div>
+     <div class="cost-flow-step"><span>Handled by AI</span><strong id="ceAiTickets">0</strong><small id="ceOverallRate">0% overall</small></div>
+     <div class="cost-flow-step"><span>Left for people</span><strong id="ceHumanTickets">0</strong><small id="ceHumanHours">0 hours</small></div>
     </div>
     <div class="cost-result-summary">
-     <div class="cost-result-box"><span>Internal support</span><strong id="ceInternal">₹0</strong><small id="ceInternalAgents">0 agents</small></div>
+     <div class="cost-result-box"><span>Traditional internal team</span><strong id="ceInternal">₹0</strong><small id="ceInternalAgents">0 agents</small></div>
      <div class="cost-result-box"><span>Novara managed CX</span><strong id="ceNovara">₹0</strong><small id="ceNovaraAgents">0 agents</small></div>
     </div>
-    <div class="cost-saving-hero"><span>Estimated monthly savings</span><strong id="ceMonthlySaving">₹0</strong><small id="ceSavingPercent">0% lower than an internal setup</small></div>
+    <div class="cost-saving-hero"><span>Illustrative monthly savings</span><strong id="ceMonthlySaving">₹0</strong><small id="ceSavingPercent">0% lower than an internal setup</small></div>
     <div class="cost-breakdown">
      <div class="cost-breakdown-row"><span>Estimated annual savings</span><b id="ceAnnualSaving">₹0</b></div>
      <div class="cost-breakdown-row"><span>AI-resolved share of all tickets</span><b id="ceAiShare">0%</b></div>
@@ -6222,12 +6223,13 @@ body.preview-is-expanded{overflow:hidden!important}
   byId('ceHumanHours').textContent=Math.round(humanHours).toLocaleString('en-IN')+' hours';
   byId('ceInternal').textContent=money(internal);
   byId('ceNovara').textContent=money(novara);
-  byId('ceInternalAgents').textContent=plural(internalAgents,'estimated agent');
-  byId('ceNovaraAgents').textContent=plural(novaraAgents,'managed agent')+' · '+label;
+  byId('ceInternalAgents').textContent=plural(internalAgents,'agent')+' · without AI automation';
+  byId('ceNovaraAgents').textContent=plural(novaraAgents,'managed agent')+' · after AI · '+label;
   byId('ceMonthlySaving').textContent=(saving<0?'−':'')+money(saving);
   byId('ceAnnualSaving').textContent=(saving<0?'−':'')+money(saving*12);
   byId('ceSavingPercent').textContent=saving>=0?Math.round(percent)+'% lower than an internal setup':Math.round(Math.abs(percent))+'% above the internal estimate';
   byId('ceAiShare').textContent=Math.round(overall)+'%';
+  byId('cePresetSummary').textContent='AI handles '+Math.round(overall)+'% of all conversations in this scenario.';
   byId('ceHoursRemoved').textContent=Math.round(hoursRemoved).toLocaleString('en-IN')+' hours/month';
   byId('ceExplanation').textContent='At these assumptions, AI resolves '+aiTickets.toLocaleString('en-IN')+' tickets before a human is needed, reducing the estimated human workload from '+Math.round(totalHours).toLocaleString('en-IN')+' to '+Math.round(humanHours).toLocaleString('en-IN')+' hours per month.';
   section.querySelector('.cost-saving-hero').style.borderColor=saving>=0?'rgba(167,216,189,.32)':'rgba(222,185,128,.38)';
