@@ -7279,5 +7279,42 @@ body.preview-is-expanded{overflow:hidden!important}
 #mvp-home .hero-outcomes-label{margin-top:22px;color:rgba(224,237,229,.48);font-size:.58rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase}
 #mvp-home .hero-outcomes-label+.hero-stats{margin-top:7px!important}
 </style>
+
+<!-- NOVARA_SECTION_NUMBERING_FINAL_V1 -->
+<script id="novara-section-numbering-final-v1">
+(()=>{
+  const applyFinalSectionNumbers=()=>{
+    const set=(selector,text)=>{
+      const node=document.querySelector(selector);
+      if(node)node.textContent=text;
+    };
+
+    set('#novara-operating-approach .mvp-kicker','05 / HOW WE WORK');
+    set('#mvp-platform .mvp-kicker','06 / NOVARADESK');
+    set('#mvp-product-tour .mvp-kicker','07 / INSIDE NOVARADESK');
+    set('#mvp-pricing .mvp-kicker','08 / THE PLANS');
+    set('.about-v2 .mvp-kicker','09 / ABOUT NOVARA');
+
+    const faq=document.querySelector('.mvp-faq');
+    if(faq){
+      const intro=faq.querySelector('.mvp-faq-grid>div:first-child');
+      let kicker=faq.querySelector('.mvp-kicker');
+      if(!kicker&&intro){
+        kicker=document.createElement('span');
+        kicker.className='mvp-kicker editorial-label';
+        intro.prepend(kicker);
+      }
+      if(kicker)kicker.textContent='10 / FAQS';
+    }
+  };
+
+  if(document.readyState==='loading'){
+    document.addEventListener('DOMContentLoaded',()=>setTimeout(applyFinalSectionNumbers,1300),{once:true});
+  }else{
+    setTimeout(applyFinalSectionNumbers,1300);
+  }
+})();
+</script>
+
 </body>
 </html>
