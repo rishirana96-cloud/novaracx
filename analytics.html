@@ -6250,6 +6250,109 @@
         }
     </style>
 
+
+<!-- NOVARA_AUTH_SERVICE_LAYERS_V1 -->
+<style id="novara-auth-service-layers-v1">
+.novara-auth-brand::before{display:none!important}
+.novara-auth-eyebrow{
+    color:rgba(207,235,218,.78)!important;
+    font-size:15px!important;
+    font-weight:500!important;
+    letter-spacing:0!important;
+    line-height:1.45!important;
+    text-transform:none!important
+}
+.auth-service-layers{
+    position:absolute;
+    right:-118px;
+    bottom:-92px;
+    z-index:0;
+    width:620px;
+    height:620px;
+    pointer-events:none
+}
+.auth-layer-ring{
+    position:absolute;
+    border:1px solid rgba(167,216,189,.18);
+    border-radius:50%;
+    background:rgba(167,216,189,.018)
+}
+.auth-layer-ring-outer{inset:0}
+.auth-layer-ring-middle{inset:92px}
+.auth-layer-ring-inner{inset:184px;background:rgba(167,216,189,.035)}
+.auth-layer-node{
+    position:absolute;
+    display:flex;
+    align-items:center;
+    gap:11px;
+    min-width:176px;
+    padding:11px 14px 11px 11px;
+    border:1px solid rgba(180,225,197,.24);
+    border-radius:14px;
+    background:rgba(8,45,32,.74);
+    box-shadow:0 14px 36px rgba(0,0,0,.14),inset 0 1px 0 rgba(255,255,255,.05);
+    color:#f5faf7;
+    backdrop-filter:blur(12px)
+}
+.auth-layer-icon{
+    display:grid;
+    place-items:center;
+    flex:0 0 38px;
+    width:38px;
+    height:38px;
+    border:1px solid rgba(184,226,200,.25);
+    border-radius:11px;
+    background:rgba(167,216,189,.1);
+    color:#a7d8bd
+}
+.auth-layer-icon svg{
+    width:21px;
+    height:21px;
+    fill:none;
+    stroke:currentColor;
+    stroke-width:1.7;
+    stroke-linecap:round;
+    stroke-linejoin:round
+}
+.auth-layer-node small,.auth-layer-node strong{display:block}
+.auth-layer-node small{
+    color:rgba(202,231,213,.56);
+    font-size:8px;
+    font-weight:700;
+    letter-spacing:.09em;
+    line-height:1.25;
+    text-transform:uppercase
+}
+.auth-layer-node strong{
+    margin-top:3px;
+    color:#f6fbf8;
+    font-size:12px;
+    font-weight:650;
+    line-height:1.25
+}
+.auth-layer-ai{left:-14px;top:96px}
+.auth-layer-human{right:5px;top:265px}
+.auth-layer-analytics{left:70px;bottom:35px}
+@media(max-width:1100px){
+    .auth-service-layers{right:-210px;opacity:.72}
+}
+@media(max-width:850px){
+    .auth-service-layers{
+        right:-150px;
+        bottom:-260px;
+        width:500px;
+        height:500px;
+        opacity:.42
+    }
+    .auth-layer-ring-middle{inset:74px}
+    .auth-layer-ring-inner{inset:148px}
+    .auth-layer-node{display:none}
+    .novara-auth-eyebrow{font-size:14px!important}
+}
+@media(prefers-reduced-motion:reduce){
+    .auth-service-layers,.auth-layer-node{animation:none!important}
+}
+</style>
 </head>
 
 
@@ -6258,6 +6361,32 @@
 <div class="novara-auth-screen" id="novaraAuthScreen" aria-label="NovaraDesk sign in">
     <section class="novara-auth-brand">
         <div class="novara-auth-logo"><img src="assets/logo-mark.png" alt=""><div>Novara<span>Desk</span></div></div>
+        <div class="auth-service-layers" aria-hidden="true">
+            <div class="auth-layer-ring auth-layer-ring-outer"></div>
+            <div class="auth-layer-ring auth-layer-ring-middle"></div>
+            <div class="auth-layer-ring auth-layer-ring-inner"></div>
+
+            <div class="auth-layer-node auth-layer-ai">
+                <span class="auth-layer-icon">
+                    <svg viewBox="0 0 24 24"><path d="M5 5.5h14a2.5 2.5 0 0 1 2.5 2.5v7a2.5 2.5 0 0 1-2.5 2.5h-7l-5 3v-3H5A2.5 2.5 0 0 1 2.5 15V8A2.5 2.5 0 0 1 5 5.5Z"/><path d="M8 11.5h.01M12 11.5h.01M16 11.5h.01"/></svg>
+                </span>
+                <span><small>01 · AI layer</small><strong>AI Support</strong></span>
+            </div>
+
+            <div class="auth-layer-node auth-layer-human">
+                <span class="auth-layer-icon">
+                    <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c.7-5 3-7.5 7-7.5s6.3 2.5 7 7.5"/></svg>
+                </span>
+                <span><small>02 · Human layer</small><strong>Human Experts</strong></span>
+            </div>
+
+            <div class="auth-layer-node auth-layer-analytics">
+                <span class="auth-layer-icon">
+                    <svg viewBox="0 0 24 24"><path d="M4 20V10M10 20V5M16 20v-7M22 20V8"/><path d="m3 7 6-4 7 5 6-4"/></svg>
+                </span>
+                <span><small>03 · Management layer</small><strong>Managed Analytics</strong></span>
+            </div>
+        </div>
         <div class="novara-auth-promise">
             <div class="novara-auth-eyebrow">Your customer experience workspace</div>
             <h1>One clear view of every customer conversation.</h1>
