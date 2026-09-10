@@ -7326,5 +7326,29 @@ body.preview-is-expanded{overflow:hidden!important}
   color:#718078;font-size:.58rem;line-height:1.45;text-align:left
 }
 </style>
+
+<!-- NOVARA_HOW_NAV_FIX_V1 -->
+<style>
+#mvp-how{scroll-margin-top:88px}
+</style>
+<script>
+document.addEventListener('click',function(event){
+    const link=event.target.closest('a[href="#mvp-how"]');
+    if(!link)return;
+    const section=document.getElementById('mvp-how');
+    if(!section)return;
+    event.preventDefault();
+    const header=document.getElementById('header');
+    const offset=(header?header.getBoundingClientRect().height:0)+12;
+    const top=section.getBoundingClientRect().top+window.scrollY-offset;
+    window.scrollTo({
+        top:Math.max(0,top),
+        behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'
+    });
+    if(history.replaceState)history.replaceState(null,'','#mvp-how');
+    const nav=document.getElementById('navLinks');
+    if(nav)nav.classList.remove('open');
+});
+</script>
 </body>
 </html>
