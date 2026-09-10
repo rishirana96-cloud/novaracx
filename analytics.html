@@ -6262,52 +6262,73 @@
     line-height:1.45!important;
     text-transform:none!important
 }
+.novara-auth-promise{padding-bottom:104px}
+.novara-auth-points{display:none!important}
 .auth-service-layers{
     position:absolute;
-    right:-118px;
-    bottom:-92px;
-    z-index:0;
-    width:620px;
-    height:620px;
+    right:clamp(30px,4.5vw,68px);
+    bottom:44px;
+    left:clamp(36px,6vw,84px);
+    z-index:2;
+    display:grid;
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    gap:10px;
+    align-items:end;
     pointer-events:none
 }
 .auth-layer-ring{
     position:absolute;
-    border:1px solid rgba(167,216,189,.18);
+    z-index:-1;
+    left:68%;
+    bottom:-360px;
+    width:690px;
+    height:690px;
+    transform:translateX(-50%);
+    border:1px solid rgba(167,216,189,.16);
     border-radius:50%;
-    background:rgba(167,216,189,.018)
+    background:rgba(167,216,189,.014)
 }
-.auth-layer-ring-outer{inset:0}
-.auth-layer-ring-middle{inset:92px}
-.auth-layer-ring-inner{inset:184px;background:rgba(167,216,189,.035)}
+.auth-layer-ring-middle{
+    bottom:-270px;
+    width:510px;
+    height:510px;
+    background:rgba(167,216,189,.022)
+}
+.auth-layer-ring-inner{
+    bottom:-180px;
+    width:330px;
+    height:330px;
+    background:rgba(167,216,189,.035)
+}
 .auth-layer-node{
-    position:absolute;
+    position:relative;
     display:flex;
     align-items:center;
-    gap:11px;
-    min-width:176px;
-    padding:11px 14px 11px 11px;
+    gap:10px;
+    min-width:0;
+    min-height:62px;
+    padding:10px 11px;
     border:1px solid rgba(180,225,197,.24);
     border-radius:14px;
-    background:rgba(8,45,32,.74);
-    box-shadow:0 14px 36px rgba(0,0,0,.14),inset 0 1px 0 rgba(255,255,255,.05);
+    background:rgba(8,45,32,.82);
+    box-shadow:0 14px 32px rgba(0,0,0,.13),inset 0 1px 0 rgba(255,255,255,.05);
     color:#f5faf7;
     backdrop-filter:blur(12px)
 }
 .auth-layer-icon{
     display:grid;
     place-items:center;
-    flex:0 0 38px;
-    width:38px;
-    height:38px;
+    flex:0 0 36px;
+    width:36px;
+    height:36px;
     border:1px solid rgba(184,226,200,.25);
-    border-radius:11px;
+    border-radius:10px;
     background:rgba(167,216,189,.1);
     color:#a7d8bd
 }
 .auth-layer-icon svg{
-    width:21px;
-    height:21px;
+    width:20px;
+    height:20px;
     fill:none;
     stroke:currentColor;
     stroke-width:1.7;
@@ -6316,36 +6337,52 @@
 }
 .auth-layer-node small,.auth-layer-node strong{display:block}
 .auth-layer-node small{
-    color:rgba(202,231,213,.56);
-    font-size:8px;
+    overflow:hidden;
+    color:rgba(202,231,213,.58);
+    font-size:7px;
     font-weight:700;
-    letter-spacing:.09em;
+    letter-spacing:.075em;
     line-height:1.25;
-    text-transform:uppercase
+    text-overflow:ellipsis;
+    text-transform:uppercase;
+    white-space:nowrap
 }
 .auth-layer-node strong{
+    overflow:hidden;
     margin-top:3px;
     color:#f6fbf8;
-    font-size:12px;
+    font-size:11px;
     font-weight:650;
-    line-height:1.25
+    line-height:1.25;
+    text-overflow:ellipsis;
+    white-space:nowrap
 }
-.auth-layer-ai{left:-14px;top:96px}
-.auth-layer-human{right:5px;top:265px}
-.auth-layer-analytics{left:70px;bottom:35px}
-@media(max-width:1100px){
-    .auth-service-layers{right:-210px;opacity:.72}
+.auth-layer-ai,.auth-layer-human,.auth-layer-analytics{
+    inset:auto
+}
+@media(max-width:1250px){
+    .auth-service-layers{
+        right:28px;
+        left:40px;
+        gap:8px
+    }
+    .auth-layer-node{padding:9px;gap:8px}
+    .auth-layer-icon{flex-basis:32px;width:32px;height:32px}
+    .auth-layer-node small{font-size:6.5px}
+    .auth-layer-node strong{font-size:10px}
 }
 @media(max-width:850px){
+    .novara-auth-promise{padding-bottom:0}
     .auth-service-layers{
-        right:-150px;
-        bottom:-260px;
+        right:-90px;
+        bottom:-250px;
+        left:auto;
+        display:block;
         width:500px;
         height:500px;
-        opacity:.42
+        opacity:.38
     }
-    .auth-layer-ring-middle{inset:74px}
-    .auth-layer-ring-inner{inset:148px}
+    .auth-layer-ring{left:50%}
     .auth-layer-node{display:none}
     .novara-auth-eyebrow{font-size:14px!important}
 }
