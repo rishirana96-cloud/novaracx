@@ -7338,6 +7338,7 @@ document.addEventListener('click',function(event){
     const section=document.getElementById('novara-operating-approach');
     if(!section)return;
     event.preventDefault();
+    event.stopImmediatePropagation();
     const header=document.getElementById('header');
     const offset=(header?header.getBoundingClientRect().height:0)+12;
     const top=section.getBoundingClientRect().top+window.scrollY-offset;
@@ -7348,7 +7349,7 @@ document.addEventListener('click',function(event){
     if(history.replaceState)history.replaceState(null,'','#novara-operating-approach');
     const nav=document.getElementById('navLinks');
     if(nav)nav.classList.remove('open');
-});
+},true);
 </script>
 </body>
 </html>
