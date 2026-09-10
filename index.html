@@ -2161,9 +2161,9 @@ updateProgress();
     ['.about-v2 .mvp-kicker','07 / About Novara']
   ];
   sectionLabels.forEach(([selector,text])=>{const node=document.querySelector(selector);if(node)node.textContent=text});
-  document.querySelector('#novara-operating-approach')?.remove();
+  document.querySelector('#mvp-how')?.remove();
   document.querySelector('#mvp-deployment')?.remove();
-  document.querySelectorAll('body>header a[href="#novara-operating-approach"],body>header a[href="#mvp-deployment"],.mvp-footer a[href="#novara-operating-approach"],.mvp-footer a[href="#mvp-deployment"],#mvp-home a[href="#novara-operating-approach"]').forEach(link=>link.closest('li')?.remove()||link.remove());
+  document.querySelectorAll('body>header a[href="#mvp-deployment"],.mvp-footer a[href="#mvp-deployment"]').forEach(link=>link.closest('li')?.remove()||link.remove());
   document.querySelector('.cx-model')?.remove();
 })();
 </script>
