@@ -6251,84 +6251,152 @@
     </style>
 
 
-<!-- NOVARA_AUTH_SERVICE_LAYERS_V1 -->
-<style id="novara-auth-service-layers-v1">
-.novara-auth-brand::before{display:none!important}
+<!-- NOVARA_AUTH_SERVICE_LAYERS_V2 -->
+<style id="novara-auth-service-layers-v2">
+.novara-auth-screen{background:#f purported}
+.novara-auth-brand{
+    position:relative;
+    display:grid;
+    grid-template-columns:minmax(0,,1fr) minmax(230px,290px);
+    grid-template-rows:auto 1fr;
+    column-gap:clamp(28px,3vw,48px);
+    padding:clamp(46px,5vw,88px);
+    background:
+        radial-gradient(circle at 88% 18%,rgba(167,216,189,.10),transparent 29%),
+        radial-gradient(circle at 8% 94%,rgba(167,216,189,.07),transparent 32%),
+        #062d20;
+    color:#f7fbf8
+}
+.novara-auth-brand::before{
+    content:"";
+    position:absolute;
+    right:clamp(40px,6vw,104px);
+    bottom:clamp(34px,5vw,82px);
+    left:clamp(40px,6vw,104px);
+    height:1px;
+    border-radius:0;
+    background:linear-gradient(90deg,rgba(167,216,189,.24),rgba(167,216,189,0));
+    box-shadow:none
+}
+.novara-auth-logo{
+    grid-column:1/-1;
+    grid-row:1;
+    position:relative;
+    z-index:3;
+    align-self:start
+}
+.novara-auth-promise{
+    grid-column:1;
+    grid-row:2;
+    position:relative;
+    z-index:2;
+    align-self:center;
+    max-width:500px;
+    padding:0 0 54px
+}
 .novara-auth-eyebrow{
-    color:rgba(207,235,218,.78)!important;
-    font-size:15px!important;
-    font-weight:500!important;
-    letter-spacing:0!important;
-    line-height:1.45!important;
+    margin-bottom:18px;
+    color:#a7d8bd!important;
+    font-size:13px!important;
+    font-weight:650!important;
+    letter-spacing:.02em!important;
+    line-height:1.4!important;
     text-transform:none!important
 }
-.novara-auth-promise{padding-bottom:104px}
+.novara-auth-promise h1{
+    margin:0 0 24px;
+    max-width:500px;
+    font-size:clamp(48px,3.65vw,64px);
+    font-weight:720;
+    line-height:1.01;
+    letter-spacing:-.057em
+}
+.novara-auth-promise p{
+    margin:0;
+    max-width:460px;
+    color:rgba(231,242,235,.70);
+    font-size:16px;
+    line-height:1.65
+}
 .novara-auth-points{display:none!important}
 .auth-service-layers{
-    position:absolute;
-    right:clamp(30px,4.5vw,68px);
-    bottom:44px;
-    left:clamp(36px,6vw,84px);
+    grid-column:2;
+    grid-row:2;
+    position:relative;
     z-index:2;
-    display:grid;
-    grid-template-columns:repeat(3,minmax(0,1fr));
-    gap:10px;
-    align-items:end;
+    align-self:center;
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+    width:100%;
+    height:auto;
+    padding:62px 0 54px;
     pointer-events:none
 }
-.auth-layer-ring{
+.auth-service-layers::before{
+    content:"Managed CX, layer by layer";
     position:absolute;
+    top:17px;
+    left:2px;
+    color:rgba(207,235,218,.64);
+    font-size:10px;
+    font-weight:750;
+    letter-spacing:.12em;
+    text-transform:uppercase
+}
+.auth-service-layers::after{
+    content:"";
+    position:absolute;
+    top:82px;
+    bottom:76px;
+    left:25px;
     z-index:-1;
-    left:68%;
-    bottom:-360px;
-    width:690px;
-    height:690px;
-    transform:translateX(-50%);
-    border:1px solid rgba(167,216,189,.16);
-    border-radius:50%;
-    background:rgba(167,216,189,.014)
+    width:1px;
+    background:linear-gradient(#a7d8bd,rgba(167,216,189,.22))
 }
-.auth-layer-ring-middle{
-    bottom:-270px;
-    width:510px;
-    height:510px;
-    background:rgba(167,216,189,.022)
-}
-.auth-layer-ring-inner{
-    bottom:-180px;
-    width:330px;
-    height:330px;
-    background:rgba(167,216,189,.035)
-}
+.auth-layer-ring{display:none}
 .auth-layer-node{
     position:relative;
+    inset:auto;
     display:flex;
     align-items:center;
-    gap:10px;
+    gap:13px;
     min-width:0;
-    min-height:62px;
-    padding:10px 11px;
-    border:1px solid rgba(180,225,197,.24);
-    border-radius:14px;
-    background:rgba(8,45,32,.82);
-    box-shadow:0 14px 32px rgba(0,0,0,.13),inset 0 1px 0 rgba(255,255,255,.05);
+    min-height:76px;
+    padding:13px 14px;
+    border:1px solid rgba(181,225,198,.22);
+    border-radius:17px;
+    background:linear-gradient(135deg,rgba(18,66,48,.96),rgba(8,45,32,.94));
+    box-shadow:0 18px 44px rgba(0,0,0,.16),inset 0 1px 0 rgba(255,255,255,.055);
     color:#f5faf7;
-    backdrop-filter:blur(12px)
+    backdrop-filter:blur(14px)
 }
+.auth-layer-node::after{
+    content:"";
+    position:absolute;
+    top:calc(100% + 4px);
+    left:22px;
+    width:7px;
+    height:7px;
+    border-right:1px solid rgba(167,216,189,.7);
+    border-bottom:1px solid rgba(167,216,189,.7);
+    transform:rotate(45deg)
+}
+.auth-layer-node:last-child::after{display:none}
 .auth-layer-icon{
     display:grid;
     place-items:center;
-    flex:0 0 36px;
-    width:36px;
-    height:36px;
-    border:1px solid rgba(184,226,200,.25);
-    border-radius:10px;
-    background:rgba(167,216,189,.1);
+    flex:0 0 42px;
+    width:42px;
+    height:42px;
+    border:1px solid rgba(184,226,200,.28);
+    border-radius:13px;
+    background:rgba(167,216,189,.11);
     color:#a7d8bd
 }
 .auth-layer-icon svg{
-    width:20px;
-    height:20px;
+    width:22px;
+    height:22px;
     fill:none;
     stroke:currentColor;
     stroke-width:1.7;
@@ -6337,54 +6405,50 @@
 }
 .auth-layer-node small,.auth-layer-node strong{display:block}
 .auth-layer-node small{
-    overflow:hidden;
-    color:rgba(202,231,213,.58);
-    font-size:7px;
-    font-weight:700;
-    letter-spacing:.075em;
+    color:rgba(202,231,213,.57);
+    font-size:8px;
+    font-weight:750;
+    letter-spacing:.095em;
     line-height:1.25;
-    text-overflow:ellipsis;
     text-transform:uppercase;
     white-space:nowrap
 }
 .auth-layer-node strong{
-    overflow:hidden;
-    margin-top:3px;
+    margin-top:4px;
     color:#f6fbf8;
-    font-size:11px;
-    font-weight:650;
+    font-size:13px;
+    font-weight:680;
     line-height:1.25;
-    text-overflow:ellipsis;
     white-space:nowrap
 }
-.auth-layer-ai,.auth-layer-human,.auth-layer-analytics{
-    inset:auto
-}
+.auth-layer-human{margin-left:14px}
+.auth-layer-analytics{margin-left:28px}
 @media(max-width:1250px){
-    .auth-service-layers{
-        right:28px;
-        left:40px;
-        gap:8px
+    .novara-auth-brand{
+        grid-template-columns:minmax(0,1fr) 215px;
+        column-gap:24px;
+        padding:50px 44px
     }
-    .auth-layer-node{padding:9px;gap:8px}
-    .auth-layer-icon{flex-basis:32px;width:32px;height:32px}
+    .novara-auth-promise h1{font-size:clamp(43px,4.4vw,54px)}
+    .auth-layer-node{min-height:68px;padding:11px;gap:9px}
+    .auth-layer-icon{flex-basis:36px;width:36px;height:36px;border-radius:11px}
     .auth-layer-node small{font-size:6.5px}
-    .auth-layer-node strong{font-size:10px}
+    .auth-layer-node strong{font-size:11px}
+    .auth-layer-human{margin-left:8px}
+    .auth-layer-analytics{margin-left:16px}
 }
 @media(max-width:850px){
-    .novara-auth-promise{padding-bottom:0}
-    .auth-service-layers{
-        right:-90px;
-        bottom:-250px;
-        left:auto;
-        display:block;
-        width:500px;
-        height:500px;
-        opacity:.38
+    .novara-auth-brand{
+        display:flex;
+        min-height:34vh;
+        padding:30px;
+        background:#062d20
     }
-    .auth-layer-ring{left:50%}
-    .auth-layer-node{display:none}
-    .novara-auth-eyebrow{font-size:14px!important}
+    .novara-auth-promise{max-width:560px;padding:0}
+    .novara-auth-promise h1{margin:14px 0 0;font-size:42px}
+    .novara-auth-promise p,.auth-service-layers{display:none}
+    .novara-auth-eyebrow{margin-bottom:0;font-size:14px!important}
+    .novara-auth-brand::before{display:none}
 }
 @media(prefers-reduced-motion:reduce){
     .auth-service-layers,.auth-layer-node{animation:none!important}
@@ -6421,7 +6485,7 @@
                 <span class="auth-layer-icon">
                     <svg viewBox="0 0 24 24"><path d="M4 20V10M10 20V5M16 20v-7M22 20V8"/><path d="m3 7 6-4 7 5 6-4"/></svg>
                 </span>
-                <span><small>03 · Management layer</small><strong>Managed Analytics</strong></span>
+                <span><small>03 · CX oversight</small><strong>Managed Insights</strong></span>
             </div>
         </div>
         <div class="novara-auth-promise">
