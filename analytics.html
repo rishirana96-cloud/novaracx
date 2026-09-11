@@ -6474,6 +6474,31 @@
     .novara-auth-card{padding-top:34px;padding-bottom:34px}
 }
 </style>
+
+<!-- NOVARA_AUTH_TAGLINE_LOCKUP_V1 -->
+<style id="novara-auth-tagline-lockup-v1">
+.novara-auth-brand-head{
+    position:relative;
+    z-index:3
+}
+.novara-auth-brand-head .novara-auth-eyebrow{
+    margin:11px 0 0;
+    color:rgba(207,235,218,.76)!important
+}
+@media(min-width:851px){
+    .novara-auth-promise{padding-bottom:146px}
+    .novara-auth-promise h1{margin-top:0}
+}
+@media(min-width:851px) and (max-height:780px){
+    .novara-auth-promise{padding-bottom:122px}
+}
+@media(max-width:850px){
+    .novara-auth-brand-head .novara-auth-eyebrow{
+        margin-top:8px;
+        font-size:13px!important
+    }
+}
+</style>
 </head>
 
 
@@ -6481,7 +6506,7 @@
 
 <div class="novara-auth-screen" id="novaraAuthScreen" aria-label="NovaraDesk sign in">
     <section class="novara-auth-brand">
-        <div class="novara-auth-logo"><img src="assets/logo-mark.png" alt=""><div>Novara<span>Desk</span></div></div>
+        <div class="novara-auth-brand-head"><div class="novara-auth-logo"><img src="assets/logo-mark.png" alt=""><div>Novara<span>Desk</span></div></div><div class="novara-auth-eyebrow">Your customer experience workspace</div></div>
         <div class="auth-service-layers" aria-hidden="true">
             <div class="auth-layer-ring auth-layer-ring-outer"></div>
             <div class="auth-layer-ring auth-layer-ring-middle"></div>
@@ -6509,7 +6534,6 @@
             </div>
         </div>
         <div class="novara-auth-promise">
-            <div class="novara-auth-eyebrow">Your customer experience workspace</div>
             <h1>One clear view of every customer conversation.</h1>
             <p>Monitor AI performance, manage escalations and give your team the context they need—all from one secure workspace.</p>
             <div class="novara-auth-points"><span>AI + human support</span><span>Live performance visibility</span><span>Secure access</span></div>
