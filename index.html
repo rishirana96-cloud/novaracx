@@ -2115,8 +2115,7 @@ updateProgress();
       const sidebarCandidates=[...doc.querySelectorAll('.sidebar,#sidebar,[data-sidebar],[class*="sidebar"],[class*="side-nav"],[class*="sidenav"]')].filter(el=>el.offsetHeight>250&&el.querySelectorAll('a[href],button').length>=2);
       const sidebar=sidebarCandidates.sort((a,b)=>b.querySelectorAll('a[href],button').length-a.querySelectorAll('a[href],button').length)[0];
       if(sidebar){
-        sidebar.classList.remove('collapsed','is-collapsed','closed');
-        sidebar.classList.add('expanded','is-expanded','novara-demo-sidebar');
+        sidebar.classList.add('novara-demo-sidebar');
         Object.assign(sidebar.style,{position:'sticky',top:'0px',height:'100vh',overflowY:'auto',overflowX:'hidden',overscrollBehavior:'contain'});
         if(!sidebar.dataset.novaraDemoBound){
           sidebar.dataset.novaraDemoBound='true';
@@ -7380,106 +7379,163 @@ document.addEventListener('click',function(event){
 })();
 </script>
 
-<!-- NOVARADESK_CHATGPT_SIDEBAR_PIN_V1 -->
-<script id="novaradesk-chatgpt-sidebar-pin-v1">
+<!-- NOVARADESK_CHATGPT_SIDEBAR_PIN_V2 -->
+<script id="novaradesk-chatgpt-sidebar-pin-v2">
 (()=>{
-  const STORAGE_KEY='novaradesk-sidebar-pinned';
+  const STORAGE_KEY='novaradesk-sidebar-pinned-v2';
 
-  const installInFrame=frame=>{
+  function install(frame){
     let doc,win;
-    try{doc=frame.contentDocument;win=frame.contentWindow}catch(e){return}
-    if(!doc?.body||!win)return;
+    try{doc=frame.contentDocument;win=frame.contentWindow}catch(e){return false}
+    if(!doc?.body||!win)return false;
 
-    const candidates=[...doc.querySelectorAll('.sidebar,#sidebar,[data-sidebar],[class*="sidebar"],[class*="side-nav"],[class*="sidenav"]')]
-      .filter(el=>el.offsetHeight>250&&el.querySelectorAll('a[href],button').length>=2);
-    const sidebar=candidates.sort((a,b)=>b.querySelectorAll('a[href],button').length-a.querySelectorAll('a[href],button').length)[0];
-    if(!sidebar)return;
-    if(sidebar.dataset.chatgptPinReady==='true')return;
-    sidebar.dataset.chatgptPinReady='true';
+    const sidebars=[...doc.querySelectorAll('.sidebar,#sidebar,[data-sidebar],[class*="sidebar"],[class*="side-nav"],[class*="sidenav"]')]
+      .filter(el=>el.offsetHeight>240&&el.querySelectorAll('a,button').length>=2);
+    const sidebar=sidebars.sort((a,b)=>b.querySelectorAll('a,button').length-a.querySelectorAll('a,button').length)[0];
+    if(!sidebar)return false;
+
+    // Reinstall cleanly if this frame has been re-rendered.
+    doc.getElementById('novara-chatgpt-sidebar-style-v2')?.remove();
+    sidebar.querySelector('.novara-chatgpt-pin-v2')?.remove();
 
     const style=doc.createElement('style');
-    style.id='novaradesk-chatgpt-sidebar-pin-style';
+    style.id='novara-chatgpt-sidebar-style-v2';
     style.textContent=`
-      .novara-pin-host{position:relative!important}
-      .novara-sidebar-pin{
-        position:absolute;top:50%;right:8px;transform:translateY(-50%);
-        width:30px;height:30px;border:0;border-radius:8px;background:transparent;
-        color:#5f6d66;display:grid;place-items:center;cursor:pointer;
-        opacity:0;pointer-events:none;transition:opacity .14s ease,background .14s ease,color .14s ease;
-        z-index:50
+      .novara-demo-sidebar{
+        transition:width .18s ease,min-width .18s ease,max-width .18s ease!important;
       }
-      .novara-sidebar-pin:hover{background:rgba(23,49,37,.08);color:#173125}
-      .novara-sidebar-pin svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round}
-      .novara-pin-host:hover .novara-sidebar-pin,
-      .novara-sidebar-pin:focus-visible,
-      .novara-demo-sidebar.is-expanded .novara-sidebar-pin,
-      .novara-demo-sidebar.expanded .novara-sidebar-pin{opacity:1;pointer-events:auto}
-      .novara-sidebar-pin:focus-visible{outline:2px solid rgba(23,49,37,.28);outline-offset:2px}
+      .novara-demo-sidebar.nv-collapsed{
+        width:72px!important;min-width:72px!important;max-width:72px!important;
+      }
+      .novara-demo-sidebar.nv-expanded{
+        width:232px!important;min-width:232px!important;max-width:232px!important;
+      }
+
+      .novara-demo-sidebar.nv-collapsed .novara-hide-when-collapsed{
+        opacity:0!important;visibility:hidden!important;pointer-events:none!important;
+      }
+
+      .novara-pin-anchor-v2{
+        position:relative!important;
+        min-height:44px!important;
+      }
+      .novara-chatgpt-pin-v2{
+        position:absolute!important;
+        top:50%!important;right:8px!important;
+        transform:translateY(-50%)!important;
+        width:30px!important;height:30px!important;
+        border:0!important;border-radius:8px!important;
+        display:grid!important;place-items:center!important;
+        background:transparent!important;color:#617168!important;
+        padding:0!important;margin:0!important;
+        opacity:0!important;pointer-events:none!important;
+        cursor:pointer!important;z-index:9999!important;
+        transition:opacity .14s ease,background .14s ease,color .14s ease!important;
+      }
+      .novara-pin-anchor-v2:hover .novara-chatgpt-pin-v2,
+      .novara-chatgpt-pin-v2:focus-visible,
+      .novara-demo-sidebar.nv-expanded .novara-chatgpt-pin-v2{
+        opacity:1!important;pointer-events:auto!important;
+      }
+      .novara-chatgpt-pin-v2:hover{
+        background:rgba(23,49,37,.08)!important;color:#173125!important;
+      }
+      .novara-chatgpt-pin-v2 svg{
+        width:19px!important;height:19px!important;
+        fill:none!important;stroke:currentColor!important;stroke-width:1.8!important;
+        stroke-linecap:round!important;stroke-linejoin:round!important;
+      }
+      .novara-chatgpt-pin-v2:focus-visible{
+        outline:2px solid rgba(23,49,37,.3)!important;outline-offset:2px!important;
+      }
     `;
     doc.head.appendChild(style);
 
-    const logoNode=
-      sidebar.querySelector('.sidebar-brand,.sidebar-logo,.brand,.logo,[class*="sidebar-brand"],[class*="sidebar-logo"]') ||
-      sidebar.querySelector('img[src*="logo"],img[alt*="Novara" i]')?.parentElement ||
-      sidebar.firstElementChild;
-    const host=logoNode||sidebar;
-    host.classList.add('novara-pin-host');
+    const logoImg=[...sidebar.querySelectorAll('img')].find(img=>/novara|logo/i.test((img.alt||'')+' '+(img.src||'')));
+    const logoText=[...sidebar.querySelectorAll('*')].find(el=>/^\s*novara(?:desk|\s*cx)?\s*$/i.test((el.textContent||'').trim()) && el.children.length<3);
+    const anchor=
+      logoImg?.closest('a,button,div,header') ||
+      logoText?.closest('a,button,div,header') ||
+      sidebar.querySelector('.sidebar-brand,.sidebar-logo,.brand,.logo,[class*="brand"],[class*="logo"]') ||
+      sidebar.firstElementChild ||
+      sidebar;
+    anchor.classList.add('novara-pin-anchor-v2');
 
-    const button=doc.createElement('button');
-    button.type='button';
-    button.className='novara-sidebar-pin';
-    button.setAttribute('aria-pressed','false');
-    host.appendChild(button);
-
-    const iconCollapsed='<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="4" width="17" height="16" rx="2.5"></rect><path d="M9 4v16"></path><path d="m13.5 9 3 3-3 3"></path></svg>';
-    const iconExpanded='<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="4" width="17" height="16" rx="2.5"></rect><path d="M9 4v16"></path><path d="m16.5 9-3 3 3 3"></path></svg>';
-
-    const setPinned=pinned=>{
-      sidebar.classList.toggle('collapsed',!pinned);
-      sidebar.classList.toggle('is-collapsed',!pinned);
-      sidebar.classList.toggle('closed',!pinned);
-      sidebar.classList.toggle('expanded',pinned);
-      sidebar.classList.toggle('is-expanded',pinned);
-      sidebar.classList.add('novara-demo-sidebar');
-      button.innerHTML=pinned?iconExpanded:iconCollapsed;
-      button.setAttribute('aria-pressed',String(pinned));
-      button.setAttribute('aria-label',pinned?'Collapse sidebar':'Keep sidebar open');
-      button.title=pinned?'Collapse sidebar':'Keep sidebar open';
-      try{win.localStorage.setItem(STORAGE_KEY,pinned?'1':'0')}catch(e){}
-      try{window.localStorage.setItem(STORAGE_KEY,pinned?'1':'0')}catch(e){}
-    };
-
-    let pinned=false;
-    try{
-      const stored=win.localStorage.getItem(STORAGE_KEY)??window.localStorage.getItem(STORAGE_KEY);
-      pinned=stored==='1';
-    }catch(e){}
-    setPinned(pinned);
-
-    button.addEventListener('click',event=>{
-      event.preventDefault();
-      event.stopPropagation();
-      setPinned(button.getAttribute('aria-pressed')!=='true');
+    // Hide textual/nav content when collapsed, while keeping icon containers visible.
+    const labelCandidates=[...sidebar.querySelectorAll('span,p,strong,small,.label,[class*="label"],[class*="text"]')];
+    labelCandidates.forEach(el=>{
+      if(el.closest('.novara-chatgpt-pin-v2'))return;
+      if(el.querySelector('svg,img'))return;
+      const txt=(el.textContent||'').trim();
+      if(txt)el.classList.add('novara-hide-when-collapsed');
     });
 
-    // Re-assert after the existing demo initializer finishes applying its sidebar classes.
-    setTimeout(()=>setPinned(button.getAttribute('aria-pressed')==='true'),250);
-    setTimeout(()=>setPinned(button.getAttribute('aria-pressed')==='true'),900);
-  };
+    const pin=doc.createElement('button');
+    pin.type='button';
+    pin.className='novara-chatgpt-pin-v2';
+    pin.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="4" width="17" height="16" rx="2.5"></rect><path d="M9 4v16"></path><path d="m13.5 9 3 3-3 3"></path></svg>';
+    anchor.appendChild(pin);
 
-  const bind=()=>{
+    function setState(expanded,persist=true){
+      sidebar.classList.toggle('nv-expanded',expanded);
+      sidebar.classList.toggle('nv-collapsed',!expanded);
+      sidebar.classList.toggle('expanded',expanded);
+      sidebar.classList.toggle('is-expanded',expanded);
+      sidebar.classList.toggle('collapsed',!expanded);
+      sidebar.classList.toggle('is-collapsed',!expanded);
+
+      pin.setAttribute('aria-pressed',String(expanded));
+      pin.setAttribute('aria-label',expanded?'Collapse sidebar':'Keep sidebar open');
+      pin.title=expanded?'Collapse sidebar':'Keep sidebar open';
+      pin.innerHTML=expanded
+        ? '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="4" width="17" height="16" rx="2.5"></rect><path d="M9 4v16"></path><path d="m16.5 9-3 3 3 3"></path></svg>'
+        : '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="4" width="17" height="16" rx="2.5"></rect><path d="M9 4v16"></path><path d="m13.5 9 3 3-3 3"></path></svg>';
+
+      if(persist){
+        try{window.localStorage.setItem(STORAGE_KEY,expanded?'1':'0')}catch(e){}
+      }
+    }
+
+    let pinned=false;
+    try{pinned=window.localStorage.getItem(STORAGE_KEY)==='1'}catch(e){}
+    setState(pinned,false);
+
+    pin.addEventListener('click',e=>{
+      e.preventDefault();e.stopPropagation();e.stopImmediatePropagation();
+      setState(pin.getAttribute('aria-pressed')!=='true',true);
+    },true);
+
+    // Keep the chosen state even if the embedded app re-applies its own classes.
+    if(!sidebar.dataset.nvPinObserverV2){
+      sidebar.dataset.nvPinObserverV2='1';
+      const observer=new MutationObserver(()=>{
+        const shouldExpand=pin.getAttribute('aria-pressed')==='true';
+        requestAnimationFrame(()=>setState(shouldExpand,false));
+      });
+      observer.observe(sidebar,{attributes:true,attributeFilter:['class']});
+    }
+    return true;
+  }
+
+  function bind(){
     const frame=document.querySelector('#mvp-product-tour iframe[data-live-frame],#mvp-product-tour iframe');
     if(!frame)return false;
-    const apply=()=>installInFrame(frame);
-    frame.addEventListener('load',()=>{setTimeout(apply,80);setTimeout(apply,500);setTimeout(apply,1200)});
+    const apply=()=>{
+      let tries=0;
+      const t=setInterval(()=>{
+        tries++;
+        if(install(frame)||tries>30)clearInterval(t);
+      },120);
+    };
+    frame.addEventListener('load',apply);
     apply();
     return true;
-  };
+  }
 
   let attempts=0;
   const timer=setInterval(()=>{
     attempts++;
-    if(bind()||attempts>50)clearInterval(timer);
+    if(bind()||attempts>60)clearInterval(timer);
   },100);
 })();
 </script>
