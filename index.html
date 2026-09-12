@@ -7351,5 +7351,33 @@ document.addEventListener('click',function(event){
     if(nav)nav.classList.remove('open');
 },true);
 </script>
+
+<!-- NOVARA_DESK_ANALYTICS_TAB_FONT_V1 -->
+<script id="novara-desk-analytics-tab-font-v1">
+(()=>{
+  const enlargeAnalyticsTabs=doc=>{
+    if(!doc)return;
+    const labels=new Set(['ai agent','human agent','custom dashboards']);
+    doc.querySelectorAll('button,[role="tab"],a').forEach(el=>{
+      const text=(el.textContent||'').replace(/\s+/g,' ').trim().toLowerCase();
+      if(labels.has(text)){
+        el.style.setProperty('font-size','1.05em','important');
+      }
+    });
+  };
+  const bind=()=>{
+    const frame=document.querySelector('#mvp-product-tour iframe[data-live-frame],#mvp-product-tour iframe');
+    if(!frame)return false;
+    const apply=()=>{try{enlargeAnalyticsTabs(frame.contentDocument)}catch(e){}};
+    frame.addEventListener('load',()=>{apply();setTimeout(apply,250);setTimeout(apply,900)});
+    apply();
+    const timer=setInterval(apply,800);
+    setTimeout(()=>clearInterval(timer),12000);
+    return true;
+  };
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>{let n=0;const t=setInterval(()=>{if(bind()||++n>40)clearInterval(t)},100)});
+  else{let n=0;const t=setInterval(()=>{if(bind()||++n>40)clearInterval(t)},100)};
+})();
+</script>
 </body>
 </html>
