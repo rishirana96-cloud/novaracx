@@ -1186,6 +1186,36 @@ body>header .nav{height:68px}body>header .logo{color:#102018}body>header .nav-li
     .cost-flow-step:nth-child(2):after{display:none}
 }
 </style>
+
+<style id="novara-cost-estimator-visible-formulas-v1">
+.cost-result-box{
+    align-content:start;
+}
+.cost-result-calculation{
+    display:grid;
+    gap:3px;
+    margin-top:13px;
+    padding-top:12px;
+    border-top:1px solid rgba(181,222,196,.13);
+}
+.cost-result-calculation b{
+    color:rgba(218,237,225,.5);
+    font-size:.54rem;
+    font-weight:700;
+    letter-spacing:.055em;
+    text-transform:uppercase;
+}
+.cost-result-calculation p{
+    margin:0 0 7px;
+    color:rgba(241,249,244,.78);
+    font-size:.62rem;
+    font-weight:600;
+    line-height:1.5;
+}
+.cost-result-calculation p:last-child{
+    margin-bottom:0;
+}
+</style>
 </head>
 <body>
 <a class="skip-link" href="#mvp-home">Skip to main content</a>
@@ -6191,8 +6221,14 @@ body.preview-is-expanded{overflow:hidden!important}
      <div class="cost-flow-step"><span>Left for people</span><strong id="ceHumanTickets">0</strong><small id="ceHumanHours">0 hours</small></div>
     </div>
     <div class="cost-result-summary">
-     <div class="cost-result-box"><span>Without AI</span><strong id="ceInternal">₹0</strong><small id="ceInternalAgents">0 agents</small></div>
-     <div class="cost-result-box"><span>With Novara</span><strong id="ceNovara">₹0</strong><small id="ceNovaraAgents">0 agents</small></div>
+     <div class="cost-result-box">
+      <span>Without AI</span><strong id="ceInternal">₹0</strong><small id="ceInternalAgents">0 agents</small>
+      <div class="cost-result-calculation"><b>Staffing calculation</b><p id="ceInternalStaffFormula">—</p><b>Cost calculation</b><p id="ceInternalCostFormula">—</p></div>
+     </div>
+     <div class="cost-result-box">
+      <span>With Novara</span><strong id="ceNovara">₹0</strong><small id="ceNovaraAgents">0 agents</small>
+      <div class="cost-result-calculation"><b>Staffing calculation</b><p id="ceNovaraStaffFormula">—</p><b>Cost calculation</b><p id="ceNovaraCostFormula">—</p></div>
+     </div>
     </div>
     <div class="cost-saving-hero"><span>Your estimated monthly saving</span><strong id="ceMonthlySaving">₹0</strong><small id="ceSavingPercent">0% lower than an internal setup</small></div>
     <div class="cost-breakdown">
@@ -6254,6 +6290,26 @@ body.preview-is-expanded{overflow:hidden!important}
   byId('ceNovara').textContent=money(novara);
   byId('ceInternalAgents').textContent=plural(internalAgents,'in-house agent')+' required · ~6 customer-handling hrs/day';
   byId('ceNovaraAgents').textContent=plural(novaraAgents,'managed agent')+' · after AI · '+label;
+  const internalRawAgents=totalHours/internalCapacity;
+  const novaraRawAgents=humanHours/novaraCapacity;
+  const fixedInternalCosts=lead+tools+hiring;
+  const internalFormula=Math.round(totalHours).toLocaleString('en-IN')+' hrs ÷ (22 days × 6 hrs) = '+internalRawAgents.toFixed(1)+' → '+internalAgents+' agents';
+  const internalCostFormula=internalAgents+' × '+money(salary)+' × '+(1+overhead).toFixed(2)+' + '+money(fixedInternalCosts)+' = '+money(internal);
+  const coverageHours=plan==='lite'?4.5:9;
+  const novaraFormula=Math.round(humanHours).toLocaleString('en-IN')+' hrs ÷ (22 days × '+coverageHours+' hrs × 75%) = '+novaraRawAgents.toFixed(1)+' → '+novaraAgents+' agents';
+  let novaraCostFormula;
+  if(plan==='lite'){
+   const secondAgentCost=novaraAgents>=2?37500:0;
+   const laterAgentCost=novaraAgents>2?(novaraAgents-2)*20000:0;
+   novaraCostFormula=money(54999)+(secondAgentCost?' + '+money(secondAgentCost):'')+(laterAgentCost?' + '+money(laterAgentCost):'')+' = '+money(novara);
+  }else{
+   const extraAgentCost=Math.max(0,novaraAgents-1)*40000;
+   novaraCostFormula=money(84999)+(extraAgentCost?' + '+money(extraAgentCost)+' ('+(novaraAgents-1)+' extra agent'+(novaraAgents-1===1?'':'s')+')':'')+' = '+money(novara);
+  }
+  byId('ceInternalStaffFormula').textContent=internalFormula;
+  byId('ceInternalCostFormula').textContent=internalCostFormula;
+  byId('ceNovaraStaffFormula').textContent=novaraFormula;
+  byId('ceNovaraCostFormula').textContent=novaraCostFormula;
   byId('ceMonthlySaving').textContent=(saving<0?'−':'')+money(saving);
   byId('ceAnnualSaving').textContent=(saving<0?'−':'')+money(saving*12);
   byId('ceSavingPercent').textContent=saving>=0?Math.round(percent)+'% lower than an internal setup':Math.round(Math.abs(percent))+'% above the internal estimate';
