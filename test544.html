@@ -6118,6 +6118,7 @@ body.preview-is-expanded{overflow:hidden!important}
 .cost-breakdown-row{display:flex;justify-content:space-between;gap:20px;padding:6px 0;color:rgba(225,239,230,.7);font-size:.7rem}
 .cost-breakdown-row b{color:#f3f9f5;font-weight:650;white-space:nowrap}
 .cost-estimator-note{margin-top:auto!important;padding-top:18px;color:rgba(218,235,224,.47)!important;font-size:.62rem!important;line-height:1.5}
+.cost-method{margin-top:auto;padding-top:16px;border-top:1px solid rgba(181,222,196,.14);color:rgba(218,235,224,.58);font-size:.66rem}.cost-method summary{cursor:pointer;font-weight:750;color:rgba(231,244,236,.72);list-style:none}.cost-method summary::-webkit-details-marker{display:none}.cost-method summary:after{content:' ↓';color:#a7d8bd}.cost-method[open] summary:after{content:' ↑'}.cost-method p{margin:9px 0 0;line-height:1.55;color:rgba(218,235,224,.5)}
 .cost-estimator-cta{display:inline-flex;align-items:center;justify-content:center;align-self:flex-start;margin-top:15px;padding:11px 17px;border-radius:999px;background:#a7d8bd;color:#09291c;font-size:.75rem;font-weight:800;text-decoration:none}
 @media(max-width:960px){.cost-estimator-head,.cost-estimator-card{grid-template-columns:1fr}.cost-estimator-head{gap:20px}.cost-estimator-inputs{border-right:0;border-bottom:1px solid #e0e6e2}}
 @media(max-width:600px){.cost-estimator-section{padding:72px 0}.cost-estimator-shell{width:min(100% - 30px,1180px)}.cost-estimator-inputs,.cost-estimator-results{padding:25px 20px}.cost-estimator-fields,.cost-advanced-grid,.cost-result-summary{grid-template-columns:1fr}.cost-field.full,.cost-advanced{grid-column:auto}.cost-volume-flow{grid-template-columns:1fr}.cost-flow-step:not(:last-child):after{content:"↓";top:auto;right:50%;bottom:-11px;transform:translateX(50%)}}
@@ -6161,24 +6162,24 @@ body.preview-is-expanded{overflow:hidden!important}
     </div>
    </div>
    <div class="cost-estimator-results" aria-live="polite">
-    <h3>What this means for your support team</h3><p id="ceExplanation">Your calculation will appear here.</p>
+    <h3>Your support cost, explained</h3><p id="ceExplanation">Your calculation will appear here.</p>
     <div class="cost-volume-flow">
      <div class="cost-flow-step"><span>Monthly conversations</span><strong id="ceTotalTickets">0</strong><small>starting volume</small></div>
      <div class="cost-flow-step"><span>Handled by AI</span><strong id="ceAiTickets">0</strong><small id="ceOverallRate">0% overall</small></div>
      <div class="cost-flow-step"><span>Left for people</span><strong id="ceHumanTickets">0</strong><small id="ceHumanHours">0 hours</small></div>
     </div>
     <div class="cost-result-summary">
-     <div class="cost-result-box"><span>Traditional internal team</span><strong id="ceInternal">₹0</strong><small id="ceInternalAgents">0 agents</small></div>
-     <div class="cost-result-box"><span>Novara managed CX</span><strong id="ceNovara">₹0</strong><small id="ceNovaraAgents">0 agents</small></div>
+     <div class="cost-result-box"><span>Without AI</span><strong id="ceInternal">₹0</strong><small id="ceInternalAgents">0 agents</small></div>
+     <div class="cost-result-box"><span>With Novara</span><strong id="ceNovara">₹0</strong><small id="ceNovaraAgents">0 agents</small></div>
     </div>
-    <div class="cost-saving-hero"><span>Illustrative monthly savings</span><strong id="ceMonthlySaving">₹0</strong><small id="ceSavingPercent">0% lower than an internal setup</small></div>
+    <div class="cost-saving-hero"><span>Your estimated monthly saving</span><strong id="ceMonthlySaving">₹0</strong><small id="ceSavingPercent">0% lower than an internal setup</small></div>
     <div class="cost-breakdown">
      <div class="cost-breakdown-row"><span>Estimated annual savings</span><b id="ceAnnualSaving">₹0</b></div>
      <div class="cost-breakdown-row"><span>AI-resolved share of all tickets</span><b id="ceAiShare">0%</b></div>
      <div class="cost-breakdown-row"><span>Human workload removed</span><b id="ceHoursRemoved">0 hours</b></div>
     </div>
     <a class="cost-estimator-cta" href="#mvp-contact">Discuss this estimate</a>
-    <p class="cost-estimator-note">Illustrative estimate, not a guaranteed outcome. Internal staffing assumes 22 working days, 9 scheduled hours per agent per day and ~6 productive support hours after breaks, meetings, admin and other non-handling time. Staffing is rounded up to whole agents. GST is excluded.</p>
+    <details class="cost-method"><summary>How we calculate this</summary><p>In-house staffing assumes 22 working days per month and approximately 6 hours per day available for customer handling within a 9-hour scheduled shift. The remaining time accounts for breaks, meetings, training, administrative work and other non-customer-handling activities. AI results depend on the selected eligibility and resolution assumptions. Staffing is rounded up to whole agents. GST is excluded.</p></details>
    </div>
   </div>
  </div>`;
@@ -6223,7 +6224,7 @@ body.preview-is-expanded{overflow:hidden!important}
   byId('ceHumanHours').textContent=Math.round(humanHours).toLocaleString('en-IN')+' hours';
   byId('ceInternal').textContent=money(internal);
   byId('ceNovara').textContent=money(novara);
-  byId('ceInternalAgents').textContent=plural(internalAgents,'agent')+' · 9 scheduled hrs/day · ~6 productive hrs/day';
+  byId('ceInternalAgents').textContent=plural(internalAgents,'in-house agent')+' required · ~6 customer-handling hrs/day';
   byId('ceNovaraAgents').textContent=plural(novaraAgents,'managed agent')+' · after AI · '+label;
   byId('ceMonthlySaving').textContent=(saving<0?'−':'')+money(saving);
   byId('ceAnnualSaving').textContent=(saving<0?'−':'')+money(saving*12);
@@ -6231,7 +6232,7 @@ body.preview-is-expanded{overflow:hidden!important}
   byId('ceAiShare').textContent=Math.round(overall)+'%';
   byId('cePresetSummary').textContent='AI handles '+Math.round(overall)+'% of all conversations in this scenario.';
   byId('ceHoursRemoved').textContent=Math.round(hoursRemoved).toLocaleString('en-IN')+' hours/month';
-  byId('ceExplanation').textContent='At these assumptions, AI resolves '+aiTickets.toLocaleString('en-IN')+' tickets before a human is needed, reducing the estimated human workload from '+Math.round(totalHours).toLocaleString('en-IN')+' to '+Math.round(humanHours).toLocaleString('en-IN')+' hours per month.';
+  byId('ceExplanation').textContent=tickets.toLocaleString('en-IN')+' conversations × '+aht.toLocaleString('en-IN')+' min = '+Math.round(totalHours).toLocaleString('en-IN')+' hours of support. AI handles '+aiTickets.toLocaleString('en-IN')+', leaving '+humanTickets.toLocaleString('en-IN')+' conversations (≈ '+Math.round(humanHours).toLocaleString('en-IN')+' hours) for people.';
   section.querySelector('.cost-saving-hero').style.borderColor=saving>=0?'rgba(167,216,189,.32)':'rgba(222,185,128,.38)';
   section.querySelectorAll('.cost-presets button').forEach(button=>{
    button.classList.toggle('active',Number(button.dataset.eligible)===Math.round(eligible*100)&&Number(button.dataset.resolution)===Math.round(resolution*100));
