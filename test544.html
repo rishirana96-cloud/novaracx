@@ -6238,7 +6238,7 @@ body.preview-is-expanded{overflow:hidden!important}
      <div class="cost-breakdown-row"><span>Human workload removed</span><b id="ceHoursRemoved">0 hours</b></div>
     </div>
     <a class="cost-estimator-cta" href="#mvp-contact">Discuss this estimate</a>
-    <details class="cost-method"><summary>How we calculate this</summary><p>In-house staffing assumes 22 working days per month and approximately 6 hours per day available for customer handling within a 9-hour scheduled shift. The remaining time accounts for breaks, meetings, training, administrative work and other non-customer-handling activities. AI results depend on the selected eligibility and resolution assumptions. Staffing is rounded up to whole agents. GST is excluded.</p></details>
+    <details class="cost-method"><summary>Assumptions used in this estimate</summary><p>Staffing uses a six-day workweek, averaged to 26 working days per month. For a 9-hour Internal or Full shift, 1.5 hours are allocated to breaks, leaving 7.5 available hours; 80% handling utilisation gives 6 productive ticket-handling hours per day. For Lite, a 4.5-hour shift includes a 45-minute break and the same utilisation assumption, giving 3 productive hours per day. The remaining time covers meetings, training, QA, documentation, administrative work and natural idle time. AI results depend on the selected suitability and resolution assumptions. Staffing is rounded up to whole agents. GST is excluded.</p></details>
    </div>
   </div>
  </div>`;
@@ -6262,10 +6262,13 @@ body.preview-is-expanded{overflow:hidden!important}
   const totalHours=tickets*aht/60;
   const humanHours=humanTickets*aht/60;
   const hoursRemoved=totalHours-humanHours;
-  const internalCapacity=22*6; // 22 working days × ~6 productive support hours/day within a 9-hour scheduled shift
+  const workingDays=26; // six-day workweek averaged across a month
+  const internalProductiveHours=6; // 9-hour shift − 1.5-hour break, then 80% handling utilisation
+  const internalCapacity=workingDays*internalProductiveHours;
   const internalAgents=Math.max(1,Math.ceil(totalHours/internalCapacity));
   const plan=byId('cePlan').value;
-  const novaraCapacity=22*(plan==='lite'?4.5:9)*.75;
+  const novaraProductiveHours=plan==='lite'?3:6; // Lite: 4.5-hour shift − 45-minute break, then 80% utilisation
+  const novaraCapacity=workingDays*novaraProductiveHours;
   const novaraAgents=Math.max(1,Math.ceil(humanHours/novaraCapacity));
   const internal=internalAgents*salary*(1+overhead)+lead+tools+hiring;
   let novara,label;
@@ -6288,15 +6291,14 @@ body.preview-is-expanded{overflow:hidden!important}
   byId('ceHumanHours').textContent=Math.round(humanHours).toLocaleString('en-IN')+' hours';
   byId('ceInternal').textContent=money(internal);
   byId('ceNovara').textContent=money(novara);
-  byId('ceInternalAgents').textContent=plural(internalAgents,'in-house agent')+' required · ~6 customer-handling hrs/day';
-  byId('ceNovaraAgents').textContent=plural(novaraAgents,'managed agent')+' · after AI · '+label;
+  byId('ceInternalAgents').textContent=plural(internalAgents,'in-house agent')+' required · 6 productive hrs/day';
+  byId('ceNovaraAgents').textContent=plural(novaraAgents,'managed agent')+' · '+novaraProductiveHours+' productive hrs/day · '+label;
   const internalRawAgents=totalHours/internalCapacity;
   const novaraRawAgents=humanHours/novaraCapacity;
   const fixedInternalCosts=lead+tools+hiring;
-  const internalFormula=tickets.toLocaleString('en-IN')+' tickets × '+aht.toLocaleString('en-IN')+' min ÷ 60 = '+Math.round(totalHours).toLocaleString('en-IN')+' hrs; '+Math.round(totalHours).toLocaleString('en-IN')+' hrs ÷ (22 days × 6 hrs) = '+internalRawAgents.toFixed(1)+' → '+internalAgents+' agents';
+  const internalFormula=tickets.toLocaleString('en-IN')+' tickets × '+aht.toLocaleString('en-IN')+' min ÷ 60 = '+Math.round(totalHours).toLocaleString('en-IN')+' hrs; '+Math.round(totalHours).toLocaleString('en-IN')+' hrs ÷ (26 days × 6 productive hrs) = '+internalRawAgents.toFixed(1)+' → '+internalAgents+' agents';
   const internalCostFormula=internalAgents+' × '+money(salary)+' × '+(1+overhead).toFixed(2)+' + '+money(fixedInternalCosts)+' = '+money(internal);
-  const coverageHours=plan==='lite'?4.5:9;
-  const novaraFormula=humanTickets.toLocaleString('en-IN')+' tickets × '+aht.toLocaleString('en-IN')+' min ÷ 60 = '+Math.round(humanHours).toLocaleString('en-IN')+' hrs; '+Math.round(humanHours).toLocaleString('en-IN')+' hrs ÷ (22 days × '+coverageHours+' hrs × 75%) = '+novaraRawAgents.toFixed(1)+' → '+novaraAgents+' agents';
+  const novaraFormula=humanTickets.toLocaleString('en-IN')+' tickets × '+aht.toLocaleString('en-IN')+' min ÷ 60 = '+Math.round(humanHours).toLocaleString('en-IN')+' hrs; '+Math.round(humanHours).toLocaleString('en-IN')+' hrs ÷ (26 days × '+novaraProductiveHours+' productive hrs) = '+novaraRawAgents.toFixed(1)+' → '+novaraAgents+' agents';
   let novaraCostFormula;
   if(plan==='lite'){
    const secondAgentCost=novaraAgents>=2?37500:0;
