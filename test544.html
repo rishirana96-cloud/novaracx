@@ -6326,5 +6326,39 @@ body.preview-is-expanded{overflow:hidden!important}
  calculate();
 })();
 </script>
+
+<style id="novara-cost-estimator-compact-layout-v1">
+@media(min-width:981px){
+  .cost-estimator-card{grid-template-columns:minmax(350px,.78fr) minmax(0,1.22fr)!important}
+  .cost-estimator-inputs,.cost-estimator-results{padding:25px!important}
+  .cost-estimator-inputs>p{margin-bottom:16px!important}
+  .cost-estimator-fields{gap:13px!important}
+  .cost-field{gap:6px!important}
+  .cost-field-control{min-height:44px!important}
+  .cost-field input,.cost-field select{height:42px!important}
+  .cost-volume-flow{grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:6px!important;margin-bottom:8px!important}
+  .cost-flow-step{min-width:0;padding:11px 8px!important;border-radius:12px!important}
+  .cost-flow-step span{font-size:.51rem!important;letter-spacing:.035em!important}
+  .cost-flow-step strong{margin-top:5px!important;font-size:1.05rem!important}
+  .cost-flow-step small{font-size:.52rem!important}
+  .cost-result-summary{gap:8px!important}
+  .cost-result-box{padding:14px!important;border-radius:13px!important}
+  .cost-result-box strong{margin-top:6px!important;font-size:1.34rem!important}
+  .cost-result-calculation{gap:2px!important;margin-top:10px!important;padding-top:9px!important}
+  .cost-result-calculation b{font-size:.49rem!important}
+  .cost-result-calculation p{margin-bottom:5px!important;font-size:.56rem!important;line-height:1.4!important}
+  .cost-saving-hero{margin-top:8px!important;padding:16px 18px!important;border-radius:14px!important}
+  .cost-saving-hero strong{margin-top:5px!important;font-size:clamp(1.8rem,2.6vw,2.65rem)!important}
+  .cost-saving-hero small{margin-top:5px!important}
+  .cost-breakdown{margin-top:10px!important;padding-top:9px!important}
+  .cost-breakdown-row{padding:4px 0!important;font-size:.64rem!important}
+  .cost-estimator-cta{margin-top:10px!important}
+  .cost-method{margin-top:10px!important;padding-top:10px!important}
+}
+@media(min-width:981px) and (max-width:1100px){
+  .cost-volume-flow{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  .cost-flow-step:nth-child(2)::after{display:none!important}
+}
+</style>
 </body>
 </html>
