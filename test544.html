@@ -6293,10 +6293,10 @@ body.preview-is-expanded{overflow:hidden!important}
   const internalRawAgents=totalHours/internalCapacity;
   const novaraRawAgents=humanHours/novaraCapacity;
   const fixedInternalCosts=lead+tools+hiring;
-  const internalFormula=Math.round(totalHours).toLocaleString('en-IN')+' hrs ÷ (22 days × 6 hrs) = '+internalRawAgents.toFixed(1)+' → '+internalAgents+' agents';
+  const internalFormula=tickets.toLocaleString('en-IN')+' tickets × '+aht.toLocaleString('en-IN')+' min ÷ 60 = '+Math.round(totalHours).toLocaleString('en-IN')+' hrs; '+Math.round(totalHours).toLocaleString('en-IN')+' hrs ÷ (22 days × 6 hrs) = '+internalRawAgents.toFixed(1)+' → '+internalAgents+' agents';
   const internalCostFormula=internalAgents+' × '+money(salary)+' × '+(1+overhead).toFixed(2)+' + '+money(fixedInternalCosts)+' = '+money(internal);
   const coverageHours=plan==='lite'?4.5:9;
-  const novaraFormula=Math.round(humanHours).toLocaleString('en-IN')+' hrs ÷ (22 days × '+coverageHours+' hrs × 75%) = '+novaraRawAgents.toFixed(1)+' → '+novaraAgents+' agents';
+  const novaraFormula=humanTickets.toLocaleString('en-IN')+' tickets × '+aht.toLocaleString('en-IN')+' min ÷ 60 = '+Math.round(humanHours).toLocaleString('en-IN')+' hrs; '+Math.round(humanHours).toLocaleString('en-IN')+' hrs ÷ (22 days × '+coverageHours+' hrs × 75%) = '+novaraRawAgents.toFixed(1)+' → '+novaraAgents+' agents';
   let novaraCostFormula;
   if(plan==='lite'){
    const secondAgentCost=novaraAgents>=2?37500:0;
