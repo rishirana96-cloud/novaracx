@@ -6178,7 +6178,7 @@ body.preview-is-expanded{overflow:hidden!important}
      <div class="cost-breakdown-row"><span>Human workload removed</span><b id="ceHoursRemoved">0 hours</b></div>
     </div>
     <a class="cost-estimator-cta" href="#mvp-contact">Discuss this estimate</a>
-    <p class="cost-estimator-note">Illustrative estimate, not a guaranteed outcome. Staffing is rounded up to whole agents. Calculations assume 22 working days, 75% productive occupancy, an 8-hour internal shift and the selected Novara coverage. GST is excluded.</p>
+    <p class="cost-estimator-note">Illustrative estimate, not a guaranteed outcome. Internal staffing assumes 22 working days, 9 scheduled hours per agent per day and ~6 productive support hours after breaks, meetings, admin and other non-handling time. Staffing is rounded up to whole agents. GST is excluded.</p>
    </div>
   </div>
  </div>`;
@@ -6199,7 +6199,7 @@ body.preview-is-expanded{overflow:hidden!important}
   const totalHours=tickets*aht/60;
   const humanHours=humanTickets*aht/60;
   const hoursRemoved=totalHours-humanHours;
-  const internalCapacity=22*8*.75;
+  const internalCapacity=22*6; // 22 working days × ~6 productive support hours/day within a 9-hour scheduled shift
   const internalAgents=Math.max(1,Math.ceil(totalHours/internalCapacity));
   const plan=byId('cePlan').value;
   const novaraCapacity=22*(plan==='lite'?4.5:9)*.75;
@@ -6223,7 +6223,7 @@ body.preview-is-expanded{overflow:hidden!important}
   byId('ceHumanHours').textContent=Math.round(humanHours).toLocaleString('en-IN')+' hours';
   byId('ceInternal').textContent=money(internal);
   byId('ceNovara').textContent=money(novara);
-  byId('ceInternalAgents').textContent=plural(internalAgents,'agent')+' · without AI automation';
+  byId('ceInternalAgents').textContent=plural(internalAgents,'agent')+' · 9 scheduled hrs/day · ~6 productive hrs/day';
   byId('ceNovaraAgents').textContent=plural(novaraAgents,'managed agent')+' · after AI · '+label;
   byId('ceMonthlySaving').textContent=(saving<0?'−':'')+money(saving);
   byId('ceAnnualSaving').textContent=(saving<0?'−':'')+money(saving*12);
