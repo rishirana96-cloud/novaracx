@@ -7877,5 +7877,28 @@ document.addEventListener('click',function(event){
 })();
 </script>
 
+
+<!-- NOVARA_HUMAN_AGENT_COUNTER_LABEL_TEST290_V8 -->
+<script>
+(function(){
+ function labelHumanAgents(){
+  document.querySelectorAll('#mvp-pricing .pricing-summary').forEach(card=>{
+   const title=(card.querySelector('h3')?.textContent||'').trim();
+   if(title!=='AI + Human Lite'&&title!=='AI + Human Full')return;
+   const label=card.querySelector('.agent-counter-value');if(!label)return;
+   const count=Math.max(1,Number(card.dataset.humanAgents)||parseInt(label.textContent,10)||1);
+   label.textContent=count+' human '+(count===1?'agent':'agents');
+  });
+ }
+ document.addEventListener('click',e=>{
+  if(e.target.closest('#mvp-pricing .agent-counter-btn,#mvp-pricing [data-tier]'))setTimeout(labelHumanAgents,60);
+ },true);
+ let n=0,t=setInterval(()=>{labelHumanAgents();if(++n>35)clearInterval(t)},150);
+})();
+</script>
+<style>
+#mvp-pricing .agent-counter-value{min-width:102px!important;white-space:nowrap!important}
+</style>
+
 </body>
 </html>
