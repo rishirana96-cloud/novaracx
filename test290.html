@@ -7900,5 +7900,88 @@ document.addEventListener('click',function(event){
 #mvp-pricing .agent-counter-value{min-width:102px!important;white-space:nowrap!important}
 </style>
 
+
+<!-- NOVARA_PRICING_FINAL_POLISH_TEST290_V9 -->
+<style>
+/* Final hierarchy + spacing polish */
+#mvp-pricing .conversation-tier-wrap{
+ min-height:58px!important;
+ margin:16px 0 22px!important;
+ padding:7px 9px!important;
+ border-radius:14px!important
+}
+#mvp-pricing .conversation-tier-group button{padding:7px 11px!important}
+#mvp-pricing .conversation-tier-group button:not(.active){opacity:.76!important}
+#mvp-pricing .currency-switcher{transform:scale(.94);transform-origin:right center}
+
+#mvp-pricing .pricing-summary{padding:26px 27px 23px!important}
+#mvp-pricing .pricing-summary h3{font-size:1.28rem!important}
+#mvp-pricing .pricing-summary .plan-positioning{
+ margin-top:9px!important;
+ min-height:38px!important;
+ line-height:1.45!important
+}
+
+/* Staffing selector should support, not compete with, plan title */
+#mvp-pricing .pricing-title-row .agent-counter{
+ gap:5px!important;
+ padding:3px!important;
+ border-color:rgba(29,82,50,.10)!important;
+ background:rgba(247,250,248,.76)!important;
+ transform:scale(.92);
+ transform-origin:right center
+}
+#mvp-pricing .agent-counter-btn{
+ width:28px!important;height:28px!important;min-width:28px!important;min-height:28px!important;
+ font-size:16px!important
+}
+#mvp-pricing .agent-counter-value{min-width:98px!important;font-size:.70rem!important}
+
+/* Recommendation follows staffing, but stays secondary */
+#mvp-pricing .minimum-agent-note{
+ margin:5px 0 0!important;
+ padding:4px 8px!important;
+ border-radius:7px!important;
+ font-size:.56rem!important;
+ background:rgba(232,242,235,.72)!important
+}
+
+/* Compact secondary coverage metadata */
+#mvp-pricing .coverage-pills{margin-top:11px!important;gap:4px!important}
+#mvp-pricing .coverage-pill{
+ min-height:23px!important;
+ padding:4px 7px!important;
+ font-size:.54rem!important;
+ border-color:rgba(35,101,61,.12)!important
+}
+
+/* Price remains the main commercial anchor */
+#mvp-pricing .pricing-summary .pricing-price{margin-top:18px!important}
+#mvp-pricing .agent-pricing-note{margin-top:7px!important}
+#mvp-pricing .plan-inclusions{
+ margin-top:19px!important;
+ padding-top:17px!important;
+ gap:7px!important
+}
+
+/* AI-only plan gets a tighter rhythm instead of artificial blank space */
+#mvp-pricing .pricing-summary:first-child .coverage-pills{margin-top:10px!important}
+#mvp-pricing .pricing-summary:first-child .pricing-price{margin-top:18px!important}
+#mvp-pricing .pricing-summary:first-child .plan-inclusions{margin-top:20px!important}
+
+/* Featured card stays differentiated without an overly dominant CTA */
+#mvp-pricing .pricing-summary.featured .mvp-btn.primary{
+ box-shadow:none!important;
+ background:#0c2e1e!important
+}
+#mvp-pricing .pricing-summary.featured .mvp-btn.primary:hover{
+ transform:translateY(-1px)!important;
+ box-shadow:0 6px 16px rgba(12,46,30,.12)!important
+}
+@media(max-width:900px){
+ #mvp-pricing .pricing-title-row .agent-counter{transform:scale(.96)}
+}
+</style>
+
 </body>
 </html>
