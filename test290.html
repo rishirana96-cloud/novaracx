@@ -7722,5 +7722,160 @@ document.addEventListener('click',function(event){
 })();
 </script>
 
+
+<!-- NOVARA_PRICING_VISUAL_REFINEMENT_TEST290_V7 -->
+<style>
+/* Controls: clearer hierarchy, less pill clutter */
+#mvp-pricing .conversation-tier-wrap{
+  margin:18px 0 24px!important;
+  padding:9px 10px!important;
+  border:1px solid rgba(255,255,255,.08)!important;
+  border-radius:16px!important;
+  background:rgba(255,255,255,.035)!important;
+}
+#mvp-pricing .conversation-tier-group{gap:5px!important}
+#mvp-pricing .conversation-tier-label{
+  margin:0 9px 0 2px!important;
+  color:rgba(221,235,226,.52)!important;
+  font-size:.66rem!important;
+  letter-spacing:.01em!important
+}
+#mvp-pricing .conversation-tier-group button{
+  padding:8px 12px!important;
+  border-color:transparent!important;
+  background:transparent!important;
+  color:#b8cabf!important;
+  box-shadow:none!important
+}
+#mvp-pricing .conversation-tier-group button.active{
+  background:#eef5f0!important;
+  color:#183f2b!important;
+  box-shadow:0 3px 10px rgba(0,0,0,.12)!important
+}
+#mvp-pricing .conversation-tier-name{font-size:.68rem!important}
+#mvp-pricing .conversation-tier-volume{font-size:.64rem!important;opacity:.72!important}
+#mvp-pricing .currency-switcher{
+  background:rgba(255,255,255,.08)!important;
+  border-color:rgba(255,255,255,.1)!important;
+  box-shadow:none!important
+}
+#mvp-pricing .currency-switcher button{min-width:58px!important;padding:7px 12px!important;color:#9fb2a7!important}
+#mvp-pricing .currency-switcher button.active{background:#eef5f0!important;color:#183f2b!important;box-shadow:none!important}
+
+/* Cards: more editorial and less empty */
+#mvp-pricing .pricing-summary-grid{gap:14px!important}
+#mvp-pricing .pricing-summary{
+  min-height:0!important;
+  padding:28px 28px 24px!important;
+  border-radius:22px!important;
+  box-shadow:0 12px 28px rgba(9,39,24,.055)!important
+}
+#mvp-pricing .pricing-summary h3{font-size:1.32rem!important;letter-spacing:-.02em!important}
+#mvp-pricing .pricing-summary .plan-positioning{
+  max-width:94%!important;
+  margin:11px 0 0!important;
+  min-height:42px!important;
+  font-size:.76rem!important;
+  line-height:1.5!important
+}
+
+/* Human staffing: one compact block */
+#mvp-pricing .pricing-title-row{align-items:center!important}
+#mvp-pricing .pricing-title-row .agent-counter{
+  gap:7px!important;
+  padding:4px!important;
+  border:1px solid rgba(29,82,50,.13)!important;
+  border-radius:999px!important;
+  background:#f5f8f5!important
+}
+#mvp-pricing .agent-counter-btn{
+  width:30px!important;height:30px!important;min-width:30px!important;min-height:30px!important;
+  border:0!important;background:transparent!important;font-size:18px!important
+}
+#mvp-pricing .agent-counter-btn:hover:not(:disabled){background:#e5eee8!important;transform:none!important}
+#mvp-pricing .agent-counter-value{min-width:62px!important;font-size:.76rem!important;font-weight:800!important}
+#mvp-pricing .minimum-agent-note{
+  width:max-content!important;
+  margin:8px 0 0!important;
+  padding:5px 9px!important;
+  border-radius:8px!important;
+  background:#edf4ef!important;
+  color:#597064!important;
+  font-size:.59rem!important;
+  font-weight:650!important
+}
+#mvp-pricing .minimum-agent-note:before{width:5px!important;height:5px!important}
+#mvp-pricing .minimum-agent-note strong{font-weight:800!important}
+
+/* Coverage: reduce visual noise */
+#mvp-pricing .coverage-pills{gap:5px!important;margin:14px 0 0!important}
+#mvp-pricing .coverage-pill{
+  min-height:25px!important;
+  padding:5px 8px!important;
+  background:transparent!important;
+  border-color:rgba(35,101,61,.14)!important;
+  font-size:.57rem!important
+}
+
+/* Price becomes the focal point */
+#mvp-pricing .pricing-summary .pricing-price{margin-top:20px!important}
+#mvp-pricing .pricing-price{font-size:clamp(1.9rem,2.5vw,2.5rem)!important}
+#mvp-pricing .pricing-price small{font-size:.66rem!important}
+#mvp-pricing .agent-pricing-note{
+  min-height:30px!important;
+  margin:8px 0 0!important;
+  font-size:.57rem!important;
+  color:#73847b!important
+}
+#mvp-pricing .agent-pricing-note strong{font-size:.6rem!important}
+
+/* Inclusions lighter + tighter */
+#mvp-pricing .plan-inclusions{
+  gap:7px!important;
+  margin:16px 0 20px!important;
+  padding-top:15px!important
+}
+#mvp-pricing .plan-inclusions li{font-size:.68rem!important;color:#5c7165!important}
+
+/* CTAs visually consistent; featured remains primary */
+#mvp-pricing .pricing-summary .mvp-btn{min-height:44px!important;font-size:.72rem!important}
+
+/* Scale is custom-pricing, not a fake fixed tier */
+#mvp-pricing.scale-selected .pricing-summary .pricing-price{
+  font-size:1.7rem!important
+}
+@media(max-width:900px){
+ #mvp-pricing .conversation-tier-wrap{align-items:stretch!important}
+ #mvp-pricing .conversation-tier-group{flex:1!important}
+}
+</style>
+<script>
+(function(){
+ function isScale(){
+  return Number(document.querySelector('#mvp-pricing .conversation-tier-group [data-tier].active')?.dataset.tier)===15000;
+ }
+ function updateScale(){
+  const section=document.querySelector('#mvp-pricing');if(!section)return;
+  const scale=isScale();
+  section.classList.toggle('scale-selected',scale);
+  section.querySelectorAll('.pricing-summary').forEach(card=>{
+   const price=card.querySelector('.pricing-price');
+   const cta=card.querySelector('.mvp-btn');
+   if(!price)return;
+   if(scale){
+    if(!price.dataset.beforeCustom)price.dataset.beforeCustom=price.innerHTML;
+    price.innerHTML='Custom pricing <small>based on volume &amp; coverage</small>';
+    if(cta){if(!cta.dataset.originalText)cta.dataset.originalText=cta.textContent;cta.textContent='Talk to us'}
+   }else{
+    if(price.dataset.beforeCustom){price.innerHTML=price.dataset.beforeCustom;delete price.dataset.beforeCustom}
+    if(cta?.dataset.originalText){cta.textContent=cta.dataset.originalText}
+   }
+  });
+ }
+ document.addEventListener('click',e=>{if(e.target.closest('#mvp-pricing [data-tier]'))setTimeout(updateScale,70)},true);
+ let n=0,t=setInterval(()=>{updateScale();if(++n>35)clearInterval(t)},160);
+})();
+</script>
+
 </body>
 </html>
