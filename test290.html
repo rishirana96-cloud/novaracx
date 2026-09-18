@@ -8268,5 +8268,68 @@ document.addEventListener('click',function(event){
 })();
 </script>
 
+
+<!-- NOVARA_CARD_META_CLEANUP_TEST290_V14 -->
+<style>
+/* Match the cleaner reference treatment for plan meta */
+#mvp-pricing .agent-pricing-note{display:none!important}
+
+#mvp-pricing .coverage-pills{
+  margin-top:14px!important;
+  gap:8px!important;
+}
+#mvp-pricing .coverage-pill{
+  position:relative!important;
+  display:inline-flex!important;
+  align-items:center!important;
+  gap:6px!important;
+  min-height:29px!important;
+  padding:6px 11px!important;
+  border:0!important;
+  border-radius:999px!important;
+  background:#e5f0e8!important;
+  color:#355f47!important;
+  font-size:.60rem!important;
+  font-weight:750!important;
+  line-height:1!important;
+}
+#mvp-pricing .coverage-pill:after{
+  content:"→";
+  font-size:.72rem;
+  line-height:1;
+  color:#2e6a48;
+  opacity:.9;
+}
+#mvp-pricing .pricing-summary:not(:first-child) .coverage-pill:nth-child(2):after{
+  content:"+";
+  font-size:.85rem;
+  font-weight:800;
+}
+#mvp-pricing .minimum-agent-note{
+  margin-top:10px!important;
+  padding:0!important;
+  background:transparent!important;
+  color:#60776b!important;
+  font-size:.66rem!important;
+  font-weight:650!important;
+}
+#mvp-pricing .minimum-agent-note:before{
+  width:15px!important;
+  height:15px!important;
+  border:1.4px solid #60776b!important;
+  background:transparent!important;
+  box-sizing:border-box!important;
+}
+#mvp-pricing .minimum-agent-note:after{
+  content:"i";
+  position:absolute;
+  margin-left:4px;
+  margin-top:-1px;
+  color:#60776b;
+  font-size:.51rem;
+  font-weight:850;
+}
+</style>
+
 </body>
 </html>
