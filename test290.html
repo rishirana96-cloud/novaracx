@@ -7652,5 +7652,31 @@ document.addEventListener('click',function(event){
 })();
 </script>
 
+
+<!-- NOVARA_CONVERSATION_TIER_NAMES_TEST290_V5 -->
+<style>
+#mvp-pricing .conversation-tier-group button{display:inline-flex!important;align-items:center!important;gap:7px!important}
+#mvp-pricing .conversation-tier-name{font-weight:850!important;color:inherit}
+#mvp-pricing .conversation-tier-volume{font-weight:650!important;opacity:.82}
+</style>
+<script>
+(function(){
+ const LABELS={
+  3000:['Starter','Up to 3,000'],
+  6000:['Growth','Up to 6,000'],
+  9000:['Pro','Up to 9,000'],
+  15000:['Scale','15,000+']
+ };
+ function apply(){
+  document.querySelectorAll('#mvp-pricing .conversation-tier-group [data-tier]').forEach(btn=>{
+   const tier=Number(btn.dataset.tier),label=LABELS[tier];if(!label)return;
+   btn.innerHTML='<span class="conversation-tier-name">'+label[0]+'</span><span class="conversation-tier-volume">'+label[1]+'</span>';
+  });
+ }
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>setTimeout(apply,1700),{once:true});else setTimeout(apply,1700);
+ const o=new MutationObserver(()=>{clearTimeout(o._t);o._t=setTimeout(apply,80)});o.observe(document.documentElement,{childList:true,subtree:true});
+})();
+</script>
+
 </body>
 </html>
