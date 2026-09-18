@@ -7396,205 +7396,55 @@ document.addEventListener('click',function(event){
 }
 </style>
 
-<!-- NOVARA_CONVERSATION_TIER_PRICING_TEST290_V1 -->
-<style id="novara-conversation-tier-pricing-test290-style">
-#mvp-pricing .conversation-tier-wrap{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:18px;
-  margin:22px 0 18px;
-}
-#mvp-pricing .conversation-tier-group{
-  display:flex;
-  align-items:center;
-  gap:7px;
-  flex-wrap:wrap;
-}
-#mvp-pricing .conversation-tier-label{
-  margin-right:4px;
-  color:#5f7368;
-  font-size:.72rem;
-  font-weight:700;
-}
-#mvp-pricing .conversation-tier-group button{
-  border:1px solid rgba(31,87,54,.16);
-  border-radius:999px;
-  background:#edf4ef;
-  color:#315943;
-  padding:8px 13px;
-  font-size:.72rem;
-  font-weight:750;
-  transition:.2s ease;
-}
-#mvp-pricing .conversation-tier-group button.active{
-  background:#143b28;
-  color:#fff;
-  border-color:#143b28;
-  box-shadow:0 6px 16px rgba(20,59,40,.14);
-}
-#mvp-pricing .conversation-tier-wrap .currency-switcher{
-  margin:0!important;
-  flex:0 0 auto;
-}
-@media(max-width:760px){
-  #mvp-pricing .conversation-tier-wrap{
-    align-items:flex-start;
-    flex-direction:column;
-  }
-  #mvp-pricing .conversation-tier-wrap .currency-switcher{
-    align-self:flex-end;
-  }
-}
+<!-- NOVARA_CONVERSATION_TIER_PRICING_TEST290_V2 -->
+<style>
+#mvp-pricing .conversation-tier-wrap{display:flex;align-items:center;justify-content:space-between;gap:18px;margin:22px 0 18px}
+#mvp-pricing .conversation-tier-group{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+#mvp-pricing .conversation-tier-label{margin-right:4px;color:#5f7368;font-size:.72rem;font-weight:700}
+#mvp-pricing .conversation-tier-group button{border:1px solid rgba(31,87,54,.16);border-radius:999px;background:#edf4ef;color:#315943;padding:8px 13px;font-size:.72rem;font-weight:750}
+#mvp-pricing .conversation-tier-group button.active{background:#143b28;color:#fff;border-color:#143b28;box-shadow:0 6px 16px rgba(20,59,40,.14)}
+#mvp-pricing .conversation-tier-wrap .currency-switcher{margin:0!important;flex:0 0 auto}
+@media(max-width:760px){#mvp-pricing .conversation-tier-wrap{align-items:flex-start;flex-direction:column}#mvp-pricing .conversation-tier-wrap .currency-switcher{align-self:flex-end}}
 </style>
-<script id="novara-conversation-tier-pricing-test290-script">
+<script>
 (function(){
-  const TIER_PRICES={
-    3000:{
-      INR:{ai:24999,lite:54999,full:84999},
-      USD:{ai:299,lite:649,full:999}
-    },
-    6000:{
-      INR:{ai:39999,lite:69999,full:99999},
-      USD:{ai:479,lite:829,full:1179}
-    },
-    9000:{
-      INR:{ai:54999,lite:84999,full:114999},
-      USD:{ai:649,lite:999,full:1349}
-    },
-    15000:{
-      INR:{ai:79999,lite:109999,full:149999},
-      USD:{ai:949,lite:1299,full:1769}
-    }
-  };
-
-  let selectedTier=3000;
-  let currency='INR';
-
-  const fmt=(value,curr)=>curr==='INR'
-    ? '₹'+Number(value).toLocaleString('en-IN')
-    : '
-</html>
-+Number(value).toLocaleString('en-US');
-
-  function keyFor(card){
-    const title=(card.querySelector('h3')?.textContent||'').trim();
-    if(title==='AI Support')return 'ai';
-    if(title==='AI + Human Lite')return 'lite';
-    if(title==='AI + Human Full')return 'full';
-    return '';
-  }
-
-  function render(){
-    const section=document.querySelector('#mvp-pricing');
-    if(!section)return;
-    const prices=TIER_PRICES[selectedTier]?.[currency];
-    if(!prices)return;
-
-    section.querySelectorAll('.pricing-summary').forEach(card=>{
-      const key=keyFor(card);
-      if(!key)return;
-      const count=Math.max(1,Number(card.dataset.humanAgents)||1);
-      let total=prices[key];
-
-      if(key==='lite'&&count>1){
-        total+=(currency==='INR'?37500:449)+((count-2)*(currency==='INR'?20000:239));
-      }
-      if(key==='full'&&count>1){
-        total+=(count-1)*(currency==='INR'?40000:479);
-      }
-
-      const price=card.querySelector('.pricing-price');
-      if(!price)return;
-      const value=price.querySelector('.agent-price-value');
-      const tax=currency==='INR'?'+ GST':'+ applicable taxes';
-      if(value){
-        value.textContent=fmt(total,currency);
-        const suffix=price.querySelector('.agent-price-copy small');
-        if(suffix)suffix.textContent='/month '+tax;
-      }else{
-        price.innerHTML=fmt(total,currency)+' <small>/month '+tax+'</small>';
-      }
-    });
-
-    section.querySelectorAll('.conversation-tier-group button').forEach(btn=>{
-      const active=Number(btn.dataset.tier)===selectedTier;
-      btn.classList.toggle('active',active);
-      btn.setAttribute('aria-pressed',String(active));
-    });
-
-    section.querySelectorAll('.currency-switcher button').forEach(btn=>{
-      const active=btn.dataset.currency===currency;
-      btn.classList.toggle('active',active);
-      btn.setAttribute('aria-pressed',String(active));
-    });
-  }
-
-  function install(){
-    const section=document.querySelector('#mvp-pricing');
-    const plans=section?.querySelector('.pricing-summary-grid');
-    const switcher=section?.querySelector('.currency-switcher');
-    if(!section||!plans||!switcher)return false;
-
-    let wrap=section.querySelector('.conversation-tier-wrap');
-    if(!wrap){
-      wrap=document.createElement('div');
-      wrap.className='conversation-tier-wrap';
-
-      const group=document.createElement('div');
-      group.className='conversation-tier-group';
-      group.setAttribute('role','group');
-      group.setAttribute('aria-label','Monthly conversation volume');
-      group.innerHTML=
-        '<span class="conversation-tier-label">Monthly conversations</span>'+
-        [3000,6000,9000,15000].map(n=>'<button type="button" data-tier="'+n+'">Up to '+n.toLocaleString('en-IN')+'</button>').join('');
-
-      wrap.appendChild(group);
-      plans.before(wrap);
-    }
-
-    if(switcher.parentNode!==wrap)wrap.appendChild(switcher);
-
-    if(!wrap.dataset.bound){
-      wrap.dataset.bound='1';
-
-      wrap.addEventListener('click',event=>{
-        const tierBtn=event.target.closest('[data-tier]');
-        if(tierBtn){
-          selectedTier=Number(tierBtn.dataset.tier);
-          render();
-          return;
-        }
-
-        const currencyBtn=event.target.closest('[data-currency]');
-        if(currencyBtn){
-          currency=currencyBtn.dataset.currency;
-          render();
-        }
-      });
-
-      section.addEventListener('click',event=>{
-        if(event.target.closest('.agent-counter-btn'))setTimeout(render,0);
-      },true);
-    }
-
-    render();
-    return true;
-  }
-
-  let tries=0;
-  const timer=setInterval(()=>{
-    tries++;
-    if(install()||tries>40)clearInterval(timer);
-  },120);
-
-  const observer=new MutationObserver(()=>{
-    clearTimeout(observer._t);
-    observer._t=setTimeout(()=>{install();render();},40);
+ const TIER_PRICES={
+  3000:{INR:{ai:24999,lite:54999,full:84999},USD:{ai:299,lite:649,full:999}},
+  6000:{INR:{ai:39999,lite:69999,full:99999},USD:{ai:479,lite:829,full:1179}},
+  9000:{INR:{ai:54999,lite:84999,full:114999},USD:{ai:649,lite:999,full:1349}},
+  15000:{INR:{ai:79999,lite:109999,full:149999},USD:{ai:949,lite:1299,full:1769}}
+ };
+ let selectedTier=3000,currency='INR';
+ const fmt=(v,curr)=>(curr==='INR'?'₹':'$')+Number(v).toLocaleString(curr==='INR'?'en-IN':'en-US');
+ function keyFor(card){const t=(card.querySelector('h3')?.textContent||'').trim();return t==='AI Support'?'ai':t==='AI + Human Lite'?'lite':t==='AI + Human Full'?'full':''}
+ function render(){
+  const section=document.querySelector('#mvp-pricing'); if(!section)return;
+  const p=TIER_PRICES[selectedTier][currency];
+  section.querySelectorAll('.pricing-summary').forEach(card=>{
+   const key=keyFor(card);if(!key)return;
+   const count=Math.max(1,Number(card.dataset.humanAgents)||1);let total=p[key];
+   if(key==='lite'&&count>1)total+=(currency==='INR'?37500:449)+((count-2)*(currency==='INR'?20000:239));
+   if(key==='full'&&count>1)total+=(count-1)*(currency==='INR'?40000:479);
+   const price=card.querySelector('.pricing-price');if(!price)return;
+   const value=price.querySelector('.agent-price-value'),tax=currency==='INR'?'+ GST':'+ applicable taxes';
+   if(value){value.textContent=fmt(total,currency);const s=price.querySelector('.agent-price-copy small');if(s)s.textContent='/month '+tax}
+   else price.innerHTML=fmt(total,currency)+' <small>/month '+tax+'</small>';
   });
-  observer.observe(document.documentElement,{childList:true,subtree:true});
+  section.querySelectorAll('[data-tier]').forEach(b=>{const a=Number(b.dataset.tier)===selectedTier;b.classList.toggle('active',a);b.setAttribute('aria-pressed',String(a))});
+  section.querySelectorAll('.currency-switcher [data-currency]').forEach(b=>{const a=b.dataset.currency===currency;b.classList.toggle('active',a);b.setAttribute('aria-pressed',String(a))});
+ }
+ function install(){
+  const section=document.querySelector('#mvp-pricing'),plans=section?.querySelector('.pricing-summary-grid'),switcher=section?.querySelector('.currency-switcher');
+  if(!section||!plans||!switcher)return false;
+  let wrap=section.querySelector('.conversation-tier-wrap');
+  if(!wrap){wrap=document.createElement('div');wrap.className='conversation-tier-wrap';const g=document.createElement('div');g.className='conversation-tier-group';g.innerHTML='<span class="conversation-tier-label">Monthly conversations</span>'+[3000,6000,9000,15000].map(n=>'<button type="button" data-tier="'+n+'">Up to '+n.toLocaleString('en-IN')+'</button>').join('');wrap.appendChild(g);plans.before(wrap)}
+  if(switcher.parentNode!==wrap)wrap.appendChild(switcher);
+  if(!wrap.dataset.bound){wrap.dataset.bound='1';wrap.addEventListener('click',e=>{const t=e.target.closest('[data-tier]');if(t){selectedTier=Number(t.dataset.tier);render();return}const u=e.target.closest('[data-currency]');if(u){currency=u.dataset.currency;render()}});section.addEventListener('click',e=>{if(e.target.closest('.agent-counter-btn'))setTimeout(render,0)},true)}
+  render();return true;
+ }
+ let n=0;const timer=setInterval(()=>{n++;if(install()||n>50)clearInterval(timer)},120);
+ const obs=new MutationObserver(()=>{clearTimeout(obs._t);obs._t=setTimeout(()=>{install();render()},50)});obs.observe(document.documentElement,{childList:true,subtree:true});
 })();
 </script>
-
 </body>
 </html>
