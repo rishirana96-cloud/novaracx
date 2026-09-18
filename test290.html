@@ -7508,5 +7508,48 @@ document.addEventListener('click',function(event){
 })();
 </script>
 
+
+<!-- NOVARA_RECOMMENDED_AGENT_LABEL_TEST290_V2 -->
+<style>
+#mvp-pricing .pricing-title-row{flex-wrap:wrap!important}
+#mvp-pricing .agent-recommended{
+  order:3;
+  flex-basis:100%;
+  width:max-content;
+  margin:3px 0 0 auto!important;
+  padding:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  color:#657a6e!important;
+  font-size:.60rem!important;
+  font-weight:650!important;
+  line-height:1.2!important;
+  text-align:right;
+}
+@media(max-width:760px){
+ #mvp-pricing .agent-recommended{display:block!important}
+}
+</style>
+<script>
+(function(){
+ const REC={3000:2,6000:4,9000:5,15000:9};
+ function update(){
+  const active=document.querySelector('#mvp-pricing .conversation-tier-group [data-tier].active');
+  const tier=Number(active?.dataset.tier)||3000;
+  document.querySelectorAll('#mvp-pricing .pricing-summary').forEach(card=>{
+   const title=(card.querySelector('h3')?.textContent||'').trim();
+   if(title!=='AI + Human Lite'&&title!=='AI + Human Full')return;
+   const row=card.querySelector('.pricing-title-row');
+   if(!row)return;
+   let label=row.querySelector('.agent-recommended');
+   if(!label){label=document.createElement('span');label.className='agent-recommended';row.appendChild(label)}
+   label.textContent='Recommended agents: '+REC[tier];
+  });
+ }
+ document.addEventListener('click',e=>{if(e.target.closest('#mvp-pricing [data-tier]'))setTimeout(update,30)},true);
+ let n=0,t=setInterval(()=>{update();if(++n>30)clearInterval(t)},150);
+})();
+</script>
+
 </body>
 </html>
