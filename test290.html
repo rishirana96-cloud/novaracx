@@ -7446,5 +7446,67 @@ document.addEventListener('click',function(event){
  const obs=new MutationObserver(()=>{clearTimeout(obs._t);obs._t=setTimeout(()=>{install();render()},50)});obs.observe(document.documentElement,{childList:true,subtree:true});
 })();
 </script>
+
+<!-- NOVARA_PRESET_AGENT_RECOMMENDATIONS_TEST290_V1 -->
+<style>
+#mvp-pricing .agent-counter-value{min-width:72px!important}
+#mvp-pricing .agent-recommended{display:inline-flex;align-items:center;margin-left:6px;padding:4px 8px;border-radius:999px;background:#e2f0e6;color:#286344;font-size:.58rem;font-weight:800;white-space:nowrap}
+@media(max-width:760px){#mvp-pricing .agent-recommended{display:none}}
+</style>
+<script>
+(function(){
+ const RECOMMENDED={3000:2,6000:4,9000:5,15000:9};
+ let currentTier=3000;
+ function setAgents(card,count){
+   if(!card)return;
+   card.dataset.humanAgents=String(count);
+   const label=card.querySelector('.agent-counter-value');
+   if(label)label.textContent=count+' '+(count===1?'agent':'agents');
+   const minus=card.querySelector('.agent-minus');
+   if(minus)minus.disabled=count<=1;
+ }
+ function apply(tier){
+   currentTier=tier;
+   const count=RECOMMENDED[tier]||1;
+   document.querySelectorAll('#mvp-pricing .pricing-summary').forEach(card=>{
+     const title=(card.querySelector('h3')?.textContent||'').trim();
+     if(title!=='AI + Human Lite'&&title!=='AI + Human Full')return;
+     setAgents(card,count);
+     const row=card.querySelector('.pricing-title-row');
+     if(row){
+       let badge=row.querySelector('.agent-recommended');
+       if(!badge){badge=document.createElement('span');badge.className='agent-recommended';badge.textContent='Recommended';row.appendChild(badge)}
+     }
+   });
+   setTimeout(()=>{
+     const active=document.querySelector('#mvp-pricing .conversation-tier-group [data-tier="'+tier+'"]');
+     if(active)active.click();
+   },0);
+ }
+ function bind(){
+   const section=document.querySelector('#mvp-pricing');
+   if(!section||section.dataset.presetAgentsBound==='1')return false;
+   section.dataset.presetAgentsBound='1';
+   section.addEventListener('click',e=>{
+     const tier=e.target.closest('.conversation-tier-group [data-tier]');
+     if(tier){
+       const n=Number(tier.dataset.tier);
+       if(n!==currentTier){
+         currentTier=n;
+         const count=RECOMMENDED[n]||1;
+         section.querySelectorAll('.pricing-summary').forEach(card=>{
+           const title=(card.querySelector('h3')?.textContent||'').trim();
+           if(title==='AI + Human Lite'||title==='AI + Human Full')setAgents(card,count);
+         });
+       }
+     }
+   },true);
+   apply(currentTier);
+   return true;
+ }
+ let tries=0;const timer=setInterval(()=>{tries++;if(bind()||tries>50)clearInterval(timer)},150);
+})();
+</script>
+
 </body>
 </html>
