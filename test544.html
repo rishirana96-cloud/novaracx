@@ -3978,62 +3978,73 @@ body.preview-is-expanded{overflow:hidden!important}
 #mvp-pricing .mvp-plan-note{display:none!important}
 @media(max-width:900px){.pricing-summary-grid{grid-template-columns:1fr}.pricing-summary{min-height:auto}.pricing-summary .coverage,.pricing-summary p.description{min-height:0}.pricing-summary-badge{position:static;align-self:flex-start;margin-bottom:14px}}
 </style>
-<script>
+<script id="novara-volume-pricing">
 (()=>{
+ 'use strict';
+ const tiers=[{quota:3000,price:24999},{quota:7000,price:34999},{quota:15000,price:49999}];
+ const humanCost=(plan,count=1)=>plan==='lite'?20000+(count>=2?37500:0)+Math.max(0,count-2)*20000:plan==='full'?60000+Math.max(0,count-1)*40000:0;
+ // One pricing model for cards and the existing savings estimate on this test page.
+ window.NOVARA_TEST_PRICING={tiers,humanCost};
  const buildPricingComparison=()=>{
-  const section=document.querySelector('#mvp-pricing');
-  if(!section||section.dataset.comparisonReady==='true')return;
+  const section=document.getElementById('mvp-pricing');
+  if(!section||section.dataset.volumeReady)return;
+  section.dataset.volumeReady='true';
   section.dataset.comparisonReady='true';
-  const head=section.querySelector('.mvp-pricing-head');
-  if(head)head.innerHTML='<div><span class="mvp-kicker">Simple MVP plans</span><h2 class="mvp-heading">Choose the right balance of AI and human support.</h2></div><p>AI handles routine conversations around the clock. Add dedicated human-agent coverage based on the attention your customers need.</p>';
-  const plans=section.querySelector('.mvp-plans');
-  if(plans){
-   plans.className='pricing-summary-grid';
-   plans.innerHTML=`
-    <article class="pricing-summary">
-     <h3>AI Support</h3>
-     <div class="coverage">24/7 AI Chatbot</div>
-     <div class="pricing-price">₹24,999 <small>/month + GST</small></div>
-     <p class="description">Automated support for companies that want routine customer queries handled around the clock.</p>
-     <a class="mvp-btn secondary" href="#mvp-contact">Discuss AI Support</a>
-    </article>
-    <article class="pricing-summary">
-     <h3>AI + Human Lite</h3>
-     <div class="coverage">24/7 AI Chatbot + 4.5 Human Support Hours</div>
-     <div class="pricing-price">₹54,999 <small>/month + GST</small></div>
-     <p class="description">Continuous AI support backed by a dedicated human agent for escalations requiring judgement, investigation or empathy.</p>
-     <a class="mvp-btn secondary" href="#mvp-contact">Discuss AI + Human</a>
-    </article>
-    <article class="pricing-summary featured">
-     <span class="pricing-summary-badge">Complete coverage</span>
-     <h3>AI + Human Full</h3>
-     <div class="coverage">24/7 AI Chatbot + 9 Human Support Hours</div>
-     <div class="pricing-price">₹84,999 <small>/month + GST</small></div>
-     <p class="description">Continuous AI support with full-day human coverage and managed oversight for higher-volume support operations.</p>
-     <a class="mvp-btn primary" href="#mvp-contact">Discuss Full Coverage</a>
-    </article>`;
-  }
-  const compare=section.querySelector('.mvp-compare');
-  if(compare){
-   compare.className='pricing-compare-wrap';
-   compare.innerHTML=`
-    <table class="pricing-compare">
-     <thead><tr><th>Capability</th><th>AI Support</th><th>AI + Human Lite</th><th class="featured-col">AI + Human Full</th></tr></thead>
-     <tbody>
-      <tr><td>AI chatbot availability</td><td>24/7</td><td>24/7</td><td>24/7</td></tr>
-      <tr><td>Dedicated human-agent coverage</td><td class="dash">—</td><td>4.5 hours / working day</td><td>9 hours / working day</td></tr>
-      <tr><td>Continuous AI training and tuning</td><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td></tr>
-      <tr><td>NovaraDesk workspace</td><td class="dash">—</td><td class="yes">✓</td><td class="yes">✓</td></tr>
-      <tr><td>AI-to-human handoff</td><td>Escalates to your team</td><td class="yes">✓</td><td class="yes">✓</td></tr>
-      <tr><td>Human-agent management</td><td class="dash">—</td><td class="yes">✓</td><td class="yes">✓</td></tr>
-      <tr><td>Analytics and reporting</td><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td></tr>
-      <tr><td>Quality monitoring</td><td>AI performance</td><td>AI + human support</td><td>AI + human support</td></tr>
-      <tr><td>Ticket ownership</td><td>Your team</td><td>Novara</td><td>Novara</td></tr>
-     </tbody>
-    </table>`;
-  }
   const shell=section.querySelector('.mvp-shell');
-  if(shell&&!shell.querySelector('.pricing-footnote'))shell.insertAdjacentHTML('beforeend','<p class="pricing-footnote">Human-agent coverage applies on working days. Implementation scope and channel integrations are confirmed during discovery.</p>');
+  const head=section.querySelector('.mvp-pricing-head');
+  head.innerHTML='<div><span class="mvp-kicker">08 / The plans</span><h2 class="mvp-heading">Build your support plan.</h2></div><p>Choose your AI conversation volume, then the human support you need. We manage the AI in every plan.</p>';
+  section.querySelectorAll('.currency-switcher,.mvp-plan-note,.pricing-footnote,.cx-model').forEach(el=>el.remove());
+  const plans=section.querySelector('.mvp-plans,.pricing-summary-grid');
+  if(!plans)return;
+  plans.className='nv-plan-grid';
+  const controls=document.createElement('div');controls.className='nv-volume-panel';
+  controls.innerHTML=`<div class="nv-volume-heading"><div><span class="nv-step">01</span><label id="nv-volume-label">Monthly AI conversations</label></div><div class="nv-currency" role="group" aria-label="Pricing currency"><button type="button" data-currency="INR" aria-pressed="true">INR</button><button type="button" data-currency="USD" aria-pressed="false">USD</button></div></div><div class="nv-volume-options" role="group" aria-labelledby="nv-volume-label"><span class="nv-selection" aria-hidden="true"></span>${['3,000','7,000','15,000','Custom'].map((label,i)=>`<button type="button" data-tier="${i}" aria-pressed="${i===0}"><strong>${label}</strong><span>${i===3?'Let’s size it together':'conversations / month'}</span></button>`).join('')}</div><div class="nv-volume-caption"><span>One AI allowance. The same AI price in every plan.</span><a href="#nv-conversation-definition">What counts as a conversation?</a></div>`;
+  plans.before(controls);
+  const choose=document.createElement('div');choose.className='nv-support-heading';choose.innerHTML='<span class="nv-step">02</span><span>Choose your level of support</span>';plans.before(choose);
+  const configs=[
+   {key:'ai',name:'Managed AI Support',tag:'AI, managed for you',desc:'Your team handles human escalations.',features:['24/7 AI customer support','Knowledge-base setup and maintenance','Conversation reviews and AI tuning','AI analytics and monthly reporting'],cta:'Discuss AI Support'},
+   {key:'lite',name:'Managed CX Lite',tag:'AI + half-day human support',desc:'Novara handles AI and human escalations.',hours:'4.5',features:['Everything in Managed AI Support','NovaraDesk support workspace','AI-to-human handoff and ticket ownership','Agent supervision and quality reviews'],cta:'Discuss CX Lite'},
+   {key:'full',name:'Managed CX Full',tag:'AI + full-day human support',desc:'More human coverage, with CX oversight.',hours:'9',features:['Everything in Managed AI Support','NovaraDesk support workspace','AI-to-human handoff and ticket ownership','Agent supervision and quality reviews'],cta:'Discuss CX Full'}
+  ];
+  plans.innerHTML=configs.map(c=>`<article class="nv-plan ${c.key==='full'?'nv-plan-full':''}" data-plan="${c.key}"><div class="nv-plan-intro"><span class="nv-plan-tag">${c.tag}</span><h3>${c.name}</h3><p>${c.desc}</p></div><div class="nv-price-block"><div class="nv-price"><strong data-total></strong><span data-period>/month</span></div><small data-tax>+ GST</small></div><div class="nv-quota"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M5 4h14a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H9l-6 3V6a2 2 0 0 1 2-2Z"/><path d="M7 9h10M7 13h7"/></svg><span data-quota></span></div><div class="nv-cost-split"><span>Managed AI <b data-ai-cost></b></span><span>${c.key==='ai'?'Human support':'Human support + management'} <b data-human-cost></b></span></div><div class="nv-human">${c.hours?`<div class="nv-agent-row"><span>Human agents</span><div class="nv-agent-control" role="group" aria-label="${c.name} human agents"><button type="button" data-agent="-1" aria-label="Remove ${c.name} human agent">−</button><output data-count>1</output><button type="button" data-agent="1" aria-label="Add ${c.name} human agent">+</button></div></div><p><strong>${c.hours} hours</strong> / working day / agent</p><small data-agent-note></small>`:'<div class="nv-ai-coverage"><strong>24/7 AI coverage</strong><span>Human escalations go to your team.</span></div><small>We monitor, maintain and improve your AI.</small>'}</div><ul class="nv-features">${c.features.map(f=>`<li>${f}</li>`).join('')}</ul><a class="nv-plan-cta" href="#mvp-contact">${c.cta}<span aria-hidden="true">↗</span></a></article>`).join('');
+  const compare=section.querySelector('.mvp-compare,.pricing-compare-wrap');
+  if(compare){compare.className='nv-plan-details';compare.innerHTML=`<details><summary>Compare what’s included<span aria-hidden="true">+</span></summary><div class="nv-table-scroll"><table><caption class="nv-sr-only">Support plan capabilities</caption><thead><tr><th scope="col">Included in your plan</th>${configs.map(c=>`<th scope="col">${c.name}</th>`).join('')}</tr></thead><tbody><tr><th scope="row">Monthly AI conversations</th><td data-compare-quota></td><td data-compare-quota></td><td data-compare-quota></td></tr><tr><th scope="row">Managed AI, available 24/7</th><td>Included</td><td>Included</td><td>Included</td></tr><tr><th scope="row">Human coverage per agent</th><td>Your team</td><td>4.5 hrs / working day</td><td>9 hrs / working day</td></tr><tr><th scope="row">Workspace</th><td>NovaraConsole</td><td>NovaraDesk</td><td>NovaraDesk</td></tr><tr><th scope="row">Ticket ownership</th><td>Your team</td><td>Novara</td><td>Novara</td></tr><tr><th scope="row">Quality monitoring</th><td>AI performance</td><td>AI + human support</td><td>AI + human support</td></tr></tbody></table></div></details>`;}
+  const footer=document.createElement('div');footer.className='nv-pricing-footer';footer.innerHTML='<p>Monthly pricing excludes GST. Human coverage applies on agreed working days; staffing and channels are confirmed during discovery.</p><p data-currency-note hidden>USD amounts are indicative, using a fixed reference of ₹85 per US dollar. Quotes and billing are confirmed in INR.</p><details id="nv-conversation-definition"><summary>What counts as an AI conversation?</summary><p>A customer session with one or more AI replies, rather than each individual message. A handoff to a human stays within that conversation. Internal tests, spam and standalone greetings are excluded. The session window and usage limits will be agreed before launch.</p><p>AI allowances do not include unlimited human handling. Human capacity depends on your selected agents and coverage. Additional usage is agreed before it is billed.</p></details>';const workspaceComparison=shell.querySelector('.console-desk-inline');if(workspaceComparison)workspaceComparison.before(footer);else shell.appendChild(footer);
+  const live=document.createElement('p');live.className='nv-sr-only';live.setAttribute('role','status');live.setAttribute('aria-live','polite');shell.appendChild(live);
+  let tier=0,currency='INR';const counts={lite:1,full:1};
+  const money=value=>currency==='INR'?'₹'+value.toLocaleString('en-IN'):'$'+Math.round(value/85).toLocaleString('en-US');
+  function render(announce=false){
+   const custom=tier===3,selected=tiers[tier];
+   controls.style.setProperty('--selected',tier);
+   controls.querySelectorAll('[data-tier]').forEach(b=>b.setAttribute('aria-pressed',String(Number(b.dataset.tier)===tier)));
+   controls.querySelectorAll('[data-currency]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.currency===currency)));
+   const totals=[];
+   plans.querySelectorAll('.nv-plan').forEach((card,i)=>{
+    const key=card.dataset.plan,count=counts[key]||1,human=humanCost(key,count),price=card.querySelector('[data-total]');
+    price.textContent=custom?'Let’s talk':money(selected.price+human);
+    card.classList.toggle('nv-custom',custom);
+    card.querySelector('[data-period]').hidden=custom;card.querySelector('[data-tax]').textContent=custom?'A plan sized around your team':currency==='INR'?'+ GST':'+ applicable taxes';
+    card.querySelector('[data-quota]').innerHTML=custom?'<strong>Custom AI allowance</strong>':`<strong>${selected.quota.toLocaleString('en-IN')}</strong> AI conversations / month`;
+    card.querySelector('[data-ai-cost]').textContent=custom?'Custom quote':money(selected.price);
+    card.querySelector('[data-human-cost]').textContent=key==='ai'?'Your team':custom?'Based on staffing':money(human);
+    if(key!=='ai'){
+     card.querySelector('[data-count]').value=count;
+     card.querySelector('[data-agent="-1"]').disabled=custom||count===1;
+     card.querySelector('[data-agent="1"]').disabled=custom||count===50;
+     card.querySelector('[data-agent-note]').textContent=custom?'We’ll confirm staffing together.':key==='lite'?`2nd agent +${money(37500)}; each after +${money(20000)}.`:`Each additional agent +${money(40000)}.`;
+    }
+    const cta=card.querySelector('.nv-plan-cta');cta.innerHTML=(custom?'Discuss a custom plan':configs[i].cta)+'<span aria-hidden="true">↗</span>';
+    cta.dataset.selectedPlan=configs[i].name;cta.dataset.selectedQuota=custom?'Custom':selected.quota;cta.dataset.selectedAgents=key==='ai'?0:count;
+    totals.push(configs[i].name+': '+price.textContent);
+    if(announce&&price.animate&&!matchMedia('(prefers-reduced-motion: reduce)').matches)price.animate([{opacity:.35,transform:'translateY(4px)'},{opacity:1,transform:'translateY(0)'}],{duration:220});
+   });
+   section.querySelectorAll('[data-compare-quota]').forEach(el=>el.textContent=custom?'Custom allowance':selected.quota.toLocaleString('en-IN'));
+   footer.querySelector('[data-currency-note]').hidden=currency!=='USD';
+   if(announce)live.textContent=(custom?'Custom volume.':selected.quota.toLocaleString('en-IN')+' AI conversations per month.')+' '+totals.join('. ');
+  }
+  controls.addEventListener('click',event=>{const b=event.target.closest('button');if(!b){if(event.target.closest('a[href="#nv-conversation-definition"]'))footer.querySelector('details').open=true;return;}if(b.dataset.tier!==undefined)tier=Number(b.dataset.tier);if(b.dataset.currency)currency=b.dataset.currency;render(true)});
+  plans.addEventListener('click',event=>{const b=event.target.closest('[data-agent]');if(!b||b.disabled)return;const key=b.closest('[data-plan]').dataset.plan;counts[key]=Math.max(1,Math.min(50,counts[key]+Number(b.dataset.agent)));render(true)});
+  render();
  };
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>setTimeout(buildPricingComparison,900));else setTimeout(buildPricingComparison,900);
 })();
@@ -6238,7 +6249,7 @@ body.preview-is-expanded{overflow:hidden!important}
      <div class="cost-breakdown-row"><span>Human workload removed</span><b id="ceHoursRemoved">0 hours</b></div>
     </div>
     <a class="cost-estimator-cta" href="#mvp-contact">Discuss this estimate</a>
-    <details class="cost-method"><summary>Assumptions used in this estimate</summary><p>Staffing uses a six-day workweek, averaged to 26 working days per month. For a 9-hour Internal or Full shift, 1.5 hours are allocated to breaks, leaving 7.5 available hours; 80% handling utilisation gives 6 productive ticket-handling hours per day. For Lite, a 4.5-hour shift includes a 45-minute break and the same utilisation assumption, giving 3 productive hours per day. The remaining time covers meetings, training, QA, documentation, administrative work and natural idle time. AI results depend on the selected suitability and resolution assumptions. Staffing is rounded up to whole agents. GST is excluded.</p></details>
+    <details class="cost-method"><summary>Assumptions used in this estimate</summary><p>Staffing uses a six-day workweek, averaged to 26 working days per month. For a 9-hour Internal or Full shift, 1.5 hours are allocated to breaks, leaving 7.5 available hours; 80% handling utilisation gives 6 productive ticket-handling hours per day. For Lite, a 4.5-hour shift includes a 45-minute break and the same utilisation assumption, giving 3 productive hours per day. The remaining time covers meetings, training, QA, documentation, administrative work and natural idle time. AI results depend on the selected suitability and resolution assumptions. Staffing is rounded up to whole agents. For this estimate, each ticket entering AI counts as one AI conversation, including escalations. Pricing uses the smallest AI allowance that covers that volume; above 15,000 requires a custom quote. GST is excluded.</p></details>
    </div>
   </div>
  </div>`;
@@ -6271,14 +6282,11 @@ body.preview-is-expanded{overflow:hidden!important}
   const novaraCapacity=workingDays*novaraProductiveHours;
   const novaraAgents=Math.max(1,Math.ceil(humanHours/novaraCapacity));
   const internal=internalAgents*salary*(1+overhead)+lead+tools+hiring;
-  let novara,label;
-  if(plan==='lite'){
-   novara=54999+(novaraAgents>=2?37500:0)+(novaraAgents>2?(novaraAgents-2)*20000:0);
-   label='Lite';
-  }else{
-   novara=84999+Math.max(0,novaraAgents-1)*40000;
-   label='Full';
-  }
+  const selectedTier=window.NOVARA_TEST_PRICING.tiers.find(tier=>eligibleTickets<=tier.quota);
+  const customQuote=!selectedTier;
+  const managedHumanCost=window.NOVARA_TEST_PRICING.humanCost(plan,novaraAgents);
+  const novara=selectedTier?selectedTier.price+managedHumanCost:0;
+  const label=plan==='lite'?'Lite':'Full';
   const saving=internal-novara;
   const percent=internal?saving/internal*100:0;
   const overall=tickets?aiTickets/tickets*100:0;
@@ -6290,7 +6298,7 @@ body.preview-is-expanded{overflow:hidden!important}
   byId('ceOverallRate').textContent=Math.round(overall)+'% overall';
   byId('ceHumanHours').textContent=Math.round(humanHours).toLocaleString('en-IN')+' hours';
   byId('ceInternal').textContent=money(internal);
-  byId('ceNovara').textContent=money(novara);
+  byId('ceNovara').textContent=customQuote?'Custom quote':money(novara);
   byId('ceInternalAgents').textContent=plural(internalAgents,'in-house agent')+' required · 6 productive hrs/day';
   byId('ceNovaraAgents').textContent=plural(novaraAgents,'managed agent')+' · '+novaraProductiveHours+' productive hrs/day · '+label;
   const internalRawAgents=totalHours/internalCapacity;
@@ -6299,22 +6307,14 @@ body.preview-is-expanded{overflow:hidden!important}
   const internalFormula=tickets.toLocaleString('en-IN')+' tickets × '+aht.toLocaleString('en-IN')+' min ÷ 60 = '+Math.round(totalHours).toLocaleString('en-IN')+' hrs\n'+Math.round(totalHours).toLocaleString('en-IN')+' hrs ÷ (26 days × 6 productive hrs) = '+internalRawAgents.toFixed(1)+' → '+internalAgents+' agents';
   const internalCostFormula=internalAgents+' × '+money(salary)+' × '+(1+overhead).toFixed(2)+' + '+money(fixedInternalCosts)+' = '+money(internal);
   const novaraFormula=humanTickets.toLocaleString('en-IN')+' tickets × '+aht.toLocaleString('en-IN')+' min ÷ 60 = '+Math.round(humanHours).toLocaleString('en-IN')+' hrs\n'+Math.round(humanHours).toLocaleString('en-IN')+' hrs ÷ (26 days × '+novaraProductiveHours+' productive hrs) = '+novaraRawAgents.toFixed(1)+' → '+novaraAgents+' agents';
-  let novaraCostFormula;
-  if(plan==='lite'){
-   const secondAgentCost=novaraAgents>=2?37500:0;
-   const laterAgentCost=novaraAgents>2?(novaraAgents-2)*20000:0;
-   novaraCostFormula=money(54999)+(secondAgentCost?' + '+money(secondAgentCost):'')+(laterAgentCost?' + '+money(laterAgentCost):'')+' = '+money(novara);
-  }else{
-   const extraAgentCost=Math.max(0,novaraAgents-1)*40000;
-   novaraCostFormula=money(84999)+(extraAgentCost?' + '+money(extraAgentCost)+' ('+(novaraAgents-1)+' extra agent'+(novaraAgents-1===1?'':'s')+')':'')+' = '+money(novara);
-  }
+  const novaraCostFormula=customQuote?'Above 15,000 AI conversations/month: request a tailored quote.':money(selectedTier.price)+' managed AI ('+selectedTier.quota.toLocaleString('en-IN')+' conversations) + '+money(managedHumanCost)+' human support = '+money(novara);
   byId('ceInternalStaffFormula').textContent=internalFormula;
   byId('ceInternalCostFormula').textContent=internalCostFormula;
   byId('ceNovaraStaffFormula').textContent=novaraFormula;
   byId('ceNovaraCostFormula').textContent=novaraCostFormula;
-  byId('ceMonthlySaving').textContent=(saving<0?'−':'')+money(saving);
-  byId('ceAnnualSaving').textContent=(saving<0?'−':'')+money(saving*12);
-  byId('ceSavingPercent').textContent=saving>=0?Math.round(percent)+'% lower than an internal setup':Math.round(Math.abs(percent))+'% above the internal estimate';
+  byId('ceMonthlySaving').textContent=customQuote?'Quote required':(saving<0?'−':'')+money(saving);
+  byId('ceAnnualSaving').textContent=customQuote?'Quote required':(saving<0?'−':'')+money(saving*12);
+  byId('ceSavingPercent').textContent=customQuote?'Savings will be calculated after your custom quote.':saving>=0?Math.round(percent)+'% lower than an internal setup':Math.round(Math.abs(percent))+'% above the internal estimate';
   byId('ceAiShare').textContent=Math.round(overall)+'%';
   byId('ceEligibleHint').textContent=eligibleTickets.toLocaleString('en-IN')+' of '+tickets.toLocaleString('en-IN')+' tickets enter AI support.';
   byId('ceResolutionHint').textContent=aiTickets.toLocaleString('en-IN')+' resolved; '+escalatedTickets.toLocaleString('en-IN')+' escalated after AI.';
@@ -6389,6 +6389,79 @@ body.preview-is-expanded{overflow:hidden!important}
     white-space:pre-line;
 }
 .cost-total-hours{color:#315f49!important;font-weight:700!important;line-height:1.45!important}
+</style>
+
+<style id="novara-volume-pricing-style">
+#mvp-pricing{background:#edf2ee!important;color:#17382a!important;padding:88px 0!important}
+#mvp-pricing:before{display:none!important}
+#mvp-pricing .mvp-shell{max-width:1280px!important}
+#mvp-pricing .mvp-pricing-head{gap:32px!important;margin-bottom:32px!important}
+#mvp-pricing .mvp-pricing-head h2{color:#143b2a!important;font-size:clamp(2rem,3.4vw,3rem)!important;letter-spacing:-.045em!important;line-height:1.08!important}
+#mvp-pricing .mvp-pricing-head p{color:#52665b!important;font-size:15px!important;max-width:425px!important;line-height:1.7!important}
+#mvp-pricing .mvp-kicker{color:#496c57!important}
+#mvp-pricing .console-desk-section-head h2{color:#173b2a!important}
+#mvp-pricing .console-desk-section-head p{color:#52665b!important}
+.nv-volume-panel{position:relative;padding:24px 26px 20px;border:1px solid #cedbd1;border-radius:18px;background:#f9fcf9;box-shadow:0 4px 16px #173b2604}
+.nv-volume-heading,.nv-volume-heading>div,.nv-support-heading{display:flex;align-items:center;gap:12px}
+.nv-volume-heading{justify-content:space-between;margin-bottom:20px}
+.nv-volume-heading label,.nv-support-heading{font-size:15px;font-weight:650;color:#274635}
+.nv-step{display:inline-grid;place-items:center;flex:0 0 27px;width:27px;height:27px;border:1px solid #cad8ce;border-radius:50%;color:#526d5d;font-size:11px;font-weight:650;letter-spacing:0}
+.nv-currency{display:flex;padding:3px;border:1px solid #dbe4de;border-radius:9px;background:#eef3ef}
+.nv-currency button{padding:7px 13px;background:transparent;border:0;border-radius:6px;font-family:inherit;font-size:12px;font-weight:650;line-height:1.3;color:#5c7063;cursor:pointer}
+.nv-currency button[aria-pressed="true"]{background:#fff;color:#143b2a;box-shadow:0 1px 4px #183b2610}
+.nv-volume-options{position:relative;isolation:isolate;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));padding:5px;border-radius:13px;background:#e9efea;gap:0}
+.nv-selection{position:absolute;z-index:-1;inset:5px auto 5px 5px;width:calc((100% - 10px)/4);border-radius:9px;background:#254c37;transform:translateX(calc(var(--selected,0)*100%));transition:transform .28s cubic-bezier(.2,.8,.2,1);box-shadow:0 3px 8px #203f2515}
+.nv-volume-options button{display:grid;gap:5px;justify-items:center;padding:16px 8px;border:0;border-radius:9px;background:transparent;color:#36523f;cursor:pointer;transition:color .2s}
+.nv-volume-options strong{font-size:23px;line-height:1.2;font-weight:650;letter-spacing:-.6px;font-variant-numeric:tabular-nums}
+.nv-volume-options button span{font-size:12px;color:#5d7264}
+.nv-volume-options button[aria-pressed="true"],.nv-volume-options button[aria-pressed="true"] span{color:#fff}
+.nv-volume-caption{display:flex;justify-content:space-between;gap:12px;margin-top:16px;font-size:12px;color:#617466;line-height:1.5}
+.nv-volume-caption a{color:#345c44;text-decoration:underline;text-underline-offset:3px}
+.nv-support-heading{margin:28px 0 16px}
+.nv-plan-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;align-items:stretch}
+.nv-plan{display:flex;flex-direction:column;min-width:0;padding:26px 24px 24px;border:1px solid #d8e1da;border-radius:18px;background:#fff;color:#183b2a;box-shadow:0 5px 18px #183b2604}
+.nv-plan-full{border:1px solid #80a48a;box-shadow:inset 0 3px #648e71;background:linear-gradient(170deg,#f1f7f0,#fff 45%)}
+.nv-plan-intro{min-height:103px}
+.nv-plan-tag{display:block;margin-bottom:12px;font-size:12px;line-height:1.4;font-weight:550;color:#607969}
+.nv-plan h3{font-size:23px!important;line-height:1.2!important;font-weight:700!important;letter-spacing:-.6px!important;color:#193c2a!important}
+.nv-plan-intro p{font-size:12px;line-height:1.5;color:#697b70;margin-top:9px}
+.nv-price-block{margin:22px 0 18px}
+.nv-price{display:flex;align-items:baseline;flex-wrap:wrap;gap:7px;min-height:44px;line-height:1.1}
+.nv-price strong{font-size:clamp(1.85rem,2.8vw,2.65rem);font-weight:700;letter-spacing:-1.5px;font-variant-numeric:tabular-nums;white-space:nowrap}
+.nv-price>span,.nv-price-block>small{font-size:12px;color:#697b70}
+.nv-price-block>small{display:block;margin-top:8px}
+.nv-quota{display:flex;align-items:center;gap:8px;padding:11px 10px;background:#f0f5ef;border:1px solid #e1e9df;border-radius:8px;font-size:12px;line-height:1.5;color:#3c5b45}
+.nv-quota svg{width:17px;height:17px;flex-shrink:0}.nv-quota strong{font-weight:750;color:#244b32}
+.nv-cost-split{display:grid;gap:8px;padding:17px 0;margin-bottom:0;border-bottom:1px solid #e4ebe5;font-size:12px;line-height:1.5}
+.nv-cost-split>span{display:flex;justify-content:space-between;gap:8px;color:#6b7d70}.nv-cost-split b{color:#37533f;font-weight:600;white-space:nowrap}
+.nv-human{min-height:132px;padding:18px 0;border-bottom:1px solid #e4ebe5}
+.nv-agent-row{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:13px;font-weight:600}
+.nv-agent-control{display:flex;align-items:center;gap:6px}
+.nv-agent-control button{display:grid;place-items:center;width:32px;height:32px;background:#f6f9f5;border:1px solid #d4dfd3;border-radius:8px;font-size:19px;color:#315238;cursor:pointer}
+.nv-agent-control button:hover:not(:disabled){background:#e4eee0;border-color:#7d9d81}
+.nv-agent-control button:disabled{opacity:.35;cursor:not-allowed}
+.nv-agent-control output{min-width:23px;text-align:center;font-size:14px;font-variant-numeric:tabular-nums}
+.nv-human p{font-size:12px;color:#6b7d70;margin-top:10px}.nv-human p strong{color:#315438;font-weight:650}
+.nv-human small{display:block;font-size:11px;line-height:1.6;margin-top:8px;color:#718172}
+.nv-ai-coverage{display:grid;gap:10px;padding-top:7px;font-size:13px}.nv-ai-coverage span{font-size:12px;color:#6b7d70}
+.nv-features{display:grid;gap:12px;margin:22px 0 25px;padding:0;list-style:none;flex:1}
+.nv-features li{position:relative;padding-left:21px;font-size:13px;line-height:1.5;color:#4b6351}
+.nv-features li:before{content:'✓';position:absolute;left:0;color:#56805c;font-size:13px;font-weight:700}
+.nv-plan-cta{display:flex;align-items:center;justify-content:space-between;min-height:46px;padding:12px 15px;border:1px solid #b8cbb9;border-radius:9px;background:#fff;color:#23452c;text-decoration:none;font-size:13px;font-weight:650;transition:background .2s}
+.nv-plan-cta:hover{background:#eef5ec}.nv-plan-full .nv-plan-cta{background:#244d34;border-color:#244d34;color:#fff}.nv-plan-full .nv-plan-cta:hover{background:#173d26}
+.nv-plan-details{margin-top:22px;border:1px solid #d6e1d6;border-radius:12px;background:#f8fbf7;overflow:hidden}
+.nv-plan-details summary{display:flex;justify-content:space-between;padding:18px 22px;cursor:pointer;font-size:14px;font-weight:600;list-style:none}
+.nv-plan-details summary::-webkit-details-marker{display:none}.nv-plan-details summary span{transition:transform .2s}.nv-plan-details details[open] summary span{transform:rotate(45deg)}
+.nv-table-scroll{overflow-x:auto}.nv-table-scroll table{width:100%;min-width:760px;border-collapse:collapse;font-size:12px;line-height:1.5}
+.nv-table-scroll th,.nv-table-scroll td{text-align:left;padding:15px 20px;border-top:1px solid #dfe8de}.nv-table-scroll thead{background:#eaf2e7}.nv-table-scroll tbody th{font-weight:550}.nv-table-scroll td{color:#55705a}
+.nv-pricing-footer{margin-top:20px;color:#617564;font-size:12px;line-height:1.7}.nv-pricing-footer>p{text-align:center;margin:8px auto;max-width:880px}.nv-pricing-footer details{max-width:760px;margin:18px auto 0;padding:13px 0;border-top:1px solid #d3dfd2}.nv-pricing-footer summary{cursor:pointer;text-align:center;color:#385e3e;font-weight:600}.nv-pricing-footer details p{margin-top:12px}
+#mvp-pricing [hidden]{display:none!important}
+#mvp-pricing .nv-sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap;border:0}
+#mvp-pricing :is(button,a,summary):focus-visible{outline:3px solid #72a181;outline-offset:4px}
+@media(max-width:1050px){.nv-plan{padding:24px 18px}.nv-plan h3{font-size:20px!important}.nv-price strong{font-size:30px}.nv-cost-split{font-size:11px}.nv-human{min-height:146px}.nv-quota{font-size:11px}}
+@media(max-width:820px){.nv-plan-grid{grid-template-columns:1fr}.nv-plan{padding:28px}.nv-plan-intro{min-height:0}.nv-price strong{font-size:39px}.nv-human{min-height:0;padding-bottom:18px}.nv-features{grid-template-columns:1fr 1fr}.nv-cost-split,.nv-quota{font-size:13px}.nv-price-block{margin-top:20px}.nv-volume-options button span{font-size:10px}.nv-volume-caption{flex-direction:column;gap:7px}}
+@media(max-width:480px){#mvp-pricing{padding:58px 0!important}.nv-volume-panel{padding:17px 12px}.nv-volume-heading{gap:8px;align-items:flex-start}.nv-volume-heading>div{gap:7px}.nv-volume-heading label{font-size:12px;max-width:130px}.nv-step{width:23px;height:23px;flex-basis:23px;font-size:10px}.nv-currency button{padding:6px 9px;font-size:11px}.nv-volume-options strong{font-size:18px}.nv-volume-options button{padding:13px 3px}.nv-volume-options button span{font-size:9px;line-height:1.4;text-align:center;max-width:65px}.nv-plan{padding:24px 20px}.nv-features{grid-template-columns:1fr}.nv-volume-caption{font-size:11px}.nv-support-heading{font-size:13px}.nv-plan h3{font-size:24px!important}}
+@media(prefers-reduced-motion:reduce){#mvp-pricing *{transition:none!important;animation:none!important}}
 </style>
 </body>
 </html>
