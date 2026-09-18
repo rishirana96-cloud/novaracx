@@ -8121,5 +8121,176 @@ document.addEventListener('click',function(event){
 })();
 </script>
 
+
+<!-- NOVARA_SIMPLIFIED_PRICING_CARDS_TEST290_V11 -->
+<style>
+/* Simplified card information architecture to match approved mockup */
+#mvp-pricing .pricing-summary{
+  min-height:0!important;
+  padding:30px 28px 26px!important;
+}
+#mvp-pricing .pricing-summary h3{
+  font-size:1.34rem!important;
+  line-height:1.1!important;
+}
+#mvp-pricing .pricing-summary .plan-positioning{
+  max-width:88%!important;
+  min-height:0!important;
+  margin:15px 0 0!important;
+  font-size:.82rem!important;
+  line-height:1.5!important;
+}
+#mvp-pricing .pricing-title-row{
+  align-items:flex-start!important;
+}
+#mvp-pricing .pricing-title-row .agent-counter{
+  margin-top:-2px!important;
+}
+#mvp-pricing .coverage-pills{
+  margin:18px 0 0!important;
+}
+#mvp-pricing .coverage-pill{
+  min-height:27px!important;
+  padding:5px 10px!important;
+  border-radius:999px!important;
+  background:#e8f1eb!important;
+  border:0!important;
+  font-size:.58rem!important;
+}
+#mvp-pricing .minimum-agent-note{
+  margin:11px 0 0!important;
+  padding:0!important;
+  background:transparent!important;
+  border-radius:0!important;
+  font-size:.66rem!important;
+  color:#5f766a!important;
+}
+#mvp-pricing .minimum-agent-note:before{
+  width:14px!important;
+  height:14px!important;
+  border:1px solid #5f766a!important;
+  background:transparent!important;
+  position:relative!important;
+  box-sizing:border-box!important;
+}
+#mvp-pricing .minimum-agent-note:after{
+  content:"i";
+  position:absolute;
+  margin-left:4px;
+  margin-top:-1px;
+  color:#5f766a;
+  font-size:.52rem;
+  font-weight:800;
+}
+#mvp-pricing .pricing-summary .pricing-price{
+  margin-top:28px!important;
+  font-size:clamp(2.15rem,2.8vw,2.7rem)!important;
+}
+#mvp-pricing .pricing-price small{
+  font-size:.72rem!important;
+}
+#mvp-pricing .agent-pricing-note{
+  display:none!important;
+}
+#mvp-pricing .plan-inclusions{
+  margin:24px 0 24px!important;
+  padding-top:22px!important;
+  gap:11px!important;
+}
+#mvp-pricing .plan-inclusions li{
+  padding-left:28px!important;
+  font-size:.76rem!important;
+  line-height:1.45!important;
+}
+#mvp-pricing .plan-inclusions li:before{
+  width:18px!important;
+  height:18px!important;
+  display:grid!important;
+  place-items:center!important;
+  border-radius:50%!important;
+  background:#dfece3!important;
+  color:#236642!important;
+  font-size:.68rem!important;
+  top:0!important;
+}
+#mvp-pricing .pricing-summary .mvp-btn{
+  min-height:48px!important;
+  font-size:.76rem!important;
+}
+
+/* remove redundant meta pill */
+#mvp-pricing .pricing-summary .coverage-pill:nth-child(3){
+  display:none!important;
+}
+
+/* AI card gets one concise capability chip */
+#mvp-pricing .pricing-summary:first-child .coverage-pill:nth-child(2){
+  display:none!important;
+}
+
+/* clearer featured treatment */
+#mvp-pricing .pricing-summary.featured{
+  background:linear-gradient(150deg,#f3faf5,#ffffff)!important;
+  border-color:rgba(33,111,66,.24)!important;
+}
+
+/* balance vertical rhythm */
+#mvp-pricing .pricing-summary:first-child .pricing-price{
+  margin-top:34px!important;
+}
+@media(max-width:900px){
+  #mvp-pricing .pricing-summary .plan-positioning{max-width:100%!important}
+}
+</style>
+
+<script>
+(function(){
+  function simplifyPricingCards(){
+    const cards=[...document.querySelectorAll('#mvp-pricing .pricing-summary')];
+    if(cards.length<3)return false;
+
+    const [ai,lite,full]=cards;
+
+    const aiDesc=ai.querySelector('.plan-positioning');
+    if(aiDesc)aiDesc.textContent='Automate routine queries with always-on AI support.';
+    const aiList=ai.querySelector('.plan-inclusions');
+    if(aiList)aiList.innerHTML=
+      '<li>Website AI chatbot</li>'+
+      '<li>Conversation analytics</li>'+
+      '<li>Continuous training and tuning</li>';
+
+    const liteDesc=lite.querySelector('.plan-positioning');
+    if(liteDesc)liteDesc.textContent='Part-day human coverage for escalated conversations.';
+    const liteList=lite.querySelector('.plan-inclusions');
+    if(liteList)liteList.innerHTML=
+      '<li>Dedicated human escalation support</li>'+
+      '<li>NovaraDesk included</li>'+
+      '<li>Managed quality &amp; performance</li>';
+
+    const fullDesc=full.querySelector('.plan-positioning');
+    if(fullDesc)fullDesc.textContent='Full-day human coverage for higher-volume operations.';
+    const fullList=full.querySelector('.plan-inclusions');
+    if(fullList)fullList.innerHTML=
+      '<li>Dedicated human escalation support</li>'+
+      '<li>NovaraDesk included</li>'+
+      '<li>Managed quality &amp; performance</li>';
+
+    return true;
+  }
+
+  let n=0;
+  const t=setInterval(()=>{
+    n++;
+    if(simplifyPricingCards()||n>40)clearInterval(t);
+  },120);
+
+  const o=new MutationObserver(()=>{
+    clearTimeout(o._t);
+    o._t=setTimeout(simplifyPricingCards,80);
+  });
+  o.observe(document.documentElement,{childList:true,subtree:true});
+})();
+</script>
+
 </body>
 </html>
