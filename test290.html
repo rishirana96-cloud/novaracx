@@ -7678,5 +7678,49 @@ document.addEventListener('click',function(event){
 })();
 </script>
 
+
+<!-- NOVARA_MIN_AGENT_RECOMMENDATION_TEST290_V6 -->
+<style>
+#mvp-pricing .pricing-title-row{align-items:center!important}
+#mvp-pricing .pricing-title-row .agent-counter{
+ display:flex!important;align-items:center!important;gap:10px!important;
+ grid-template-columns:none!important;grid-template-rows:none!important
+}
+#mvp-pricing .agent-recommended{display:none!important}
+#mvp-pricing .minimum-agent-note{
+ display:flex;align-items:center;gap:6px;
+ margin:10px 0 0;
+ color:#64796e;font-size:.63rem;font-weight:650;line-height:1.35
+}
+#mvp-pricing .minimum-agent-note:before{
+ content:"";width:6px;height:6px;border-radius:50%;background:#6da783;flex:0 0 auto
+}
+#mvp-pricing .minimum-agent-note strong{color:#315943;font-weight:800}
+</style>
+<script>
+(function(){
+ const REC={3000:2,6000:4,9000:5,15000:9};
+ function tier(){return Number(document.querySelector('#mvp-pricing .conversation-tier-group [data-tier].active')?.dataset.tier)||3000}
+ function sync(){
+  const minimum=REC[tier()]||1;
+  document.querySelectorAll('#mvp-pricing .pricing-summary').forEach(card=>{
+   const title=(card.querySelector('h3')?.textContent||'').trim();
+   if(title!=='AI + Human Lite'&&title!=='AI + Human Full')return;
+   card.querySelectorAll('.agent-recommended').forEach(x=>x.remove());
+   let note=card.querySelector('.minimum-agent-note');
+   if(!note){
+    note=document.createElement('p');note.className='minimum-agent-note';
+    const positioning=card.querySelector('.plan-positioning');
+    if(positioning)positioning.insertAdjacentElement('afterend',note);
+    else card.querySelector('.pricing-title-row')?.insertAdjacentElement('afterend',note);
+   }
+   if(note)note.innerHTML='Recommended minimum: <strong>'+minimum+' '+(minimum===1?'agent':'agents')+'</strong>';
+  });
+ }
+ document.addEventListener('click',e=>{if(e.target.closest('#mvp-pricing [data-tier],#mvp-pricing .agent-counter-btn'))setTimeout(sync,40)},true);
+ let n=0,t=setInterval(()=>{sync();if(++n>35)clearInterval(t)},150);
+})();
+</script>
+
 </body>
 </html>
