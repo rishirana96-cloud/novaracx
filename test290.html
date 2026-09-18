@@ -8228,5 +8228,45 @@ document.addEventListener('click',function(event){
 })();
 </script>
 
+
+<!-- NOVARA_PROGRESSIVE_VALUE_COPY_TEST290_V13 -->
+<script>
+(function(){
+ function rewriteValue(){
+  const cards=[...document.querySelectorAll('#mvp-pricing .pricing-summary')];
+  if(cards.length<3)return false;
+  const [ai,lite,full]=cards;
+  const set=(card,labelText,items)=>{
+   const list=card.querySelector('.plan-inclusions');if(!list)return;
+   list.innerHTML=items.map(x=>'<li>'+x+'</li>').join('');
+   let label=card.querySelector('.value-tier-label');
+   if(!label){label=document.createElement('div');label.className='value-tier-label';list.insertAdjacentElement('beforebegin',label)}
+   label.textContent=labelText;
+  };
+  set(ai,'AI Support includes',[
+   '<strong>24/7 AI support</strong> for routine customer queries',
+   'Website chatbot setup and deployment',
+   'Continuous AI training and knowledge updates',
+   'Conversation analytics and reporting'
+  ]);
+  set(lite,'Everything in AI Support, plus',[
+   '<strong>Dedicated human agents</strong> for AI escalations',
+   '4.5-hour daily coverage per human agent',
+   'NovaraDesk workspace for tickets and conversations',
+   'Agent quality monitoring and operational management'
+  ]);
+  set(full,'Everything in Lite, plus',[
+   '<strong>9-hour daily coverage</strong> per human agent',
+   'End-to-end ownership of complex customer issues',
+   'Managed CX reporting and performance oversight',
+   'Higher-capacity support for growing operations'
+  ]);
+  return true;
+ }
+ let n=0,t=setInterval(()=>{n++;if(rewriteValue()||n>40)clearInterval(t)},120);
+ const o=new MutationObserver(()=>{clearTimeout(o._t);o._t=setTimeout(rewriteValue,80)});o.observe(document.documentElement,{childList:true,subtree:true});
+})();
+</script>
+
 </body>
 </html>
