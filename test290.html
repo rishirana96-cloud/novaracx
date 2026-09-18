@@ -8121,5 +8121,112 @@ document.addEventListener('click',function(event){
 })();
 </script>
 
+
+<!-- NOVARA_PROGRESSIVE_VALUE_PROPOSITION_TEST290_V12 -->
+<style>
+#mvp-pricing .value-tier-label{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin:18px 0 10px;
+  color:#4f6b5c;
+  font-size:.58rem;
+  font-weight:850;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+}
+#mvp-pricing .value-tier-label:after{
+  content:"";
+  height:1px;
+  flex:1;
+  background:rgba(34,91,57,.12);
+}
+#mvp-pricing .plan-inclusions{
+  margin-top:0!important;
+  padding-top:0!important;
+  border-top:0!important;
+}
+#mvp-pricing .plan-inclusions li strong{
+  color:#233f31;
+  font-weight:800;
+}
+</style>
+<script>
+(function(){
+  function installProgressiveValue(){
+    const cards=[...document.querySelectorAll('#mvp-pricing .pricing-summary')];
+    if(cards.length<3)return false;
+
+    const [ai,lite,full]=cards;
+
+    const aiList=ai.querySelector('.plan-inclusions');
+    if(aiList){
+      aiList.innerHTML=
+        '<li><strong>Website AI chatbot</strong></li>'+
+        '<li>Continuous AI training and tuning</li>'+
+        '<li>Conversation analytics and reporting</li>'+
+        '<li>Human-escalation readiness</li>';
+      let lbl=ai.querySelector('.value-tier-label');
+      if(!lbl){
+        lbl=document.createElement('div');
+        lbl.className='value-tier-label';
+        lbl.textContent='Core AI support';
+        aiList.insertAdjacentElement('beforebegin',lbl);
+      } else {
+        lbl.textContent='Core AI support';
+      }
+    }
+
+    const liteList=lite.querySelector('.plan-inclusions');
+    if(liteList){
+      liteList.innerHTML=
+        '<li><strong>Everything in AI Support</strong></li>'+
+        '<li><strong>Dedicated human escalation support</strong></li>'+
+        '<li>NovaraDesk ticketing included</li>'+
+        '<li>Quality and performance oversight</li>'+
+        '<li>Managed agent onboarding and operations</li>';
+      let lbl=lite.querySelector('.value-tier-label');
+      if(!lbl){
+        lbl=document.createElement('div');
+        lbl.className='value-tier-label';
+        liteList.insertAdjacentElement('beforebegin',lbl);
+      }
+      lbl.textContent='Everything in AI Support, plus';
+    }
+
+    const fullList=full.querySelector('.plan-inclusions');
+    if(fullList){
+      fullList.innerHTML=
+        '<li><strong>Everything in AI + Human Lite</strong></li>'+
+        '<li><strong>Full-day human support coverage</strong></li>'+
+        '<li>Complex issues owned through resolution</li>'+
+        '<li>Reporting and managed CX oversight</li>'+
+        '<li>Higher-capacity human support operation</li>';
+      let lbl=full.querySelector('.value-tier-label');
+      if(!lbl){
+        lbl=document.createElement('div');
+        lbl.className='value-tier-label';
+        fullList.insertAdjacentElement('beforebegin',lbl);
+      }
+      lbl.textContent='Everything in AI + Human Lite, plus';
+    }
+
+    return true;
+  }
+
+  let n=0;
+  const t=setInterval(()=>{
+    n++;
+    if(installProgressiveValue()||n>40)clearInterval(t);
+  },120);
+
+  const observer=new MutationObserver(()=>{
+    clearTimeout(observer._t);
+    observer._t=setTimeout(installProgressiveValue,80);
+  });
+  observer.observe(document.documentElement,{childList:true,subtree:true});
+})();
+</script>
+
 </body>
 </html>
