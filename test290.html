@@ -7596,5 +7596,61 @@ document.addEventListener('click',function(event){
 }
 </style>
 
+
+<!-- NOVARA_RECOMMENDED_AGENT_CLEAN_CONTROL_TEST290_V4 -->
+<style>
+#mvp-pricing .pricing-title-row{
+ display:flex!important;align-items:flex-start!important;justify-content:space-between!important;gap:16px!important
+}
+#mvp-pricing .pricing-title-row h3{margin-top:7px!important}
+#mvp-pricing .pricing-title-row .agent-counter{
+ display:grid!important;
+ grid-template-columns:34px minmax(72px,auto) 34px!important;
+ grid-template-rows:34px 15px!important;
+ column-gap:10px!important;
+ row-gap:2px!important;
+ align-items:center!important;
+ margin-left:auto!important
+}
+#mvp-pricing .agent-counter-btn{grid-row:1!important}
+#mvp-pricing .agent-minus{grid-column:1!important}
+#mvp-pricing .agent-counter-value{grid-column:2!important;grid-row:1!important;min-width:72px!important;text-align:center!important}
+#mvp-pricing .agent-plus{grid-column:3!important}
+#mvp-pricing .agent-recommended{
+ grid-column:2!important;grid-row:2!important;
+ display:block!important;width:auto!important;margin:0!important;padding:0!important;
+ color:#6c8175!important;background:transparent!important;
+ font-size:.56rem!important;font-weight:700!important;line-height:1!important;
+ text-align:center!important;white-space:nowrap!important
+}
+@media(max-width:760px){
+ #mvp-pricing .pricing-title-row{gap:9px!important}
+ #mvp-pricing .pricing-title-row .agent-counter{grid-template-columns:30px minmax(58px,auto) 30px!important;column-gap:6px!important}
+ #mvp-pricing .agent-counter-value{min-width:58px!important}
+}
+</style>
+<script>
+(function(){
+ const REC={3000:2,6000:4,9000:5,15000:9};
+ function activeTier(){return Number(document.querySelector('#mvp-pricing [data-tier].active')?.dataset.tier)||3000}
+ function sync(){
+  const rec=REC[activeTier()]||1;
+  document.querySelectorAll('#mvp-pricing .pricing-summary').forEach(card=>{
+   const title=(card.querySelector('h3')?.textContent||'').trim();
+   if(title!=='AI + Human Lite'&&title!=='AI + Human Full')return;
+   const counter=card.querySelector('.agent-counter');if(!counter)return;
+   let label=counter.querySelector('.agent-recommended');
+   if(!label){label=document.createElement('span');label.className='agent-recommended';counter.appendChild(label)}
+   const count=Math.max(1,Number(card.dataset.humanAgents)||1);
+   label.textContent=count===rec?'Recommended':'Recommended: '+rec;
+  });
+ }
+ document.addEventListener('click',e=>{
+  if(e.target.closest('#mvp-pricing [data-tier],#mvp-pricing .agent-counter-btn'))setTimeout(sync,50);
+ },true);
+ let n=0,t=setInterval(()=>{sync();if(++n>35)clearInterval(t)},150);
+})();
+</script>
+
 </body>
 </html>
