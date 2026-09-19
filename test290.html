@@ -9423,5 +9423,48 @@ document.addEventListener('click',function(event){
 }
 </style>
 
+
+<!-- NOVARA_PRICING_HEADER_BADGES_TEST290_V20 -->
+<style>
+#mvp-pricing .pricing-summary .coverage-pills{display:none!important}
+#mvp-pricing .pricing-summary .pricing-title-row{
+  display:flex!important;align-items:center!important;gap:7px!important;flex-wrap:wrap!important;
+  width:100%!important;min-height:34px!important
+}
+#mvp-pricing .pricing-summary .pricing-title-row h3{margin:0 auto 0 0!important;flex:0 1 auto!important}
+#mvp-pricing .pricing-summary .pricing-title-row .ai-availability-badge,
+#mvp-pricing .pricing-summary .pricing-title-row .minimum-agent-coverage{
+  display:inline-flex!important;align-items:center!important;justify-content:center!important;
+  flex:0 0 auto!important;margin:0!important;padding:5px 9px!important;
+  border:1.5px dotted #6f8d7b!important;border-radius:999px!important;
+  background:rgba(239,247,241,.5)!important;color:#355f47!important;
+  font-size:.66rem!important;font-weight:780!important;line-height:1.15!important;white-space:nowrap!important
+}
+#mvp-pricing .pricing-summary .pricing-title-row .ai-availability-badge{border-style:solid;border-color:#d7e6db!important;background:#eff7f1!important}
+@media(min-width:901px){
+ #mvp-pricing .pricing-summary{grid-template-rows:46px 54px 48px 0 60px 22px minmax(132px,1fr) 50px!important}
+ #mvp-pricing .pricing-summary .pricing-price{margin-top:0!important}
+}
+@media(max-width:760px){
+ #mvp-pricing .pricing-summary .pricing-title-row{justify-content:flex-start!important}
+ #mvp-pricing .pricing-summary .pricing-title-row h3{flex-basis:100%!important}
+}
+</style>
+<script>
+(function(){
+ function apply(){
+  document.querySelectorAll('#mvp-pricing .pricing-summary').forEach(card=>{
+   const heading=card.querySelector('h3');if(!heading)return;
+   let row=card.querySelector('.pricing-title-row');
+   if(!row){row=document.createElement('div');row.className='pricing-title-row';heading.before(row);row.appendChild(heading)}
+   let badge=row.querySelector('.ai-availability-badge');
+   if(!badge){badge=document.createElement('span');badge.className='ai-availability-badge';badge.textContent='24/7 AI';row.insertBefore(badge,row.querySelector('.minimum-agent-coverage'))}
+  });
+ }
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',apply,{once:true});else apply();
+ let count=0,timer=setInterval(()=>{apply();if(++count>40)clearInterval(timer)},150);
+})();
+</script>
+
 </body>
 </html>
