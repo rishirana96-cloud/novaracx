@@ -10225,5 +10225,23 @@ body{letter-spacing:-.005em!important}
   apply();
 })();
 </script>
+<!-- NOVARA_DAILY_INPUT_FINAL_EMPTY_OVERRIDE_TEST290_V43 -->
+<script id="novara-daily-input-final-empty-override-v43">
+(function(){
+  function clearDefault(){
+    const c=document.querySelector('#mvp-pricing .daily-volume-control');
+    const input=c?.querySelector('input');
+    if(!c||!input||c.dataset.emptyStateLocked==='1')return;
+    c.dataset.emptyStateLocked='1';
+    input.value='';
+    input.defaultValue='';
+    input.placeholder='Enter your daily conversations flow';
+    const calc=c.querySelector('.daily-volume-calculation');
+    if(calc){calc.textContent='';c.classList.remove('has-value');}
+  }
+  setTimeout(clearDefault,900);
+  setTimeout(clearDefault,1800);
+})();
+</script>
 </body>
 </html>
