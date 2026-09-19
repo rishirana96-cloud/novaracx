@@ -9549,8 +9549,7 @@ document.addEventListener('click',function(event){
    var cta=card.querySelector('.mvp-btn');if(!cta)return;
    var actions=document.createElement('div');actions.className='ai-support-actions';
    var trial=document.createElement('a');trial.className='mvp-btn primary trial-btn';trial.href='#mvp-contact';trial.textContent='Start 14-day trial';
-   actions.appendChild(trial);actions.appendChild(cta);cta.classList.remove('primary');cta.classList.add('secondary');
-   cta.parentNode.insertBefore(actions,cta);actions.appendChild(cta);
+   var parent=cta.parentNode;parent.insertBefore(actions,cta);actions.appendChild(trial);actions.appendChild(cta);cta.classList.remove('primary');cta.classList.add('secondary');
   });
  }
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',addTrial,{once:true});else addTrial();
