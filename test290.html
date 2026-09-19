@@ -9466,5 +9466,51 @@ document.addEventListener('click',function(event){
 })();
 </script>
 
+
+
+<!-- NOVARA_PRICING_CARD_ALIGNMENT_FINAL_TEST290_V21 -->
+<style id="novara-pricing-card-alignment-final-v21">
+@media(min-width:901px){
+  #mvp-pricing .pricing-summary{
+    grid-template-rows:46px 40px 48px 0 60px 22px minmax(132px,1fr) 50px!important;
+  }
+  #mvp-pricing .pricing-summary .pricing-title-row{grid-row:1!important;align-self:start!important}
+  #mvp-pricing .pricing-summary .plan-positioning{grid-row:2!important;align-self:start!important;margin:0!important;padding-top:2px!important}
+  #mvp-pricing .pricing-summary .minimum-agent-note:not(.ai-handoff-note){
+    grid-row:3!important;align-self:stretch!important;margin:0!important;min-height:48px!important;
+  }
+  #mvp-pricing .pricing-summary .ai-handoff-note{
+    grid-row:3!important;align-self:stretch!important;display:flex!important;align-items:center!important;
+    width:100%!important;min-height:48px!important;margin:0!important;padding:0!important;
+  }
+  #mvp-pricing .pricing-summary .pricing-price{grid-row:5!important;align-self:start!important;margin:0!important}
+}
+#mvp-pricing .pricing-summary .minimum-agent-note:not(.ai-handoff-note){
+  grid-template-columns:minmax(0,1fr) auto!important;align-items:center!important;
+  column-gap:12px!important;white-space:nowrap!important
+}
+#mvp-pricing .minimum-agent-note .minimum-agent-label{line-height:1.25!important}
+#mvp-pricing .minimum-agent-note .agent-counter{align-self:center!important}
+@media(max-width:900px){
+  #mvp-pricing .pricing-summary .ai-handoff-note{margin-top:10px!important}
+}
+</style>
+<script id="novara-pricing-card-alignment-final-script-v21">
+(function(){
+ function align(){
+  document.querySelectorAll('#mvp-pricing .pricing-summary').forEach(function(card){
+   var title=(card.querySelector('h3')?.textContent||'').trim();
+   if(title!=='AI + Human Lite'&&title!=='AI + Human Full')return;
+   var note=card.querySelector('.minimum-agent-note:not(.ai-handoff-note)');
+   var counter=card.querySelector('.agent-counter');
+   if(note&&counter&&counter.parentNode!==note)note.appendChild(counter);
+  });
+ }
+ align();
+ var n=0,t=setInterval(function(){align();if(++n>50)clearInterval(t)},120);
+ var o=new MutationObserver(function(){clearTimeout(o._t);o._t=setTimeout(align,30)});
+ o.observe(document.documentElement,{childList:true,subtree:true});
+})();
+</script>
 </body>
 </html>
