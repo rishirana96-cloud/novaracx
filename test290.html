@@ -8781,9 +8781,7 @@ document.addEventListener('click',function(event){
     return t==='AI + Human Lite'?'lite':t==='AI + Human Full'?'full':t==='AI Support'?'ai':'';
   }
   function money(v,curr){
-    return (curr==='INR'?'₹':'
-</html>
-)+Number(v).toLocaleString(curr==='INR'?'en-IN':'en-US');
+    return (curr==='INR'?'₹':'$')+Number(v).toLocaleString(curr==='INR'?'en-IN':'en-US');
   }
   function basePrice(tier,curr,key){
     const TABLE={
@@ -9291,5 +9289,70 @@ document.addEventListener('click',function(event){
 }
 </style>
 
+<!-- NOVARA_PRICING_SIDE_SELECTOR_TEST290_V18 -->
+<style>
+@media(min-width:1401px){
+  #mvp-pricing .mvp-shell{width:min(1480px,calc(100% - 64px))!important}
+  #mvp-pricing .pricing-layout{display:grid;grid-template-columns:minmax(188px,220px) minmax(0,1fr);gap:14px;align-items:stretch}
+  #mvp-pricing .pricing-layout .conversation-tier-wrap{display:flex!important;flex-direction:column!important;align-items:stretch!important;justify-content:flex-start!important;gap:18px!important;margin:0!important;padding:22px 15px!important;border:1px solid rgba(255,255,255,.12)!important;border-radius:25px!important;background:rgba(255,255,255,.045)!important}
+  #mvp-pricing .pricing-layout .pricing-selector-label{color:#c7dbcf;margin:0!important;font-size:.68rem;line-height:1.45;letter-spacing:.08em}
+  #mvp-pricing .pricing-layout .conversation-tier-group{display:flex!important;flex-direction:column!important;align-items:stretch!important;width:100%!important;gap:6px!important;padding:0!important;border:0!important;border-radius:0!important;background:transparent!important;overflow:visible!important}
+  #mvp-pricing .pricing-layout .conversation-tier-group button{width:100%!important;min-height:45px!important;justify-content:space-between!important;padding:9px 11px!important;border-radius:12px!important;text-align:left!important}
+  #mvp-pricing .pricing-layout .currency-switcher{align-self:flex-start!important;margin-top:auto!important}
+  #mvp-pricing .pricing-layout .pricing-summary-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:12px!important;margin:0!important}
+  #mvp-pricing .pricing-layout .pricing-summary{padding:25px 20px 23px!important}
+  #mvp-pricing .pricing-layout .pricing-summary h3{font-size:1.14rem!important}
+  #mvp-pricing .pricing-layout .pricing-title-row{gap:5px!important}
+  #mvp-pricing .pricing-layout .pricing-title-row .agent-counter{transform:scale(.79)!important;transform-origin:right top!important;margin-right:-18px!important}
+  #mvp-pricing .pricing-layout .coverage-pills{gap:4px!important}
+  #mvp-pricing .pricing-layout .coverage-pill{padding:6px 7px!important;font-size:.53rem!important}
+  #mvp-pricing .pricing-layout .pricing-price{font-size:clamp(1.65rem,2vw,2.2rem)!important}
+  #mvp-pricing .pricing-layout .plan-inclusions li{font-size:.67rem!important}
+  #mvp-pricing .pricing-layout .pricing-summary:has(.plan-inclusions li:nth-child(6)){grid-template-rows:46px 54px 27px 63px 63px 22px minmax(300px,1fr) 50px!important}
+}
+@media(max-width:1400px){
+  #mvp-pricing .pricing-layout .conversation-tier-wrap{margin:18px 0 22px!important}
+  #mvp-pricing .pricing-layout .pricing-summary-grid{margin-bottom:0!important}
+}
+#mvp-pricing .pricing-compare-wrap{display:none!important}
+#mvp-pricing .pricing-scope{margin-top:25px;padding:23px 26px;border:1px solid rgba(255,255,255,.14);border-radius:22px;background:rgba(255,255,255,.04)}
+#mvp-pricing .pricing-scope>h3{margin:0 0 18px;color:#e5f2e9;font-size:1rem;font-weight:750}
+#mvp-pricing .pricing-scope-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}
+#mvp-pricing .pricing-scope-grid>div{padding-top:13px;border-top:1px solid rgba(255,255,255,.18)}
+#mvp-pricing .pricing-scope-grid strong{display:block;margin-bottom:8px;color:#f0f8f2;font-size:.8rem}
+#mvp-pricing .pricing-scope-grid p{margin:0;color:#c7dacd;font-size:.72rem;line-height:1.55}
+@media(max-width:700px){#mvp-pricing .pricing-scope-grid{grid-template-columns:1fr;gap:16px}#mvp-pricing .pricing-scope{padding:19px}}
+</style>
+<script>
+(function(){
+  function install(){
+    const section=document.querySelector('#mvp-pricing');
+    const plans=section?.querySelector('.pricing-summary-grid');
+    const selector=section?.querySelector('.conversation-tier-wrap');
+    if(!section||!plans||!selector)return false;
+    let layout=section.querySelector('.pricing-layout');
+    if(!layout){
+      layout=document.createElement('div');layout.className='pricing-layout';
+      plans.parentNode.insertBefore(layout,plans);
+      layout.append(selector,plans);
+    }
+    const label=section.querySelector('.pricing-selector-label');
+    if(label&&label.parentNode!==selector)selector.prepend(label);
+    section.querySelector('.pricing-compare-wrap')?.remove();
+    if(!section.querySelector('.pricing-scope')){
+      const scope=document.createElement('section');
+      scope.className='pricing-scope';
+      scope.setAttribute('aria-label','Plan coverage summary');
+      scope.innerHTML='<h3>Coverage at a glance</h3><div class="pricing-scope-grid">'+
+        '<div><strong>AI Support</strong><p>24/7 AI for routine conversations across configured digital channels, with seamless handoff to your team.</p></div>'+
+        '<div><strong>AI + Human Lite</strong><p>Human escalations across chat, WhatsApp and email, with NovaraDesk and managed agent quality.</p></div>'+
+        '<div><strong>AI + Human Full</strong><p>9-hour coverage instead of 4.5, plus calls, social comments and DMs, review responses, proactive follow-ups and a monthly CX review.</p></div></div>';
+      layout.insertAdjacentElement('afterend',scope);
+    }
+    return true;
+  }
+  let count=0;const timer=setInterval(()=>{if(install()||++count>60)clearInterval(timer)},120);
+})();
+</script>
 </body>
 </html>
