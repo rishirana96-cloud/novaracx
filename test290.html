@@ -9875,5 +9875,27 @@ body{letter-spacing:-.005em!important}
     }
   }
 </style>
+<!-- NOVARA_AI_OVERAGE_LABEL_TEST290_V37 -->
+<script id="novara-ai-overage-label-v37">
+(function(){
+  const OVERAGE={
+    3000:{included:'3,000',rate:'₹10'},
+    6000:{included:'6,000',rate:'₹8'},
+    6001:{included:'6,000+',rate:'custom pricing'}
+  };
+  function update(){
+    const section=document.querySelector('#mvp-pricing'); if(!section)return;
+    const tier=Number(section.querySelector('.conversation-tier-group [data-tier].active')?.dataset.tier)||3000;
+    const item=OVERAGE[tier]||OVERAGE[3000];
+    const card=[...section.querySelectorAll('.pricing-summary')].find(c=>(c.querySelector('h3')?.textContent||'').trim()==='AI Support');
+    const label=card?.querySelector('.value-tier-label'); if(!label)return;
+    label.textContent='AI support includes '+item.included+' conversations ('+item.rate+' per extra conversation)';
+  }
+  document.addEventListener('click',e=>{
+    if(e.target.closest('#mvp-pricing .conversation-tier-group [data-tier]'))setTimeout(update,80);
+  },true);
+  let n=0,t=setInterval(()=>{update();if(++n>60)clearInterval(t)},120);
+})();
+</script>
 </body>
 </html>
