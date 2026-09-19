@@ -10002,7 +10002,7 @@ body{letter-spacing:-.005em!important}
     if(wrap.querySelector('.daily-volume-control'))return true;
     const control=document.createElement('div');
     control.className='daily-volume-control';
-    control.innerHTML='<label for="novara-daily-conversations">GET A HUMAN COUNT RECOMMENDATION</label><input id="novara-daily-conversations" type="number" min="0" step="1" inputmode="numeric" autocomplete="off" placeholder="Enter your daily conversations flow"><span class="daily-volume-calculation" aria-live="polite"></span>';
+    control.innerHTML='<label for="novara-daily-conversations">GET A HUMAN AGENT RECOMMENDATION</label><input id="novara-daily-conversations" type="number" min="0" step="1" inputmode="numeric" autocomplete="off" placeholder="Enter your daily conversations flow"><span class="daily-volume-calculation" aria-live="polite"></span>';
     group.insertAdjacentElement('beforebegin',control);
     const input=control.querySelector('input');
     const calculation=control.querySelector('.daily-volume-calculation');
@@ -10127,6 +10127,9 @@ body{letter-spacing:-.005em!important}
     line-height:1.2!important;
     text-transform:uppercase!important;
     white-space:nowrap!important;
+    text-align:left!important;
+    align-self:flex-start!important;
+    padding-left:0!important;
   }
   #mvp-pricing .daily-volume-control input{
     box-sizing:border-box!important;
