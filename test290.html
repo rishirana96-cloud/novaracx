@@ -9745,5 +9745,37 @@ body{letter-spacing:-.005em!important}
     }
   }
 </style>
+<!-- NOVARA_SCALE_RENDER_GUARD_TEST290_V33 -->
+<script id="novara-scale-render-guard-v33">
+(function(){
+  function section(){return document.querySelector('#mvp-pricing')}
+  function apply(){
+    const sec=section(); if(!sec)return;
+    const active=sec.querySelector('.conversation-tier-group [data-tier].active');
+    const isScale=Number(active?.dataset.tier)===6001 || sec.classList.contains('scale-selected');
+    if(!isScale)return;
+    sec.classList.add('scale-selected');
+    sec.querySelectorAll('.pricing-summary').forEach(card=>{
+      const price=card.querySelector('.pricing-price'), cta=card.querySelector('.mvp-btn');
+      if(price){
+        if(!price.dataset.scaleOriginal)price.dataset.scaleOriginal=price.innerHTML;
+        price.innerHTML='Custom pricing <small>based on volume &amp; coverage</small>';
+      }
+      if(cta){
+        if(!cta.dataset.scaleOriginal)cta.dataset.scaleOriginal=cta.textContent;
+        cta.textContent='Talk to us';
+      }
+    });
+  }
+  document.addEventListener('click',e=>{
+    if(e.target.closest('#mvp-pricing .conversation-tier-group [data-tier="6001"]')){
+      setTimeout(apply,0); setTimeout(apply,30); setTimeout(apply,120);
+    }
+  },true);
+  let n=0,t=setInterval(()=>{apply();if(++n>80)clearInterval(t)},120);
+  const o=new MutationObserver(()=>{clearTimeout(o._t);o._t=setTimeout(apply,10)});
+  o.observe(document.documentElement,{subtree:true,childList:true});
+})();
+</script>
 </body>
 </html>
