@@ -4531,7 +4531,6 @@ body.preview-is-expanded{overflow:hidden!important}
     <article class="pricing-summary">
      <h3>AI + Human Lite</h3>
      <p class="plan-positioning">Managed human support for complex customer conversations.</p>
-     <div class="human-coverage-highlight"><strong>4.5 hrs/day</strong><span>human coverage per agent</span></div>
      <div class="coverage-pills" aria-label="Plan coverage">
       <span class="coverage-pill">24/7 AI</span>
       <span class="coverage-pill">Managed by Novara</span>
@@ -4549,7 +4548,6 @@ body.preview-is-expanded{overflow:hidden!important}
     <article class="pricing-summary featured">
      <h3>AI + Human Full</h3>
      <p class="plan-positioning">Extended human support for businesses that need broader daily coverage.</p>
-     <div class="human-coverage-highlight"><strong>9 hrs/day</strong><span>human coverage per agent</span></div>
      <div class="coverage-pills" aria-label="Plan coverage">
       <span class="coverage-pill">24/7 AI</span>
       <span class="coverage-pill">Managed by Novara</span>
@@ -8053,7 +8051,7 @@ document.addEventListener('click',function(event){
     if(positioning)positioning.insertAdjacentElement('afterend',note);
     else card.querySelector('.pricing-title-row')?.insertAdjacentElement('afterend',note);
    }
-   if(note)note.innerHTML='Recommended minimum: <strong>'+minimum+' '+(minimum===1?'agent':'agents')+'</strong>';
+   if(note){const coverage=title==='AI + Human Lite'?'4.5 hrs/day each':'9 hrs/day each';note.innerHTML='Recommended minimum: <strong>'+minimum+' '+(minimum===1?'agent':'agents')+'</strong><span class="minimum-agent-coverage"> · '+coverage+'</span>'}
   });
  }
  document.addEventListener('click',e=>{if(e.target.closest('#mvp-pricing [data-tier],#mvp-pricing .agent-counter-btn'))setTimeout(sync,40)},true);
@@ -8596,7 +8594,7 @@ document.addEventListener('click',function(event){
    'Weekly review meetings',
    'Easy-to-read PDF reports via WhatsApp or email'
   ]);
-  set(full,'Expanded human coverage includes',[
+  set(full,'Full plan adds',[
    '<strong>Voice and call support</strong>',
    'Proactive customer follow-ups',
    'Ownership of complex issues',
@@ -9320,39 +9318,17 @@ document.addEventListener('click',function(event){
 </style>
 
 
-<!-- NOVARA_HUMAN_COVERAGE_EMPHASIS_TEST290_V17 -->
+<!-- NOVARA_HUMAN_COVERAGE_EMPHASIS_TEST290_V18 -->
 <style>
-/* Make Lite vs Full coverage obvious without adding another pill */
-#mvp-pricing .human-coverage-highlight{
-  display:flex;
-  align-items:baseline;
-  gap:7px;
-  margin:10px 0 1px;
-  color:#536b5e;
-  font-family:"General Sans",Arial,sans-serif;
-  line-height:1.2;
-}
-#mvp-pricing .human-coverage-highlight strong{
-  color:#123d28;
-  font-family:"Cabinet Grotesk","General Sans",Arial,sans-serif;
-  font-size:.93rem;
-  font-weight:800;
-  letter-spacing:-.01em;
-}
-#mvp-pricing .human-coverage-highlight span{
-  font-size:.64rem;
-  font-weight:650;
-}
-#mvp-pricing .pricing-summary.featured .human-coverage-highlight strong{
-  color:#0d4a2e;
-}
-#mvp-pricing .human-coverage-highlight + .coverage-pills{
-  margin-top:11px!important;
+/* Coverage sits with the staffing recommendation so Lite vs Full is immediately comparable. */
+#mvp-pricing .minimum-agent-note .minimum-agent-coverage{
+  color:#426851!important;
+  font-weight:750!important;
 }
 @media(max-width:760px){
-  #mvp-pricing .human-coverage-highlight{gap:6px}
-  #mvp-pricing .human-coverage-highlight strong{font-size:.88rem}
-  #mvp-pricing .human-coverage-highlight span{font-size:.62rem}
+  #mvp-pricing .minimum-agent-note .minimum-agent-coverage{
+    display:inline!important;
+  }
 }
 </style>
 
