@@ -8206,7 +8206,8 @@ document.addEventListener('click',function(event){
 <script>
 (function(){
  function isScale(){
-  const tier=Number(document.querySelector('#mvp-pricing .conversation-tier-group [data-tier].active')?.dataset.tier);\n  return tier===6001||tier===15000;
+  const tier=Number(document.querySelector('#mvp-pricing .conversation-tier-group [data-tier].active')?.dataset.tier);
+  return tier===6001||tier===15000;
  }
  function updateScale(){
   const section=document.querySelector('#mvp-pricing');if(!section)return;
