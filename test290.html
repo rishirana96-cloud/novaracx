@@ -9925,5 +9925,118 @@ body{letter-spacing:-.005em!important}
   let n=0,t=setInterval(()=>{update();if(++n>70)clearInterval(t)},120);
 })();
 </script>
+<!-- NOVARA_DAILY_VOLUME_ROUTER_TEST290_V39 -->
+<style id="novara-daily-volume-router-v39">
+  #mvp-pricing .conversation-tier-wrap{
+    display:grid!important;
+    grid-template-columns:minmax(0,1fr) auto auto!important;
+    align-items:center!important;
+    gap:14px!important;
+  }
+  #mvp-pricing .daily-volume-control{
+    display:flex;
+    flex-direction:column;
+    gap:3px;
+    min-width:190px;
+    padding:7px 11px;
+    border:1px solid rgba(179,212,190,.25);
+    border-radius:12px;
+    background:rgba(255,255,255,.055);
+  }
+  #mvp-pricing .daily-volume-control label{
+    color:rgba(230,241,233,.86);
+    font-size:.62rem;
+    font-weight:750;
+    letter-spacing:.01em;
+  }
+  #mvp-pricing .daily-volume-control input{
+    width:100%;
+    border:0;
+    outline:0;
+    padding:1px 0;
+    background:transparent;
+    color:#f1f7f3;
+    font:700 .9rem/1.2 inherit;
+  }
+  #mvp-pricing .daily-volume-control input::placeholder{color:rgba(220,237,225,.58)}
+  #mvp-pricing .daily-volume-calculation{
+    color:rgba(210,229,216,.68);
+    font-size:.58rem;
+    line-height:1.2;
+  }
+  @media(max-width:900px){
+    #mvp-pricing .conversation-tier-wrap{
+      grid-template-columns:1fr auto!important;
+    }
+    #mvp-pricing .conversation-tier-group{grid-column:1/-1}
+    #mvp-pricing .daily-volume-control{min-width:0;width:100%}
+  }
+  @media(max-width:520px){
+    #mvp-pricing .conversation-tier-wrap{grid-template-columns:1fr!important}
+    #mvp-pricing .conversation-tier-wrap .currency-switcher{justify-self:end}
+  }
+</style>
+<script id="novara-daily-volume-router-script-v39">
+(function(){
+  const DAILY_DEFAULT=100;
+  const capacityPerAgent=750;
+  function section(){return document.querySelector('#mvp-pricing')}
+  function tierButton(sec,tier){
+    return sec.querySelector('.conversation-tier-group [data-tier="'+tier+'"]');
+  }
+  function recommendedAgents(monthly){
+    return Math.max(2,Math.ceil((monthly*.5)/capacityPerAgent));
+  }
+  function applyAgents(sec,monthly){
+    const count=recommendedAgents(monthly);
+    sec.querySelectorAll('.pricing-summary').forEach(card=>{
+      const title=(card.querySelector('h3')?.textContent||'').trim();
+      if(title!=='AI + Human Lite'&&title!=='AI + Human Full')return;
+      card.dataset.humanAgents=String(count);
+      const label=card.querySelector('.agent-counter-value');
+      if(label)label.textContent=count+' human '+(count===1?'agent':'agents');
+      const minus=card.querySelector('.agent-minus');
+      if(minus)minus.disabled=count<=1;
+    });
+  }
+  function route(sec,monthly){
+    const tier=monthly<=3000?3000:monthly<=6000?6000:6001;
+    const btn=tierButton(sec,tier);
+    if(btn && !btn.classList.contains('active'))btn.click();
+    applyAgents(sec,monthly);
+  }
+  function install(){
+    const sec=section(); if(!sec)return false;
+    const wrap=sec.querySelector('.conversation-tier-wrap'), group=sec.querySelector('.conversation-tier-group');
+    if(!wrap||!group)return false;
+    let control=wrap.querySelector('.daily-volume-control');
+    if(!control){
+      control=document.createElement('div');
+      control.className='daily-volume-control';
+      control.innerHTML='<label for="novara-daily-conversations">Enter daily conversations</label><input id="novara-daily-conversations" type="number" min="0" step="1" inputmode="numeric" placeholder="e.g. 100"><span class="daily-volume-calculation"></span>';
+      group.insertAdjacentElement('afterend',control);
+      const input=control.querySelector('input');
+      input.value=DAILY_DEFAULT;
+      input.addEventListener('input',function(){
+        const daily=Math.max(0,Number(input.value)||0), monthly=daily*30;
+        control.querySelector('.daily-volume-calculation').textContent=daily+' × 30 = '+monthly.toLocaleString('en-IN')+' monthly conversations';
+        route(sec,monthly);
+      });
+    }
+    const input=control.querySelector('input');
+    const daily=Math.max(0,Number(input.value)||DAILY_DEFAULT), monthly=daily*30;
+    control.querySelector('.daily-volume-calculation').textContent=daily+' × 30 = '+monthly.toLocaleString('en-IN')+' monthly conversations';
+    if(sec.dataset.dailyVolumeBound!=='1'){
+      sec.dataset.dailyVolumeBound='1';
+      sec.addEventListener('click',function(e){
+        if(e.target.closest('.conversation-tier-group [data-tier]'))setTimeout(()=>applyAgents(sec,monthly),80);
+      },true);
+    }
+    applyAgents(sec,monthly);
+    return true;
+  }
+  let n=0,t=setInterval(()=>{if(install()||++n>100)clearInterval(t)},120);
+})();
+</script>
 </body>
 </html>
