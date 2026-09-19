@@ -9664,5 +9664,58 @@ body{letter-spacing:-.005em!important}
  let tries=0;const timer=setInterval(function(){if(bind()||++tries>80)clearInterval(timer)},120);
 })();
 </script>
+
+
+<!-- NOVARA_RECOMMENDED_AGENT_DEFAULT_FIX_TEST290_V30 -->
+<style id="novara-scale-counter-visibility-v30">
+#mvp-pricing.scale-selected .pricing-summary .agent-counter{display:none!important}
+</style>
+<script id="novara-recommended-agent-default-fix-v30">
+(function(){
+ const RECOMMENDED={3000:2,6000:4,6001:5,9000:5,15000:9};
+ function cardsReady(section){
+  const cards=[...section.querySelectorAll('.pricing-summary')].filter(card=>{
+   const t=(card.querySelector('h3')?.textContent||'').trim();
+   return t==='AI + Human Lite'||t==='AI + Human Full';
+  });
+  return cards.length===2&&cards.every(card=>card.querySelector('.agent-counter-value'));
+ }
+ function apply(section,tier){
+  const count=RECOMMENDED[tier]||2;
+  section.classList.toggle('scale-selected',tier===6001);
+  section.querySelectorAll('.pricing-summary').forEach(card=>{
+   const title=(card.querySelector('h3')?.textContent||'').trim();
+   if(title!=='AI + Human Lite'&&title!=='AI + Human Full')return;
+   card.dataset.humanAgents=String(count);
+   const label=card.querySelector('.agent-counter-value');
+   if(label)label.textContent=count+' human '+(count===1?'agent':'agents');
+   const minus=card.querySelector('.agent-minus');
+   if(minus)minus.disabled=count<=1;
+  });
+ }
+ function init(){
+  const section=document.querySelector('#mvp-pricing');
+  if(!section||!cardsReady(section))return false;
+  if(section.dataset.recommendedDefaultFixBound!=='1'){
+   section.dataset.recommendedDefaultFixBound='1';
+   section.addEventListener('click',function(e){
+    const btn=e.target.closest('.conversation-tier-group [data-tier]');
+    if(!btn)return;
+    const tier=Number(btn.dataset.tier);
+    apply(section,tier);
+   },true);
+  }
+  if(section.dataset.recommendedDefaultApplied!=='1'){
+   const active=section.querySelector('.conversation-tier-group [data-tier].active')||section.querySelector('.conversation-tier-group [data-tier="3000"]');
+   const tier=Number(active?.dataset.tier)||3000;
+   apply(section,tier);
+   section.dataset.recommendedDefaultApplied='1';
+   if(active)active.click();
+  }
+  return true;
+ }
+ let tries=0;const timer=setInterval(function(){if(init()||++tries>100)clearInterval(timer)},120);
+})();
+</script>
 </body>
 </html>
