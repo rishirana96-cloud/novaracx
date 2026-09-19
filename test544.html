@@ -4080,7 +4080,7 @@ body.preview-is-expanded{overflow:hidden!important}
   section.addEventListener('click',e=>{const b=e.target.closest('button');if(b){if(b.dataset.daily){el('pc-daily').value=b.dataset.daily;counts.lite=3;counts.full=3;}else if(b.dataset.pcCurrency){currency=b.dataset.pcCurrency;}else if(b.id==='pc-plus'||b.id==='pc-minus'){if(b.disabled)return;counts[plan]=Math.max(1,Math.min(50,counts[plan]+(b.id==='pc-plus'?1:-1)));}render(true);}if(e.target.closest('#pc-cta')&&el('pc-cta').getAttribute('aria-disabled')==='true'){e.preventDefault();el('pc-daily').focus();}});
   render();
  }
- if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>setTimeout(build,900));else setTimeout(build,900);
+ // The side-by-side pricing cards below replace this configurator's rendered UI.
 })();
 </script>
 
@@ -6478,5 +6478,97 @@ body.preview-is-expanded{overflow:hidden!important}
   #mvp-pricing .pc-inclusions{padding:15px 0!important}
 }
 </style>
+<!-- NOVARA_SIDE_BY_SIDE_PRICING_TEST544 -->
+<style>
+#mvp-pricing .mvp-shell{width:min(1480px,calc(100% - 48px))!important}
+#mvp-pricing .nv-pricing-head{display:flex;align-items:end;justify-content:space-between;gap:24px;margin-bottom:27px}
+#mvp-pricing .nv-pricing-head h2{margin:10px 0 0;color:#f4fbf6;font-size:clamp(2.1rem,4vw,3.5rem);letter-spacing:-.055em;line-height:1.04}
+#mvp-pricing .nv-pricing-head p{max-width:360px;margin:0;color:#c5d9ca;font-size:.85rem;line-height:1.5}
+#mvp-pricing .nv-price-layout{display:grid;grid-template-columns:minmax(194px,220px) minmax(0,1fr);gap:14px;align-items:stretch}
+#mvp-pricing .nv-volume{display:flex;flex-direction:column;gap:9px;padding:24px 17px;border:1px solid rgba(255,255,255,.13);border-radius:24px;background:rgba(255,255,255,.045)}
+#mvp-pricing .nv-volume h3{margin:0 0 6px;color:#eef7f0;font-size:.96rem}
+#mvp-pricing .nv-volume p{margin:0 0 12px;color:#bed1c3;font-size:.68rem;line-height:1.5}
+#mvp-pricing .nv-volume button{font:inherit;cursor:pointer}
+#mvp-pricing .nv-tier{display:flex;align-items:center;justify-content:space-between;gap:7px;min-height:44px;width:100%;padding:9px 10px;border:1px solid transparent;border-radius:12px;background:transparent;color:#cfdfd3;text-align:left;font-size:.7rem!important;font-weight:700!important}
+#mvp-pricing .nv-tier small{font-size:.61rem;font-weight:600;white-space:nowrap;opacity:.72}
+#mvp-pricing .nv-tier[aria-pressed="true"]{background:#f2faf4;color:#173f28}
+#mvp-pricing .nv-currency{display:flex;gap:4px;align-self:flex-start;margin-top:auto;padding:4px;border:1px solid rgba(255,255,255,.15);border-radius:999px}
+#mvp-pricing .nv-currency button{min-width:56px;padding:7px;border:0;border-radius:999px;background:transparent;color:#cbdccf;font-size:.65rem;font-weight:750}
+#mvp-pricing .nv-currency button[aria-pressed="true"]{background:#f2faf4;color:#173f28}
+#mvp-pricing .nv-plan-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+#mvp-pricing .nv-plan{display:flex;flex-direction:column;min-width:0;padding:24px 20px 22px;border:1px solid #d6e3d9;border-radius:24px;background:#f6f9f7;color:#1b3b29}
+#mvp-pricing .nv-plan.full{border-color:#a7d1b3;background:linear-gradient(145deg,#eff9f2,#fff)}
+#mvp-pricing .nv-plan h3{min-height:26px;margin:0 0 14px;font-size:1.15rem;line-height:1.2;letter-spacing:-.025em}
+#mvp-pricing .nv-plan-description{min-height:54px;margin:0;color:#607469;font-size:.73rem;line-height:1.5}
+#mvp-pricing .nv-agent-row{display:flex;align-items:center;min-height:56px;margin:0 0 5px;color:#42654f;font-size:.68rem;font-weight:650}
+#mvp-pricing .nv-agent-control{display:flex;align-items:center;gap:5px;padding:4px;border:1px solid #d3e1d7;border-radius:999px;background:#fff;white-space:nowrap}
+#mvp-pricing .nv-agent-control button{width:26px;height:26px;border:0;border-radius:50%;background:transparent;color:#17472d;font-size:1rem;cursor:pointer}
+#mvp-pricing .nv-agent-control button:disabled{color:#a5b6a9;cursor:default}
+#mvp-pricing .nv-agent-control output{min-width:75px;text-align:center;color:#214633;font-size:.69rem}
+#mvp-pricing .nv-plan-meta{min-height:52px;margin:0;color:#456b51;font-size:.65rem;line-height:1.4}
+#mvp-pricing .nv-plan-meta strong{display:block;color:#315840;font-weight:750}
+#mvp-pricing .nv-price{min-height:72px;color:#123c26;font-size:clamp(1.55rem,2vw,2.25rem);font-weight:800;letter-spacing:-.04em;white-space:nowrap}
+#mvp-pricing .nv-price small{font-size:.58rem;font-weight:600;letter-spacing:0;color:#5f7467}
+#mvp-pricing .nv-plan h4{margin:0 0 10px;padding-top:12px;border-top:1px solid #dce8df;color:#426451;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase}
+#mvp-pricing .nv-plan ul{flex:1;margin:0 0 20px;padding:0;list-style:none}
+#mvp-pricing .nv-plan li{position:relative;margin:0 0 9px;padding-left:17px;color:#4b6554;font-size:.67rem;line-height:1.45}
+#mvp-pricing .nv-plan li:before{content:'✓';position:absolute;left:0;color:#2e8151;font-weight:800}
+#mvp-pricing .nv-cta{display:flex;align-items:center;justify-content:center;min-height:46px;border:1px solid #193c29;border-radius:13px;color:#173726;text-decoration:none;font-size:.7rem;font-weight:750;text-align:center}
+#mvp-pricing .full .nv-cta{background:#103720;color:#fff}
+#mvp-pricing .nv-scope{margin-top:22px;padding:23px 26px;border:1px solid rgba(255,255,255,.14);border-radius:20px;background:rgba(255,255,255,.045)}
+#mvp-pricing .nv-scope h3{margin:0 0 17px;color:#f3f9f4;font-size:.95rem}
+#mvp-pricing .nv-scope-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}
+#mvp-pricing .nv-scope-grid>div{padding-top:12px;border-top:1px solid rgba(255,255,255,.2)}
+#mvp-pricing .nv-scope-grid strong{display:block;margin-bottom:7px;color:#e9f5ec;font-size:.76rem}
+#mvp-pricing .nv-scope-grid p{margin:0;color:#c5d8ca;font-size:.69rem;line-height:1.55}
+#mvp-pricing .nv-pricing-note{margin:15px 0 0;color:#b9d0c0;font-size:.67rem;line-height:1.5}
+@media(max-width:1300px){#mvp-pricing .nv-price-layout{grid-template-columns:1fr}#mvp-pricing .nv-volume{display:block}#mvp-pricing .nv-volume .nv-tier{display:inline-flex;width:auto;margin-right:6px}#mvp-pricing .nv-currency{display:inline-flex;vertical-align:middle;margin-top:8px}}
+@media(max-width:800px){#mvp-pricing .nv-plan-grid{grid-template-columns:1fr}#mvp-pricing .nv-plan-description,#mvp-pricing .nv-plan-meta,#mvp-pricing .nv-price{min-height:0;margin-bottom:16px}#mvp-pricing .nv-plan h3{min-height:0}#mvp-pricing .nv-scope-grid{grid-template-columns:1fr;gap:15px}#mvp-pricing .nv-pricing-head{display:block}#mvp-pricing .nv-pricing-head p{margin-top:13px}}
+</style>
+<script id="novara-side-pricing-test544">
+(()=>{
+  const pricing=window.NOVARA_TEST_PRICING;
+  const tiers=[...pricing.tiers,{quota:Infinity,price:null}];
+  const names=['Starter','Growth','Scale','Custom'];
+  const monthLabel=['Up to 3,000','Up to 7,000','Up to 15,000','15,000+'];
+  const keys=['ai','lite','full'];
+  const fmt=(n,c)=>c==='INR'?'₹'+n.toLocaleString('en-IN'):'$'+Math.round(n/85).toLocaleString('en-US');
+  let selected=0,currency='INR';
+  const agents={lite:2,full:2};
+  const recommend=i=>i===3?3:Math.max(1,Math.ceil((tiers[i].quota*.5*10/60)/(26*6)));
+  function build(){
+    const section=document.getElementById('mvp-pricing');if(!section||section.dataset.sidePricingReady)return;
+    section.dataset.sidePricingReady='1';section.dataset.comparisonReady='true';section.dataset.configuratorReady='true';
+    const workspace=document.getElementById('console-vs-desk');if(workspace){workspace.classList.remove('console-desk-inline');document.getElementById('mvp-platform')?.after(workspace)}
+    const shell=section.querySelector('.mvp-shell');
+    shell.innerHTML=`<header class="nv-pricing-head"><div><span class="mvp-kicker">The plans</span><h2>Choose the right balance of AI and human support.</h2></div><p>Select your monthly conversation volume, then adjust human staffing to suit your operation.</p></header>
+    <div class="nv-price-layout"><aside class="nv-volume" aria-label="Monthly conversation volume"><h3>Monthly conversation volume</h3><p>Pick the starting allowance for all three plans.</p>${tiers.map((t,i)=>`<button type="button" class="nv-tier" data-nv-tier="${i}" aria-pressed="${i===0}"><span>${names[i]}</span><small>${monthLabel[i]}</small></button>`).join('')}<div class="nv-currency" role="group" aria-label="Pricing currency"><button type="button" data-nv-currency="INR" aria-pressed="true">INR</button><button type="button" data-nv-currency="USD" aria-pressed="false">USD</button></div></aside>
+    <div class="nv-plan-grid"><article class="nv-plan" data-nv-plan="ai"><h3>AI Support</h3><p class="nv-plan-description">24/7 managed AI for routine customer conversations.</p><div class="nv-agent-row">Seamless handoff to your team</div><p class="nv-plan-meta"><strong>24/7 AI</strong>Managed by Novara</p><div class="nv-price"></div><h4>AI Support includes</h4><ul><li>Website AI chatbot setup</li><li>Continuous AI training and tuning</li><li>Conversation analytics and reporting</li></ul><a class="nv-cta" href="#mvp-contact">Book a discovery call</a></article>
+    <article class="nv-plan" data-nv-plan="lite"><h3>AI + Human Lite</h3><p class="nv-plan-description">AI and managed human support for complex conversations.</p><div class="nv-agent-row"><div class="nv-agent-control"><button type="button" data-nv-step="-1" aria-label="Remove a Lite agent">−</button><output aria-label="Lite human agents"></output><button type="button" data-nv-step="1" aria-label="Add a Lite agent">+</button></div></div><p class="nv-plan-meta"><strong>24/7 AI · 4.5 hrs/day per agent</strong><span class="nv-recommended"></span></p><div class="nv-price"></div><h4>AI Support plus</h4><ul><li>Human escalations across chat, WhatsApp and email</li><li>NovaraDesk ticket and conversation workspace</li><li>Managed agent quality and operations</li></ul><a class="nv-cta" href="#mvp-contact">Book a discovery call</a></article>
+    <article class="nv-plan full" data-nv-plan="full"><h3>AI + Human Full</h3><p class="nv-plan-description">Expanded human coverage and CX ownership.</p><div class="nv-agent-row"><div class="nv-agent-control"><button type="button" data-nv-step="-1" aria-label="Remove a Full agent">−</button><output aria-label="Full human agents"></output><button type="button" data-nv-step="1" aria-label="Add a Full agent">+</button></div></div><p class="nv-plan-meta"><strong>24/7 AI · 9 hrs/day per agent</strong><span class="nv-recommended"></span></p><div class="nv-price"></div><h4>Expanded coverage</h4><ul><li>Lite capabilities with 9-hour coverage</li><li>Voice, social and ORM support</li><li>Proactive follow-ups and advanced CX insights</li><li>Monthly CX review</li></ul><a class="nv-cta" href="#mvp-contact">Book a discovery call</a></article></div></div>
+    <section class="nv-scope" aria-label="Plan coverage details"><h3>How coverage differs</h3><div class="nv-scope-grid"><div><strong>AI Support</strong><p>24/7 AI for routine queries on configured digital channels. Human handoffs go to your team.</p></div><div><strong>AI + Human Lite</strong><p>Novara manages escalations across chat, WhatsApp and email, with NovaraDesk and agent quality monitoring.</p></div><div><strong>AI + Human Full</strong><p>9-hour coverage replaces Lite’s 4.5 hours. Adds calls, social comments and DMs, review responses, proactive follow-ups, deeper insights and a monthly CX review.</p></div></div></section>
+    <p class="nv-pricing-note">Agent coverage is per working day. Additional agents increase capacity, not the coverage window. We confirm channels, volume and scope during discovery. USD estimates use ₹85/$; final billing is confirmed in INR.</p>`;
+    section.addEventListener('click',e=>{
+      const t=e.target.closest('[data-nv-tier]');if(t){selected=Number(t.dataset.nvTier);for(const key of ['lite','full'])agents[key]=recommend(selected);render();return}
+      const c=e.target.closest('[data-nv-currency]');if(c){currency=c.dataset.nvCurrency;render();return}
+      const step=e.target.closest('[data-nv-step]');if(step){const key=step.closest('[data-nv-plan]').dataset.nvPlan;agents[key]=Math.max(1,Math.min(50,agents[key]+Number(step.dataset.nvStep)));render()}
+    });
+    render();
+  }
+  function render(){
+    const section=document.getElementById('mvp-pricing');
+    section.querySelectorAll('[data-nv-tier]').forEach(b=>b.setAttribute('aria-pressed',String(Number(b.dataset.nvTier)===selected)));
+    section.querySelectorAll('[data-nv-currency]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.nvCurrency===currency)));
+    section.querySelectorAll('[data-nv-plan]').forEach(card=>{
+      const key=card.dataset.nvPlan,count=key==='ai'?0:agents[key],custom=selected===3;
+      const amount=custom?null:tiers[selected].price+pricing.humanCost(key,count);
+      card.querySelector('.nv-price').innerHTML=custom?'Custom quote':fmt(amount,currency)+' <small>/month '+(currency==='INR'?'+ GST':'+ applicable taxes')+'</small>';
+      const output=card.querySelector('output');if(output){output.value=count+' '+(count===1?'agent':'agents');card.querySelector('[data-nv-step="-1"]').disabled=count===1;card.querySelector('.nv-recommended').textContent='Recommended starting point: '+recommend(selected)+' agents'}
+      card.querySelector('.nv-cta').textContent=custom?'Discuss a custom plan':'Book a discovery call';
+    });
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',build,{once:true});else build();
+})();
+</script>
 </body>
 </html>
