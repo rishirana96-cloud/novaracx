@@ -8801,10 +8801,10 @@ document.addEventListener('click',function(event){
   }
   function basePrice(tier,curr,key){
     const TABLE={
-      3000:{INR:{ai:29999,lite:59999,full:89999},USD:{ai:299,lite:649,full:999}},
-      6000:{INR:{ai:39999,lite:69999,full:99999},USD:{ai:479,lite:829,full:1179}},
-      9000:{INR:{ai:54999,lite:84999,full:114999},USD:{ai:649,lite:999,full:1349}},
-      15000:{INR:{ai:79999,lite:109999,full:149999},USD:{ai:949,lite:1299,full:1769}}
+      3000:{INR:{ai:29999,lite:59999,full:89999},USD:{ai:299,lite:699,full:1049}},
+      6000:{INR:{ai:39999,lite:69999,full:99999},USD:{ai:479,lite:879,full:1229}},
+      9000:{INR:{ai:54999,lite:84999,full:114999},USD:{ai:649,lite:1049,full:1399}},
+      15000:{INR:{ai:79999,lite:109999,full:149999},USD:{ai:949,lite:1349,full:1819}}
     };
     return TABLE[tier]?.[curr]?.[key] ?? TABLE[3000][curr][key];
   }
