@@ -10006,8 +10006,17 @@ body{letter-spacing:-.005em!important}
     group.insertAdjacentElement('beforebegin',control);
     const input=control.querySelector('input');
     const calculation=control.querySelector('.daily-volume-calculation');
+    let tickTimer;
+    function clearRecommendation(){
+      clearTimeout(tickTimer);
+      group.querySelectorAll('.volume-recommended').forEach(button=>button.classList.remove('volume-recommended'));
+    }
+    group.addEventListener('click',event=>{
+      if(event.isTrusted && event.target.closest('[data-tier]'))clearRecommendation();
+    });
     input.addEventListener('input',()=>{
       const raw=input.value.trim();
+      clearRecommendation();
       if(!raw){
         control.classList.remove('has-value');
         calculation.textContent='';
@@ -10022,6 +10031,9 @@ body{letter-spacing:-.005em!important}
       const button=group.querySelector('[data-tier="'+tier+'"]');
       if(button)button.click();
       applyAgents(section,monthly);
+      tickTimer=setTimeout(()=>{
+        if(button && input.value.trim()===raw)button.classList.add('volume-recommended');
+      },240);
     });
     return true;
   }
@@ -10225,6 +10237,40 @@ body{letter-spacing:-.005em!important}
 <style id="novara-daily-input-left-shift-v45">
   #mvp-pricing .daily-volume-control{
     left:0.6vw!important;
+  }
+</style>
+
+<!-- NOVARA_RECOMMENDED_PLAN_TICK_TEST290_V46 -->
+<style id="novara-recommended-plan-tick-v46">
+  #mvp-pricing .conversation-tier-group [data-tier]{
+    position:relative!important;
+  }
+  #mvp-pricing .conversation-tier-group [data-tier].volume-recommended::after{
+    content:"✓";
+    position:absolute;
+    top:6px;
+    right:7px;
+    display:grid;
+    place-items:center;
+    width:19px;
+    height:19px;
+    border-radius:50%;
+    background:#2e7550;
+    color:#fff;
+    font:800 13px/1 Arial,sans-serif;
+    box-shadow:0 2px 8px rgba(13,69,35,.22);
+    animation:novara-plan-tick-pop .55s cubic-bezier(.18,1.5,.35,1) both;
+    pointer-events:none;
+  }
+  @keyframes novara-plan-tick-pop{
+    0%{opacity:0;transform:scale(.25) rotate(-25deg)}
+    60%{opacity:1;transform:scale(1.2) rotate(7deg)}
+    100%{opacity:1;transform:scale(1) rotate(0)}
+  }
+  @media(prefers-reduced-motion:reduce){
+    #mvp-pricing .conversation-tier-group [data-tier].volume-recommended::after{
+      animation:none;
+    }
   }
 </style>
 
