@@ -9167,7 +9167,7 @@ document.addEventListener('click',function(event){
 }
 #mvp-pricing .pricing-summary{
   display:grid!important;
-  grid-template-rows:46px 54px 27px 48px 60px 27px minmax(132px,1fr) 50px!important;
+  grid-template-rows:46px 54px 27px 48px 60px 22px minmax(132px,1fr) 50px!important;
   align-content:stretch!important;
   min-width:0!important;
   padding:30px 30px 26px!important;
@@ -9184,6 +9184,10 @@ document.addEventListener('click',function(event){
 #mvp-pricing .pricing-summary>h3{
   align-self:start!important;
   grid-row:1;
+}
+#mvp-pricing .pricing-summary .pricing-title-row h3,
+#mvp-pricing .pricing-summary>h3{
+  margin-top:0!important;
 }
 #mvp-pricing .pricing-summary .plan-positioning{
   grid-row:2;
@@ -9243,7 +9247,7 @@ document.addEventListener('click',function(event){
 }
 #mvp-pricing .pricing-summary .value-tier-label{
   grid-row:6;
-  margin:0 0 6px!important;
+  margin:0!important;
 }
 #mvp-pricing .pricing-summary .plan-inclusions{
   grid-row:7;
@@ -9251,6 +9255,9 @@ document.addEventListener('click',function(event){
   margin:0!important;
   padding:0!important;
   gap:7px!important;
+}
+#mvp-pricing .pricing-summary:first-child .plan-inclusions{
+  margin:0!important;
 }
 #mvp-pricing .pricing-summary .plan-inclusions li{
   font-size:.72rem!important;
@@ -9276,6 +9283,7 @@ document.addEventListener('click',function(event){
   #mvp-pricing .pricing-summary .pricing-price{margin-top:20px!important}
   #mvp-pricing .pricing-summary .value-tier-label{margin-top:26px!important}
   #mvp-pricing .pricing-summary .plan-inclusions{margin-bottom:25px!important}
+  #mvp-pricing .pricing-summary:first-child .plan-inclusions{margin:0 0 25px!important}
 }
 </style>
 
