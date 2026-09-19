@@ -10098,5 +10098,103 @@ body{letter-spacing:-.005em!important}
   let n=0,t=setInterval(()=>{move();if(++n>80)clearInterval(t)},120);
 })();
 </script>
+<!-- NOVARA_DAILY_INPUT_SEARCH_STYLE_TEST290_V41 -->
+<style id="novara-daily-input-search-style-v41">
+  #mvp-pricing .conversation-tier-wrap{
+    position:relative!important;
+    display:flex!important;
+    align-items:center!important;
+    justify-content:center!important;
+    min-height:66px!important;
+  }
+  #mvp-pricing .conversation-tier-group{
+    width:auto!important;
+    justify-content:center!important;
+    margin:0 auto!important;
+  }
+  #mvp-pricing .daily-volume-control{
+    position:absolute!important;
+    left:0!important;
+    top:50%!important;
+    transform:translateY(-50%)!important;
+    display:flex!important;
+    flex-direction:column!important;
+    gap:3px!important;
+    width:230px!important;
+    min-width:0!important;
+    padding:0!important;
+    border:0!important;
+    background:transparent!important;
+  }
+  #mvp-pricing .daily-volume-control label{display:none!important}
+  #mvp-pricing .daily-volume-control input{
+    box-sizing:border-box!important;
+    width:100%!important;
+    height:42px!important;
+    padding:0 14px 0 16px!important;
+    border:1px solid rgba(205,225,212,.28)!important;
+    border-radius:12px!important;
+    outline:none!important;
+    background:rgba(255,255,255,.075)!important;
+    color:#f1f7f3!important;
+    font:600 .82rem/1 inherit!important;
+  }
+  #mvp-pricing .daily-volume-control input::placeholder{
+    color:rgba(221,237,226,.68)!important;
+  }
+  #mvp-pricing .daily-volume-calculation{
+    padding-left:4px!important;
+    color:rgba(210,229,216,.64)!important;
+    font-size:.56rem!important;
+    line-height:1.15!important;
+    white-space:nowrap!important;
+  }
+  #mvp-pricing .conversation-tier-wrap .currency-switcher{
+    position:absolute!important;
+    right:0!important;
+    top:50%!important;
+    transform:translateY(-50%)!important;
+  }
+  @media(max-width:900px){
+    #mvp-pricing .conversation-tier-wrap{
+      min-height:118px!important;
+      padding-top:8px!important;
+    }
+    #mvp-pricing .daily-volume-control{
+      position:relative!important;
+      left:auto!important;
+      top:auto!important;
+      transform:none!important;
+      width:min(100%,260px)!important;
+      margin:0 auto 8px!important;
+    }
+    #mvp-pricing .conversation-tier-group{
+      order:2!important;
+    }
+    #mvp-pricing .conversation-tier-wrap .currency-switcher{
+      right:0!important;
+    }
+  }
+  @media(max-width:520px){
+    #mvp-pricing .daily-volume-control{width:min(100%,240px)!important}
+    #mvp-pricing .conversation-tier-wrap .currency-switcher{
+      position:relative!important;
+      right:auto!important;
+      top:auto!important;
+      transform:none!important;
+      margin-left:auto!important;
+    }
+  }
+</style>
+<script id="novara-daily-input-search-script-v41">
+(function(){
+  function apply(){
+    const c=document.querySelector('#mvp-pricing .daily-volume-control');
+    const input=c?.querySelector('input');
+    if(input)input.placeholder='Enter daily conversations';
+  }
+  let n=0,t=setInterval(()=>{apply();if(++n>50)clearInterval(t)},120);
+})();
+</script>
 </body>
 </html>
