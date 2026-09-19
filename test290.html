@@ -10309,5 +10309,88 @@ body{letter-spacing:-.005em!important}
 </style>
 
 
+<!-- NOVARA_PRICING_CONTROLS_LAYOUT_TEST290_V49 -->
+<style id="novara-pricing-controls-layout-v49">
+  #mvp-pricing .conversation-tier-wrap{
+    display:grid!important;
+    grid-template-columns:minmax(280px,390px) minmax(0,740px) auto!important;
+    align-items:center!important;
+    justify-content:center!important;
+    column-gap:24px!important;
+    row-gap:16px!important;
+    width:100%!important;
+    max-width:1450px!important;
+    min-height:0!important;
+    margin:0 auto 28px!important;
+    padding:0 12px!important;
+  }
+  #mvp-pricing .daily-volume-control{
+    position:static!important;
+    grid-column:1!important;
+    grid-row:1!important;
+    transform:none!important;
+    width:100%!important;
+    margin:0!important;
+  }
+  #mvp-pricing .daily-volume-control label{
+    max-width:100%!important;
+    white-space:normal!important;
+    font-size:.6rem!important;
+    letter-spacing:.11em!important;
+    line-height:1.35!important;
+  }
+  #mvp-pricing .conversation-tier-group{
+    grid-column:2!important;
+    grid-row:1!important;
+    width:100%!important;
+    margin:0!important;
+  }
+  #mvp-pricing .conversation-tier-wrap .currency-switcher{
+    position:static!important;
+    grid-column:3!important;
+    grid-row:1!important;
+    transform:none!important;
+    justify-self:end!important;
+    margin:0!important;
+  }
+  @media(max-width:1050px){
+    #mvp-pricing .conversation-tier-wrap{
+      grid-template-columns:minmax(0,1fr) auto!important;
+      max-width:780px!important;
+    }
+    #mvp-pricing .daily-volume-control{
+      grid-column:1!important;
+      grid-row:1!important;
+    }
+    #mvp-pricing .conversation-tier-wrap .currency-switcher{
+      grid-column:2!important;
+      grid-row:1!important;
+    }
+    #mvp-pricing .conversation-tier-group{
+      grid-column:1/-1!important;
+      grid-row:2!important;
+    }
+  }
+  @media(max-width:560px){
+    #mvp-pricing .conversation-tier-wrap{
+      grid-template-columns:minmax(0,1fr) auto!important;
+      padding:0!important;
+      column-gap:12px!important;
+    }
+    #mvp-pricing .daily-volume-control{
+      grid-column:1/-1!important;
+      grid-row:1!important;
+    }
+    #mvp-pricing .conversation-tier-group{
+      grid-column:1/-1!important;
+      grid-row:2!important;
+    }
+    #mvp-pricing .conversation-tier-wrap .currency-switcher{
+      grid-column:2!important;
+      grid-row:3!important;
+    }
+  }
+</style>
+
 </body>
 </html>
