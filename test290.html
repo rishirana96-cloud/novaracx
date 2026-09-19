@@ -10038,5 +10038,65 @@ body{letter-spacing:-.005em!important}
   let n=0,t=setInterval(()=>{if(install()||++n>100)clearInterval(t)},120);
 })();
 </script>
+<!-- NOVARA_DAILY_VOLUME_LEFT_LAYOUT_TEST290_V40 -->
+<style id="novara-daily-volume-left-layout-v40">
+  #mvp-pricing .conversation-tier-wrap{
+    grid-template-columns:190px minmax(0,1fr) auto!important;
+  }
+  #mvp-pricing .daily-volume-control{
+    grid-column:1!important;
+    grid-row:1!important;
+    min-width:0!important;
+    padding:8px 12px!important;
+    border-color:rgba(179,212,190,.22)!important;
+    background:rgba(255,255,255,.035)!important;
+  }
+  #mvp-pricing .conversation-tier-group{
+    grid-column:2!important;
+    grid-row:1!important;
+    justify-content:center!important;
+  }
+  #mvp-pricing .conversation-tier-wrap .currency-switcher{
+    grid-column:3!important;
+    grid-row:1!important;
+  }
+  #mvp-pricing .daily-volume-control label{
+    color:rgba(220,235,225,.68)!important;
+    font-size:.6rem!important;
+    font-weight:650!important;
+  }
+  #mvp-pricing .daily-volume-control input{
+    font-size:.86rem!important;
+  }
+  @media(max-width:900px){
+    #mvp-pricing .conversation-tier-wrap{
+      grid-template-columns:minmax(0,1fr) auto!important;
+    }
+    #mvp-pricing .daily-volume-control{
+      grid-column:1!important;
+      grid-row:2!important;
+    }
+    #mvp-pricing .conversation-tier-group{
+      grid-column:1/-1!important;
+      grid-row:1!important;
+    }
+    #mvp-pricing .conversation-tier-wrap .currency-switcher{
+      grid-column:2!important;
+      grid-row:2!important;
+    }
+  }
+</style>
+<script id="novara-daily-volume-left-layout-script-v40">
+(function(){
+  function move(){
+    const sec=document.querySelector('#mvp-pricing');
+    const wrap=sec?.querySelector('.conversation-tier-wrap');
+    const group=wrap?.querySelector('.conversation-tier-group');
+    const control=wrap?.querySelector('.daily-volume-control');
+    if(wrap&&group&&control&&group.previousElementSibling!==control)wrap.insertBefore(control,group);
+  }
+  let n=0,t=setInterval(()=>{move();if(++n>80)clearInterval(t)},120);
+})();
+</script>
 </body>
 </html>
