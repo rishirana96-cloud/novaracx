@@ -4530,10 +4530,10 @@ body.preview-is-expanded{overflow:hidden!important}
     </article>
     <article class="pricing-summary">
      <h3>AI + Human Lite</h3>
-     <p class="plan-positioning">Managed support with part-day human coverage for complex conversations.</p>
+     <p class="plan-positioning">Managed human support for complex customer conversations.</p>
+     <div class="human-coverage-highlight"><strong>4.5 hrs/day</strong><span>human coverage per agent</span></div>
      <div class="coverage-pills" aria-label="Plan coverage">
       <span class="coverage-pill">24/7 AI</span>
-      <span class="coverage-pill">4.5 hrs/day per agent</span>
       <span class="coverage-pill">Managed by Novara</span>
      </div>
      <div class="pricing-price">₹54,999 <small>/month + GST</small></div>
@@ -4548,10 +4548,10 @@ body.preview-is-expanded{overflow:hidden!important}
     </article>
     <article class="pricing-summary featured">
      <h3>AI + Human Full</h3>
-     <p class="plan-positioning">Fully managed, full-day human coverage for higher-volume operations.</p>
+     <p class="plan-positioning">Extended human support for businesses that need broader daily coverage.</p>
+     <div class="human-coverage-highlight"><strong>9 hrs/day</strong><span>human coverage per agent</span></div>
      <div class="coverage-pills" aria-label="Plan coverage">
       <span class="coverage-pill">24/7 AI</span>
-      <span class="coverage-pill">9 hrs/day per agent</span>
       <span class="coverage-pill">Managed by Novara</span>
      </div>
      <div class="pricing-price">₹84,999 <small>/month + GST</small></div>
@@ -8596,7 +8596,7 @@ document.addEventListener('click',function(event){
    'Weekly review meetings',
    'Easy-to-read PDF reports via WhatsApp or email'
   ]);
-  set(full,'Everything in Human Lite, plus',[
+  set(full,'Expanded human coverage includes',[
    '<strong>Voice and call support</strong>',
    'Proactive customer follow-ups',
    'Ownership of complex issues',
@@ -9316,6 +9316,43 @@ document.addEventListener('click',function(event){
 #mvp-pricing .pricing-summary .plan-inclusions li strong{font-weight:750!important}
 @media(min-width:901px){
   #mvp-pricing .pricing-summary .plan-inclusions{margin-bottom:24px!important}
+}
+</style>
+
+
+<!-- NOVARA_HUMAN_COVERAGE_EMPHASIS_TEST290_V17 -->
+<style>
+/* Make Lite vs Full coverage obvious without adding another pill */
+#mvp-pricing .human-coverage-highlight{
+  display:flex;
+  align-items:baseline;
+  gap:7px;
+  margin:10px 0 1px;
+  color:#536b5e;
+  font-family:"General Sans",Arial,sans-serif;
+  line-height:1.2;
+}
+#mvp-pricing .human-coverage-highlight strong{
+  color:#123d28;
+  font-family:"Cabinet Grotesk","General Sans",Arial,sans-serif;
+  font-size:.93rem;
+  font-weight:800;
+  letter-spacing:-.01em;
+}
+#mvp-pricing .human-coverage-highlight span{
+  font-size:.64rem;
+  font-weight:650;
+}
+#mvp-pricing .pricing-summary.featured .human-coverage-highlight strong{
+  color:#0d4a2e;
+}
+#mvp-pricing .human-coverage-highlight + .coverage-pills{
+  margin-top:11px!important;
+}
+@media(max-width:760px){
+  #mvp-pricing .human-coverage-highlight{gap:6px}
+  #mvp-pricing .human-coverage-highlight strong{font-size:.88rem}
+  #mvp-pricing .human-coverage-highlight span{font-size:.62rem}
 }
 </style>
 
