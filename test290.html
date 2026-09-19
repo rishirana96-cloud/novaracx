@@ -8418,5 +8418,122 @@ document.addEventListener('click',function(event){
 })();
 </script>
 
+
+<!-- NOVARA_AGENT_COUNTER_STATE_FIX_TEST290_V16 -->
+<script>
+(function(){
+  const EXTRA={
+    INR:{liteSecond:37500,liteLater:20000,fullExtra:40000},
+    USD:{liteSecond:449,liteLater:239,fullExtra:479}
+  };
+
+  function currentCurrency(section){
+    return section.querySelector('.currency-switcher [data-currency].active')?.dataset.currency || 'INR';
+  }
+  function currentTier(section){
+    return Number(section.querySelector('.conversation-tier-group [data-tier].active')?.dataset.tier)||3000;
+  }
+  function planKey(card){
+    const t=(card.querySelector('h3')?.textContent||'').trim();
+    return t==='AI + Human Lite'?'lite':t==='AI + Human Full'?'full':t==='AI Support'?'ai':'';
+  }
+  function money(v,curr){
+    return (curr==='INR'?'₹':'
+</html>
+)+Number(v).toLocaleString(curr==='INR'?'en-IN':'en-US');
+  }
+  function basePrice(tier,curr,key){
+    const TABLE={
+      3000:{INR:{ai:24999,lite:54999,full:84999},USD:{ai:299,lite:649,full:999}},
+      6000:{INR:{ai:39999,lite:69999,full:99999},USD:{ai:479,lite:829,full:1179}},
+      9000:{INR:{ai:54999,lite:84999,full:114999},USD:{ai:649,lite:999,full:1349}},
+      15000:{INR:{ai:79999,lite:109999,full:149999},USD:{ai:949,lite:1299,full:1769}}
+    };
+    return TABLE[tier]?.[curr]?.[key] ?? TABLE[3000][curr][key];
+  }
+  function renderCard(card){
+    const section=document.querySelector('#mvp-pricing');
+    if(!section)return;
+    const key=planKey(card);
+    if(!key)return;
+    const curr=currentCurrency(section),tier=currentTier(section);
+    const count=key==='ai'?0:Math.max(1,Number(card.dataset.humanAgents)||1);
+    let total=basePrice(tier,curr,key);
+    if(key==='lite'&&count>1)total+=EXTRA[curr].liteSecond+((count-2)*EXTRA[curr].liteLater);
+    if(key==='full'&&count>1)total+=(count-1)*EXTRA[curr].fullExtra;
+
+    const price=card.querySelector('.pricing-price');
+    if(price){
+      const value=price.querySelector('.agent-price-value');
+      const tax=curr==='INR'?'+ GST':'+ applicable taxes';
+      if(value){
+        value.textContent=money(total,curr);
+        const suffix=price.querySelector('.agent-price-copy small');
+        if(suffix)suffix.textContent='/month '+tax;
+      }else{
+        price.innerHTML=money(total,curr)+' <small>/month '+tax+'</small>';
+      }
+    }
+    if(key!=='ai'){
+      const label=card.querySelector('.agent-counter-value');
+      if(label)label.textContent=count+' human '+(count===1?'agent':'agents');
+      const minus=card.querySelector('.agent-minus');
+      if(minus)minus.disabled=count<=1;
+    }
+  }
+  function renderAll(){
+    document.querySelectorAll('#mvp-pricing .pricing-summary').forEach(renderCard);
+  }
+  function bind(){
+    const section=document.querySelector('#mvp-pricing');
+    if(!section)return false;
+
+    /* Make DOM dataset the single source of truth. */
+    section.querySelectorAll('.pricing-summary').forEach(card=>{
+      const key=planKey(card);
+      if(key==='lite'||key==='full'){
+        const visible=parseInt(card.querySelector('.agent-counter-value')?.textContent,10);
+        if(!Number.isFinite(Number(card.dataset.humanAgents)) || Number(card.dataset.humanAgents)<1){
+          card.dataset.humanAgents=String(Number.isFinite(visible)&&visible>0?visible:1);
+        }
+      }
+    });
+
+    if(section.dataset.agentStateFixBound!=='1'){
+      section.dataset.agentStateFixBound='1';
+      section.addEventListener('click',function(e){
+        const btn=e.target.closest('.agent-counter-btn');
+        if(!btn||!section.contains(btn))return;
+
+        /* Capture before legacy handlers and own the state transition. */
+        e.preventDefault();
+        e.stopImmediatePropagation();
+
+        const card=btn.closest('.pricing-summary');
+        if(!card)return;
+        let count=Math.max(1,Number(card.dataset.humanAgents)||1);
+        if(btn.classList.contains('agent-plus'))count+=1;
+        if(btn.classList.contains('agent-minus'))count=Math.max(1,count-1);
+        card.dataset.humanAgents=String(count);
+        renderCard(card);
+
+        document.dispatchEvent(new CustomEvent('novara:agentchange',{detail:{card,count}}));
+      },true);
+
+      section.addEventListener('click',function(e){
+        if(e.target.closest('[data-tier],[data-currency]'))setTimeout(renderAll,20);
+      });
+    }
+    renderAll();
+    return true;
+  }
+
+  let tries=0;
+  const timer=setInterval(()=>{tries++;if(bind()||tries>50)clearInterval(timer)},100);
+  const observer=new MutationObserver(()=>{clearTimeout(observer._t);observer._t=setTimeout(()=>{bind();renderAll()},60)});
+  observer.observe(document.documentElement,{childList:true,subtree:true});
+})();
+</script>
+
 </body>
 </html>
