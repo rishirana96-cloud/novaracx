@@ -10002,7 +10002,7 @@ body{letter-spacing:-.005em!important}
     if(wrap.querySelector('.daily-volume-control'))return true;
     const control=document.createElement('div');
     control.className='daily-volume-control';
-    control.innerHTML='<label for="novara-daily-conversations">Enter your daily conversations flow</label><input id="novara-daily-conversations" type="number" min="0" step="1" inputmode="numeric" autocomplete="off" placeholder="Enter your daily conversations flow"><span class="daily-volume-calculation" aria-live="polite"></span>';
+    control.innerHTML='<label for="novara-daily-conversations">Get a human count recommendation</label><input id="novara-daily-conversations" type="number" min="0" step="1" inputmode="numeric" autocomplete="off" placeholder="Enter your daily conversations flow"><span class="daily-volume-calculation" aria-live="polite"></span>';
     group.insertAdjacentElement('beforebegin',control);
     const input=control.querySelector('input');
     const calculation=control.querySelector('.daily-volume-calculation');
@@ -10117,7 +10117,17 @@ body{letter-spacing:-.005em!important}
     border:0!important;
     background:transparent!important;
   }
-  #mvp-pricing .daily-volume-control label{display:none!important}
+  #mvp-pricing .daily-volume-control label{
+    display:block!important;
+    margin:0 0 4px!important;
+    color:rgba(222,238,227,.78)!important;
+    font-size:.59rem!important;
+    font-weight:750!important;
+    letter-spacing:.13em!important;
+    line-height:1.2!important;
+    text-transform:uppercase!important;
+    white-space:nowrap!important;
+  }
   #mvp-pricing .daily-volume-control input{
     box-sizing:border-box!important;
     width:100%!important;
