@@ -7868,6 +7868,15 @@ document.addEventListener('click',function(event){
   const tier=Number(active?.dataset.tier)||3000;
   document.querySelectorAll('#mvp-pricing .pricing-summary').forEach(card=>{
    const title=(card.querySelector('h3')?.textContent||'').trim();
+   if(title==='AI Support'){
+    let note=card.querySelector('.minimum-agent-note');
+    if(!note){
+     note=document.createElement('p');note.className='minimum-agent-note ai-handoff-note';
+     card.querySelector('.plan-positioning')?.insertAdjacentElement('afterend',note);
+    }
+    note.textContent='Seamless handoff to your team';
+    return;
+   }
    if(title!=='AI + Human Lite'&&title!=='AI + Human Full')return;
    const row=card.querySelector('.pricing-title-row');
    if(!row)return;
@@ -9158,7 +9167,7 @@ document.addEventListener('click',function(event){
 }
 #mvp-pricing .pricing-summary{
   display:grid!important;
-  grid-template-rows:54px 60px 28px 52px 84px 32px minmax(0,1fr) 50px!important;
+  grid-template-rows:54px 60px 28px 52px 84px 32px minmax(154px,1fr) 50px!important;
   align-content:stretch!important;
   min-width:0!important;
   padding:30px 30px 26px!important;
@@ -9190,7 +9199,16 @@ document.addEventListener('click',function(event){
   margin:0!important;
 }
 #mvp-pricing .pricing-summary:first-child .minimum-agent-note{
-  visibility:hidden!important;
+  visibility:visible!important;
+}
+#mvp-pricing .pricing-summary .ai-handoff-note{
+  width:fit-content!important;
+  color:#426851!important;
+  font-weight:700!important;
+}
+#mvp-pricing .pricing-summary .ai-handoff-note:before,
+#mvp-pricing .pricing-summary .ai-handoff-note:after{
+  display:none!important;
 }
 #mvp-pricing .pricing-summary .coverage-pills{
   grid-row:4;
@@ -9208,6 +9226,11 @@ document.addEventListener('click',function(event){
   margin:0!important;
   font-size:clamp(2rem,2.7vw,2.7rem)!important;
   letter-spacing:-.035em!important;
+}
+#mvp-pricing .pricing-summary .pricing-price small{
+  margin-left:5px!important;
+  letter-spacing:0!important;
+  white-space:nowrap!important;
 }
 #mvp-pricing .pricing-summary .agent-pricing-note{
   display:none!important;
@@ -9240,7 +9263,7 @@ document.addEventListener('click',function(event){
     flex-direction:column!important;
     padding:25px 23px!important;
   }
-  #mvp-pricing .pricing-summary:first-child .minimum-agent-note{display:none!important}
+  #mvp-pricing .pricing-summary:first-child .minimum-agent-note{display:flex!important}
   #mvp-pricing .pricing-summary .plan-positioning{margin-top:10px!important}
   #mvp-pricing .pricing-summary .minimum-agent-note{margin-top:10px!important}
   #mvp-pricing .pricing-summary .coverage-pills{margin-top:18px!important}
