@@ -6528,18 +6528,45 @@ body.preview-is-expanded{overflow:hidden!important}
 #mvp-pricing .nv-pricing-note{margin:15px 0 0;color:#486552;font-size:.67rem;line-height:1.5}
 @media(max-width:1300px){#mvp-pricing .nv-price-layout{grid-template-columns:1fr}#mvp-pricing .nv-volume{display:block}#mvp-pricing .nv-volume .nv-tier{display:inline-flex;width:auto;margin-right:6px}#mvp-pricing .nv-currency{display:inline-flex;vertical-align:middle;margin-top:8px}}
 @media(max-width:800px){#mvp-pricing .nv-plan-grid{grid-template-columns:1fr}#mvp-pricing .nv-plan{grid-template-rows:auto auto auto auto auto auto;gap:15px}#mvp-pricing .nv-agent-row{min-height:36px}#mvp-pricing .nv-plan-description,#mvp-pricing .nv-plan-meta,#mvp-pricing .nv-price{min-height:0;margin:0}#mvp-pricing .nv-pricing-head{display:block}#mvp-pricing .nv-pricing-head p{margin-top:13px}#mvp-pricing .nv-comparison table{min-width:720px}}
+/* Pricing and capabilities share one set of columns. */
+#mvp-pricing .nv-price-toolbar{display:flex;justify-content:flex-end;margin:-4px 0 13px}
+#mvp-pricing .nv-price-toolbar .nv-currency{margin:0;border-color:#cbded0;background:#e5f0e8}
+#mvp-pricing .nv-price-toolbar .nv-currency button{color:#365a42}
+#mvp-pricing .nv-price-toolbar .nv-currency button[aria-pressed="true"]{background:#123b26;color:#fff}
+#mvp-pricing .nv-unified{overflow-x:auto;border:1px solid #cfdfd3;border-radius:23px;background:#fff}
+#mvp-pricing .nv-unified table{width:100%;table-layout:fixed;border-collapse:collapse;color:#244531}
+#mvp-pricing .nv-unified th,#mvp-pricing .nv-unified td{border-right:1px solid #d9e7dc;border-bottom:1px solid #d9e7dc}
+#mvp-pricing .nv-unified tr>*:last-child{border-right:0}
+#mvp-pricing .nv-unified thead th{padding:0;vertical-align:top;text-align:left;font-weight:400;background:#f9fcfa}
+#mvp-pricing .nv-unified thead th:first-child,#mvp-pricing .nv-unified tbody td:first-child{width:22%}
+#mvp-pricing .nv-unified .nv-selector-head{background:#123b26}
+#mvp-pricing .nv-unified .nv-volume{display:flex;flex-direction:column;height:100%;padding:25px 21px;border:0;border-radius:0;background:#123b26}
+#mvp-pricing .nv-unified .nv-volume h3{color:#f1faf3}
+#mvp-pricing .nv-unified .nv-volume p{color:#c5dccb}
+#mvp-pricing .nv-unified .nv-volume .nv-tier{display:flex;width:100%;margin:0 0 6px}
+#mvp-pricing .nv-unified .nv-cap-label{margin:auto 0 0;padding-top:20px;border-top:1px solid rgba(255,255,255,.2);color:#e9f4eb;font-size:.7rem;font-weight:750}
+#mvp-pricing .nv-unified .nv-plan{height:100%;padding:25px 21px 21px;border:0;border-radius:0;background:#fbfdfb}
+#mvp-pricing .nv-unified .nv-plan.full{background:#f0f9f3}
+#mvp-pricing .nv-unified .nv-price small{display:block;margin-top:3px;white-space:normal}
+#mvp-pricing .nv-unified tbody td{padding:13px 18px;text-align:center;color:#335642;background:#fff;font-size:.72rem;line-height:1.35}
+#mvp-pricing .nv-unified tbody tr:nth-child(even) td{background:#f5faf6}
+#mvp-pricing .nv-unified tbody td:first-child{text-align:left;color:#244832;font-weight:700}
+#mvp-pricing .nv-unified tbody tr:last-child td{border-bottom:0}
+#mvp-pricing .nv-unified .included{color:#197446;font-weight:850;font-size:.94rem}
+#mvp-pricing .nv-unified .unavailable{color:#849b8a}
+@media(max-width:1000px){#mvp-pricing .nv-unified table{min-width:950px}#mvp-pricing .nv-unified .nv-volume{display:flex;flex-direction:column}#mvp-pricing .nv-unified .nv-plan{display:grid;grid-template-rows:34px 67px 57px 57px minmax(76px,1fr) 46px;gap:0}}
 </style>
 <script id="novara-side-pricing-test544">
 (()=>{
   const pricing=window.NOVARA_TEST_PRICING;
-  const tiers=[...pricing.tiers,{quota:Infinity,price:null}];
-  const names=['Starter','Growth','Scale','Custom'];
-  const monthLabel=['Up to 3,000','Up to 7,000','Up to 15,000','15,000+'];
+  const tiers=[...pricing.tiers];
+  const names=['Starter','Growth','Scale'];
+  const monthLabel=['Up to 3,000','Up to 7,000','Up to 15,000'];
   const keys=['ai','lite','full'];
   const fmt=(n,c)=>c==='INR'?'₹'+n.toLocaleString('en-IN'):'$'+Math.round(n/85).toLocaleString('en-US');
   let selected=0,currency='INR';
   const agents={lite:2,full:2};
-  const recommend=i=>i===3?3:Math.max(1,Math.ceil((tiers[i].quota*.5*10/60)/(26*6)));
+  const recommend=i=>Math.max(1,Math.ceil((tiers[i].quota*.5*10/60)/(26*6)));
   function build(){
     const section=document.getElementById('mvp-pricing');if(!section||section.dataset.sidePricingReady)return;
     section.dataset.sidePricingReady='1';section.dataset.comparisonReady='true';section.dataset.configuratorReady='true';
@@ -6564,6 +6591,24 @@ body.preview-is-expanded{overflow:hidden!important}
     <tr><td>Monthly CX review</td><td class="unavailable">—</td><td class="unavailable">—</td><td class="included">✓</td></tr>
     </tbody></table></div><p class="nv-comparison-note">AI means automated support on configured channels. Human coverage applies during the selected agent hours.</p></section>
     <p class="nv-pricing-note">Agent coverage is per working day. Additional agents increase capacity, not the coverage window. We confirm channels, volume and scope during discovery. USD estimates use ₹85/$; final billing is confirmed in INR.</p>`;
+    // One table keeps the plan headers and capability columns aligned at every width.
+    const layout=shell.querySelector('.nv-price-layout');
+    const comparison=shell.querySelector('.nv-comparison');
+    const unified=comparison.querySelector('.nv-comparison-scroll');
+    unified.classList.add('nv-unified');
+    const headingCells=[...unified.querySelectorAll('thead th')];
+    const selector=layout.querySelector('.nv-volume');
+    const cards=[...layout.querySelectorAll('.nv-plan')];
+    const currency=selector.querySelector('.nv-currency');
+    const toolbar=document.createElement('div');toolbar.className='nv-price-toolbar';
+    toolbar.append(currency);
+    const capabilityLabel=document.createElement('p');capabilityLabel.className='nv-cap-label';capabilityLabel.textContent='Capabilities';selector.append(capabilityLabel);
+    layout.before(toolbar);
+    headingCells.forEach((cell,i)=>{cell.replaceChildren(i===0?selector:cards[i-1]);cell.classList.add(i===0?'nv-selector-head':'nv-plan-head')});
+    toolbar.after(unified);
+    const note=comparison.querySelector('.nv-comparison-note');
+    unified.after(note);
+    comparison.remove();layout.remove();
     section.addEventListener('click',e=>{
       const t=e.target.closest('[data-nv-tier]');if(t){selected=Number(t.dataset.nvTier);for(const key of ['lite','full'])agents[key]=recommend(selected);render();return}
       const c=e.target.closest('[data-nv-currency]');if(c){currency=c.dataset.nvCurrency;render();return}
@@ -6576,11 +6621,11 @@ body.preview-is-expanded{overflow:hidden!important}
     section.querySelectorAll('[data-nv-tier]').forEach(b=>b.setAttribute('aria-pressed',String(Number(b.dataset.nvTier)===selected)));
     section.querySelectorAll('[data-nv-currency]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.nvCurrency===currency)));
     section.querySelectorAll('[data-nv-plan]').forEach(card=>{
-      const key=card.dataset.nvPlan,count=key==='ai'?0:agents[key],custom=selected===3;
-      const amount=custom?null:tiers[selected].price+pricing.humanCost(key,count);
-      card.querySelector('.nv-price').innerHTML=custom?'Custom quote':fmt(amount,currency)+' <small>/month '+(currency==='INR'?'+ GST':'+ applicable taxes')+'</small>';
+      const key=card.dataset.nvPlan,count=key==='ai'?0:agents[key];
+      const amount=tiers[selected].price+pricing.humanCost(key,count);
+      card.querySelector('.nv-price').innerHTML=fmt(amount,currency)+' <small>/month '+(currency==='INR'?'+ GST':'+ applicable taxes')+'</small>';
       const output=card.querySelector('output');if(output){output.value=count+' '+(count===1?'agent':'agents');card.querySelector('[data-nv-step="-1"]').disabled=count===1;card.querySelector('.nv-recommended').textContent='Recommended starting point: '+recommend(selected)+' agents'}
-      card.querySelector('.nv-cta').textContent=custom?'Discuss a custom plan':'Book a discovery call';
+      card.querySelector('.nv-cta').textContent='Book a discovery call';
     });
   }
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',build,{once:true});else build();
