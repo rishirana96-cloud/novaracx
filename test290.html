@@ -8595,19 +8595,13 @@ document.addEventListener('click',function(event){
    'Easy-to-read PDF reports via WhatsApp or email'
   ]);
   set(full,'Full plan adds,',[
+   '<strong>Extended human coverage</strong>',
    '<strong>Voice and call support</strong>',
    'Proactive customer follow-ups',
    'Ownership of complex issues',
    'Advanced CX insights and trends'
   ]);
-  let fullSubtitle=full.querySelector('.value-tier-subtitle');
-  if(!fullSubtitle){
-   fullSubtitle=document.createElement('div');
-   fullSubtitle.className='value-tier-subtitle';
-   const fullLabel=full.querySelector('.value-tier-label');
-   if(fullLabel)fullLabel.insertAdjacentElement('afterend',fullSubtitle);
-  }
-  if(fullSubtitle)fullSubtitle.textContent='Extended human coverage';
+  full.querySelectorAll('.value-tier-subtitle').forEach(x=>x.remove());
   return true;
  }
  let n=0,t=setInterval(()=>{n++;if(rewriteValue()||n>40)clearInterval(t)},120);
@@ -9351,17 +9345,7 @@ document.addEventListener('click',function(event){
 </style>
 
 
-<!-- NOVARA_FULL_PLAN_SUBTITLE_TEST290_V19 -->
-<style>
-#mvp-pricing .pricing-summary .value-tier-subtitle{
-  margin:5px 0 9px!important;
-  color:#234d36!important;
-  font-family:"General Sans",Arial,sans-serif!important;
-  font-size:.76rem!important;
-  font-weight:750!important;
-  line-height:1.3!important;
-}
-</style>
+
 
 </body>
 </html>
