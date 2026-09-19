@@ -8001,8 +8001,8 @@ document.addEventListener('click',function(event){
 <script>
 (function(){
  const LABELS={
-  3000:['Starter','Up to 3,000'],
-  6000:['Growth','Up to 6,000'],
+  3000:['Starter','Up to 3,000 conversations'],
+  6000:['Growth','Up to 6,000 conversations'],
   9000:['Pro','Up to 9,000'],
   15000:['Scale','15,000+']
  };
@@ -8707,8 +8707,8 @@ document.addEventListener('click',function(event){
   const growth=group.querySelector('[data-tier="6000"]');
   if(!starter||!growth)return false;
 
-  starter.innerHTML='<span class="conversation-tier-name">Starter</span><span class="conversation-tier-volume">Up to 3,000</span>';
-  growth.innerHTML='<span class="conversation-tier-name">Growth</span><span class="conversation-tier-volume">Up to 6,000</span>';
+  starter.innerHTML='<span class="conversation-tier-name">Starter</span><span class="conversation-tier-volume">Up to 3,000 conversations</span>';
+  growth.innerHTML='<span class="conversation-tier-name">Growth</span><span class="conversation-tier-volume">Up to 6,000 conversations</span>';
 
   let scale=group.querySelector('[data-tier="6001"]');
   if(!scale){
@@ -8717,7 +8717,7 @@ document.addEventListener('click',function(event){
     scale.dataset.tier='6001';
     growth.insertAdjacentElement('afterend',scale);
   }
-  scale.innerHTML='<span class="conversation-tier-name">Scale</span><span class="conversation-tier-volume">6,000+</span>';
+  scale.innerHTML='<span class="conversation-tier-name">Scale</span><span class="conversation-tier-volume">6,000+ conversations</span>';
 
   group.querySelectorAll('[data-tier="9000"],[data-tier="15000"]').forEach(x=>x.remove());
 
@@ -9615,6 +9615,14 @@ body{letter-spacing:-.005em!important}
 #mvp-pricing .pricing-compare-wrap,
 .console-desk-section,
 #console-vs-desk{display:none!important}
+</style>
+
+
+<!-- NOVARA_CONVERSATION_LABEL_REMOVAL_TEST290_V28 -->
+<style id="novara-conversation-label-removal-v28">
+#mvp-pricing .pricing-selector-label,
+#mvp-pricing .conversation-tier-label{display:none!important}
+#mvp-pricing .conversation-tier-volume{font-size:.66rem!important;font-weight:700!important;opacity:.82!important}
 </style>
 </body>
 </html>
