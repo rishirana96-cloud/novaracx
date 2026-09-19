@@ -8331,5 +8331,92 @@ document.addEventListener('click',function(event){
 }
 </style>
 
+
+<!-- NOVARA_THREE_VOLUME_TIERS_TEST290_V15 -->
+<style>
+/* MVP volume structure: Starter / Growth / Scale */
+#mvp-pricing .conversation-tier-group [data-tier="9000"],
+#mvp-pricing .conversation-tier-group [data-tier="15000"]{display:none!important}
+</style>
+<script>
+(function(){
+ function installThreeTiers(){
+  const section=document.querySelector('#mvp-pricing');
+  const group=section?.querySelector('.conversation-tier-group');
+  if(!section||!group)return false;
+
+  const starter=group.querySelector('[data-tier="3000"]');
+  const growth=group.querySelector('[data-tier="6000"]');
+  if(!starter||!growth)return false;
+
+  starter.innerHTML='<span class="conversation-tier-name">Starter</span><span class="conversation-tier-volume">Up to 3,000</span>';
+  growth.innerHTML='<span class="conversation-tier-name">Growth</span><span class="conversation-tier-volume">Up to 6,000</span>';
+
+  let scale=group.querySelector('[data-tier="6001"]');
+  if(!scale){
+    scale=document.createElement('button');
+    scale.type='button';
+    scale.dataset.tier='6001';
+    growth.insertAdjacentElement('afterend',scale);
+  }
+  scale.innerHTML='<span class="conversation-tier-name">Scale</span><span class="conversation-tier-volume">6,000+</span>';
+
+  group.querySelectorAll('[data-tier="9000"],[data-tier="15000"]').forEach(x=>x.remove());
+
+  if(!section.dataset.threeTierBound){
+    section.dataset.threeTierBound='1';
+    section.addEventListener('click',e=>{
+      const btn=e.target.closest('.conversation-tier-group [data-tier="6001"]');
+      if(!btn)return;
+      e.preventDefault();
+      e.stopImmediatePropagation();
+
+      group.querySelectorAll('[data-tier]').forEach(b=>{
+        const active=b===btn;
+        b.classList.toggle('active',active);
+        b.setAttribute('aria-pressed',String(active));
+      });
+
+      section.classList.add('scale-selected');
+      section.querySelectorAll('.pricing-summary').forEach(card=>{
+        const price=card.querySelector('.pricing-price');
+        const cta=card.querySelector('.mvp-btn');
+        if(price){
+          if(!price.dataset.threeTierOriginal)price.dataset.threeTierOriginal=price.innerHTML;
+          price.innerHTML='Custom pricing <small>based on volume &amp; coverage</small>';
+        }
+        if(cta){
+          if(!cta.dataset.threeTierOriginal)cta.dataset.threeTierOriginal=cta.textContent;
+          cta.textContent='Talk to us';
+        }
+      });
+    },true);
+
+    section.addEventListener('click',e=>{
+      const btn=e.target.closest('.conversation-tier-group [data-tier="3000"],.conversation-tier-group [data-tier="6000"]');
+      if(!btn)return;
+      section.classList.remove('scale-selected');
+      section.querySelectorAll('.pricing-summary').forEach(card=>{
+        const price=card.querySelector('.pricing-price');
+        const cta=card.querySelector('.mvp-btn');
+        if(price?.dataset.threeTierOriginal){
+          price.innerHTML=price.dataset.threeTierOriginal;
+          delete price.dataset.threeTierOriginal;
+        }
+        if(cta?.dataset.threeTierOriginal){
+          cta.textContent=cta.dataset.threeTierOriginal;
+          delete cta.dataset.threeTierOriginal;
+        }
+      });
+    },true);
+  }
+  return true;
+ }
+ let n=0,t=setInterval(()=>{n++;if(installThreeTiers()||n>50)clearInterval(t)},120);
+ const o=new MutationObserver(()=>{clearTimeout(o._t);o._t=setTimeout(installThreeTiers,80)});
+ o.observe(document.documentElement,{childList:true,subtree:true});
+})();
+</script>
+
 </body>
 </html>
