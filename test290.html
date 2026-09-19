@@ -9396,6 +9396,31 @@ document.addEventListener('click',function(event){
  #mvp-pricing .pricing-summary .pricing-title-row{flex-wrap:wrap!important;gap:6px 10px!important}
  #mvp-pricing .pricing-summary .pricing-title-row .minimum-agent-coverage{margin-left:0!important}
 }
+
+/* Keep staffing details on their own aligned row. */
+#mvp-pricing .pricing-summary .minimum-agent-note:not(.ai-handoff-note){
+  display:grid!important;grid-template-columns:minmax(0,1fr) auto!important;
+  align-items:center!important;column-gap:8px!important;row-gap:0!important;
+  min-height:48px!important;margin:0!important;padding:0!important;
+  white-space:nowrap!important
+}
+#mvp-pricing .pricing-summary .minimum-agent-note:not(.ai-handoff-note):after{display:none!important;content:none!important}
+#mvp-pricing .minimum-agent-note .minimum-agent-label{display:block!important;min-width:0!important;font-size:.60rem!important;white-space:nowrap!important}
+#mvp-pricing .minimum-agent-note .agent-counter{
+  position:static!important;grid-column:2!important;
+  display:inline-flex!important;flex-wrap:nowrap!important;
+  width:auto!important;min-width:0!important;gap:2px!important;
+  margin:0!important;padding:2px!important;transform:none!important
+}
+#mvp-pricing .minimum-agent-note .agent-counter-btn{width:27px!important;height:27px!important;min-width:27px!important;min-height:27px!important}
+#mvp-pricing .minimum-agent-note .agent-counter-value{min-width:93px!important;font-size:.68rem!important}
+@media(max-width:900px){
+ #mvp-pricing .pricing-summary .minimum-agent-note:not(.ai-handoff-note){margin:12px 0 0!important}
+}
+@media(max-width:420px){
+ #mvp-pricing .pricing-summary .minimum-agent-note:not(.ai-handoff-note){grid-template-columns:1fr!important;row-gap:8px!important}
+ #mvp-pricing .minimum-agent-note .agent-counter{grid-column:1!important;justify-self:start!important}
+}
 </style>
 
 </body>
