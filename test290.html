@@ -10196,5 +10196,34 @@ body{letter-spacing:-.005em!important}
   let n=0,t=setInterval(()=>{apply();if(++n>50)clearInterval(t)},120);
 })();
 </script>
+<!-- NOVARA_DAILY_INPUT_EMPTY_STATE_TEST290_V42 -->
+<style id="novara-daily-input-empty-state-v42">
+  #mvp-pricing .daily-volume-calculation{
+    visibility:hidden!important;
+  }
+  #mvp-pricing .daily-volume-control.has-value .daily-volume-calculation{
+    visibility:visible!important;
+  }
+</style>
+<script id="novara-daily-input-empty-state-script-v42">
+(function(){
+  function apply(){
+    const c=document.querySelector('#mvp-pricing .daily-volume-control');
+    const input=c?.querySelector('input');
+    if(!input)return;
+    input.value='';
+    input.placeholder='Enter your daily conversations flow';
+    c.classList.remove('has-value');
+    const calc=c.querySelector('.daily-volume-calculation');
+    if(calc)calc.textContent='';
+    input.oninput=function(){
+      const daily=Math.max(0,Number(input.value)||0);
+      c.classList.toggle('has-value',input.value.trim()!=='');
+      if(calc)calc.textContent=daily+' × 30 = '+(daily*30).toLocaleString('en-IN')+' monthly conversations';
+    };
+  }
+  let n=0,t=setInterval(()=>{apply();if(++n>35)clearInterval(t)},120);
+})();
+</script>
 </body>
 </html>
