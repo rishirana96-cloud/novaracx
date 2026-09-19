@@ -7767,7 +7767,7 @@ document.addEventListener('click',function(event){
   const section=document.querySelector('#mvp-pricing'),plans=section?.querySelector('.pricing-summary-grid'),switcher=section?.querySelector('.currency-switcher');
   if(!section||!plans||!switcher)return false;
   let wrap=section.querySelector('.conversation-tier-wrap');
-  if(!wrap){wrap=document.createElement('div');wrap.className='conversation-tier-wrap';const g=document.createElement('div');g.className='conversation-tier-group';g.innerHTML='<span class="conversation-tier-label">Monthly conversations</span>'+[3000,6000,9000,15000].map(n=>'<button type="button" data-tier="'+n+'">Up to '+n.toLocaleString('en-IN')+'</button>').join('');wrap.appendChild(g);plans.before(wrap)}
+  if(!wrap){wrap=document.createElement('div');wrap.className='conversation-tier-wrap';const g=document.createElement('div');g.className='conversation-tier-group';g.innerHTML='<span class="conversation-tier-label">Choose your monthly conversation volume</span>'+[3000,6000,9000,15000].map(n=>'<button type="button" data-tier="'+n+'">Up to '+n.toLocaleString('en-IN')+'</button>').join('');wrap.appendChild(g);plans.before(wrap)}
   if(switcher.parentNode!==wrap)wrap.appendChild(switcher);
   if(!wrap.dataset.bound){wrap.dataset.bound='1';wrap.addEventListener('click',e=>{const t=e.target.closest('[data-tier]');if(t){selectedTier=Number(t.dataset.tier);render();return}const u=e.target.closest('[data-currency]');if(u){currency=u.dataset.currency;render()}});section.addEventListener('click',e=>{if(e.target.closest('.agent-counter-btn'))setTimeout(render,0)},true)}
   render();return true;
