@@ -9897,5 +9897,33 @@ body{letter-spacing:-.005em!important}
   let n=0,t=setInterval(()=>{update();if(++n>60)clearInterval(t)},120);
 })();
 </script>
+<!-- NOVARA_AI_VOLUME_AS_FEATURE_TEST290_V38 -->
+<script id="novara-ai-volume-as-feature-v38">
+(function(){
+  const VOLUMES={
+    3000:{text:'3,000 conversations included (₹10 per extra conversation)'},
+    6000:{text:'6,000 conversations included (₹8 per extra conversation)'},
+    6001:{text:'6,000+ conversations · custom pricing'}
+  };
+  function update(){
+    const section=document.querySelector('#mvp-pricing'); if(!section)return;
+    const tier=Number(section.querySelector('.conversation-tier-group [data-tier].active')?.dataset.tier)||3000;
+    const item=VOLUMES[tier]||VOLUMES[3000];
+    const card=[...section.querySelectorAll('.pricing-summary')].find(c=>(c.querySelector('h3')?.textContent||'').trim()==='AI Support');
+    if(!card)return;
+    const label=card.querySelector('.value-tier-label');
+    if(label)label.textContent='AI support includes';
+    const list=card.querySelector('.plan-inclusions');
+    if(!list)return;
+    let volume=list.querySelector('.volume-overage-item');
+    if(!volume){volume=document.createElement('li');volume.className='volume-overage-item';list.insertBefore(volume,list.firstElementChild)}
+    volume.textContent=item.text;
+  }
+  document.addEventListener('click',e=>{
+    if(e.target.closest('#mvp-pricing .conversation-tier-group [data-tier]'))setTimeout(update,80);
+  },true);
+  let n=0,t=setInterval(()=>{update();if(++n>70)clearInterval(t)},120);
+})();
+</script>
 </body>
 </html>
