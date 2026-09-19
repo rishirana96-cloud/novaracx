@@ -1400,6 +1400,81 @@ body>header .nav{height:68px}body>header .logo{color:#102018}body>header .nav-li
 
 <section class="mvp-section layers-v2" id="mvp-how"><div class="mvp-shell"><div class="layers-v2-head"><div><span class="mvp-kicker">How Novara works</span><h2 class="mvp-heading">One support system.<br>Three connected layers.</h2></div><p class="mvp-lead">Automation handles scale, people handle nuance, and continuous optimisation keeps both performing.</p></div><div class="layers-stack nv-visual"><article class="layer-row layer-ai"><div class="layer-label"><span>01 · AUTOMATION</span><h3>AI responds instantly</h3><p>The assistant answers repetitive and knowledge-based questions using your policies, products and preferred brand tone.</p></div><div class="layer-flow" aria-hidden="true"><div class="layer-node"><i>CU</i><span>Customer</span></div><div class="layer-path"><b></b></div><div class="layer-node active"><i>✦</i><span>Novara AI</span></div><div class="layer-path"><b></b></div><div class="layer-node"><i>61%</i><span>Confidence check</span></div></div></article><article class="layer-row layer-human"><div class="layer-label"><span>02 · HUMAN SUPPORT</span><h3>Humans take over</h3><p>When the AI cannot resolve a request, the conversation moves to a trained human with the context already attached.</p></div><div class="layer-flow" aria-hidden="true"><div class="layer-node"><i>↔</i><span>Context retained</span></div><div class="layer-path"><b></b></div><div class="layer-node active"><i>AR</i><span>Human support</span></div><div class="layer-path"><b></b></div><div class="layer-node"><i>✓</i><span>Resolved</span></div></div></article><article class="layer-row layer-management"><div class="layer-label"><span>03 · CONTINUOUS MANAGEMENT</span><h3>We improve the operation</h3><p>Novara reviews conversations, tunes the AI, monitors support quality and gives you clear performance visibility.</p></div><div class="management-loop" aria-hidden="true"><span>Review conversations</span><i>→</i><span>Tune knowledge</span><i>→</i><span>Measure quality</span><i>↻</i></div></article></div></div></section>
 
+
+<!-- NOVARA_COST_ESTIMATOR_MISSING_PRESENTATION_STYLES_TEST290_V18 -->
+<style id="novara-cost-estimator-two-stage-v1">
+.cost-preset-summary.full{
+    grid-column:1/-1;
+    margin:-2px 0 2px;
+    padding:10px 12px;
+    border:1px solid #d8e3dc;
+    border-radius:10px;
+    background:#edf4ef;
+    color:#315d44;
+    font-size:.7rem;
+    font-weight:700;
+}
+.cost-field>small{
+    color:#7a8780;
+    font-size:.62rem;
+    line-height:1.45;
+}
+.cost-volume-flow{
+    grid-template-columns:repeat(4,minmax(0,1fr));
+}
+@media(max-width:1100px) and (min-width:601px){
+    .cost-volume-flow{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .cost-flow-step:nth-child(2):after{display:none}
+}
+</style>
+<style id="novara-cost-estimator-visible-formulas-v1">
+.cost-result-box{
+    align-content:start;
+}
+.cost-result-calculation{
+    display:grid;
+    gap:3px;
+    margin-top:13px;
+    padding-top:12px;
+    border-top:1px solid rgba(181,222,196,.13);
+}
+.cost-result-calculation b{
+    color:rgba(218,237,225,.5);
+    font-size:.54rem;
+    font-weight:700;
+    letter-spacing:.055em;
+    text-transform:uppercase;
+}
+.cost-result-calculation p{
+    margin:0 0 7px;
+    color:rgba(241,249,244,.78);
+    font-size:.62rem;
+    font-weight:600;
+    line-height:1.5;
+}
+.cost-result-calculation p:last-child{
+    margin-bottom:0;
+}
+</style>
+
+<style id="novara-cost-estimator-font-isolation-test290-v18">
+/* Keep the transplanted calculator visually identical to its test544 presentation,
+   despite later test290 pricing/card overrides. */
+#mvp-savings,
+#mvp-savings button,
+#mvp-savings input,
+#mvp-savings select,
+#mvp-savings summary{
+  font-family:"General Sans",Arial,sans-serif;
+}
+#mvp-savings .cost-estimator-head h2,
+#mvp-savings .cost-flow-step strong,
+#mvp-savings .cost-result-box>strong,
+#mvp-savings .cost-saving-hero>strong{
+  font-family:"Cabinet Grotesk","General Sans",Arial,sans-serif;
+}
+</style>
+
 <!-- NOVARA_COST_ESTIMATOR_V3 -->
 <style id="novara-cost-estimator-styles">
 .cost-estimator-section{position:relative;overflow:hidden;padding:104px 0;background:#f3f2ec;color:#13241a}
