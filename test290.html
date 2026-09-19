@@ -9624,5 +9624,45 @@ body{letter-spacing:-.005em!important}
 #mvp-pricing .conversation-tier-label{display:none!important}
 #mvp-pricing .conversation-tier-volume{font-size:.66rem!important;font-weight:700!important;opacity:.82!important}
 </style>
+
+
+<!-- NOVARA_RECOMMENDED_AGENT_DEFAULT_TEST290_V29 -->
+<script id="novara-recommended-agent-default-v29">
+(function(){
+ const RECOMMENDED={3000:2,6000:4,6001:5,9000:5,15000:9};
+ function apply(section,tier){
+  const count=RECOMMENDED[tier]||2;
+  let ready=true;
+  section.querySelectorAll('.pricing-summary').forEach(function(card){
+   const title=(card.querySelector('h3')?.textContent||'').trim();
+   if(title!=='AI + Human Lite'&&title!=='AI + Human Full')return;
+   const control=card.querySelector('.agent-counter-value');
+   if(!control){ready=false;return}
+   card.dataset.humanAgents=String(count);
+   control.textContent=count+' human '+(count===1?'agent':'agents');
+   const minus=card.querySelector('.agent-minus');
+   if(minus)minus.disabled=count<=1;
+  });
+  return ready;
+ }
+ function bind(){
+  const section=document.querySelector('#mvp-pricing');
+  if(!section||section.dataset.recommendedDefaultBound==='1')return false;
+  section.dataset.recommendedDefaultBound='1';
+  section.addEventListener('click',function(e){
+   const tierButton=e.target.closest('.conversation-tier-group [data-tier]');
+   if(tierButton)apply(section,Number(tierButton.dataset.tier));
+  },true);
+  const tier=Number(section.querySelector('.conversation-tier-group [data-tier].active')?.dataset.tier)||3000;
+  if(apply(section,tier)){
+   const active=section.querySelector('.conversation-tier-group [data-tier].active');
+   if(active)active.click();
+   return true;
+  }
+  return false;
+ }
+ let tries=0;const timer=setInterval(function(){if(bind()||++tries>80)clearInterval(timer)},120);
+})();
+</script>
 </body>
 </html>
