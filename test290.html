@@ -8051,7 +8051,7 @@ document.addEventListener('click',function(event){
     if(positioning)positioning.insertAdjacentElement('afterend',note);
     else card.querySelector('.pricing-title-row')?.insertAdjacentElement('afterend',note);
    }
-   if(note){const coverage=title==='AI + Human Lite'?'4.5 hrs/day each':'9 hrs/day each';note.innerHTML='Recommended minimum: <strong>'+minimum+' '+(minimum===1?'agent':'agents')+'</strong><span class="minimum-agent-coverage">'+coverage+'</span>'}
+   if(note){const coverage=title==='AI + Human Lite'?'4.5 human hours/day':'9 human hours/day';note.innerHTML='Recommended minimum: <strong>'+minimum+' '+(minimum===1?'agent':'agents')+'</strong><span class="minimum-agent-coverage">'+coverage+'</span>'}
   });
  }
  document.addEventListener('click',e=>{if(e.target.closest('#mvp-pricing [data-tier],#mvp-pricing .agent-counter-btn'))setTimeout(sync,40)},true);
@@ -9324,12 +9324,13 @@ document.addEventListener('click',function(event){
 #mvp-pricing .minimum-agent-note .minimum-agent-coverage{
   display:inline-flex!important;
   align-items:center!important;
-  margin-left:7px!important;
-  padding:3px 8px!important;
+  margin-left:8px!important;
+  padding:5px 10px!important;
   border:1.5px dotted #6f8d7b!important;
   border-radius:999px!important;
   color:#355f47!important;
-  font-weight:750!important;
+  font-size:.69rem!important;
+  font-weight:780!important;
   line-height:1!important;
   background:rgba(239,247,241,.5)!important;
 }
