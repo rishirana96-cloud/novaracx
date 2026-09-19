@@ -9148,5 +9148,62 @@ document.addEventListener('click',function(event){
 })();
 </script>
 
+
+
+<!-- NOVARA_PRICING_CARD_ALIGNMENT_FIX_TEST290_V11 -->
+<style>
+/* Keep plan-card content aligned even when staffing controls add extra rows */
+#mvp-pricing .pricing-summary-grid{
+  align-items:stretch!important;
+}
+#mvp-pricing .pricing-summary{
+  display:grid!important;
+  grid-template-rows:auto 46px 30px 64px 52px 1fr auto!important;
+  align-content:stretch!important;
+}
+#mvp-pricing .pricing-summary .pricing-title-row,
+#mvp-pricing .pricing-summary>h3{
+  align-self:start!important;
+}
+#mvp-pricing .pricing-summary .plan-positioning{
+  min-height:0!important;
+  margin:8px 0 0!important;
+}
+#mvp-pricing .pricing-summary .minimum-agent-note{
+  align-self:start!important;
+  margin:4px 0 0!important;
+}
+#mvp-pricing .pricing-summary:first-child .minimum-agent-note{
+  visibility:hidden!important;
+}
+#mvp-pricing .pricing-summary .coverage-pills{
+  align-self:start!important;
+  margin:10px 0 0!important;
+}
+#mvp-pricing .pricing-summary .pricing-price{
+  align-self:start!important;
+  margin:8px 0 0!important;
+}
+#mvp-pricing .pricing-summary .agent-pricing-note{
+  display:none!important;
+}
+#mvp-pricing .pricing-summary .plan-inclusions{
+  align-self:start!important;
+  margin:12px 0 18px!important;
+  padding-top:14px!important;
+}
+#mvp-pricing .pricing-summary .mvp-btn{
+  align-self:end!important;
+  margin-top:0!important;
+}
+@media(max-width:900px){
+  #mvp-pricing .pricing-summary{
+    display:flex!important;
+    flex-direction:column!important;
+  }
+  #mvp-pricing .pricing-summary:first-child .minimum-agent-note{display:none!important}
+}
+</style>
+
 </body>
 </html>
