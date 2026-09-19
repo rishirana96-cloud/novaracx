@@ -6480,12 +6480,12 @@ body.preview-is-expanded{overflow:hidden!important}
 </style>
 <!-- NOVARA_SIDE_BY_SIDE_PRICING_TEST544 -->
 <style>
-#mvp-pricing .mvp-shell{width:min(1480px,calc(100% - 48px))!important}
+#mvp-pricing .mvp-shell{width:min(1480px,calc(100% - 48px))!important;max-width:1480px!important}
 #mvp-pricing .nv-pricing-head{display:flex;align-items:end;justify-content:space-between;gap:24px;margin-bottom:27px}
-#mvp-pricing .nv-pricing-head h2{margin:10px 0 0;color:#f4fbf6;font-size:clamp(2.1rem,4vw,3.5rem);letter-spacing:-.055em;line-height:1.04}
-#mvp-pricing .nv-pricing-head p{max-width:360px;margin:0;color:#c5d9ca;font-size:.85rem;line-height:1.5}
+#mvp-pricing .nv-pricing-head h2{margin:10px 0 0;color:#173c28;font-size:clamp(2.1rem,4vw,3.5rem);letter-spacing:-.055em;line-height:1.04}
+#mvp-pricing .nv-pricing-head p{max-width:360px;margin:0;color:#4c6857;font-size:.85rem;line-height:1.5}
 #mvp-pricing .nv-price-layout{display:grid;grid-template-columns:minmax(194px,220px) minmax(0,1fr);gap:14px;align-items:stretch}
-#mvp-pricing .nv-volume{display:flex;flex-direction:column;gap:9px;padding:24px 17px;border:1px solid rgba(255,255,255,.13);border-radius:24px;background:rgba(255,255,255,.045)}
+#mvp-pricing .nv-volume{display:flex;flex-direction:column;gap:9px;padding:24px 17px;border:1px solid #204a31;border-radius:24px;background:#113b27}
 #mvp-pricing .nv-volume h3{margin:0 0 6px;color:#eef7f0;font-size:.96rem}
 #mvp-pricing .nv-volume p{margin:0 0 12px;color:#bed1c3;font-size:.68rem;line-height:1.5}
 #mvp-pricing .nv-volume button{font:inherit;cursor:pointer}
@@ -6515,15 +6515,23 @@ body.preview-is-expanded{overflow:hidden!important}
 #mvp-pricing .nv-plan li:before{content:'✓';position:absolute;left:0;color:#2e8151;font-weight:800}
 #mvp-pricing .nv-cta{display:flex;align-items:center;justify-content:center;min-height:46px;border:1px solid #193c29;border-radius:13px;color:#173726;text-decoration:none;font-size:.7rem;font-weight:750;text-align:center}
 #mvp-pricing .full .nv-cta{background:#103720;color:#fff}
-#mvp-pricing .nv-scope{margin-top:22px;padding:23px 26px;border:1px solid rgba(255,255,255,.14);border-radius:20px;background:rgba(255,255,255,.045)}
-#mvp-pricing .nv-scope h3{margin:0 0 17px;color:#f3f9f4;font-size:.95rem}
-#mvp-pricing .nv-scope-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}
-#mvp-pricing .nv-scope-grid>div{padding-top:12px;border-top:1px solid rgba(255,255,255,.2)}
-#mvp-pricing .nv-scope-grid strong{display:block;margin-bottom:7px;color:#e9f5ec;font-size:.76rem}
-#mvp-pricing .nv-scope-grid p{margin:0;color:#c5d8ca;font-size:.69rem;line-height:1.55}
-#mvp-pricing .nv-pricing-note{margin:15px 0 0;color:#b9d0c0;font-size:.67rem;line-height:1.5}
+#mvp-pricing .nv-comparison{margin-top:24px}
+#mvp-pricing .nv-comparison h3{margin:0 0 13px;color:#214731;font-size:1rem;font-weight:750}
+#mvp-pricing .nv-comparison-scroll{overflow-x:auto;border:1px solid #d5e6da;border-radius:20px;background:#fbfdfb}
+#mvp-pricing .nv-comparison table{width:100%;border-collapse:collapse;table-layout:fixed;color:#244531}
+#mvp-pricing .nv-comparison th,#mvp-pricing .nv-comparison td{padding:13px 15px;border-bottom:1px solid #dae9df;font-size:.72rem;line-height:1.35}
+#mvp-pricing .nv-comparison th{background:#e7f3eb;color:#193b28;font-weight:800;text-align:center}
+#mvp-pricing .nv-comparison th:first-child,#mvp-pricing .nv-comparison td:first-child{width:15%;text-align:left;font-weight:700;color:#244832}
+#mvp-pricing .nv-comparison th:last-child{background:#d7edde}
+#mvp-pricing .nv-comparison td{text-align:center;color:#335642;background:#fbfdfb}
+#mvp-pricing .nv-comparison tbody tr:nth-child(even) td{background:#f3f8f4}
+#mvp-pricing .nv-comparison tbody tr:last-child td{border-bottom:0}
+#mvp-pricing .nv-comparison .included{color:#197446;font-weight:850;font-size:.94rem}
+#mvp-pricing .nv-comparison .unavailable{color:#849b8a}
+#mvp-pricing .nv-comparison-note{margin:10px 0 0;color:#486552;font-size:.68rem;line-height:1.45}
+#mvp-pricing .nv-pricing-note{margin:15px 0 0;color:#486552;font-size:.67rem;line-height:1.5}
 @media(max-width:1300px){#mvp-pricing .nv-price-layout{grid-template-columns:1fr}#mvp-pricing .nv-volume{display:block}#mvp-pricing .nv-volume .nv-tier{display:inline-flex;width:auto;margin-right:6px}#mvp-pricing .nv-currency{display:inline-flex;vertical-align:middle;margin-top:8px}}
-@media(max-width:800px){#mvp-pricing .nv-plan-grid{grid-template-columns:1fr}#mvp-pricing .nv-plan-description,#mvp-pricing .nv-plan-meta,#mvp-pricing .nv-price{min-height:0;margin-bottom:16px}#mvp-pricing .nv-plan h3{min-height:0}#mvp-pricing .nv-scope-grid{grid-template-columns:1fr;gap:15px}#mvp-pricing .nv-pricing-head{display:block}#mvp-pricing .nv-pricing-head p{margin-top:13px}}
+@media(max-width:800px){#mvp-pricing .nv-plan-grid{grid-template-columns:1fr}#mvp-pricing .nv-plan-description,#mvp-pricing .nv-plan-meta,#mvp-pricing .nv-price{min-height:0;margin-bottom:16px}#mvp-pricing .nv-plan h3{min-height:0}#mvp-pricing .nv-pricing-head{display:block}#mvp-pricing .nv-pricing-head p{margin-top:13px}#mvp-pricing .nv-comparison table{min-width:720px}}
 </style>
 <script id="novara-side-pricing-test544">
 (()=>{
@@ -6546,7 +6554,19 @@ body.preview-is-expanded{overflow:hidden!important}
     <div class="nv-plan-grid"><article class="nv-plan" data-nv-plan="ai"><h3>AI Support</h3><p class="nv-plan-description">24/7 managed AI for routine customer conversations.</p><div class="nv-agent-row">Seamless handoff to your team</div><p class="nv-plan-meta"><strong>24/7 AI</strong>Managed by Novara</p><div class="nv-price"></div><h4>AI Support includes</h4><ul><li>Website AI chatbot setup</li><li>Continuous AI training and tuning</li><li>Conversation analytics and reporting</li></ul><a class="nv-cta" href="#mvp-contact">Book a discovery call</a></article>
     <article class="nv-plan" data-nv-plan="lite"><h3>AI + Human Lite</h3><p class="nv-plan-description">AI and managed human support for complex conversations.</p><div class="nv-agent-row"><div class="nv-agent-control"><button type="button" data-nv-step="-1" aria-label="Remove a Lite agent">−</button><output aria-label="Lite human agents"></output><button type="button" data-nv-step="1" aria-label="Add a Lite agent">+</button></div></div><p class="nv-plan-meta"><strong>24/7 AI · 4.5 hrs/day per agent</strong><span class="nv-recommended"></span></p><div class="nv-price"></div><h4>AI Support plus</h4><ul><li>Human escalations across chat, WhatsApp and email</li><li>NovaraDesk ticket and conversation workspace</li><li>Managed agent quality and operations</li></ul><a class="nv-cta" href="#mvp-contact">Book a discovery call</a></article>
     <article class="nv-plan full" data-nv-plan="full"><h3>AI + Human Full</h3><p class="nv-plan-description">Expanded human coverage and CX ownership.</p><div class="nv-agent-row"><div class="nv-agent-control"><button type="button" data-nv-step="-1" aria-label="Remove a Full agent">−</button><output aria-label="Full human agents"></output><button type="button" data-nv-step="1" aria-label="Add a Full agent">+</button></div></div><p class="nv-plan-meta"><strong>24/7 AI · 9 hrs/day per agent</strong><span class="nv-recommended"></span></p><div class="nv-price"></div><h4>Expanded coverage</h4><ul><li>Lite capabilities with 9-hour coverage</li><li>Voice, social and ORM support</li><li>Proactive follow-ups and advanced CX insights</li><li>Monthly CX review</li></ul><a class="nv-cta" href="#mvp-contact">Book a discovery call</a></article></div></div>
-    <section class="nv-scope" aria-label="Plan coverage details"><h3>How coverage differs</h3><div class="nv-scope-grid"><div><strong>AI Support</strong><p>24/7 AI for routine queries on configured digital channels. Human handoffs go to your team.</p></div><div><strong>AI + Human Lite</strong><p>Novara manages escalations across chat, WhatsApp and email, with NovaraDesk and agent quality monitoring.</p></div><div><strong>AI + Human Full</strong><p>9-hour coverage replaces Lite’s 4.5 hours. Adds calls, social comments and DMs, review responses, proactive follow-ups, deeper insights and a monthly CX review.</p></div></div></section>
+    <section class="nv-comparison" aria-labelledby="nv-comparison-title"><h3 id="nv-comparison-title">Compare plan capabilities</h3><div class="nv-comparison-scroll"><table aria-label="AI Support, Human Lite and Human Full capability comparison"><thead><tr><th scope="col">Capability</th><th scope="col">AI Support</th><th scope="col">Human Lite</th><th scope="col">Human Full</th></tr></thead><tbody>
+    <tr><td>24/7 AI</td><td class="included">✓</td><td class="included">✓</td><td class="included">✓</td></tr>
+    <tr><td>Human escalations</td><td class="unavailable">—</td><td class="included">✓</td><td class="included">✓</td></tr>
+    <tr><td>Chat / WhatsApp / Email</td><td>AI</td><td class="included">✓</td><td class="included">✓</td></tr>
+    <tr><td>NovaraDesk</td><td class="unavailable">—</td><td class="included">✓</td><td class="included">✓</td></tr>
+    <tr><td>Voice / calls</td><td class="unavailable">—</td><td class="unavailable">—</td><td class="included">✓</td></tr>
+    <tr><td>ORM support</td><td class="unavailable">—</td><td class="unavailable">—</td><td class="included">✓</td></tr>
+    <tr><td>Social comments &amp; DMs</td><td class="unavailable">—</td><td class="unavailable">—</td><td class="included">✓</td></tr>
+    <tr><td>Review response management</td><td class="unavailable">—</td><td class="unavailable">—</td><td class="included">✓</td></tr>
+    <tr><td>Proactive follow-ups</td><td class="unavailable">—</td><td class="unavailable">—</td><td class="included">✓</td></tr>
+    <tr><td>Advanced CX insights</td><td class="unavailable">—</td><td class="unavailable">—</td><td class="included">✓</td></tr>
+    <tr><td>Monthly CX review</td><td class="unavailable">—</td><td class="unavailable">—</td><td class="included">✓</td></tr>
+    </tbody></table></div><p class="nv-comparison-note">AI means automated support on configured channels. Human coverage applies during the selected agent hours.</p></section>
     <p class="nv-pricing-note">Agent coverage is per working day. Additional agents increase capacity, not the coverage window. We confirm channels, volume and scope during discovery. USD estimates use ₹85/$; final billing is confirmed in INR.</p>`;
     section.addEventListener('click',e=>{
       const t=e.target.closest('[data-nv-tier]');if(t){selected=Number(t.dataset.nvTier);for(const key of ['lite','full'])agents[key]=recommend(selected);render();return}
