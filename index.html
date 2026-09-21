@@ -11712,5 +11712,33 @@ window.NOVARA_CURRENT_PRICING={
 })();
 </script>
 
+
+<!-- NOVARA_PRODUCT_TOUR_MESSAGE_RECEIVER_V66 -->
+<script id="novara-product-tour-message-receiver-v66">
+(function(){
+  const pages={
+    analytics:['Analytics','AI and human performance, side by side.','Track resolution, CSAT, response times, intents and escalation patterns from one operational view.',['AI-agent and human-agent analytics','Flexible date ranges and filters','Performance trends and customer signals']],
+    tickets:['Tickets','Every escalation retains its context.','Agents can prioritise, respond and resolve without asking customers to repeat the issue.',['Conversation history stays attached','Clear ownership and ticket status','AI-assisted human responses']],
+    customers:['Customer profiles','Understand the person behind each conversation.','Bring conversations, tickets and satisfaction history into one view for more informed support.',['Unified conversation history','Contact and satisfaction context','Repeat-contact visibility']],
+    reports:['Reports','Turn conversations into management visibility.','See quality, workload and customer outcomes without personally managing every ticket.',['Custom KPIs and filters','Resolution and escalation trends','Decision-ready performance views']],
+    workflows:['Workflows','Control what AI handles—and when people step in.','Confidence, sentiment and issue-based rules route the right conversations to trained support.',['Rule-based human handoff','Priority and ownership controls','Continuous workflow improvement']]
+  };
+  window.addEventListener('message',function(event){
+    if(!event.data||event.data.type!=='novara-desk-view'||!pages[event.data.view])return;
+    const tour=document.getElementById('mvp-product-tour');
+    if(!tour)return;
+    const page=pages[event.data.view];
+    const label=tour.querySelector('[data-studio-label]');
+    const heading=tour.querySelector('[data-studio-heading]');
+    const copy=tour.querySelector('[data-studio-copy]');
+    const points=tour.querySelector('[data-studio-points]');
+    if(label)label.textContent=page[0];
+    if(heading)heading.textContent=page[1];
+    if(copy)copy.textContent=page[2];
+    if(points)points.innerHTML=page[3].map(function(item){return '<li>'+item+'</li>';}).join('');
+  });
+})();
+</script>
+
 </body>
 </html>
