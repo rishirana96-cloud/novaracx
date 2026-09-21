@@ -10276,14 +10276,16 @@ body{letter-spacing:-.005em!important}
 
 <!-- NOVARA_RECOMMENDED_PLAN_TICK_TEST290_V46 -->
 <style id="novara-recommended-plan-tick-v46">
-  #mvp-pricing .conversation-tier-group [data-tier]{
+  #mvp-pricing .conversation-tier-group .conversation-tier-name{
     position:relative!important;
+    width:max-content!important;
+    margin-inline:auto!important;
   }
-  #mvp-pricing .conversation-tier-group [data-tier].volume-recommended::after{
+  #mvp-pricing .conversation-tier-group [data-tier].volume-recommended .conversation-tier-name::after{
     content:"✓";
     position:absolute;
-    top:6px;
-    right:7px;
+    left:calc(100% + 8px);
+    top:50%;
     display:grid;
     place-items:center;
     width:19px;
@@ -10293,16 +10295,17 @@ body{letter-spacing:-.005em!important}
     color:#fff;
     font:800 13px/1 Arial,sans-serif;
     box-shadow:0 2px 8px rgba(13,69,35,.22);
+    transform:translateY(-50%);
     animation:novara-plan-tick-pop .55s cubic-bezier(.18,1.5,.35,1) both;
     pointer-events:none;
   }
   @keyframes novara-plan-tick-pop{
-    0%{opacity:0;transform:scale(.25) rotate(-25deg)}
-    60%{opacity:1;transform:scale(1.2) rotate(7deg)}
-    100%{opacity:1;transform:scale(1) rotate(0)}
+    0%{opacity:0;transform:translateY(-50%) scale(.25) rotate(-25deg)}
+    60%{opacity:1;transform:translateY(-50%) scale(1.2) rotate(7deg)}
+    100%{opacity:1;transform:translateY(-50%) scale(1) rotate(0)}
   }
   @media(prefers-reduced-motion:reduce){
-    #mvp-pricing .conversation-tier-group [data-tier].volume-recommended::after{
+    #mvp-pricing .conversation-tier-group [data-tier].volume-recommended .conversation-tier-name::after{
       animation:none;
     }
   }
