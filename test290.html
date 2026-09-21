@@ -11009,5 +11009,24 @@ body{letter-spacing:-.005em!important}
 }
 </style>
 
+
+<!-- NOVARA_DESKTOP_COST_FLOW_WIDTH_TEST290_V55 -->
+<style id="novara-desktop-cost-flow-width-v55">
+@media(min-width:761px){
+  #mvp-savings .cost-volume-flow{
+    width:100%!important;
+    grid-template-columns:repeat(3,minmax(0,1fr))!important;
+    gap:14px!important;
+  }
+  #mvp-savings .cost-flow-step{
+    width:100%!important;
+    min-width:0!important;
+  }
+  #mvp-savings .cost-flow-step:not(:last-child):after{
+    right:-11px!important;
+  }
+}
+</style>
+
 </body>
 </html>
