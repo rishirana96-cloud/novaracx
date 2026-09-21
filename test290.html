@@ -10432,17 +10432,14 @@ body{letter-spacing:-.005em!important}
     pointer-events:none;
     visibility:visible!important;
   }
-  #mvp-pricing .agent-recommendation-loading .minimum-agent-label strong:after{
-    left:50%;
-    top:50%;
-    transform:translate(-50%,-50%);
-  }
+  #mvp-pricing .agent-recommendation-loading .minimum-agent-label strong:after,
   #mvp-pricing .agent-recommendation-loading .agent-counter:after{
-    left:50%;
-    top:50%;
-    transform:translate(-50%,-50%);
+    left:calc(50% - 8px);
+    top:calc(50% - 8px);
+    transform:none;
+    transform-origin:center;
   }
-  @keyframes novara-recommend-spin{to{rotate:360deg}}
+  @keyframes novara-recommend-spin{to{transform:rotate(360deg)}}
   @media(prefers-reduced-motion:reduce){
     #mvp-pricing .daily-volume-control.is-loading .daily-volume-submit:after,
     #mvp-pricing .agent-recommendation-loading .agent-counter:after,
