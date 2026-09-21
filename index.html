@@ -11810,31 +11810,12 @@ window.NOVARA_CURRENT_PRICING={
 #mvp-home .mvp-actions .hero-trial-btn:hover{
   background:#dff1e5!important;border-color:#174c34!important
 }
-/* Product-tour conversion strip */
-#mvp-product-tour .product-trial-cta{
-  display:flex;align-items:center;justify-content:space-between;gap:28px;
-  margin-top:28px;padding:24px 28px;border:1px solid rgba(40,104,72,.18);
-  border-radius:22px;background:linear-gradient(135deg,#eff8f2 0%,#f8fbf8 100%);
-  box-shadow:0 16px 38px rgba(12,54,36,.07)
-}
-#mvp-product-tour .product-trial-cta-copy{display:grid;gap:5px}
-#mvp-product-tour .product-trial-cta strong{
-  color:#0a3423;font-size:clamp(1.05rem,1.5vw,1.35rem);line-height:1.2
-}
-#mvp-product-tour .product-trial-cta span{color:#60776b;line-height:1.5}
-#mvp-product-tour .product-trial-cta .mvp-btn{flex:0 0 auto;white-space:nowrap;margin:0!important}
 /* Scale is custom: one clear contact action, no trial promise. */
 #mvp-pricing.scale-selected .pricing-summary .ai-support-actions{
   grid-template-columns:1fr!important
 }
 #mvp-pricing.scale-selected .pricing-summary .ai-support-actions .trial-btn{
   display:none!important
-}
-@media(max-width:760px){
-  #mvp-product-tour .product-trial-cta{
-    align-items:flex-start;flex-direction:column;gap:16px;padding:20px
-  }
-  #mvp-product-tour .product-trial-cta .mvp-btn{width:100%!important}
 }
 @media(max-width:520px){
   #mvp-home .mvp-actions{display:grid!important;grid-template-columns:1fr!important}
@@ -11856,14 +11837,6 @@ window.NOVARA_CURRENT_PRICING={
       }
     }
 
-    /* NovaraDesk: a contextual CTA directly after the interactive preview. */
-    var stage=document.querySelector('#mvp-product-tour .desk-stage');
-    if(stage&&!document.querySelector('#mvp-product-tour .product-trial-cta')){
-      var promo=document.createElement('div');
-      promo.className='product-trial-cta';
-      promo.innerHTML='<div class="product-trial-cta-copy"><strong>Try NovaraDesk with managed AI support</strong><span>Start with the AI Support plan and test the complete support workspace for 14 days.</span></div><a class="mvp-btn primary" href="#mvp-contact">Start 14-day free trial</a>';
-      stage.insertAdjacentElement('afterend',promo);
-    }
 
     /* Keep the pricing-card label explicit. */
     document.querySelectorAll('#mvp-pricing .pricing-summary').forEach(function(card){
