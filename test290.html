@@ -10465,5 +10465,157 @@ body{letter-spacing:-.005em!important}
   }
 </style>
 
+
+<!-- NOVARA_MOBILE_PRICING_REFINEMENT_TEST290_V52 -->
+<style id="novara-mobile-pricing-refinement-v52">
+@media(max-width:760px){
+  /* Controls: input → plan tier → currency */
+  #mvp-pricing .conversation-tier-wrap{
+    position:relative!important;
+    display:flex!important;
+    flex-direction:column!important;
+    align-items:stretch!important;
+    justify-content:flex-start!important;
+    gap:12px!important;
+    min-height:0!important;
+    margin:16px 0 22px!important;
+    padding:0 16px!important;
+  }
+  #mvp-pricing .daily-volume-control{
+    position:relative!important;
+    inset:auto!important;
+    transform:none!important;
+    order:1!important;
+    width:100%!important;
+    max-width:none!important;
+    margin:0!important;
+  }
+  #mvp-pricing .conversation-tier-group{
+    order:2!important;
+    display:grid!important;
+    grid-template-columns:repeat(3,minmax(0,1fr))!important;
+    width:100%!important;
+    min-width:0!important;
+    margin:0!important;
+    gap:3px!important;
+  }
+  #mvp-pricing .conversation-tier-group [data-tier]{
+    width:100%!important;
+    min-width:0!important;
+    min-height:58px!important;
+    padding:8px 4px!important;
+    overflow:visible!important;
+  }
+  #mvp-pricing .conversation-tier-group .conversation-tier-name{
+    font-size:.78rem!important;
+    white-space:nowrap!important;
+  }
+  #mvp-pricing .conversation-tier-group .conversation-tier-volume{
+    max-width:100%!important;
+    font-size:.53rem!important;
+    line-height:1.18!important;
+    white-space:nowrap!important;
+  }
+  #mvp-pricing .conversation-tier-wrap .currency-switcher{
+    position:relative!important;
+    inset:auto!important;
+    transform:none!important;
+    order:3!important;
+    align-self:center!important;
+    margin:0!important;
+    padding:3px!important;
+  }
+  #mvp-pricing .conversation-tier-wrap .currency-switcher button{
+    min-width:62px!important;
+    min-height:38px!important;
+    padding:7px 12px!important;
+  }
+
+  /* Cards: tighter and naturally sized */
+  #mvp-pricing .pricing-summary-grid{
+    gap:16px!important;
+    padding-inline:16px!important;
+  }
+  #mvp-pricing .pricing-summary{
+    min-height:0!important;
+    height:auto!important;
+    padding:26px 22px 22px!important;
+  }
+  #mvp-pricing .pricing-summary h3{
+    font-size:1.42rem!important;
+  }
+  #mvp-pricing .pricing-summary p.description{
+    min-height:0!important;
+    margin:16px 0 18px!important;
+    font-size:.86rem!important;
+    line-height:1.5!important;
+  }
+
+  /* Recommendation: label first, selector below */
+  #mvp-pricing .pricing-summary .minimum-agent-note:not(.ai-handoff-note){
+    display:flex!important;
+    flex-direction:column!important;
+    align-items:flex-start!important;
+    gap:10px!important;
+    width:100%!important;
+    max-width:none!important;
+    margin:14px 0 0!important;
+    padding:0!important;
+    background:transparent!important;
+  }
+  #mvp-pricing .pricing-summary .minimum-agent-note:not(.ai-handoff-note):before{
+    display:none!important;
+  }
+  #mvp-pricing .pricing-summary .minimum-agent-note .agent-counter{
+    align-self:stretch!important;
+    width:100%!important;
+    max-width:none!important;
+    justify-content:space-between!important;
+    margin:0!important;
+    transform:none!important;
+  }
+  #mvp-pricing .pricing-summary .agent-counter-value{
+    flex:1 1 auto!important;
+  }
+
+  /* Price and inclusions */
+  #mvp-pricing .pricing-summary .pricing-price{
+    margin-top:18px!important;
+  }
+  #mvp-pricing .pricing-summary .plan-inclusions{
+    margin-top:22px!important;
+    gap:8px!important;
+  }
+  #mvp-pricing .pricing-summary .plan-inclusions li{
+    font-size:.82rem!important;
+    line-height:1.42!important;
+  }
+
+  /* CTAs follow content and use the available width */
+  #mvp-pricing .pricing-summary .mvp-btn{
+    width:100%!important;
+    max-width:none!important;
+    align-self:stretch!important;
+    margin:28px 0 0!important;
+  }
+
+  /* Keep the floating chat action clear of pricing content */
+  .chat-toggle{
+    right:12px!important;
+    bottom:12px!important;
+    width:48px!important;
+    height:48px!important;
+  }
+  .chat-toggle svg{width:21px!important}
+}
+@media(max-width:390px){
+  #mvp-pricing .conversation-tier-wrap{padding-inline:12px!important}
+  #mvp-pricing .pricing-summary-grid{padding-inline:12px!important}
+  #mvp-pricing .pricing-summary{padding:24px 19px 20px!important}
+  #mvp-pricing .conversation-tier-group .conversation-tier-name{font-size:.73rem!important}
+  #mvp-pricing .conversation-tier-group .conversation-tier-volume{font-size:.49rem!important}
+}
+</style>
+
 </body>
 </html>
