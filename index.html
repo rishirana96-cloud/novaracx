@@ -11409,5 +11409,168 @@ window.NOVARA_CURRENT_PRICING={
 };
 </script>
 
+
+<!-- NOVARA_PRODUCT_TOUR_DESCRIPTION_SYNC_V64 -->
+<script id="novara-product-tour-description-sync-v64">
+(function(){
+  const tour = document.getElementById('mvp-product-tour');
+  if (!tour) return;
+
+  const pages = {
+    analytics: {
+      label: 'Analytics',
+      heading: 'AI and human performance, side by side.',
+      copy: 'Track resolution, CSAT, response times, intents and escalation patterns from one operational view.',
+      points: ['AI and human performance', 'Resolution and response trends', 'Intent and escalation patterns']
+    },
+    tickets: {
+      label: 'Tickets',
+      heading: 'Every escalation retains its context.',
+      copy: 'Agents can prioritise, respond and resolve without asking customers to repeat the issue.',
+      points: ['Full conversation context', 'Clear ownership and priority', 'Fast, informed resolution']
+    },
+    customers: {
+      label: 'Customer profiles',
+      heading: 'Understand the person behind each conversation.',
+      copy: 'Bring conversations, tickets and satisfaction history into one view for more informed support.',
+      points: ['Unified customer history', 'Tickets and conversations together', 'Satisfaction context at a glance']
+    },
+    reports: {
+      label: 'Reports',
+      heading: 'Turn support activity into clear decisions.',
+      copy: 'Review the trends, service levels and recurring issues that shape customer experience.',
+      points: ['Service-level trends', 'Recurring issue visibility', 'Shareable operational insights']
+    },
+    workflows: {
+      label: 'Workflows',
+      heading: 'Automate the repetitive steps around every ticket.',
+      copy: 'Route, assign and escalate work consistently so the right person acts at the right time.',
+      points: ['Consistent routing', 'Automatic assignment', 'Reliable escalation rules']
+    }
+  };
+
+  let currentKey = 'analytics';
+  let boundFrame = null;
+
+  function keyFrom(value) {
+    const text = String(value || '').toLowerCase();
+    if (/customer|profile/.test(text)) return 'customers';
+    if (/ticket|inbox|escalation/.test(text)) return 'tickets';
+    if (/report/.test(text)) return 'reports';
+    if (/workflow|automation/.test(text)) return 'workflows';
+    if (/analytic|dashboard|overview|performance/.test(text)) return 'analytics';
+    return null;
+  }
+
+  function setText(selector, value) {
+    const node = tour.querySelector(selector);
+    if (node) node.textContent = value;
+  }
+
+  function sync(key) {
+    if (!pages[key]) return;
+    currentKey = key;
+    const page = pages[key];
+
+    setText('[data-studio-label]', page.label);
+    setText('[data-studio-heading]', page.heading);
+    setText('[data-studio-copy]', page.copy);
+
+    const points = tour.querySelector('[data-studio-points]');
+    if (points) {
+      points.innerHTML = page.points.map(function(point){
+        return '<li>' + point + '</li>';
+      }).join('');
+    }
+
+    /* Fallbacks for older studio markup. */
+    const aside = tour.querySelector('.studio-aside, .studio-copy, .product-studio-copy');
+    if (aside) {
+      const label = aside.querySelector('.studio-kicker, .studio-label, [data-label]');
+      const heading = aside.querySelector('h2, h3');
+      const copy = aside.querySelector('p');
+      const list = aside.querySelector('ul');
+      if (label && !label.matches('[data-studio-label]')) label.textContent = page.label;
+      if (heading && !heading.matches('[data-studio-heading]')) heading.textContent = page.heading;
+      if (copy && !copy.matches('[data-studio-copy]')) copy.textContent = page.copy;
+      if (list && !list.matches('[data-studio-points]')) {
+        list.innerHTML = page.points.map(function(point){ return '<li>' + point + '</li>'; }).join('');
+      }
+    }
+  }
+
+  function syncFromFrame(frame) {
+    try {
+      const locationValue = frame.contentWindow.location.pathname + ' ' + frame.contentWindow.location.search;
+      const key = keyFrom(locationValue);
+      if (key) sync(key);
+    } catch (_) {
+      /* The analytics preview may be on a different subdomain. */
+    }
+  }
+
+  function bindFrame(frame) {
+    if (!frame || frame === boundFrame) return;
+    boundFrame = frame;
+
+    function attach() {
+      try {
+        const doc = frame.contentDocument;
+        if (!doc || doc.documentElement.dataset.novaraDescriptionSync === '1') return;
+        doc.documentElement.dataset.novaraDescriptionSync = '1';
+        doc.addEventListener('click', function(event) {
+          const control = event.target.closest('a, button, [role="button"], [data-page], [data-view]');
+          if (!control) return;
+          const key = keyFrom(
+            (control.textContent || '') + ' ' +
+            (control.getAttribute('href') || '') + ' ' +
+            (control.getAttribute('aria-label') || '') + ' ' +
+            (control.getAttribute('data-page') || '') + ' ' +
+            (control.getAttribute('data-view') || '')
+          );
+          if (key) sync(key);
+          setTimeout(function(){ syncFromFrame(frame); }, 80);
+          setTimeout(function(){ syncFromFrame(frame); }, 420);
+        }, true);
+      } catch (_) {}
+    }
+
+    frame.addEventListener('load', function(){
+      attach();
+      syncFromFrame(frame);
+    });
+    attach();
+    syncFromFrame(frame);
+  }
+
+  document.addEventListener('click', function(event) {
+    const tab = event.target.closest('[data-studio-tab], [data-desk-tab]');
+    if (!tab || !tour.contains(tab)) return;
+    const key = tab.getAttribute('data-studio-tab') || tab.getAttribute('data-desk-tab');
+    sync(key);
+  }, true);
+
+  function refresh() {
+    bindFrame(tour.querySelector('[data-live-frame], .live-product-frame iframe, iframe'));
+    if (boundFrame) {
+      try {
+        const doc = boundFrame.contentDocument;
+        if (doc && doc.documentElement.dataset.novaraDescriptionSync !== '1') {
+          boundFrame = null;
+          refresh();
+        } else {
+          syncFromFrame(boundFrame);
+        }
+      } catch (_) {}
+    }
+  }
+
+  new MutationObserver(refresh).observe(tour, {childList:true, subtree:true});
+  setInterval(refresh, 800);
+  refresh();
+  sync(currentKey);
+})();
+</script>
+
 </body>
 </html>
