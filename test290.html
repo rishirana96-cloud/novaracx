@@ -1617,7 +1617,7 @@ body>header .nav{height:68px}body>header .logo{color:#102018}body>header .nav-li
   const novaraAgents=Math.max(1,Math.ceil(humanHours/novaraCapacity));
   const internal=internalAgents*salary*(1+overhead)+lead+tools+hiring;
   const estimatorPricing=window.NOVARA_TEST_PRICING||{
-   tiers:[{quota:3000,price:29999},{quota:6000,price:39999},{quota:9000,price:54999},{quota:15000,price:79999}],
+   tiers:[{quota:1500,price:29999},{quota:3000,price:49999}],
    humanCost:(plan,agents)=>{
     agents=Math.max(1,Number(agents)||1);
     if(plan==='lite')return agents===1?30000:30000+37500+((agents-2)*20000);
@@ -7740,7 +7740,7 @@ document.addEventListener('click',function(event){
 (function(){
  const TIER_PRICES={
   3000:{INR:{ai:29999,lite:59999,full:89999},USD:{ai:299,lite:649,full:999}},
-  6000:{INR:{ai:39999,lite:69999,full:99999},USD:{ai:479,lite:829,full:1179}},
+  6000:{INR:{ai:49999,lite:79999,full:109999},USD:{ai:479,lite:829,full:1179}},
   9000:{INR:{ai:54999,lite:84999,full:114999},USD:{ai:649,lite:999,full:1349}},
   15000:{INR:{ai:79999,lite:109999,full:149999},USD:{ai:949,lite:1299,full:1769}}
  };
@@ -8708,8 +8708,8 @@ document.addEventListener('click',function(event){
   const growth=group.querySelector('[data-tier="6000"]');
   if(!starter||!growth)return false;
 
-  starter.innerHTML='<span class="conversation-tier-name">Starter</span><span class="conversation-tier-volume">Up to 3,000 conversations</span>';
-  growth.innerHTML='<span class="conversation-tier-name">Growth</span><span class="conversation-tier-volume">Up to 6,000 conversations</span>';
+  starter.innerHTML='<span class="conversation-tier-name">Starter</span><span class="conversation-tier-volume">Up to 1,500 conversations</span>';
+  growth.innerHTML='<span class="conversation-tier-name">Growth</span><span class="conversation-tier-volume">Up to 3,000 conversations</span>';
 
   let scale=group.querySelector('[data-tier="6001"]');
   if(!scale){
@@ -8802,7 +8802,7 @@ document.addEventListener('click',function(event){
   function basePrice(tier,curr,key){
     const TABLE={
       3000:{INR:{ai:29999,lite:59999,full:89999},USD:{ai:299,lite:699,full:1049}},
-      6000:{INR:{ai:39999,lite:69999,full:99999},USD:{ai:479,lite:879,full:1229}},
+      6000:{INR:{ai:49999,lite:79999,full:109999},USD:{ai:479,lite:879,full:1229}},
       9000:{INR:{ai:54999,lite:84999,full:114999},USD:{ai:649,lite:1049,full:1399}},
       15000:{INR:{ai:79999,lite:109999,full:149999},USD:{ai:949,lite:1349,full:1819}}
     };
@@ -8953,7 +8953,7 @@ document.addEventListener('click',function(event){
  if(!pricing||document.getElementById('mvp-savings'))return;
  if(!window.NOVARA_TEST_PRICING){
    window.NOVARA_TEST_PRICING={
-     tiers:[{quota:3000,price:29999},{quota:6000,price:39999},{quota:9000,price:54999},{quota:15000,price:79999}],
+     tiers:[{quota:1500,price:29999},{quota:3000,price:49999}],
      humanCost:(plan,count=1)=>plan==='lite'?30000+(count>=2?37500:0)+Math.max(0,count-2)*20000:plan==='full'?60000+Math.max(0,count-1)*40000:0
    };
  }
@@ -9879,8 +9879,8 @@ body{letter-spacing:-.005em!important}
 <script id="novara-ai-overage-label-v37">
 (function(){
   const OVERAGE={
-    3000:{included:'3,000',rate:'₹10'},
-    6000:{included:'6,000',rate:'₹8'},
+    3000:{included:'1,500',rate:'₹10'},
+    6000:{included:'3,000',rate:'₹8'},
     6001:{included:'6,000+',rate:'custom pricing'}
   };
   function update(){
@@ -9901,8 +9901,8 @@ body{letter-spacing:-.005em!important}
 <script id="novara-ai-volume-as-feature-v38">
 (function(){
   const VOLUMES={
-    3000:{text:'3,000 conversations included (₹10 per extra conversation)'},
-    6000:{text:'6,000 conversations included (₹8 per extra conversation)'},
+    3000:{text:'1,500 conversations included (₹10 per extra conversation)'},
+    6000:{text:'3,000 conversations included (₹8 per extra conversation)'},
     6001:{text:'6,000+ conversations · custom pricing'}
   };
   function update(){
@@ -10027,7 +10027,7 @@ body{letter-spacing:-.005em!important}
       const monthly=daily*30;
       calculation.textContent=daily.toLocaleString('en-IN')+' × 30 = '+monthly.toLocaleString('en-IN')+' monthly conversations';
       control.classList.add('has-value');
-      const tier=monthly<=3000?3000:monthly<=6000?6000:6001;
+      const tier=monthly<=1500?3000:monthly<=3000?6000:6001;
       const button=group.querySelector('[data-tier="'+tier+'"]');
       if(button)button.click();
       applyAgents(section,monthly);
