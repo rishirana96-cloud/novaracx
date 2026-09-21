@@ -11740,5 +11740,65 @@ window.NOVARA_CURRENT_PRICING={
 })();
 </script>
 
+
+<!-- NOVARA_EIGHT_STEP_SUPPORT_OPERATION_V68 -->
+<style id="novara-eight-step-support-operation-v68">
+  @media(min-width:1051px){
+    #novara-operating-approach .approach-step,
+    #novara-operating-approach .approach-step:nth-child(n+5),
+    #novara-operating-approach .approach-step:last-child{
+      grid-column:span 3!important;
+    }
+  }
+  @media(min-width:761px) and (max-width:1050px){
+    #novara-operating-approach .approach-step,
+    #novara-operating-approach .approach-step:nth-child(n+5),
+    #novara-operating-approach .approach-step:last-child{
+      grid-column:span 6!important;
+    }
+  }
+  @media(max-width:760px){
+    #novara-operating-approach .approach-step,
+    #novara-operating-approach .approach-step:nth-child(n+5),
+    #novara-operating-approach .approach-step:last-child{
+      grid-column:auto!important;
+    }
+  }
+</style>
+<script id="novara-eight-step-support-operation-script-v68">
+(function(){
+  const stages=[
+    ['Map customer issues','Review conversations and classify issues by volume, effort, risk and complexity.'],
+    ['Prioritise automation opportunities','Start with frequent queries that have dependable, low-risk answers.'],
+    ['Connect systems and build SOPs','Connect support channels and knowledge sources, then define responses, escalation rules and ownership.'],
+    ['Train AI and agents','Train AI for routine queries and agents for exceptions and complex cases.'],
+    ['Test and validate','Check AI accuracy, escalation routing, SOP compliance and agent readiness before launch.'],
+    ['Deploy AI with controlled handoffs','Launch AI across support channels and route low-confidence or sensitive cases to agents with full context.'],
+    ['Measure performance','Track daily AI and human KPIs, supported by interpreted weekly reporting.'],
+    ['Expand automation','Use human-handled queries and performance data to identify the next automation opportunities.']
+  ];
+  function install(){
+    const section=document.querySelector('#novara-operating-approach');
+    const grid=section&&section.querySelector('.approach-steps');
+    if(!grid)return false;
+    grid.innerHTML=stages.map(function(stage,index){
+      return '<article class="approach-step">'+
+        '<span class="approach-number" aria-hidden="true">'+String(index+1).padStart(2,'0')+'</span>'+
+        '<div class="approach-card"><h3>'+stage[0]+'</h3><p>'+stage[1]+'</p></div>'+
+      '</article>';
+    }).join('');
+    return true;
+  }
+  let attempts=0;
+  function run(){
+    if(install()||++attempts>40)return;
+    setTimeout(run,100);
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',run);
+  else run();
+  setTimeout(install,800);
+})();
+</script>
+
 </body>
 </html>
