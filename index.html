@@ -11783,7 +11783,7 @@ window.NOVARA_CURRENT_PRICING={
     if(!grid)return false;
     grid.innerHTML=stages.map(function(stage,index){
       return '<article class="approach-step">'+
-        '<span class="approach-number" aria-hidden="true">'+String(index+1).padStart(2,'0')+'</span>'+
+        '<span class="approach-number" aria-hidden="true"></span>'+
         '<div class="approach-card"><h3>'+stage[0]+'</h3><p>'+stage[1]+'</p></div>'+
       '</article>';
     }).join('');
