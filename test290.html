@@ -11367,5 +11367,36 @@ body{letter-spacing:-.005em!important}
 }
 </style>
 
+
+<!-- NOVARA_RECOMMENDED_NUMBER_LOADER_TEST290_V62 -->
+<style id="novara-recommended-number-loader-v62">
+  #mvp-pricing .agent-recommendation-loading .minimum-agent-label{
+    display:inline-flex!important;
+    align-items:center!important;
+    gap:7px!important;
+  }
+  #mvp-pricing .agent-recommendation-loading .minimum-agent-label strong{
+    display:none!important;
+  }
+  #mvp-pricing .agent-recommendation-loading .minimum-agent-label:after{
+    content:""!important;
+    display:inline-block!important;
+    width:13px!important;
+    height:13px!important;
+    flex:0 0 13px!important;
+    border:2px solid rgba(47,116,76,.18)!important;
+    border-top-color:#2f744c!important;
+    border-radius:50%!important;
+    background:transparent!important;
+    visibility:visible!important;
+    animation:novara-recommend-spin .72s linear infinite!important;
+  }
+  @media(prefers-reduced-motion:reduce){
+    #mvp-pricing .agent-recommendation-loading .minimum-agent-label:after{
+      animation:none!important;
+    }
+  }
+</style>
+
 </body>
 </html>
