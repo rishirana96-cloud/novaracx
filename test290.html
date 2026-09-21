@@ -1570,11 +1570,11 @@ body>header .nav{height:68px}body>header .logo{color:#102018}body>header .nav-li
     </div>
     <div class="cost-result-summary">
      <div class="cost-result-box">
-      <span>Without AI</span><strong id="ceInternal">₹0</strong><small id="ceInternalAgents">0 agents</small>
+      <span>Without AI</span><small id="ceInternalAgents" class="cost-staff-badges cost-staff-badges-red"><i id="ceInternalAgentCount">0 agents</i><i>6 productive hrs/day</i></small><strong id="ceInternal">₹0</strong>
       <div class="cost-result-calculation"><b>Staffing calculation</b><p id="ceInternalStaffFormula">—</p><b>Cost calculation</b><p id="ceInternalCostFormula">—</p></div>
      </div>
      <div class="cost-result-box">
-      <span>With Novara</span><strong id="ceNovara">₹0</strong><small id="ceNovaraAgents">0 agents</small>
+      <span>With Novara</span><small id="ceNovaraAgents" class="cost-staff-badges cost-staff-badges-green"><i id="ceNovaraAgentCount">0 agents</i><i id="ceNovaraHours">0 productive hrs/day</i><i id="ceNovaraPlan">Plan</i></small><strong id="ceNovara">₹0</strong>
       <div class="cost-result-calculation"><b>Staffing calculation</b><p id="ceNovaraStaffFormula">—</p><b>Cost calculation</b><p id="ceNovaraCostFormula">—</p></div>
      </div>
     </div>
@@ -1639,8 +1639,10 @@ body>header .nav{height:68px}body>header .logo{color:#102018}body>header .nav-li
   byId('ceHumanHours').textContent=Math.round(humanHours).toLocaleString('en-IN')+' hours';
   byId('ceInternal').textContent=money(internal);
   byId('ceNovara').textContent=customQuote?'Custom quote':money(novara);
-  byId('ceInternalAgents').textContent=plural(internalAgents,'in-house agent')+' required · 6 productive hrs/day';
-  byId('ceNovaraAgents').textContent=plural(novaraAgents,'managed agent')+' · '+novaraProductiveHours+' productive hrs/day · '+label;
+  byId('ceInternalAgentCount').textContent=plural(internalAgents,'in-house agent')+' required';
+  byId('ceNovaraAgentCount').textContent=plural(novaraAgents,'managed agent');
+  byId('ceNovaraHours').textContent=novaraProductiveHours+' productive hrs/day';
+  byId('ceNovaraPlan').textContent=label;
   const internalRawAgents=totalHours/internalCapacity;
   const novaraRawAgents=humanHours/novaraCapacity;
   const fixedInternalCosts=lead+tools+hiring;
@@ -8993,11 +8995,11 @@ document.addEventListener('click',function(event){
     </div>
     <div class="cost-result-summary">
      <div class="cost-result-box">
-      <span>Without AI</span><strong id="ceInternal">₹0</strong><small id="ceInternalAgents">0 agents</small>
+      <span>Without AI</span><small id="ceInternalAgents" class="cost-staff-badges cost-staff-badges-red"><i id="ceInternalAgentCount">0 agents</i><i>6 productive hrs/day</i></small><strong id="ceInternal">₹0</strong>
       <div class="cost-result-calculation"><b>Staffing calculation</b><p id="ceInternalStaffFormula">—</p><b>Cost calculation</b><p id="ceInternalCostFormula">—</p></div>
      </div>
      <div class="cost-result-box">
-      <span>With Novara</span><strong id="ceNovara">₹0</strong><small id="ceNovaraAgents">0 agents</small>
+      <span>With Novara</span><small id="ceNovaraAgents" class="cost-staff-badges cost-staff-badges-green"><i id="ceNovaraAgentCount">0 agents</i><i id="ceNovaraHours">0 productive hrs/day</i><i id="ceNovaraPlan">Plan</i></small><strong id="ceNovara">₹0</strong>
       <div class="cost-result-calculation"><b>Staffing calculation</b><p id="ceNovaraStaffFormula">—</p><b>Cost calculation</b><p id="ceNovaraCostFormula">—</p></div>
      </div>
     </div>
@@ -9054,8 +9056,10 @@ document.addEventListener('click',function(event){
   byId('ceHumanHours').textContent=Math.round(humanHours).toLocaleString('en-IN')+' hours';
   byId('ceInternal').textContent=money(internal);
   byId('ceNovara').textContent=customQuote?'Custom quote':money(novara);
-  byId('ceInternalAgents').textContent=plural(internalAgents,'in-house agent')+' required · 6 productive hrs/day';
-  byId('ceNovaraAgents').textContent=plural(novaraAgents,'managed agent')+' · '+novaraProductiveHours+' productive hrs/day · '+label;
+  byId('ceInternalAgentCount').textContent=plural(internalAgents,'in-house agent')+' required';
+  byId('ceNovaraAgentCount').textContent=plural(novaraAgents,'managed agent');
+  byId('ceNovaraHours').textContent=novaraProductiveHours+' productive hrs/day';
+  byId('ceNovaraPlan').textContent=label;
   const internalRawAgents=totalHours/internalCapacity;
   const novaraRawAgents=humanHours/novaraCapacity;
   const fixedInternalCosts=lead+tools+hiring;
@@ -11025,6 +11029,80 @@ body{letter-spacing:-.005em!important}
   #mvp-savings .cost-flow-step:not(:last-child):after{
     right:-11px!important;
   }
+}
+</style>
+
+
+<!-- NOVARA_DESKTOP_STAFF_BADGES_TEST290_V56 -->
+<style id="novara-desktop-staff-badges-v56">
+@media(min-width:761px){
+  #mvp-savings .cost-result-box{
+    min-height:0!important;
+    padding-top:28px!important;
+  }
+  #mvp-savings .cost-staff-badges{
+    position:absolute!important;
+    top:28px!important;
+    right:24px!important;
+    z-index:2;
+    display:flex!important;
+    align-items:center!important;
+    justify-content:flex-end!important;
+    gap:7px!important;
+    max-width:68%!important;
+    margin:0!important;
+    color:inherit!important;
+  }
+  #mvp-savings .cost-staff-badges i{
+    display:inline-flex;
+    align-items:center;
+    min-height:28px;
+    padding:5px 10px;
+    border:2px dotted currentColor;
+    border-radius:999px;
+    background:rgba(255,255,255,.025);
+    font-style:normal;
+    font-size:.57rem;
+    font-weight:750;
+    line-height:1;
+    letter-spacing:.015em;
+    white-space:nowrap;
+  }
+  #mvp-savings .cost-staff-badges-red{
+    color:#d98d83!important;
+  }
+  #mvp-savings .cost-staff-badges-red i{
+    background:rgba(181,75,65,.07);
+  }
+  #mvp-savings .cost-staff-badges-green{
+    color:#87bc98!important;
+  }
+  #mvp-savings .cost-staff-badges-green i{
+    background:rgba(85,157,109,.08);
+  }
+  #mvp-savings .cost-result-box>strong{
+    display:block!important;
+    margin-top:30px!important;
+  }
+}
+@media(max-width:760px){
+  #mvp-savings .cost-staff-badges{
+    display:flex!important;
+    flex-wrap:wrap!important;
+    gap:5px!important;
+    margin-top:8px!important;
+  }
+  #mvp-savings .cost-staff-badges i{
+    display:inline-flex;
+    padding:4px 7px;
+    border:1px dotted currentColor;
+    border-radius:999px;
+    font-style:normal;
+    font-size:.5rem;
+    line-height:1;
+  }
+  #mvp-savings .cost-staff-badges-red{color:#bd746c!important}
+  #mvp-savings .cost-staff-badges-green{color:#5d9a70!important}
 }
 </style>
 
