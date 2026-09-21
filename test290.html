@@ -1647,7 +1647,7 @@ body>header .nav{height:68px}body>header .logo{color:#102018}body>header .nav-li
   const internalFormula=tickets.toLocaleString('en-IN')+' tickets × '+aht.toLocaleString('en-IN')+' min ÷ 60 = '+Math.round(totalHours).toLocaleString('en-IN')+' hrs\n'+Math.round(totalHours).toLocaleString('en-IN')+' hrs ÷ (26 days × 6 productive hrs) = '+internalRawAgents.toFixed(1)+' → '+internalAgents+' agents';
   const internalCostFormula=internalAgents+' × '+money(salary)+' × '+(1+overhead).toFixed(2)+' + '+money(fixedInternalCosts)+' = '+money(internal);
   const novaraFormula=humanTickets.toLocaleString('en-IN')+' tickets × '+aht.toLocaleString('en-IN')+' min ÷ 60 = '+Math.round(humanHours).toLocaleString('en-IN')+' hrs\n'+Math.round(humanHours).toLocaleString('en-IN')+' hrs ÷ (26 days × '+novaraProductiveHours+' productive hrs) = '+novaraRawAgents.toFixed(1)+' → '+novaraAgents+' agents';
-  const novaraCostFormula=customQuote?'Above 3,000 monthly conversations: request a custom Scale quote.':money(selectedTier.price)+' '+selectedTier.name+' AI plan ('+selectedTier.quota.toLocaleString('en-IN')+' conversations included) + +money(managedHumanCost)+' human support = '+money(novara);
+  const novaraCostFormula=customQuote?'Above 3,000 monthly conversations: request a custom Scale quote.':money(selectedTier.price)+' '+selectedTier.name+' AI plan ('+selectedTier.quota.toLocaleString('en-IN')+' conversations included) + '+money(managedHumanCost)+' human support = '+money(novara);
   byId('ceInternalStaffFormula').textContent=internalFormula;
   byId('ceInternalCostFormula').textContent=internalCostFormula;
   byId('ceNovaraStaffFormula').textContent=novaraFormula;
@@ -9062,7 +9062,7 @@ document.addEventListener('click',function(event){
   const internalFormula=tickets.toLocaleString('en-IN')+' tickets × '+aht.toLocaleString('en-IN')+' min ÷ 60 = '+Math.round(totalHours).toLocaleString('en-IN')+' hrs\n'+Math.round(totalHours).toLocaleString('en-IN')+' hrs ÷ (26 days × 6 productive hrs) = '+internalRawAgents.toFixed(1)+' → '+internalAgents+' agents';
   const internalCostFormula=internalAgents+' × '+money(salary)+' × '+(1+overhead).toFixed(2)+' + '+money(fixedInternalCosts)+' = '+money(internal);
   const novaraFormula=humanTickets.toLocaleString('en-IN')+' tickets × '+aht.toLocaleString('en-IN')+' min ÷ 60 = '+Math.round(humanHours).toLocaleString('en-IN')+' hrs\n'+Math.round(humanHours).toLocaleString('en-IN')+' hrs ÷ (26 days × '+novaraProductiveHours+' productive hrs) = '+novaraRawAgents.toFixed(1)+' → '+novaraAgents+' agents';
-  const novaraCostFormula=customQuote?'Above 3,000 monthly conversations: request a custom Scale quote.':money(selectedTier.price)+' '+selectedTier.name+' AI plan ('+selectedTier.quota.toLocaleString('en-IN')+' conversations included) + +money(managedHumanCost)+' human support = '+money(novara);
+  const novaraCostFormula=customQuote?'Above 3,000 monthly conversations: request a custom Scale quote.':money(selectedTier.price)+' '+selectedTier.name+' AI plan ('+selectedTier.quota.toLocaleString('en-IN')+' conversations included) + '+money(managedHumanCost)+' human support = '+money(novara);
   byId('ceInternalStaffFormula').textContent=internalFormula;
   byId('ceInternalCostFormula').textContent=internalCostFormula;
   byId('ceNovaraStaffFormula').textContent=novaraFormula;
