@@ -10012,7 +10012,7 @@ body{letter-spacing:-.005em!important}
     if(wrap.querySelector('.daily-volume-control'))return true;
     const control=document.createElement('div');
     control.className='daily-volume-control';
-    control.innerHTML='<label for="novara-daily-conversations">FIND YOUR PLAN &amp; ESTIMATED HUMAN AGENT NEED</label><div class="daily-volume-input-wrap"><input id="novara-daily-conversations" type="number" min="0" step="1" inputmode="numeric" autocomplete="off" placeholder="Enter your daily conversations flow"><button class="daily-volume-submit" type="button" aria-label="Find my recommended plan"><span aria-hidden="true">→</span></button></div><span class="daily-volume-calculation" aria-live="polite"></span>';
+    control.innerHTML='<label for="novara-daily-conversations">FIND YOUR PLAN &amp; ESTIMATED HUMAN AGENT NEED</label><div class="daily-volume-input-wrap"><input id="novara-daily-conversations" type="number" min="0" step="1" inputmode="numeric" autocomplete="off" placeholder="Enter your daily conversations flow"><button class="daily-volume-submit" type="button" aria-label="Find my recommended plan"><span aria-hidden="true">›</span></button></div><span class="daily-volume-calculation" aria-live="polite"></span>';
     group.insertAdjacentElement('beforebegin',control);
     const input=control.querySelector('input');
     const submit=control.querySelector('.daily-volume-submit');
@@ -10371,10 +10371,10 @@ body{letter-spacing:-.005em!important}
     display:grid;
     place-items:center;
     border:0;
-    border-radius:9px;
-    background:#e8f2eb;
+    border-radius:50%;
+    background:rgba(232,242,235,.94);
     color:#173b29;
-    font:800 20px/1 Arial,sans-serif;
+    font:700 25px/1 Arial,sans-serif;
     transition:background .18s ease,transform .18s ease,opacity .18s ease;
   }
   #mvp-pricing .daily-volume-submit:hover:not(:disabled){
