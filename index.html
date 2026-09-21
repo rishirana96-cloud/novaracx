@@ -11572,5 +11572,145 @@ window.NOVARA_CURRENT_PRICING={
 })();
 </script>
 
+
+<!-- NOVARA_PRODUCT_TOUR_LIVE_VIEW_SYNC_V65 -->
+<style id="novara-product-tour-heading-prominence-v65">
+  #mvp-product-tour .studio-aside h3{
+    color:#0b1f14!important;
+    font-size:2rem!important;
+    font-weight:750!important;
+    line-height:1.02!important;
+    letter-spacing:-.035em!important;
+    max-width:270px;
+  }
+  #mvp-product-tour .studio-aside-label{
+    font-size:.64rem!important;
+    font-weight:850!important;
+    letter-spacing:.14em!important;
+  }
+  @media(max-width:1120px){
+    #mvp-product-tour .studio-aside h3{
+      max-width:620px;
+      font-size:1.85rem!important;
+    }
+  }
+  @media(max-width:760px){
+    #mvp-product-tour .studio-aside h3{
+      font-size:1.65rem!important;
+      line-height:1.08!important;
+    }
+  }
+</style>
+<script id="novara-product-tour-live-view-sync-v65">
+(function(){
+  const tour=document.getElementById('mvp-product-tour');
+  if(!tour)return;
+
+  const pages={
+    analytics:['Analytics','AI and human performance, side by side.','Track resolution, CSAT, response times, intents and escalation patterns from one operational view.',['AI-agent and human-agent analytics','Flexible date ranges and filters','Performance trends and customer signals']],
+    tickets:['Tickets','Every escalation retains its context.','Agents can prioritise, respond and resolve without asking customers to repeat the issue.',['Conversation history stays attached','Clear ownership and ticket status','AI-assisted human responses']],
+    customers:['Customer profiles','Understand the person behind each conversation.','Bring conversations, tickets and satisfaction history into one view for more informed support.',['Unified conversation history','Contact and satisfaction context','Repeat-contact visibility']],
+    reports:['Reports','Turn conversations into management visibility.','See quality, workload and customer outcomes without personally managing every ticket.',['Custom KPIs and filters','Resolution and escalation trends','Decision-ready performance views']],
+    workflows:['Workflows','Control what AI handles—and when people step in.','Confidence, sentiment and issue-based rules route the right conversations to trained support.',['Rule-based human handoff','Priority and ownership controls','Continuous workflow improvement']]
+  };
+
+  let lastKey='';
+
+  function detect(value){
+    const text=String(value||'').trim().toLowerCase();
+    if(/customer|profile/.test(text))return 'customers';
+    if(/ticket|escalation/.test(text))return 'tickets';
+    if(/custom.?report|\breport/.test(text))return 'reports';
+    if(/workflow|automation/.test(text))return 'workflows';
+    if(/analytic|dashboard|performance/.test(text))return 'analytics';
+    return '';
+  }
+
+  function render(key){
+    if(!pages[key]||key===lastKey)return;
+    lastKey=key;
+    const page=pages[key];
+    const label=tour.querySelector('[data-studio-label]');
+    const heading=tour.querySelector('[data-studio-heading]');
+    const copy=tour.querySelector('[data-studio-copy]');
+    const points=tour.querySelector('[data-studio-points]');
+    if(label)label.textContent=page[0];
+    if(heading)heading.textContent=page[1];
+    if(copy)copy.textContent=page[2];
+    if(points)points.innerHTML=page[3].map(function(item){return '<li>'+item+'</li>';}).join('');
+  }
+
+  function readLiveView(frame){
+    try{
+      const doc=frame.contentDocument;
+      if(!doc)return '';
+      const candidates=[
+        doc.querySelector('main h1'),
+        doc.querySelector('.main-content h1'),
+        doc.querySelector('.page-header h1'),
+        doc.querySelector('[data-page-title]'),
+        doc.querySelector('h1')
+      ].filter(Boolean);
+      for(const node of candidates){
+        const key=detect(node.textContent);
+        if(key)return key;
+      }
+      const pathKey=detect(frame.contentWindow.location.pathname);
+      if(pathKey)return pathKey;
+      return detect(doc.title);
+    }catch(error){
+      return detect(frame.getAttribute('src'));
+    }
+  }
+
+  function syncFrame(frame){
+    const key=readLiveView(frame);
+    if(key)render(key);
+  }
+
+  function bind(frame){
+    if(!frame||frame.dataset.novaraLiveViewSync==='1')return;
+    frame.dataset.novaraLiveViewSync='1';
+
+    const installDocumentObserver=function(){
+      try{
+        const doc=frame.contentDocument;
+        if(!doc||!doc.body)return;
+        if(doc.body.dataset.novaraLiveViewObserved!=='1'){
+          doc.body.dataset.novaraLiveViewObserved='1';
+          const observer=new MutationObserver(function(){syncFrame(frame);});
+          observer.observe(doc.body,{childList:true,subtree:true,characterData:true});
+          doc.addEventListener('click',function(){
+            setTimeout(function(){syncFrame(frame);},40);
+            setTimeout(function(){syncFrame(frame);},220);
+            setTimeout(function(){syncFrame(frame);},650);
+          },true);
+        }
+      }catch(error){}
+      syncFrame(frame);
+    };
+
+    frame.addEventListener('load',function(){
+      installDocumentObserver();
+      setTimeout(installDocumentObserver,250);
+      setTimeout(installDocumentObserver,900);
+    });
+    installDocumentObserver();
+  }
+
+  function refresh(){
+    const frame=tour.querySelector('[data-live-frame],.live-product-frame iframe');
+    if(frame){
+      bind(frame);
+      syncFrame(frame);
+    }
+  }
+
+  new MutationObserver(refresh).observe(tour,{childList:true,subtree:true});
+  setInterval(refresh,500);
+  refresh();
+})();
+</script>
+
 </body>
 </html>
