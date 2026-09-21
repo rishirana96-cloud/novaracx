@@ -1639,7 +1639,7 @@ body>header .nav{height:68px}body>header .logo{color:#102018}body>header .nav-li
   byId('ceHumanHours').textContent=Math.round(humanHours).toLocaleString('en-IN')+' hours';
   byId('ceInternal').textContent=money(internal);
   byId('ceNovara').textContent=customQuote?'Custom quote':money(novara);
-  byId('ceInternalAgentCount').textContent=plural(internalAgents,'in-house agent')+' required';
+  byId('ceInternalAgentCount').textContent=plural(internalAgents,'in-house agent');
   byId('ceNovaraAgentCount').textContent=plural(novaraAgents,'managed agent');
   byId('ceNovaraHours').textContent=novaraProductiveHours+' productive hrs/day';
   byId('ceNovaraPlan').textContent=label;
@@ -9056,7 +9056,7 @@ document.addEventListener('click',function(event){
   byId('ceHumanHours').textContent=Math.round(humanHours).toLocaleString('en-IN')+' hours';
   byId('ceInternal').textContent=money(internal);
   byId('ceNovara').textContent=customQuote?'Custom quote':money(novara);
-  byId('ceInternalAgentCount').textContent=plural(internalAgents,'in-house agent')+' required';
+  byId('ceInternalAgentCount').textContent=plural(internalAgents,'in-house agent');
   byId('ceNovaraAgentCount').textContent=plural(novaraAgents,'managed agent');
   byId('ceNovaraHours').textContent=novaraProductiveHours+' productive hrs/day';
   byId('ceNovaraPlan').textContent=label;
@@ -11175,6 +11175,74 @@ body{letter-spacing:-.005em!important}
   }
   #mvp-savings .cost-result-calculation{
     grid-row:4!important;
+  }
+}
+</style>
+
+
+<!-- NOVARA_DESKTOP_STAFF_BADGE_READABILITY_TEST290_V58 -->
+<style id="novara-desktop-staff-badge-readability-v58">
+@media(min-width:1101px){
+  #mvp-savings .cost-result-box{
+    grid-template-columns:max-content minmax(0,1fr)!important;
+    column-gap:18px!important;
+  }
+  #mvp-savings .cost-staff-badges{
+    flex-wrap:nowrap!important;
+    gap:8px!important;
+    overflow:visible!important;
+  }
+  #mvp-savings .cost-staff-badges i{
+    min-height:32px!important;
+    padding:7px 11px!important;
+    border-width:2px!important;
+    font-size:.62rem!important;
+    font-weight:850!important;
+    letter-spacing:.01em!important;
+    line-height:1!important;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 5px 14px rgba(0,0,0,.08);
+  }
+  #mvp-savings .cost-staff-badges-red{
+    color:#f0a39a!important;
+  }
+  #mvp-savings .cost-staff-badges-red i{
+    border-color:#dc877e!important;
+    background:rgba(181,67,58,.18)!important;
+    color:#ffd4cf!important;
+  }
+  #mvp-savings .cost-staff-badges-green{
+    color:#9ed0ad!important;
+  }
+  #mvp-savings .cost-staff-badges-green i{
+    border-color:#7dbb91!important;
+    background:rgba(65,142,91,.19)!important;
+    color:#d9f2e1!important;
+  }
+  #mvp-savings .cost-result-box>strong{
+    margin-top:24px!important;
+  }
+}
+@media(min-width:761px) and (max-width:1100px){
+  #mvp-savings .cost-staff-badges{
+    display:flex!important;
+    flex-wrap:wrap!important;
+    gap:7px!important;
+  }
+  #mvp-savings .cost-staff-badges i{
+    padding:6px 10px!important;
+    border-width:2px!important;
+    font-size:.61rem!important;
+    font-weight:850!important;
+  }
+  #mvp-savings .cost-staff-badges-red i{
+    border-color:#dc877e!important;
+    background:rgba(181,67,58,.18)!important;
+    color:#ffd4cf!important;
+  }
+  #mvp-savings .cost-staff-badges-green i{
+    border-color:#7dbb91!important;
+    background:rgba(65,142,91,.19)!important;
+    color:#d9f2e1!important;
   }
 }
 </style>
