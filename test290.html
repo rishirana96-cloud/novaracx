@@ -1570,11 +1570,11 @@ body>header .nav{height:68px}body>header .logo{color:#102018}body>header .nav-li
     </div>
     <div class="cost-result-summary">
      <div class="cost-result-box">
-      <span>Without AI</span><small id="ceInternalAgents" class="cost-staff-badges cost-staff-badges-red"><i id="ceInternalAgentCount">0 agents</i><i>6 productive hrs/day</i></small><strong id="ceInternal">₹0</strong>
+      <span>Without AI</span><small id="ceInternalAgents" class="cost-staff-badges cost-staff-badges-red"><i id="ceInternalAgentCount">0 agents</i></small><strong id="ceInternal">₹0</strong>
       <div class="cost-result-calculation"><b>Staffing calculation</b><p id="ceInternalStaffFormula">—</p><b>Cost calculation</b><p id="ceInternalCostFormula">—</p></div>
      </div>
      <div class="cost-result-box">
-      <span>With Novara</span><small id="ceNovaraAgents" class="cost-staff-badges cost-staff-badges-green"><i id="ceNovaraAgentCount">0 agents</i><i id="ceNovaraHours">0 productive hrs/day</i><i id="ceNovaraPlan">Plan</i></small><strong id="ceNovara">₹0</strong>
+      <span>With Novara</span><small id="ceNovaraAgents" class="cost-staff-badges cost-staff-badges-green"><i id="ceNovaraAgentCount">0 agents</i></small><strong id="ceNovara">₹0</strong>
       <div class="cost-result-calculation"><b>Staffing calculation</b><p id="ceNovaraStaffFormula">—</p><b>Cost calculation</b><p id="ceNovaraCostFormula">—</p></div>
      </div>
     </div>
@@ -1641,8 +1641,6 @@ body>header .nav{height:68px}body>header .logo{color:#102018}body>header .nav-li
   byId('ceNovara').textContent=customQuote?'Custom quote':money(novara);
   byId('ceInternalAgentCount').textContent=plural(internalAgents,'in-house agent');
   byId('ceNovaraAgentCount').textContent=plural(novaraAgents,'managed agent');
-  byId('ceNovaraHours').textContent=novaraProductiveHours+' productive hrs/day';
-  byId('ceNovaraPlan').textContent=label;
   const internalRawAgents=totalHours/internalCapacity;
   const novaraRawAgents=humanHours/novaraCapacity;
   const fixedInternalCosts=lead+tools+hiring;
@@ -8995,11 +8993,11 @@ document.addEventListener('click',function(event){
     </div>
     <div class="cost-result-summary">
      <div class="cost-result-box">
-      <span>Without AI</span><small id="ceInternalAgents" class="cost-staff-badges cost-staff-badges-red"><i id="ceInternalAgentCount">0 agents</i><i>6 productive hrs/day</i></small><strong id="ceInternal">₹0</strong>
+      <span>Without AI</span><small id="ceInternalAgents" class="cost-staff-badges cost-staff-badges-red"><i id="ceInternalAgentCount">0 agents</i></small><strong id="ceInternal">₹0</strong>
       <div class="cost-result-calculation"><b>Staffing calculation</b><p id="ceInternalStaffFormula">—</p><b>Cost calculation</b><p id="ceInternalCostFormula">—</p></div>
      </div>
      <div class="cost-result-box">
-      <span>With Novara</span><small id="ceNovaraAgents" class="cost-staff-badges cost-staff-badges-green"><i id="ceNovaraAgentCount">0 agents</i><i id="ceNovaraHours">0 productive hrs/day</i><i id="ceNovaraPlan">Plan</i></small><strong id="ceNovara">₹0</strong>
+      <span>With Novara</span><small id="ceNovaraAgents" class="cost-staff-badges cost-staff-badges-green"><i id="ceNovaraAgentCount">0 agents</i></small><strong id="ceNovara">₹0</strong>
       <div class="cost-result-calculation"><b>Staffing calculation</b><p id="ceNovaraStaffFormula">—</p><b>Cost calculation</b><p id="ceNovaraCostFormula">—</p></div>
      </div>
     </div>
@@ -9058,8 +9056,6 @@ document.addEventListener('click',function(event){
   byId('ceNovara').textContent=customQuote?'Custom quote':money(novara);
   byId('ceInternalAgentCount').textContent=plural(internalAgents,'in-house agent');
   byId('ceNovaraAgentCount').textContent=plural(novaraAgents,'managed agent');
-  byId('ceNovaraHours').textContent=novaraProductiveHours+' productive hrs/day';
-  byId('ceNovaraPlan').textContent=label;
   const internalRawAgents=totalHours/internalCapacity;
   const novaraRawAgents=humanHours/novaraCapacity;
   const fixedInternalCosts=lead+tools+hiring;
@@ -11322,6 +11318,51 @@ body{letter-spacing:-.005em!important}
     color:#b8d4c1!important;
     font-size:1rem!important;
     font-weight:800!important;
+  }
+}
+</style>
+
+
+<!-- NOVARA_DESKTOP_COMPACT_COST_CARDS_TEST290_V61 -->
+<style id="novara-desktop-compact-cost-cards-v61">
+@media(min-width:761px){
+  #mvp-savings .cost-result-summary{
+    align-items:stretch!important;
+    gap:14px!important;
+  }
+  #mvp-savings .cost-result-box{
+    min-height:0!important;
+    padding:21px 22px!important;
+    grid-template-rows:auto auto auto 1fr!important;
+  }
+  #mvp-savings .cost-result-box>span{
+    padding:4px 9px!important;
+  }
+  #mvp-savings .cost-staff-badges{
+    width:auto!important;
+    margin-top:10px!important;
+    gap:0!important;
+  }
+  #mvp-savings .cost-staff-badges i{
+    min-height:29px!important;
+    padding:6px 11px!important;
+    font-size:.61rem!important;
+  }
+  #mvp-savings .cost-result-box>strong{
+    margin-top:18px!important;
+    font-size:1.75rem!important;
+    line-height:1!important;
+  }
+  #mvp-savings .cost-result-calculation{
+    align-self:start!important;
+    margin-top:16px!important;
+    padding:11px 13px!important;
+    gap:2px!important;
+    border-radius:10px!important;
+  }
+  #mvp-savings .cost-result-calculation p{
+    margin-bottom:5px!important;
+    line-height:1.38!important;
   }
 }
 </style>
