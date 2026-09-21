@@ -10012,7 +10012,7 @@ body{letter-spacing:-.005em!important}
     if(wrap.querySelector('.daily-volume-control'))return true;
     const control=document.createElement('div');
     control.className='daily-volume-control';
-    control.innerHTML='<label for="novara-daily-conversations">FIND YOUR PLAN &amp; ESTIMATED HUMAN AGENT NEED</label><div class="daily-volume-input-wrap"><input id="novara-daily-conversations" type="number" min="0" step="1" inputmode="numeric" autocomplete="off" placeholder="Enter your daily conversations flow"><button class="daily-volume-submit" type="button" aria-label="Find my recommended plan"><span aria-hidden="true">›</span></button></div><span class="daily-volume-calculation" aria-live="polite"></span>';
+    control.innerHTML='<label for="novara-daily-conversations">FIND YOUR PLAN &amp; ESTIMATED HUMAN AGENT NEED</label><div class="daily-volume-input-wrap"><input id="novara-daily-conversations" type="number" min="0" step="1" inputmode="numeric" autocomplete="off" placeholder="Enter your daily conversations flow"><button class="daily-volume-submit" type="button" aria-label="Find my recommended plan"><span aria-hidden="true"></span></button></div><span class="daily-volume-calculation" aria-live="polite"></span>';
     group.insertAdjacentElement('beforebegin',control);
     const input=control.querySelector('input');
     const submit=control.querySelector('.daily-volume-submit');
@@ -10354,7 +10354,7 @@ body{letter-spacing:-.005em!important}
   #mvp-pricing .daily-volume-control input{
     -moz-appearance:textfield!important;
     appearance:textfield!important;
-    padding-right:52px!important;
+    padding-right:46px!important;
   }
   #mvp-pricing .daily-volume-control input::-webkit-inner-spin-button,
   #mvp-pricing .daily-volume-control input::-webkit-outer-spin-button{
@@ -10364,22 +10364,29 @@ body{letter-spacing:-.005em!important}
   #mvp-pricing .daily-volume-submit{
     position:absolute;
     top:50%;
-    right:6px;
+    right:7px;
     transform:translateY(-50%);
-    width:34px;
-    height:34px;
+    width:29px;
+    height:29px;
     display:grid;
     place-items:center;
-    border:0;
+    border:1px solid rgba(189,216,198,.72);
     border-radius:50%;
-    background:rgba(232,242,235,.94);
+    background:rgba(232,242,235,.88);
     color:#173b29;
-    font:700 25px/1 Arial,sans-serif;
-    transition:background .18s ease,transform .18s ease,opacity .18s ease;
+    transition:background .18s ease,border-color .18s ease,transform .18s ease,opacity .18s ease;
+  }
+  #mvp-pricing .daily-volume-submit span{
+    width:7px;
+    height:7px;
+    border-top:2px solid currentColor;
+    border-right:2px solid currentColor;
+    transform:translateX(-1px) rotate(45deg);
   }
   #mvp-pricing .daily-volume-submit:hover:not(:disabled){
-    background:#fff;
-    transform:translateY(-50%) translateX(2px);
+    background:#f7fbf8;
+    border-color:rgba(189,216,198,.98);
+    transform:translateY(-50%) translateX(1px);
   }
   #mvp-pricing .daily-volume-submit:focus-visible{
     outline:2px solid #9bc7aa;
