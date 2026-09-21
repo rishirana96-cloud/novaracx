@@ -10040,14 +10040,16 @@ body{letter-spacing:-.005em!important}
       control.classList.add('has-value','is-loading');
       submit.disabled=true;
       setLoading(section,true);
-      if(button)button.click();
+      if(button){
+        button.click();
+        button.classList.add('volume-recommended');
+      }
       clearTimeout(loadingTimer);
       loadingTimer=setTimeout(()=>{
         applyAgents(section,monthly);
         setLoading(section,false);
         control.classList.remove('is-loading');
         submit.disabled=false;
-        if(button)button.classList.add('volume-recommended');
       },loadingDelay);
     }
     group.addEventListener('click',event=>{
@@ -10408,8 +10410,7 @@ body{letter-spacing:-.005em!important}
     border-radius:50%;
     animation:novara-recommend-spin .7s linear infinite;
   }
-  #mvp-pricing .minimum-agent-label strong,
-  #mvp-pricing .agent-counter{position:relative!important}
+  #mvp-pricing .pricing-price{position:relative!important}
   #mvp-pricing .agent-recommendation-loading .minimum-agent-label strong,
   #mvp-pricing .agent-recommendation-loading .agent-counter-value{
     visibility:hidden!important;
@@ -10418,32 +10419,32 @@ body{letter-spacing:-.005em!important}
     opacity:.38!important;
     pointer-events:none!important;
   }
-  #mvp-pricing .agent-recommendation-loading .minimum-agent-label strong:after,
-  #mvp-pricing .agent-recommendation-loading .agent-counter:after{
+  #mvp-pricing .agent-recommendation-loading .pricing-price{
+    color:transparent!important;
+  }
+  #mvp-pricing .agent-recommendation-loading .pricing-price *{
+    visibility:hidden!important;
+  }
+  #mvp-pricing .agent-recommendation-loading .pricing-price:after{
     content:""!important;
     position:absolute;
-    width:12px;
-    height:12px;
-    border:2px solid rgba(42,91,62,.18);
+    left:20px;
+    top:calc(50% - 10px);
+    width:16px;
+    height:16px;
+    border:3px solid rgba(42,91,62,.16);
     border-top-color:#2f744c;
     border-radius:50%;
     background:none!important;
     animation:novara-recommend-spin .72s linear infinite;
     pointer-events:none;
     visibility:visible!important;
-  }
-  #mvp-pricing .agent-recommendation-loading .minimum-agent-label strong:after,
-  #mvp-pricing .agent-recommendation-loading .agent-counter:after{
-    left:calc(50% - 8px);
-    top:calc(50% - 8px);
-    transform:none;
     transform-origin:center;
   }
   @keyframes novara-recommend-spin{to{transform:rotate(360deg)}}
   @media(prefers-reduced-motion:reduce){
     #mvp-pricing .daily-volume-control.is-loading .daily-volume-submit:after,
-    #mvp-pricing .agent-recommendation-loading .agent-counter:after,
-    #mvp-pricing .agent-recommendation-loading .minimum-agent-label strong:after{animation:none}
+    #mvp-pricing .agent-recommendation-loading .pricing-price:after{animation:none}
   }
 </style>
 
