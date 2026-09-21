@@ -11895,5 +11895,28 @@ window.NOVARA_CURRENT_PRICING={
 })();
 </script>
 
+
+<!-- NOVARA_MOBILE_DESK_PREVIEW_FIX_V70 -->
+<style id="novara-mobile-desk-preview-fix-v70">
+@media(max-width:600px){
+  #mvp-product-tour .desk-stage{margin-top:16px}
+  #mvp-product-tour .desk-pane{gap:18px}
+  #mvp-product-tour .desk-browser{
+    width:100%;padding:5px;border-radius:16px;overflow:hidden
+  }
+  #mvp-product-tour .desk-screen{
+    aspect-ratio:4/3;border-radius:10px;background:#edf2ef
+  }
+  /* The source is a desktop dashboard canvas; zoom its useful content on phones. */
+  #mvp-product-tour .desk-screen img{
+    width:185%;max-width:none;height:100%;object-fit:cover;
+    object-position:left top
+  }
+  #mvp-product-tour .desk-pane-copy{
+    padding:22px 20px;border-radius:16px
+  }
+}
+</style>
+
 </body>
 </html>
