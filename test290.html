@@ -9979,7 +9979,7 @@ body{letter-spacing:-.005em!important}
 <script id="novara-daily-volume-router-script-v39">
 (function(){
   const capacityPerAgent=750;
-  const loadingDelay=700;
+  const loadingDelay=2200;
   function recommendedAgents(monthly){
     return Math.max(2,Math.ceil(monthly*.5/capacityPerAgent));
   }
@@ -10051,7 +10051,12 @@ body{letter-spacing:-.005em!important}
       },loadingDelay);
     }
     group.addEventListener('click',event=>{
-      if(event.isTrusted && event.target.closest('[data-tier]'))clearRecommendation();
+      const tierButton=event.target.closest('[data-tier]');
+      if(!event.isTrusted||!tierButton)return;
+      clearRecommendation();
+      clearTimeout(loadingTimer);
+      setLoading(section,true);
+      loadingTimer=setTimeout(()=>setLoading(section,false),loadingDelay);
     });
     input.addEventListener('input',()=>{
       clearRecommendation();
@@ -10403,50 +10408,45 @@ body{letter-spacing:-.005em!important}
     border-radius:50%;
     animation:novara-recommend-spin .7s linear infinite;
   }
-  #mvp-pricing .minimum-agent-note,
+  #mvp-pricing .minimum-agent-label strong,
   #mvp-pricing .agent-counter{position:relative!important}
-  #mvp-pricing .agent-recommendation-loading .minimum-agent-label,
+  #mvp-pricing .agent-recommendation-loading .minimum-agent-label strong,
   #mvp-pricing .agent-recommendation-loading .agent-counter-value{
     visibility:hidden!important;
   }
-  #mvp-pricing .agent-recommendation-loading .minimum-agent-note:before{
-    opacity:.22!important;
-  }
   #mvp-pricing .agent-recommendation-loading .agent-counter-btn{
-    opacity:.3!important;
+    opacity:.38!important;
     pointer-events:none!important;
   }
-  #mvp-pricing .agent-recommendation-loading .minimum-agent-note:after,
+  #mvp-pricing .agent-recommendation-loading .minimum-agent-label strong:after,
   #mvp-pricing .agent-recommendation-loading .agent-counter:after{
-    content:"•••"!important;
+    content:""!important;
     position:absolute;
-    inset:0;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    width:auto;
-    height:auto;
-    margin:0;
-    color:#527061;
+    width:12px;
+    height:12px;
+    border:2px solid rgba(42,91,62,.18);
+    border-top-color:#2f744c;
+    border-radius:50%;
     background:none!important;
-    font:800 10px/1 Arial,sans-serif;
-    letter-spacing:4px;
-    animation:novara-recommend-dots .82s ease-in-out infinite;
+    animation:novara-recommend-spin .72s linear infinite;
     pointer-events:none;
+    visibility:visible!important;
   }
-  #mvp-pricing .agent-recommendation-loading .minimum-agent-note:after{
-    justify-content:flex-start;
-    padding-left:26px;
+  #mvp-pricing .agent-recommendation-loading .minimum-agent-label strong:after{
+    left:50%;
+    top:50%;
+    transform:translate(-50%,-50%);
+  }
+  #mvp-pricing .agent-recommendation-loading .agent-counter:after{
+    left:50%;
+    top:50%;
+    transform:translate(-50%,-50%);
   }
   @keyframes novara-recommend-spin{to{rotate:360deg}}
-  @keyframes novara-recommend-dots{
-    0%,100%{opacity:.3}
-    50%{opacity:1}
-  }
   @media(prefers-reduced-motion:reduce){
     #mvp-pricing .daily-volume-control.is-loading .daily-volume-submit:after,
     #mvp-pricing .agent-recommendation-loading .agent-counter:after,
-    #mvp-pricing .agent-recommendation-loading .minimum-agent-note:after{animation:none}
+    #mvp-pricing .agent-recommendation-loading .minimum-agent-label strong:after{animation:none}
   }
 </style>
 
