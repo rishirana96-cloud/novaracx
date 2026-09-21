@@ -1586,7 +1586,7 @@ body>header .nav{height:68px}body>header .logo{color:#102018}body>header .nav-li
      <div class="cost-breakdown-row"><span>Human workload removed</span><b id="ceHoursRemoved">0 hours</b></div>
     </div>
     <a class="cost-estimator-cta" href="#mvp-pricing">See plans for this workload</a>
-    <details class="cost-method"><summary>Assumptions used in this estimate</summary><p>Staffing uses a six-day workweek, averaged to 26 working days per month. For a 9-hour Internal or Full shift, 1.5 hours are allocated to breaks, leaving 7.5 available hours; 80% handling utilisation gives 6 productive ticket-handling hours per day. For Lite, a 4.5-hour shift includes a 45-minute break and the same utilisation assumption, giving 3 productive hours per day. The remaining time covers meetings, training, QA, documentation, administrative work and natural idle time. AI results depend on the selected resolution assumption. Staffing is rounded up to whole agents. For this estimate, each ticket entering AI counts as one AI conversation, including escalations. Pricing uses the smallest AI allowance that covers that volume; above 15,000 requires a custom quote. GST is excluded.</p></details>
+    <details class="cost-method"><summary>Assumptions used in this estimate</summary><p>Staffing uses a six-day workweek, averaged to 26 working days per month. For a 9-hour Internal or Full shift, 1.5 hours are allocated to breaks, leaving 7.5 available hours; 80% handling utilisation gives 6 productive ticket-handling hours per day. For Lite, a 4.5-hour shift includes a 45-minute break and the same utilisation assumption, giving 3 productive hours per day. The remaining time covers meetings, training, QA, documentation, administrative work and natural idle time. AI results depend on the selected resolution assumption. Staffing is rounded up to whole agents. For this estimate, each ticket entering AI counts as one AI conversation, including escalations. Pricing uses Starter at up to 1,500 monthly conversations and Growth at up to 3,000; higher volumes require a custom Scale quote. GST is excluded.</p></details>
    </div>
   </div>
  </div>`;
@@ -1617,7 +1617,7 @@ body>header .nav{height:68px}body>header .logo{color:#102018}body>header .nav-li
   const novaraAgents=Math.max(1,Math.ceil(humanHours/novaraCapacity));
   const internal=internalAgents*salary*(1+overhead)+lead+tools+hiring;
   const estimatorPricing=window.NOVARA_TEST_PRICING||{
-   tiers:[{quota:1500,price:29999},{quota:3000,price:49999}],
+   tiers:[{name:'Starter',quota:1500,price:29999},{name:'Growth',quota:3000,price:49999}],
    humanCost:(plan,agents)=>{
     agents=Math.max(1,Number(agents)||1);
     if(plan==='lite')return agents===1?30000:30000+37500+((agents-2)*20000);
@@ -1647,7 +1647,7 @@ body>header .nav{height:68px}body>header .logo{color:#102018}body>header .nav-li
   const internalFormula=tickets.toLocaleString('en-IN')+' tickets × '+aht.toLocaleString('en-IN')+' min ÷ 60 = '+Math.round(totalHours).toLocaleString('en-IN')+' hrs\n'+Math.round(totalHours).toLocaleString('en-IN')+' hrs ÷ (26 days × 6 productive hrs) = '+internalRawAgents.toFixed(1)+' → '+internalAgents+' agents';
   const internalCostFormula=internalAgents+' × '+money(salary)+' × '+(1+overhead).toFixed(2)+' + '+money(fixedInternalCosts)+' = '+money(internal);
   const novaraFormula=humanTickets.toLocaleString('en-IN')+' tickets × '+aht.toLocaleString('en-IN')+' min ÷ 60 = '+Math.round(humanHours).toLocaleString('en-IN')+' hrs\n'+Math.round(humanHours).toLocaleString('en-IN')+' hrs ÷ (26 days × '+novaraProductiveHours+' productive hrs) = '+novaraRawAgents.toFixed(1)+' → '+novaraAgents+' agents';
-  const novaraCostFormula=customQuote?'Above 15,000 AI conversations/month: request a tailored quote.':money(selectedTier.price)+' managed AI ('+selectedTier.quota.toLocaleString('en-IN')+' conversations) + '+money(managedHumanCost)+' human support = '+money(novara);
+  const novaraCostFormula=customQuote?'Above 3,000 monthly conversations: request a custom Scale quote.':money(selectedTier.price)+' '+selectedTier.name+' AI plan ('+selectedTier.quota.toLocaleString('en-IN')+' conversations included) + +money(managedHumanCost)+' human support = '+money(novara);
   byId('ceInternalStaffFormula').textContent=internalFormula;
   byId('ceInternalCostFormula').textContent=internalCostFormula;
   byId('ceNovaraStaffFormula').textContent=novaraFormula;
@@ -8953,7 +8953,7 @@ document.addEventListener('click',function(event){
  if(!pricing||document.getElementById('mvp-savings'))return;
  if(!window.NOVARA_TEST_PRICING){
    window.NOVARA_TEST_PRICING={
-     tiers:[{quota:1500,price:29999},{quota:3000,price:49999}],
+     tiers:[{name:'Starter',quota:1500,price:29999},{name:'Growth',quota:3000,price:49999}],
      humanCost:(plan,count=1)=>plan==='lite'?30000+(count>=2?37500:0)+Math.max(0,count-2)*20000:plan==='full'?60000+Math.max(0,count-1)*40000:0
    };
  }
@@ -9009,7 +9009,7 @@ document.addEventListener('click',function(event){
      <div class="cost-breakdown-row"><span>Human workload removed</span><b id="ceHoursRemoved">0 hours</b></div>
     </div>
     <a class="cost-estimator-cta" href="#mvp-contact">Discuss this estimate</a>
-    <details class="cost-method"><summary>Assumptions used in this estimate</summary><p>Staffing uses a six-day workweek, averaged to 26 working days per month. For a 9-hour Internal or Full shift, 1.5 hours are allocated to breaks, leaving 7.5 available hours; 80% handling utilisation gives 6 productive ticket-handling hours per day. For Lite, a 4.5-hour shift includes a 45-minute break and the same utilisation assumption, giving 3 productive hours per day. The remaining time covers meetings, training, QA, documentation, administrative work and natural idle time. AI results depend on the selected resolution assumption. Staffing is rounded up to whole agents. For this estimate, each ticket entering AI counts as one AI conversation, including escalations. Pricing uses the smallest AI allowance that covers that volume; above 15,000 requires a custom quote. GST is excluded.</p></details>
+    <details class="cost-method"><summary>Assumptions used in this estimate</summary><p>Staffing uses a six-day workweek, averaged to 26 working days per month. For a 9-hour Internal or Full shift, 1.5 hours are allocated to breaks, leaving 7.5 available hours; 80% handling utilisation gives 6 productive ticket-handling hours per day. For Lite, a 4.5-hour shift includes a 45-minute break and the same utilisation assumption, giving 3 productive hours per day. The remaining time covers meetings, training, QA, documentation, administrative work and natural idle time. AI results depend on the selected resolution assumption. Staffing is rounded up to whole agents. For this estimate, each ticket entering AI counts as one AI conversation, including escalations. Pricing uses Starter at up to 1,500 monthly conversations and Growth at up to 3,000; higher volumes require a custom Scale quote. GST is excluded.</p></details>
    </div>
   </div>
  </div>`;
@@ -9062,7 +9062,7 @@ document.addEventListener('click',function(event){
   const internalFormula=tickets.toLocaleString('en-IN')+' tickets × '+aht.toLocaleString('en-IN')+' min ÷ 60 = '+Math.round(totalHours).toLocaleString('en-IN')+' hrs\n'+Math.round(totalHours).toLocaleString('en-IN')+' hrs ÷ (26 days × 6 productive hrs) = '+internalRawAgents.toFixed(1)+' → '+internalAgents+' agents';
   const internalCostFormula=internalAgents+' × '+money(salary)+' × '+(1+overhead).toFixed(2)+' + '+money(fixedInternalCosts)+' = '+money(internal);
   const novaraFormula=humanTickets.toLocaleString('en-IN')+' tickets × '+aht.toLocaleString('en-IN')+' min ÷ 60 = '+Math.round(humanHours).toLocaleString('en-IN')+' hrs\n'+Math.round(humanHours).toLocaleString('en-IN')+' hrs ÷ (26 days × '+novaraProductiveHours+' productive hrs) = '+novaraRawAgents.toFixed(1)+' → '+novaraAgents+' agents';
-  const novaraCostFormula=customQuote?'Above 15,000 AI conversations/month: request a tailored quote.':money(selectedTier.price)+' managed AI ('+selectedTier.quota.toLocaleString('en-IN')+' conversations) + '+money(managedHumanCost)+' human support = '+money(novara);
+  const novaraCostFormula=customQuote?'Above 3,000 monthly conversations: request a custom Scale quote.':money(selectedTier.price)+' '+selectedTier.name+' AI plan ('+selectedTier.quota.toLocaleString('en-IN')+' conversations included) + +money(managedHumanCost)+' human support = '+money(novara);
   byId('ceInternalStaffFormula').textContent=internalFormula;
   byId('ceInternalCostFormula').textContent=internalCostFormula;
   byId('ceNovaraStaffFormula').textContent=novaraFormula;
@@ -11397,6 +11397,17 @@ body{letter-spacing:-.005em!important}
     }
   }
 </style>
+
+
+<!-- NOVARA_COST_CALCULATOR_PRICING_CURRENT_V63 -->
+<script id="novara-cost-calculator-pricing-current-v63">
+window.NOVARA_CURRENT_PRICING={
+  starter:{conversations:1500,ai:29999,lite:59999,full:89999},
+  growth:{conversations:3000,ai:49999,lite:79999,full:109999},
+  scale:{custom:true},
+  additionalAgents:{liteSecond:37500,liteFurther:20000,fullEach:40000}
+};
+</script>
 
 </body>
 </html>
