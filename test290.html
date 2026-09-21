@@ -10385,17 +10385,16 @@ body{letter-spacing:-.005em!important}
     outline:2px solid #9bc7aa;
     outline-offset:2px;
   }
-  #mvp-pricing .daily-volume-submit:disabled{opacity:.55;cursor:wait}
+  #mvp-pricing .daily-volume-submit:disabled{opacity:.68;cursor:wait}
   #mvp-pricing .daily-volume-control.is-loading .daily-volume-submit span{display:none}
-  #mvp-pricing .daily-volume-control.is-loading .daily-volume-submit:after,
-  #mvp-pricing .agent-recommendation-loading .agent-counter:after{
+  #mvp-pricing .daily-volume-control.is-loading .daily-volume-submit:after{
     content:"";
     width:13px;
     height:13px;
-    border:2px solid rgba(23,59,41,.22);
+    border:2px solid rgba(23,59,41,.18);
     border-top-color:#173b29;
     border-radius:50%;
-    animation:novara-recommend-spin .65s linear infinite;
+    animation:novara-recommend-spin .7s linear infinite;
   }
   #mvp-pricing .minimum-agent-note,
   #mvp-pricing .agent-counter{position:relative!important}
@@ -10403,28 +10402,40 @@ body{letter-spacing:-.005em!important}
   #mvp-pricing .agent-recommendation-loading .agent-counter-value{
     visibility:hidden!important;
   }
+  #mvp-pricing .agent-recommendation-loading .minimum-agent-note:before{
+    opacity:.22!important;
+  }
   #mvp-pricing .agent-recommendation-loading .agent-counter-btn{
-    opacity:.18!important;
+    opacity:.3!important;
     pointer-events:none!important;
   }
-  #mvp-pricing .agent-recommendation-loading .minimum-agent-note:after{
-    content:"";
-    display:block;
-    width:116px;
-    height:10px;
-    border-radius:999px;
-    background:linear-gradient(90deg,rgba(65,104,80,.10),rgba(65,104,80,.30),rgba(65,104,80,.10));
-    background-size:220% 100%;
-    animation:novara-recommend-shimmer 1s ease-in-out infinite;
-  }
+  #mvp-pricing .agent-recommendation-loading .minimum-agent-note:after,
   #mvp-pricing .agent-recommendation-loading .agent-counter:after{
+    content:"•••"!important;
     position:absolute;
-    left:50%;
-    top:50%;
-    transform:translate(-50%,-50%);
+    inset:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    width:auto;
+    height:auto;
+    margin:0;
+    color:#527061;
+    background:none!important;
+    font:800 10px/1 Arial,sans-serif;
+    letter-spacing:4px;
+    animation:novara-recommend-dots .82s ease-in-out infinite;
+    pointer-events:none;
+  }
+  #mvp-pricing .agent-recommendation-loading .minimum-agent-note:after{
+    justify-content:flex-start;
+    padding-left:26px;
   }
   @keyframes novara-recommend-spin{to{rotate:360deg}}
-  @keyframes novara-recommend-shimmer{to{background-position:-220% 0}}
+  @keyframes novara-recommend-dots{
+    0%,100%{opacity:.3}
+    50%{opacity:1}
+  }
   @media(prefers-reduced-motion:reduce){
     #mvp-pricing .daily-volume-control.is-loading .daily-volume-submit:after,
     #mvp-pricing .agent-recommendation-loading .agent-counter:after,
