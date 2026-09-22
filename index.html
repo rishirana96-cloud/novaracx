@@ -12167,5 +12167,25 @@ window.addEventListener('message',function(){setTimeout(decorate,0);setTimeout(d
 }
 </style>
 
+
+<!-- NOVARA_DESK_COMPLETE_VIEW_SYNC_V80 -->
+<script id="novara-desk-complete-view-sync-v80">
+(function(){
+const tour=document.getElementById('mvp-product-tour');if(!tour)return;
+const pages={
+chatbot:['AI Chatbot','Always-on answers, grounded in your business.','Support customers instantly across your website and WhatsApp, with answers based on approved knowledge and seamless transfer when human attention is needed.',[['Always available','24/7 support across website and WhatsApp'],['Business-aware','Grounded in your products, policies and SOPs'],['Seamless handoff','Transfers full conversation context to a human']]],
+knowledge:['Knowledge Base','Give AI a reliable source of truth.','Manage approved answers, policies and product information in one governed library so your AI stays accurate and consistent.',[['Governed content','Approved information in one place'],['Easy maintenance','Update answers without rebuilding the chatbot'],['Consistent answers','Keep responses aligned across every channel']]],
+settings:['Settings','Configure the operation behind your support.','Manage workspace preferences, team access, channels and service rules from one central control area.',[['Workspace controls','Configure support defaults and preferences'],['Team and access','Manage roles, permissions and ownership'],['Service configuration','Set channels, SLAs and ticket behaviour']]]
+};
+const icons={
+chatbot:['<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>','<svg viewBox="0 0 24 24"><path d="M4 5h6a3 3 0 0 1 3 3v11a3 3 0 0 0-3-3H4zM20 5h-4a3 3 0 0 0-3 3v11a3 3 0 0 1 3-3h4z"/></svg>','<svg viewBox="0 0 24 24"><path d="M5 4h10v11H9l-4 4V4Zm10 4h4v10l-3-3"/></svg>'],
+knowledge:['<svg viewBox="0 0 24 24"><path d="M4 5h6a3 3 0 0 1 3 3v11a3 3 0 0 0-3-3H4zM20 5h-4a3 3 0 0 0-3 3v11a3 3 0 0 1 3-3h4z"/></svg>','<svg viewBox="0 0 24 24"><path d="m12 3 8 4-8 4-8-4 8-4Zm-8 9 8 4 8-4m-16 5 8 4 8-4"/></svg>','<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12 2.5 2.5L16 9"/></svg>'],
+settings:['<svg viewBox="0 0 24 24"><path d="M4 5h10m4 0h2M4 12h3m4 0h9M4 19h10m4 0h2"/><circle cx="16" cy="5" r="2"/><circle cx="9" cy="12" r="2"/><circle cx="16" cy="19" r="2"/></svg>','<svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><path d="M3 19c.7-3.3 2.7-5 6-5m7-5a3 3 0 1 1 0 6m-2 0c3.3 0 5.3 1.3 6 4"/></svg>','<svg viewBox="0 0 24 24"><path d="M12 3 5 6v5c0 4.5 2.7 8 7 10 4.3-2 7-5.5 7-10V6l-7-3Z"/><path d="m9 12 2 2 4-4"/></svg>']
+};
+function render(view){const p=pages[view];if(!p)return;const label=tour.querySelector('[data-studio-label]'),heading=tour.querySelector('[data-studio-heading]'),copy=tour.querySelector('[data-studio-copy]'),points=tour.querySelector('[data-studio-points]');if(label)label.textContent=p[0];if(heading)heading.textContent=p[1];if(copy)copy.textContent=p[2];if(points)points.innerHTML=p[3].map(function(item,index){return'<li><span class="novara-tile-icon" aria-hidden="true">'+icons[view][index]+'</span><div><strong>'+item[0]+'</strong><span>'+item[1]+'</span></div></li>'}).join('')}
+window.addEventListener('message',function(event){if(!event.data||event.data.type!=='novara-desk-view')return;render(event.data.view)});
+})();
+</script>
+
 </body>
 </html>
