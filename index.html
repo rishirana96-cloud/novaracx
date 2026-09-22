@@ -11985,5 +11985,38 @@ window.NOVARA_CURRENT_PRICING={
 })();
 </script>
 
+
+
+<!-- NOVARA_DESK_FULLER_DESCRIPTIONS_V74 -->
+<style id="novara-desk-fuller-descriptions-v74">
+#mvp-product-tour .studio-aside-label{display:block!important;color:#173426!important;font-size:1.08rem!important;font-weight:800!important;line-height:1.2!important;letter-spacing:-.012em!important;text-transform:none!important;margin-bottom:12px!important}
+#mvp-product-tour .studio-aside h3{max-width:310px!important;margin-bottom:15px!important}
+#mvp-product-tour .studio-aside [data-studio-copy]{font-size:.92rem!important;line-height:1.65!important}
+#mvp-product-tour .studio-aside [data-studio-points]{margin-top:18px!important}
+#mvp-product-tour .studio-aside [data-studio-points] li{line-height:1.45!important}
+@media(max-width:1120px){#mvp-product-tour .studio-aside h3{max-width:680px!important}}
+@media(max-width:760px){#mvp-product-tour .studio-aside-label{font-size:1rem!important}}
+</style>
+<script id="novara-desk-fuller-descriptions-script-v74">
+(function(){
+const tour=document.getElementById('mvp-product-tour');if(!tour)return;
+const pages={
+chatbot:['AI Chatbot','Always-on answers, grounded in your business.','Deploy an AI support agent across your website and WhatsApp to answer routine questions instantly, follow your approved knowledge and preserve context when a conversation needs human attention.',['24/7 answers across website and WhatsApp','Responses grounded in your products, policies and SOPs','Seamless handoff to a human with conversation context']],
+analytics:['Analytics','See how AI and human support perform together.','Track resolution, CSAT, response times, recurring intents and escalation patterns in one operational view—so you can see what is working, where customers struggle and what to improve next.',['AI and human-agent performance in one view','Flexible date ranges, filters and operational KPIs','Trends that reveal customer friction and automation opportunities']],
+tickets:['Tickets','Every escalation arrives with its context intact.','Give human agents a clear queue of conversations that need attention, complete with customer history, issue details and AI context—so they can prioritise, respond and resolve without making customers repeat themselves.',['Full conversation history attached to every escalation','Clear priority, ownership and ticket status','AI-assisted responses for faster, consistent resolution']],
+customers:['Customer profiles','Understand the person behind every conversation.','Bring each customer’s conversations, tickets, contact details and satisfaction history into one profile, helping your team recognise repeat issues and provide more informed, personalised support.',['Unified conversation and ticket history','Contact, satisfaction and support context','Repeat-contact visibility for better follow-through']],
+reports:['Reports','Turn support activity into decision-ready insight.','Build focused views of service quality, workload and customer outcomes without manually assembling data—giving operators and leaders a clearer picture of performance over time.',['Custom KPIs, filters and reporting periods','Resolution, escalation and satisfaction trends','Clear performance views for reviews and decisions']],
+workflows:['Workflows','Control what AI handles—and when people step in.','Set confidence, sentiment, topic and risk-based rules that determine when AI should resolve, request information or transfer a conversation to trained human support.',['Rule-based handoffs for sensitive or complex issues','Priority, routing and ownership controls','Workflows refined continuously using support outcomes']]
+};
+function detect(value){const text=String(value||'').trim().toLowerCase();if(/ai.?chatbot|chatbot|ai support/.test(text))return'chatbot';if(/customer|profile/.test(text))return'customers';if(/ticket|escalation/.test(text))return'tickets';if(/custom.?report|\breport/.test(text))return'reports';if(/workflow|automation/.test(text))return'workflows';if(/analytic|dashboard|performance/.test(text))return'analytics';return''}
+function render(key){const page=pages[key];if(!page)return;const label=tour.querySelector('[data-studio-label]'),heading=tour.querySelector('[data-studio-heading]'),copy=tour.querySelector('[data-studio-copy]'),points=tour.querySelector('[data-studio-points]');if(label)label.textContent=page[0];if(heading)heading.textContent=page[1];if(copy)copy.textContent=page[2];if(points)points.innerHTML=page[3].map(function(item){return'<li>'+item+'</li>'}).join('')}
+function syncFrame(frame){try{const doc=frame.contentDocument;if(!doc)return;const title=doc.querySelector('main h1,.main-content h1,.page-header h1,[data-page-title],h1');const key=detect((title&&title.textContent)||frame.contentWindow.location.pathname||doc.title);if(key)render(key)}catch(error){const key=detect(frame.getAttribute('src'));if(key)render(key)}}
+function bindFrame(){const frame=tour.querySelector('[data-live-frame],.live-product-frame iframe,iframe');if(!frame||frame.dataset.novaraFullCopyBound==='1')return;frame.dataset.novaraFullCopyBound='1';const attach=function(){try{const doc=frame.contentDocument;if(doc)doc.addEventListener('click',function(event){const control=event.target.closest('a,button,[role="button"],[data-page],[data-view]');const key=control&&detect((control.textContent||'')+' '+(control.getAttribute('href')||'')+' '+(control.getAttribute('data-page')||'')+' '+(control.getAttribute('data-view')||''));if(key)render(key);setTimeout(function(){syncFrame(frame)},100);setTimeout(function(){syncFrame(frame)},450)},true)}catch(error){}syncFrame(frame)};frame.addEventListener('load',attach);attach()}
+document.addEventListener('click',function(event){const control=event.target.closest('[data-studio-tab],[data-desk-tab],a,button,[role="button"]');if(!control||!tour.contains(control))return;const key=detect((control.textContent||'')+' '+(control.getAttribute('data-studio-tab')||'')+' '+(control.getAttribute('data-desk-tab')||'')+' '+(control.getAttribute('href')||''));if(key)render(key)},true);
+window.addEventListener('message',function(event){if(!event.data)return;const key=detect(event.data.view||event.data.page||event.data.title||'');if(key)render(key)});
+new MutationObserver(bindFrame).observe(tour,{childList:true,subtree:true});bindFrame();
+})();
+</script>
+
 </body>
 </html>
