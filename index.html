@@ -12058,5 +12058,33 @@ new MutationObserver(bind).observe(tour,{childList:true,subtree:true});bind();re
 })();
 </script>
 
+
+
+<!-- NOVARA_DESK_TILE_LAYOUT_FIX_V76 -->
+<style id="novara-desk-tile-layout-fix-v76">
+#mvp-product-tour .studio-aside [data-studio-points] li:before{
+  position:static!important;
+  left:auto!important;
+  top:auto!important;
+  grid-column:1!important;
+  grid-row:1!important;
+  align-self:center!important;
+}
+#mvp-product-tour .studio-aside [data-studio-points] li>div{
+  grid-column:2!important;
+  grid-row:1!important;
+  min-width:0!important;
+  width:100%!important;
+}
+#mvp-product-tour .studio-aside [data-studio-points] strong,
+#mvp-product-tour .studio-aside [data-studio-points] span{
+  width:auto!important;
+  max-width:none!important;
+  white-space:normal!important;
+  overflow-wrap:normal!important;
+  word-break:normal!important;
+}
+</style>
+
 </body>
 </html>
