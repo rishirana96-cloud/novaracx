@@ -12192,47 +12192,43 @@ window.addEventListener('message',function(event){if(!event.data||event.data.typ
 
 
 
-<!-- NOVARA_APPROACH_CARD_VISUALS_V1 -->
-<style>
-/* Small visual stations for the operating-approach cards. */
+<!-- NOVARA_APPROACH_CARD_VISUALS_V2 -->
+<style id="novara-approach-process-visuals-v2">
 .approach-card{position:relative!important;overflow:hidden!important}
-.approach-visual{position:absolute;top:14px;right:15px;width:72px;height:42px;display:flex;align-items:center;justify-content:center;pointer-events:none;opacity:.9}
-.approach-visual svg{width:72px;height:42px;overflow:visible}
-.approach-visual .v-line{fill:none;stroke:#5b8b6d;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
-.approach-visual .v-soft{fill:#e3eee6;stroke:#c7dbcd;stroke-width:1}
-.approach-visual .v-dot{fill:#5b8b6d}
-.approach-visual .v-accent{fill:#cfe3d5;stroke:#5b8b6d;stroke-width:1.2}
-.approach-visual .v-muted{fill:#edf3ee;stroke:#d3e0d6;stroke-width:1}
-.approach-visual .v-flow{animation:approachVisualFlow 2.8s ease-in-out infinite}
-@keyframes approachVisualFlow{0%,100%{opacity:.45;transform:translateX(-2px)}50%{opacity:1;transform:translateX(2px)}}
-@media(max-width:680px){.approach-visual{top:11px;right:12px;transform:scale(.86);transform-origin:top right}.approach-card{padding-right:82px!important}}
-@media(prefers-reduced-motion:reduce){.approach-visual .v-flow{animation:none}}
+.approach-visual{position:absolute;top:12px;right:14px;width:112px;height:48px;pointer-events:none;opacity:.9}
+.approach-visual svg{display:block;width:112px;height:48px;overflow:visible}
+.approach-visual .pv-box{fill:#f4f8f5;stroke:#cfe0d3;stroke-width:1}
+.approach-visual .pv-box2{fill:#e6f0e8;stroke:#b9d1bf;stroke-width:1}
+.approach-visual .pv-line{fill:none;stroke:#6a9077;stroke-width:1.35;stroke-linecap:round;stroke-linejoin:round}
+.approach-visual .pv-line2{fill:none;stroke:#9ab3a0;stroke-width:1.15;stroke-linecap:round;stroke-linejoin:round}
+.approach-visual .pv-dot{fill:#6a9077}
+.approach-visual .pv-dot2{fill:#b7cdbd}
+.approach-visual .pv-flow{stroke-dasharray:3 4;animation:pvDash 2.8s linear infinite}
+.approach-visual .pv-pulse{animation:pvPulse 2.8s ease-in-out infinite}
+.approach-visual .pv-rise{transform-box:fill-box;transform-origin:center bottom;animation:pvRise 2.8s ease-in-out infinite}
+.approach-visual .pv-draw{stroke-dasharray:48;stroke-dashoffset:48;animation:pvDraw 3.2s ease-in-out infinite}
+.approach-visual .pv-spin{transform-box:fill-box;transform-origin:center;animation:pvSpin 7s linear infinite}
+@keyframes pvDash{to{stroke-dashoffset:-28}}
+@keyframes pvPulse{0%,100%{opacity:.42}50%{opacity:1}}
+@keyframes pvRise{0%,100%{transform:scaleY(.72)}50%{transform:scaleY(1)}}
+@keyframes pvDraw{0%{stroke-dashoffset:48;opacity:.35}35%,75%{stroke-dashoffset:0;opacity:1}100%{stroke-dashoffset:-48;opacity:.35}}
+@keyframes pvSpin{to{transform:rotate(360deg)}}
+@media(max-width:680px){.approach-visual{top:9px;right:10px;transform:scale(.78);transform-origin:top right}.approach-card{padding-right:92px!important}}
+@media(prefers-reduced-motion:reduce){.approach-visual .pv-flow,.approach-visual .pv-pulse,.approach-visual .pv-rise,.approach-visual .pv-draw,.approach-visual .pv-spin{animation:none}}
 </style>
-<script>
-(()=>{
- const installApproachVisuals=()=>{
-  const icons=[
-   '<rect class="v-soft" x="5" y="8" width="35" height="8" rx="3"/><rect class="v-muted" x="11" y="17" width="35" height="8" rx="3"/><rect class="v-accent" x="17" y="26" width="35" height="8" rx="3"/><path class="v-line" d="M57 11h10M57 20h7M57 29h11"/>',
-   '<circle class="v-soft" cx="18" cy="22" r="12"/><path class="v-line" d="M18 14v8l5 3"/><path class="v-line v-flow" d="M36 22h27"/><path class="v-line" d="m57 16 7 6-7 6"/>',
-   '<circle class="v-accent" cx="14" cy="21" r="5"/><circle class="v-soft" cx="36" cy="11" r="5"/><circle class="v-soft" cx="58" cy="29" r="5"/><path class="v-line" d="M18 19l14-6M40 14l14 12"/>',
-   '<rect class="v-soft" x="7" y="7" width="58" height="28" rx="8"/><circle class="v-dot" cx="20" cy="21" r="3"/><circle class="v-dot" cx="32" cy="15" r="3"/><circle class="v-dot" cx="44" cy="21" r="3"/><circle class="v-dot" cx="32" cy="28" r="3"/><path class="v-line" d="M23 20l6-3m6 0 6 3m-11 3 5 4"/>',
-   '<circle class="v-soft" cx="15" cy="21" r="8"/><circle class="v-accent" cx="57" cy="21" r="8"/><path class="v-line v-flow" d="M25 21h22"/><path class="v-line" d="m41 15 7 6-7 6"/><path class="v-line" d="M11 21h8"/>',
-   '<path class="v-line" d="M7 31V22M19 31V16M31 31V20M43 31V11M55 31V7"/><path class="v-line v-flow" d="M7 18c10-2 15 1 24-5s16-1 28-8"/><circle class="v-dot" cx="55" cy="7" r="3"/>',
-   '<path class="v-line" d="M31 6a16 16 0 1 0 14 24"/><path class="v-line" d="m45 20 1 10-10-1"/><circle class="v-accent" cx="31" cy="22" r="6"/><path class="v-line" d="M28 22l2 2 5-6"/>',
-   '<circle class="v-soft" cx="31" cy="20" r="13"/><circle class="v-line" cx="31" cy="20" r="7"/><path class="v-line" d="m41 30 10 8"/><path class="v-accent" d="M27 20h8M31 16v8"/>'
-  ];
-  document.querySelectorAll('#novara-operating-approach .approach-step').forEach((step,index)=>{
-   const card=step.querySelector('.approach-card');
-   if(!card || card.querySelector('.approach-visual'))return;
-   const visual=document.createElement('span');
-   visual.className='approach-visual';
-   visual.setAttribute('aria-hidden','true');
-   visual.innerHTML='<svg viewBox="0 0 72 42" role="presentation">'+(icons[index]||icons[7])+'</svg>';
-   card.appendChild(visual);
-  });
- };
- if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',installApproachVisuals,{once:true});else installApproachVisuals();
- new MutationObserver(installApproachVisuals).observe(document.body,{childList:true,subtree:true});
+<script id="novara-approach-process-visuals-script-v2">
+(()=>{const visuals=[
+'<rect class="pv-box" x="3" y="8" width="27" height="8" rx="3"/><rect class="pv-box" x="3" y="20" width="27" height="8" rx="3"/><rect class="pv-box2" x="3" y="32" width="27" height="8" rx="3"/><path class="pv-line pv-flow" d="M34 12h14M34 24h22M34 36h14"/><circle class="pv-dot pv-pulse" cx="64" cy="12" r="3"/><circle class="pv-dot2" cx="64" cy="24" r="3"/><circle class="pv-dot2" cx="64" cy="36" r="3"/><path class="pv-line" d="M69 12h10M69 24h10M69 36h10"/>',
+'<circle class="pv-box" cx="19" cy="25" r="15"/><path class="pv-line" d="M19 16v9l6 4"/><path class="pv-line pv-flow" d="M38 25h29"/><path class="pv-line" d="m61 20 6 5-6 5"/><circle class="pv-dot pv-pulse" cx="47" cy="25" r="2.5"/>',
+'<rect class="pv-box" x="3" y="17" width="23" height="14" rx="5"/><path class="pv-line" d="M8 22h13M8 26h9"/><path class="pv-line pv-flow" d="M30 24h11"/><rect class="pv-box2" x="45" y="10" width="23" height="14" rx="5"/><path class="pv-line" d="M50 15h13M50 19h9"/><circle class="pv-dot pv-pulse" cx="76" cy="17" r="3"/><path class="pv-line" d="M68 17h5"/>',
+'<rect class="pv-box" x="4" y="13" width="20" height="24" rx="5"/><rect class="pv-box2" x="32" y="8" width="28" height="29" rx="7"/><circle class="pv-dot2" cx="40" cy="16" r="2.3"/><circle class="pv-dot" cx="48" cy="16" r="2.3"/><circle class="pv-dot2" cx="56" cy="16" r="2.3"/><path class="pv-line" d="M39 23h14M39 28h10"/><path class="pv-line pv-flow" d="M25 25h6"/><circle class="pv-dot pv-pulse" cx="72" cy="25" r="3"/>',
+'<circle class="pv-box" cx="17" cy="25" r="11"/><circle class="pv-box2" cx="76" cy="25" r="11"/><path class="pv-line" d="M10 25h14"/><path class="pv-line pv-flow" d="M30 25h38"/><path class="pv-line" d="m61 20 7 5-7 5"/><circle class="pv-dot pv-pulse" cx="45" cy="25" r="3"/>',
+'<path class="pv-line2" d="M5 39h72"/><rect class="pv-box" x="9" y="27" width="8" height="12" rx="2"/><rect class="pv-box" x="23" y="21" width="8" height="18" rx="2"/><rect class="pv-box" x="37" y="25" width="8" height="14" rx="2"/><rect class="pv-box2 pv-rise" x="51" y="16" width="8" height="23" rx="2"/><rect class="pv-box2 pv-rise" x="65" y="10" width="8" height="29" rx="2"/><path class="pv-line pv-draw" d="M8 29c12-8 18 2 29-4s17-13 36-16"/>',
+'<path class="pv-line2" d="M27 9a17 17 0 0 0-8 31 17 17 0 0 0 24-9"/><path class="pv-line pv-spin" d="M50 15a17 17 0 0 0-23-6"/><path class="pv-line" d="m43 31 1 10-10-1"/><circle class="pv-box2" cx="35" cy="24" r="7"/><path class="pv-line" d="m32 24 2 2 5-5"/><circle class="pv-dot pv-pulse" cx="35" cy="7" r="2.5"/>'
+];
+function decorate(){document.querySelectorAll('#novara-operating-approach .approach-step').forEach((step,i)=>{const card=step.querySelector('.approach-card');if(!card||card.querySelector('.approach-visual'))return;const v=document.createElement('span');v.className='approach-visual';v.setAttribute('aria-hidden','true');v.innerHTML='<svg viewBox="0 0 82 48" preserveAspectRatio="xMidYMid meet" role="presentation">'+(visuals[i]||visuals[6])+'</svg>';card.appendChild(v)})}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',decorate,{once:true});else decorate();
+new MutationObserver(decorate).observe(document.body,{childList:true,subtree:true});
 })();
 </script>
 </body>
