@@ -12191,5 +12191,49 @@ window.addEventListener('message',function(event){if(!event.data||event.data.typ
 </script>
 
 
+
+<!-- NOVARA_APPROACH_CARD_VISUALS_V1 -->
+<style>
+/* Small visual stations for the operating-approach cards. */
+.approach-card{position:relative!important;overflow:hidden!important}
+.approach-visual{position:absolute;top:14px;right:15px;width:72px;height:42px;display:flex;align-items:center;justify-content:center;pointer-events:none;opacity:.9}
+.approach-visual svg{width:72px;height:42px;overflow:visible}
+.approach-visual .v-line{fill:none;stroke:#5b8b6d;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.approach-visual .v-soft{fill:#e3eee6;stroke:#c7dbcd;stroke-width:1}
+.approach-visual .v-dot{fill:#5b8b6d}
+.approach-visual .v-accent{fill:#cfe3d5;stroke:#5b8b6d;stroke-width:1.2}
+.approach-visual .v-muted{fill:#edf3ee;stroke:#d3e0d6;stroke-width:1}
+.approach-visual .v-flow{animation:approachVisualFlow 2.8s ease-in-out infinite}
+@keyframes approachVisualFlow{0%,100%{opacity:.45;transform:translateX(-2px)}50%{opacity:1;transform:translateX(2px)}}
+@media(max-width:680px){.approach-visual{top:11px;right:12px;transform:scale(.86);transform-origin:top right}.approach-card{padding-right:82px!important}}
+@media(prefers-reduced-motion:reduce){.approach-visual .v-flow{animation:none}}
+</style>
+<script>
+(()=>{
+ const installApproachVisuals=()=>{
+  const icons=[
+   '<rect class="v-soft" x="5" y="8" width="35" height="8" rx="3"/><rect class="v-muted" x="11" y="17" width="35" height="8" rx="3"/><rect class="v-accent" x="17" y="26" width="35" height="8" rx="3"/><path class="v-line" d="M57 11h10M57 20h7M57 29h11"/>',
+   '<circle class="v-soft" cx="18" cy="22" r="12"/><path class="v-line" d="M18 14v8l5 3"/><path class="v-line v-flow" d="M36 22h27"/><path class="v-line" d="m57 16 7 6-7 6"/>',
+   '<circle class="v-accent" cx="14" cy="21" r="5"/><circle class="v-soft" cx="36" cy="11" r="5"/><circle class="v-soft" cx="58" cy="29" r="5"/><path class="v-line" d="M18 19l14-6M40 14l14 12"/>',
+   '<rect class="v-soft" x="7" y="7" width="58" height="28" rx="8"/><circle class="v-dot" cx="20" cy="21" r="3"/><circle class="v-dot" cx="32" cy="15" r="3"/><circle class="v-dot" cx="44" cy="21" r="3"/><circle class="v-dot" cx="32" cy="28" r="3"/><path class="v-line" d="M23 20l6-3m6 0 6 3m-11 3 5 4"/>',
+   '<circle class="v-soft" cx="15" cy="21" r="8"/><circle class="v-accent" cx="57" cy="21" r="8"/><path class="v-line v-flow" d="M25 21h22"/><path class="v-line" d="m41 15 7 6-7 6"/><path class="v-line" d="M11 21h8"/>',
+   '<path class="v-line" d="M7 31V22M19 31V16M31 31V20M43 31V11M55 31V7"/><path class="v-line v-flow" d="M7 18c10-2 15 1 24-5s16-1 28-8"/><circle class="v-dot" cx="55" cy="7" r="3"/>',
+   '<path class="v-line" d="M31 6a16 16 0 1 0 14 24"/><path class="v-line" d="m45 20 1 10-10-1"/><circle class="v-accent" cx="31" cy="22" r="6"/><path class="v-line" d="M28 22l2 2 5-6"/>',
+   '<circle class="v-soft" cx="31" cy="20" r="13"/><circle class="v-line" cx="31" cy="20" r="7"/><path class="v-line" d="m41 30 10 8"/><path class="v-accent" d="M27 20h8M31 16v8"/>'
+  ];
+  document.querySelectorAll('#novara-operating-approach .approach-step').forEach((step,index)=>{
+   const card=step.querySelector('.approach-card');
+   if(!card || card.querySelector('.approach-visual'))return;
+   const visual=document.createElement('span');
+   visual.className='approach-visual';
+   visual.setAttribute('aria-hidden','true');
+   visual.innerHTML='<svg viewBox="0 0 72 42" role="presentation">'+(icons[index]||icons[7])+'</svg>';
+   card.appendChild(visual);
+  });
+ };
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',installApproachVisuals,{once:true});else installApproachVisuals();
+ new MutationObserver(installApproachVisuals).observe(document.body,{childList:true,subtree:true});
+})();
+</script>
 </body>
 </html>
