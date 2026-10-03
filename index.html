@@ -2150,7 +2150,7 @@ updateProgress();
       const clearTimers=()=>{timers.forEach(clearTimeout);timers=[]};
       const later=(fn,delay)=>{const id=setTimeout(fn,delay);timers.push(id)};
       const safe=value=>String(value).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
-      const addBubble=(type,html,time='now')=>{const bubble=document.createElement('div');bubble.className=`wa-bubble ${type}`;bubble.innerHTML=`${html}<small>${time} ${type.includes('wa-out')?'<i>✓✓</i>':''}</small>`;scene.appendChild(bubble);chat.scrollTop=chat.scrollHeight;return bubble};
+      const addBubble=(type,html,time='')=>{const bubble=document.createElement('div');bubble.className=`wa-bubble ${type}`;bubble.innerHTML=`${html}<small>${time} ${type.includes('wa-out')?'<i>✓✓</i>':''}</small>`;scene.appendChild(bubble);chat.scrollTop=chat.scrollHeight;return bubble};
       const addSystem=(text,state='')=>{const system=document.createElement('div');system.className=`wa-system ${state}`;system.textContent=text;scene.appendChild(system);chat.scrollTop=chat.scrollHeight};
       const typing=()=>{const el=document.createElement('div');el.className='wa-typing';el.innerHTML='<i></i><i></i><i></i>';scene.appendChild(el);chat.scrollTop=chat.scrollHeight;return el};
       const normalizeQuestion=value=>String(value||'').trim().toLowerCase().replace(/[’‘]/g,"'").replace(/[^a-z0-9]+/g,' ').trim();
