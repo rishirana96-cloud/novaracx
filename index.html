@@ -12192,5 +12192,20 @@ window.addEventListener('message',function(event){if(!event.data||event.data.typ
 
 
 
-</body>
+
+
+<style id="novara-whatsapp-alignment-fix">
+/* Precision alignment pass for the WhatsApp demos only. */
+.novara-mechanism .wa-shot .wa-phone{display:flex;flex-direction:column}
+.novara-mechanism .wa-shot .wa-topbar{display:flex;align-items:center}
+.novara-mechanism .wa-shot .wa-topbar>*{align-self:center}
+.novara-mechanism .wa-shot .wa-chat{padding-left:12px!important;padding-right:12px!important}
+.novara-mechanism .wa-shot .wa-bubble{box-sizing:border-box}
+.novara-mechanism .wa-shot .wa-bubble>small{display:inline-flex!important;align-items:center!important;justify-content:flex-end!important;gap:3px!important;white-space:nowrap!important;line-height:1!important}
+.novara-mechanism .wa-shot .wa-bubble>small>i{display:inline-block!important;margin:0!important;padding:0!important;font-style:normal!important;letter-spacing:-3px!important;word-spacing:0!important;transform:translateY(-.2px)!important}
+.novara-mechanism .wa-shot .wa-bubble.wa-out>small{margin-left:auto!important}
+.novara-mechanism .wa-shot .wa-live-composer{display:flex;align-items:center!important;gap:7px!important}
+.novara-mechanism .wa-shot .wa-live-composer input{min-width:0}
+.novara-mechanism .wa-shot .wa-live-send{display:grid;place-items:center;flex:0 0 auto}
+</style>\n</body>
 </html>
