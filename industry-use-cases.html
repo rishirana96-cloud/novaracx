@@ -1061,6 +1061,39 @@
   .bot-live-note{margin:0;padding:0 16px 14px;background:#eef3ef;color:#69786e;font-size:11px;line-height:1.5}
   @media(max-width:850px){.lab-layout{grid-template-columns:1fr}.instructions-text{min-height:210px}.bot-widget-stage .chatbot-window{height:580px!important}}
   @media(max-width:560px){.bot-lab{padding:54px 0}.instruction-body{padding:15px}.bot-live-caption{padding:14px}.bot-widget-stage{padding:8px}.bot-widget-stage .chatbot-window{height:540px!important}.bot-live-caption span{max-width:200px}}
+
+  /* Clear two-step layout for the interactive chatbot demo. */
+  .bot-lab{padding:88px 0;background:linear-gradient(180deg,#f7faf7 0%,#fff 34%,#f8faf8 100%)}
+  .bot-lab-head{max-width:720px;margin-bottom:34px}
+  .bot-lab-head .eyebrow{color:#527b60}
+  .bot-lab-head h2{max-width:620px;font-size:clamp(34px,4.2vw,50px);letter-spacing:-.055em}
+  .bot-lab-head p{font-size:16px;line-height:1.7;color:#627168}
+  .lab-layout{grid-template-columns:minmax(300px,.88fr) minmax(0,1.12fr);gap:22px}
+  .instruction-panel,.bot-live-panel{border-color:#e0e8e1;border-radius:22px;box-shadow:0 14px 40px rgba(28,58,39,.07)}
+  .panel-head{min-height:78px;padding:17px 20px;background:#fff}
+  .panel-head > div{display:flex;align-items:center;gap:12px}
+  .step-number{display:grid;place-items:center;width:34px;height:34px;flex:0 0 34px;border-radius:11px;background:#e8f1eb;color:#315d41;font-size:14px;font-weight:800}
+  .panel-head strong{font-size:15px}
+  .panel-head small{font-size:12px;line-height:1.4}
+  .instruction-body{padding:20px}
+  .field-label{font-size:12px;color:#354c3d}
+  .industry-select{min-height:46px;margin-bottom:20px;border-color:#dce5dd;border-radius:11px;box-shadow:0 2px 5px rgba(28,58,39,.025)}
+  .instructions-text{min-height:190px;border-color:#dce5dd;border-radius:12px;background:#f8faf8;padding:13px 14px;font:13px/1.65 Inter,system-ui,sans-serif;color:#33473a}
+  .instruction-note{padding:11px 12px;border-radius:10px;background:#f3f7f3;color:#65736a;font-size:11px;line-height:1.6}
+  .instruction-actions{margin-top:14px}
+  .small-button{min-height:40px;border-radius:10px;transition:transform .18s ease,box-shadow .18s ease,background .18s ease}
+  .small-button:hover{transform:translateY(-1px);box-shadow:0 5px 14px rgba(28,58,39,.1)}
+  .small-button.primary{background:#315d41;border-color:#315d41}
+  .bot-live-panel{background:#eef4ef}
+  .bot-live-caption{min-height:78px;padding:16px 20px;background:linear-gradient(115deg,#244a33,#376449)}
+  .bot-live-caption strong{font-size:15px}
+  .bot-live-caption > div > span{font-size:11px;line-height:1.4}
+  .bot-live-caption .step-number{display:inline-grid;vertical-align:middle;margin-right:10px;background:rgba(255,255,255,.13);color:#fff}
+  .live-pill{padding:7px 10px!important;background:rgba(255,255,255,.1)}
+  .bot-widget-stage{padding:16px;background:#eef4ef}
+  .bot-widget-stage .chatbot-window{height:590px!important;border:1px solid #e2e9e3!important;box-shadow:0 12px 32px rgba(20,45,30,.13)!important}
+  @media(max-width:850px){.bot-lab{padding:68px 0}.lab-layout{grid-template-columns:1fr;gap:18px}.instructions-text{min-height:190px}}
+  @media(max-width:560px){.bot-lab{padding:54px 0}.bot-lab-head{margin-bottom:24px}.bot-lab-head h2{font-size:36px}.bot-lab-head p{font-size:14px}.panel-head{min-height:72px;padding:14px 16px}.instruction-body{padding:16px}.bot-live-caption{min-height:72px;padding:14px 16px}.bot-widget-stage{padding:9px}.bot-widget-stage .chatbot-window{height:540px!important}}
   </style>
 </head>
 <body>
@@ -1101,12 +1134,12 @@
         <div class="bot-lab-head">
           <div class="eyebrow">Interactive chatbot demo</div>
           <h2>See how instructions shape support.</h2>
-          <p>This is the chatbot already used on Novara CX. Choose an industry, edit the instructions it receives for this demo, and test a real conversation.</p>
+          <p>Pick an industry, shape the bot’s guidance, then try a conversation with the live Novara CX support demo.</p>
         </div>
         <div class="lab-layout">
           <section class="instruction-panel" aria-labelledby="instruction-title">
             <div class="panel-head">
-              <div><strong id="instruction-title">Bot instructions</strong><small>Review and edit before testing</small></div>
+              <div><span class="step-number" aria-hidden="true">1</span><span><strong id="instruction-title">Set the bot’s guidance</strong><small>Choose an industry and adjust its instructions</small></span></div>
               <span class="panel-tag">Editable</span>
             </div>
             <div class="instruction-body">
@@ -1129,7 +1162,7 @@
             </div>
           </section>
           <section class="bot-live-panel" aria-label="Live Novara CX chatbot">
-            <div class="bot-live-caption"><div><strong>Live Novara CX Support</strong><span>Existing chatbot UI and AI backend</span></div><span class="live-pill">AI live</span></div>
+            <div class="bot-live-caption"><div><strong><span class="step-number" aria-hidden="true">2</span>Try a conversation</strong><span>Ask a question to see how it responds</span></div><span class="live-pill">AI live</span></div>
             <div class="bot-widget-stage">
               <!-- chatbot -->
 <button class="chat-toggle" id="chatToggle" aria-label="Open chat"><svg class="chat" viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><path d="M8 10h.01M12 10h.01M16 10h.01"/></svg><svg class="x" viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
