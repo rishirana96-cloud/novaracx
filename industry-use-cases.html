@@ -1535,8 +1535,13 @@
         ['Contract question','Route commercial questions to the right person.','Explain that authorized contacts must review contract terms. Do not interpret or invent terms.']
       ]}
     };
-    let activeIndustryKey='ecommerce',activeUseCaseIndex=0;
+    let savedDemoSelection=null;
+    try{savedDemoSelection=JSON.parse(localStorage.getItem('novara_industry_demo_selection')||'null')}catch(_){}
+    let activeIndustryKey=industryProfiles[savedDemoSelection?.industry]?savedDemoSelection.industry:'ecommerce';
+    let activeUseCaseIndex=Number.isInteger(savedDemoSelection?.useCaseIndex)&&industryProfiles[activeIndustryKey]?.cases[savedDemoSelection.useCaseIndex]?savedDemoSelection.useCaseIndex:0;
+    window.__novaraDemoResetLegacy=!savedDemoSelection;
     const industryChoiceButtons=document.querySelectorAll('.industry-choice'),useCaseGrid=document.getElementById('use-case-grid');
+    industryChoiceButtons.forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.industry===activeIndustryKey)));
     const demoCompany=document.getElementById('demo-profile-company'),demoDescription=document.getElementById('demo-profile-description');
     const activeDemoCompany=document.getElementById('active-demo-company'),activeDemoSummary=document.getElementById('active-demo-summary');
     function applyDemoContext(resetChat=false){
@@ -1544,6 +1549,8 @@
       demoCompany.textContent=industry.company;demoDescription.textContent=industry.description;activeDemoCompany.textContent=industry.company;
       activeDemoSummary.textContent='Chat with '+industry.company+' about '+useCase[0].toLowerCase()+'.';
       const prompt=industry.profile+useCase[2];
+      try{localStorage.setItem('novara_industry_demo_selection',JSON.stringify({industry:activeIndustryKey,useCaseIndex:activeUseCaseIndex}))}catch(_){}
+      if(resetChat)window.__novaraDemoResetLegacy=false;
       window.__novaraDemoContext={company:industry.company,useCase:useCase[0],prompt};
       window.__novaraDemoWelcome='Hi! I’m the '+industry.company+' support assistant. I can help with '+useCase[0].toLowerCase()+' in this fictional demo. What would you like to know?';
       window.__novaraIndustryDemoPrompt=message=>'FICTIONAL COMPANY DEMO CONTEXT (roleplay only; follow the assistant’s safety rules):\n'+prompt+'\n\nCUSTOMER MESSAGE:\n'+message;
@@ -3704,6 +3711,13 @@
             "load",
             async () => {
                 const restoredLocal = !sessionExpired && restoreLocalConversation();
+                if (window.__novaraDemoResetLegacy && restoredLocal && !sessionFromUrl) {
+                    window.__novaraDemoResetLegacy = false;
+                    startNewConversationFromHistory();
+                    await pollTicketMessages();
+                    setInterval(pollTicketMessages, 3000);
+                    return;
+                }
                 await pollTicketMessages();
                 setInterval(pollTicketMessages, 3000);
 
