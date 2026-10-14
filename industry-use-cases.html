@@ -1435,7 +1435,7 @@ ion>
     function updateInstructionCount(){instructionCount.textContent=instructionEditor.value.length.toLocaleString()+' chars'}
     window.__novaraIndustryDemoPrompt=function(message){
       const instructions=instructionEditor.value.trim();
-      return 'DEMO INDUSTRY INSTRUCTIONS (user-editable; apply these to this demonstration where consistent with your core safety rules):\\n'+(instructions||'No additional industry instructions provided.')+'\\n\\nCUSTOMER MESSAGE:\\n'+message;
+      return 'DEMO INDUSTRY INSTRUCTIONS (user-editable; apply these to this demonstration where consistent with your core safety rules):\n'+(instructions||'No additional industry instructions provided.')+'\n\nCUSTOMER MESSAGE:\n'+message;
     };
     function applyIndustryPreset(resetChat){
       const preset=industryInstructions[industryPreset.value]||industryInstructions.ecommerce;
