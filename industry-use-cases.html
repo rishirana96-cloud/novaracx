@@ -1094,6 +1094,47 @@
   .bot-widget-stage .chatbot-window{height:590px!important;border:1px solid #e2e9e3!important;box-shadow:0 12px 32px rgba(20,45,30,.13)!important}
   @media(max-width:850px){.bot-lab{padding:68px 0}.lab-layout{grid-template-columns:1fr;gap:18px}.instructions-text{min-height:190px}}
   @media(max-width:560px){.bot-lab{padding:54px 0}.bot-lab-head{margin-bottom:24px}.bot-lab-head h2{font-size:36px}.bot-lab-head p{font-size:14px}.panel-head{min-height:72px;padding:14px 16px}.instruction-body{padding:16px}.bot-live-caption{min-height:72px;padding:14px 16px}.bot-widget-stage{padding:9px}.bot-widget-stage .chatbot-window{height:540px!important}}
+
+  /* Industry examples and the live general assistant are intentionally distinct. */
+  .bot-lab{padding:84px 0;background:linear-gradient(180deg,#f6f9f6 0%,#fff 100%)}
+  .bot-lab-head{max-width:760px;margin-bottom:26px}
+  .bot-lab-head h2{font-size:clamp(34px,4vw,48px);line-height:1.08;letter-spacing:-.05em}
+  .bot-lab-head p{max-width:680px;color:#627168;font-size:16px;line-height:1.7}
+  .industry-demo-picker{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 20px}
+  .industry-choice{min-height:40px;padding:9px 14px;border:1px solid #dce5dd;border-radius:999px;background:#fff;color:#40574a;font-family:inherit;font-size:12px;font-weight:600;cursor:pointer;transition:background .18s,border-color .18s,color .18s,transform .18s}
+  .industry-choice:hover{border-color:#8fae98;transform:translateY(-1px)}
+  .industry-choice[aria-pressed="true"]{background:#315d41;border-color:#315d41;color:#fff;box-shadow:0 5px 14px rgba(28,58,39,.12)}
+  .industry-demo-layout{display:grid;grid-template-columns:minmax(0,1.04fr) minmax(360px,.96fr);gap:20px;align-items:stretch}
+  .industry-preview-panel,.bot-live-panel{min-width:0;overflow:hidden;border:1px solid #e0e8e1;border-radius:22px;background:#fff;box-shadow:0 14px 40px rgba(28,58,39,.07)}
+  .preview-panel-head{min-height:78px;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:16px 20px;border-bottom:1px solid #edf0eb;background:#fff}
+  .preview-panel-head>div{display:flex;align-items:center;gap:12px}
+  .preview-panel-head strong{display:block;color:#23392c;font-size:15px}
+  .preview-panel-head small{display:block;margin-top:4px;color:#718076;font-size:12px}
+  .step-number{display:grid;place-items:center;width:36px;height:36px;flex:0 0 36px;border-radius:12px;background:#e8f1eb;color:#315d41;font-size:11px;font-weight:800}
+  .example-tag{padding:6px 10px;border-radius:999px;background:#eef5ef;color:#42664d;font-size:10px;font-weight:750;letter-spacing:.07em;text-transform:uppercase}
+  .preview-conversation{display:grid;gap:13px;padding:20px;background:#f6f9f6}
+  .preview-message{max-width:92%;padding:13px 15px;border:1px solid #e1e9e2;border-radius:15px;background:#fff;box-shadow:0 4px 14px rgba(25,55,37,.045)}
+  .preview-message.customer{justify-self:end;background:#e3eee6;border-color:#cdddcf}
+  .message-label{display:flex;align-items:center;gap:7px;color:#718076;font-size:10px;font-weight:750;letter-spacing:.04em;text-transform:uppercase}
+  .preview-message p{margin:6px 0 0;color:#2e4135;font-size:13px;line-height:1.6}
+  .mini-brand{display:grid;place-items:center;width:17px;height:17px;border-radius:5px;background:#315d41;color:#fff;font-size:10px;text-transform:none}
+  .sample-questions{padding:16px 20px 0}
+  .sample-questions-label{color:#41564a;font-size:11px;font-weight:750}
+  .sample-question-list{display:flex;flex-wrap:wrap;gap:7px;margin-top:9px}
+  .sample-question{padding:8px 11px;border:1px solid #dce5dd;border-radius:999px;background:#fff;color:#40574a;font-family:inherit;font-size:11px;font-weight:600;line-height:1.3;cursor:pointer}
+  .sample-question:hover,.sample-question[aria-pressed="true"]{border-color:#789781;background:#edf4ef;color:#284b35}
+  .sample-disclaimer{margin:14px 20px 18px;color:#718076;font-size:10px;line-height:1.5}
+  .bot-live-panel{display:flex;flex-direction:column;background:#eef4ef}
+  .bot-live-caption{min-height:78px;padding:15px 18px;background:linear-gradient(115deg,#244a33,#376449)}
+  .bot-live-caption strong{font-size:14px}
+  .bot-live-caption span{color:#d6e5da;font-size:11px;line-height:1.4}
+  .live-pill{white-space:nowrap;padding:7px 10px!important;border:1px solid rgba(255,255,255,.25);border-radius:999px;background:rgba(255,255,255,.1);font-size:10px!important;letter-spacing:.06em;text-transform:uppercase}
+  .bot-widget-stage{padding:13px;background:#eef4ef;min-width:0}
+  .bot-widget-stage .chat-toggle{display:none!important}
+  .bot-widget-stage .chatbot-window{height:500px!important;border:1px solid #e2e9e3!important;border-radius:18px!important;box-shadow:0 12px 32px rgba(20,45,30,.13)!important}
+  .bot-live-note{margin:0;padding:0 15px 13px;background:#eef4ef;color:#69786e;font-size:10px;line-height:1.5}
+  @media(max-width:900px){.industry-demo-layout{grid-template-columns:1fr}.bot-widget-stage .chatbot-window{height:480px!important}}
+  @media(max-width:560px){.bot-lab{padding:56px 0}.bot-lab-head{margin-bottom:21px}.bot-lab-head h2{font-size:35px}.bot-lab-head p{font-size:14px}.industry-demo-picker{gap:7px;margin-bottom:15px}.industry-choice{min-height:38px;padding:8px 11px;font-size:11px}.industry-demo-layout{gap:15px}.preview-panel-head{min-height:70px;padding:13px 15px}.preview-conversation{padding:14px}.preview-message{max-width:96%}.sample-questions{padding:14px 15px 0}.sample-disclaimer{margin:13px 15px 16px}.bot-live-caption{min-height:72px;padding:13px 15px}.bot-widget-stage{padding:8px}.bot-widget-stage .chatbot-window{height:470px!important}}
   </style>
 </head>
 <body>
@@ -1133,39 +1174,37 @@
       <div class="wrap">
         <div class="bot-lab-head">
           <div class="eyebrow">Interactive chatbot demo</div>
-          <h2>See how instructions shape support.</h2>
-          <p>Pick an industry, shape the bot’s guidance, then try a conversation with the live Novara CX support demo.</p>
+          <h2>Explore support for your industry.</h2>
+          <p>Choose an industry to see a sample customer conversation. Then try Novara CX’s live assistant for general questions about our services.</p>
         </div>
-        <div class="lab-layout">
-          <section class="instruction-panel" aria-labelledby="instruction-title">
-            <div class="panel-head">
-              <div><span class="step-number" aria-hidden="true">1</span><span><strong id="instruction-title">Set the bot’s guidance</strong><small>Choose an industry and adjust its instructions</small></span></div>
-              <span class="panel-tag">Editable</span>
+        <div class="industry-demo-picker" role="group" aria-label="Choose an industry">
+          <button class="industry-choice" type="button" data-industry="ecommerce" aria-pressed="true">D2C &amp; ecommerce</button>
+          <button class="industry-choice" type="button" data-industry="healthcare" aria-pressed="false">Clinics &amp; healthcare</button>
+          <button class="industry-choice" type="button" data-industry="education" aria-pressed="false">Edtech &amp; learning</button>
+          <button class="industry-choice" type="button" data-industry="saas" aria-pressed="false">SaaS &amp; digital products</button>
+          <button class="industry-choice" type="button" data-industry="retail" aria-pressed="false">Retail &amp; marketplaces</button>
+          <button class="industry-choice" type="button" data-industry="b2b" aria-pressed="false">B2B &amp; professional services</button>
+        </div>
+        <div class="industry-demo-layout">
+          <section class="industry-preview-panel" aria-labelledby="industry-preview-title">
+            <div class="preview-panel-head">
+              <div><span class="step-number" aria-hidden="true">01</span><span><strong id="industry-preview-title">Sample conversation</strong><small id="industry-preview-subtitle">D2C &amp; ecommerce customer support</small></span></div>
+              <span class="example-tag">Example</span>
             </div>
-            <div class="instruction-body">
-              <label class="field-label" for="industry-preset">Industry preset</label>
-              <select class="industry-select" id="industry-preset">
-                <option value="ecommerce">D2C &amp; ecommerce</option>
-                <option value="healthcare">Clinics &amp; healthcare</option>
-                <option value="education">Edtech &amp; learning</option>
-                <option value="saas">SaaS &amp; digital products</option>
-                <option value="retail">Retail &amp; marketplaces</option>
-                <option value="b2b">B2B &amp; professional services</option>
-              </select>
-              <label class="field-label" for="bot-instructions"><span>Instructions sent with each message</span><span id="instruction-count">0 chars</span></label>
-              <textarea class="instructions-text" id="bot-instructions" spellcheck="true" aria-describedby="instruction-note"></textarea>
-              <p class="instruction-note" id="instruction-note">These instructions are sent as demo context with each message to the existing AI backend. They do not change the production chatbot’s saved system prompt. Use fictional examples; do not enter real customer or patient data.</p>
-              <div class="instruction-actions">
-                <button class="small-button" type="button" id="reset-instructions">Reset preset</button>
-                <button class="small-button primary" type="button" id="start-new-demo">New conversation</button>
-              </div>
+            <div class="preview-conversation" aria-live="polite" aria-atomic="true">
+              <div class="preview-message customer"><span class="message-label">Customer</span><p id="sample-customer-message">My order is late. Can you help me track it?</p></div>
+              <div class="preview-message assistant"><span class="message-label"><span class="mini-brand">n</span> Sample assistant</span><p id="sample-assistant-message">I can help you check the latest tracking update. Please use your order number on the store’s tracking page. If it hasn’t moved, customer support can look into it. I won’t guess an arrival date.</p></div>
             </div>
+            <div class="sample-questions">
+              <span class="sample-questions-label">Try another example</span>
+              <div id="sample-question-list" class="sample-question-list" role="group" aria-label="Sample customer questions"></div>
+            </div>
+            <p class="sample-disclaimer">Illustrative example. The live assistant beside this preview uses Novara CX’s general support information.</p>
           </section>
-          <section class="bot-live-panel" aria-label="Live Novara CX chatbot">
-            <div class="bot-live-caption"><div><strong><span class="step-number" aria-hidden="true">2</span>Try a conversation</strong><span>Ask a question to see how it responds</span></div><span class="live-pill">AI live</span></div>
+          <section class="bot-live-panel" aria-label="Live Novara CX assistant for general questions">
+            <div class="bot-live-caption"><div><strong>Try the live assistant</strong><span>For general questions about Novara CX and NovaraDesk</span></div><span class="live-pill">AI live</span></div>
             <div class="bot-widget-stage">
-              <!-- chatbot -->
-<button class="chat-toggle" id="chatToggle" aria-label="Open chat"><svg class="chat" viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><path d="M8 10h.01M12 10h.01M16 10h.01"/></svg><svg class="x" viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+              <button class="chat-toggle" id="chatToggle" aria-label="Open chat"><svg class="chat" viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><path d="M8 10h.01M12 10h.01M16 10h.01"/></svg><svg class="x" viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
 <div
         class="chatbot-window"
         id="chatbotWindow"
@@ -1341,31 +1380,7 @@
 
     </div>
             </div>
-            <p class="bot-live-note">Demo uses the current Novara CX knowledge and support backend. Avoid entering real personal or sensitive information.</p>
-          </section>
-        </div>
-      </div>
-    </section>
-ion>
-          <section class="demo-chat" aria-label="Live Novara CX chatbot demo">
-            <div class="panel-head">
-              <div><strong>Novara CX Support</strong><small>Existing AI backend · Responses may use Novara’s current knowledge base</small></div>
-              <span class="live-status">AI live</span>
-            </div>
-            <div class="chat-context"><span id="active-industry-label">D2C &amp; ecommerce</span><span>Demo conversation</span></div>
-            <div class="chat-messages" id="demo-chat-messages" role="log" aria-live="polite">
-              <div class="demo-msg bot">Hi! I’m Novara CX Support. Pick an industry and ask me a sample customer question. You can edit my demo instructions at any time.</div>
-            </div>
-            <div class="chat-starters" id="chat-starters">
-              <button class="chat-starter" type="button" data-prompt="Where is my order, and what should I do if it is delayed?">Order delay</button>
-              <button class="chat-starter" type="button" data-prompt="I want to request a refund. What information do you need?">Refund request</button>
-              <button class="chat-starter" type="button" data-prompt="When should this be escalated to a human agent?">Human handoff</button>
-            </div>
-            <form class="chat-compose" id="demo-chat-form">
-              <textarea id="demo-chat-input" rows="1" maxlength="1200" aria-label="Message Novara CX Support" placeholder="Ask a sample customer question…" required></textarea>
-              <button class="chat-send" id="demo-chat-send" type="submit" aria-label="Send message">↑</button>
-            </form>
-            <div class="chat-disclaimer">Demonstration only · Don’t share real customer information</div>
+            <p class="bot-live-note">This assistant answers general questions about Novara CX. It does not switch to the industry examples shown beside it.</p>
           </section>
         </div>
       </div>
@@ -1454,33 +1469,63 @@ ion>
     document.getElementById('year').textContent = new Date().getFullYear();
 
 
-    const industryInstructions = {
-      ecommerce: { label:'D2C & ecommerce', text:'You are a customer support assistant for a D2C ecommerce brand. Be warm, concise, and practical. Help with order tracking, shipping delays, returns, exchanges, product questions, and refund status. Ask for an order number only when useful, and never invent tracking details, refund eligibility, delivery dates, or company policy. If account-specific information or an exception is needed, explain the next step and recommend a human agent. Use only the information available; clearly say when you do not know.' },
-      healthcare: { label:'Clinics & healthcare', text:'You are an administrative support assistant for a clinic. Help with appointment booking questions, clinic hours, visit preparation, billing processes, and routing requests to the right team. Do not diagnose, recommend treatment, interpret symptoms, or make promises about medical outcomes. Do not request unnecessary health details. For urgent symptoms or emergencies, advise the person to contact local emergency services or a qualified medical professional. Never invent clinic policies or appointment availability.' },
-      education: { label:'Edtech & learning', text:'You are a support assistant for an education or learning platform. Help learners and parents with course access, class schedules, onboarding, technical issues, learning resources, and billing questions. Use encouraging, clear language. Do not promise academic results or invent course, payment, or refund policies. Ask for only the minimum information needed. Escalate account-specific, safeguarding, payment-dispute, or unresolved technical issues to a human support agent.' },
-      saas: { label:'SaaS & digital products', text:'You are a support assistant for a SaaS product. Help users with onboarding, account access, feature discovery, setup, troubleshooting, and basic billing questions. Give numbered steps when useful and ask a clarifying question if the problem is unclear. Never ask for passwords, authentication codes, API keys, or secrets. Do not invent product capabilities or claim to have changed account settings. Escalate suspected security issues, outages, data loss, and unresolved bugs to a human.' },
-      retail: { label:'Retail & marketplaces', text:'You are a customer support assistant for a retailer or marketplace. Help with product availability questions, store policies, order issues, returns guidance, and routing between online and in-store support. Be clear about what is known and unknown. Do not invent stock levels, store hours, delivery estimates, return eligibility, or policies. Ask for the order or store details only when relevant and route exceptions or disputes to a human agent.' },
-      b2b: { label:'B2B & professional services', text:'You are a client service assistant for a B2B or professional services company. Help with onboarding steps, service requests, document checklists, project status questions, account queries, and meeting coordination. Be professional, structured, and action-oriented. Do not disclose confidential information or invent contractual commitments, delivery dates, or project status. If a request needs account access, specialist judgement, or a commercial decision, summarise the request and route it to the appropriate human owner.' }
+    const industryScenarios = {
+      ecommerce:{label:'D2C & ecommerce',questions:[
+        {ask:'My order is late. Can you help me track it?',answer:'I can help you check the latest tracking update. Please use your order number on the store’s tracking page. If it hasn’t moved, customer support can look into it. I won’t guess an arrival date.'},
+        {ask:'Can I return an item I bought?',answer:'I can help you find the return steps. Check the store’s return policy for the time window and item conditions. If you share the order number with the store’s support team, they can confirm what applies to your purchase.'},
+        {ask:'I received the wrong item. What should I do?',answer:'I’m sorry that happened. Keep the packaging and contact the store with your order number and a photo of the item. The support team can confirm the next step for an exchange or replacement.'}
+      ]},
+      healthcare:{label:'Clinics & healthcare',questions:[
+        {ask:'How can I reschedule my appointment?',answer:'You can contact the clinic’s appointment team with your name and appointment time to ask about rescheduling. I can help with clinic information, but I can’t access appointment records or give medical advice.'},
+        {ask:'What should I bring to my first visit?',answer:'Clinics often ask patients to bring identification, relevant documents, and any appointment details. Please check directly with your clinic for its specific preparation instructions.'},
+        {ask:'I have an urgent medical concern. Can you help?',answer:'For urgent symptoms or an emergency, contact local emergency services or a qualified medical professional now. This support example can help with clinic administration, not diagnosis or treatment.'}
+      ]},
+      education:{label:'Edtech & learning',questions:[
+        {ask:'I can’t access my course. What should I try?',answer:'First, check that you’re signed into the account used to enroll and try resetting your password through the official sign-in page. If the course still doesn’t appear, the learning platform’s support team can check your enrollment.'},
+        {ask:'Where can I find my class schedule?',answer:'Your class schedule is usually available in the learner dashboard or course announcements. If it’s missing or looks incorrect, contact your course support team so they can check your enrollment.'},
+        {ask:'Can you help me with a billing question?',answer:'I can point you to the platform’s billing support team. They can review account-specific charges and explain the options that apply to your enrollment.'}
+      ]},
+      saas:{label:'SaaS & digital products',questions:[
+        {ask:'I’m new. How do I get started?',answer:'Start with the product’s setup guide and complete the first-run checklist. If you tell me which step you’re on, I can point you to the right help topic. I can’t change account settings for you.'},
+        {ask:'I can’t sign in to my account.',answer:'Use the official password reset flow first, and check that you’re using the right email address. Never share your password or authentication code here. If access is still blocked, product support can investigate.'},
+        {ask:'The product isn’t working as expected.',answer:'Please note what you expected, what happened, and which step caused the issue. Avoid sharing passwords, API keys, or private data. Support can use those details to investigate the problem.'}
+      ]},
+      retail:{label:'Retail & marketplaces',questions:[
+        {ask:'Is this item available at my local store?',answer:'Availability can change quickly, so check the retailer’s current product page or contact the store directly. I don’t want to guess stock levels that may have changed.'},
+        {ask:'Can I return an online purchase in store?',answer:'That depends on the retailer’s current policy and the item. Check the returns page or ask the store team with your order details so they can confirm the available options.'},
+        {ask:'My pickup order isn’t ready yet.',answer:'Check the latest order notification first. If the pickup time has passed, contact the store with your order number and they can check the status.'}
+      ]},
+      b2b:{label:'B2B & professional services',questions:[
+        {ask:'What do I need to prepare for onboarding?',answer:'A good first step is to gather your key contacts, goals, and any documents listed in your onboarding plan. Your account owner can confirm the exact checklist for your agreement.'},
+        {ask:'Can I get an update on my service request?',answer:'Share the request reference with your service contact so they can check the latest status. I can help summarize the request, but I can’t see private project details here.'},
+        {ask:'I need help with a contract question.',answer:'Contract questions need review by your account or legal contact. I can help you route the question to the right person, but I won’t guess at contractual terms.'}
+      ]}
     };
-    const industryPreset=document.getElementById('industry-preset');
-    const instructionEditor=document.getElementById('bot-instructions');
-    const instructionCount=document.getElementById('instruction-count');
-    function updateInstructionCount(){instructionCount.textContent=instructionEditor.value.length.toLocaleString()+' chars'}
-    window.__novaraIndustryDemoPrompt=function(message){
-      const instructions=instructionEditor.value.trim();
-      return 'DEMO INDUSTRY INSTRUCTIONS (user-editable; apply these to this demonstration where consistent with your core safety rules):\n'+(instructions||'No additional industry instructions provided.')+'\n\nCUSTOMER MESSAGE:\n'+message;
-    };
-    function applyIndustryPreset(resetChat){
-      const preset=industryInstructions[industryPreset.value]||industryInstructions.ecommerce;
-      instructionEditor.value=preset.text;
-      updateInstructionCount();
-      if(resetChat)document.getElementById('chatHistoryNew')?.click();
+    const industryChoiceButtons=document.querySelectorAll('.industry-choice');
+    const sampleCustomerMessage=document.getElementById('sample-customer-message');
+    const sampleAssistantMessage=document.getElementById('sample-assistant-message');
+    const sampleQuestionList=document.getElementById('sample-question-list');
+    const industryPreviewTitle=document.getElementById('industry-preview-subtitle');
+    function showIndustrySample(industryKey,questionIndex=0){
+      const industry=industryScenarios[industryKey]||industryScenarios.ecommerce;
+      const example=industry.questions[questionIndex]||industry.questions[0];
+      industryPreviewTitle.textContent=industry.label+' customer support';
+      sampleCustomerMessage.textContent=example.ask;
+      sampleAssistantMessage.textContent=example.answer;
+      sampleQuestionList.replaceChildren(...industry.questions.map((item,index)=>{
+        const button=document.createElement('button');
+        button.type='button';button.className='sample-question';button.textContent=item.ask;
+        button.setAttribute('aria-pressed',String(index===questionIndex));
+        button.addEventListener('click',()=>showIndustrySample(industryKey,index));
+        return button;
+      }));
     }
-    industryPreset.addEventListener('change',()=>applyIndustryPreset(true));
-    document.getElementById('reset-instructions').addEventListener('click',()=>applyIndustryPreset(false));
-    document.getElementById('start-new-demo').addEventListener('click',()=>document.getElementById('chatHistoryNew')?.click());
-    instructionEditor.addEventListener('input',updateInstructionCount);
-    applyIndustryPreset(false);
+    industryChoiceButtons.forEach(button=>button.addEventListener('click',()=>{
+      industryChoiceButtons.forEach(item=>item.setAttribute('aria-pressed',String(item===button)));
+      showIndustrySample(button.dataset.industry);
+    }));
+    showIndustrySample('ecommerce');
+
 
 
   </script>
