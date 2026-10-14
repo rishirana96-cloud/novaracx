@@ -1176,7 +1176,6 @@
   .bot-widget-stage{padding:12px;background:#eef4ef;min-width:0}
   .bot-widget-stage .chat-toggle{display:none!important}
   .bot-widget-stage .chatbot-window{height:500px!important;border:1px solid #e2e9e3!important;border-radius:18px!important;box-shadow:0 12px 32px rgba(20,45,30,.13)!important}
-  .bot-widget-stage #quickReplies{display:none!important}
   .bot-widget-stage .chatbot-header-window .title{font-size:.94rem}
   .bot-widget-stage .chatbot-header-window .title span{display:none!important}
   .bot-widget-stage .chatbot-header-window .status{font-size:.66rem}
@@ -1202,6 +1201,13 @@
   .industry-company-icon svg,.profile-icon svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
   .bot-widget-stage .chatbot-header-window .avatar{background:#315d41}
   @media(max-width:850px){.bot-lab>.wrap{grid-template-columns:1fr}.bot-lab>.wrap>.bot-lab-head,.bot-lab>.wrap>section[aria-labelledby="industry-step-title"],.bot-lab>.wrap>.usecase-step,.bot-lab>.wrap>.live-test-step{grid-column:1;grid-row:auto}.bot-lab>.wrap>.flow-step{padding:18px}.bot-widget-stage .chatbot-window{height:460px!important}}
+
+  .industry-choice{display:inline-flex;align-items:center;gap:8px}
+  .industry-choice-icon{display:grid;place-items:center;width:19px;height:19px;color:currentColor}
+  .industry-choice-icon svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+  .selected-industry-note{margin:-3px 0 11px;color:#718076;font-size:11px}
+  .selected-industry-note strong{color:#315d41;font-weight:750}
+  .bot-widget-stage .quick-replies-window .qr-btn{font-size:11px;white-space:normal}
 </style>
 </head>
 <body>
@@ -1241,16 +1247,15 @@
       <div class="bot-lab-head"><div class="eyebrow">Interactive chatbot demo</div><h2>Choose an industry. Pick a use case. Test it out.</h2><p>Build a sample support conversation for a fictional company in just a few steps.</p></div>
       <section class="flow-step" aria-labelledby="industry-step-title"><div class="flow-step-heading"><span class="step-number">01</span><div><h3 id="industry-step-title">Available industries</h3><p>Choose the kind of business you want to explore.</p></div></div>
         <div class="industry-demo-picker" role="group" aria-label="Choose an industry">
-          <button class="industry-choice" type="button" data-industry="ecommerce" aria-pressed="true">D2C &amp; ecommerce</button><button class="industry-choice" type="button" data-industry="healthcare" aria-pressed="false">Clinics &amp; healthcare</button><button class="industry-choice" type="button" data-industry="education" aria-pressed="false">Edtech &amp; learning</button><button class="industry-choice" type="button" data-industry="saas" aria-pressed="false">SaaS &amp; digital products</button><button class="industry-choice" type="button" data-industry="retail" aria-pressed="false">Retail &amp; marketplaces</button><button class="industry-choice" type="button" data-industry="b2b" aria-pressed="false">B2B &amp; professional services</button>
+          <button class="industry-choice" type="button" data-industry="ecommerce" aria-pressed="true"><span class="industry-choice-icon" aria-hidden="true"></span>Shop & ecommerce</button><button class="industry-choice" type="button" data-industry="healthcare" aria-pressed="false"><span class="industry-choice-icon" aria-hidden="true"></span>Healthcare</button><button class="industry-choice" type="button" data-industry="education" aria-pressed="false"><span class="industry-choice-icon" aria-hidden="true"></span>Education</button><button class="industry-choice" type="button" data-industry="saas" aria-pressed="false"><span class="industry-choice-icon" aria-hidden="true"></span>SaaS</button><button class="industry-choice" type="button" data-industry="retail" aria-pressed="false"><span class="industry-choice-icon" aria-hidden="true"></span>Retail</button><button class="industry-choice" type="button" data-industry="b2b" aria-pressed="false"><span class="industry-choice-icon" aria-hidden="true"></span>Business services</button>
         </div></section>
       <section class="flow-step usecase-step" aria-labelledby="usecase-step-title"><div class="flow-step-heading"><span class="step-number">02</span><div><h3 id="usecase-step-title">Choose a use case</h3><p>Pick a customer question to shape the demo.</p></div></div>
-        <div id="use-case-grid" class="use-case-grid" role="group" aria-label="Choose a customer support use case"></div>
+        <div class="selected-industry-note">Use cases for <strong id="selected-industry-label">Ecommerce</strong></div><div id="use-case-grid" class="use-case-grid" role="group" aria-label="Choose a customer support use case"></div>
         <div class="demo-profile"><div class="profile-icon" id="industry-profile-icon" aria-hidden="true">✦</div><div class="profile-copy"><span class="profile-label">Fictional company profile</span><strong id="demo-profile-company">Cedar &amp; Coast</strong><span id="demo-profile-description">A made-up direct-to-consumer brand for everyday apparel and home goods.</span></div><span class="profile-badge">Made-up business</span></div>
-        <button class="button demo-start-button" type="button" id="start-industry-test">Test it out <span aria-hidden="true">↓</span></button>
       </section>
       <section class="flow-step live-test-step" id="live-test-chat" aria-labelledby="live-test-title"><div class="flow-step-heading"><span class="step-number">03</span><div><h3 id="live-test-title">Test it out</h3><p id="active-demo-summary">Chat with Cedar &amp; Coast about order tracking.</p></div></div>
         <section class="bot-live-panel" aria-label="Live chatbot using the selected fictional company profile">
-          <div class="bot-live-caption"><div><strong><span id="active-demo-company">Cedar &amp; Coast</span> Support</strong><span>AI roleplay with your selected use case</span></div><span class="live-pill">Demo live</span></div>
+          <div class="bot-live-caption"><div><strong><span id="active-demo-company">Cedar &amp; Coast</span> Support</strong><span>AI roleplay with your selected use case</span></div><span class="live-pill">Fictional demo</span></div>
           <div class="bot-widget-stage"><button class="chat-toggle" id="chatToggle" aria-label="Open chat"><svg class="chat" viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><path d="M8 10h.01M12 10h.01M16 10h.01"/></svg><svg class="x" viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
 <div
         class="chatbot-window"
@@ -1352,28 +1357,9 @@
 
         <div class="chatbot-footer">
 
-            <div
-                class="quick-replies-window"
-                id="quickReplies"
-                hidden
-            >
-
-                <button type="button" class="qr-btn" data-question="Show me the Novara CX support plans">
-                    Explore support plans
-                </button>
-
-                <button type="button" class="qr-btn" data-question="What is NovaraDesk and what does it include?">
-                    What is NovaraDesk?
-                </button>
-
-                <button type="button" class="qr-btn" data-question="How does Novara CX work?">
-                    How Novara works
-                </button>
-
-                <button type="button" class="qr-btn" data-question="Help me choose the right Novara CX plan for my needs">
-                    Which plan fits me?
-                </button>
-
+            <div class="quick-replies-window" id="quickReplies" hidden>
+                <button type="button" class="qr-btn" data-question="">Example question</button>
+                <button type="button" class="qr-btn" data-question="">Example question</button>
             </div>
 
 
@@ -1514,40 +1500,52 @@
 
     const industryProfiles={
       ecommerce:{company:'Cedar & Coast',description:'A made-up direct-to-consumer brand for everyday apparel and home goods.',icon:"<svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M4 8h16l-1 12H5L4 8Z\"/><path d=\"M9 9V6a3 3 0 0 1 6 0v3\"/></svg>",profile:'You are the friendly support assistant for Cedar & Coast, a completely fictional direct-to-consumer brand for everyday apparel and home goods. This is roleplay; Cedar & Coast is not real. Fictional policy: unworn items in original condition may be returned within 30 days; orders dispatch within 2 business days and usually arrive 3–5 business days after dispatch. Selected use case: ',cases:[
-        ['Order tracking','Help a customer understand a delayed or in-transit order.','Explain where to find the tracking link in an order confirmation. You cannot access real orders or tracking records; never invent a status or delivery date.'],
-        ['Returns and exchanges','Explain the fictional return steps.','Explain the fictional 30-day policy for unworn items in original condition. Do not claim to process a return or invent order details.'],
-        ['Product questions','Help a shopper choose apparel or home goods.','Use only details the customer provides. Do not invent materials, sizes, stock, prices, or features.'],
-        ['Shipping delay','Set expectations and guide a customer to next steps.','Use the fictional dispatch and delivery ranges above. Never promise an arrival date.']
+        ['Order tracking','Help a customer understand a delayed or in-transit order.','Explain where to find the tracking link in an order confirmation. You cannot access real orders or tracking records; never invent a status or delivery date.',["Where can I find tracking?","What if my order is late?"]],
+        ['Returns and exchanges','Explain the fictional return steps.','Explain the fictional 30-day policy for unworn items in original condition. Do not claim to process a return or invent order details.',["How do I start a return?","Can I exchange an item?"]],
+        ['Product questions','Help a shopper choose apparel or home goods.','Use only details the customer provides. Do not invent materials, sizes, stock, prices, or features.',["Can you help me choose?","What details do you have?"]],
+        ['Shipping delay','Set expectations and guide a customer to next steps.','Use the fictional dispatch and delivery ranges above. Never promise an arrival date.',["What can I do about a delay?","When should I expect an update?"]]
+        ["Change an order","Explain how a customer could ask about an address change.","Explain that the customer should contact support promptly. Do not claim to edit an order or invent shipping status.",["Can I change my delivery address?","Who can help update my order?"]],
+        ["Refund timing","Explain how a refund question would be handled.","Refer to the fictional support team for order-specific status. Do not promise refund timing or claim account access.",["How do refunds work?","Can you check my refund?"]]
       ]},
       healthcare:{company:'Willow Creek Family Clinic',description:'A made-up neighborhood clinic for appointments and visit-information questions.',icon:"<svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M12 3v18M3 12h18\"/></svg>",profile:'You are an administrative support assistant for Willow Creek Family Clinic, a completely fictional clinic. This is roleplay; the clinic is not real. Help only with appointments, clinic information, and visit preparation. Do not diagnose, recommend treatment, request sensitive health details, or imply access to records. For urgent symptoms or emergencies, direct the person to local emergency services or a qualified medical professional. Selected use case: ',cases:[
-        ['Appointment changes','Guide a patient through a rescheduling request.','Explain how to contact the fictional scheduling desk. Do not claim to book or access appointments.'],
-        ['Preparing for a visit','Share general administrative reminders.','Give general reminders and refer to clinic staff for visit-specific instructions. No medical advice.'],
-        ['Clinic information','Answer basic questions about clinic services.','Use only facts supplied in this prompt. If a detail is missing, say clinic staff can confirm it.'],
-        ['Billing questions','Show how a billing question would be routed.','Refer billing questions to clinic staff. Never request payment information or claim account access.']
+        ['Appointment changes','Guide a patient through a rescheduling request.','Explain how to contact the fictional scheduling desk. Do not claim to book or access appointments.',["How do I reschedule?","Who can help with my appointment?"]],
+        ['Preparing for a visit','Share general administrative reminders.','Give general reminders and refer to clinic staff for visit-specific instructions. No medical advice.',["What should I bring?","Where can I confirm visit instructions?"]],
+        ['Clinic information','Answer basic questions about clinic services.','Use only facts supplied in this prompt. If a detail is missing, say clinic staff can confirm it.',["What information can you share?","Who can confirm clinic details?"]],
+        ['Billing questions','Show how a billing question would be routed.','Refer billing questions to clinic staff. Never request payment information or claim account access.',["Who can help with a billing question?","How do I contact the billing team?"]]
+        ["New patient questions","Help a new patient understand the first administrative steps.","Share general administrative guidance only. Refer clinic-specific requirements to staff; do not collect sensitive health information.",["How do I become a new patient?","What should I bring to my first visit?"]],
+        ["Contacting the clinic","Help a patient find the right team for a question.","Explain that clinic staff can route the request. Never invent phone numbers, hours, or contact details.",["Who should I contact about my visit?","Can someone from the clinic follow up?"]]
       ]},
       education:{company:'BrightPath Learning',description:'A made-up online learning platform for learner and parent support.',icon:"<svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"m2 9 10-5 10 5-10 5L2 9Z\"/><path d=\"M6 11v5c3 3 9 3 12 0v-5M22 9v6\"/></svg>",profile:'You are a helpful support assistant for BrightPath Learning, a completely fictional online learning platform. This is roleplay; the company is not real. Help with course access, class schedules, onboarding, and routing billing questions. Never promise academic results, invent account data, or request passwords or payment details. Selected use case: ',cases:[
-        ['Course access','Help a learner troubleshoot access to a class.','Offer safe sign-in troubleshooting. Do not claim access to account or enrollment data.'],
-        ['Class schedule','Guide a learner to schedule updates.','Explain where schedule information would appear. Do not invent class times.'],
-        ['Getting started','Walk a new learner through onboarding.','Give a simple checklist and ask which step they are on. Do not promise outcomes.'],
-        ['Billing support','Route a question about a course charge.','Refer the question to support. Do not request card details or invent refund rules.']
+        ['Course access','Help a learner troubleshoot access to a class.','Offer safe sign-in troubleshooting. Do not claim access to account or enrollment data.',["My course won't open. What can I try?","How do I get help signing in?"]],
+        ['Class schedule','Guide a learner to schedule updates.','Explain where schedule information would appear. Do not invent class times.',["Where can I find my schedule?","Who can confirm class times?"]],
+        ['Getting started','Walk a new learner through onboarding.','Give a simple checklist and ask which step they are on. Do not promise outcomes.',["How do I get started?","What should I do first?"]],
+        ['Billing support','Route a question about a course charge.','Refer the question to support. Do not request card details or invent refund rules.',["Who can help with a course charge?","How do I contact billing?"]]
+        ["Technical support","Help troubleshoot a learning platform issue.","Suggest refreshing, checking the connection, or trying another browser. Do not claim account access or promise a fix.",["My lesson won't load. What can I try?","How do I get technical help?"]],
+        ["Parent support","Guide a parent to the right learning support.","Offer general guidance and route account-specific questions to support. Never disclose learner information.",["How can I support my learner?","Who can help with a parent account?"]]
       ]},
       saas:{company:'Northstar Workspace',description:'A made-up team-planning app for onboarding and product support.',icon:"<svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><rect x=\"3\" y=\"4\" width=\"18\" height=\"16\" rx=\"3\"/><path d=\"M3 9h18M8 6.5h.01M11 6.5h.01M7 13h4m-4 3h8\"/></svg>",profile:'You are a practical support assistant for Northstar Workspace, a completely fictional team-planning app. This is roleplay; the product is not real. Help with onboarding, setup, feature questions, and troubleshooting. Never ask for passwords, authentication codes, API keys, or secrets. Do not claim to change settings or see accounts. Selected use case: ',cases:[
-        ['New team setup','Guide a team through a first setup.','Give simple steps for inviting a team and making a first project. Do not claim to make changes.'],
-        ['Account access','Offer safe sign-in troubleshooting.','Suggest the official password reset and checking the account email. Never ask for credentials or codes.'],
-        ['Finding a feature','Help a user discover a workflow.','Explain a basic shared board and task list. Do not invent other features.'],
-        ['Troubleshooting','Collect details for a support handoff.','Ask what they expected and what happened. Do not request secrets or claim workspace access.']
+        ['New team setup','Guide a team through a first setup.','Give simple steps for inviting a team and making a first project. Do not claim to make changes.',["How do I invite my team?","What should I set up first?"]],
+        ['Account access','Offer safe sign-in troubleshooting.','Suggest the official password reset and checking the account email. Never ask for credentials or codes.',["How do I reset my password?","What if I can't sign in?"]],
+        ['Finding a feature','Help a user discover a workflow.','Explain a basic shared board and task list. Do not invent other features.',["Can you help me find a feature?","How do shared boards work?"]],
+        ['Troubleshooting','Collect details for a support handoff.','Ask what they expected and what happened. Do not request secrets or claim workspace access.',["Something isn't working. What details help?","How do I contact support?"]]
+        ["Inviting teammates","Guide an admin through inviting a colleague.","Describe a general invite flow without claiming access or inventing settings. Never request credentials.",["How do I invite my team?","Can I add another teammate?"]],
+        ["Notifications","Help a user find notification preferences.","Suggest checking account settings for notification options. Do not claim to change settings or invent feature details.",["Where can I manage notifications?","Can I change my email alerts?"]]
       ]},
       retail:{company:'Morrow Market',description:'A made-up multi-location shop with online orders and in-store pickup.',icon:"<svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M3 10h18l-2-6H5l-2 6Z\"/><path d=\"M5 10v10h14V10M9 20v-6h6v6\"/></svg>",profile:'You are a helpful assistant for Morrow Market, a completely fictional multi-location retailer. This is roleplay; the business is not real. Help with pickup, general returns guidance, and product questions. Do not invent inventory, store hours, policies, order status, or prices. Selected use case: ',cases:[
-        ['Store availability','Help a shopper find a current stock answer.','Point to the current product page or a store team. Never claim access to live inventory.'],
-        ['Pickup orders','Guide a customer whose pickup is not ready.','Suggest checking order notifications and contacting the store with a reference. Do not invent status.'],
-        ['Returns','Show how a return question would be handled.','Refer to published terms or support. No return policy is provided; do not invent one.'],
-        ['Product questions','Help compare items using known details.','Ask which product they mean and use only supplied details. Do not invent stock or price.']
+        ['Store availability','Help a shopper find a current stock answer.','Point to the current product page or a store team. Never claim access to live inventory.',["How can I check if an item is in stock?","Can a store confirm availability?"]],
+        ['Pickup orders','Guide a customer whose pickup is not ready.','Suggest checking order notifications and contacting the store with a reference. Do not invent status.',["My pickup isn't ready. What can I do?","Where can I find pickup updates?"]],
+        ['Returns','Show how a return question would be handled.','Refer to published terms or support. No return policy is provided; do not invent one.',["How can I ask about a return?","Where are the return terms?"]],
+        ['Product questions','Help compare items using known details.','Ask which product they mean and use only supplied details. Do not invent stock or price.',["Can you help compare these items?","What details are available?"]]
+        ["Online order help","Guide a shopper with an online order question.","Ask them to use the order confirmation or contact the store team. Never invent order status or claim account access.",["I have a question about my order.","Where can I find my order details?"]],
+        ["Store visit planning","Help a shopper plan a store visit.","Direct them to the official store listing for current hours and services. Do not invent locations or hours.",["How can I check store hours?","Which store can help me?"]]
       ]},
       b2b:{company:'Pine & Partners',description:'A made-up advisory firm for onboarding and client-service requests.',icon:"<svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><rect x=\"3\" y=\"7\" width=\"18\" height=\"14\" rx=\"2\"/><path d=\"M8 7V4h8v3M3 12h18M10 12v2h4v-2\"/></svg>",profile:'You are a professional client-service assistant for Pine & Partners, a completely fictional advisory firm. This is roleplay; the firm is not real. Help with onboarding, service requests, and routing questions. Do not disclose confidential information or invent contract terms, project status, or delivery dates. Selected use case: ',cases:[
-        ['Client onboarding','Prepare a new client for a first meeting.','Share a general checklist of goals, contacts, and requested documents. The client lead confirms exact requirements.'],
-        ['Service request','Organize and route a client request.','Ask for a brief request summary and reference if available. Do not claim access to project records.'],
-        ['Project update','Show a safe response to a status request.','Refer the client to their account contact. Never invent progress or completion dates.'],
-        ['Contract question','Route commercial questions to the right person.','Explain that authorized contacts must review contract terms. Do not interpret or invent terms.']
+        ['Client onboarding','Prepare a new client for a first meeting.','Share a general checklist of goals, contacts, and requested documents. The client lead confirms exact requirements.',["What should I prepare?","Who confirms the requirements?"]],
+        ['Service request','Organize and route a client request.','Ask for a brief request summary and reference if available. Do not claim access to project records.',["How can I submit a service request?","What details should I include?"]],
+        ['Project update','Show a safe response to a status request.','Refer the client to their account contact. Never invent progress or completion dates.',["Who can provide a project update?","How can I reach my account contact?"]],
+        ['Contract question','Route commercial questions to the right person.','Explain that authorized contacts must review contract terms. Do not interpret or invent terms.',["Who can review a contract question?","How do I route this to the right person?"]]
+        ["Document checklist","Help a client prepare general onboarding documents.","Offer a general checklist and remind them that their client lead confirms exact requirements. Do not invent legal or contract requirements.",["What should I prepare for onboarding?","Who can confirm the document list?"]],
+        ["Meeting coordination","Help a client coordinate a follow-up.","Suggest contacting their client lead to confirm availability. Never invent dates, commitments, or calendar access.",["How can I arrange a follow-up?","Who can confirm the meeting time?"]]
       ]}
     };
     let savedDemoSelection=null;
@@ -1556,12 +1554,21 @@
     let activeUseCaseIndex=Number.isInteger(savedDemoSelection?.useCaseIndex)&&industryProfiles[activeIndustryKey]?.cases[savedDemoSelection.useCaseIndex]?savedDemoSelection.useCaseIndex:0;
     window.__novaraDemoResetLegacy=!savedDemoSelection;
     const industryChoiceButtons=document.querySelectorAll('.industry-choice'),useCaseGrid=document.getElementById('use-case-grid');
-    industryChoiceButtons.forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.industry===activeIndustryKey)));
+    const industryLabels={ecommerce:'Shop & ecommerce',healthcare:'Healthcare',education:'Education',saas:'SaaS',retail:'Retail',b2b:'Business services'};
+    industryChoiceButtons.forEach(button=>{
+      button.setAttribute('aria-label',industryLabels[button.dataset.industry]);
+      button.querySelector('.industry-choice-icon').innerHTML=industryProfiles[button.dataset.industry].icon;
+      button.setAttribute('aria-pressed',String(button.dataset.industry===activeIndustryKey));
+    });
+    const selectedIndustryLabel=document.getElementById('selected-industry-label');
+    const demoQuestionChips=[...document.querySelectorAll('#quickReplies .qr-btn')];
     const demoCompany=document.getElementById('demo-profile-company'),demoDescription=document.getElementById('demo-profile-description'),profileIcon=document.getElementById('industry-profile-icon'),chatCompanyIcon=document.getElementById('industry-chat-icon');
     const activeDemoCompany=document.getElementById('active-demo-company'),activeDemoSummary=document.getElementById('active-demo-summary');
     function applyDemoContext(resetChat=false){
       const industry=industryProfiles[activeIndustryKey],useCase=industry.cases[activeUseCaseIndex]||industry.cases[0];
       demoCompany.textContent=industry.company;demoDescription.textContent=industry.description;activeDemoCompany.textContent=industry.company;profileIcon.innerHTML=industry.icon;chatCompanyIcon.innerHTML=industry.icon;
+      selectedIndustryLabel.textContent=industryLabels[activeIndustryKey];
+      (useCase[3]||[]).forEach((question,index)=>{const chip=demoQuestionChips[index];if(chip){chip.textContent=question;chip.dataset.question=question;}});
       activeDemoSummary.textContent='Chat with '+industry.company+' about '+useCase[0].toLowerCase()+'.';
       const prompt=industry.profile+useCase[2];
       try{localStorage.setItem('novara_industry_demo_selection',JSON.stringify({industry:activeIndustryKey,useCaseIndex:activeUseCaseIndex}))}catch(_){}
@@ -1585,10 +1592,6 @@
       activeIndustryKey=button.dataset.industry;activeUseCaseIndex=0;industryChoiceButtons.forEach(item=>item.setAttribute('aria-pressed',String(item===button)));
       renderUseCases();applyDemoContext(true);
     }));
-    document.getElementById('start-industry-test').addEventListener('click',()=>{
-      applyDemoContext(true);document.getElementById('live-test-chat').scrollIntoView({behavior:'smooth',block:'start'});
-      window.setTimeout(()=>document.getElementById('chatInput')?.focus({preventScroll:true}),300);
-    });
     renderUseCases();applyDemoContext(false);
 
 
