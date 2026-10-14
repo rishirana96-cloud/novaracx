@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7f7f0">
+  <meta name="description" content="Explore how Novara CX helps ecommerce, healthcare, education, SaaS and service businesses deliver better customer experiences with AI and human support.">
+  <title>Industry use cases | Novara CX</title>
+  <style>
+    :root{--ink:#20372d;--muted:#617067;--paper:#f7f7f0;--white:#fff;--sage:#e8eee5;--sage-deep:#d7e3d5;--green:#2f6448;--line:#dce3da;--radius:20px;--max:1160px}
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:var(--paper);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.55}
+    a{color:inherit}
+    .wrap{width:min(var(--max),calc(100% - 48px));margin-inline:auto}
+    .topline{height:4px;background:var(--green)}
+    header{border-bottom:1px solid var(--line);background:rgba(247,247,240,.94)}
+    .nav{height:76px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+    .brand{display:inline-flex;align-items:center;gap:10px;text-decoration:none;font-weight:750;letter-spacing:-.04em;font-size:22px}
+    .brand-mark{width:29px;height:29px;border-radius:9px;background:var(--green);display:grid;place-items:center;color:white;font-size:16px;letter-spacing:0}
+    .nav-links{display:flex;align-items:center;gap:26px;font-size:14px;color:var(--muted)}
+    .nav-links a{text-decoration:none}.nav-links a:hover{color:var(--green)}
+    .button{display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:12px 17px;border-radius:999px;background:var(--green);color:white;text-decoration:none;font-size:14px;font-weight:650;border:1px solid var(--green);transition:transform .18s,background .18s}
+    .button:hover{background:#244f38;transform:translateY(-1px)}
+    .button.secondary{background:transparent;color:var(--ink);border-color:#cbd6ca}
+    .hero{padding:88px 0 72px}
+    .eyebrow{display:inline-flex;align-items:center;gap:9px;color:var(--green);font-size:12px;font-weight:750;letter-spacing:.12em;text-transform:uppercase}
+    .eyebrow:before{content:"";width:22px;height:2px;background:var(--green)}
+    h1{font-size:clamp(42px,6.5vw,76px);line-height:1.02;letter-spacing:-.065em;font-weight:620;max-width:850px;margin:22px 0}
+    h1 span{color:var(--green)}
+    .hero-copy{max-width:670px;font-size:18px;color:var(--muted);margin:0}
+    .hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+    .proof-row{display:flex;flex-wrap:wrap;gap:10px 26px;margin-top:38px;color:var(--muted);font-size:13px}
+    .proof-row span:before{content:"✓";color:var(--green);font-weight:800;margin-right:8px}
+    .intro-band{background:var(--sage);padding:25px 0;border-block:1px solid #dfe7dc}
+    .intro-inner{display:flex;justify-content:space-between;align-items:center;gap:28px}
+    .intro-inner p{margin:0;color:#40574a;max-width:680px;font-size:15px}
+    .intro-tag{white-space:nowrap;font-size:12px;font-weight:750;letter-spacing:.08em;text-transform:uppercase;color:var(--green)}
+    .section{padding:76px 0}
+    .section-head{display:flex;justify-content:space-between;align-items:end;gap:30px;margin-bottom:28px}
+    .section-head h2{font-size:clamp(30px,4vw,45px);line-height:1.1;letter-spacing:-.05em;font-weight:620;margin:12px 0 0;max-width:640px}
+    .section-head p{max-width:370px;margin:0;color:var(--muted);font-size:14px}
+    .filters{display:flex;flex-wrap:wrap;gap:8px;margin:28px 0 24px}
+    .filter{border:1px solid #d4ddd2;background:transparent;color:#4f6255;padding:9px 14px;border-radius:999px;font:inherit;font-size:13px;cursor:pointer}
+    .filter[aria-pressed="true"]{background:var(--green);border-color:var(--green);color:white}
+    .grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+    .card{background:var(--white);border:1px solid var(--line);border-radius:var(--radius);padding:25px;display:flex;flex-direction:column;min-height:330px;transition:transform .2s,border-color .2s}
+    .card:hover{transform:translateY(-3px);border-color:#b7c9b7}
+    .card[hidden]{display:none}
+    .card-top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:22px}
+    .icon-box{width:45px;height:45px;display:grid;place-items:center;border-radius:14px;background:var(--sage);color:var(--green)}
+    .icon-box svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+    .number{font-size:12px;color:#859087;font-variant-numeric:tabular-nums}
+    .card h3{font-size:21px;letter-spacing:-.035em;margin:0 0 9px;font-weight:650}
+    .card p{font-size:14px;color:var(--muted);margin:0 0 19px}
+    .label{font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--green);font-weight:750;margin-bottom:9px}
+    .usecase{border-top:1px solid #edf0eb;padding-top:15px;margin-top:auto}
+    .usecase strong{font-size:13px;display:block;margin-bottom:5px}
+    .usecase span{font-size:13px;color:var(--muted)}
+    .card-link{margin-top:20px;text-decoration:none;font-size:13px;font-weight:700;color:var(--green);display:inline-flex;gap:7px;align-items:center}
+    .card-link:hover{text-decoration:underline}
+    .approach{background:var(--sage);padding:72px 0}
+    .approach-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:70px;align-items:start}
+    .approach h2{font-size:clamp(30px,4vw,43px);line-height:1.1;letter-spacing:-.05em;margin:14px 0}
+    .approach-copy{color:var(--muted);font-size:15px;max-width:430px}
+    .steps{display:grid;gap:0}
+    .step{display:grid;grid-template-columns:42px 1fr;gap:16px;padding:20px 0;border-bottom:1px solid #cfdccf}
+    .step:first-child{padding-top:4px}
+    .step-no{width:34px;height:34px;border:1px solid #b9cbb9;border-radius:50%;display:grid;place-items:center;color:var(--green);font-size:12px;font-weight:750}
+    .step h3{font-size:16px;margin:1px 0 5px}
+    .step p{font-size:14px;color:var(--muted);margin:0;max-width:540px}
+    .closing{background:var(--ink);color:#fff;padding:66px 0}
+    .closing-inner{display:flex;justify-content:space-between;align-items:center;gap:32px}
+    .closing h2{font-size:clamp(30px,4vw,44px);line-height:1.1;letter-spacing:-.05em;margin:12px 0;max-width:650px}
+    .closing p{margin:0;color:#d0dbd2;max-width:620px;font-size:15px}
+    .closing .eyebrow{color:#b9d2bd}.closing .eyebrow:before{background:#b9d2bd}
+    .closing .button{background:#fff;color:var(--ink);border-color:#fff;white-space:nowrap}
+    footer{padding:24px 0;background:var(--ink);border-top:1px solid #40544a;color:#c4d0c7;font-size:12px}
+    .footer-inner{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+    footer a{color:#fff;text-decoration:none}
+    @media(max-width:850px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.approach-grid{grid-template-columns:1fr;gap:28px}.section-head{align-items:start;flex-direction:column}.intro-inner{align-items:start;flex-direction:column;gap:8px}.closing-inner{align-items:start;flex-direction:column}}
+    @media(max-width:560px){.wrap{width:min(100% - 32px,var(--max))}.nav{height:66px}.nav-links{gap:12px}.nav-links>a:not(.button){display:none}.nav-links .button{padding:10px 13px;font-size:12px}.brand{font-size:20px}.hero{padding:64px 0 52px}.hero-copy{font-size:16px}.proof-row{display:grid;gap:9px}.section{padding:54px 0}.grid{grid-template-columns:1fr}.card{min-height:0;padding:22px}.approach{padding:54px 0}.closing{padding:52px 0}}
+    @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition:none!important}}
+  </style>
+</head>
+<body>
+  <div class="topline"></div>
+  <header>
+    <nav class="nav wrap" aria-label="Main navigation">
+      <a class="brand" href="https://novaracx.com" aria-label="Novara CX home"><span class="brand-mark">n</span>novara<span style="font-weight:500;color:#718076;margin-left:-9px">cx</span></a>
+      <div class="nav-links">
+        <a href="#industries">Industries</a>
+        <a href="#approach">Our approach</a>
+        <a class="button" href="https://novaracx.com">Talk to Novara <span aria-hidden="true">↗</span></a>
+      </div>
+    </nav>
+  </header>
+  <main>
+    <section class="hero">
+      <div class="wrap">
+        <div class="eyebrow">One CX partner. Many industries.</div>
+        <h1>Customer support that fits <span>your business.</span></h1>
+        <p class="hero-copy">Every industry has different customer expectations. Novara combines AI automation, trained human support and ongoing CX oversight around the moments that matter most to your customers.</p>
+        <div class="hero-actions">
+          <a class="button" href="#industries">Explore industry use cases <span aria-hidden="true">↓</span></a>
+          <a class="button secondary" href="https://novaracx.com">Discover Novara CX <span aria-hidden="true">↗</span></a>
+        </div>
+        <div class="proof-row"><span>AI for repeatable questions</span><span>People for complex conversations</span><span>Processes built around your workflows</span></div>
+      </div>
+    </section>
+    <section class="intro-band">
+      <div class="wrap intro-inner">
+        <p>From order updates to onboarding and service requests, the goal is the same: resolve customer needs clearly, consistently and with the right level of human attention.</p>
+        <div class="intro-tag">Practical use cases · Not one-size-fits-all</div>
+      </div>
+    </section>
+    <section class="section" id="industries">
+      <div class="wrap">
+        <div class="section-head">
+          <div><div class="eyebrow">Explore by industry</div><h2>See where better CX makes a difference.</h2></div>
+          <p>Choose an industry to explore example workflows Novara can help automate, support or improve.</p>
+        </div>
+        <div class="filters" role="group" aria-label="Filter industries">
+          <button class="filter" type="button" aria-pressed="true" data-filter="all">All industries</button>
+          <button class="filter" type="button" aria-pressed="false" data-filter="commerce">Commerce</button>
+          <button class="filter" type="button" aria-pressed="false" data-filter="services">Services</button>
+          <button class="filter" type="button" aria-pressed="false" data-filter="digital">Digital businesses</button>
+        </div>
+        <div class="grid" id="industry-grid">
+          <article class="card" data-category="commerce">
+            <div class="card-top"><div class="icon-box"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4h2l2.2 10.2a2 2 0 0 0 2 1.6h8.9a2 2 0 0 0 1.9-1.4L22 8H6"/><circle cx="10" cy="20" r="1.3"/><circle cx="18" cy="20" r="1.3"/></svg></div><span class="number">01 / 06</span></div>
+            <div class="label">Commerce</div><h3>D2C &amp; ecommerce</h3><p>Keep shoppers informed before purchase and take the friction out of post-purchase support.</p>
+            <div class="usecase"><strong>Common workflows</strong><span>Order status, returns and exchanges, delivery delays, product questions, refund updates.</span></div>
+            <a class="card-link" href="https://novaracx.com">Explore a CX setup <span aria-hidden="true">→</span></a>
+          </article>
+          <article class="card" data-category="services">
+            <div class="card-top"><div class="icon-box"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 10h1m4 0h1M9 14h1m4 0h1M10 21v-4h4v4"/></svg></div><span class="number">02 / 06</span></div>
+            <div class="label">Healthcare services</div><h3>Clinics &amp; healthcare</h3><p>Help patients navigate service information and administrative steps without losing the human touch.</p>
+            <div class="usecase"><strong>Common workflows</strong><span>Appointment FAQs, clinic timings, preparation instructions, follow-up routing, billing queries.</span></div>
+            <a class="card-link" href="https://novaracx.com">Explore a CX setup <span aria-hidden="true">→</span></a>
+          </article>
+          <article class="card" data-category="services">
+            <div class="card-top"><div class="icon-box"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"/><path d="M8 7h8M8 11h7"/></svg></div><span class="number">03 / 06</span></div>
+            <div class="label">Education</div><h3>Edtech &amp; learning</h3><p>Give learners and parents timely answers across enrolment, product use and ongoing learning support.</p>
+            <div class="usecase"><strong>Common workflows</strong><span>Course access, class schedules, onboarding, technical issues, billing and escalation routing.</span></div>
+            <a class="card-link" href="https://novaracx.com">Explore a CX setup <span aria-hidden="true">→</span></a>
+          </article>
+          <article class="card" data-category="digital">
+            <div class="card-top"><div class="icon-box"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8m-4-4v4M7 9h4m-4 4h7"/></svg></div><span class="number">04 / 06</span></div>
+            <div class="label">Software &amp; technology</div><h3>SaaS &amp; digital products</h3><p>Reduce repetitive support work while helping users get value from your product faster.</p>
+            <div class="usecase"><strong>Common workflows</strong><span>Account access, feature FAQs, setup guidance, troubleshooting triage, ticket summaries.</span></div>
+            <a class="card-link" href="https://novaracx.com">Explore a CX setup <span aria-hidden="true">→</span></a>
+          </article>
+          <article class="card" data-category="commerce">
+            <div class="card-top"><div class="icon-box"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10h18l-2-6H5l-2 6Z"/><path d="M5 10v10h14V10M9 20v-6h6v6M3 10a3 3 0 0 0 6 0 3 3 0 0 0 6 0 3 3 0 0 0 6 0"/></svg></div><span class="number">05 / 06</span></div>
+            <div class="label">Retail &amp; marketplaces</div><h3>Multi-channel retail</h3><p>Bring consistency to customer conversations arriving from different channels and store locations.</p>
+            <div class="usecase"><strong>Common workflows</strong><span>Product availability, store policies, order issues, returns guidance, channel handoffs.</span></div>
+            <a class="card-link" href="https://novaracx.com">Explore a CX setup <span aria-hidden="true">→</span></a>
+          </article>
+          <article class="card" data-category="services">
+            <div class="card-top"><div class="icon-box"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11 12 3l9 8M5 9v11h14V9M9 20v-6h6v6"/><path d="M3 11h18"/></svg></div><span class="number">06 / 06</span></div>
+            <div class="label">B2B &amp; professional services</div><h3>Service-led businesses</h3><p>Keep client requests moving with clear ownership, useful updates and structured escalation.</p>
+            <div class="usecase"><strong>Common workflows</strong><span>Service requests, document checklists, status updates, onboarding coordination, account queries.</span></div>
+            <a class="card-link" href="https://novaracx.com">Explore a CX setup <span aria-hidden="true">→</span></a>
+          </article>
+        </div>
+      </div>
+    </section>
+    <section class="approach" id="approach">
+      <div class="wrap approach-grid">
+        <div><div class="eyebrow">The Novara approach</div><h2>Technology handles the repeatable. People handle what matters.</h2><p class="approach-copy">The right setup depends on your customer journeys, policies, channels and escalation needs. We shape the workflow around your operation—not the other way around.</p></div>
+        <div class="steps">
+          <div class="step"><div class="step-no">01</div><div><h3>Map the customer journey</h3><p>Identify frequent questions, high-friction moments, existing tools and the issues that need human judgement.</p></div></div>
+          <div class="step"><div class="step-no">02</div><div><h3>Configure AI and human support</h3><p>Use approved knowledge and clear boundaries for automation, with defined handoffs for sensitive or complex cases.</p></div></div>
+          <div class="step"><div class="step-no">03</div><div><h3>Measure, learn and improve</h3><p>Review conversation quality, resolution patterns and recurring customer pain points to improve the operation over time.</p></div></div>
+        </div>
+      </div>
+    </section>
+    <section class="closing" id="contact">
+      <div class="wrap closing-inner">
+        <div><div class="eyebrow">Built around your customers</div><h2>Let’s design a support model for your industry.</h2><p>Tell us about your customers, your current support challenges and where you want to improve. We’ll explore a practical starting point together.</p></div>
+        <a class="button" href="https://novaracx.com">Book a discovery call <span aria-hidden="true">↗</span></a>
+      </div>
+    </section>
+  </main>
+  <footer><div class="wrap footer-inner"><span>© <span id="year">2026</span> Novara CX. AI-first CX. Human when it matters.</span><a href="https://novaracx.com">novaracx.com ↗</a></div></footer>
+  <script>
+    const filters = document.querySelectorAll('.filter');
+    const cards = document.querySelectorAll('.card[data-category]');
+    filters.forEach((button) => {
+      button.addEventListener('click', () => {
+        const filter = button.dataset.filter;
+        filters.forEach((item) => item.setAttribute('aria-pressed', String(item === button)));
+        cards.forEach((card) => { card.hidden = filter !== 'all' && card.dataset.category !== filter; });
+      });
+    });
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
