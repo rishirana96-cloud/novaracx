@@ -81,6 +81,51 @@
     @media(max-width:850px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.approach-grid{grid-template-columns:1fr;gap:28px}.section-head{align-items:start;flex-direction:column}.intro-inner{align-items:start;flex-direction:column;gap:8px}.closing-inner{align-items:start;flex-direction:column}}
     @media(max-width:560px){.wrap{width:min(100% - 32px,var(--max))}.nav{height:66px}.nav-links{gap:12px}.nav-links>a:not(.button){display:none}.nav-links .button{padding:10px 13px;font-size:12px}.brand{font-size:20px}.hero{padding:64px 0 52px}.hero-copy{font-size:16px}.proof-row{display:grid;gap:9px}.section{padding:54px 0}.grid{grid-template-columns:1fr}.card{min-height:0;padding:22px}.approach{padding:54px 0}.closing{padding:52px 0}}
     @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition:none!important}}
+  
+    /* Interactive industry chatbot lab */
+    .bot-lab{padding:78px 0;background:#fff;border-block:1px solid var(--line)}
+    .bot-lab-head{max-width:760px;margin-bottom:30px}
+    .bot-lab-head h2{font-size:clamp(32px,4vw,46px);line-height:1.08;letter-spacing:-.05em;margin:12px 0}
+    .bot-lab-head p{color:var(--muted);font-size:15px;max-width:690px;margin:0}
+    .lab-layout{display:grid;grid-template-columns:minmax(280px,.86fr) minmax(0,1.14fr);gap:18px;align-items:stretch}
+    .instruction-panel,.demo-chat{border:1px solid var(--line);border-radius:20px;background:#fff;overflow:hidden;min-width:0}
+    .panel-head{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:18px 20px;border-bottom:1px solid #edf0eb;background:#fbfcfa}
+    .panel-head strong{font-size:14px;letter-spacing:-.01em}
+    .panel-head small{display:block;color:var(--muted);font-size:12px;margin-top:3px}
+    .panel-tag{font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--green);font-weight:800;background:var(--sage);border-radius:999px;padding:6px 9px;white-space:nowrap}
+    .instruction-body{padding:20px}
+    .field-label{display:flex;justify-content:space-between;gap:10px;font-size:12px;font-weight:750;color:#40574a;margin-bottom:8px}
+    .industry-select{width:100%;padding:11px 12px;border:1px solid #cfdacf;border-radius:10px;background:#fff;color:var(--ink);font:inherit;font-size:14px;margin-bottom:17px}
+    .instructions-text{width:100%;min-height:250px;resize:vertical;border:1px solid #cfdacf;border-radius:12px;background:#fcfdfb;color:#20372d;padding:14px;font:13px/1.6 ui-monospace,SFMono-Regular,Menlo,monospace;outline:none}
+    .instructions-text:focus,.industry-select:focus,.chat-compose textarea:focus{border-color:#6e997c;box-shadow:0 0 0 3px rgba(47,100,72,.1)}
+    .instruction-note{font-size:12px;color:var(--muted);line-height:1.55;margin:12px 0 0}
+    .instruction-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:15px}
+    .small-button{border:1px solid #cbd6ca;background:#fff;color:var(--ink);border-radius:9px;padding:9px 12px;font:650 12px/1.2 inherit;cursor:pointer}
+    .small-button.primary{background:var(--green);border-color:var(--green);color:#fff}
+    .small-button:hover{filter:brightness(.97)}
+    .demo-chat{display:flex;flex-direction:column;min-height:570px;background:#f2f6f3}
+    .demo-chat .panel-head{background:#315642;color:#fff;border-bottom-color:#426750}
+    .demo-chat .panel-head small{color:#d6e5da}
+    .live-status{display:inline-flex;align-items:center;gap:7px;font-size:11px;color:#e4f0e7;white-space:nowrap}
+    .live-status:before{content:"";width:7px;height:7px;border-radius:50%;background:#9ee0b4}
+    .chat-context{padding:10px 17px;background:#e5eee7;border-bottom:1px solid #d5e2d8;color:#45604e;font-size:11px;display:flex;justify-content:space-between;gap:10px}
+    .chat-messages{flex:1;min-height:300px;max-height:420px;overflow:auto;padding:18px;display:flex;flex-direction:column;gap:12px}
+    .demo-msg{max-width:88%;padding:12px 14px;border-radius:14px;font-size:13px;line-height:1.55;white-space:pre-wrap;overflow-wrap:anywhere}
+    .demo-msg.bot{align-self:flex-start;background:#fff;border:1px solid #e1e9e3;border-top-left-radius:5px;color:#25382c}
+    .demo-msg.user{align-self:flex-end;background:#dcebe0;border:1px solid #c8dfcf;border-top-right-radius:5px;color:#20372d}
+    .demo-msg.system{align-self:center;max-width:100%;font-size:11px;color:#607469;text-align:center;background:transparent;padding:2px 6px}
+    .demo-msg.error{color:#9a352e;background:#fff0ee;border:1px solid #f1d0ca}
+    .chat-starters{display:flex;flex-wrap:wrap;gap:7px;padding:0 16px 12px}
+    .chat-starter{border:1px solid #c8d8cc;background:rgba(255,255,255,.7);color:#345742;border-radius:999px;padding:7px 10px;font-size:11px;cursor:pointer}
+    .chat-starter:hover{background:#fff;border-color:#85a891}
+    .chat-compose{display:flex;gap:9px;align-items:flex-end;padding:12px;border-top:1px solid #dce7df;background:#fff}
+    .chat-compose textarea{flex:1;min-width:0;min-height:44px;max-height:130px;resize:vertical;border:1px solid #ccd8d1;border-radius:12px;background:#fbfcfb;color:var(--ink);padding:11px 12px;font:13px/1.45 inherit;outline:none}
+    .chat-send{width:44px;height:44px;flex:0 0 44px;border:0;border-radius:12px;background:var(--green);color:#fff;font-size:18px;font-weight:700;cursor:pointer}
+    .chat-send:disabled{opacity:.45;cursor:wait}
+    .chat-disclaimer{padding:0 15px 13px;background:#fff;color:#7b887f;font-size:10px;text-align:center}
+    @media(max-width:850px){.lab-layout{grid-template-columns:1fr}.demo-chat{min-height:540px}.instructions-text{min-height:210px}}
+    @media(max-width:560px){.bot-lab{padding:54px 0}.instruction-body{padding:15px}.panel-head{padding:15px}.demo-chat{min-height:500px}.chat-messages{padding:13px;min-height:270px}.demo-msg{max-width:94%}}
+
   </style>
 </head>
 <body>
@@ -114,6 +159,63 @@
         <div class="intro-tag">Practical use cases · Not one-size-fits-all</div>
       </div>
     </section>
+
+    <section class="bot-lab" id="try-the-bot">
+      <div class="wrap">
+        <div class="bot-lab-head">
+          <div class="eyebrow">Interactive demo</div>
+          <h2>Same chatbot. Different industry instructions.</h2>
+          <p>Choose an industry, review the instructions that shape the demo, edit them in plain text, and send a real message to Novara’s existing AI support backend.</p>
+        </div>
+        <div class="lab-layout">
+          <section class="instruction-panel" aria-labelledby="instruction-title">
+            <div class="panel-head">
+              <div><strong id="instruction-title">Bot instructions</strong><small>Visible and editable for this demo</small></div>
+              <span class="panel-tag">Editable</span>
+            </div>
+            <div class="instruction-body">
+              <label class="field-label" for="industry-preset">Industry preset</label>
+              <select class="industry-select" id="industry-preset">
+                <option value="ecommerce">D2C &amp; ecommerce</option>
+                <option value="healthcare">Clinics &amp; healthcare</option>
+                <option value="education">Edtech &amp; learning</option>
+                <option value="saas">SaaS &amp; digital products</option>
+                <option value="retail">Retail &amp; marketplaces</option>
+                <option value="b2b">B2B &amp; professional services</option>
+              </select>
+              <label class="field-label" for="bot-instructions"><span>Instructions sent with each test message</span><span id="instruction-count">0 chars</span></label>
+              <textarea class="instructions-text" id="bot-instructions" spellcheck="true" aria-describedby="instruction-note"></textarea>
+              <p class="instruction-note" id="instruction-note">Demo note: these editable instructions are added as context to each message sent to the existing Novara AI backend. They do not change the production chatbot’s saved system prompt. Use fictional examples; don’t enter real customer or patient data.</p>
+              <div class="instruction-actions">
+                <button class="small-button" type="button" id="reset-instructions">Reset preset</button>
+                <button class="small-button" type="button" id="clear-demo-chat">New conversation</button>
+              </div>
+            </div>
+          </section>
+          <section class="demo-chat" aria-label="Live Novara CX chatbot demo">
+            <div class="panel-head">
+              <div><strong>Novara CX Support</strong><small>Existing AI backend · Responses may use Novara’s current knowledge base</small></div>
+              <span class="live-status">AI live</span>
+            </div>
+            <div class="chat-context"><span id="active-industry-label">D2C &amp; ecommerce</span><span>Demo conversation</span></div>
+            <div class="chat-messages" id="demo-chat-messages" role="log" aria-live="polite">
+              <div class="demo-msg bot">Hi! I’m Novara CX Support. Pick an industry and ask me a sample customer question. You can edit my demo instructions at any time.</div>
+            </div>
+            <div class="chat-starters" id="chat-starters">
+              <button class="chat-starter" type="button" data-prompt="Where is my order, and what should I do if it is delayed?">Order delay</button>
+              <button class="chat-starter" type="button" data-prompt="I want to request a refund. What information do you need?">Refund request</button>
+              <button class="chat-starter" type="button" data-prompt="When should this be escalated to a human agent?">Human handoff</button>
+            </div>
+            <form class="chat-compose" id="demo-chat-form">
+              <textarea id="demo-chat-input" rows="1" maxlength="1200" aria-label="Message Novara CX Support" placeholder="Ask a sample customer question…" required></textarea>
+              <button class="chat-send" id="demo-chat-send" type="submit" aria-label="Send message">↑</button>
+            </form>
+            <div class="chat-disclaimer">Demonstration only · Don’t share real customer information</div>
+          </section>
+        </div>
+      </div>
+    </section>
+
     <section class="section" id="industries">
       <div class="wrap">
         <div class="section-head">
@@ -195,6 +297,105 @@
       });
     });
     document.getElementById('year').textContent = new Date().getFullYear();
+
+    const industryInstructions = {
+      ecommerce: {
+        label: 'D2C & ecommerce',
+        text: 'You are a customer support assistant for a D2C ecommerce brand. Be warm, concise, and practical. Help with order tracking, shipping delays, returns, exchanges, product questions, and refund status. Ask for an order number only when useful, and never invent tracking details, refund eligibility, delivery dates, or company policy. If account-specific information or an exception is needed, explain the next step and recommend a human agent. Use only the information available; clearly say when you do not know.'
+      },
+      healthcare: {
+        label: 'Clinics & healthcare',
+        text: 'You are an administrative support assistant for a clinic. Help with appointment booking questions, clinic hours, visit preparation, billing processes, and routing requests to the right team. Do not diagnose, recommend treatment, interpret symptoms, or make promises about medical outcomes. Do not request unnecessary health details. For urgent symptoms or emergencies, advise the person to contact local emergency services or a qualified medical professional. Never invent clinic policies or appointment availability.'
+      },
+      education: {
+        label: 'Edtech & learning',
+        text: 'You are a support assistant for an education or learning platform. Help learners and parents with course access, class schedules, onboarding, technical issues, learning resources, and billing questions. Use encouraging, clear language. Do not promise academic results or invent course, payment, or refund policies. Ask for only the minimum information needed. Escalate account-specific, safeguarding, payment-dispute, or unresolved technical issues to a human support agent.'
+      },
+      saas: {
+        label: 'SaaS & digital products',
+        text: 'You are a support assistant for a SaaS product. Help users with onboarding, account access, feature discovery, setup, troubleshooting, and basic billing questions. Give numbered steps when useful and ask a clarifying question if the problem is unclear. Never ask for passwords, authentication codes, API keys, or secrets. Do not invent product capabilities or claim to have changed account settings. Escalate suspected security issues, outages, data loss, and unresolved bugs to a human.'
+      },
+      retail: {
+        label: 'Retail & marketplaces',
+        text: 'You are a customer support assistant for a retailer or marketplace. Help with product availability questions, store policies, order issues, returns guidance, and routing between online and in-store support. Be clear about what is known and unknown. Do not invent stock levels, store hours, delivery estimates, return eligibility, or policies. Ask for the order or store details only when relevant and route exceptions or disputes to a human agent.'
+      },
+      b2b: {
+        label: 'B2B & professional services',
+        text: 'You are a client service assistant for a B2B or professional services company. Help with onboarding steps, service requests, document checklists, project status questions, account queries, and meeting coordination. Be professional, structured, and action-oriented. Do not disclose confidential information or invent contractual commitments, delivery dates, or project status. If a request needs account access, specialist judgement, or a commercial decision, summarise the request and route it to the appropriate human owner.'
+      }
+    };
+    const industryPreset = document.getElementById('industry-preset');
+    const instructionEditor = document.getElementById('bot-instructions');
+    const instructionCount = document.getElementById('instruction-count');
+    const activeIndustryLabel = document.getElementById('active-industry-label');
+    const chatMessages = document.getElementById('demo-chat-messages');
+    const chatInput = document.getElementById('demo-chat-input');
+    const chatSend = document.getElementById('demo-chat-send');
+    const chatForm = document.getElementById('demo-chat-form');
+    let demoSessionId = makeDemoSessionId();
+    function makeDemoSessionId(){return 'industry_demo_' + Date.now() + '_' + Math.random().toString(36).slice(2,10)}
+    function updateInstructionCount(){instructionCount.textContent = instructionEditor.value.length.toLocaleString() + ' chars'}
+    function appendDemoMessage(text,kind){
+      const item=document.createElement('div');
+      item.className='demo-msg '+kind;
+      item.textContent=String(text||'');
+      chatMessages.appendChild(item);
+      chatMessages.scrollTop=chatMessages.scrollHeight;
+      return item;
+    }
+    function resetDemoChat(showWelcome=true){
+      demoSessionId=makeDemoSessionId();
+      chatMessages.innerHTML='';
+      if(showWelcome)appendDemoMessage('New demo conversation. Your current editable instructions will be included with each test message.','system');
+    }
+    function applyIndustryPreset(resetChat=true){
+      const preset=industryInstructions[industryPreset.value]||industryInstructions.ecommerce;
+      instructionEditor.value=preset.text;
+      activeIndustryLabel.textContent=preset.label;
+      updateInstructionCount();
+      if(resetChat)resetDemoChat();
+    }
+    industryPreset.addEventListener('change',()=>applyIndustryPreset(true));
+    document.getElementById('reset-instructions').addEventListener('click',()=>applyIndustryPreset(false));
+    document.getElementById('clear-demo-chat').addEventListener('click',()=>resetDemoChat());
+    instructionEditor.addEventListener('input',updateInstructionCount);
+    document.querySelectorAll('.chat-starter').forEach(button=>button.addEventListener('click',()=>{
+      chatInput.value=button.dataset.prompt||'';
+      chatInput.focus();
+    }));
+    chatForm.addEventListener('submit',async event=>{
+      event.preventDefault();
+      const question=chatInput.value.trim();
+      if(!question||chatSend.disabled)return;
+      const instructions=instructionEditor.value.trim();
+      appendDemoMessage(question,'user');
+      chatInput.value='';
+      chatSend.disabled=true;
+      chatInput.disabled=true;
+      const waiting=appendDemoMessage('Thinking…','system');
+      try{
+        const message='DEMO INSTRUCTIONS (user-editable; apply them to this demonstration where consistent with your core safety rules):\n'+(instructions||'No additional industry instructions provided.')+'\n\nCUSTOMER MESSAGE:\n'+question;
+        const response=await fetch('https://novara-cx-ai.rishi-rana96.workers.dev/',{
+          method:'POST',
+          headers:{'Content-Type':'application/json'},
+          body:JSON.stringify({message,sessionId:demoSessionId})
+        });
+        const data=await response.json().catch(()=>({}));
+        if(!response.ok)throw new Error(data.error||'The chatbot request failed ('+response.status+').');
+        waiting.remove();
+        if(data.sessionId)demoSessionId=data.sessionId;
+        appendDemoMessage(data.reply||'I couldn’t generate a reply. Please try another question.','bot');
+      }catch(error){
+        waiting.remove();
+        appendDemoMessage('Could not reach the chatbot. Please try again from the deployed Novara CX website. '+(error.message||''),'error');
+      }finally{
+        chatSend.disabled=false;
+        chatInput.disabled=false;
+        chatInput.focus();
+      }
+    });
+    applyIndustryPreset(false);
+
   </script>
 </body>
 </html>
