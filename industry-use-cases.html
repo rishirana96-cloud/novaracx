@@ -81,6 +81,986 @@
     @media(max-width:850px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.approach-grid{grid-template-columns:1fr;gap:28px}.section-head{align-items:start;flex-direction:column}.intro-inner{align-items:start;flex-direction:column;gap:8px}.closing-inner{align-items:start;flex-direction:column}}
     @media(max-width:560px){.wrap{width:min(100% - 32px,var(--max))}.nav{height:66px}.nav-links{gap:12px}.nav-links>a:not(.button){display:none}.nav-links .button{padding:10px 13px;font-size:12px}.brand{font-size:20px}.hero{padding:64px 0 52px}.hero-copy{font-size:16px}.proof-row{display:grid;gap:9px}.section{padding:54px 0}.grid{grid-template-columns:1fr}.card{min-height:0;padding:22px}.approach{padding:54px 0}.closing{padding:52px 0}}
     @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition:none!important}}
+  
+  </style>
+
+  <style id="industry-chatbot-original-styles">
+  :root{--bg-primary:#fff;--bg-secondary:#f4f7f4;--text-primary:#20372d;--text-secondary:#617067;--accent-gradient:linear-gradient(120deg,#315642,#4b6c59);--transition:all .2s ease;--border-color:#dce3da;--surface:#fff}
+  
+/* ==========================================
+           CHATBOT — FLOATING WIDGET
+           ========================================== */
+        .chatbot-toggle {
+            position: fixed;
+            bottom: 28px;
+            right: 28px;
+            width: 62px;
+            height: 62px;
+            border-radius: 50%;
+            background: var(--accent-gradient);
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 10px 34px rgba(124, 155, 138, 0.4);
+            transition: var(--transition);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .chatbot-toggle::before {
+            content: '';
+            position: absolute;
+            inset: -6px;
+            border-radius: 50%;
+            border: 1.5px solid rgba(124, 155, 138, 0.35);
+            animation: ring-pulse 2.6s ease-out infinite;
+        }
+        @keyframes ring-pulse {
+            0% { transform: scale(0.9); opacity: 0.8; }
+            80% { transform: scale(1.28); opacity: 0; }
+            100% { transform: scale(1.28); opacity: 0; }
+        }
+        .chatbot-toggle:hover {
+            transform: scale(1.07);
+            box-shadow: 0 12px 50px rgba(124, 155, 138, 0.55);
+        }
+        .chatbot-toggle svg {
+            width: 26px;
+            height: 26px;
+            stroke: var(--bg-primary);
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            position: relative;
+            transition: var(--transition);
+        }
+        .chatbot-toggle .icon-close {
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            stroke: var(--bg-primary);
+            fill: none;
+            stroke-width: 2.2;
+            stroke-linecap: round;
+            opacity: 0;
+            transform: rotate(-45deg) scale(0.6);
+            transition: var(--transition);
+        }
+        .chatbot-toggle.is-open .icon-chat {
+            opacity: 0;
+            transform: rotate(45deg) scale(0.6);
+        }
+        .chatbot-toggle.is-open .icon-close {
+            opacity: 1;
+            transform: rotate(0deg) scale(1);
+        }
+
+        .chatbot-window {
+            position: fixed;
+            bottom: 104px;
+            right: 28px;
+            width: 392px;
+            max-width: calc(100vw - 40px);
+            height: 560px;
+            max-height: calc(100vh - 150px);
+            background: linear-gradient(180deg, #14141C 0%, #101016 100%);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 22px;
+            box-shadow: 0 24px 70px rgba(0, 0, 0, 0.55), 0 2px 0 rgba(124, 155, 138, 0.06) inset;
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+            z-index: 9998;
+            animation: chatPop 0.32s cubic-bezier(0.2, 0.9, 0.3, 1.2);
+            backdrop-filter: blur(20px);
+        }
+        .chatbot-window.open {
+            display: flex;
+        }
+
+        @keyframes chatPop {
+            from { opacity: 0; transform: translateY(16px) scale(0.97); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .chatbot-header-window {
+            padding: 18px 20px;
+            background: radial-gradient(120% 180% at 0% 0%, rgba(124, 155, 138, 0.16) 0%, transparent 55%), var(--bg-secondary);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            flex-shrink: 0;
+        }
+        .chatbot-header-window .header-id {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .chatbot-header-window .avatar {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: var(--accent-gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            box-shadow: 0 4px 16px var(--accent-glow);
+            overflow: hidden;
+        }
+        .chatbot-header-window .avatar img {
+            width: 22px;
+            height: 22px;
+            object-fit: contain;
+        }
+        .chatbot-header-window .title {
+            font-weight: 700;
+            font-size: 0.98rem;
+            line-height: 1.3;
+        }
+        .chatbot-header-window .title span {
+            color: var(--accent);
+        }
+        .chatbot-header-window .status {
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin-top: 1px;
+        }
+        .chatbot-header-window .status .status-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #7FD99A;
+            box-shadow: 0 0 6px #7FD99A;
+            animation: pulse-dot 2s infinite;
+        }
+        .chatbot-header-window .close-btn {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .chatbot-header-window .close-btn:hover {
+            color: var(--text-primary);
+            background: rgba(255, 255, 255, 0.1);
+            transform: rotate(90deg);
+        }
+
+        .chatbot-messages-window {
+            flex: 1;
+            padding: 18px 18px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            background: radial-gradient(ellipse at 15% 0%, rgba(124, 155, 138, 0.05) 0%, transparent 45%);
+        }
+        .chatbot-messages-window::-webkit-scrollbar {
+            width: 4px;
+        }
+        .chatbot-messages-window::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .chatbot-messages-window::-webkit-scrollbar-thumb {
+            background: rgba(124, 155, 138, 0.4);
+            border-radius: 10px;
+        }
+
+        .msg-row {
+            display: flex;
+            align-items: flex-end;
+            gap: 8px;
+            max-width: 88%;
+            animation: msgIn 0.25s ease;
+        }
+        @keyframes msgIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .msg-row.bot { align-self: flex-start; }
+        .msg-row.user { align-self: flex-end; flex-direction: row-reverse; }
+
+        .msg-avatar {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--accent-gradient);
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 2px;
+        }
+        .msg-avatar img {
+            width: 14px;
+            height: 14px;
+            object-fit: contain;
+        }
+
+        .msg {
+            padding: 11px 15px;
+            border-radius: 16px;
+            font-size: 0.87rem;
+            line-height: 1.6;
+        }
+        .msg.bot {
+            background: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            color: var(--text-secondary);
+            border-bottom-left-radius: 4px;
+        }
+        .msg.bot b,
+        .msg.bot strong {
+            color: var(--text-primary);
+            font-weight: 700;
+        }
+        .msg.bot a {
+            color: var(--accent);
+        }
+        .msg.user {
+            background: var(--accent-gradient);
+            color: var(--bg-primary);
+            border-bottom-right-radius: 4px;
+            box-shadow: 0 4px 16px rgba(124, 155, 138, 0.2);
+        }
+        .msg.user b,
+        .msg.user strong {
+            color: var(--bg-primary);
+            font-weight: 700;
+        }
+
+        /* ==========================================
+           ESCALATION BADGE & STATUS
+           ========================================== */
+        .escalation-badge {
+            display: inline-block;
+            padding: 2px 12px;
+            border-radius: 50px;
+            font-size: 0.6rem;
+            font-weight: 600;
+            background: var(--escalation-bg);
+            color: var(--escalation-color);
+            border: 1px solid rgba(231, 169, 140, 0.2);
+            margin-top: 6px;
+            animation: fadeIn 0.3s ease;
+        }
+        .escalation-badge .icon {
+            margin-right: 4px;
+        }
+
+        .escalation-status {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            background: var(--escalation-bg);
+            border-radius: var(--radius-sm);
+            border: 1px solid rgba(231, 169, 140, 0.15);
+            margin-top: 6px;
+            font-size: 0.75rem;
+            color: var(--escalation-color);
+        }
+        .escalation-status .pulse {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--escalation-color);
+            animation: pulse-dot 1.5s infinite;
+        }
+
+        /* ==========================================
+           RATING BUTTONS
+           ========================================== */
+        .rating-buttons {
+            display: flex;
+            gap: 8px;
+            margin-top: 8px;
+            flex-wrap: wrap;
+        }
+
+        .rating-btn {
+            padding: 8px 18px;
+            border-radius: 50px;
+            border: 1px solid var(--border-subtle);
+            background: var(--bg-card);
+            color: var(--text-secondary);
+            font-family: inherit;
+            font-size: 0.82rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .rating-btn:hover {
+            background: rgba(124, 155, 138, 0.12);
+            border-color: var(--accent);
+            color: var(--text-primary);
+            transform: translateY(-2px);
+        }
+
+        .rating-btn:active {
+            transform: scale(0.95);
+        }
+
+        .rating-btn.yes:hover {
+            background: rgba(46, 204, 113, 0.15);
+            border-color: #2ECC71;
+            color: #2ECC71;
+        }
+
+        .rating-btn.no:hover {
+            background: rgba(231, 76, 60, 0.15);
+            border-color: #E74C3C;
+            color: #E74C3C;
+        }
+
+        .rating-btn.partial:hover {
+            background: rgba(241, 196, 15, 0.15);
+            border-color: #F1C40F;
+            color: #F1C40F;
+        }
+
+        .chatbot-footer {
+            flex-shrink: 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            background: var(--bg-secondary);
+        }
+
+        .chatbot-input-window {
+            padding: 12px 14px;
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .chatbot-input-window input {
+            flex: 1;
+            padding: 11px 16px;
+            border-radius: 50px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(255, 255, 255, 0.03);
+            color: var(--text-primary);
+            font-size: 0.87rem;
+            font-family: inherit;
+            outline: none;
+            transition: var(--transition);
+        }
+
+        .chatbot-input-window input::placeholder {
+            color: var(--text-muted);
+        }
+
+        .chatbot-input-window input:focus {
+            border-color: var(--accent);
+            background: rgba(124, 155, 138, 0.05);
+            box-shadow: 0 0 0 3px var(--accent-glow);
+        }
+
+        .chatbot-input-window .send-btn {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            border: none;
+            background: var(--accent-gradient);
+            color: var(--bg-primary);
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: inherit;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .chatbot-input-window .send-btn svg {
+            width: 18px;
+            height: 18px;
+            stroke: var(--bg-primary);
+            fill: none;
+            stroke-width: 2.2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            transform: translateX(-1px);
+        }
+
+        .chatbot-input-window .send-btn:hover {
+            transform: scale(1.07);
+            box-shadow: 0 6px 20px var(--accent-glow);
+        }
+
+        .chatbot-input-window .send-btn:active {
+            transform: scale(0.96);
+        }
+
+        .quick-replies-window {
+            padding: 0 14px 12px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .quick-replies-window .qr-btn {
+            padding: 6px 14px;
+            border-radius: 50px;
+            background: rgba(124, 155, 138, 0.07);
+            border: 1px solid rgba(124, 155, 138, 0.14);
+            color: var(--text-secondary);
+            font-size: 0.72rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: inherit;
+        }
+
+        .quick-replies-window .qr-btn:hover {
+            background: rgba(124, 155, 138, 0.16);
+            border-color: var(--accent);
+            color: var(--text-primary);
+            transform: translateY(-1px);
+        }
+
+        .chatbot-powered-by {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            padding: 9px 0 11px;
+            border-top: 1px solid rgba(255, 255, 255, 0.04);
+            font-size: 0.68rem;
+            color: var(--text-muted);
+            letter-spacing: 0.2px;
+        }
+
+        .chatbot-powered-by img {
+            width: 13px;
+            height: 13px;
+            opacity: 0.85;
+        }
+
+        .chatbot-powered-by strong {
+            color: var(--text-secondary);
+            font-weight: 600;
+        }
+
+        .typing-indicator {
+            display: flex;
+            gap: 4px;
+            padding: 8px 2px;
+        }
+
+        .typing-indicator span {
+            width: 6px;
+            height: 6px;
+            background: var(--accent);
+            opacity: 0.6;
+            border-radius: 50%;
+            animation: typingBounce 1.4s infinite;
+        }
+
+        .typing-indicator span:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .typing-indicator span:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes typingBounce {
+            0%, 60%, 100% {
+                opacity: 0.25;
+                transform: translateY(0);
+            }
+
+            30% {
+                opacity: 1;
+                transform: translateY(-6px);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        
+
+        /* =====================================================
+           FOCUSED EXPERIENCE REFINEMENT
+           Preserves the original design and product structure.
+        ====================================================== */
+        /* Chat launcher: visible without feeling intrusive */
+        .chatbot-toggle {
+            width:60px; height:60px; right:24px; bottom:24px;
+            border:1px solid rgba(255,255,255,.12);
+            box-shadow:0 16px 48px rgba(0,0,0,.36),0 0 0 1px rgba(124,155,138,.06);
+        }
+        .chatbot-toggle::after {
+            content:"Chat with us"; position:absolute; right:72px; top:50%; width:max-content;
+            padding:9px 12px; border:1px solid rgba(255,255,255,.08); border-radius:10px;
+            background:rgba(20,20,28,.94); color:var(--text-primary);
+            font:600 .74rem/1 'Inter',sans-serif; letter-spacing:.01em;
+            box-shadow:0 10px 32px rgba(0,0,0,.28); transform:translateY(-50%);
+            pointer-events:none; transition:opacity .18s ease,transform .18s ease;
+        }
+        .chatbot-toggle.is-open::after { opacity:0; transform:translate(7px,-50%); }
+        .chatbot-toggle:hover { transform:translateY(-2px) scale(1.025); }
+
+        /* Chat shell */
+        .chatbot-window {
+            bottom:96px; right:24px; width:420px; height:min(680px,calc(100vh - 124px));
+            max-height:none; border-radius:24px; border-color:rgba(255,255,255,.105);
+            background:#111118;
+            box-shadow:0 32px 100px rgba(0,0,0,.58),0 1px 0 rgba(255,255,255,.045) inset;
+            transform-origin:bottom right;
+        }
+        .chatbot-header-window {
+            min-height:78px; padding:16px 18px;
+            background:linear-gradient(135deg,rgba(124,155,138,.18),rgba(17,17,24,.96) 58%);
+        }
+        .chatbot-header-window .header-id { gap:11px; }
+        .chatbot-header-window .avatar { width:42px; height:42px; border-radius:13px; }
+        .chatbot-header-window .avatar img { width:25px; height:25px; }
+        .chatbot-header-window .title { font-size:.96rem; letter-spacing:-.02em; }
+        .chatbot-header-window .status { max-width:260px; margin-top:3px; color:rgba(255,255,255,.48); font-size:.67rem; }
+        .chatbot-header-window .close-btn { width:34px; height:34px; border-radius:10px; }
+
+        /* Bright conversation canvas improves reading and visual separation */
+        .chatbot-messages-window {
+            padding:22px 18px 20px; gap:15px;
+            background:linear-gradient(180deg,#f2f5f2 0%,#eaf0ec 100%);
+            scrollbar-color:rgba(70,102,84,.28) transparent;
+        }
+        .chatbot-messages-window::-webkit-scrollbar-thumb { background:rgba(70,102,84,.28); }
+        .msg-row { max-width:91%; gap:7px; }
+        .msg-avatar { width:27px; height:27px; margin-bottom:1px; box-shadow:0 3px 10px rgba(22,46,32,.14); }
+        .msg { padding:11px 14px; border-radius:15px; font-size:.84rem; line-height:1.58; overflow-wrap:anywhere; }
+        .msg.bot { color:#26332c; background:#fff; border-color:#d8e1da; box-shadow:0 4px 16px rgba(25,55,37,.055); }
+        .msg.bot b,.msg.bot strong { color:#142119; }
+        .msg.bot a { color:#426b55; font-weight:650; }
+        .msg-row.agent { align-self:flex-start; }
+        .msg.agent {
+            color:#20342a;
+            background:#e1ede6;
+            border:1px solid #bfd2c6;
+            box-shadow:0 4px 16px rgba(25,55,37,.06);
+        }
+        .msg.agent b,.msg.agent strong { color:#10291c; }
+        .msg.user { color:#0c1711; background:#9fc0ae; box-shadow:0 5px 16px rgba(38,73,53,.14); }
+        .msg.user b,.msg.user strong { color:#0c1711; }
+        .typing-indicator span { background:#527463; }
+        .escalation-badge,.escalation-status { border-color:rgba(164,93,62,.16); background:#f8e9e1; color:#9c5436; }
+        .human-chat-status {
+            align-self:center;
+            max-width:calc(100% - 24px);
+            padding:7px 12px;
+            border:1px solid #c6d6cc;
+            border-radius:999px;
+            background:rgba(255,255,255,.78);
+            color:#40584b;
+            font-size:.69rem;
+            font-weight:650;
+            line-height:1.35;
+            text-align:center;
+            box-shadow:0 3px 12px rgba(25,55,37,.045);
+        }
+
+        /* Human handoff and contextual satisfaction control */
+        .csat-row {
+            align-self:flex-start;
+            width:auto;
+            max-width:calc(88% - 38px);
+            margin:-2px 0 5px 38px;
+        }
+        .csat-panel {
+            margin:0;
+            padding:11px 12px 10px;
+            border:1px solid #d5e1d9;
+            border-radius:13px;
+            background:linear-gradient(145deg,#f6faf7,#eaf3ed);
+            box-shadow:inset 0 1px 0 rgba(255,255,255,.8);
+        }
+        .csat-panel__label {
+            display:block;
+            color:#344b3e;
+            font-size:.7rem;
+            font-weight:700;
+            line-height:1.35;
+        }
+        .csat-stars {
+            display:flex;
+            align-items:center;
+            gap:3px;
+            margin-top:6px;
+        }
+        .csat-star {
+            width:30px;
+            height:30px;
+            display:grid;
+            place-items:center;
+            padding:0;
+            border:0;
+            border-radius:8px;
+            background:transparent;
+            color:#afbeb5;
+            font-family:inherit;
+            font-size:1.38rem;
+            line-height:1;
+            cursor:pointer;
+            transition:color .14s ease,transform .14s ease,background .14s ease;
+        }
+        .csat-star:hover,.csat-star:focus-visible {
+            outline:0;
+            background:rgba(91,132,109,.1);
+            transform:translateY(-1px);
+        }
+        .csat-star.is-lit { color:#5f8b71; }
+        .csat-star.is-selected { color:#315f46; }
+        .csat-panel.is-submitting .csat-star,
+        .csat-panel.is-submitted .csat-star { pointer-events:none; }
+        .csat-panel.is-submitted .csat-star:not(.is-selected) { opacity:.48; }
+        .csat-panel__status {
+            min-height:1em;
+            margin-top:4px;
+            color:#5a6d62;
+            font-size:.62rem;
+            line-height:1.35;
+        }
+        .csat-panel__status.is-error { color:#9c5436; }
+        @media(max-width:480px) {
+            .csat-row { max-width:calc(94% - 34px);margin-left:34px; }
+            .csat-panel { padding:10px 11px 9px; }
+            .csat-stars { gap:2px; }
+            .csat-star { width:29px;height:29px;font-size:1.3rem; }
+        }
+        .ticket-contact-card,.ticket-choice-card,.past-ticket-card { border-radius:15px!important; box-shadow:0 6px 18px rgba(25,55,37,.06); }
+        .ticket-contact-card input { min-height:42px!important; border-color:#d4ddd7!important; background:#fff!important; color:#17241c!important; }
+        .ticket-contact-submit,.ticket-choice-btn { min-height:40px; border-radius:10px!important; }
+
+        /* Composer */
+        .chatbot-footer { border-top:0; background:#fff; }
+        .quick-replies-window { display:flex!important; }
+        .quick-replies-window[hidden] { display:none!important; }
+        .chatbot-messages-window > .quick-replies-window.opening-quick-replies {
+            align-self:flex-start; flex-wrap:wrap; width:auto; max-width:calc(88% - 32px);
+            margin:-4px 0 5px 32px; padding:0; gap:8px; background:transparent;
+        }
+        .quick-replies-window::-webkit-scrollbar { display:none; }
+        .quick-replies-window .qr-btn { flex:0 0 auto; min-height:34px; padding:7px 12px; border-color:#d7e0da; background:#fff; color:#425249; font-size:.7rem; }
+        .quick-replies-window .qr-btn:hover { color:#173023; border-color:#86a895; background:#edf4f0; transform:translateY(-1px); }
+        .chatbot-input-window { align-items:flex-end; gap:9px; padding:10px 13px 11px; background:#fff; }
+        .chatbot-input-window textarea {
+            flex:1; width:100%; min-height:46px; max-height:132px; resize:none; overflow-y:auto;
+            padding:12px 15px; border:1px solid #d5ded8; border-radius:17px;
+            outline:0; background:#f5f8f6; color:#17241c;
+            font:500 .84rem/1.45 'Inter',sans-serif;
+            transition:border-color .16s ease,box-shadow .16s ease,background .16s ease;
+        }
+        .chatbot-input-window textarea::placeholder { color:#78857d; }
+        .chatbot-input-window textarea:focus { border-color:#789b88; background:#fff; box-shadow:0 0 0 3px rgba(92,132,110,.11); }
+        .chatbot-input-window .send-btn { width:46px; height:46px; flex:0 0 46px; background:#6f9580; }
+        .chatbot-input-window .send-btn svg { stroke:#0b1710; }
+        .chatbot-input-window .send-btn:disabled { opacity:.42; cursor:not-allowed; transform:none; box-shadow:none; }
+        .chatbot-input-window .send-btn.is-empty { opacity:.48; cursor:default; filter:saturate(.72); transform:none; box-shadow:inset 0 1px 0 rgba(240,250,244,.12),0 3px 9px rgba(25,72,50,.12); }
+        .chatbot-powered-by { padding:7px 0 9px; border-top:1px solid #eef1ef; background:#fff; color:#8a948e; font-size:.62rem; }
+        .chatbot-powered-by strong { color:#53635a; }
+
+        /* Private conversation history */
+        .chatbot-header-actions { display:flex; align-items:center; gap:7px; }
+        .chatbot-history-btn {
+            width:34px; height:34px; display:grid; place-items:center; border-radius:10px;
+            border:1px solid rgba(255,255,255,.07); background:rgba(255,255,255,.04);
+            color:rgba(255,255,255,.62); cursor:pointer; transition:var(--transition);
+        }
+        .chatbot-history-btn:hover,.chatbot-history-btn[aria-pressed="true"] { color:#fff; background:rgba(124,155,138,.16); border-color:rgba(124,155,138,.22); }
+        .chatbot-history-btn svg { width:17px; height:17px; fill:none; stroke:currentColor; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
+        .chat-history-view {
+            flex:1; min-height:0; display:none; flex-direction:column;
+            padding:0!important; margin:0!important;
+            background:#f2f5f2; color:#17241c;
+        }
+        .chatbot-window.history-open .chat-history-view { display:flex; }
+        .chatbot-window.history-open .chatbot-messages-window,
+        .chatbot-window.history-open .chatbot-footer { display:none; }
+        .chat-history-head { display:flex; align-items:center; justify-content:space-between; gap:12px; padding:17px 18px 13px; border-bottom:1px solid #dce4de; background:#fff; }
+        .chat-history-head h3 { margin:0; color:#17241c; font-size:.96rem; letter-spacing:-.02em; }
+        .chat-history-head p { margin:3px 0 0; color:#758179; font-size:.66rem; }
+        .chat-history-new { min-height:35px; padding:8px 11px; border:0; border-radius:9px; background:#668d77; color:#fff; font:700 .7rem/1 'Inter',sans-serif; cursor:pointer; }
+        .chat-history-new:hover { background:#547762; }
+        .chat-history-list,.chat-history-detail { flex:1; min-height:0; overflow-y:auto; padding:14px; }
+        .chat-history-list { display:grid; align-content:start; gap:9px; }
+        .chat-history-empty { padding:44px 24px; text-align:center; color:#758179; }
+        .chat-history-empty svg { width:34px; height:34px; margin-bottom:12px; fill:none; stroke:#8ca095; stroke-width:1.5; }
+        .chat-history-empty strong { display:block; margin-bottom:5px; color:#37483f; font-size:.84rem; }
+        .chat-history-empty span { display:block; font-size:.7rem; line-height:1.55; }
+        .chat-history-item { width:100%; display:grid; grid-template-columns:1fr auto; gap:12px; padding:13px 14px; border:1px solid #d7e0da; border-radius:13px; background:#fff; color:#17241c; text-align:left; cursor:pointer; transition:transform .16s ease,border-color .16s ease,box-shadow .16s ease; }
+        .chat-history-item:hover { transform:translateY(-1px); border-color:#9bb5a6; box-shadow:0 7px 20px rgba(25,55,37,.07); }
+        .chat-history-item strong { display:block; overflow:hidden; color:#223129; font-size:.76rem; white-space:nowrap; text-overflow:ellipsis; }
+        .chat-history-item span { display:block; margin-top:5px; color:#7a867f; font-size:.63rem; }
+        .chat-history-status { align-self:start; padding:5px 7px; border-radius:999px; background:#edf4f0; color:#557564; font-size:.57rem!important; font-weight:750; text-transform:capitalize; }
+        .chat-history-status.open,.chat-history-status.in_progress,.chat-history-status.reopened { background:#fff1e8; color:#9a5a39; }
+        .chat-history-detail { display:none; }
+        .chat-history-detail.open { display:block; }
+        .chat-history-list.detail-open { display:none; }
+        .chat-history-detail-head { position:sticky; top:-14px; z-index:2; display:flex; align-items:center; gap:10px; margin:-14px -14px 14px; padding:13px 14px; border-bottom:1px solid #dce4de; background:rgba(255,255,255,.96); backdrop-filter:blur(10px); }
+        .chat-history-back { width:34px; height:34px; display:grid; place-items:center; border:1px solid #d6dfd9; border-radius:9px; background:#fff; color:#43564b; cursor:pointer; }
+        .chat-history-detail-title { min-width:0; }
+        .chat-history-detail-title strong { display:block; overflow:hidden; color:#223129; font-size:.76rem; white-space:nowrap; text-overflow:ellipsis; }
+        .chat-history-detail-title span { display:block; margin-top:2px; color:#7a867f; font-size:.61rem; }
+        .chat-history-transcript { display:flex; flex-direction:column; gap:10px; }
+        .history-message { max-width:86%; padding:10px 12px; border:1px solid #d8e1da; border-radius:13px; background:#fff; color:#2a3931; font-size:.74rem; line-height:1.52; white-space:pre-wrap; overflow-wrap:anywhere; }
+        .history-message.user { align-self:flex-end; border-color:#9cbdab; background:#a9c8b7; color:#132019; }
+        .history-message-meta { display:block; margin-bottom:4px; color:#819087; font-size:.55rem; font-weight:700; text-transform:uppercase; }
+        .history-message.user .history-message-meta { color:#4c6859; }
+        .chat-history-continue { width:100%; min-height:42px; margin-top:14px; border:0; border-radius:11px; background:#668d77; color:#fff; font:700 .72rem/1 'Inter',sans-serif; cursor:pointer; }
+        .chat-history-continue.ticket { background:#173d29; box-shadow:0 7px 18px rgba(23,61,41,.14); }
+
+        /* Message delivery state: intentionally no read receipts. */
+        .msg.user { position:relative; padding-bottom:20px; }
+        .message-delivery {
+            position:absolute; right:9px; bottom:4px; display:inline-flex; align-items:center;
+            min-height:13px; color:rgba(17,34,25,.62); font-size:.57rem; line-height:1;
+        }
+        .message-delivery svg { width:16px; height:10px; overflow:visible; }
+        .message-delivery path,.message-delivery polyline {
+            fill:none; stroke:currentColor; stroke-width:1.7; stroke-linecap:round; stroke-linejoin:round;
+        }
+        .message-delivery.sending svg { width:11px; height:11px; }
+        .message-delivery.failed { position:static; gap:4px; margin:5px 2px 0 auto; color:#a33d34; cursor:pointer; }
+        .message-delivery.failed button { border:0; padding:0; background:none; color:inherit; font:700 .58rem/1 'Inter',sans-serif; cursor:pointer; }
+
+        /* ChatGPT-like conversation motion: quiet, responsive and interruptible. */
+        .chatbot-messages-window { scroll-behavior:auto; }
+        .msg-row {
+            transform-origin:bottom left;
+            animation:chatMessageIn .28s cubic-bezier(.22,.8,.3,1) both;
+        }
+        .msg-row.user { transform-origin:bottom right; }
+        .msg-row.prompt-anchor-moving { animation:none; }
+        @keyframes chatMessageIn {
+            from { opacity:0; transform:translateY(8px) scale(.985); }
+            to { opacity:1; transform:translateY(0) scale(1); }
+        }
+        .chatbot-footer .quick-replies-window {
+            max-height:70px;
+            transition:opacity .2s ease,transform .24s ease,max-height .28s ease,padding .28s ease;
+        }
+        .chatbot-footer.conversation-started .quick-replies-window {
+            max-height:0;
+            padding-top:0;
+            padding-bottom:0;
+            opacity:0;
+            transform:translateY(7px);
+            pointer-events:none;
+            overflow:hidden;
+        }
+        .send-btn.is-generating svg { display:none; }
+        .send-btn.is-generating::before {
+            content:"";
+            width:12px;
+            height:12px;
+            border:2px solid rgba(9,31,19,.3);
+            border-top-color:#0a2416;
+            border-radius:50%;
+            animation:chatSendSpin .7s linear infinite;
+        }
+        @keyframes chatSendSpin { to { transform:rotate(360deg); } }
+        @media(prefers-reduced-motion:reduce) {
+            .msg-row,.typing-indicator span,.send-btn.is-generating::before { animation:none!important; }
+            .chatbot-footer .quick-replies-window { transition:none!important; }
+        }
+        /* Compact, readable AI answers without decorative ticks or dense cards. */
+        .msg.bot,.msg.agent { width:fit-content; max-width:100%; }
+        .msg p { margin:0; }
+        .msg p+p { margin-top:.72em; }
+        .msg ol { display:grid; gap:.48em; margin:.7em 0 0 1.25em; padding:0; }
+        .msg li { padding-left:.18em; }
+        .message-actions {
+            display:flex; flex-wrap:wrap; gap:6px; margin:2px 0 2px 35px;
+            animation:chatActionsIn .28s .06s cubic-bezier(.22,.8,.3,1) both;
+        }
+        .message-action {
+            min-height:34px; padding:7px 11px; border:1px solid #cbd9d0; border-radius:999px;
+            background:rgba(255,255,255,.9); color:#365243; font:700 .66rem/1 'Inter',sans-serif;
+            box-shadow:0 3px 10px rgba(28,58,40,.045); transition:background .16s ease,border-color .16s ease,transform .16s ease;
+        }
+        .message-action:hover { transform:translateY(-1px); border-color:#87a895; background:#fff; }
+        .message-actions.is-leaving { opacity:0; transform:translateY(5px); transition:opacity .18s ease,transform .18s ease; }
+        @keyframes chatActionsIn { from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:none} }
+        .human-chat-status { cursor:default; }
+        .ticket-choice-card {
+            align-self:stretch;
+            padding:16px!important;
+            border:1px solid #cbd9d0!important;
+            border-radius:16px!important;
+            background:#fff!important;
+            color:#26382e!important;
+            font-size:.82rem!important;
+            line-height:1.5!important;
+            box-shadow:0 7px 22px rgba(25,55,37,.07)!important;
+        }
+        .ticket-choice-card strong { color:#173d29!important; }
+        .ticket-choice-actions { display:flex; flex-wrap:wrap; gap:7px; margin-top:12px; }
+        .ticket-choice-btn {
+            min-height:36px!important; padding:8px 12px!important; border:1px solid #c7d5cc!important;
+            border-radius:999px!important; background:#f6f9f7!important; color:#355043!important;
+            font-size:.68rem!important; font-weight:750!important;
+        }
+        .ticket-choice-btn.primary { border-color:#173d29!important; background:#173d29!important; color:#fff!important; }
+
+        @media(max-width:600px) {
+            body.chat-open { overflow:hidden; touch-action:none; }
+            .chatbot-window { touch-action:auto; }
+            .chatbot-toggle { right:18px; bottom:18px; width:58px; height:58px; }
+            .chatbot-toggle::after { display:none; }
+            .chatbot-window {
+                inset:0; width:100%; height:100dvh; max-width:none; max-height:none;
+                border:0; border-radius:0; animation:chatMobileIn .24s ease;
+            }
+            @keyframes chatMobileIn { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:none; } }
+            .chatbot-header-window { padding:max(14px,env(safe-area-inset-top)) 16px 14px; }
+            .chatbot-messages-window { padding:18px 14px; }
+            .chatbot-input-window { padding:10px 12px calc(10px + env(safe-area-inset-bottom)); }
+            .chatbot-powered-by { display:none; }
+            .chat-history-head { padding:14px 14px 12px; }
+            .chat-history-list,.chat-history-detail { padding:12px; }
+            .chat-history-detail-head { top:-12px; margin:-12px -12px 12px; padding:12px; }
+            .chat-history-item { min-height:64px; padding:13px; }
+        }
+        @media(prefers-reduced-motion:reduce) {
+            *,*::before,*::after { animation-duration:.01ms!important; animation-iteration-count:1!important; scroll-behavior:auto!important; transition-duration:.01ms!important; }
+        }
+    
+@media (max-width: 768px){.chatbot-window{width:calc(100vw - 32px);right:16px;bottom:94px;height:480px;border-radius:18px}}
+@media (max-width: 480px){.chatbot-window{height:420px;bottom:84px}}
+
+
+.chatbot-window{width:410px;height:min(640px,calc(100vh - 124px));border:1px solid rgba(15,24,19,.22);border-radius:20px;box-shadow:0 26px 72px rgba(7,14,10,.3),0 3px 12px rgba(7,14,10,.08)}
+.chatbot-header-window{position:relative;min-height:62px;padding:9px 14px;background:linear-gradient(120deg,rgba(47,78,64,.56),rgba(61,94,77,.52) 58%,rgba(75,108,89,.48));border-bottom-color:rgba(210,232,218,.26);-webkit-backdrop-filter:blur(22px) saturate(126%);backdrop-filter:blur(22px) saturate(126%);box-shadow:inset 0 1px 0 rgba(240,250,244,.13),inset 0 -1px 0 rgba(25,52,39,.16)}
+.chatbot-header-window::before{content:"";position:absolute;inset:0 0 auto;height:1px;background:linear-gradient(90deg,transparent,rgba(235,247,239,.3),transparent)}
+.chatbot-header-window .avatar{width:36px;height:36px;border-radius:11px;box-shadow:none}
+.chatbot-header-window .avatar img{width:22px;height:22px}
+.chatbot-header-window .title{color:#fff;font-size:1rem;font-weight:760;letter-spacing:-.025em}
+.chatbot-header-window .title span{color:#a9e5c0;text-shadow:none}
+.chatbot-header-window .status{display:block!important;margin-top:2px;color:rgba(239,248,242,.72);font:550 .61rem/1.15 'General Sans','Inter',sans-serif;letter-spacing:.025em}
+.chatbot-header-window .close-btn,.chatbot-history-btn{width:34px;height:34px}
+.chatbot-header-window .close-btn,.chatbot-history-btn{border-color:rgba(225,240,231,.18);background:rgba(29,57,44,.28);box-shadow:inset 0 1px 0 rgba(255,255,255,.055);transition:background .18s ease,border-color .18s ease,transform .18s ease}
+.chatbot-header-window .close-btn:hover,.chatbot-history-btn:hover{background:rgba(24,49,37,.42);border-color:rgba(231,244,236,.3);transform:translateY(-1px)}
+.chatbot-messages-window{padding:19px 16px;gap:12px;background:linear-gradient(145deg,#f2f6f3 0%,#edf3ef 55%,#eef4f0 100%)}
+.msg-row{max-width:78%;gap:7px}
+.msg-row.continuation{margin-top:-7px}
+.msg-row.grouped-before .msg-avatar{visibility:hidden}
+.msg-avatar{width:27px;height:27px;border:1px solid #d4dfd8;background:rgba(255,255,255,.9);box-shadow:0 3px 10px rgba(25,55,37,.05);transform:translateY(-4px)}
+.msg-avatar img{width:15px;height:15px}
+.msg-avatar.agent-avatar{background:#d7e7de;color:#345745;border:1px solid #bdd0c4;font:800 .55rem/1 'Inter',sans-serif}
+.msg{padding:8px 12px;border-radius:13px;font-size:.84rem;line-height:1.48}
+.msg.bot{border-color:#d9e2dc;background:rgba(255,255,255,.94);box-shadow:0 4px 14px rgba(25,55,37,.035)}
+.msg.agent{position:relative;padding-top:24px;border-color:#c4d6ca;background:#e4eee8;box-shadow:0 4px 14px rgba(25,55,37,.035)}
+.msg.has-sender-label{padding-top:23px}
+.message-sender-label{position:absolute;top:7px;left:12px;color:#66796f;font:590 .64rem/1 'General Sans','Inter',sans-serif;letter-spacing:-.005em;-webkit-font-smoothing:antialiased}
+.msg.user .message-sender-label{color:rgba(23,53,36,.6)}
+.msg-row.grouped-before .message-sender-label{display:none}
+.msg-row.grouped-before .msg.has-sender-label{padding-top:9px}
+.message-time{display:block;margin:5px 0 -1px;color:#89968e;font:550 .52rem/1 'General Sans','Inter',sans-serif;text-align:right;white-space:nowrap}
+.msg.user .message-time{color:rgba(19,42,29,.5)}
+.conversation-time-heading{align-self:center;display:flex;align-items:center;gap:9px;width:100%;margin:1px 0 4px;color:#7a8981;font:700 .58rem/1 'Inter',sans-serif;white-space:nowrap}
+.conversation-time-heading::before,.conversation-time-heading::after{content:"";height:1px;flex:1;background:#d5dfd9}
+.message-stream-content{display:contents}
+.return-to-prompt{position:absolute;z-index:8;left:50%;bottom:76px;width:34px;height:34px;display:grid;place-items:center;border:1px solid rgba(83,113,96,.24);border-radius:50%;background:rgba(255,255,255,.92);color:#395848;box-shadow:0 6px 18px rgba(22,50,34,.13);opacity:0;visibility:hidden;transform:translate(-50%,7px);pointer-events:none;transition:opacity .18s ease,transform .22s cubic-bezier(.22,.8,.3,1),visibility .18s ease}
+.return-to-prompt.is-visible{opacity:1;visibility:visible;transform:translate(-50%,0);pointer-events:auto}
+.return-to-prompt:hover{background:#fff;border-color:rgba(62,98,77,.4);transform:translate(-50%,-1px)}
+.return-to-prompt svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.chatbot-window.history-open .return-to-prompt{display:none}
+.msg.bot,.msg.agent,.msg.user{position:relative}
+.msg.bot::after,.msg.agent::after,.msg.user::after{content:"";position:absolute;bottom:0;width:5px;height:7px;background:inherit}
+.msg.bot::after,.msg.agent::after{left:-3px;clip-path:polygon(100% 0,100% 100%,0 100%)}
+.msg.user::after{right:-3px;clip-path:polygon(0 0,100% 100%,0 100%)}
+.msg-row.grouped-before .msg::after{display:none}
+.msg-row.grouped-before .msg.bot,.msg-row.grouped-before .msg.agent{border-bottom-left-radius:14px}
+.msg-row.grouped-before .msg.user{border-bottom-right-radius:14px}
+.msg.user{min-width:126px;padding-bottom:8px;border-color:#a2c3b0;background:#adcebc;box-shadow:0 4px 14px rgba(38,73,53,.065)}
+.message-delivery:not(.failed){display:none!important}
+.human-chat-status{align-self:stretch;display:flex;align-items:center;gap:9px;max-width:none;padding:2px 0;border:0;background:transparent;color:#5b7065;font-size:.62rem;font-weight:700;box-shadow:none}
+.human-chat-status::before,.human-chat-status::after{content:"";height:1px;flex:1;background:#d4ded8}
+.chatbot-input-window{gap:8px;padding:9px 11px 10px;border-top:1px solid #e4ebe7;background:#fff}
+.chatbot-input-window textarea{min-height:44px;padding:11px 14px;border:1px solid #ccd8d1;border-radius:15px;background:#fbfcfb;box-shadow:inset 0 1px 2px rgba(19,40,28,.025);transition:border-color .18s ease,box-shadow .18s ease,background .18s ease}
+.chatbot-input-window textarea:focus{border-color:#385748;background:#fff;box-shadow:inset 0 1px 2px rgba(19,40,28,.04)}
+.chatbot-input-window textarea:focus-visible{outline:none!important;outline-offset:0!important}
+.chatbot-input-window .send-btn{width:44px;height:44px;flex-basis:44px;border:1px solid rgba(49,82,66,.34);background:linear-gradient(120deg,rgba(47,78,64,.9),rgba(61,94,77,.87) 58%,rgba(75,108,89,.84));-webkit-backdrop-filter:none;backdrop-filter:none;box-shadow:inset 0 1px 0 rgba(240,250,244,.16),inset 0 -1px 0 rgba(25,52,39,.18),0 5px 13px rgba(25,72,50,.2)}
+.chatbot-input-window .send-btn svg{stroke:#fff}
+.chatbot-input-window .send-btn:hover{background:linear-gradient(120deg,rgba(43,73,59,.94),rgba(56,88,72,.92) 58%,rgba(68,101,82,.9));border-color:rgba(42,74,58,.44);box-shadow:inset 0 1px 0 rgba(240,250,244,.18),inset 0 -1px 0 rgba(25,52,39,.2),0 7px 16px rgba(25,72,50,.25);transform:translateY(-1px)}
+.chatbot-powered-by{padding:5px 0 7px;font-size:.59rem}
+.typing-indicator{display:flex;align-items:center;width:22px;height:28px;padding:0 2px}
+.typing-indicator span{width:8px;height:8px;border-radius:50%;background:#587464;opacity:.38;animation:typingDot 1.15s ease-in-out infinite}
+@keyframes typingDot{0%,100%{opacity:.3;transform:scale(.82)}50%{opacity:1;transform:scale(1)}}
+.escalation-status .pulse{display:none!important}
+@media(max-width:600px){
+  body.chat-open::before{content:"";position:fixed;inset:0;z-index:9997;background:#eef5f1;pointer-events:none}
+  .chatbot-window{top:var(--chat-viewport-top,0px);right:auto;bottom:auto;left:0;width:100%;height:var(--chat-viewport-height,100dvh);max-width:none;max-height:none;border-radius:0;overscroll-behavior:none}
+  .chat-toggle.open{display:none!important}
+  .chatbot-header-window{min-height:62px;padding:max(9px,env(safe-area-inset-top)) 13px 9px}
+  .chatbot-messages-window{padding:16px 13px}
+  .msg-row{max-width:84%}
+  .chatbot-header-window .header-id{min-width:0}
+  .chatbot-header-window .chatbot-brand{min-width:0}
+  .chatbot-header-actions{flex:0 0 auto}
+  .chatbot-input-window{width:100%;min-width:0}
+  .chatbot-input-window textarea{min-width:0!important;font-size:16px!important}
+  .chatbot-input-window .send-btn{flex:0 0 44px!important;width:44px!important;height:44px!important}
+  .chatbot-messages-window{overscroll-behavior:contain}
+}
+
+  /* Keep the production widget's visual design, but present it inline on this showcase page. */
+  .bot-lab{padding:78px 0;background:#fff;border-block:1px solid var(--line)}
+  .bot-lab-head{max-width:760px;margin-bottom:30px}
+  .bot-lab-head h2{font-size:clamp(32px,4vw,46px);line-height:1.08;letter-spacing:-.05em;margin:12px 0}
+  .bot-lab-head p{color:var(--muted);font-size:15px;max-width:690px;margin:0}
+  .lab-layout{display:grid;grid-template-columns:minmax(280px,.86fr) minmax(0,1.14fr);gap:18px;align-items:stretch}
+  .instruction-panel,.bot-live-panel{border:1px solid var(--line);border-radius:20px;background:#fff;overflow:hidden;min-width:0}
+  .panel-head{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:18px 20px;border-bottom:1px solid #edf0eb;background:#fbfcfa}
+  .panel-head strong{font-size:14px;letter-spacing:-.01em}
+  .panel-head small{display:block;color:var(--muted);font-size:12px;margin-top:3px}
+  .panel-tag{font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--green);font-weight:800;background:var(--sage);border-radius:999px;padding:6px 9px;white-space:nowrap}
+  .instruction-body{padding:20px}
+  .field-label{display:flex;justify-content:space-between;gap:10px;font-size:12px;font-weight:750;color:#40574a;margin-bottom:8px}
+  .industry-select{width:100%;padding:11px 12px;border:1px solid #cfdacf;border-radius:10px;background:#fff;color:var(--ink);font:inherit;font-size:14px;margin-bottom:17px}
+  .instructions-text{width:100%;min-height:250px;resize:vertical;border:1px solid #cfdacf;border-radius:12px;background:#fcfdfb;color:#20372d;padding:14px;font:13px/1.6 ui-monospace,SFMono-Regular,Menlo,monospace;outline:none}
+  .instructions-text:focus,.industry-select:focus{border-color:#6e997c;box-shadow:0 0 0 3px rgba(47,100,72,.1)}
+  .instruction-note{font-size:12px;color:var(--muted);line-height:1.55;margin:12px 0 0}
+  .instruction-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:15px}
+  .small-button{border:1px solid #cbd6ca;background:#fff;color:var(--ink);border-radius:9px;padding:9px 12px;font:inherit;font-size:12px;font-weight:650;cursor:pointer}
+  .small-button.primary{background:var(--green);border-color:var(--green);color:#fff}
+  .bot-live-panel{display:flex;flex-direction:column;background:#f2f6f3}
+  .bot-live-caption{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:16px 18px;background:#315642;color:#fff}
+  .bot-live-caption strong{display:block;font-size:14px}
+  .bot-live-caption span{display:block;color:#d6e5da;font-size:11px;margin-top:3px}
+  .live-pill{white-space:nowrap;border:1px solid rgba(255,255,255,.25);border-radius:999px;padding:5px 8px;font-size:10px!important;text-transform:uppercase;letter-spacing:.06em}
+  .bot-widget-stage{padding:14px;background:#eef3ef;min-width:0}
+  .bot-widget-stage .chat-toggle{display:none!important}
+  .bot-widget-stage .chatbot-window{position:relative!important;inset:auto!important;display:flex!important;visibility:visible!important;opacity:1!important;transform:none!important;width:100%!important;height:620px!important;max-width:none!important;max-height:none!important;margin:0!important;z-index:1!important;border-radius:18px!important;box-shadow:0 8px 30px rgba(20,45,30,.12)!important}
+  .bot-widget-stage .chatbot-header-window .close-btn{display:none!important}
+  .bot-widget-stage .chatbot-history-btn{display:none!important}
+  .bot-widget-stage .chatbot-window .chatbot-messages-window{flex:1;min-height:0}
+  .bot-live-note{margin:0;padding:0 16px 14px;background:#eef3ef;color:#69786e;font-size:11px;line-height:1.5}
+  @media(max-width:850px){.lab-layout{grid-template-columns:1fr}.instructions-text{min-height:210px}.bot-widget-stage .chatbot-window{height:580px!important}}
+  @media(max-width:560px){.bot-lab{padding:54px 0}.instruction-body{padding:15px}.bot-live-caption{padding:14px}.bot-widget-stage{padding:8px}.bot-widget-stage .chatbot-window{height:540px!important}.bot-live-caption span{max-width:200px}}
   </style>
 </head>
 <body>
@@ -102,8 +1082,8 @@
         <h1>Customer support that fits <span>your business.</span></h1>
         <p class="hero-copy">Every industry has different customer expectations. Novara combines AI automation, trained human support and ongoing CX oversight around the moments that matter most to your customers.</p>
         <div class="hero-actions">
-          <a class="button" href="#industries">Explore industry use cases <span aria-hidden="true">↓</span></a>
-          <a class="button secondary" href="https://novaracx.com">Discover Novara CX <span aria-hidden="true">↗</span></a>
+          <a class="button" href="#try-the-bot">Try the live chatbot <span aria-hidden="true">↓</span></a>
+          <a class="button secondary" href="#industries">Explore industry use cases <span aria-hidden="true">↘</span></a>
         </div>
         <div class="proof-row"><span>AI for repeatable questions</span><span>People for complex conversations</span><span>Processes built around your workflows</span></div>
       </div>
@@ -114,6 +1094,250 @@
         <div class="intro-tag">Practical use cases · Not one-size-fits-all</div>
       </div>
     </section>
+
+
+    <section class="bot-lab" id="try-the-bot">
+      <div class="wrap">
+        <div class="bot-lab-head">
+          <div class="eyebrow">Interactive chatbot demo</div>
+          <h2>See how instructions shape support.</h2>
+          <p>This is the chatbot already used on Novara CX. Choose an industry, edit the instructions it receives for this demo, and test a real conversation.</p>
+        </div>
+        <div class="lab-layout">
+          <section class="instruction-panel" aria-labelledby="instruction-title">
+            <div class="panel-head">
+              <div><strong id="instruction-title">Bot instructions</strong><small>Review and edit before testing</small></div>
+              <span class="panel-tag">Editable</span>
+            </div>
+            <div class="instruction-body">
+              <label class="field-label" for="industry-preset">Industry preset</label>
+              <select class="industry-select" id="industry-preset">
+                <option value="ecommerce">D2C &amp; ecommerce</option>
+                <option value="healthcare">Clinics &amp; healthcare</option>
+                <option value="education">Edtech &amp; learning</option>
+                <option value="saas">SaaS &amp; digital products</option>
+                <option value="retail">Retail &amp; marketplaces</option>
+                <option value="b2b">B2B &amp; professional services</option>
+              </select>
+              <label class="field-label" for="bot-instructions"><span>Instructions sent with each message</span><span id="instruction-count">0 chars</span></label>
+              <textarea class="instructions-text" id="bot-instructions" spellcheck="true" aria-describedby="instruction-note"></textarea>
+              <p class="instruction-note" id="instruction-note">These instructions are sent as demo context with each message to the existing AI backend. They do not change the production chatbot’s saved system prompt. Use fictional examples; do not enter real customer or patient data.</p>
+              <div class="instruction-actions">
+                <button class="small-button" type="button" id="reset-instructions">Reset preset</button>
+                <button class="small-button primary" type="button" id="start-new-demo">New conversation</button>
+              </div>
+            </div>
+          </section>
+          <section class="bot-live-panel" aria-label="Live Novara CX chatbot">
+            <div class="bot-live-caption"><div><strong>Live Novara CX Support</strong><span>Existing chatbot UI and AI backend</span></div><span class="live-pill">AI live</span></div>
+            <div class="bot-widget-stage">
+              <!-- chatbot -->
+<button class="chat-toggle" id="chatToggle" aria-label="Open chat"><svg class="chat" viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><path d="M8 10h.01M12 10h.01M16 10h.01"/></svg><svg class="x" viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+<div
+        class="chatbot-window"
+        id="chatbotWindow"
+        role="dialog"
+        aria-modal="false"
+        aria-label="Novara CX support assistant"
+    >
+
+        <div class="chatbot-header-window">
+
+            <div class="header-id">
+
+                <span class="avatar">
+                    <img
+                        src="assets/logo-mark.png"
+                        alt=""
+                    >
+                </span>
+
+                <div>
+
+                    <div class="title">
+                        Novara CX <span>Support</span>
+                    </div>
+
+                    <div class="status">AI Live - 24/7</div>
+
+                </div>
+
+            </div>
+
+
+            <div class="chatbot-header-actions">
+                <button
+                    class="chatbot-history-btn"
+                    id="chatHistoryBtn"
+                    type="button"
+                    aria-label="Open conversation history"
+                    aria-pressed="false"
+                >
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M3 12a9 9 0 1 0 3-6.7"/>
+                        <path d="M3 4v5h5"/>
+                        <path d="M12 7v5l3 2"/>
+                    </svg>
+                </button>
+
+                <button
+                    class="close-btn"
+                    id="chatbotClose"
+                    type="button"
+                    aria-label="Close chat"
+                >
+                    ✕
+                </button>
+            </div>
+
+        </div>
+
+        <section
+            id="chatHistoryView"
+            class="chat-history-view"
+            aria-label="Your conversation history"
+        >
+            <div class="chat-history-head">
+                <div>
+                    <h3>Your conversations</h3>
+                    <p>Private to this browser</p>
+                </div>
+                <button id="chatHistoryNew" class="chat-history-new" type="button">New chat</button>
+            </div>
+
+            <div id="chatHistoryList" class="chat-history-list"></div>
+
+            <div id="chatHistoryDetail" class="chat-history-detail">
+                <div class="chat-history-detail-head">
+                    <button id="chatHistoryBack" class="chat-history-back" type="button" aria-label="Back to conversation list">←</button>
+                    <div class="chat-history-detail-title">
+                        <strong id="chatHistoryDetailTitle"></strong>
+                        <span id="chatHistoryDetailMeta"></span>
+                    </div>
+                </div>
+                <div id="chatHistoryTranscript" class="chat-history-transcript"></div>
+                <button id="chatHistoryContinue" class="chat-history-continue" type="button">Back to current conversation</button>
+            </div>
+        </section>
+
+
+        <div
+            class="chatbot-messages-window"
+            id="chatMessages"
+            role="log"
+            aria-live="polite"
+            aria-relevant="additions"
+        ></div>
+
+        <button class="return-to-prompt" id="returnToPrompt" type="button" aria-label="Return to latest message">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+
+
+        <div class="chatbot-footer">
+
+            <div
+                class="quick-replies-window"
+                id="quickReplies"
+                hidden
+            >
+
+                <button type="button" class="qr-btn" data-question="Show me the Novara CX support plans">
+                    Explore support plans
+                </button>
+
+                <button type="button" class="qr-btn" data-question="What is NovaraDesk and what does it include?">
+                    What is NovaraDesk?
+                </button>
+
+                <button type="button" class="qr-btn" data-question="How does Novara CX work?">
+                    How Novara works
+                </button>
+
+                <button type="button" class="qr-btn" data-question="Help me choose the right Novara CX plan for my needs">
+                    Which plan fits me?
+                </button>
+
+            </div>
+
+
+            <div class="chatbot-input-window">
+
+                <textarea
+                    id="chatInput"
+                    rows="1"
+                    maxlength="1200"
+                    aria-label="Message Novara CX"
+                    placeholder="Type your message…"
+                ></textarea>
+
+                <button
+                    type="button"
+                    class="send-btn"
+                    id="chatSend"
+                    aria-label="Send message"
+                >
+
+                    <svg viewBox="0 0 24 24">
+
+                        <path d="M22 2 11 13"/>
+                        <path d="M22 2 15 22l-4-9-9-4 20-7z"/>
+
+                    </svg>
+
+                </button>
+
+            </div>
+
+
+            <div class="chatbot-powered-by">
+
+                <img
+                    src="assets/logo-mark.png"
+                    alt=""
+                >
+
+                Powered by
+                <strong>
+                    Novara CX AI
+                </strong>
+
+            </div>
+
+        </div>
+
+    </div>
+            </div>
+            <p class="bot-live-note">Demo uses the current Novara CX knowledge and support backend. Avoid entering real personal or sensitive information.</p>
+          </section>
+        </div>
+      </div>
+    </section>
+ion>
+          <section class="demo-chat" aria-label="Live Novara CX chatbot demo">
+            <div class="panel-head">
+              <div><strong>Novara CX Support</strong><small>Existing AI backend · Responses may use Novara’s current knowledge base</small></div>
+              <span class="live-status">AI live</span>
+            </div>
+            <div class="chat-context"><span id="active-industry-label">D2C &amp; ecommerce</span><span>Demo conversation</span></div>
+            <div class="chat-messages" id="demo-chat-messages" role="log" aria-live="polite">
+              <div class="demo-msg bot">Hi! I’m Novara CX Support. Pick an industry and ask me a sample customer question. You can edit my demo instructions at any time.</div>
+            </div>
+            <div class="chat-starters" id="chat-starters">
+              <button class="chat-starter" type="button" data-prompt="Where is my order, and what should I do if it is delayed?">Order delay</button>
+              <button class="chat-starter" type="button" data-prompt="I want to request a refund. What information do you need?">Refund request</button>
+              <button class="chat-starter" type="button" data-prompt="When should this be escalated to a human agent?">Human handoff</button>
+            </div>
+            <form class="chat-compose" id="demo-chat-form">
+              <textarea id="demo-chat-input" rows="1" maxlength="1200" aria-label="Message Novara CX Support" placeholder="Ask a sample customer question…" required></textarea>
+              <button class="chat-send" id="demo-chat-send" type="submit" aria-label="Send message">↑</button>
+            </form>
+            <div class="chat-disclaimer">Demonstration only · Don’t share real customer information</div>
+          </section>
+        </div>
+      </div>
+    </section>
+
     <section class="section" id="industries">
       <div class="wrap">
         <div class="section-head">
@@ -195,6 +1419,2252 @@
       });
     });
     document.getElementById('year').textContent = new Date().getFullYear();
+
+
+    const industryInstructions = {
+      ecommerce: { label:'D2C & ecommerce', text:'You are a customer support assistant for a D2C ecommerce brand. Be warm, concise, and practical. Help with order tracking, shipping delays, returns, exchanges, product questions, and refund status. Ask for an order number only when useful, and never invent tracking details, refund eligibility, delivery dates, or company policy. If account-specific information or an exception is needed, explain the next step and recommend a human agent. Use only the information available; clearly say when you do not know.' },
+      healthcare: { label:'Clinics & healthcare', text:'You are an administrative support assistant for a clinic. Help with appointment booking questions, clinic hours, visit preparation, billing processes, and routing requests to the right team. Do not diagnose, recommend treatment, interpret symptoms, or make promises about medical outcomes. Do not request unnecessary health details. For urgent symptoms or emergencies, advise the person to contact local emergency services or a qualified medical professional. Never invent clinic policies or appointment availability.' },
+      education: { label:'Edtech & learning', text:'You are a support assistant for an education or learning platform. Help learners and parents with course access, class schedules, onboarding, technical issues, learning resources, and billing questions. Use encouraging, clear language. Do not promise academic results or invent course, payment, or refund policies. Ask for only the minimum information needed. Escalate account-specific, safeguarding, payment-dispute, or unresolved technical issues to a human support agent.' },
+      saas: { label:'SaaS & digital products', text:'You are a support assistant for a SaaS product. Help users with onboarding, account access, feature discovery, setup, troubleshooting, and basic billing questions. Give numbered steps when useful and ask a clarifying question if the problem is unclear. Never ask for passwords, authentication codes, API keys, or secrets. Do not invent product capabilities or claim to have changed account settings. Escalate suspected security issues, outages, data loss, and unresolved bugs to a human.' },
+      retail: { label:'Retail & marketplaces', text:'You are a customer support assistant for a retailer or marketplace. Help with product availability questions, store policies, order issues, returns guidance, and routing between online and in-store support. Be clear about what is known and unknown. Do not invent stock levels, store hours, delivery estimates, return eligibility, or policies. Ask for the order or store details only when relevant and route exceptions or disputes to a human agent.' },
+      b2b: { label:'B2B & professional services', text:'You are a client service assistant for a B2B or professional services company. Help with onboarding steps, service requests, document checklists, project status questions, account queries, and meeting coordination. Be professional, structured, and action-oriented. Do not disclose confidential information or invent contractual commitments, delivery dates, or project status. If a request needs account access, specialist judgement, or a commercial decision, summarise the request and route it to the appropriate human owner.' }
+    };
+    const industryPreset=document.getElementById('industry-preset');
+    const instructionEditor=document.getElementById('bot-instructions');
+    const instructionCount=document.getElementById('instruction-count');
+    function updateInstructionCount(){instructionCount.textContent=instructionEditor.value.length.toLocaleString()+' chars'}
+    window.__novaraIndustryDemoPrompt=function(message){
+      const instructions=instructionEditor.value.trim();
+      return 'DEMO INDUSTRY INSTRUCTIONS (user-editable; apply these to this demonstration where consistent with your core safety rules):\n'+(instructions||'No additional industry instructions provided.')+'\n\nCUSTOMER MESSAGE:\n'+message;
+    };
+    function applyIndustryPreset(resetChat){
+      const preset=industryInstructions[industryPreset.value]||industryInstructions.ecommerce;
+      instructionEditor.value=preset.text;
+      updateInstructionCount();
+      if(resetChat)document.getElementById('chatHistoryNew')?.click();
+    }
+    industryPreset.addEventListener('change',()=>applyIndustryPreset(true));
+    document.getElementById('reset-instructions').addEventListener('click',()=>applyIndustryPreset(false));
+    document.getElementById('start-new-demo').addEventListener('click',()=>document.getElementById('chatHistoryNew')?.click());
+    instructionEditor.addEventListener('input',updateInstructionCount);
+    applyIndustryPreset(false);
+
+
   </script>
+<script id="index-chatbot-transplant-script">
+(() => {
+// ==========================================
+        // SESSION ID
+        // ==========================================
+
+        const urlParams =
+            new URLSearchParams(
+                window.location.search
+            );
+
+
+        const sessionFromUrl =
+            urlParams.get(
+                "session"
+            );
+
+
+        const SESSION_TIMEOUT_MS = 15 * 60 * 1000;
+
+        const createSessionId = () =>
+            `session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+
+        const createBrowserId = () =>
+            `browser_${Date.now()}_${Math.random().toString(36).substr(2, 12)}`;
+
+        const browserId =
+            localStorage.getItem("novara_industry_demo_browser_id") || createBrowserId();
+
+        localStorage.setItem("novara_industry_demo_browser_id", browserId);
+
+        const storedSessionId = localStorage.getItem("novara_industry_demo_session_id");
+        const lastActivity = Number(localStorage.getItem("novara_industry_demo_last_activity") || 0);
+        const sessionExpired = !lastActivity || (Date.now() - lastActivity) > SESSION_TIMEOUT_MS;
+
+        let sessionId =
+            !sessionExpired && (sessionFromUrl || storedSessionId)
+                ? (sessionFromUrl || storedSessionId)
+                : createSessionId();
+
+
+        localStorage.setItem(
+            "novara_industry_demo_session_id",
+            sessionId
+        );
+
+        localStorage.setItem("novara_industry_demo_last_activity", String(Date.now()));
+
+        function touchSessionActivity() {
+            localStorage.setItem("novara_industry_demo_last_activity", String(Date.now()));
+        }
+
+
+        // ==========================================
+        // CHATBOT
+        // ==========================================
+
+        const WORKER_URL =
+            "https://novara-cx-ai.rishi-rana96.workers.dev/";
+
+
+        const chatToggle =
+            document.getElementById(
+                "chatToggle"
+            );
+
+
+        const chatWindow =
+            document.getElementById(
+                "chatbotWindow"
+            );
+
+
+        const chatClose =
+            document.getElementById(
+                "chatbotClose"
+            );
+
+
+        const chatMessages =
+            document.getElementById(
+                "chatMessages"
+            );
+
+
+        const chatInput =
+            document.getElementById(
+                "chatInput"
+            );
+
+
+        const chatSend =
+            document.getElementById(
+                "chatSend"
+            );
+
+        const returnToPrompt = document.getElementById("returnToPrompt");
+
+        const chatFooter = chatWindow.querySelector(".chatbot-footer");
+
+        const chatHistoryBtn = document.getElementById("chatHistoryBtn");
+        const chatHistoryList = document.getElementById("chatHistoryList");
+        const chatHistoryDetail = document.getElementById("chatHistoryDetail");
+        const chatHistoryTranscript = document.getElementById("chatHistoryTranscript");
+        const chatHistoryDetailTitle = document.getElementById("chatHistoryDetailTitle");
+        const chatHistoryDetailMeta = document.getElementById("chatHistoryDetailMeta");
+        const chatHistoryNew = document.getElementById("chatHistoryNew");
+        const chatHistoryBack = document.getElementById("chatHistoryBack");
+        const chatHistoryContinue = document.getElementById("chatHistoryContinue");
+
+
+        const quickReplyBtns =
+            document.querySelectorAll(
+                ".qr-btn"
+            );
+        const openingQuickReplies = document.getElementById("quickReplies");
+
+        function renderOpeningWelcome() {
+            const welcomeRow = renderMessage("Hi! I’m the Novara CX AI assistant. I can help you explore our support plans, understand NovaraDesk, or find the right service for your business.\n\nWhat would you like to know?", "bot", false);
+            openingQuickReplies.classList.add("opening-quick-replies");
+            welcomeRow.after(openingQuickReplies);
+            openingQuickReplies.hidden = false;
+        }
+
+
+        let activeTicket = null;
+        let activeTicketSessionId = localStorage.getItem("novara_industry_demo_active_ticket_session") || null;
+        let chatMode = "ai";
+        let lastTicketMessageId = 0;
+        let lastTicketStatus = null;
+        let awaitingHumanName = false;
+        let ticketPollingGeneration = 0;
+
+        const CHAT_HISTORY_LIMIT = 20;
+        const CHAT_HISTORY_KEY = `novara_chat_history_${browserId}`;
+        const CHAT_DRAFT_KEY = `novara_chat_draft_${browserId}`;
+
+        function readChatHistory() {
+            try {
+                const history = JSON.parse(localStorage.getItem(CHAT_HISTORY_KEY) || "[]");
+                return Array.isArray(history) ? history : [];
+            } catch (_) {
+                return [];
+            }
+        }
+
+        function writeChatHistory(history) {
+            try {
+                localStorage.setItem(CHAT_HISTORY_KEY, JSON.stringify(history.slice(0, CHAT_HISTORY_LIMIT)));
+            } catch (_) {
+                // The live chat must keep working even when browser storage is unavailable.
+            }
+        }
+
+        function cleanHistoryText(text) {
+            return String(text || "")
+                .split(/\[CSAT\]|\[✅ Yes\]/)[0]
+                .replace(/\*\*/g, "")
+                .trim();
+        }
+
+        function isOpenTicketStatus(status) {
+            return ["open", "in_progress", "pending", "reopened"].includes(status);
+        }
+
+        function ticketStatusForHistory() {
+            return chatMode === "human" && activeTicketSessionId === sessionId
+                ? activeTicket?.status || "open"
+                : "ai";
+        }
+
+        function recordHistoryMessage(text, sender) {
+            const cleaned = cleanHistoryText(text);
+            if (!cleaned || !["user", "bot", "agent"].includes(sender)) return;
+
+            const history = readChatHistory();
+            let conversation = history.find(item => item.sessionId === sessionId);
+            const now = new Date().toISOString();
+
+            if (!conversation) {
+                conversation = {
+                    sessionId,
+                    createdAt: now,
+                    updatedAt: now,
+                    title: "New conversation",
+                    status: ticketStatusForHistory(),
+                    ticketNumber: null,
+                    ticketId: null,
+                    messages: []
+                };
+                history.push(conversation);
+            }
+
+            conversation.messages = Array.isArray(conversation.messages) ? conversation.messages : [];
+            const previousMessage = conversation.messages[conversation.messages.length - 1];
+            if (previousMessage?.sender === sender && previousMessage?.text === cleaned) return;
+            conversation.messages.push({ text: cleaned, sender, at: now });
+            conversation.messages = conversation.messages.slice(-120);
+            conversation.updatedAt = now;
+            conversation.status = ticketStatusForHistory();
+            conversation.ticketNumber = conversation.status === "ai"
+                ? conversation.ticketNumber || null
+                : activeTicket?.ticket_number || activeTicket?.ticketNumber || conversation.ticketNumber || null;
+            conversation.ticketId = conversation.status === "ai"
+                ? conversation.ticketId || null
+                : activeTicket?.id || conversation.ticketId || null;
+
+            const firstUserMessage = conversation.messages.find(message => message.sender === "user")?.text;
+            conversation.title = firstUserMessage
+                ? `${firstUserMessage.slice(0, 68)}${firstUserMessage.length > 68 ? "…" : ""}`
+                : conversation.title;
+
+            history.sort((a, b) => new Date(b.updatedAt || 0) - new Date(a.updatedAt || 0));
+            writeChatHistory(history);
+        }
+
+        function syncCurrentHistoryMetadata() {
+            const history = readChatHistory();
+            const conversation = history.find(item => item.sessionId === sessionId);
+            if (!conversation) return;
+            conversation.status = ticketStatusForHistory();
+            conversation.ticketNumber = activeTicket?.ticket_number || activeTicket?.ticketNumber || conversation.ticketNumber || null;
+            conversation.ticketId = activeTicket?.id || conversation.ticketId || null;
+            conversation.updatedAt = new Date().toISOString();
+            history.sort((a, b) => new Date(b.updatedAt || 0) - new Date(a.updatedAt || 0));
+            writeChatHistory(history);
+        }
+
+        function syncTicketHistoryMetadata(ticketSession, ticket) {
+            const history = readChatHistory();
+            const conversation = history.find(item => item.sessionId === ticketSession);
+            if (!conversation) return;
+            const statusChanged = conversation.status !== ticket.status;
+            conversation.status = ticket.status || conversation.status;
+            conversation.ticketNumber = ticket.ticket_number || ticket.ticketNumber || conversation.ticketNumber || null;
+            conversation.ticketId = ticket.id || conversation.ticketId || null;
+            if (statusChanged) conversation.updatedAt = new Date().toISOString();
+            history.sort((a, b) => new Date(b.updatedAt || 0) - new Date(a.updatedAt || 0));
+            writeChatHistory(history);
+        }
+
+        function formatHistoryTime(value) {
+            const date = new Date(value);
+            if (Number.isNaN(date.getTime())) return "";
+            return date.toLocaleString(undefined, {
+                day: "numeric",
+                month: "short",
+                hour: "numeric",
+                minute: "2-digit"
+            });
+        }
+
+        function historyStatusLabel(status) {
+            const labels = {
+                ai: "AI chat",
+                open: "Open ticket",
+                in_progress: "In progress",
+                pending: "Pending",
+                reopened: "Reopened",
+                resolved: "Resolved"
+            };
+            return labels[status] || status || "AI chat";
+        }
+
+        function renderChatHistory() {
+            const history = readChatHistory();
+            chatHistoryList.classList.remove("detail-open");
+            chatHistoryDetail.classList.remove("open");
+            chatHistoryList.replaceChildren();
+
+            if (!history.length) {
+                const empty = document.createElement("div");
+                empty.className = "chat-history-empty";
+                empty.innerHTML = `
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/><path d="M8 10h8M8 14h5"/></svg>
+                    <strong>No conversations yet</strong>
+                    <span>Your chats will appear here on this browser.</span>
+                `;
+                chatHistoryList.appendChild(empty);
+                return;
+            }
+
+            history.forEach(conversation => {
+                const item = document.createElement("button");
+                item.type = "button";
+                item.className = "chat-history-item";
+
+                const summary = document.createElement("div");
+                const title = document.createElement("strong");
+                title.textContent = conversation.title || "Conversation";
+                const meta = document.createElement("span");
+                meta.textContent = [
+                    formatHistoryTime(conversation.updatedAt),
+                    conversation.ticketNumber
+                ].filter(Boolean).join(" · ");
+                summary.append(title, meta);
+
+                const status = document.createElement("span");
+                status.className = `chat-history-status ${conversation.status || "ai"}`;
+                status.textContent = historyStatusLabel(conversation.status);
+                item.append(summary, status);
+                item.addEventListener("click", () => openHistoryDetail(conversation));
+                chatHistoryList.appendChild(item);
+            });
+        }
+
+        function openHistoryDetail(conversation) {
+            chatHistoryDetailTitle.textContent = conversation.title || "Conversation";
+            chatHistoryDetailMeta.textContent = [
+                formatHistoryTime(conversation.createdAt),
+                conversation.ticketNumber,
+                historyStatusLabel(conversation.status)
+            ].filter(Boolean).join(" · ");
+            chatHistoryTranscript.replaceChildren();
+
+            (conversation.messages || []).forEach(message => {
+                const bubble = document.createElement("div");
+                bubble.className = `history-message ${message.sender || "bot"}`;
+                const meta = document.createElement("span");
+                meta.className = "history-message-meta";
+                meta.textContent = `${message.sender === "user" ? "Me" : message.sender === "agent" ? "Support" : "Novara CX AI"} · ${formatHistoryTime(message.at)}`;
+                const content = document.createElement("span");
+                content.textContent = message.text || "";
+                bubble.append(meta, content);
+                chatHistoryTranscript.appendChild(bubble);
+            });
+
+            chatHistoryList.classList.add("detail-open");
+            chatHistoryDetail.classList.add("open");
+            const canContinueTicket = Boolean(conversation.ticketNumber && isOpenTicketStatus(conversation.status));
+            const canReopenTicket = Boolean(conversation.ticketNumber && conversation.status === "resolved");
+            chatHistoryContinue.textContent = canContinueTicket ? "Continue this ticket" : canReopenTicket ? "Reopen ticket" : "Back to current conversation";
+            chatHistoryContinue.classList.toggle("ticket", canContinueTicket || canReopenTicket);
+            chatHistoryContinue.dataset.sessionId = canContinueTicket || canReopenTicket ? conversation.sessionId : "";
+            chatHistoryContinue.dataset.action = canReopenTicket ? "reopen" : canContinueTicket ? "continue" : "back";
+            chatHistoryDetail.scrollTop = 0;
+        }
+
+        async function continueHistoryConversation() {
+            const ticketSession = chatHistoryContinue.dataset.sessionId;
+            if (!ticketSession) {
+                closeChatHistory();
+                return;
+            }
+            const conversation = readChatHistory().find(item => item.sessionId === ticketSession);
+            if (!conversation) {
+                renderChatHistory();
+                return;
+            }
+            if (chatHistoryContinue.dataset.action === "reopen") {
+                let ticketId = conversation.ticketId;
+                if (!ticketId) {
+                    const statusResponse = await fetch(`${WORKER_URL}ticket-status?session=${encodeURIComponent(ticketSession)}`);
+                    const statusData = await statusResponse.json();
+                    ticketId = statusData.ticket?.id;
+                }
+                if (!ticketId) return;
+                const response = await fetch(`${WORKER_URL}ticket/update`, {
+                    method:"POST",
+                    headers:{ "Content-Type":"application/json" },
+                    body:JSON.stringify({ ticketId, action:"reopen" })
+                });
+                const data = await response.json();
+                if (!response.ok) throw new Error(data.error || "Could not reopen ticket.");
+                conversation.status = "reopened";
+                conversation.ticketId = data.ticket?.id || ticketId;
+                writeChatHistory(readChatHistory().map(item => item.sessionId === conversation.sessionId ? conversation : item));
+            } else if (!isOpenTicketStatus(conversation.status)) {
+                closeChatHistory();
+                return;
+            }
+            sessionId = ticketSession;
+            ticketPollingGeneration += 1;
+            activeTicketSessionId = ticketSession;
+            localStorage.setItem("novara_industry_demo_session_id", sessionId);
+            localStorage.setItem("novara_industry_demo_active_ticket_session", activeTicketSessionId);
+            touchSessionActivity();
+            chatMode = "human";
+            lastTicketMessageId = 0;
+            lastTicketStatus = conversation.status;
+            chatMessages.replaceChildren();
+            (conversation.messages || []).forEach(message => renderMessage(message.text, message.sender || "bot", false, null, false, null, message.at));
+            closeChatHistory();
+            await pollTicketMessages();
+            updateHumanChatStatus();
+            chatInput.disabled = false;
+            chatSend.disabled = false;
+            chatInput.focus();
+        }
+
+        function openChatHistory() {
+            chatWindow.classList.add("history-open");
+            chatHistoryBtn.setAttribute("aria-pressed", "true");
+            renderChatHistory();
+        }
+
+        function closeChatHistory() {
+            chatWindow.classList.remove("history-open");
+            chatHistoryBtn.setAttribute("aria-pressed", "false");
+            chatInput.focus();
+        }
+
+        let shouldFollowConversation = true;
+        let chatScrollFrame = 0;
+        let userPausedChatFollow = false;
+        let previousChatScrollTop = chatMessages.scrollTop;
+        let latestPromptRow = null;
+        let latestPromptAnchorTop = null;
+        let settingPromptAnchor = false;
+        let chatScrollCeiling = null;
+        let latestPromptObserver = null;
+
+        function updateReturnToPromptVisibility() {
+            if (!latestPromptRow || latestPromptAnchorTop === null) {
+                returnToPrompt.classList.remove("is-visible");
+                return;
+            }
+            const promptRect = latestPromptRow.getBoundingClientRect();
+            const chatRect = chatMessages.getBoundingClientRect();
+            returnToPrompt.classList.toggle("is-visible", promptRect.top >= chatRect.bottom);
+        }
+
+        function observeLatestPrompt(row) {
+            latestPromptObserver?.disconnect();
+            if (!row) return;
+            latestPromptObserver = new IntersectionObserver(updateReturnToPromptVisibility, {
+                root: chatMessages,
+                threshold: [0, 0.01, 1]
+            });
+            latestPromptObserver.observe(row);
+        }
+
+        function settleChatScrollCeiling() {
+            requestAnimationFrame(() => requestAnimationFrame(() => {
+                const lastContent = chatMessages.lastElementChild;
+                if (!lastContent) return;
+                const chatRect = chatMessages.getBoundingClientRect();
+                const contentBottom = chatMessages.scrollTop +
+                    lastContent.getBoundingClientRect().bottom - chatRect.top;
+                const naturalLatestTop = Math.max(0, contentBottom - chatMessages.clientHeight + 18);
+                chatScrollCeiling = Math.max(chatMessages.scrollTop, naturalLatestTop);
+                if (chatMessages.scrollTop > chatScrollCeiling) {
+                    chatMessages.scrollTop = chatScrollCeiling;
+                }
+                previousChatScrollTop = chatMessages.scrollTop;
+            }));
+        }
+
+        function isChatNearLatest() {
+            return chatMessages.scrollHeight - chatMessages.scrollTop - chatMessages.clientHeight < 72;
+        }
+
+        function anchorLatestPrompt(row) {
+            if (!row) return;
+
+            cancelAnimationFrame(chatScrollFrame);
+            chatScrollFrame = 0;
+            row.classList.add("prompt-anchor-moving");
+            latestPromptRow = row;
+            observeLatestPrompt(row);
+            latestPromptAnchorTop = null;
+            userPausedChatFollow = false;
+            shouldFollowConversation = false;
+
+            // Let a new prompt reach the top before the answer becomes long.
+            // Padding remains below the transcript, so the answer still begins
+            // immediately beneath the prompt.
+            chatMessages.style.paddingBottom = "16px";
+            const availableSpace = Math.max(
+                16,
+                chatMessages.clientHeight - row.offsetHeight - 32
+            );
+            chatMessages.style.paddingBottom = `${availableSpace}px`;
+
+            requestAnimationFrame(() => {
+                if (latestPromptRow !== row) return;
+                settingPromptAnchor = true;
+                const messageTopInViewport = row.getBoundingClientRect().top;
+                const chatTopInViewport = chatMessages.getBoundingClientRect().top;
+                const messageRows = Array.from(chatMessages.querySelectorAll(".msg-row"));
+                const currentRowIndex = messageRows.indexOf(row);
+                const previousMessageRow = currentRowIndex > 0
+                    ? messageRows[currentRowIndex - 1]
+                    : null;
+                const desiredTop = previousMessageRow
+                    ? chatMessages.scrollTop +
+                        previousMessageRow.getBoundingClientRect().bottom -
+                        chatTopInViewport - 58
+                    : chatMessages.scrollTop +
+                        messageTopInViewport - chatTopInViewport - 24;
+                const maximumTop = Math.max(
+                    0,
+                    chatMessages.scrollHeight - chatMessages.clientHeight
+                );
+                latestPromptAnchorTop = Math.max(0, Math.min(desiredTop, maximumTop));
+
+                const startTop = chatMessages.scrollTop;
+                const distance = latestPromptAnchorTop - startTop;
+                const duration = window.matchMedia("(prefers-reduced-motion: reduce)").matches
+                    ? 0
+                    : 380;
+                const startedAt = performance.now();
+
+                const movePromptUp = now => {
+                    if (latestPromptRow !== row) return;
+                    const progress = duration === 0
+                        ? 1
+                        : Math.min(1, (now - startedAt) / duration);
+                    const eased = 1 - Math.pow(1 - progress, 3);
+                    chatMessages.scrollTop = startTop + distance * eased;
+                    previousChatScrollTop = chatMessages.scrollTop;
+
+                    if (progress < 1) {
+                        chatScrollFrame = requestAnimationFrame(movePromptUp);
+                        return;
+                    }
+
+                    chatScrollFrame = 0;
+                    settingPromptAnchor = false;
+                    latestPromptAnchorTop = chatMessages.scrollTop;
+                    previousChatScrollTop = chatMessages.scrollTop;
+                    updateReturnToPromptVisibility();
+                };
+
+                chatScrollFrame = requestAnimationFrame(movePromptUp);
+            });
+        }
+
+        function scrollChatToLatest(force = false) {
+            if (force) userPausedChatFollow = false;
+            if (!force && latestPromptAnchorTop !== null) return;
+            if (!force && !shouldFollowConversation) {
+                return;
+            }
+            shouldFollowConversation = true;
+            cancelAnimationFrame(chatScrollFrame);
+            const settle = () => {
+                const target = Math.max(0, chatMessages.scrollHeight - chatMessages.clientHeight);
+                const distance = target - chatMessages.scrollTop;
+                if (Math.abs(distance) < 1) {
+                    chatMessages.scrollTop = target;
+                    chatScrollFrame = 0;
+                    return;
+                }
+                chatMessages.scrollTop += distance * .24;
+                chatScrollFrame = requestAnimationFrame(settle);
+            };
+            chatScrollFrame = requestAnimationFrame(settle);
+        }
+
+        chatMessages.addEventListener("scroll", () => {
+            const currentScrollTop = chatMessages.scrollTop;
+            updateReturnToPromptVisibility();
+            if (chatScrollCeiling !== null && currentScrollTop > chatScrollCeiling + 1) {
+                chatMessages.scrollTop = chatScrollCeiling;
+                previousChatScrollTop = chatScrollCeiling;
+                return;
+            }
+            if (latestPromptAnchorTop !== null) {
+                previousChatScrollTop = currentScrollTop;
+                return;
+            }
+            const movingTowardLatest = currentScrollTop >= previousChatScrollTop;
+            if (isChatNearLatest() && (!userPausedChatFollow || movingTowardLatest)) {
+                userPausedChatFollow = false;
+                shouldFollowConversation = true;
+            } else if (userPausedChatFollow || !chatScrollFrame) {
+                shouldFollowConversation = false;
+            }
+            previousChatScrollTop = currentScrollTop;
+        }, { passive:true });
+
+        const pauseChatFollow = () => {
+            cancelAnimationFrame(chatScrollFrame);
+            chatScrollFrame = 0;
+            settingPromptAnchor = false;
+            userPausedChatFollow = true;
+            shouldFollowConversation = false;
+        };
+        chatMessages.addEventListener("wheel", event => {
+            if (event.deltaY > 0 && chatScrollCeiling !== null &&
+                chatMessages.scrollTop >= chatScrollCeiling - 1) {
+                event.preventDefault();
+                return;
+            }
+            if (event.deltaY < 0 || !isChatNearLatest()) pauseChatFollow();
+        }, { passive:false });
+        chatMessages.addEventListener("touchmove", pauseChatFollow, { passive:true });
+
+        returnToPrompt.addEventListener("click", () => {
+            if (latestPromptAnchorTop === null) return;
+            userPausedChatFollow = false;
+            returnToPrompt.classList.remove("is-visible");
+            chatMessages.scrollTo({
+                top: latestPromptAnchorTop,
+                behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth"
+            });
+        });
+
+        // ==========================================
+        // OPEN / CLOSE
+        // ==========================================
+
+        chatToggle.addEventListener(
+            "click",
+            () => {
+
+                chatWindow.classList.toggle(
+                    "open"
+                );
+
+
+                chatToggle.classList.toggle(
+                    "open",
+                    chatWindow.classList.contains(
+                        "open"
+                    )
+                );
+
+                chatToggle.setAttribute(
+                    "aria-expanded",
+                    chatWindow.classList.contains("open") ? "true" : "false"
+                );
+
+
+                if (
+                    chatWindow.classList.contains(
+                        "open"
+                    )
+                ) {
+
+                    document.body.classList.add("chat-open");
+                    syncMobileChatViewport();
+                    if (window.matchMedia("(hover:hover) and (pointer:fine)").matches) {
+                        chatInput.focus();
+                    }
+                    scrollChatToLatest();
+
+                } else {
+
+                    document.body.classList.remove("chat-open");
+
+                }
+
+            }
+        );
+
+
+        chatClose.addEventListener(
+            "click",
+            () => {
+
+                chatWindow.classList.remove(
+                    "open"
+                );
+
+
+                chatToggle.classList.remove(
+                    "open"
+                );
+
+                chatToggle.setAttribute("aria-expanded", "false");
+                document.body.classList.remove("chat-open");
+                chatWindow.classList.remove("history-open");
+                chatHistoryBtn.setAttribute("aria-pressed", "false");
+
+            }
+        );
+
+
+        // ==========================================
+        // MESSAGE FORMATTING, DELIVERY AND STREAMING
+        // ==========================================
+
+        function formatInlineMessage(text) {
+            return String(text || "")
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/\*\*\*(.*?)\*\*\*/g, "<b><i>$1</i></b>")
+                .replace(/\*\*(.*?)\*\*/g, "<b>$1</b>")
+                .replace(/\*(.*?)\*/g, "<i>$1</i>")
+                .replace(/\[(.*?)\]\((https?:\/\/[^\s)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
+        }
+
+        function formatMessageHtml(text) {
+            const cleaned = String(text || "").replace(/^\s*[✓✔✅]\s*/gm, "").trim();
+            const blocks = cleaned.split(/\n{2,}/).filter(Boolean);
+            return blocks.map(block => {
+                const lines = block.split("\n").filter(line => line.trim());
+                if (lines.length && lines.every(line => /^\s*\d+[.)]\s+/.test(line))) {
+                    return `<ol>${lines.map(line => `<li>${formatInlineMessage(line.replace(/^\s*\d+[.)]\s+/, ""))}</li>`).join("")}</ol>`;
+                }
+                return `<p>${formatInlineMessage(block).replace(/\n/g, "<br>")}</p>`;
+            }).join("");
+        }
+
+        function formatStreamingMessageHtml(text) {
+            let streamingText = String(text || "");
+            const boldMarkers = streamingText.match(/\*\*/g) || [];
+            if (boldMarkers.length % 2) streamingText += "**";
+            const italicMarkers = streamingText.match(/(^|[^*])\*(?!\*)/g) || [];
+            if (italicMarkers.length % 2) streamingText += "*";
+            return formatMessageHtml(streamingText);
+        }
+
+        function chatMessageDate(value = null) {
+            const date = value ? new Date(value) : new Date();
+            return Number.isNaN(date.getTime()) ? new Date() : date;
+        }
+
+        function chatClock(value = null) {
+            return chatMessageDate(value).toLocaleTimeString([], {
+                hour: "numeric",
+                minute: "2-digit",
+                hour12: true
+            });
+        }
+
+        function ensureConversationTimeHeading(value = null) {
+            if (chatMessages.querySelector(".conversation-time-heading")) return;
+            const date = chatMessageDate(value);
+            const heading = document.createElement("div");
+            heading.className = "conversation-time-heading";
+            heading.textContent = `${date.toLocaleDateString([], { weekday:"long" })}, ${chatClock(date)}`;
+            chatMessages.appendChild(heading);
+        }
+
+        const DELIVERY_ICONS = {
+            sending: '<svg viewBox="0 0 12 12" aria-hidden="true"><circle cx="6" cy="6" r="4.5"></circle><path d="M6 3.5v2.8l1.8 1"></path></svg>',
+            sent: '<svg viewBox="0 0 18 12" aria-hidden="true"><polyline points="2,6.5 5.1,9.4 11.5,2.7"></polyline></svg>',
+            delivered: '<svg viewBox="0 0 20 12" aria-hidden="true"><polyline points="1.5,6.5 4.6,9.4 11,2.7"></polyline><polyline points="7.2,7.2 9.5,9.4 16.3,2.7"></polyline></svg>'
+        };
+
+        function setMessageDelivery(row, state, retry = null) {
+            if (!row || !row.classList.contains("user")) return;
+            if (state !== "failed") {
+                row.querySelector(".message-delivery")?.remove();
+                return;
+            }
+            let status = row.querySelector(".message-delivery");
+            if (!status) {
+                status = document.createElement("span");
+                status.className = "message-delivery";
+                row.querySelector(".msg.user")?.appendChild(status);
+            }
+            status.className = `message-delivery ${state}`;
+            status.setAttribute("aria-label", state === "sending" ? "Sending" : state === "sent" ? "Sent" : state === "delivered" ? "Delivered" : "Message failed");
+            if (state === "failed") {
+                status.innerHTML = '<span>Not sent</span><button type="button">Retry</button>';
+                if (retry) status.querySelector("button").addEventListener("click", retry, { once:true });
+                return;
+            }
+            status.innerHTML = DELIVERY_ICONS[state] || DELIVERY_ICONS.sent;
+        }
+
+        async function streamMessage(text, sender = "bot", escalationData = null, allowRating = true) {
+            const characters = Array.from(String(text || ""));
+            const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+            const row = renderMessage("", sender, false, null, false);
+            const bubble = row.querySelector(".msg");
+            const chunkSize = reducedMotion ? Math.max(1, characters.length) : Math.max(1, Math.ceil(characters.length / 240));
+            const delay = reducedMotion ? 0 : 18;
+            let visible = "";
+
+            if (sender === "bot" || sender === "agent") {
+                const senderLabel = document.createElement("span");
+                senderLabel.className = "message-sender-label";
+                senderLabel.textContent = sender === "agent" ? "Novara CX Support" : "Novara CX AI Support";
+                const streamContent = document.createElement("span");
+                streamContent.className = "message-stream-content";
+                bubble.replaceChildren(senderLabel, streamContent);
+                bubble.classList.add("has-sender-label");
+            }
+
+            bubble.setAttribute("aria-busy", "true");
+            for (let index = 0; index < characters.length; index += chunkSize) {
+                visible += characters.slice(index, index + chunkSize).join("");
+                const streamContent = bubble.querySelector(".message-stream-content");
+                if (streamContent) streamContent.innerHTML = formatStreamingMessageHtml(visible);
+                else bubble.innerHTML = formatStreamingMessageHtml(visible);
+                scrollChatToLatest();
+                if (delay) await new Promise(resolve => setTimeout(resolve, delay));
+            }
+
+            row.remove();
+            const finalRow = renderMessage(text, sender, allowRating, escalationData, true);
+            finalRow.style.animation = "none";
+            return finalRow;
+        }
+
+        const selectedContextualActions = new Set();
+
+        function contextualActionsFor(message, reply, escalationData) {
+            if (escalationData?.escalatedToHuman === 1 || chatMode === "human") return [];
+            const prompt = String(message || "").toLowerCase().replace(/\s+/g, " ").trim();
+            const context = `${prompt} ${String(reply || "").toLowerCase()}`;
+            if (!prompt || /^(hi|hello|hey|thanks|thank you|okay|ok)[!. ]*$/.test(prompt)) return [];
+
+            const actions = [];
+            const add = action => {
+                if (!actions.some(item => item.label === action.label) &&
+                    !selectedContextualActions.has(action.label)) actions.push(action);
+            };
+
+            const finish = candidates => {
+                candidates.forEach(add);
+                return actions.slice(0, 3);
+            };
+
+            // The latest prompt leads. Reply copy can mention adjacent products,
+            // but that should not pull suggestions away from the user's intent.
+            if (/price|pricing|cost|plan|package|budget|quote|₹|\$/.test(prompt)) {
+                return finish([
+                    { label:"Compare plans", target:"#mvp-pricing" },
+                    { label:"Which plan fits me?", question:"Help me choose the right Novara CX plan for my needs" },
+                    { label:"Compare coverage", target:"#mvp-pricing" },
+                    { label:"Book a discovery call", target:"#mvp-contact" }
+                ]);
+            }
+            if (/novaradesk|ticket|analytics|dashboard|workflow|report|knowledge base/.test(prompt)) {
+                return finish([
+                    { label:"Explore NovaraDesk", target:"#mvp-platform" },
+                    { label:"See relevant features", question:"Which NovaraDesk features are most relevant for my use case?" },
+                    { label:"Discuss integrations", question:"Which integrations would I need and how would they work?" },
+                    { label:"Book a discovery call", target:"#mvp-contact" }
+                ]);
+            }
+            if (/integrat|whatsapp|instagram|shopify|freshdesk|zendesk|zoho|channel|crm/.test(prompt)) {
+                return finish([
+                    { label:"Discuss integrations", question:"Which integrations would I need and how would they work?" },
+                    { label:"Explore NovaraDesk", target:"#mvp-platform" },
+                    { label:"Book a discovery call", target:"#mvp-contact" }
+                ]);
+            }
+
+            if (/price|pricing|cost|plan|package|budget|quote|₹|\$/.test(context)) {
+                add({ label:"Compare plans", target:"#mvp-pricing" });
+                add({ label:"Which plan fits me?", question:"Help me choose the right Novara CX plan for my needs" });
+            }
+            if (/novaradesk|ticket|analytics|dashboard|workflow|report|knowledge base/.test(context)) {
+                add({ label:"Explore NovaraDesk", target:"#mvp-platform" });
+                add({ label:"See relevant features", question:"Which NovaraDesk features are most relevant for my use case?" });
+            }
+            if (/integrat|whatsapp|instagram|shopify|freshdesk|zendesk|zoho|channel|crm/.test(context)) {
+                add({ label:"Discuss integrations", question:"Which integrations would I need and how would they work?" });
+                add({ label:"Explore NovaraDesk", target:"#mvp-platform" });
+            }
+            if (/implement|setup|launch|onboard|timeline|how long|process/.test(context)) {
+                add({ label:"Implementation steps", question:"Walk me through the Novara CX implementation process" });
+                add({ label:"Discuss integrations", question:"Which integrations would I need and how would they work?" });
+            }
+            if (/human|agent|coverage|hour|escalat|managed support/.test(context)) {
+                add({ label:"Compare coverage", target:"#mvp-pricing" });
+                add({ label:"Talk to a person", question:"I would like to speak to a human" });
+            }
+            if (/ai|chatbot|automat|deflect|bot/.test(context)) {
+                add({ label:"Explore AI support", target:"#mvp-platform" });
+                add({ label:"How would AI help me?", question:"How would Novara AI Support work for my business?" });
+            }
+            if (/audit|strategy|customer experience|cx process|retention|csat|refund/.test(context)) {
+                add({ label:"Explore CX services", target:"#mvp-platform" });
+            }
+            if (/book|call|meeting|demo|consultation|discovery|buy|start/.test(prompt)) {
+                add({ label:"Book a discovery call", target:"#mvp-contact" });
+            }
+
+            if (actions.length && !actions.some(action => action.label === "Book a discovery call")) {
+                add({ label:"Book a discovery call", target:"#mvp-contact" });
+            }
+            return actions.slice(0, 3);
+        }
+
+        function requestsHumanSupport(message) {
+            const text = String(message || "").toLowerCase().replace(/\s+/g, " ").trim();
+            if (!text) return false;
+            return (
+                /\b(speak|talk|chat|connect|transfer|escalate)\b.{0,45}\b(human|person|someone|agent|representative|specialist|support|team|manager|supervisor)\b/.test(text) ||
+                /\b(human|person|agent|representative|specialist|support|team|manager|supervisor)\b.{0,45}\b(speak|talk|chat|connect|contact|call|reach out|respond|reply)\b/.test(text) ||
+                /\b(call me|contact me|reach out to me|have someone call|someone from (?:your|the) team|live agent|real person|human support|customer care|put me through|talk to someone|speak to someone)\b/.test(text) ||
+                /\b(want|need|prefer|would like|looking for|request)\b.{0,45}\b(human|person|agent|representative|specialist|support|team|callback|call back|conversation)\b/.test(text)
+            );
+        }
+
+        function showMessageActions(actions) {
+            document.querySelectorAll(".message-actions").forEach(group => group.remove());
+            if (!actions.length) {
+                settleChatScrollCeiling();
+                return;
+            }
+            const group = document.createElement("div");
+            group.className = "message-actions";
+            group.setAttribute("aria-label", "Suggested next steps");
+            actions.forEach(action => {
+                const button = document.createElement("button");
+                button.type = "button";
+                button.className = "message-action";
+                button.textContent = action.label;
+                button.addEventListener("click", () => {
+                    selectedContextualActions.add(action.label);
+                    group.classList.add("is-leaving");
+                    window.setTimeout(() => group.remove(), 190);
+                    if (action.question) {
+                        sendMessage(action.question);
+                        return;
+                    }
+                    const target = document.querySelector(action.target);
+                    if (target) target.scrollIntoView({ behavior:"smooth", block:"start" });
+                    chatWindow.classList.remove("open");
+                    chatToggle.classList.remove("open");
+                    chatToggle.setAttribute("aria-expanded", "false");
+                    document.body.classList.remove("chat-open");
+                });
+                group.appendChild(button);
+            });
+            chatMessages.appendChild(group);
+            scrollChatToLatest();
+            settleChatScrollCeiling();
+        }
+
+        // ==========================================
+        // CONTEXTUAL SATISFACTION RATING
+        // ==========================================
+
+        function createCsatPanel() {
+            const panel = document.createElement("div");
+            panel.className = "csat-panel";
+            panel.setAttribute("role", "group");
+            panel.setAttribute("aria-label", "Rate this conversation");
+
+            const label = document.createElement("span");
+            label.className = "csat-panel__label";
+            label.textContent = "How helpful was this conversation?";
+
+            const stars = document.createElement("div");
+            stars.className = "csat-stars";
+            stars.setAttribute("role", "radiogroup");
+            stars.setAttribute("aria-label", "Choose a rating from 1 to 5 stars");
+
+            const status = document.createElement("div");
+            status.className = "csat-panel__status";
+            status.setAttribute("aria-live", "polite");
+
+            const buttons = [];
+            const paint = (value, selected = false) => {
+                buttons.forEach((button, index) => {
+                    const active = index < value;
+                    button.classList.toggle("is-lit", active);
+                    button.classList.toggle("is-selected", selected && active);
+                    button.setAttribute("aria-checked", selected && Number(button.dataset.score) === value ? "true" : "false");
+                });
+            };
+
+            for (let score = 1; score <= 5; score += 1) {
+                const button = document.createElement("button");
+                button.type = "button";
+                button.className = "csat-star";
+                button.dataset.score = String(score);
+                button.setAttribute("role", "radio");
+                button.setAttribute("aria-checked", "false");
+                button.setAttribute("aria-label", `Rate ${score} out of 5 stars`);
+                button.textContent = "★";
+                button.addEventListener("pointerenter", () => {
+                    if (!panel.classList.contains("is-submitted")) paint(score);
+                });
+                button.addEventListener("focus", () => {
+                    if (!panel.classList.contains("is-submitted")) paint(score);
+                });
+                button.addEventListener("click", () => submitCsatRating(score, panel, paint));
+                buttons.push(button);
+                stars.appendChild(button);
+            }
+
+            stars.addEventListener("pointerleave", () => {
+                if (!panel.classList.contains("is-submitted")) paint(0);
+            });
+            stars.addEventListener("focusout", event => {
+                if (!stars.contains(event.relatedTarget) && !panel.classList.contains("is-submitted")) paint(0);
+            });
+
+            panel.append(label, stars, status);
+            return panel;
+        }
+
+        async function submitCsatRating(score, panel, paint) {
+            if (panel.classList.contains("is-submitting") || panel.classList.contains("is-submitted")) return;
+            panel.classList.add("is-submitting");
+            const status = panel.querySelector(".csat-panel__status");
+            status.classList.remove("is-error");
+            status.textContent = "Saving your rating…";
+
+            try {
+                const response = await fetch(WORKER_URL, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        message: `csat:${score}`,
+                        sessionId
+                    })
+                });
+                const data = await response.json().catch(() => ({}));
+                if (!response.ok) throw new Error(data.error || "Rating could not be saved.");
+
+                panel.classList.remove("is-submitting");
+                panel.classList.add("is-submitted");
+                paint(score, true);
+                status.textContent = "Thank you — your feedback helps us improve.";
+            } catch (error) {
+                panel.classList.remove("is-submitting");
+                paint(0);
+                status.classList.add("is-error");
+                status.textContent = "Couldn’t save that rating. Please try again.";
+            }
+        }
+
+
+        // ==========================================
+        // RENDER MESSAGE
+        // ==========================================
+
+        function renderMessage(
+            text,
+            sender,
+            allowRating = true,
+            escalationData = null,
+            persistHistory = true,
+            deliveryState = null,
+            messageTime = null,
+            autoScroll = true
+        ) {
+
+            const displayableMessage = String(text || "").trim();
+            if (displayableMessage) ensureConversationTimeHeading(messageTime);
+
+            const row =
+                document.createElement(
+                    "div"
+                );
+
+
+            row.classList.add(
+                "msg-row",
+                sender
+            );
+            row.dataset.messageText = cleanHistoryText(text);
+            row.dataset.messageSender = sender;
+            row.dataset.messageAt = chatMessageDate(messageTime).toISOString();
+
+            const previousRow = chatMessages.lastElementChild?.classList.contains("msg-row")
+                ? chatMessages.lastElementChild
+                : null;
+            const continuesSender = (
+                previousRow?.dataset.messageSender === sender
+            );
+            if (continuesSender) {
+                row.classList.add("continuation");
+                previousRow.classList.add("grouped-before");
+            }
+
+
+            if (
+                sender === "bot" ||
+                sender === "agent"
+            ) {
+
+                const avatar =
+                    document.createElement(
+                        "span"
+                    );
+
+
+                avatar.classList.add(
+                    "msg-avatar"
+                );
+
+
+                if (sender === "agent") {
+                    avatar.classList.add("agent-avatar");
+                    avatar.textContent = "NC";
+                    avatar.setAttribute("aria-label", "Novara CX Support");
+                } else {
+                    avatar.innerHTML = '<img src="assets/logo-mark.png" alt="Novara CX AI">';
+                }
+
+
+                row.appendChild(
+                    avatar
+                );
+
+            }
+
+
+            const div =
+                document.createElement(
+                    "div"
+                );
+
+
+            div.classList.add(
+                "msg",
+                sender
+            );
+
+
+            const rawMessage = String(text || "");
+            const requestsCsat = sender === "bot" && allowRating && /\[CSAT\]/i.test(rawMessage);
+            const displayText = rawMessage.split(/\[CSAT\]|\[✅ Yes\]/i)[0].trim();
+
+
+            const html = formatMessageHtml(displayText);
+
+
+            div.innerHTML =
+                html;
+
+            if (["bot", "agent", "user"].includes(sender) && displayText.trim()) {
+                const senderLabel = document.createElement("span");
+                senderLabel.className = "message-sender-label";
+                senderLabel.textContent = sender === "user" ? "Me" : sender === "agent" ? "Novara CX Support" : "Novara CX AI Support";
+                div.prepend(senderLabel);
+                div.classList.add("has-sender-label");
+            }
+
+            if (displayText.trim()) {
+                const timestamp = document.createElement("time");
+                timestamp.className = "message-time";
+                timestamp.dateTime = row.dataset.messageAt;
+                timestamp.textContent = chatClock(messageTime);
+                div.appendChild(timestamp);
+            }
+
+            const csatPanel = requestsCsat ? createCsatPanel() : null;
+
+
+            // ==========================================
+            // ESCALATION BADGE & WAITING STATUS
+            // ==========================================
+
+            if (
+                escalationData &&
+                escalationData.escalatedToHuman === 1
+            ) {
+
+                // Always show the waiting status when escalated
+                const status =
+                    document.createElement(
+                        "div"
+                    );
+
+                status.className =
+                    "escalation-status";
+
+                status.innerHTML =
+                    `<span class="pulse"></span> Details required for human support`;
+
+                div.appendChild(
+                    status
+                );
+
+                // Only show the badge if the AI didn't already mention it
+                const alreadyMentionsHuman =
+                    displayText.toLowerCase().includes('human') ||
+                    displayText.toLowerCase().includes('agent') ||
+                    displayText.toLowerCase().includes('speak') ||
+                    displayText.toLowerCase().includes('contact') ||
+                    displayText.toLowerCase().includes('call') ||
+                    displayText.toLowerCase().includes('team') ||
+                    displayText.toLowerCase().includes('connect') ||
+                    displayText.toLowerCase().includes('someone');
+
+                if (!alreadyMentionsHuman) {
+
+                    const badge =
+                        document.createElement(
+                            "div"
+                        );
+
+                    badge.className =
+                        "escalation-badge";
+
+                    badge.innerHTML =
+                        `<span class="icon">👤</span> Human Handoff Available`;
+
+                    div.appendChild(
+                        badge
+                    );
+
+                }
+
+            }
+
+
+            row.appendChild(
+                div
+            );
+
+            if (sender === "user" && deliveryState) {
+                setMessageDelivery(row, deliveryState);
+            }
+
+
+            chatMessages.appendChild(
+                row
+            );
+
+            if (csatPanel) {
+                const csatRow = document.createElement("div");
+                csatRow.className = "csat-row";
+                csatRow.appendChild(csatPanel);
+                chatMessages.appendChild(csatRow);
+            }
+
+
+            if (autoScroll) scrollChatToLatest();
+
+            if (persistHistory) {
+                recordHistoryMessage(displayText, sender);
+            }
+
+
+            return row;
+
+        }
+
+
+        // ==========================================
+        // HUMAN TICKET HANDOFF
+        // ==========================================
+
+        async function showTicketContactForm() {
+            if ((activeTicket && activeTicketSessionId === sessionId) || awaitingHumanName) return;
+            awaitingHumanName = true;
+            await streamMessage("Before I connect you, what name should I share with the support agent?", "bot", null, false);
+            chatInput.placeholder = "Type your name…";
+            chatInput.focus();
+        }
+
+
+        async function createHumanTicket(name, outgoingRow = null) {
+            try {
+                const response = await fetch(`${WORKER_URL}ticket/create`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ sessionId, browserId, name })
+                });
+                const data = await response.json();
+                if (!response.ok) throw new Error(data.error || "Could not create ticket.");
+
+                activeTicket = data.ticket;
+                ticketPollingGeneration += 1;
+                activeTicketSessionId = sessionId;
+                localStorage.setItem("novara_industry_demo_active_ticket_session", activeTicketSessionId);
+                chatMode = "human";
+                lastTicketStatus = data.ticket.status;
+                awaitingHumanName = false;
+                chatInput.placeholder = "Type your message…";
+                setMessageDelivery(outgoingRow, "delivered");
+                await streamMessage(
+                    `Your ticket **${data.ticket.ticketNumber}** has been created. Novara CX Support will reply here shortly.`,
+                    "agent",
+                    null,
+                    false
+                );
+                updateHumanChatStatus();
+            } catch (error) {
+                awaitingHumanName = true;
+                setMessageDelivery(outgoingRow, "failed", () => createHumanTicket(name, outgoingRow));
+                await streamMessage(error.message || "I could not connect you just now. Please try your name again.", "bot", null, false);
+            }
+
+        }
+
+
+        function updateHumanChatStatus() {
+            let status = document.getElementById("humanChatStatus");
+            if (!activeTicket || chatMode !== "human") {
+                status?.remove();
+                return;
+            }
+            if (!status) {
+                status = document.createElement("div");
+                status.id = "humanChatStatus";
+                status.className = "human-chat-status";
+                chatMessages.appendChild(status);
+            }
+            const labels = {
+                open: "Waiting for Novara CX Support",
+                in_progress: "Connected to Novara CX Support",
+                pending: "Waiting for your response",
+                reopened: "Ticket reopened",
+                resolved: "Ticket resolved"
+            };
+            status.textContent = `${activeTicket.ticket_number || activeTicket.ticketNumber || "Ticket"} · ${labels[activeTicket.status] || activeTicket.status}`;
+            scrollChatToLatest();
+            syncCurrentHistoryMetadata();
+        }
+
+
+        function startFreshAiSession() {
+            ticketPollingGeneration += 1;
+            sessionId = createSessionId();
+            localStorage.setItem("novara_industry_demo_session_id", sessionId);
+            touchSessionActivity();
+
+            activeTicket = null;
+            activeTicketSessionId = null;
+            localStorage.removeItem("novara_industry_demo_active_ticket_session");
+            chatMode = "ai";
+            lastTicketStatus = activeTicket?.status || null;
+            lastTicketMessageId = 0;
+            awaitingHumanName = false;
+            chatInput.placeholder = "Type your message…";
+            document.getElementById("humanChatStatus")?.remove();
+            document.getElementById("ticketResolutionChoices")?.remove();
+            chatInput.disabled = false;
+            chatSend.disabled = false;
+            renderOpeningWelcome();
+            chatInput.focus();
+        }
+
+        function startNewConversationFromHistory() {
+            ticketPollingGeneration += 1;
+            sessionId = createSessionId();
+            localStorage.setItem("novara_industry_demo_session_id", sessionId);
+            touchSessionActivity();
+            activeTicket = null;
+            activeTicketSessionId = null;
+            localStorage.removeItem("novara_industry_demo_active_ticket_session");
+            chatMode = "ai";
+            lastTicketStatus = null;
+            lastTicketMessageId = 0;
+            awaitingHumanName = false;
+            chatInput.placeholder = "Type your message…";
+            chatMessages.replaceChildren();
+            chatFooter?.classList.remove("conversation-started");
+            chatInput.disabled = false;
+            chatSend.disabled = false;
+            openingQuickReplies.hidden = true;
+            closeChatHistory();
+            renderOpeningWelcome();
+            updateHumanChatStatus();
+            chatInput.focus();
+        }
+
+
+        function showResolutionChoices(ticket) {
+            if (document.getElementById("ticketResolutionChoices")) return;
+
+            const card = document.createElement("div");
+            card.id = "ticketResolutionChoices";
+            card.className = "ticket-choice-card";
+            card.innerHTML = `
+                <strong>${ticket.ticket_number || "Your ticket"} has been resolved.</strong><br>
+                What would you like to do?
+                <div class="ticket-choice-actions">
+                    <button id="continueWithAi" class="ticket-choice-btn primary" type="button">Continue chatting with AI</button>
+                    <button id="reopenResolvedTicket" class="ticket-choice-btn" type="button">Reopen ticket</button>
+                </div>
+            `;
+            chatMessages.appendChild(card);
+            scrollChatToLatest();
+            chatInput.disabled = true;
+            chatSend.disabled = true;
+
+            document.getElementById("continueWithAi").addEventListener("click", startFreshAiSession);
+            document.getElementById("reopenResolvedTicket").addEventListener("click", async () => {
+                try {
+                    const response = await fetch(`${WORKER_URL}ticket/update`, {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ ticketId: ticket.id, action: "reopen" })
+                    });
+                    const data = await response.json();
+                    if (!response.ok) throw new Error(data.error || "Could not reopen ticket.");
+                    activeTicket = data.ticket;
+                    ticketPollingGeneration += 1;
+                    activeTicketSessionId = sessionId;
+                    localStorage.setItem("novara_industry_demo_active_ticket_session", activeTicketSessionId);
+                    chatMode = "human";
+                    lastTicketStatus = data.ticket.status;
+                    card.remove();
+                    chatInput.disabled = false;
+                    chatSend.disabled = false;
+                    renderMessage("Your ticket has been reopened. Continue your conversation with Novara CX Support here.", "agent", false);
+                    updateHumanChatStatus();
+                    chatInput.focus();
+                } catch (error) {
+                    renderMessage(error.message || "Could not reopen the ticket.", "agent", false);
+                }
+            });
+        }
+
+
+        async function pollTicketMessages() {
+            try {
+                const ticketSession = activeTicketSessionId || sessionId;
+                const pollingGeneration = ticketPollingGeneration;
+                const response = await fetch(`${WORKER_URL}ticket-status?session=${encodeURIComponent(ticketSession)}&after=${lastTicketMessageId}`);
+                if (!response.ok) return;
+                const data = await response.json();
+                if (!data.ticket) return;
+                if (pollingGeneration !== ticketPollingGeneration) return;
+
+                const visibleTicketConversation = chatMode === "human" && ticketSession === sessionId;
+                syncTicketHistoryMetadata(ticketSession, data.ticket);
+                if (!visibleTicketConversation) return;
+
+                const previousStatus = lastTicketStatus;
+                activeTicket = data.ticket;
+                activeTicketSessionId = ticketSession;
+                localStorage.setItem("novara_industry_demo_active_ticket_session", activeTicketSessionId);
+                lastTicketStatus = data.ticket.status;
+
+                (data.messages || []).forEach(item => {
+                    if (chatMode === "human") {
+                        lastTicketMessageId = Math.max(lastTicketMessageId, Number(item.id) || 0);
+                        const sender = item.sender_type === "agent" ? "agent" : "user";
+                        const duplicate = [...chatMessages.querySelectorAll(".msg-row")].slice(-30).some(row =>
+                            row.dataset.messageSender === sender && row.dataset.messageText === cleanHistoryText(item.message)
+                        );
+                        if (!duplicate) renderMessage(item.message, sender, false, null, true, null, item.created_at);
+                    }
+                });
+
+                if (visibleTicketConversation && data.ticket.status === "resolved" && previousStatus !== "resolved") {
+                    renderMessage(
+                        `This ticket has been resolved. ${data.ticket.resolution_note ? `Resolution: ${data.ticket.resolution_note}` : ""}`,
+                        "agent",
+                        false
+                    );
+                    showResolutionChoices(data.ticket);
+                }
+
+                updateHumanChatStatus();
+            } catch (error) {
+                console.error("Ticket polling error:", error);
+            }
+        }
+
+
+        async function sendCustomerTicketMessage(message) {
+            if (activeTicket?.status === "resolved") {
+                showResolutionChoices(activeTicket);
+                return;
+            }
+
+            const response = await fetch(`${WORKER_URL}ticket/customer-message`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ sessionId: activeTicketSessionId || sessionId, message })
+            });
+            const data = await response.json();
+            if (!response.ok) throw new Error(data.error || "Message could not be sent.");
+            lastTicketMessageId = Math.max(lastTicketMessageId, Number(data.messageId) || 0);
+        }
+
+
+        // ==========================================
+        // TYPING
+        // ==========================================
+
+        function showTyping() {
+
+            const row =
+                document.createElement(
+                    "div"
+                );
+
+
+            row.classList.add(
+                "msg-row",
+                "bot"
+            );
+
+
+            row.id =
+                "typingIndicator";
+
+
+            row.innerHTML = `
+
+                <span class="msg-avatar">
+
+                    <img
+                        src="assets/logo-mark.png"
+                        alt=""
+                    >
+
+                </span>
+
+                <div class="typing-indicator" role="status" aria-label="Novara CX AI is typing">
+
+                    <span aria-hidden="true"></span>
+
+                </div>
+
+            `;
+
+
+            chatMessages.appendChild(
+                row
+            );
+
+
+            scrollChatToLatest();
+
+        }
+
+
+        function hideTyping() {
+
+            const typing =
+                document.getElementById(
+                    "typingIndicator"
+                );
+
+
+            if (
+                typing
+            ) {
+
+                typing.remove();
+
+            }
+
+        }
+
+
+        // ==========================================
+        // SEND MESSAGE
+        // ==========================================
+
+        async function sendMessage(
+            message
+        ) {
+
+            if (
+                !message ||
+                message.trim() === ""
+            ) {
+
+                return;
+
+            }
+
+            touchSessionActivity();
+
+            userPausedChatFollow = false;
+            shouldFollowConversation = false;
+            latestPromptRow = null;
+            latestPromptAnchorTop = null;
+            latestPromptObserver?.disconnect();
+            returnToPrompt.classList.remove("is-visible");
+            chatScrollCeiling = null;
+            chatMessages.style.paddingBottom = "16px";
+            chatFooter?.classList.add("conversation-started");
+            openingQuickReplies.hidden = true;
+            document.querySelectorAll(".message-actions").forEach(group => {
+                group.classList.add("is-leaving");
+                window.setTimeout(() => group.remove(), 190);
+            });
+
+
+            const outgoingRow = renderMessage(
+                message,
+                "user",
+                false,
+                null,
+                true,
+                "sending",
+                null,
+                false
+            );
+
+            anchorLatestPrompt(outgoingRow);
+
+
+            chatInput.value =
+                "";
+            syncChatSendAvailability();
+
+            chatInput.style.height = "auto";
+            localStorage.removeItem(CHAT_DRAFT_KEY);
+
+
+            chatInput.disabled =
+                true;
+
+
+            chatSend.disabled =
+                true;
+
+            chatSend.classList.add("is-generating");
+            chatSend.setAttribute("aria-label", "Generating response");
+
+            if (awaitingHumanName) {
+                const name = message.trim();
+                if (name.length < 2) {
+                    setMessageDelivery(outgoingRow, "delivered");
+                    await streamMessage("Please enter the name you would like the support agent to use.", "bot", null, false);
+                    chatInput.disabled = false;
+                    chatSend.disabled = false;
+                    chatSend.classList.remove("is-generating");
+                    chatSend.setAttribute("aria-label", "Send message");
+                    chatInput.focus();
+                    return;
+                }
+                setMessageDelivery(outgoingRow, "sent");
+                await createHumanTicket(name, outgoingRow);
+                chatInput.disabled = false;
+                chatSend.disabled = false;
+                chatSend.classList.remove("is-generating");
+                chatSend.setAttribute("aria-label", "Send message");
+                chatInput.focus();
+                return;
+            }
+
+
+            if (chatMode === "human" && activeTicket && activeTicket.status !== "resolved") {
+                try {
+                    await sendCustomerTicketMessage(message);
+                    setMessageDelivery(outgoingRow, "delivered");
+                } catch (error) {
+                    setMessageDelivery(outgoingRow, "failed", () => {
+                        outgoingRow.remove();
+                        sendMessage(message);
+                    });
+                    await streamMessage(error.message || "Your message could not be sent.", "agent", null, false);
+                } finally {
+                    chatInput.disabled = false;
+                    chatSend.disabled = false;
+                    chatSend.classList.remove("is-generating");
+                    chatSend.setAttribute("aria-label", "Send message");
+                    chatInput.focus();
+                }
+                return;
+            }
+
+            showTyping();
+
+
+            try {
+
+                const clientRequestedHuman = requestsHumanSupport(message);
+
+                const response =
+                    await fetch(
+                        WORKER_URL,
+                        {
+
+                            method:
+                                "POST",
+
+                            headers:
+                            {
+                                "Content-Type":
+                                    "application/json"
+                            },
+
+                            body:
+                                JSON.stringify({
+
+                                    message: (window.__novaraIndustryDemoPrompt ? window.__novaraIndustryDemoPrompt(message) : message),
+
+                                    sessionId:
+                                        sessionId
+
+                                })
+
+                        }
+                    );
+
+                if (!response.ok) {
+                    throw new Error(`Chat request failed (${response.status})`);
+                }
+
+                setMessageDelivery(outgoingRow, "sent");
+
+
+                const data =
+                    await response.json();
+
+                setMessageDelivery(outgoingRow, "delivered");
+
+
+                hideTyping();
+
+
+                if (
+                    data.sessionId
+                ) {
+
+                    sessionId =
+                        data.sessionId;
+
+
+                    localStorage.setItem(
+                        "novara_industry_demo_session_id",
+                        sessionId
+                    );
+
+                }
+
+
+                // ==========================================
+                // ESCALATION DATA
+                // ==========================================
+
+                const escalationData = {
+                    escalatedToHuman: data.escalatedToHuman || 0,
+                    escalationReason: data.escalationReason || null,
+                    escalationMessage: data.escalationMessage || null
+                };
+
+                if (clientRequestedHuman && escalationData.escalatedToHuman !== 1) {
+                    escalationData.escalatedToHuman = 1;
+                    escalationData.escalationReason = "requested_human";
+                    data.reply = "Of course. I’ll connect you with Novara CX Support.";
+                }
+
+
+                if (
+                    data.reply
+                ) {
+
+                    await streamMessage(
+                        data.reply,
+                        "bot",
+                        escalationData
+                    );
+
+                } else {
+
+                    await streamMessage(
+                        "I'm not sure how to answer that. Would you like to book a discovery call?",
+                        "bot",
+                        escalationData
+                    );
+
+                }
+
+                if (escalationData.escalatedToHuman === 1) {
+                    await showTicketContactForm();
+                } else {
+                    showMessageActions(contextualActionsFor(message, data.reply, escalationData));
+                }
+
+            } catch (error) {
+
+                hideTyping();
+
+
+                console.error(
+                    "Chatbot error:",
+                    error
+                );
+
+                setMessageDelivery(outgoingRow, "failed", () => {
+                    outgoingRow.remove();
+                    sendMessage(message);
+                });
+
+
+                await streamMessage(
+                    "Something went wrong. Please try again or book a discovery call directly.",
+                    "bot",
+                    null,
+                    false
+                );
+
+            } finally {
+
+                chatInput.disabled =
+                    false;
+
+
+                chatSend.disabled =
+                    false;
+
+                chatSend.classList.remove("is-generating");
+                chatSend.setAttribute("aria-label", "Send message");
+
+
+                chatInput.focus();
+
+            }
+
+        }
+
+
+        // ==========================================
+        // LOAD EXISTING CONVERSATION
+        // ==========================================
+
+        async function loadExistingConversation() {
+
+            if (
+                !sessionFromUrl
+            ) {
+
+                return false;
+
+            }
+
+
+            try {
+
+                const response =
+                    await fetch(
+
+                        `${WORKER_URL}conversation?session=${encodeURIComponent(
+                            sessionFromUrl
+                        )}`
+
+                    );
+
+
+                if (
+                    !response.ok
+                ) {
+
+                    console.error(
+                        "Conversation restore failed:",
+                        response.status
+                    );
+
+                    return false;
+
+                }
+
+
+                const messages =
+                    await response.json();
+
+
+                if (
+                    !Array.isArray(
+                        messages
+                    ) ||
+                    messages.length === 0
+                ) {
+
+                    return false;
+
+                }
+
+
+                chatMessages.innerHTML =
+                    "";
+
+
+                messages.forEach(
+                    conversation => {
+
+                        if (
+                            conversation.user_message
+                        ) {
+
+                            renderMessage(
+
+                                conversation.user_message,
+
+                                "user",
+
+                                false,
+
+                                null,
+
+                                false,
+                                null,
+                                conversation.created_at
+
+                            );
+
+                        }
+
+
+                        if (
+                            conversation.bot_reply
+                        ) {
+
+                            const isEscalated =
+                                conversation.escalated_to_human === 1;
+
+
+                            const escalationData = {
+                                escalatedToHuman: isEscalated ? 1 : 0,
+                                escalationReason: conversation.escalation_reason || null,
+                                escalationMessage: null
+                            };
+
+
+                            renderMessage(
+
+                                conversation.bot_reply,
+
+                                "bot",
+
+                                false,
+
+                                escalationData,
+
+                                false,
+                                null,
+                                conversation.created_at
+
+                            );
+
+                        }
+
+                    }
+                );
+
+
+                return true;
+
+            } catch (error) {
+
+                console.error(
+                    "Conversation restore error:",
+                    error
+                );
+
+
+                return false;
+
+            }
+
+        }
+
+        function restoreLocalConversation() {
+            const conversation = readChatHistory().find(item => item.sessionId === sessionId);
+            if (!conversation?.messages?.length) return false;
+            chatMessages.replaceChildren();
+            chatMode = isOpenTicketStatus(conversation.status) ? "human" : "ai";
+            if (chatMode === "human") {
+                activeTicketSessionId = sessionId;
+                localStorage.setItem("novara_industry_demo_active_ticket_session", activeTicketSessionId);
+            }
+            conversation.messages.forEach(message => {
+                renderMessage(message.text, message.sender || "bot", false, null, false, null, message.at);
+            });
+            const restoredHasUserMessage = conversation.messages.some(message => message.sender === "user");
+            chatFooter?.classList.toggle("conversation-started", restoredHasUserMessage);
+            if (!restoredHasUserMessage) {
+                const restoredWelcomeRow = [...chatMessages.querySelectorAll(".msg-row.bot")].at(-1);
+                openingQuickReplies.classList.add("opening-quick-replies");
+                if (restoredWelcomeRow) restoredWelcomeRow.after(openingQuickReplies);
+                openingQuickReplies.hidden = false;
+            } else {
+                openingQuickReplies.hidden = true;
+            }
+            return true;
+        }
+
+
+        // ==========================================
+        // EVENTS
+        // ==========================================
+
+        chatSend.addEventListener(
+            "click",
+            () => {
+
+                const msg =
+                    chatInput.value.trim();
+
+
+                if (
+                    msg
+                ) {
+
+                    sendMessage(
+                        msg
+                    );
+
+                }
+
+            }
+        );
+
+
+        chatInput.addEventListener(
+            "keydown",
+            e => {
+
+                if (
+                    e.key === "Enter" && !e.shiftKey
+                ) {
+
+                    e.preventDefault();
+
+
+                    const msg =
+                        chatInput.value.trim();
+
+
+                    if (
+                        msg
+                    ) {
+
+                        sendMessage(
+                            msg
+                        );
+
+                    }
+
+                }
+
+            }
+        );
+
+        function syncChatSendAvailability() {
+            const isEmpty = !chatInput.value.trim();
+            chatSend.classList.toggle("is-empty", isEmpty);
+            chatSend.setAttribute("aria-disabled", String(isEmpty));
+        }
+
+        chatInput.addEventListener(
+            "input",
+            () => {
+                chatInput.style.height = "auto";
+                chatInput.style.height = `${Math.min(chatInput.scrollHeight, 132)}px`;
+                syncChatSendAvailability();
+                try {
+                    localStorage.setItem(CHAT_DRAFT_KEY, chatInput.value);
+                } catch (_) {}
+            }
+        );
+        syncChatSendAvailability();
+
+        chatInput.addEventListener("focus", () => {
+            setTimeout(scrollChatToLatest, 250);
+        });
+
+        chatHistoryBtn.addEventListener("click", () => {
+            if (chatWindow.classList.contains("history-open")) {
+                closeChatHistory();
+            } else {
+                openChatHistory();
+            }
+        });
+
+        chatHistoryBack.addEventListener("click", renderChatHistory);
+        chatHistoryContinue.addEventListener("click", continueHistoryConversation);
+        chatHistoryNew.addEventListener("click", startNewConversationFromHistory);
+
+        function syncMobileChatViewport() {
+            if (!window.matchMedia("(max-width:600px)").matches ||
+                !chatWindow.classList.contains("open")) {
+                chatWindow.style.removeProperty("--chat-viewport-top");
+                chatWindow.style.removeProperty("--chat-viewport-height");
+                return;
+            }
+            const viewport = window.visualViewport;
+            const visibleTop = viewport ? Math.max(0, Math.round(viewport.offsetTop)) : 0;
+            const visibleHeight = viewport ? Math.round(viewport.height) : window.innerHeight;
+            chatWindow.style.setProperty("--chat-viewport-top", `${visibleTop}px`);
+            chatWindow.style.setProperty("--chat-viewport-height", `${visibleHeight}px`);
+        }
+
+        if (window.visualViewport) {
+            const handleVisualViewportChange = () => {
+                if (!chatWindow.classList.contains("open")) return;
+                syncMobileChatViewport();
+                if (document.activeElement === chatInput) {
+                    requestAnimationFrame(() => scrollChatToLatest());
+                }
+            };
+            window.visualViewport.addEventListener("resize", handleVisualViewportChange);
+            window.visualViewport.addEventListener("scroll", handleVisualViewportChange);
+        }
+
+        chatInput.addEventListener("focus", () => {
+            syncMobileChatViewport();
+            window.setTimeout(syncMobileChatViewport, 120);
+            window.setTimeout(syncMobileChatViewport, 320);
+        });
+        chatInput.addEventListener("blur", () => {
+            window.setTimeout(syncMobileChatViewport, 180);
+        });
+
+
+        quickReplyBtns.forEach(
+            btn => {
+
+                btn.addEventListener(
+                    "click",
+                    () => {
+
+                        const q =
+                            btn.getAttribute(
+                                "data-question"
+                            );
+
+
+                        sendMessage(
+                            q
+                        );
+
+                    }
+                );
+
+            }
+        );
+
+
+        // ==========================================
+        // INITIAL CHAT LOAD
+        // ==========================================
+
+        window.addEventListener(
+            "load",
+            async () => {
+                const restoredLocal = !sessionExpired && restoreLocalConversation();
+                await pollTicketMessages();
+                setInterval(pollTicketMessages, 3000);
+
+                if (sessionExpired) localStorage.removeItem(CHAT_DRAFT_KEY);
+                const savedDraft = sessionExpired ? "" : localStorage.getItem(CHAT_DRAFT_KEY) || "";
+                if (savedDraft) {
+                    chatInput.value = savedDraft;
+                    chatInput.style.height = "auto";
+                    chatInput.style.height = `${Math.min(chatInput.scrollHeight, 132)}px`;
+                }
+
+                if (restoredLocal) {
+                    updateHumanChatStatus();
+                    return;
+                }
+
+                const restored =
+                    await loadExistingConversation();
+
+
+                if (
+                    restored
+                ) {
+
+                    chatWindow.classList.add(
+                        "open"
+                    );
+
+
+                    chatToggle.classList.add(
+                        "open"
+                    );
+
+                    chatToggle.setAttribute("aria-expanded", "true");
+                    document.body.classList.add("chat-open");
+                    syncMobileChatViewport();
+                    if (window.matchMedia("(hover:hover) and (pointer:fine)").matches) {
+                        chatInput.focus();
+                    }
+
+
+                    return;
+
+                }
+
+
+                requestAnimationFrame(() => {
+                    renderOpeningWelcome();
+                });
+
+            }
+        );
+
+
+        // ==========================================
+        // CLICK OUTSIDE
+        // ==========================================
+
+        document.addEventListener(
+            "click",
+            e => {
+
+                if (
+
+                    chatWindow.classList.contains(
+                        "open"
+                    ) &&
+
+                    !chatWindow.contains(
+                        e.target
+                    ) &&
+
+                    !chatToggle.contains(
+                        e.target
+                    )
+
+                ) {
+
+                    chatWindow.classList.remove(
+                        "open"
+                    );
+
+
+                    chatToggle.classList.remove(
+                        "open"
+                    );
+
+                    chatToggle.setAttribute("aria-expanded", "false");
+                    document.body.classList.remove("chat-open");
+                    chatWindow.classList.remove("history-open");
+                    chatHistoryBtn.setAttribute("aria-pressed", "false");
+
+                }
+
+            }
+        );
+
+    
+})();
+</script>
 </body>
 </html>
