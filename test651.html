@@ -12208,47 +12208,54 @@ window.addEventListener('message',function(event){if(!event.data||event.data.typ
 .novara-mechanism .wa-shot .wa-live-composer{display:flex;align-items:center!important;gap:7px!important}
 .novara-mechanism .wa-shot .wa-live-composer input{min-width:0}
 .novara-mechanism .wa-shot .wa-live-send{display:grid;place-items:center;flex:0 0 auto}
-</style>\n<!-- test651: reference-inspired industries menu; isolated from the original page. -->
-<style>
-#t651-menu{--ink:#13112f;--copy:#718198;--blue:#3826ff;position:fixed;z-index:1100;top:88px;left:12px;right:12px;max-height:calc(100dvh - 104px);overflow:auto;overscroll-behavior:contain;display:grid;grid-template-columns:minmax(0,3.12fr) minmax(285px,1fr);background:#fff;border:3px solid var(--blue);border-radius:38px;box-shadow:0 24px 80px #11112f20;color:var(--ink);font-family:"General Sans",sans-serif;line-height:1.45}
-#t651-menu[hidden]{display:none}
-#t651-menu *{box-sizing:border-box}
-#t651-menu .t651-main{padding:44px 48px}
-#t651-menu h2{font-size:clamp(24px,1.85vw,38px);line-height:1.2;letter-spacing:0;font-weight:700;color:var(--ink);margin:0 0 12px}
-#t651-menu .t651-intro{font-size:clamp(16px,1.2vw,24px);color:var(--copy);margin:0 0 38px}
-#t651-menu .t651-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
-#t651-menu .t651-card{border:2px solid #eef2f7;border-radius:20px;padding:24px;min-width:0}
-#t651-menu h3{font-size:clamp(18px,1.25vw,25px);font-weight:700;line-height:1.3;letter-spacing:0;color:var(--ink);margin:0 0 10px}
-#t651-menu p{font-size:clamp(15px,1.02vw,21px);color:var(--copy);margin:0;line-height:1.5}
-#t651-menu .t651-side{border-left:2px solid #eef2f7;padding:38px 30px;display:flex;flex-direction:column;gap:24px}
-#t651-menu .t651-label{font-size:16px;letter-spacing:2px;font-weight:700;color:var(--blue);margin:0 0 2px}
-#t651-menu .t651-case{border:2px solid #eef2f7;border-radius:24px;padding:24px}
-#t651-menu .t651-tag{display:inline-block;border-radius:99px;background:#efeeff;color:var(--blue);font-size:13px;font-weight:700;letter-spacing:.6px;padding:7px 14px;margin-bottom:14px}
-#t651-menu .t651-number{display:block;color:#00b985;font-size:40px;font-weight:700;line-height:1.2;margin-top:12px}
-#t651-menu .t651-caption{display:block;color:var(--copy);font-size:12px;font-weight:700;margin-bottom:10px}
-#t651-menu .t651-link{display:inline-block;color:var(--blue);font-size:18px;font-weight:700;margin-top:20px}
-#t651-menu .t651-cta{padding:24px 22px;border-radius:24px;background:var(--blue)}
-#t651-menu .t651-cta h3{color:white;font-size:21px}
-#t651-menu .t651-cta p{color:#dedaff;font-size:17px}
-#t651-menu .t651-cta a{display:flex;justify-content:center;align-items:center;gap:6px;border-radius:99px;background:#fff;color:var(--blue);font-weight:700;font-size:16px;line-height:1.4;padding:15px 12px;margin-top:20px;text-align:center}
-#t651-menu .t651-stats{display:flex;justify-content:space-between;gap:10px;text-align:center;padding-top:2px}
-#t651-menu .t651-stats strong{display:block;color:var(--blue);font-size:28px}
-#t651-menu .t651-stats span{font-size:12px;color:var(--copy);font-weight:700}
+</style>\n
+<!-- test651: Novara CX industry explorer -->
+<style id="t651-design">
+#t651-menu{--ink:#163626;--copy:#66776c;--green:#254f37;--rule:#dce4dc;position:fixed;z-index:1100;top:86px;left:24px;right:24px;max-width:1360px;margin:auto;max-height:calc(100dvh - 106px);overflow:auto;overscroll-behavior:contain;background:#f7f7f1;color:var(--ink);border:1px solid #cddacc;border-radius:22px;box-shadow:0 24px 75px #112d2333;font-family:"General Sans",sans-serif;line-height:1.45}
+#t651-menu[hidden]{display:none}#t651-menu *{box-sizing:border-box}
+#t651-menu .t651-layout{display:grid;grid-template-columns:minmax(0,1fr) 320px}
+#t651-menu .t651-main{padding:30px}
+#t651-menu .t651-eyebrow{display:block;color:#4f7959;font-size:10px;font-weight:750;letter-spacing:1.6px;text-transform:uppercase;margin-bottom:10px}
+#t651-menu h2{font-family:"Cabinet Grotesk","General Sans",sans-serif;font-size:32px;line-height:1.05;letter-spacing:-.8px;color:var(--ink);margin:0 0 10px;font-weight:800}
+#t651-menu .t651-intro{font-size:13px;color:var(--copy);max-width:610px;margin:0 0 22px;line-height:1.6}
+#t651-menu .t651-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+#t651-menu .t651-card{position:relative;text-align:left;border:1px solid var(--rule);border-radius:13px;background:#fffefa;padding:17px 16px;color:var(--ink);font-family:inherit;cursor:pointer;transition:background .18s,border-color .18s,transform .18s;min-width:0}
+#t651-menu .t651-card:hover{background:#eef3e9;border-color:#9ab59d;transform:translateY(-2px)}
+#t651-menu .t651-card[aria-pressed="true"]{background:#e7efdf;border-color:#8ba98b;box-shadow:inset 0 0 0 1px #8ba98b}
+#t651-menu .t651-card-label{display:flex;justify-content:space-between;gap:8px;align-items:center;font-size:11px;font-weight:700;margin-bottom:13px;color:#4c6d53}
+#t651-menu .t651-card-label i{font-style:normal;font-size:16px}
+#t651-menu .t651-card strong{display:block;font-size:17px;line-height:1.23;letter-spacing:-.35px;margin-bottom:9px;font-weight:750}
+#t651-menu .t651-card p{font-size:11.5px;line-height:1.55;color:var(--copy);margin:0}
+#t651-menu .t651-footer{display:flex;justify-content:space-between;align-items:center;gap:15px;border-top:1px solid var(--rule);margin-top:20px;padding-top:15px;color:var(--copy);font-size:11px}
+#t651-menu .t651-footer a{color:var(--green);font-weight:700;white-space:nowrap}
+#t651-menu .t651-side{background:#eaf0e5;border-left:1px solid #d7e2d3;padding:30px 24px 23px;display:flex;flex-direction:column}
+#t651-menu .t651-side h3{font-size:19px;line-height:1.2;letter-spacing:-.4px;color:var(--ink);margin:0 0 14px;font-weight:750}
+#t651-menu .t651-quote{font-family:"Cabinet Grotesk",sans-serif;font-weight:700;font-size:22px;line-height:1.2;letter-spacing:-.3px;margin:0 0 19px;color:#224332}
+#t651-menu .t651-step{border-top:1px solid #d2decc;padding:13px 0}
+#t651-menu .t651-step b{display:block;font-size:10px;letter-spacing:.9px;color:#3b6944;text-transform:uppercase;margin-bottom:6px}
+#t651-menu .t651-step p{font-size:12px;line-height:1.55;color:#546a59;margin:0}
+#t651-menu .t651-step.human b{color:#805f37}
+#t651-menu .t651-scope{font-size:10px;color:#6b7d6b;line-height:1.5;margin:3px 0 17px}
+#t651-menu .t651-primary{display:flex;justify-content:space-between;align-items:center;gap:10px;background:#173c28;color:#fff;padding:13px 15px;border-radius:99px;font-size:12px;font-weight:700;margin-top:auto}
+#t651-menu .t651-secondary{text-align:center;color:#31583b;font-size:11px;font-weight:650;margin-top:12px}
 #t651-trigger{background:transparent;border:0;color:inherit;font:inherit;font-size:.78rem;font-weight:650;padding:8px 11px;border-radius:8px;white-space:nowrap}
-#t651-trigger[aria-expanded="true"]{color:#3826ff;background:#efeeff}
-#t651-close{position:absolute;right:12px;top:9px;border:0;background:#f4f3ff;color:#3826ff;width:26px;height:26px;border-radius:50%;font-size:20px;line-height:1}
-#t651-menu a:focus-visible,#t651-menu button:focus-visible,#t651-trigger:focus-visible{outline:3px solid #00b985;outline-offset:4px}
-@media(min-width:1700px){#t651-menu .t651-main{padding:54px 60px}#t651-menu .t651-card{padding:27px;min-height:154px}#t651-menu .t651-side{padding:44px 36px;gap:26px}}
-@media(max-width:1100px){#t651-menu{grid-template-columns:minmax(0,2fr) minmax(270px,1fr);border-radius:28px}#t651-menu .t651-main{padding:32px 24px}#t651-menu .t651-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}#t651-menu .t651-card{padding:20px}#t651-menu .t651-side{padding:38px 20px 24px}}
-@media(max-width:700px){#t651-menu{top:82px;left:8px;right:8px;max-height:calc(100dvh - 94px);grid-template-columns:1fr;border-radius:24px}#t651-menu .t651-main{padding:32px 20px 24px}#t651-menu .t651-intro{margin-bottom:24px}#t651-menu .t651-grid{gap:12px}#t651-menu .t651-card{padding:16px}#t651-menu h3{font-size:17px}#t651-menu p{font-size:14px}#t651-menu .t651-side{border-left:0;border-top:2px solid #eef2f7;padding:24px 20px}#t651-trigger{font-size:.82rem}}
-@media(max-width:380px){#t651-menu .t651-grid{grid-template-columns:1fr}}
+#t651-trigger[aria-expanded="true"]{color:#214a31;background:#e5edde}
+#t651-close{position:absolute;right:9px;top:8px;border:0;background:transparent;color:#55735a;width:25px;height:25px;border-radius:50%;font-size:20px;line-height:1}
+#t651-menu a:focus-visible,#t651-menu button:focus-visible,#t651-trigger:focus-visible{outline:3px solid #77916a;outline-offset:3px}
+@media(min-width:1600px){#t651-menu .t651-main{padding:38px}#t651-menu .t651-card{padding:22px}#t651-menu .t651-card strong{font-size:20px}#t651-menu .t651-card p{font-size:13px}#t651-menu .t651-layout{grid-template-columns:minmax(0,1fr) 360px}}
+@media(max-width:1050px){#t651-menu{left:14px;right:14px}#t651-menu .t651-layout{grid-template-columns:minmax(0,1fr) 290px}#t651-menu .t651-grid{grid-template-columns:repeat(2,minmax(0,1fr))}#t651-menu .t651-main{padding:26px 22px}#t651-menu h2{font-size:28px}}
+@media(max-width:700px){#t651-menu{left:8px;right:8px;top:80px;max-height:calc(100dvh - 90px);border-radius:18px}#t651-menu .t651-layout{grid-template-columns:1fr}#t651-menu .t651-main{padding:26px 18px 20px}#t651-menu .t651-grid{gap:9px}#t651-menu .t651-card{padding:14px 12px}#t651-menu .t651-card strong{font-size:16px}#t651-menu .t651-card-label{font-size:10px;margin-bottom:10px}#t651-menu .t651-side{border-left:0;border-top:1px solid #d7e2d3;padding:25px 20px}#t651-menu .t651-footer{align-items:flex-start;flex-direction:column;gap:8px}}
+@media(prefers-reduced-motion:reduce){#t651-menu .t651-card{transition:none;transform:none}}
 </style>
 <section id="t651-menu" aria-labelledby="t651-title" hidden>
 <button id="t651-close" type="button" aria-label="Close industries menu">×</button>
-<div class="t651-main"><h2 id="t651-title">Software Built for Growing Businesses</h2><p class="t651-intro">We build software that helps companies launch products and scale faster.</p><div class="t651-grid"><article class="t651-card"><h3>Fintech</h3><p>Fintech software for payments, lending, and financial services.</p></article><article class="t651-card"><h3>Staffing</h3><p>Providing skilled personnel to meet workforce needs.</p></article><article class="t651-card"><h3>Healthcare</h3><p>Secure software for healthcare providers and health startups.</p></article><article class="t651-card"><h3>Logistics</h3><p>Systems to track shipments and manage delivery operations.</p></article><article class="t651-card"><h3>On-demand</h3><p>Services available instantly whenever you need them.</p></article><article class="t651-card"><h3>Education</h3><p>Software for schools, edtech startups, and learning platforms.</p></article><article class="t651-card"><h3>Real Estate</h3><p>Software for property management and real estate platforms.</p></article><article class="t651-card"><h3>Retail</h3><p>Software that helps retailers sell online and manage operations.</p></article><article class="t651-card"><h3>Marketplace</h3><p>Marketplace platforms that connect buyers and sellers.</p></article><article class="t651-card"><h3>Sports</h3><p>Apps and platforms for sports teams and fan engagement.</p></article><article class="t651-card"><h3>Food &amp; Restaurant</h3><p>Software for restaurant management, ordering, and delivery.</p></article><article class="t651-card"><h3>Travel &amp; Hospitality</h3><p>Booking systems and software for travel businesses.</p></article></div></div><aside class="t651-side"><h3 class="t651-label">FEATURED CASE STUDY</h3><article class="t651-case"><span class="t651-tag">AI &amp; AUTOMATION</span><h3>AI Customer Support Desk</h3><strong class="t651-number">78%</strong><span class="t651-caption">L1 TICKET AUTO-RESOLUTION</span><p>Designed for telecom enterprise scale. Automates incoming L1 support workflows cleanly.</p><a class="t651-link" href="#mvp-product-tour">Read Case Study →</a></article><div class="t651-cta"><h3>Build and Scale with Experts</h3><p>Development, AI, cloud, and product engineering to power your next big idea.</p><a href="#mvp-contact">Schedule a Free Consultation ↗</a></div><div class="t651-stats" aria-label="Reference design statistics"><div><strong>500</strong><span>FORTUNE</span></div><div><strong>132</strong><span>STARTUPS</span></div><div><strong>04</strong><span>UNICORNS</span></div></div></aside></section>
+<div class="t651-layout"><div class="t651-main"><span class="t651-eyebrow">Built for the support you actually handle</span><h2 id="t651-title">Different businesses.<br>The same overflowing inbox.</h2><p class="t651-intro">Explore where AI can take the repetition off your team—and where a real person still makes the difference. Pick your business to see the handoff.</p><div class="t651-grid">
+<button type="button" class="t651-card" data-sector="0" aria-pressed="true" aria-controls="t651-scenario"><span class="t651-card-label">E-commerce & D2C<i aria-hidden="true">↗</i></span><strong>Your team isn’t an order tracker.</strong><p>Orders, returns and delivery questions—without the inbox pile-up.</p></button><button type="button" class="t651-card" data-sector="1" aria-pressed="false" aria-controls="t651-scenario"><span class="t651-card-label">SaaS & subscriptions<i aria-hidden="true">↗</i></span><strong>Help users get to the good part.</strong><p>Make setup and product questions easier. Keep billing issues personal.</p></button><button type="button" class="t651-card" data-sector="2" aria-pressed="false" aria-controls="t651-scenario"><span class="t651-card-label">Education & learning<i aria-hidden="true">↗</i></span><strong>More learning. Less chasing updates.</strong><p>Help learners and parents find answers without pulling your team away.</p></button><button type="button" class="t651-card" data-sector="3" aria-pressed="false" aria-controls="t651-scenario"><span class="t651-card-label">Consumer services<i aria-hidden="true">↗</i></span><strong>Keep the booking. Lose the back-and-forth.</strong><p>Handle the everyday questions around appointments and service delivery.</p></button><button type="button" class="t651-card" data-sector="4" aria-pressed="false" aria-controls="t651-scenario"><span class="t651-card-label">Marketplaces<i aria-hidden="true">↗</i></span><strong>Two sides. One clear next step.</strong><p>Help buyers and sellers navigate policies, orders and common questions.</p></button><button type="button" class="t651-card" data-sector="5" aria-pressed="false" aria-controls="t651-scenario"><span class="t651-card-label">B2B & growing teams<i aria-hidden="true">↗</i></span><strong>Stop making the founder the help desk.</strong><p>Give repeat questions a home and important issues a clear owner.</p></button>
+</div><div class="t651-footer"><span>Start with AI. Add managed human support when you need it.</span><a href="#mvp-pricing">Find your support setup ↗</a></div></div>
+<aside class="t651-side"><span class="t651-eyebrow">A conversation you probably recognise</span><div id="t651-scenario" aria-live="polite" aria-atomic="true"><h3 data-sector-title>E-commerce & D2C</h3><p class="t651-quote" data-sector-quote>“Where’s my order—and can I change the address?”</p><div class="t651-step"><b>01 / AI handles the routine</b><p data-sector-ai>Answer tracking, delivery and policy questions from approved information.</p></div><div class="t651-step human"><b>02 / People handle the exception</b><p data-sector-human>Route address changes, missing orders and refund exceptions to a person with context.</p></div></div><p class="t651-scope">An illustrative workflow. Connected systems, channels and handoff rules are scoped during discovery.</p><a class="t651-primary" href="#mvp-contact">Map this to my business <span aria-hidden="true">↗</span></a><a class="t651-secondary" href="#novara-live-demos">Try an AI-to-human conversation →</a></aside></div></section>
 <script>
 (function(){
- const nav=document.querySelector('body>header .nav-links'), panel=document.getElementById('t651-menu');if(!nav||!panel)return;
+ const nav=document.querySelector('body>header .nav-links'),panel=document.getElementById('t651-menu');if(!nav||!panel)return;
  const item=document.createElement('li');item.innerHTML='<button type="button" id="t651-trigger" aria-expanded="false" aria-controls="t651-menu">Industries <span aria-hidden="true">⌄</span></button>';nav.insertBefore(item,nav.lastElementChild);
  new MutationObserver(function(){if(!nav.contains(item))nav.insertBefore(item,nav.lastElementChild)}).observe(nav,{childList:true});
  const trigger=item.firstElementChild;let previousFocus;
@@ -12258,6 +12265,12 @@ window.addEventListener('message',function(event){if(!event.data||event.data.typ
  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!panel.hidden){toggle(false,true);e.preventDefault()}});
  document.addEventListener('click',e=>{if(!panel.hidden&&!panel.contains(e.target)&&!item.contains(e.target))toggle(false,false)});
  panel.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>toggle(false,false)));
+ const sectors=[{"label":"E-commerce & D2C","hook":"Your team isn’t an order tracker.","copy":"Orders, returns and delivery questions—without the inbox pile-up.","sample":"“Where’s my order—and can I change the address?”","ai":"Answer tracking, delivery and policy questions from approved information.","human":"Route address changes, missing orders and refund exceptions to a person with context.","tag":"Orders · Returns · Delivery"},{"label":"SaaS & subscriptions","hook":"Help users get to the good part.","copy":"Make setup and product questions easier. Keep billing issues personal.","sample":"“I’m stuck setting this up. Am I on the right plan?”","ai":"Guide users through documented setup steps, FAQs and plan information.","human":"Hand over account-specific billing issues and technical blockers to the right team.","tag":"Onboarding · Product help · Billing"},{"label":"Education & learning","hook":"More learning. Less chasing updates.","copy":"Help learners and parents find answers without pulling your team away.","sample":"“How do I join my class? My access link isn’t working.”","ai":"Explain course access, schedules and published learning policies.","human":"Escalate access exceptions, payment disputes and sensitive parent concerns.","tag":"Course access · Schedules · Payments"},{"label":"Consumer services","hook":"Keep the booking. Lose the back-and-forth.","copy":"Handle the everyday questions around appointments and service delivery.","sample":"“Can I reschedule? And what happens if I cancel?”","ai":"Answer service FAQs and explain booking, cancellation and rescheduling policies.","human":"Send booking changes, service complaints and exceptions to a trained agent.","tag":"Bookings · Changes · Service help"},{"label":"Marketplaces","hook":"Two sides. One clear next step.","copy":"Help buyers and sellers navigate policies, orders and common questions.","sample":"“The item doesn’t match the listing. What do I do next?”","ai":"Explain approved buyer and seller policies and the steps to raise an issue.","human":"Transfer disputes, payment concerns and unusual cases with the conversation attached.","tag":"Buyer help · Seller FAQs · Disputes"},{"label":"B2B & growing teams","hook":"Stop making the founder the help desk.","copy":"Give repeat questions a home and important issues a clear owner.","sample":"“Who can help with our account? We’ve already emailed twice.”","ai":"Answer documented service questions and collect the details needed for follow-up.","human":"Route account-specific requests and urgent escalations to the designated owner.","tag":"Service FAQs · Account help · Escalations"}];
+ panel.querySelectorAll('[data-sector]').forEach(button=>button.addEventListener('click',function(){
+ const data=sectors[Number(button.dataset.sector)];
+ panel.querySelectorAll('[data-sector]').forEach(b=>b.setAttribute('aria-pressed',String(b===button)));
+ panel.querySelector('[data-sector-title]').textContent=data.label;panel.querySelector('[data-sector-quote]').textContent=data.sample;panel.querySelector('[data-sector-ai]').textContent=data.ai;panel.querySelector('[data-sector-human]').textContent=data.human;
+ }));
 })();
 </script>
 </body>
