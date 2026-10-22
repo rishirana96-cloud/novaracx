@@ -90,5 +90,5 @@ const ecSearchIndex=ecommerceProblems.flatMap(p=>p.categories.flatMap(c=>c.examp
 const aliases={consumer:'services',subscriptions:'saas',d2c:'ecommerce','e-commerce':'ecommerce'};
 function routeKey(){const p=new URLSearchParams(location.search);return ['industry','case','mode','problem','query','example'].map(k=>k+'='+String(p.get(k)||'')).join('&')}
 function readUrl(){const route=routeKey();if(route===lastRouteKey)return;const params=new URLSearchParams(location.search),raw=params.get('industry')||'ecommerce',key=aliases[raw]||raw;if(key==='ecommerce'||!industries[key])readEcUrl(params);render(key,Number(params.get('case')||1)-1,params.get('mode'),false)}
-window.addEventListener('popstate',readUrl);readUrl();document.querySelector('.skip').href='#main';$('app').hidden=false;$('fallback').hidden=true;requestAnimationFrame(revealSelectedCase);track('industry_page_view');
+window.addEventListener('popstate',readUrl);readUrl();document.querySelector('.skip').href='#main';$('app').hidden=false;$('fallback').hidden=true;requestAnimationFrame(revealSelectedCase);requestAnimationFrame(()=>{if(location.hash==='#ec-integrations'&&!$('ec-integrations').hidden)$('ec-integrations').scrollIntoView({behavior:'instant',block:'start'})});track('industry_page_view');
 </script></body></html>
