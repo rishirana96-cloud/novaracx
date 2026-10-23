@@ -4825,7 +4825,12 @@ body.preview-is-expanded{overflow:hidden!important}
    const column=document.createElement('div');
    column.className='hero-visual-column';
    system.before(column);
-   if(outcomes&&impactNote)column.append(system,outcomes,stats,impactNote);
+   if(outcomes&&impactNote){
+    const impactHeader=document.createElement('div');
+    impactHeader.className='hero-impact-header';
+    impactHeader.append(outcomes,impactNote);
+    column.append(system,impactHeader,stats);
+   }
    else if(outcomes)column.append(system,outcomes,stats);
    else column.append(system,stats);
   }
@@ -12301,4 +12306,11 @@ transform:none!important;transition:border-color .2s ease,background .2s ease!im
 </html>
 <style id="test651-hero-slight-size-increase">
 @media(min-width:761px){#mvp-home.mvp-hero.hero-light.hero-v3 h1.hero-positioning{font-size:clamp(3.76rem,5.14vw,5.46rem)!important}}
+</style>
+
+<style id="test651-visible-impact-context">
+#mvp-home .hero-visual-column .hero-impact-header{display:flex;align-items:center;justify-content:space-between;gap:20px;width:100%;max-width:690px;margin:17px auto 0}
+#mvp-home .hero-impact-header .hero-outcomes-label{flex:0 1 40%;margin:0!important;color:#52705e!important;font-size:10px!important;font-weight:800;letter-spacing:.12em;text-transform:uppercase;line-height:1.5}
+#mvp-home .hero-impact-header .hero-impact-note{flex:1 1 60%;margin:0!important;color:#52665a!important;font-size:11px!important;line-height:1.5!important;text-align:right}
+@media(max-width:540px){#mvp-home .hero-visual-column .hero-impact-header{flex-direction:column;align-items:flex-start;gap:6px}#mvp-home .hero-impact-header .hero-impact-note{text-align:left}}
 </style>
