@@ -1,0 +1,8 @@
+{
+  "private": true,
+  "type": "module",
+  "description": "Reproducible HTML-to-PDF export for the Novara CX prospect deck",
+  "dependencies": {
+    "playwright": "1.62.1"
+  }
+}
