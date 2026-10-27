@@ -5,14 +5,15 @@ import { resolve, extname, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
-const deckPath = resolve(root, 'decks/novara-cx.html');
+const deckPath = resolve(root, 'pptv1/index.html');
 const outputPath = resolve(root, 'decks/novara-cx.pdf');
 const previewDir = resolve(root, 'decks/.previews');
 const mime = { '.html': 'text/html; charset=utf-8', '.png': 'image/png', '.webp': 'image/webp', '.jpg': 'image/jpeg', '.svg': 'image/svg+xml', '.pdf': 'application/pdf' };
 await readFile(deckPath);
 const server = createServer(async (req, res) => {
   try {
-    const path = resolve(root, '.' + decodeURIComponent(new URL(req.url, 'http://localhost').pathname));
+    let path = resolve(root, '.' + decodeURIComponent(new URL(req.url, 'http://localhost').pathname));
+    if (path === resolve(root, 'pptv1')) path = resolve(path, 'index.html');
     if (path !== root && !path.startsWith(root + '/')) { res.writeHead(403).end(); return; }
     const data = await readFile(path);
     res.writeHead(200, { 'Content-Type': mime[extname(path)] || 'application/octet-stream' });
@@ -24,7 +25,7 @@ let browser;
 try {
   browser = await chromium.launch({ headless: true, ...(process.env.NOVARA_PDF_BROWSER ? { executablePath: process.env.NOVARA_PDF_BROWSER } : {}) });
   const page = await browser.newPage({ viewport: { width: 1440, height: 810 }, deviceScaleFactor: 1 });
-  await page.goto('http://127.0.0.1:' + server.address().port + '/decks/novara-cx.html', { waitUntil: 'load' });
+  await page.goto('http://127.0.0.1:' + server.address().port + '/pptv1/', { waitUntil: 'load' });
   await page.evaluate(() => document.fonts.ready);
   await page.emulateMedia({ media: 'print' });
   const count = await page.locator('.slide').count();
