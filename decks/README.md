@@ -1,12 +1,12 @@
 # Novara CX prospect deck
 
-- **Source:** [novara-cx.html](novara-cx.html)
+- **Source:** [pptv1/index.html](../pptv1/index.html)
 - **Shareable PDF:** [novara-cx.pdf](novara-cx.pdf)
 - **Canvas:** nine 1440 × 810 slides (16:9).
 
 ## View and present
 
-Open the HTML with the repository's `assets` folder intact, or serve the repository with `python3 -m http.server 8080` and open `http://localhost:8080/decks/novara-cx.html`.
+Open the HTML with the repository's `assets` folder intact, or serve the repository with `python3 -m http.server 8080` and open `http://localhost:8080/pptv1/`.
 
 Use the arrow keys, Page Up / Page Down, Home / End, or the on-screen controls. Overview shows all nine pages. The deck scales to smaller viewports. Fullscreen and Print / PDF are available in the toolbar.
 
