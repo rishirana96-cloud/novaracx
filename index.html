@@ -6358,11 +6358,14 @@ body.preview-is-expanded{overflow:hidden!important}
         }
 
 
+        let ticketMessagePollBusy = false;
         async function pollTicketMessages() {
+            if(ticketMessagePollBusy) return;
+            ticketMessagePollBusy = true;
             try {
                 const ticketSession = activeTicketSessionId || sessionId;
                 const pollingGeneration = ticketPollingGeneration;
-                const response = await fetch(`${WORKER_URL}ticket-status?session=${encodeURIComponent(ticketSession)}&after=${lastTicketMessageId}`);
+                const response = await fetch(`${WORKER_URL}ticket-status?session=${encodeURIComponent(ticketSession)}&after=${lastTicketMessageId}`, {cache:"no-store"});
                 if (!response.ok) return;
                 const data = await response.json();
                 if (!data.ticket) return;
@@ -6401,7 +6404,7 @@ body.preview-is-expanded{overflow:hidden!important}
                 updateHumanChatStatus();
             } catch (error) {
                 console.error("Ticket polling error:", error);
-            }
+            } finally { ticketMessagePollBusy = false; }
         }
 
 
@@ -7082,7 +7085,20 @@ body.preview-is-expanded{overflow:hidden!important}
             async () => {
                 const restoredLocal = !sessionExpired && restoreLocalConversation();
                 await pollTicketMessages();
-                setInterval(pollTicketMessages, 3000);
+                let ticketMessageTimer;
+                const scheduleMessages = () => {
+                    clearTimeout(ticketMessageTimer);
+                    const delay = document.hidden ? 15000 : chatMode === "human" && chatWindow.classList.contains("open") ? 1000 : 5000;
+                    ticketMessageTimer = setTimeout(async () => {
+                        if(!document.hidden) await pollTicketMessages();
+                        scheduleMessages();
+                    },delay);
+                };
+                scheduleMessages();
+                document.addEventListener("visibilitychange",()=>{
+                    if(!document.hidden) pollTicketMessages();
+                    scheduleMessages();
+                });
 
                 if (sessionExpired) localStorage.removeItem(CHAT_DRAFT_KEY);
                 const savedDraft = sessionExpired ? "" : localStorage.getItem(CHAT_DRAFT_KEY) || "";
