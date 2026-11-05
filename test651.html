@@ -1404,58 +1404,93 @@ body>header .nav-links a{color:#53655b}body>header .nav-links a:hover,body>heade
 <section class="mvp-section layers-v2" id="mvp-how"><div class="mvp-shell"><div class="layers-v2-head"><div><span class="mvp-kicker">How Novara works</span><h2 class="mvp-heading">One support system.<br>Three connected layers.</h2></div><p class="mvp-lead">Automation handles scale, people handle nuance, and continuous optimisation keeps both performing.</p></div><div class="layers-stack nv-visual"><article class="layer-row layer-ai"><div class="layer-label"><span>01 · AUTOMATION</span><h3>AI responds instantly</h3><p>The assistant answers repetitive and knowledge-based questions using your policies, products and preferred brand tone.</p></div><div class="layer-flow" aria-hidden="true"><div class="layer-node"><i>CU</i><span>Customer</span></div><div class="layer-path"><b></b></div><div class="layer-node active"><i>✦</i><span>Novara AI</span></div><div class="layer-path"><b></b></div><div class="layer-node"><i>61%</i><span>Confidence check</span></div></div></article><article class="layer-row layer-human"><div class="layer-label"><span>02 · HUMAN SUPPORT</span><h3>Humans take over</h3><p>When the AI cannot resolve a request, the conversation moves to a trained human with the context already attached.</p></div><div class="layer-flow" aria-hidden="true"><div class="layer-node"><i>↔</i><span>Context retained</span></div><div class="layer-path"><b></b></div><div class="layer-node active"><i>AR</i><span>Human support</span></div><div class="layer-path"><b></b></div><div class="layer-node"><i>✓</i><span>Resolved</span></div></div></article><article class="layer-row layer-management"><div class="layer-label"><span>03 · CONTINUOUS MANAGEMENT</span><h3>We improve the operation</h3><p>Novara reviews conversations, tunes the AI, monitors support quality and gives you clear performance visibility.</p></div><div class="management-loop" aria-hidden="true"><span>Review conversations</span><i>→</i><span>Tune knowledge</span><i>→</i><span>Measure quality</span><i>↻</i></div></article></div></div></section>
 
 
-<!-- test651: AI capabilities overview -->
+<!-- test651: visual AI capabilities -->
 <style id="novara-ai-capabilities-styles">
-#novara-ai-capabilities{padding:88px 0;background:#f5f5ee;color:#173c29;scroll-margin-top:94px;font-family:"General Sans",Arial,sans-serif}
+#novara-ai-capabilities{padding:84px 0;background:#f4f5ed;color:#173c29;scroll-margin-top:94px;font-family:"General Sans",Arial,sans-serif}
 #novara-ai-capabilities *{box-sizing:border-box}
-#novara-ai-capabilities .nv-ai-head{display:grid;grid-template-columns:1.1fr .9fr;align-items:end;gap:48px;margin-bottom:30px}
+#novara-ai-capabilities .nv-ai-head{display:grid;grid-template-columns:1.15fr .85fr;align-items:end;gap:50px;margin-bottom:30px}
 #novara-ai-capabilities .nv-ai-kicker{display:block;margin-bottom:13px;color:#57785c;font-size:10px;font-weight:750;letter-spacing:.15em;text-transform:uppercase}
-#novara-ai-capabilities h2{margin:0;max-width:650px;font-family:"Cabinet Grotesk",Arial,sans-serif;font-size:clamp(32px,3.5vw,52px);font-weight:750;line-height:1.05;letter-spacing:-.04em;color:#173c29}
-#novara-ai-capabilities .nv-ai-intro{margin:0;max-width:470px;color:#607365;font-size:14px;line-height:1.75}
-#novara-ai-capabilities .nv-ai-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
-#novara-ai-capabilities .nv-ai-card{min-width:0;padding:25px 26px 0;border:1px solid #d3dfcf;border-radius:18px;background:#fffef8}
-#novara-ai-capabilities .nv-ai-card:nth-child(2),#novara-ai-capabilities .nv-ai-card:nth-child(3){background:#eaf0e4}
-#novara-ai-capabilities .nv-ai-label{display:flex;align-items:center;justify-content:space-between;gap:16px;color:#67816b;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:16px}
-#novara-ai-capabilities .nv-ai-icon{display:grid;place-items:center;width:32px;height:32px;border:1px solid #c8d8c4;border-radius:10px;color:#345d40}
-#novara-ai-capabilities .nv-ai-icon svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
-#novara-ai-capabilities h3{margin:0 0 10px;color:#173c29;font-family:"Cabinet Grotesk",Arial,sans-serif;font-size:24px;font-weight:750;line-height:1.15;letter-spacing:-.025em}
-#novara-ai-capabilities .nv-ai-card>p{margin:0 0 21px;color:#607365;font-size:13px;line-height:1.75;max-width:53ch}
-#novara-ai-capabilities details{border-top:1px solid #d7e1d1}
-#novara-ai-capabilities summary{display:flex;align-items:center;justify-content:space-between;gap:14px;list-style:none;cursor:pointer;padding:15px 0;color:#345d40;font-size:12px;font-weight:700}
-#novara-ai-capabilities summary::-webkit-details-marker{display:none}
-#novara-ai-capabilities summary::after{content:'+';font-size:20px;font-weight:450;line-height:1}
-#novara-ai-capabilities details[open] summary::after{content:'−'}
-#novara-ai-capabilities .nv-ai-example{display:grid;gap:9px;padding:0 0 22px}
-#novara-ai-capabilities .nv-ai-example p{margin:0;padding:11px 13px;border-radius:10px;background:#f0f2e9;color:#49634f;font-size:12px;line-height:1.65}
-#novara-ai-capabilities .nv-ai-example p:last-child{background:#dde9d8;color:#244c32}
-#novara-ai-capabilities .nv-ai-example b{display:block;margin-bottom:3px;font-size:9px;text-transform:uppercase;letter-spacing:.08em}
-#novara-ai-capabilities .nv-ai-connected{display:grid;grid-template-columns:minmax(0,1fr) minmax(230px,.75fr);gap:30px;align-items:center;margin-top:16px;padding:24px 26px;border:1px solid #c7d6c4;border-radius:18px;background:#e0e9da}
-#novara-ai-capabilities .nv-ai-connected .nv-ai-kicker{margin-bottom:8px;font-size:9px;color:#4b6c4f}
-#novara-ai-capabilities .nv-ai-connected h3{font-size:22px;margin-bottom:8px}
-#novara-ai-capabilities .nv-ai-connected p{margin:0;color:#526d57;font-size:13px;line-height:1.7}
-#novara-ai-capabilities .nv-ai-data-example{padding-left:25px;border-left:1px solid #c1d1bb}
-#novara-ai-capabilities .nv-ai-data-example span{display:block;margin-bottom:6px;font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:#56765b;font-weight:700}
-#novara-ai-capabilities .nv-ai-data-example strong{display:block;color:#244c32;font-size:15px;line-height:1.5;font-weight:650}
+#novara-ai-capabilities h2{margin:0;font-family:"Cabinet Grotesk",Arial,sans-serif;font-size:clamp(36px,3.6vw,56px);font-weight:750;line-height:1.02;letter-spacing:-.045em;color:#173c29}
+#novara-ai-capabilities .nv-ai-intro{margin:0;max-width:440px;color:#607365;font-size:14px;line-height:1.75}
+#novara-ai-capabilities .nv-ai-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+#novara-ai-capabilities .nv-ai-card{min-width:0;overflow:hidden;border:1px solid #d0dccb;border-radius:22px;background:#fffdf5;display:flex;flex-direction:column}
+#novara-ai-capabilities .nv-ai-card:nth-child(2){background:#e8efe1}
+#novara-ai-capabilities .nv-ai-card:nth-child(3){background:#edf1e6}
+#novara-ai-capabilities .nv-ai-card:nth-child(4){background:#e2ece2}
+#novara-ai-capabilities .nv-ai-art{height:172px;display:flex;align-items:center;justify-content:center;padding:12px 24px 0;position:relative}
+#novara-ai-capabilities .nv-ai-art svg{display:block;width:100%;height:100%;max-width:560px;overflow:visible}
+#novara-ai-capabilities .nv-ai-art svg text{font-family:"General Sans",Arial,sans-serif}
+#novara-ai-capabilities .nv-ai-copy{padding:10px 28px 28px;position:relative;margin-top:auto}
+#novara-ai-capabilities .nv-ai-label{display:block;margin-bottom:9px;color:#648168;font-size:9px;font-weight:750;letter-spacing:.12em;text-transform:uppercase}
+#novara-ai-capabilities h3{margin:0 0 10px;color:#173c29;font-family:"Cabinet Grotesk",Arial,sans-serif;font-size:clamp(23px,1.85vw,28px);font-weight:750;line-height:1.1;letter-spacing:-.025em}
+#novara-ai-capabilities .nv-ai-copy p{margin:0;color:#5d7262;font-size:13px;line-height:1.75;max-width:56ch}
+#novara-ai-capabilities .nv-ai-connected{display:grid;grid-template-columns:80px minmax(0,1fr) auto;align-items:center;gap:22px;margin-top:18px;padding:22px 26px;border:1px solid #c7d8c3;border-radius:20px;background:#dae6d4}
+#novara-ai-capabilities .nv-ai-connected svg{width:80px;height:72px;display:block}
+#novara-ai-capabilities .nv-ai-connected .nv-ai-kicker{font-size:9px;margin-bottom:7px}
+#novara-ai-capabilities .nv-ai-connected h3{font-size:23px;margin-bottom:6px}
+#novara-ai-capabilities .nv-ai-connected p{margin:0;color:#526d57;font-size:12px;line-height:1.7;max-width:70ch}
+#novara-ai-capabilities .nv-ai-scope{display:inline-flex;align-items:center;gap:7px;padding:8px 11px;border:1px solid #b6cbb0;border-radius:99px;font-size:10px;color:#47694d;white-space:nowrap}
+#novara-ai-capabilities .nv-ai-scope::before{content:'';width:5px;height:5px;border-radius:50%;background:#5b7f5b}
 #novara-ai-capabilities .nv-ai-footer{display:flex;align-items:center;justify-content:space-between;gap:25px;margin-top:25px}
-#novara-ai-capabilities .nv-ai-footer p{margin:0;color:#6e7c70;font-size:11px;line-height:1.7;max-width:650px}
-#novara-ai-capabilities .nv-ai-try{display:inline-flex;align-items:center;justify-content:center;gap:20px;padding:12px 21px;border-radius:999px;background:#214c32;color:#fffef8;font-size:12px;font-weight:700;white-space:nowrap}
-#novara-ai-capabilities a:focus-visible,#novara-ai-capabilities summary:focus-visible{outline:3px solid #65855d;outline-offset:5px;border-radius:5px}
-@media(min-width:981px){body>header .nav-links a.nv-ai-nav{padding-inline:8px!important;font-size:.72rem!important}}
+#novara-ai-capabilities .nv-ai-footer p{margin:0;color:#6e7c70;font-size:11px;line-height:1.7;max-width:630px}
+#novara-ai-capabilities .nv-ai-try{display:inline-flex;align-items:center;justify-content:center;gap:22px;padding:13px 22px;border-radius:999px;background:#214c32;color:#fffef8;font-size:12px;font-weight:700;white-space:nowrap}
+#novara-ai-capabilities a:focus-visible{outline:3px solid #65855d;outline-offset:5px}
 #header #t651-trigger{color:#345d40!important}
-@media(max-width:980px){#novara-ai-capabilities .nv-ai-head{gap:25px}#novara-ai-capabilities .nv-ai-card{padding:22px 22px 0}}
-@media(max-width:700px){#novara-ai-capabilities{padding:64px 0}#novara-ai-capabilities .nv-ai-head,#novara-ai-capabilities .nv-ai-grid,#novara-ai-capabilities .nv-ai-connected{grid-template-columns:minmax(0,1fr)}#novara-ai-capabilities .nv-ai-head{gap:17px;margin-bottom:24px}#novara-ai-capabilities .nv-ai-intro{max-width:none;font-size:13px}#novara-ai-capabilities .nv-ai-connected{gap:18px;padding:22px}#novara-ai-capabilities .nv-ai-data-example{border-left:0;border-top:1px solid #c1d1bb;padding:16px 0 0}#novara-ai-capabilities .nv-ai-footer{align-items:flex-start;flex-direction:column;gap:18px}#novara-ai-capabilities h3{font-size:23px}}
+@media(min-width:981px){body>header .nav-links a.nv-ai-nav{padding-inline:8px!important;font-size:.72rem!important}}
+@media(max-width:980px){#novara-ai-capabilities .nv-ai-head{gap:25px}#novara-ai-capabilities .nv-ai-connected{grid-template-columns:70px minmax(0,1fr)}#novara-ai-capabilities .nv-ai-scope{grid-column:2;justify-self:start}#novara-ai-capabilities .nv-ai-copy{padding:10px 23px 25px}}
+@media(max-width:700px){#novara-ai-capabilities{padding:62px 0}#novara-ai-capabilities .nv-ai-head,#novara-ai-capabilities .nv-ai-grid{grid-template-columns:minmax(0,1fr)}#novara-ai-capabilities .nv-ai-head{gap:17px;margin-bottom:25px}#novara-ai-capabilities .nv-ai-intro{max-width:none;font-size:13px}#novara-ai-capabilities .nv-ai-art{height:155px;padding:8px 14px 0}#novara-ai-capabilities .nv-ai-copy{padding:12px 23px 25px}#novara-ai-capabilities .nv-ai-connected{grid-template-columns:50px minmax(0,1fr);gap:13px;padding:22px}#novara-ai-capabilities .nv-ai-connected svg{width:50px;height:55px}#novara-ai-capabilities .nv-ai-connected h3{font-size:22px}#novara-ai-capabilities .nv-ai-scope{font-size:9px}#novara-ai-capabilities .nv-ai-footer{align-items:flex-start;flex-direction:column;gap:18px}}
 </style>
 <section id="novara-ai-capabilities" aria-labelledby="nv-ai-title">
  <div class="mvp-shell">
-  <div class="nv-ai-head"><div><span class="nv-ai-kicker">AI capabilities</span><h2 id="nv-ai-title">What your AI support<br>agent can handle.</h2></div><p class="nv-ai-intro">From everyday questions to a well-prepared handoff. Your AI uses your approved knowledge and support rules to give customers a clear next step.</p></div>
+  <div class="nv-ai-head"><div><span class="nv-ai-kicker">Meet your AI support agent</span><h2 id="nv-ai-title">Built to know your business.<br>Ready for every question.</h2></div><p class="nv-ai-intro">Give every customer a faster way forward. Novara AI brings your knowledge, round-the-clock availability and seamless human handoffs into every conversation.</p></div>
   <div class="nv-ai-grid">
-   <article class="nv-ai-card"><div class="nv-ai-label"><span>01 / Answer</span><span class="nv-ai-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 4h14a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-7l-5 3v-3H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2Z"/><path d="M7 9h10M7 13h6"/></svg></span></div><h3>Answer the everyday questions.</h3><p>Explain product information, services and policies using the knowledge your business has approved.</p><details><summary>See a product &amp; policy example</summary><div class="nv-ai-example"><p><b>Customer</b>Can I return an item if the size is wrong?</p><p><b>AI support</b>Explains your published return window, eligibility conditions and how to start the process.</p></div></details></article>
-   <article class="nv-ai-card"><div class="nv-ai-label"><span>02 / Guide</span><span class="nv-ai-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 5h5v5H5zM14 14h5v5h-5zM10 7h7v4M7 10v7h4M14 8l3 3 3-3"/></svg></span></div><h3>Guide customers to the next step.</h3><p>Walk customers through documented setup, access and common troubleshooting steps in a conversation.</p><details><summary>See a troubleshooting example</summary><div class="nv-ai-example"><p><b>Customer</b>I cannot sign in to my account.</p><p><b>AI support</b>Guides the customer through your approved sign-in and password reset instructions, then offers a handoff if the issue continues.</p></div></details></article>
-   <article class="nv-ai-card"><div class="nv-ai-label"><span>03 / Prepare</span><span class="nv-ai-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 3h6v4H9zM9 12h6M9 16h4"/></svg></span></div><h3>Get the details before the handoff.</h3><p>Collect the issue description and relevant reference details so a human agent can pick up with useful context.</p><details><summary>See an issue collection example</summary><div class="nv-ai-example"><p><b>Customer</b>My order arrived damaged.</p><p><b>AI support</b>Asks for the order reference and a description of the damage, then passes the details to a person for review.</p></div></details></article>
-   <article class="nv-ai-card"><div class="nv-ai-label"><span>04 / Hand over</span><span class="nv-ai-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="8" cy="7" r="3"/><path d="M2 20v-2a6 6 0 0 1 11-3M14 11h7M18 8l3 3-3 3M15 19h6"/></svg></span></div><h3>Bring in a person with context.</h3><p>Move unresolved questions, exceptions and requests for a person to human support, with the conversation attached.</p><details><summary>See a human handoff example</summary><div class="nv-ai-example"><p><b>Customer</b>I have already tried that. Can I speak to someone?</p><p><b>AI support</b>Hands the conversation to your team or Novara's managed agents, so the customer does not have to start again.</p></div></details></article>
+   <article class="nv-ai-card">
+    <div class="nv-ai-art" aria-hidden="true"><svg viewBox="0 0 560 170" fill="none">
+     <circle cx="300" cy="86" r="72" stroke="#c6d5bc" stroke-dasharray="3 7"/><circle cx="300" cy="86" r="54" fill="#e6eddd"/>
+     <path d="M174 46h48q18 0 18 18v22h25M181 126h44q15 0 15-18V86M336 86h49q15 0 15-15V49" stroke="#95b28c" stroke-width="1.5"/>
+     <rect x="72" y="17" width="108" height="52" rx="12" fill="#fffefa" stroke="#c6d5bc"/><rect x="84" y="30" width="22" height="26" rx="4" fill="#e5eddd"/><path d="M90 37h10M90 42h10M90 47h6" stroke="#6c8a65" stroke-width="1.5" stroke-linecap="round"/><text x="115" y="48" fill="#4e7053" font-size="12">Products</text>
+     <rect x="79" y="104" width="113" height="50" rx="12" fill="#fffefa" stroke="#c6d5bc"/><rect x="92" y="117" width="22" height="25" rx="4" fill="#e5eddd"/><path d="m97 129 4 4 7-9" stroke="#6c8a65" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><text x="123" y="134" fill="#4e7053" font-size="12">Policies</text>
+     <rect x="373" y="22" width="116" height="50" rx="12" fill="#fffefa" stroke="#c6d5bc"/><path d="M388 38h15M388 43h15M388 48h9" stroke="#6c8a65" stroke-width="1.5" stroke-linecap="round"/><text x="414" y="53" fill="#4e7053" font-size="12">Your tone</text>
+     <rect x="260" y="47" width="80" height="80" rx="25" fill="#244d33"/><path d="m300 64 6 16 16 6-16 6-6 16-6-16-16-6 16-6 6-16Z" fill="#dfebcf"/><path d="m323 59 2 6 6 2-6 2-2 6-2-6-6-2 6-2 2-6Z" fill="#abc79b"/>
+     <rect x="349" y="113" width="174" height="28" rx="14" fill="#dde9d4"/><circle cx="364" cy="127" r="3" fill="#668e59"/><text x="375" y="131" fill="#55774e" font-size="10">Your knowledge. AI-ready.</text>
+    </svg></div>
+    <div class="nv-ai-copy"><span class="nv-ai-label">01 / Business intelligence</span><h3>Your knowledge. Its superpower.</h3><p>Products, policies, services and brand tone—brought together in an AI agent that answers using your approved business knowledge.</p></div>
+   </article>
+   <article class="nv-ai-card">
+    <div class="nv-ai-art" aria-hidden="true"><svg viewBox="0 0 560 170" fill="none">
+     <circle cx="284" cy="83" r="69" stroke="#c1d2b5"/><path d="M284 14a69 69 0 0 1 60 103" stroke="#8eae7d" stroke-width="3" stroke-linecap="round"/><circle cx="284" cy="83" r="48" fill="#d9e6cd"/><circle cx="284" cy="83" r="32" fill="#244d33"/><path d="M284 62v22l15 9" stroke="#deebd0" stroke-width="3" stroke-linecap="round"/><circle cx="284" cy="83" r="3" fill="#deebd0"/>
+     <rect x="63" y="32" width="143" height="41" rx="12" fill="#fffef9" stroke="#c5d5bc"/><circle cx="82" cy="52" r="8" fill="#dce9d0"/><path d="m79 52 2 2 4-5" stroke="#638454" stroke-width="1.5" stroke-linecap="round"/><text x="98" y="57" fill="#496e4d" font-size="12">Always available</text>
+     <rect x="358" y="90" width="140" height="48" rx="14" fill="#fffef9" stroke="#c5d5bc"/><text x="376" y="110" fill="#67815c" font-size="9" letter-spacing="1">NOVARA AI</text><text x="376" y="126" fill="#365d3e" font-size="12">Already on it.</text>
+     <path d="M130 97v12M124 103h12M404 30v14M397 37h14" stroke="#9db78f" stroke-width="1.5" stroke-linecap="round"/>
+     <rect x="178" y="128" width="67" height="25" rx="12.5" fill="#d8e6cb"/><text x="193" y="145" fill="#4c744c" font-size="11" font-weight="700">24 / 7</text>
+     <circle cx="350" cy="36" r="4" fill="#b8cba9"/>
+    </svg></div>
+    <div class="nv-ai-copy"><span class="nv-ai-label">02 / Always-on support</span><h3>Fast answers. Every hour.</h3><p>Routine questions get attention around the clock. Customers find answers sooner, while your team gains time for work that needs a person.</p></div>
+   </article>
+   <article class="nv-ai-card">
+    <div class="nv-ai-art" aria-hidden="true"><svg viewBox="0 0 560 170" fill="none">
+     <path d="M115 86h325" stroke="#bdcfb2" stroke-width="2" stroke-dasharray="4 7"/>
+     <rect x="73" y="43" width="103" height="86" rx="19" fill="#fffef8" stroke="#c6d6bb"/><rect x="97" y="62" width="55" height="34" rx="10" fill="#e1ead6"/><path d="M110 73h28M110 80h18M107 96l-5 5v-8" stroke="#7d9c70" stroke-width="1.5" stroke-linecap="round"/><text x="99" y="116" fill="#5b7954" font-size="10">Understand</text>
+     <rect x="228" y="26" width="105" height="115" rx="22" fill="#244d33"/><path d="m280 44 5 13 13 5-13 5-5 13-5-13-13-5 13-5 5-13Z" fill="#dae8cb"/><path d="M251 94h58M251 103h40" stroke="#719666" stroke-width="2" stroke-linecap="round"/><text x="260" y="126" fill="#dbe8d0" font-size="10">Guide</text>
+     <rect x="385" y="43" width="102" height="86" rx="19" fill="#fffef8" stroke="#c6d6bb"/><circle cx="436" cy="78" r="18" fill="#dae8ce"/><path d="m427 78 6 6 12-14" stroke="#668852" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><text x="413" y="116" fill="#5b7954" font-size="10">Next step</text>
+     <circle cx="202" cy="86" r="10" fill="#dce8d1"/><path d="m199 82 4 4-4 4" stroke="#648656" stroke-width="1.5" stroke-linecap="round"/><circle cx="359" cy="86" r="10" fill="#dce8d1"/><path d="m356 82 4 4-4 4" stroke="#648656" stroke-width="1.5" stroke-linecap="round"/>
+    </svg></div>
+    <div class="nv-ai-copy"><span class="nv-ai-label">03 / Guided conversations</span><h3>Turns questions into progress.</h3><p>Understands the request, gathers relevant details and guides customers through the next steps—from product help to common troubleshooting.</p></div>
+   </article>
+   <article class="nv-ai-card">
+    <div class="nv-ai-art" aria-hidden="true"><svg viewBox="0 0 560 170" fill="none">
+     <circle cx="153" cy="80" r="53" stroke="#bdd1b8"/><rect x="116" y="43" width="74" height="74" rx="23" fill="#244d33"/><path d="m153 58 6 16 16 6-16 6-6 16-6-16-16-6 16-6 6-16Z" fill="#deebd1"/>
+     <path d="M203 80h154" stroke="#9ab891" stroke-width="1.6"/><path d="m346 73 9 7-9 7" stroke="#6b9462" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+     <rect x="242" y="52" width="76" height="55" rx="12" fill="#fdfef7" stroke="#bdcfb5"/><path d="M256 66h30M256 75h47M256 84h39M256 93h24" stroke="#a3bb98" stroke-width="2" stroke-linecap="round"/><circle cx="308" cy="57" r="10" fill="#90b27e"/><path d="m303 57 3 3 6-7" stroke="#f5f7ed" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+     <circle cx="411" cy="80" r="53" stroke="#bdd1b8"/><circle cx="411" cy="80" r="37" fill="#c7d9bd"/><circle cx="411" cy="68" r="12" fill="#6f9164"/><path d="M388 101a23 23 0 0 1 46 0" fill="#6f9164"/>
+     <rect x="212" y="125" width="139" height="26" rx="13" fill="#d0dfc5"/><text x="229" y="142" fill="#4b6e44" font-size="10">Full context, carried forward</text>
+     <text x="127" y="145" fill="#5b7954" font-size="10">Novara AI</text><text x="377" y="145" fill="#5b7954" font-size="10">Human expert</text>
+    </svg></div>
+    <div class="nv-ai-copy"><span class="nv-ai-label">04 / Intelligent handoffs</span><h3>Brings people in. Keeps context.</h3><p>When a conversation needs human judgement, AI passes it to the right support team with the history attached. One continuous customer experience.</p></div>
+   </article>
   </div>
-  <aside class="nv-ai-connected" aria-labelledby="nv-ai-connected-title"><div><span class="nv-ai-kicker">With connected systems</span><h3 id="nv-ai-connected-title">Make answers specific to the customer.</h3><p>Retrieve order or account information when the relevant system is connected and access is approved. Available lookups are confirmed during setup.</p></div><div class="nv-ai-data-example"><span>Example · Order tracking</span><strong>“Where is my order?”</strong><p>AI retrieves the available delivery status from your connected order system.</p></div></aside>
-  <div class="nv-ai-footer"><p>Examples illustrate possible workflows. Answers follow your approved knowledge; system lookups and actions depend on the integrations, permissions and scope agreed during setup.</p><a class="nv-ai-try" href="#novara-live-demos">Try the AI <span aria-hidden="true">↗</span></a></div>
+  <aside class="nv-ai-connected" aria-labelledby="nv-ai-connected-title"><svg viewBox="0 0 80 72" fill="none" aria-hidden="true"><rect x="5" y="12" width="50" height="50" rx="15" fill="#c0d5b6"/><path d="m19 29 11-6 12 6v15l-12 6-11-6V29Zm0 0 11 6 12-6M30 35v15" stroke="#5e8256" stroke-width="1.7" stroke-linejoin="round"/><rect x="43" y="34" width="31" height="25" rx="10" fill="#f5f8ee" stroke="#a7c19b"/><path d="M52 46h13m-8-5-5 5 5 5m3-10 5 5-5 5" stroke="#658a59" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><div><span class="nv-ai-kicker">Connected intelligence</span><h3>Go beyond the standard answer.</h3><p>Connect approved order or account systems to bring relevant customer information into the conversation.</p></div><span class="nv-ai-scope">Available with scoped integrations</span></aside>
+  <div class="nv-ai-footer"><p>Built around your approved knowledge and support rules. Connected data and automated actions depend on the integrations and permissions agreed during setup.</p><a class="nv-ai-try" href="#novara-live-demos">See AI in action <span aria-hidden="true">↗</span></a></div>
  </div>
 </section>
 <script id="novara-ai-capabilities-init">
