@@ -1441,6 +1441,7 @@ body>header .nav-links a{color:#53655b}body>header .nav-links a:hover,body>heade
 #novara-ai-capabilities .nv-ai-try{display:inline-flex;align-items:center;justify-content:center;gap:20px;padding:12px 21px;border-radius:999px;background:#214c32;color:#fffef8;font-size:12px;font-weight:700;white-space:nowrap}
 #novara-ai-capabilities a:focus-visible,#novara-ai-capabilities summary:focus-visible{outline:3px solid #65855d;outline-offset:5px;border-radius:5px}
 @media(min-width:981px){body>header .nav-links a.nv-ai-nav{padding-inline:8px!important;font-size:.72rem!important}}
+#header #t651-trigger{color:#345d40!important}
 @media(max-width:980px){#novara-ai-capabilities .nv-ai-head{gap:25px}#novara-ai-capabilities .nv-ai-card{padding:22px 22px 0}}
 @media(max-width:700px){#novara-ai-capabilities{padding:64px 0}#novara-ai-capabilities .nv-ai-head,#novara-ai-capabilities .nv-ai-grid,#novara-ai-capabilities .nv-ai-connected{grid-template-columns:minmax(0,1fr)}#novara-ai-capabilities .nv-ai-head{gap:17px;margin-bottom:24px}#novara-ai-capabilities .nv-ai-intro{max-width:none;font-size:13px}#novara-ai-capabilities .nv-ai-connected{gap:18px;padding:22px}#novara-ai-capabilities .nv-ai-data-example{border-left:0;border-top:1px solid #c1d1bb;padding:16px 0 0}#novara-ai-capabilities .nv-ai-footer{align-items:flex-start;flex-direction:column;gap:18px}#novara-ai-capabilities h3{font-size:23px}}
 </style>
@@ -1481,6 +1482,13 @@ body>header .nav-links a{color:#53655b}body>header .nav-links a:hover,body>heade
  };
  const start=()=>{
   install();
+  document.querySelector('#novara-ai-capabilities .nv-ai-try')?.addEventListener('click',event=>{
+   const target=document.getElementById('novara-live-demos');if(!target)return;
+   event.preventDefault();event.stopImmediatePropagation();
+   const offset=(document.getElementById('header')?.getBoundingClientRect().height||0)+18;
+   history.replaceState(null,'','#novara-live-demos');
+   window.scrollTo({top:Math.max(0,target.getBoundingClientRect().top+window.scrollY-offset),behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});
+  });
   const nav=document.querySelector('body>header .nav-links');
   if(nav)new MutationObserver(install).observe(nav,{childList:true});
   window.setTimeout(install,0);
