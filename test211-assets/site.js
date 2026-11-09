@@ -90,6 +90,11 @@ for (const tablist of document.querySelectorAll('[data-tabs] [role="tablist"]'))
   });
 }
 
+const sharedCase = new URLSearchParams(location.search).get("case");
+if (location.hash === "#desk-tour" && ["order", "billing", "access"].includes(sharedCase)) {
+  selectTab(document.getElementById("ticket-" + sharedCase + "-tab"));
+}
+
 for (const link of document.querySelectorAll("[data-ticket]")) {
   link.addEventListener("click", (event) => {
     if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
