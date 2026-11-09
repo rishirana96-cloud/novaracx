@@ -40,18 +40,18 @@ function updateDeskOrientation() {
 compactLayout.addEventListener("change", updateDeskOrientation);
 updateDeskOrientation();
 
-for (const group of document.querySelectorAll("[data-tabs]")) {
-  const tablist = group.querySelector('[role="tablist"]');
-  const tabs = [...tablist.querySelectorAll('[role="tab"]')];
-
-  function selectTab(nextTab) {
-    for (const tab of tabs) {
-      const selected = tab === nextTab;
-      tab.setAttribute("aria-selected", String(selected));
-      tab.tabIndex = selected ? 0 : -1;
-      document.getElementById(tab.getAttribute("aria-controls")).hidden = !selected;
-    }
+function selectTab(nextTab) {
+  const tablist = nextTab.closest('[role="tablist"]');
+  for (const tab of tablist.querySelectorAll('[role="tab"]')) {
+    const selected = tab === nextTab;
+    tab.setAttribute("aria-selected", String(selected));
+    tab.tabIndex = selected ? 0 : -1;
+    document.getElementById(tab.getAttribute("aria-controls")).hidden = !selected;
   }
+}
+
+for (const tablist of document.querySelectorAll('[data-tabs] [role="tablist"]')) {
+  const tabs = [...tablist.querySelectorAll('[role="tab"]')];
 
   tablist.addEventListener("click", (event) => {
     const tab = event.target.closest('[role="tab"]');
@@ -89,3 +89,34 @@ for (const group of document.querySelectorAll("[data-tabs]")) {
     tabs[targetIndex].focus();
   });
 }
+
+for (const link of document.querySelectorAll("[data-ticket]")) {
+  link.addEventListener("click", (event) => {
+    if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+
+    event.preventDefault();
+    const ticket = document.getElementById(link.dataset.ticket);
+    selectTab(document.getElementById("desk-inbox-tab"));
+    selectTab(ticket);
+    if (location.hash !== link.hash) history.pushState(null, "", link.hash);
+    document.getElementById("desk-tour").scrollIntoView();
+    ticket.focus({ preventScroll: true });
+  });
+}
+
+const contactTopic = document.querySelector(".contact-topic");
+const contactEmail = document.querySelector('.contact-action a[href^="mailto:"]');
+
+for (const link of document.querySelectorAll("[data-service]")) {
+  link.addEventListener("click", (event) => {
+    if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+
+    const service = link.dataset.service;
+    contactTopic.querySelector("strong").textContent = service;
+    contactTopic.hidden = false;
+    const subject = encodeURIComponent(`Novara CX enquiry — ${service}`);
+    contactEmail.href = `mailto:hello@novaracx.com?subject=${subject}`;
+  });
+}
+
+document.documentElement.classList.add("nav-enhanced");
