@@ -23,6 +23,8 @@
 #mvp-mechanism p,
 #mvp-mechanism dl,
 #mvp-mechanism dd { margin: 0; }
+#mvp-mechanism h2,
+#mvp-mechanism h3 { font-family: inherit !important; }
 #mvp-mechanism button { font: inherit; color: inherit; }
 #mvp-mechanism [hidden] { display: none !important; }
 #mvp-mechanism :focus-visible { outline: 2px solid var(--violet); outline-offset: 4px; }
