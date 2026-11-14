@@ -12337,6 +12337,40 @@ window.NOVARA_CURRENT_PRICING={
   #mvp-pricing #novara-plan-switcher .conversation-tier-wrap{padding:9px!important}
 }
 </style>
+<style>
+@media(min-width:901px){
+  #mvp-pricing #npl-managed{
+    display:grid;grid-template-columns:clamp(205px,23%,260px) minmax(0,1fr) auto;
+    gap:14px 18px;align-items:start;
+  }
+  #mvp-pricing #npl-managed > *{grid-column:2/-1;min-width:0}
+  #mvp-pricing #npl-managed .npl-managed-intro{grid-row:1;margin:0}
+  #mvp-pricing #novara-plan-switcher #npl-managed .conversation-tier-wrap{display:contents!important}
+  #mvp-pricing #novara-plan-switcher #npl-managed .conversation-tier-group{
+    grid-column:1;grid-row:1/span 4;display:grid!important;grid-template-columns:minmax(0,1fr)!important;
+    width:100%!important;gap:8px!important;padding:16px!important;justify-content:stretch!important;
+    border:1px solid #3f6250!important;border-radius:16px!important;background:#153729!important;
+  }
+  #mvp-pricing #npl-managed .conversation-tier-group::before{
+    content:"Monthly conversation volume";display:block;padding:3px 6px 6px;
+    color:#c3d8ca;font-size:.75rem;font-weight:700;
+  }
+  #mvp-pricing #novara-plan-switcher #npl-managed .conversation-tier-group [data-tier]{
+    width:100%!important;min-height:62px!important;justify-content:center!important;align-items:flex-start!important;
+    padding:10px 12px!important;border:1px solid transparent!important;border-radius:9px!important;text-align:left!important;
+  }
+  #mvp-pricing #novara-plan-switcher #npl-managed .conversation-tier-group [data-tier] .conversation-tier-name,
+  #mvp-pricing #novara-plan-switcher #npl-managed .conversation-tier-group [data-tier] .conversation-tier-volume{margin-inline:0!important;text-align:left!important}
+  #mvp-pricing #novara-plan-switcher #npl-managed .conversation-tier-group [data-tier].active{
+    background:#234938!important;border-color:#789b84!important;color:#fff!important;
+  }
+  #mvp-pricing #novara-plan-switcher #npl-managed .conversation-tier-group [data-tier].active .conversation-tier-volume{color:#d0e3d6!important}
+  #mvp-pricing #npl-managed .daily-volume-control{grid-column:2;grid-row:2;width:100%!important;justify-self:start}
+  #mvp-pricing #npl-managed .currency-switcher{grid-column:3;grid-row:2;justify-self:end}
+  #mvp-pricing #npl-managed .pricing-summary-grid{grid-row:3}
+  #mvp-pricing #novara-plan-switcher[data-plan=ai] #npl-managed .pricing-summary[data-coverage=ai] .ai-support-actions{grid-template-columns:1fr!important}
+}
+</style>
 <script id="novara-pricing-entry-scroll-script-v73">
 (function(){
   function isPricingEntryLink(link){
