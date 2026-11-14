@@ -1937,8 +1937,9 @@ body>header .nav-links a{color:#53655b}body>header .nav-links a:hover,body>heade
   </div>
   <div id="npl-managed" role="tabpanel" aria-labelledby="npl-tab-ai" tabindex="0" hidden>
     <p class="npl-managed-intro" id="npl-ai-intro">Novara sets up and trains your 24/7 AI. Your team handles escalations.</p>
-    <p class="npl-managed-intro" id="npl-human-intro" hidden>Novara runs the AI and handles escalations. Compare 4.5-hour and 9-hour agent coverage per working day.</p>
-    <div class="npl-coverage" role="group" aria-label="Human coverage per working day">
+    <p class="npl-managed-intro" id="npl-human-intro" hidden>Novara runs your 24/7 AI and provides agents to handle escalations.</p>
+    <div class="npl-coverage" role="group" aria-labelledby="npl-coverage-label">
+      <span id="npl-coverage-label">Agent coverage per working day</span>
       <button type="button" data-npl-hours="lite" aria-pressed="true">4.5 hours</button>
       <button type="button" data-npl-hours="full" aria-pressed="false">9 hours</button>
     </div>
@@ -12352,11 +12353,11 @@ window.NOVARA_CURRENT_PRICING={
   #mvp-pricing #npl-managed .npl-managed-intro{grid-row:1;margin:0}
   #mvp-pricing #novara-plan-switcher #npl-managed .conversation-tier-wrap{display:contents!important}
   #mvp-pricing #novara-plan-switcher #npl-managed .conversation-tier-group{
-    grid-column:1;grid-row:1/span 4;display:grid!important;grid-template-columns:minmax(0,1fr)!important;
+    grid-column:1!important;grid-row:1/span 3!important;display:grid!important;align-self:start;grid-template-columns:minmax(0,1fr)!important;
     width:100%!important;gap:8px!important;padding:16px!important;justify-content:stretch!important;
     border:1px solid #3f6250!important;border-radius:16px!important;background:#153729!important;
   }
-  #mvp-pricing #npl-managed .conversation-tier-group::before{
+  #mvp-pricing #novara-plan-switcher #npl-managed .conversation-tier-group::before{
     content:"Monthly conversation volume";display:block;padding:3px 6px 6px;
     color:#c3d8ca;font-size:.75rem;font-weight:700;
   }
@@ -12369,6 +12370,9 @@ window.NOVARA_CURRENT_PRICING={
   #mvp-pricing #novara-plan-switcher #npl-managed .conversation-tier-group [data-tier].active{
     background:#234938!important;border-color:#789b84!important;color:#fff!important;
   }
+  #mvp-pricing #novara-plan-switcher #npl-managed .conversation-tier-group [data-tier] .conversation-tier-name{color:#edf7ef!important;font-size:.95rem!important}
+  #mvp-pricing #novara-plan-switcher #npl-managed .conversation-tier-group [data-tier] .conversation-tier-volume{font-size:.73rem!important}
+  #mvp-pricing #novara-plan-switcher #npl-managed .conversation-tier-group [data-tier]:hover{background:#244a38!important}
   #mvp-pricing #novara-plan-switcher #npl-managed .conversation-tier-group [data-tier].active .conversation-tier-volume{color:#d0e3d6!important}
   #mvp-pricing #npl-managed .daily-volume-control{grid-column:2;grid-row:2;width:100%!important;justify-self:start}
   #mvp-pricing #npl-managed .currency-switcher{grid-column:3;grid-row:2;justify-self:end}
@@ -12383,7 +12387,9 @@ window.NOVARA_CURRENT_PRICING={
 #novara-plan-switcher[data-plan=ai] .npl-coverage,
 #mvp-pricing #novara-plan-switcher[data-hours=lite] [data-npl-option=full],
 #mvp-pricing #novara-plan-switcher[data-hours=full] [data-npl-option=lite]{display:none!important}
-#novara-plan-switcher .npl-coverage{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:10px}
+#novara-plan-switcher .npl-coverage{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin-bottom:10px}
+#npl-coverage-label{margin-right:6px;font-size:.82rem;font-weight:700;color:#cfe1d5}
+@media(min-width:901px){#npl-coverage-label{color:#365544}}
 #novara-plan-switcher .npl-coverage button{min-height:40px;padding:7px 15px;border:1px solid #759382;border-radius:8px;background:#fff;color:#234938;font-weight:700;cursor:pointer}
 #novara-plan-switcher .npl-coverage button[aria-pressed=true]{background:#234938;border-color:#234938;color:#fff}
 #mvp-pricing #novara-plan-switcher #npl-managed .pricing-summary-grid{grid-template-columns:minmax(0,1fr)!important}
@@ -12397,7 +12403,18 @@ window.NOVARA_CURRENT_PRICING={
   #mvp-pricing #npl-managed .npl-managed-intro{grid-row:1;padding:20px 24px 10px;margin:0;background:#fbfcf8;color:#234938;border-radius:18px 18px 0 0}
   #mvp-pricing #npl-managed .npl-coverage{grid-row:2;margin:0;padding:2px 24px 12px;background:#fbfcf8}
   #mvp-pricing #novara-plan-switcher #npl-managed .pricing-summary{border-radius:0 0 18px 18px!important;border-top:0!important;box-shadow:none!important}
-  #mvp-pricing #novara-plan-switcher[data-plan=human] #npl-managed .pricing-summary{grid-template-rows:auto auto auto auto auto auto auto auto!important;gap:10px!important}
+  #mvp-pricing #novara-plan-switcher[data-plan=human] #npl-managed .pricing-summary{
+    grid-template-columns:minmax(0,1.08fr) minmax(0,1fr)!important;
+    grid-template-rows:repeat(5,auto)!important;gap:12px 24px!important;align-items:start;
+  }
+  #mvp-pricing #novara-plan-switcher[data-plan=human] #npl-managed .pricing-title-row{grid-column:1;grid-row:1!important;flex-wrap:wrap}
+  #mvp-pricing #novara-plan-switcher[data-plan=human] #npl-managed .plan-positioning{grid-column:1;grid-row:2!important;min-height:0!important}
+  #mvp-pricing #novara-plan-switcher[data-plan=human] #npl-managed .pricing-price{grid-column:1;grid-row:3!important}
+  #mvp-pricing #novara-plan-switcher[data-plan=human] #npl-managed .minimum-agent-note{grid-column:1;grid-row:4!important}
+  #mvp-pricing #novara-plan-switcher[data-plan=human] #npl-managed .pricing-summary > .mvp-btn{grid-column:1;grid-row:5!important}
+  #mvp-pricing #novara-plan-switcher[data-plan=human] #npl-managed .value-tier-label{grid-column:2;grid-row:1!important}
+  #mvp-pricing #novara-plan-switcher[data-plan=human] #npl-managed .plan-inclusions{grid-column:2;grid-row:2 / span 4!important;margin:0!important}
+
 }
 </style>
 <script>
