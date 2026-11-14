@@ -10266,7 +10266,7 @@ body{letter-spacing:-.005em!important}
     if(wrap.querySelector('.daily-volume-control'))return true;
     const control=document.createElement('div');
     control.className='daily-volume-control';
-    control.innerHTML='<label for="novara-daily-conversations">FIND YOUR PLAN &amp; ESTIMATED HUMAN AGENT NEED</label><div class="daily-volume-input-wrap"><input id="novara-daily-conversations" type="number" min="0" step="1" inputmode="numeric" autocomplete="off" placeholder="Enter your daily conversations flow"><button class="daily-volume-submit" type="button" aria-label="Find my recommended plan"><span aria-hidden="true"></span></button></div><span class="daily-volume-calculation" aria-live="polite"></span>';
+    control.innerHTML='<label for="novara-daily-conversations">Daily conversations</label><div class="daily-volume-input-wrap"><input id="novara-daily-conversations" type="number" min="0" step="1" inputmode="numeric" autocomplete="off" placeholder="e.g. 50"><button class="daily-volume-submit" type="button" aria-label="Estimate plan and staffing"><span aria-hidden="true"></span></button></div><span class="daily-volume-calculation" aria-live="polite"></span>';
     group.insertAdjacentElement('beforebegin',control);
     const input=control.querySelector('input');
     const submit=control.querySelector('.daily-volume-submit');
@@ -12315,6 +12315,22 @@ window.NOVARA_CURRENT_PRICING={
   #mvp-pricing #novara-plan-switcher .conversation-tier-group [data-tier]{padding-inline:3px!important}
   #mvp-pricing #novara-plan-switcher .conversation-tier-wrap .currency-switcher{grid-column:2;grid-row:2}
   #mvp-pricing #novara-plan-switcher .conversation-tier-wrap .currency-switcher button{min-width:40px!important;padding-inline:7px!important}
+}
+</style>
+<style>
+#mvp-pricing #novara-plan-switcher .conversation-tier-wrap{background:#102f23;border-color:#416254;padding:12px 14px!important}
+#mvp-pricing #novara-plan-switcher .daily-volume-control label{text-transform:none!important;letter-spacing:0!important;font-size:.78rem!important;color:#e2efe6!important}
+#mvp-pricing #novara-plan-switcher .daily-volume-control input{background:#224235!important;border-color:#587668!important}
+#mvp-pricing #novara-plan-switcher .conversation-tier-group{flex:0 1 auto}
+#mvp-pricing #novara-plan-switcher .conversation-tier-group [data-tier]{min-height:48px!important}
+#mvp-pricing #novara-plan-switcher .pricing-summary[data-coverage=human] .pricing-title-row{align-items:center!important}
+#mvp-pricing #novara-plan-switcher .pricing-summary[data-coverage=human] .plan-positioning{color:#375344!important}
+#mvp-pricing #novara-plan-switcher .pricing-summary[data-coverage=human] .plan-inclusions{background:#eef4eb;padding:12px 14px!important;border-radius:10px}
+@media(min-width:901px){
+  #mvp-pricing #novara-plan-switcher[data-plan=human] .pricing-summary{grid-template-rows:44px 40px 48px 0 54px 20px minmax(124px,1fr) 48px!important}
+}
+@media(max-width:760px){
+  #mvp-pricing #novara-plan-switcher .conversation-tier-wrap{padding:9px!important}
 }
 </style>
 <script id="novara-pricing-entry-scroll-script-v73">
