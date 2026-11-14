@@ -85,7 +85,7 @@ body{color:var(--ink)}.eyebrow{font-size:11px;color:#59734f;letter-spacing:1.55p
 .ec-problem-link{display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;min-height:49px;border:1px solid transparent;border-radius:9px;background:transparent;text-align:left;padding:12px 11px;font-size:12px;line-height:1.5;color:#607b51}
 .ec-problem-link:hover{background:#eaf0e1}
 .ec-problem-link[aria-pressed=true]{background:#254b32;color:#fff;border-color:#254b32;font-weight:650}
-.ec-nav-arrow{flex-shrink:0;opacity:.65;font-size:19px}
+.ec-problem-icon{width:16px;height:16px;flex:none}.ec-problem-link-title{flex:1;min-width:0}.ec-nav-arrow{flex-shrink:0;opacity:.65;font-size:19px}
 .ec-problem-mobile{display:none}
 .ec-selection-top{padding:24px 22px 20px}.ec-selection-top h3{font-size:25px}
 .ec-query-nav{padding:0 22px}.ec-query-content{padding:22px}
@@ -213,9 +213,20 @@ $('ec-problem-cards').innerHTML = ecommerceProblems.map(({id, title, caption, ca
     <span class="ec-problem-description" id="ec-card-description-${esc(id)}">${esc(caption)}</span>
   </button>
 `).join('');
+const ecProblemIcons = {
+  delivery: 'M3 5h12v12H3z M15 9h3l3 4v4h-6 M5 19a2 2 0 1 0 4 0 M16 19a2 2 0 1 0 4 0',
+  shopping: 'M4 17 17 4l3 3L7 20z M13 8l2 2 M10 11l2 2 M7 14l2 2',
+  checkout: 'M3 6h18v12H3z M3 10h18 M6 15h4',
+  'order-changes': 'M4 7h15 M15 3l4 4-4 4 M20 17H5 M9 13l-4 4 4 4',
+  'parcel-issues': 'M12 3 3 7v10l9 4 9-4V7z M3 7l9 4 9-4 M12 11v10 M8 5l9 4',
+  returns: 'M8 4 3 9l5 5 M3 9h11a6 6 0 0 1 0 12h-3',
+  'repeat-orders': 'M17 3l4 4-4 4 M3 11V9a2 2 0 0 1 2-2h16 M7 21l-4-4 4-4 M21 13v2a2 2 0 0 1-2 2H3',
+  complaints: 'M4 4h16v12h-9l-5 4v-4H4z M12 7v3 M12 13h.01',
+};
 $('ec-problems').innerHTML = ecommerceProblems.map(({id, title}) => `
   <button type="button" class="ec-problem-link" data-ec-problem="${esc(id)}" aria-pressed="false" aria-controls="ec-selector ec-conversation">
-    <span>${esc(title)}</span><span class="ec-nav-arrow" aria-hidden="true">›</span>
+    <svg class="ec-problem-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="${ecProblemIcons[id]}"></path></svg>
+    <span class="ec-problem-link-title">${esc(title)}</span><span class="ec-nav-arrow" aria-hidden="true">›</span>
   </button>
 `).join('');
 $('ec-mobile-problem').innerHTML = ecommerceProblems.map(({id, title}) =>
