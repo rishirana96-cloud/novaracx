@@ -140,18 +140,14 @@ body{color:var(--ink)}.eyebrow{font-size:11px;color:#59734f;letter-spacing:1.55p
 .ec-capabilities{margin-top:28px;padding:clamp(20px,3vw,34px);border:1px solid #d6dfd1;border-radius:18px;background:#edf3e8}
 .ec-capabilities h2{font-size:clamp(27px,3vw,37px);color:#234732}
 .ec-capabilities-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:20px}
-.ec-capability{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.8fr);align-items:center;gap:14px;padding:14px;border:1px solid #d6dfd1;border-radius:13px;background:#fffefa}
-.ec-capability-chat{display:grid;gap:8px;min-width:0;padding:10px;border-radius:9px;background:#eef3e9;border:1px solid #dce6d7}
-.ec-capability-chat span{display:block;width:fit-content;max-width:100%;padding:6px 8px;border-radius:9px;font-size:11px;line-height:1.4}
-.ec-capability-chat .ec-sample-question{justify-self:end;background:#28503a;color:#fff;border-bottom-right-radius:3px}
-.ec-capability-chat .ec-sample-answer{background:#fffefa;color:#34533d;border-bottom-left-radius:3px}
+.ec-capability{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1.4fr);align-items:center;gap:16px;padding:14px;border:1px solid #d6dfd1;border-radius:13px;background:#fffefa}
+.ec-capability-art{display:block;width:100%;height:auto;aspect-ratio:3/2;object-fit:cover;border-radius:9px}
 .ec-capability h3{font-size:20px;color:#234732}
 .ec-capability p{margin-top:6px;font-size:13px;color:#465e49}
 .ec-capability button{display:inline-flex;align-items:center;gap:6px;margin-top:7px;padding:5px 0;border:0;background:none;color:#315c3c;font-size:13px;font-weight:650;text-align:left;text-decoration:underline;text-underline-offset:3px}
 .ec-capability button:hover{color:#193b26}
-@media(max-width:900px){.ec-capability{grid-template-columns:1fr}}
-@media(max-width:600px){.ec-capabilities-grid{grid-template-columns:1fr}.ec-capability{grid-template-columns:minmax(0,.8fr) minmax(0,1.4fr)}}
-@media(max-width:350px){.ec-capability{grid-template-columns:1fr}}
+@media(max-width:760px){.ec-capabilities-grid{grid-template-columns:1fr}}
+@media(max-width:430px){.ec-capability{grid-template-columns:1fr}}
 
 </style></head><body><a class="skip" href="#fallback">Skip to content</a><header class="top"><nav class="shell nav" aria-label="Main"><a class="brand" href="index.html"><img src="assets/logo-mark.png" alt=""><span>Novara <em>CX</em></span></a><div class="navlinks"><a class="back" href="index.html">← Back to Novara</a><a class="pill" href="https://calendly.com/novaracx/new-meeting" data-booking-link data-track="header_enquiry">Discuss my support <span aria-hidden="true">↗</span></a></div></nav></header>
 <div id="app" hidden><nav class="switcher" aria-label="Choose your industry"><div class="shell"><div class="desktop-industries" id="industry-switcher"></div><div class="mobile-industries"><label for="mobile-industry">Industry</label><select id="mobile-industry"></select></div></div></nav><main class="shell" id="main"><section class="hero" aria-labelledby="industry-heading"><div><span class="eyebrow" id="industry-label"></span><h1 id="industry-heading"></h1><p id="industry-intro"></p><div class="hero-actions"><a class="pill" href="#workflow-demo" data-track="hero_demo">Explore a support conversation <span aria-hidden="true">↓</span></a><a class="pill light" href="https://calendly.com/novaracx/new-meeting" data-booking-link data-track="hero_enquiry">Map my support ↗</a></div><a class="eci-hero-link" id="eci-hero-link" href="#ec-integrations" hidden>View integrations →</a></div></section>
@@ -159,10 +155,7 @@ body{color:var(--ink)}.eyebrow{font-size:11px;color:#59734f;letter-spacing:1.55p
   <h2 id="ec-capabilities-title">One chatbot, before and after the purchase</h2>
   <div class="ec-capabilities-grid">
     <article class="ec-capability">
-      <div class="ec-capability-chat" role="group" aria-label="Sample chat">
-        <span class="ec-sample-question" aria-label="Customer: Should I get M or L?">Should I get M or L?</span>
-        <span class="ec-sample-answer" aria-label="Novara AI: Which measurement is between sizes?">Which measurement is between sizes?</span>
-      </div>
+      <img class="ec-capability-art" src="assets/ecommerce/chatbot-product-guidance.webp" width="600" height="400" alt="" loading="lazy" decoding="async">
       <div>
         <h3>Help shoppers choose</h3>
         <p>Answer questions about products, sizing, stock, and delivery while customers are deciding what to buy.</p>
@@ -170,10 +163,7 @@ body{color:var(--ink)}.eyebrow{font-size:11px;color:#59734f;letter-spacing:1.55p
       </div>
     </article>
     <article class="ec-capability">
-      <div class="ec-capability-chat" role="group" aria-label="Sample chat">
-        <span class="ec-sample-question" aria-label="Customer: Where is my order?">Where is my order?</span>
-        <span class="ec-sample-answer" aria-label="Novara AI: Your parcel is in transit.">Your parcel is in transit.</span>
-      </div>
+      <img class="ec-capability-art" src="assets/ecommerce/chatbot-order-support.webp" width="600" height="400" alt="" loading="lazy" decoding="async">
       <div>
         <h3>Help customers after they buy</h3>
         <p>Share order updates, explain returns, and pass issues that need review to an agent with the conversation attached.</p>
