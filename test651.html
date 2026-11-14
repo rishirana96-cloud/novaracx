@@ -12321,7 +12321,11 @@ window.NOVARA_CURRENT_PRICING={
 #mvp-pricing #novara-plan-switcher .conversation-tier-wrap{background:#102f23;border-color:#416254;padding:12px 14px!important}
 #mvp-pricing #novara-plan-switcher .daily-volume-control label{text-transform:none!important;letter-spacing:0!important;font-size:.78rem!important;color:#e2efe6!important}
 #mvp-pricing #novara-plan-switcher .daily-volume-control input{background:#224235!important;border-color:#587668!important}
-#mvp-pricing #novara-plan-switcher .conversation-tier-group{flex:0 1 auto}
+#mvp-pricing #novara-plan-switcher .conversation-tier-group{flex:0 1 auto;order:-1!important;margin-right:auto!important}
+@media(min-width:761px){
+  #mvp-pricing #novara-plan-switcher .conversation-tier-wrap{justify-content:flex-start!important}
+  #mvp-pricing #novara-plan-switcher .daily-volume-control{flex:0 1 255px}
+}
 #mvp-pricing #novara-plan-switcher .conversation-tier-group [data-tier]{min-height:48px!important}
 #mvp-pricing #novara-plan-switcher .pricing-summary[data-coverage=human] .pricing-title-row{align-items:center!important}
 #mvp-pricing #novara-plan-switcher .pricing-summary[data-coverage=human] .plan-positioning{color:#375344!important}
