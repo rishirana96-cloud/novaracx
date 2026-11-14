@@ -422,7 +422,7 @@ function renderEcCards(){
       <button type="button" class="ec-problem" data-ec-card-problem="${esc(problem)}" data-ec-card-query="${esc(query||'')}"
         aria-controls="ec-conversation" aria-labelledby="ec-card-title-${esc(cardId)} ec-card-preview-${esc(cardId)}" aria-describedby="ec-card-description-${esc(cardId)}">
         <span class="ec-problem-visual">
-          <img class="ec-art" src="assets/ecommerce/${esc(artFile)}.webp" width="600" height="400" alt="" loading="lazy" decoding="async">
+          <img class="ec-art" src="assets/ecommerce/${esc(artFile)}.webp${query?'?v=2':''}" width="600" height="400" alt="" loading="lazy" decoding="async">
           ${action}
         </span>
         <strong class="ec-problem-title" id="ec-card-title-${esc(cardId)}">${esc(title)}</strong>
