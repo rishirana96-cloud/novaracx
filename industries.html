@@ -90,6 +90,11 @@ body{color:var(--ink)}.eyebrow{font-size:11px;color:#59734f;letter-spacing:1.55p
 .ec-selection-top{padding:24px 22px 20px}.ec-selection-top h3{font-size:25px}
 .ec-query-nav{padding:0 22px}.ec-query-content{padding:22px}
 .ec-conversation{height:650px}
+.ec-conversation{scroll-margin-top:80px}
+@media(min-width:761px) and (min-height:540px){
+  .ec-selection{overflow:clip}
+  .ec-conversation{position:sticky;top:80px;align-self:start;height:min(650px,calc(100dvh - 96px))}
+}
 .ec-empty p{max-width:245px}
 @media(min-width:761px) and (max-width:1050px){.ec-problem-sidebar{padding:23px 10px}.ec-problem-link{padding:10px 8px;font-size:11px}.ec-selection-top,.ec-query-content{padding:21px 16px}.ec-query-nav{padding:0 16px}.ec-conversation{padding:17px}.ec-selection-top h3{font-size:22px}}
 @media(max-width:760px){.ec-selection{grid-template-columns:minmax(0,1fr)}.ec-problem-sidebar{padding:19px 21px;border-right:0;border-bottom:1px solid #d6e1cb}.ec-problem-sidebar>.eyebrow,.ec-problem-links{display:none}.ec-problem-mobile{display:block}label.ec-problem-mobile{font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:#66805c;margin-bottom:9px}select.ec-problem-mobile{width:100%;min-height:46px;border:1px solid #b9cbaa;border-radius:9px;padding:10px 12px;background:#fffefa;color:#294e30;font-size:14px}.ec-conversation{height:570px}.ec-heading{padding-top:24px}}
@@ -249,4 +254,11 @@ const aliases={consumer:'services',subscriptions:'saas',d2c:'ecommerce','e-comme
 function routeKey(){const p=new URLSearchParams(location.search);return ['industry','case','mode','problem','query','example'].map(k=>k+'='+String(p.get(k)||'')).join('&')}
 function readUrl(){const route=routeKey();if(route===lastRouteKey)return;const params=new URLSearchParams(location.search),raw=params.get('industry')||'ecommerce',key=aliases[raw]||raw;if(key==='ecommerce'||!industries[key])readEcUrl(params);render(key,Number(params.get('case')||1)-1,params.get('mode'),false)}
 window.addEventListener('popstate',readUrl);readUrl();document.querySelector('.skip').href='#main';$('app').hidden=false;$('fallback').hidden=true;requestAnimationFrame(revealSelectedCase);requestAnimationFrame(()=>{if(location.hash==='#ec-integrations'&&!$('ec-integrations').hidden)$('ec-integrations').scrollIntoView({behavior:'instant',block:'start'})});track('industry_page_view');
+const ecPreviewObserver = new IntersectionObserver(([entry], observer) => {
+  if (!entry.isIntersecting || entry.intersectionRatio < .35) return;
+  observer.disconnect();
+  if (!ecPlaying && !ecReducedMotion.matches) startEcPlayback();
+}, {threshold:.35});
+ecPreviewObserver.observe($('ec-conversation'));
+
 </script></body></html>
