@@ -179,6 +179,11 @@ body{color:var(--ink)}.eyebrow{font-size:11px;color:#59734f;letter-spacing:1.55p
   .ec-filter-bar{gap:4px;padding:5px}
   .ec-filter-bar button{flex:auto;min-height:40px;padding:5px 4px;font-size:11px}
 }
+#ec-explorer[data-filter="shopping"] .ec-problem{min-height:194px;gap:8px}
+.ec-shopping-icon{display:grid;place-items:center;width:40px;height:40px;margin-bottom:3px;border-radius:11px;background:#e6eee0;color:#345d40}
+.ec-shopping-icon svg{width:21px;height:21px}
+#ec-explorer[data-filter="shopping"] .ec-problem-description{margin-top:0}
+#ec-explorer[data-filter="shopping"] .ec-preview-action{position:static;width:auto;max-width:none;margin:auto 0 0;align-self:flex-start;padding:0;background:none;color:#345d40;font-size:12px}
 </style></head><body><a class="skip" href="#fallback">Skip to content</a><header class="top"><nav class="shell nav" aria-label="Main"><a class="brand" href="index.html"><img src="assets/logo-mark.png" alt=""><span>Novara <em>CX</em></span></a><div class="navlinks"><a class="back" href="index.html">← Back to Novara</a><a class="pill" href="https://calendly.com/novaracx/new-meeting" data-booking-link data-track="header_enquiry">Discuss my support <span aria-hidden="true">↗</span></a></div></nav></header>
 <div id="app" hidden><nav class="switcher" aria-label="Choose your industry"><div class="shell"><div class="desktop-industries" id="industry-switcher"></div><div class="mobile-industries"><label for="mobile-industry">Industry</label><select id="mobile-industry"></select></div></div></nav><main class="shell" id="main"><section class="hero" aria-labelledby="industry-heading"><div><span class="eyebrow" id="industry-label"></span><h1 id="industry-heading"></h1><p id="industry-intro"></p><div class="hero-actions"><a class="pill" href="#workflow-demo" data-track="hero_demo">Explore a support conversation <span aria-hidden="true">↓</span></a><a class="pill light" href="https://calendly.com/novaracx/new-meeting" data-booking-link data-track="hero_enquiry">Map my support ↗</a></div><a class="eci-hero-link" id="eci-hero-link" href="#ec-integrations" hidden>View integrations →</a></div></section>
 <section class="ec-capabilities" id="ec-capabilities" aria-labelledby="ec-capabilities-title" hidden>
@@ -207,7 +212,7 @@ body{color:var(--ink)}.eyebrow{font-size:11px;color:#59734f;letter-spacing:1.55p
   <button type="button" data-ec-filter="all" aria-pressed="true">All</button>
   <button type="button" data-ec-filter="shopping" aria-pressed="false">Shopping Assistant</button>
   <button type="button" data-ec-filter="support" aria-pressed="false">Customer Support</button>
-</div></div><div class="ec-heading"><h2 id="ec-title">Explore chatbot conversations</h2><p>Choose a topic or search for a question to see how Novara responds.</p></div><div class="ec-problems" id="ec-problem-cards" role="group" aria-label="Choose an e-commerce topic"></div><p class="ec-announcement" id="ec-announcement" role="status"></p><div class="ec-selection" id="ec-selection"><header class="ec-explorer-search"><div class="ec-search"><label for="ec-search">Search examples</label><input type="search" id="ec-search" placeholder="Search sizing, tracking, refunds…" autocomplete="off" aria-controls="ec-results"><div class="ec-results" id="ec-results" hidden></div><p class="ec-result-count" id="ec-result-count" role="status"></p></div></header><nav class="ec-problem-sidebar" aria-label="Conversation topics"><span class="eyebrow">Choose a topic</span><div class="ec-problem-links" id="ec-problems"></div><label class="ec-problem-mobile" for="ec-mobile-problem">Conversation topic</label><select class="ec-problem-mobile" id="ec-mobile-problem" aria-controls="ec-selector ec-conversation"></select></nav>
+</div></div><div class="ec-heading"><h2 id="ec-title">Explore chatbot conversations</h2><p>Choose a use case or search for a question to see how Novara responds.</p></div><div class="ec-problems" id="ec-problem-cards" role="group" aria-label="Choose an e-commerce topic"></div><p class="ec-announcement" id="ec-announcement" role="status"></p><div class="ec-selection" id="ec-selection"><header class="ec-explorer-search"><div class="ec-search"><label for="ec-search">Search examples</label><input type="search" id="ec-search" placeholder="Search sizing, tracking, refunds…" autocomplete="off" aria-controls="ec-results"><div class="ec-results" id="ec-results" hidden></div><p class="ec-result-count" id="ec-result-count" role="status"></p></div></header><nav class="ec-problem-sidebar" aria-label="Conversation topics"><span class="eyebrow">Choose a topic</span><div class="ec-problem-links" id="ec-problems"></div><label class="ec-problem-mobile" for="ec-mobile-problem">Conversation topic</label><select class="ec-problem-mobile" id="ec-mobile-problem" aria-controls="ec-selector ec-conversation"></select></nav>
 <div class="ec-selector" id="ec-selector"><header class="ec-selection-top"><h3 id="ec-problem-title"></h3><p id="ec-problem-impact"></p></header>
 <nav class="ec-query-nav" aria-label="Query types"><span class="eyebrow">Query type</span><div class="ec-query-buttons" id="ec-query-buttons"></div></nav>
 <div class="ec-query-content"><p id="ec-query-description"></p><span class="eyebrow">Choose a question</span><div class="ec-questions" id="ec-questions"></div></div></div>
@@ -292,6 +297,7 @@ function updateEcFilter(){
   const explorer=$('ec-explorer');
   if(explorer.dataset.filter===ecFilter)return;
   explorer.dataset.filter=ecFilter;
+  renderEcCards();
   const topicIds=ecFilteredTopics[ecFilter].map(topic=>topic.id);
   $('ec-filter-bar').querySelectorAll('button').forEach(button=>{
     button.setAttribute('aria-pressed',String(button.dataset.ecFilter===ecFilter));
@@ -399,17 +405,36 @@ const ecProblemIcons = {
   'repeat-orders': 'M17 3l4 4-4 4 M3 11V9a2 2 0 0 1 2-2h16 M7 21l-4-4 4-4 M21 13v2a2 2 0 0 1-2 2H3',
   complaints: 'M4 4h16v12h-9l-5 4v-4H4z M12 7v3 M12 13h.01',
 };
-$('ec-problem-cards').innerHTML = ecommerceProblems.map(({id, title, caption}) => `
-  <button type="button" class="ec-problem" data-ec-problem="${esc(id)}"
-    aria-controls="ec-conversation" aria-labelledby="ec-card-title-${esc(id)} ec-card-preview-${esc(id)}" aria-describedby="ec-card-description-${esc(id)}">
-    <span class="ec-problem-visual">
-      <img class="ec-art" src="assets/ecommerce/${esc(id)}.webp" width="600" height="400" alt="" loading="lazy" decoding="async">
-      <span class="ec-preview-action" id="ec-card-preview-${esc(id)}">See on live preview <span aria-hidden="true">↗</span></span>
-    </span>
-    <strong class="ec-problem-title" id="ec-card-title-${esc(id)}">${esc(title)}</strong>
-    <span class="ec-problem-description" id="ec-card-description-${esc(id)}">${esc(caption)}</span>
-  </button>
-`).join('');
+const ecShoppingCards=[
+  ['shopping','collection-discovery','Find products in a collection','Recommend in-stock products by budget, fit, or intended use.','M10.5 17a6.5 6.5 0 1 0 0-13 6.5 6.5 0 0 0 0 13ZM15 15l5 5'],
+  ['shopping','product-comparison','Compare products','Explain the differences between two items using their product specs.','M3 5h7v14H3z M14 5h7v14h-7z M5.5 10H8 M16.5 10H19'],
+  ['shopping','size-fit','Get help with sizing','Use measurements and fit notes to guide shoppers to the right size.','M4 17 17 4l3 3L7 20z M13 8l2 2 M10 11l2 2 M7 14l2 2'],
+  ['shopping','variant-selection','Check size, colour & stock','Find available variants and suggest options when a size or colour sells out.','M4 4h6v6H4z M14 4h6v6h-6z M4 14h6v6H4z M14 17l2 2 4-4'],
+  ['shopping','complementary-products','Find compatible accessories','Suggest accessories and check that they fit the product in view.','M9 15 15 9 M8 16l-1 1a3 3 0 0 1-4-4l4-4a3 3 0 0 1 4 0 M16 8l1-1a3 3 0 0 1 4 4l-4 4a3 3 0 0 1-4 0'],
+  ['shopping','gift-and-bundle','Choose gifts & bundles','Find gifts within a budget and check what comes in a bundle.','M3 8h18v4H3z M5 12v8h14v-8 M12 8v12 M12 8C5 8 6 2 9 4c1 0 2 2 3 4 1-2 2-4 3-4 3-2 4 4-3 4'],
+  ['checkout','cart-before-checkout','Review the cart & shipping','Confirm variants and quantities or check how far a cart is from free shipping.','M3 4h2l3 11h10l3-8H6 M9 20h.01 M17 20h.01'],
+  ['checkout','coupons','Check offers & ways to pay','Explain discount eligibility and available payment methods before purchase.','M4 5h8l8 8-7 7-9-9z M8 9h.01'],
+];
+function renderEcCards(){
+  const cards=ecFilter==='shopping'
+    ?ecShoppingCards
+    :ecFilteredTopics[ecFilter].map(({id,title,caption})=>[id,null,title,caption]);
+  $('ec-problem-cards').innerHTML=cards.map(([problem,query,title,caption,icon])=>{
+    const cardId=query||problem;
+    const visual=icon
+      ?`<span class="ec-shopping-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="${icon}"></path></svg></span>`
+      :`<img class="ec-art" src="assets/ecommerce/${esc(problem)}.webp" width="600" height="400" alt="" loading="lazy" decoding="async">`;
+    const action=`<span class="ec-preview-action" id="ec-card-preview-${esc(cardId)}">See on live preview <span aria-hidden="true">↗</span></span>`;
+    return `
+      <button type="button" class="ec-problem" data-ec-card-problem="${esc(problem)}" data-ec-card-query="${esc(query||'')}"
+        aria-controls="ec-conversation" aria-labelledby="ec-card-title-${esc(cardId)} ec-card-preview-${esc(cardId)}" aria-describedby="ec-card-description-${esc(cardId)}">
+        ${icon?visual:`<span class="ec-problem-visual">${visual}${action}</span>`}
+        <strong class="ec-problem-title" id="ec-card-title-${esc(cardId)}">${esc(title)}</strong>
+        <span class="ec-problem-description" id="ec-card-description-${esc(cardId)}">${esc(caption)}</span>
+        ${icon?action:''}
+      </button>`;
+  }).join('');
+}
 $('ec-problems').innerHTML = ecommerceProblems.map(({id, title}) => `
   <button type="button" class="ec-problem-link" data-ec-problem="${esc(id)}" aria-pressed="false" aria-controls="ec-selector ec-conversation">
     <svg class="ec-problem-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="${ecProblemIcons[id]}"></path></svg>
@@ -422,11 +447,13 @@ function openEcPreview(problem, query, example){
   preview.focus({preventScroll:true});
   preview.scrollIntoView({behavior:ecReducedMotion.matches?'instant':'smooth',block:'start'});
 }
-$('ec-problem-cards').querySelectorAll('button').forEach(button => button.addEventListener('click', () => {
-  const topic=ecFilteredTopics[ecFilter].find(item=>item.id===button.dataset.ecProblem);
-  const firstQuery=topic.categories[0];
-  openEcPreview(topic.id,firstQuery.id,firstQuery.examples[0].id);
-}));
+$('ec-problem-cards').addEventListener('click',event=>{
+  const button=event.target.closest('[data-ec-card-problem]');
+  if(!button)return;
+  const topic=ecFilteredTopics[ecFilter].find(item=>item.id===button.dataset.ecCardProblem);
+  const query=topic.categories.find(item=>item.id===button.dataset.ecCardQuery)||topic.categories[0];
+  openEcPreview(topic.id,query.id,query.examples[0].id);
+});
 document.querySelectorAll('[data-ec-capability-preview]').forEach(button => button.addEventListener('click', () => {
   openEcPreview(button.dataset.ecCapabilityPreview, button.dataset.ecPreviewQuery, button.dataset.ecPreviewExample);
 }));
