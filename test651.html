@@ -1931,17 +1931,38 @@ body>header .nav-links a{color:#53655b}body>header .nav-links a:hover,body>heade
       <article class="npl-desk-plan" data-price="2999" data-seats="3" data-conversations="1500">
         <h4>Starter</h4>
         <p class="npl-desk-price">₹2,999 <small>/month + GST</small></p>
-        <p>3 agent seats · 1,500 monthly conversations</p>
+        <ul aria-label="Plan inclusions">
+          <li>3 agent seats</li>
+          <li>1,500 monthly conversations</li>
+          <li>Shared inbox, tickets and assignments</li>
+          <li>Customer profiles and conversation history</li>
+          <li>Support dashboards and reporting</li>
+        </ul>
+        <a href="#mvp-contact">Ask about NovaraDesk</a>
       </article>
       <article class="npl-desk-plan" data-price="6999" data-seats="10" data-conversations="3000">
         <h4>Growth</h4>
         <p class="npl-desk-price">₹6,999 <small>/month + GST</small></p>
-        <p>10 agent seats · 3,000 monthly conversations</p>
+        <ul aria-label="Plan inclusions">
+          <li>10 agent seats</li>
+          <li>3,000 monthly conversations</li>
+          <li>Shared inbox, tickets and assignments</li>
+          <li>Customer profiles and conversation history</li>
+          <li>Support dashboards and reporting</li>
+        </ul>
+        <a href="#mvp-contact">Ask about NovaraDesk</a>
       </article>
       <article class="npl-desk-plan" data-price="14999" data-seats="25" data-conversations="6000">
         <h4>Scale</h4>
         <p class="npl-desk-price">₹14,999 <small>/month + GST</small></p>
-        <p>25 agent seats · 6,000 monthly conversations</p>
+        <ul aria-label="Plan inclusions">
+          <li>25 agent seats</li>
+          <li>6,000 monthly conversations</li>
+          <li>Shared inbox, tickets and assignments</li>
+          <li>Customer profiles and conversation history</li>
+          <li>Support dashboards and reporting</li>
+        </ul>
+        <a href="#mvp-contact">Ask about NovaraDesk</a>
       </article>
     </div>
     <form class="npl-desk-calculator">
@@ -1953,15 +1974,6 @@ body>header .nav-links a{color:#53655b}body>header .nav-links a:hover,body>heade
       <p>Extra seats cost ₹699 each per month. Extra conversations cost ₹1 each. A support thread counts as one conversation.</p>
       <output class="npl-desk-estimate" aria-live="polite"></output>
     </form>
-    <div class="npl-desk-features">
-      <h4>Included in every plan</h4>
-      <ul>
-        <li>Shared inbox, tickets and assignments</li>
-        <li>Customer profiles and conversation history</li>
-        <li>Support dashboards and reporting</li>
-      </ul>
-      <a href="#mvp-contact">Ask about NovaraDesk</a>
-    </div>
   </div>
   <script>
     (() => {
@@ -12662,6 +12674,45 @@ window.NOVARA_CURRENT_PRICING={
 #novara-plan-switcher .npl-desk-estimate strong{margin:0 0 4px;color:#163e29;font-size:1.06rem}
 @media(max-width:680px){
   #novara-plan-switcher .npl-desk,#novara-plan-switcher .npl-desk-plans{grid-template-columns:1fr}
+}
+/* Give NovaraDesk the homepage's three-column pricing layout. */
+#novara-plan-switcher #npl-desk{display:block;background:none;border:0;padding:0;color:#eef5ee}
+#novara-plan-switcher .npl-desk-heading{margin-bottom:16px}
+#novara-plan-switcher .npl-desk-heading p{color:#c9ddd0}
+#novara-plan-switcher .npl-desk-plans{gap:14px}
+#novara-plan-switcher .npl-desk-plan{
+  display:flex;flex-direction:column;min-width:0;padding:30px 30px 26px;
+  border-radius:25px;background:#e6e9e5;color:#163828;border-color:#d9e5dc;
+}
+#novara-plan-switcher .npl-desk-plan.is-best{
+  background:linear-gradient(155deg,#f3faf5,#fff 75%);border-color:#a9cbb5;
+}
+#novara-plan-switcher .npl-desk-plan h4{
+  font-family:"Cabinet Grotesk",sans-serif;font-size:1.65rem;letter-spacing:-.035em;margin:0;
+}
+#novara-plan-switcher .npl-desk-plan .npl-desk-price{
+  color:#103c28;font-size:clamp(1.8rem,2.65vw,2.75rem);line-height:1.1;
+  letter-spacing:-.045em;margin:12px 0 15px;
+}
+#novara-plan-switcher .npl-desk-plan .npl-desk-price small{font-size:.75rem;letter-spacing:0;white-space:nowrap}
+#novara-plan-switcher .npl-desk-plan ul{border-top:1px solid #c8d9cd;padding-top:9px;margin-bottom:18px}
+#novara-plan-switcher .npl-desk-plan li{border:0;padding-block:6px;font-size:.88rem}
+#novara-plan-switcher .npl-desk-plan li::before{top:11px}
+#novara-plan-switcher .npl-desk-plan a{
+  display:flex;justify-content:center;margin-top:auto;min-height:48px;border-radius:13px;
+  border-color:#142e22;background:transparent;color:#142e22;text-align:center;
+}
+#novara-plan-switcher .npl-desk-plan.is-best a{background:#142e22;color:#fff}
+#novara-plan-switcher .npl-desk-plan a:hover{background:#315b44;color:#fff}
+#novara-plan-switcher .npl-desk-calculator{
+  margin-top:16px;background:#f5f9f2;color:#153826;
+}
+@media(min-width:901px){
+  #mvp-pricing:has(#novara-plan-switcher[data-plan=desk]) > .mvp-shell{width:min(100% - 48px,1320px)}
+}
+@media(max-width:900px){
+  #novara-plan-switcher .npl-desk-plans{grid-template-columns:1fr}
+  #novara-plan-switcher .npl-desk-plan{padding:24px 20px}
 }
 </style>
 <script id="novara-pricing-entry-scroll-script-v73">
