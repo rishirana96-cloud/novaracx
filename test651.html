@@ -2014,7 +2014,7 @@ body>header .nav-links a{color:#53655b}body>header .nav-links a:hover,body>heade
       <article class="npl-original-card" data-npl-base-price="129999" data-npl-agent-count="2">
         <div class="pricing-title-row"><h3>Starter</h3><span class="ai-availability-badge">24/7 AI</span><span class="minimum-agent-coverage">9 human hours/day</span></div>
         <p class="plan-positioning">Up to 1,500 monthly conversations</p>
-        <p class="minimum-agent-note"><span class="minimum-agent-label">Recommended minimum: <strong>2 agents</strong></span><span class="agent-counter" role="group" aria-label="Starter human agents"><button type="button" class="agent-counter-btn" data-npl-agent-step="-1" aria-label="Remove human agent" disabled>−</button><span class="agent-counter-value" aria-live="polite">2 human agents</span><button type="button" class="agent-counter-btn" data-npl-agent-step="1" aria-label="Add human agent">+</button></span></p>
+        <p class="minimum-agent-note"><span class="minimum-agent-label">Recommended minimum: <strong>2 agents</strong></span><span class="agent-counter" role="group" aria-label="Starter human agents"><button type="button" class="npl-agent-control" data-npl-agent-step="-1" aria-label="Remove human agent" disabled>−</button><span class="agent-counter-value" aria-live="polite">2 human agents</span><button type="button" class="npl-agent-control" data-npl-agent-step="1" aria-label="Add human agent">+</button></span></p>
         <div class="pricing-price agent-price-row"><span class="agent-price-copy"><span class="agent-price-value">₹1,29,999</span><small>/month + GST</small></span></div>
         <div class="value-tier-label">Managed support includes</div>
         <ul class="plan-inclusions">
@@ -2028,7 +2028,7 @@ body>header .nav-links a{color:#53655b}body>header .nav-links a:hover,body>heade
       <article class="npl-original-card" data-npl-base-price="149999" data-npl-agent-count="2">
         <div class="pricing-title-row"><h3>Growth</h3><span class="ai-availability-badge">24/7 AI</span><span class="minimum-agent-coverage">9 human hours/day</span></div>
         <p class="plan-positioning">Up to 3,000 monthly conversations</p>
-        <p class="minimum-agent-note"><span class="minimum-agent-label">Recommended minimum: <strong>2 agents</strong></span><span class="agent-counter" role="group" aria-label="Growth human agents"><button type="button" class="agent-counter-btn" data-npl-agent-step="-1" aria-label="Remove human agent" disabled>−</button><span class="agent-counter-value" aria-live="polite">2 human agents</span><button type="button" class="agent-counter-btn" data-npl-agent-step="1" aria-label="Add human agent">+</button></span></p>
+        <p class="minimum-agent-note"><span class="minimum-agent-label">Recommended minimum: <strong>2 agents</strong></span><span class="agent-counter" role="group" aria-label="Growth human agents"><button type="button" class="npl-agent-control" data-npl-agent-step="-1" aria-label="Remove human agent" disabled>−</button><span class="agent-counter-value" aria-live="polite">2 human agents</span><button type="button" class="npl-agent-control" data-npl-agent-step="1" aria-label="Add human agent">+</button></span></p>
         <div class="pricing-price agent-price-row"><span class="agent-price-copy"><span class="agent-price-value">₹1,49,999</span><small>/month + GST</small></span></div>
         <div class="value-tier-label">Managed support includes</div>
         <ul class="plan-inclusions">
@@ -12783,6 +12783,18 @@ window.NOVARA_CURRENT_PRICING={
   #mvp-pricing #novara-plan-switcher .npl-managed-tiers .npl-desk-plan{min-height:0}
 }
 #mvp-pricing #npl-managed .npl-original-grid{margin-top:12px}
+#mvp-pricing #novara-plan-switcher #npl-managed .npl-original-card .pricing-title-row h3{
+  font-size:1.28rem!important;
+}
+#mvp-pricing #npl-managed .npl-agent-control{
+  display:grid;place-items:center;width:32px;min-height:32px;padding:0;
+  border:0;border-radius:50%;background:none;color:#163528;font-size:1.15rem;cursor:pointer;
+}
+#mvp-pricing #npl-managed .npl-agent-control:not(:disabled):hover{background:#dae9de}
+@media(min-width:901px){
+  #mvp-pricing #npl-managed .npl-original-card{min-height:491.15625px!important}
+}
+
 #mvp-pricing #npl-managed .npl-original-card .pricing-title-row{flex-wrap:wrap;row-gap:6px}
 #mvp-pricing #npl-managed .npl-original-card .plan-positioning{white-space:normal}
 #mvp-pricing #npl-managed .npl-original-card .agent-counter button:disabled{opacity:.5;cursor:default}
