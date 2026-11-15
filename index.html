@@ -1400,7 +1400,7 @@ body>header .nav-links a{color:#53655b}body>header .nav-links a:hover,body>heade
 <a class="skip-link" href="#mvp-home">Skip to main content</a>
 <header id="header"><div class="container nav">
 <a class="logo" href="#home"><img src="assets/logo-mark.png" alt="Novara CX"><span>Novara <b>CX</b></span></a>
-<ul class="nav-links" id="navLinks"><li><a class="nav-link" href="#novara-operating-approach">How it works</a></li><li><a class="nav-link" href="#mvp-pricing">Plans</a></li><li><a class="nav-link" href="#mvp-platform">NovaraDesk</a></li><li><a class="nav-link" href="#mvp-fit">Who it’s for</a></li><li><a class="nav-link" href="ecommerce.html">See E-commerce Demos</a></li><li><a class="nav-cta" href="#mvp-contact">Book a discovery call</a></li></ul>
+<ul class="nav-links" id="navLinks"><li><a class="nav-link" href="#novara-operating-approach">How it works</a></li><li><a class="nav-link" href="#mvp-pricing">Plans</a></li><li><a class="nav-link" href="#mvp-platform">NovaraDesk</a></li><li><a class="nav-link" href="#mvp-fit">Who it’s for</a></li><li><a class="nav-link" href="ecommerce.html">View Demo</a></li><li><a class="nav-cta" href="#mvp-contact">Book a discovery call</a></li></ul>
 <button class="hamb" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
 </div></header>
 
@@ -2385,7 +2385,7 @@ updateProgress();
 
   // Navigation follows the new buying narrative.
   const nav=document.querySelector('body>header .nav-links');
-  if(nav){nav.innerHTML='<li><a class="nav-link" href="#mvp-fit">The problem</a></li><li><a class="nav-link" href="#novara-operating-approach">How it works</a></li><li><a class="nav-link" href="#mvp-platform">NovaraDesk</a></li><li><a class="nav-link" href="#mvp-pricing">Plans</a></li><li><a class="nav-link" href="ecommerce.html">See E-commerce Demos</a></li><li><a class="nav-cta" href="#mvp-contact">Book a discovery call</a></li>';nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>nav.classList.remove('open')))}
+  if(nav){nav.innerHTML='<li><a class="nav-link" href="#mvp-fit">The problem</a></li><li><a class="nav-link" href="#novara-operating-approach">How it works</a></li><li><a class="nav-link" href="#mvp-platform">NovaraDesk</a></li><li><a class="nav-link" href="#mvp-pricing">Plans</a></li><li><a class="nav-link" href="ecommerce.html">View Demo</a></li><li><a class="nav-cta" href="#mvp-contact">Book a discovery call</a></li>';nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>nav.classList.remove('open')))}
 
   // Accessibility: communicate expanded FAQ state and label controls precisely.
   document.querySelectorAll('.mvp-faq details').forEach(details=>{
@@ -2750,7 +2750,7 @@ body>header .nav-cta{padding-inline:14px!important}
         (deployment?'<li><a class="nav-link" href="#mvp-deployment">Implementation</a></li>':'')+
         (about?'<li><a class="nav-link" href="#mvp-about">About</a></li>':'')+
         (faq?'<li><a class="nav-link" href="#mvp-faq">FAQ</a></li>':'')+
-        '<li><a class="nav-link" href="ecommerce.html">See E-commerce Demos</a></li><li><a class="nav-cta" href="#mvp-contact">Book a discovery call</a></li>';
+        '<li><a class="nav-link" href="ecommerce.html">View Demo</a></li><li><a class="nav-cta" href="#mvp-contact">Book a discovery call</a></li>';
       nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>nav.classList.remove('open')));
     }
 
@@ -3251,7 +3251,7 @@ body>header .nav-cta{padding-inline:14px!important}
         '<li><a class="nav-link" href="#mvp-platform">NovaraDesk</a></li>'+
         '<li><a class="nav-link" href="#mvp-pricing">Plans</a></li>'+
         '<li><a class="nav-link" href="#mvp-about">About</a></li>'+
-        '<li><a class="nav-link" href="ecommerce.html">See E-commerce Demos</a></li><li><a class="nav-cta" href="#mvp-contact">Book a discovery call</a></li>';
+        '<li><a class="nav-link" href="ecommerce.html">View Demo</a></li><li><a class="nav-cta" href="#mvp-contact">Book a discovery call</a></li>';
       nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>nav.classList.remove('open')));
     }
   };
