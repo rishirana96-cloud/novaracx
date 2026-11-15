@@ -12545,26 +12545,13 @@ window.NOVARA_CURRENT_PRICING={
   #novara-plan-switcher .npl-switcher strong{font-size:.74rem}
   #novara-plan-switcher .npl-switcher button{padding-inline:6px}
 }
-/* Use the homepage shell and full card grid for Lite and Full. */
-@media(min-width:901px){
-  #mvp-pricing:has(#novara-plan-switcher[data-plan=human]) > .mvp-shell{
-    width:min(100% - 48px,1320px);
+/* Keep the plan controls in the rail and match the reference card proportions. */
+@media(min-width:1280px){
+  #mvp-pricing #novara-plan-switcher[data-plan=human] #npl-managed{
+    grid-template-columns:minmax(180px,1fr) minmax(0,5.7fr);
   }
-  #mvp-pricing #novara-plan-switcher[data-plan=human] #npl-managed:not([hidden]){
-    display:block;
-  }
-  #mvp-pricing #novara-plan-switcher[data-plan=human] #npl-managed .conversation-tier-wrap{
-    display:flex!important;flex-flow:row wrap!important;align-items:center!important;
-    width:fit-content;max-width:100%;margin:0 0 16px!important;
-  }
-  #mvp-pricing #novara-plan-switcher[data-plan=human] #npl-managed .daily-volume-control{
-    width:205px!important;border-bottom:0!important;padding-bottom:2px!important;
-  }
-  #mvp-pricing #novara-plan-switcher[data-plan=human] #npl-managed .conversation-tier-group{
-    width:min(100%,435px)!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;
-  }
-  #mvp-pricing #novara-plan-switcher[data-plan=human] #npl-managed .conversation-tier-group [data-tier]{
-    align-items:center!important;text-align:center!important;padding-inline:5px!important;
+  #mvp-pricing #novara-plan-switcher[data-plan=human] #npl-managed .pricing-summary-grid{
+    width:100%;max-width:876px;zoom:1.333333;
   }
 }
 </style>
