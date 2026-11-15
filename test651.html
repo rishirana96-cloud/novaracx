@@ -12792,8 +12792,22 @@ window.NOVARA_CURRENT_PRICING={
   border:0;border-radius:50%;background:none;color:#163528;font-size:1.15rem;cursor:pointer;
 }
 #mvp-pricing #npl-managed .npl-agent-control:not(:disabled):hover{background:#dae9de}
-@media(min-width:901px){
-  #mvp-pricing #npl-managed .npl-original-card{min-height:491.15625px!important}
+/* Let managed cards size to their contents and align the CTA row. */
+#mvp-pricing #novara-plan-switcher #npl-managed .npl-original-card{
+  display:flex!important;flex-direction:column;align-items:stretch;
+  gap:10px!important;min-height:0!important;height:auto!important;
+  padding:clamp(17px,1.7vw,25px)!important;
+}
+#mvp-pricing #novara-plan-switcher #npl-managed .npl-original-card > :is(.pricing-title-row,.plan-positioning,.minimum-agent-note,.pricing-price,.value-tier-label,.plan-inclusions){
+  margin:0!important;min-height:0!important;
+}
+#mvp-pricing #novara-plan-switcher #npl-managed .npl-original-card .pricing-price{padding:2px 0!important}
+#mvp-pricing #novara-plan-switcher #npl-managed .npl-original-card .plan-inclusions{gap:5px!important}
+#mvp-pricing #novara-plan-switcher #npl-managed .npl-original-card > :is(.mvp-btn,.ai-support-actions){
+  width:100%!important;margin: auto 0 0!important;
+}
+#mvp-pricing #novara-plan-switcher #npl-managed .npl-original-card .ai-support-actions:has(> a:only-child){
+  grid-template-columns:1fr!important;
 }
 
 #mvp-pricing #npl-managed .npl-original-card .pricing-title-row{flex-wrap:wrap;row-gap:6px}
