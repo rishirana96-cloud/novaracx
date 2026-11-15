@@ -1910,7 +1910,7 @@ body>header .nav-links a{color:#53655b}body>header .nav-links a:hover,body>heade
   <h2>Plans that grow with your support team.</h2>
   <p>Start with NovaraDesk, add AI that Novara manages, or bring in Novara’s agents.</p>
 </header>
-<div id="novara-plan-switcher" data-plan="desk" data-hours="lite">
+<div id="novara-plan-switcher" data-plan="desk">
   <div class="npl-switcher" role="tablist" aria-label="Support plans">
     <button id="npl-tab-desk" type="button" role="tab" data-npl-plan="desk" aria-selected="true" aria-controls="npl-desk">
       <strong>NovaraDesk</strong><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8m-4-4v4"/></svg><small>Your team runs support</small>
@@ -1919,7 +1919,7 @@ body>header .nav-links a{color:#53655b}body>header .nav-links a:hover,body>heade
       <strong>Managed AI</strong><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 2l2.5 7.5L22 12l-7.5 2.5L12 22l-2.5-7.5L2 12l7.5-2.5L12 2Z"/></svg><small>Novara runs the AI</small>
     </button>
     <button id="npl-tab-human" type="button" role="tab" data-npl-plan="human" aria-selected="false" aria-controls="npl-managed" tabindex="-1">
-      <strong>Managed AI + Human</strong><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 13v-2a9 9 0 0 1 18 0v2m0 4v1a3 3 0 0 1-3 3h-4"/><rect x="3" y="11" width="4" height="7" rx="2"/><rect x="17" y="11" width="4" height="7" rx="2"/></svg><small>Novara runs AI and agent coverage</small>
+      <strong>Managed AI + Human</strong><span class="npl-icon-pair" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" focusable="false"><path d="M12 2l2.5 7.5L22 12l-7.5 2.5L12 22l-2.5-7.5L2 12l7.5-2.5L12 2Z"/></svg><span>+</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 13v-2a9 9 0 0 1 18 0v2m0 4v1a3 3 0 0 1-3 3h-4"/><rect x="3" y="11" width="4" height="7" rx="2"/><rect x="17" y="11" width="4" height="7" rx="2"/></svg></span><small>Novara runs AI and agent coverage</small>
     </button>
   </div>
   <div class="npl-desk" id="npl-desk" role="tabpanel" aria-labelledby="npl-tab-desk" tabindex="0">
@@ -1938,11 +1938,6 @@ body>header .nav-links a{color:#53655b}body>header .nav-links a:hover,body>heade
   <div id="npl-managed" role="tabpanel" aria-labelledby="npl-tab-ai" tabindex="0" hidden>
     <p class="npl-managed-intro" id="npl-ai-intro">Novara sets up and trains your 24/7 AI. Your team handles escalations.</p>
     <p class="npl-managed-intro" id="npl-human-intro" hidden>Novara runs your 24/7 AI and provides agents to handle escalations.</p>
-    <div class="npl-coverage" role="group" aria-labelledby="npl-coverage-label">
-      <span id="npl-coverage-label">Agent coverage per working day</span>
-      <button type="button" data-npl-hours="lite" aria-pressed="true">4.5 hours</button>
-      <button type="button" data-npl-hours="full" aria-pressed="false">9 hours</button>
-    </div>
 
 <div class="mvp-pricing-head"><div><span class="mvp-kicker">Simple MVP plans</span><h2 class="mvp-heading">Start with AI. Add complete human coverage when you need it.</h2></div><p>Both plans include ongoing training and optimisation. Choose based on who should own human escalations—your team or Novara.</p></div><div class="mvp-plans"><article class="mvp-plan"><h3>AI Support</h3><p class="mvp-plan-for">For companies managing human escalations internally</p><div class="mvp-plan-price">₹29,999 <small>/month</small></div><p class="mvp-plan-desc">A continuously managed AI support layer that handles repetitive customer conversations.</p><ul class="mvp-features"><li>AI chatbot for customer support</li><li>Support console</li><li>Knowledge-base setup and maintenance</li><li>Continuous AI training and tuning</li><li>Conversation analytics</li><li>Human escalation readiness</li><li>Monthly performance review</li></ul><a class="mvp-btn secondary" href="#mvp-contact">Book a discovery call</a></article><article class="mvp-plan managed"><span class="mvp-plan-badge">Complete service</span><h3>Managed CX</h3><p class="mvp-plan-for">For companies that want Novara to operate support</p><div class="mvp-plan-price">₹89,999 <small>/month</small></div><p class="mvp-plan-desc">AI automation, dedicated human support and CX oversight in one managed service.</p><ul class="mvp-features"><li>Everything in AI Support</li><li>NovaraDesk customer support workspace</li><li>Dedicated human support agent</li><li>Seamless AI-to-human takeover</li><li>Ticket and escalation ownership</li><li>CX management and quality oversight</li><li>Reporting, coaching and optimisation</li></ul><a class="mvp-btn primary" href="#mvp-contact">Book a discovery call</a></article></div><p class="mvp-plan-note">Implementation scope and channel integrations are confirmed during discovery.</p><div class="nv-code-visual cx-model" role="img" aria-label="Managed CX operating model connecting the customer with AI support, human experts, NovaraDesk and CX management"><svg class="cx-lines" viewBox="0 0 1000 520" aria-hidden="true"><path id="cxp1" d="M500 260 C390 170 300 135 190 110"/><path id="cxp2" d="M500 260 C610 170 700 135 810 110"/><path id="cxp3" d="M500 260 C390 350 300 385 190 410"/><path id="cxp4" d="M500 260 C610 350 700 385 810 410"/><circle r="5"><animateMotion dur="3.4s" repeatCount="indefinite"><mpath href="#cxp1"/></animateMotion></circle><circle r="5"><animateMotion dur="3.7s" repeatCount="indefinite"><mpath href="#cxp2"/></animateMotion></circle><circle r="5"><animateMotion dur="4s" repeatCount="indefinite"><mpath href="#cxp3"/></animateMotion></circle><circle r="5"><animateMotion dur="4.3s" repeatCount="indefinite"><mpath href="#cxp4"/></animateMotion></circle></svg><div class="cx-core-ring" aria-hidden="true"></div><div class="cx-hub"><div><svg viewBox="0 0 48 48"><circle cx="24" cy="15" r="7"/><path d="M11 40c1-10 6-15 13-15s12 5 13 15"/></svg><strong>Customer</strong></div></div><article class="cx-module"><span class="cx-icon"><svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="4"/><circle cx="6" cy="9" r="2"/><circle cx="26" cy="9" r="2"/><path d="M8 10l5 4M24 10l-5 4M8 24l5-5M24 24l-5-5"/></svg></span><div><strong>AI Support</strong><small>Instant answers for routine conversations</small></div></article><article class="cx-module"><span class="cx-icon"><svg viewBox="0 0 32 32"><circle cx="12" cy="11" r="5"/><circle cx="23" cy="12" r="4"/><path d="M3 28c1-8 4-12 9-12s8 4 9 12M19 18c5 0 8 3 9 10"/></svg></span><div><strong>Human Experts</strong><small>Judgement and empathy when required</small></div></article><article class="cx-module"><span class="cx-icon"><svg viewBox="0 0 32 32"><rect x="3" y="5" width="26" height="21" rx="4"/><path d="M3 11h26M9 16h6M9 21h11"/></svg></span><div><strong>NovaraDesk</strong><small>One workspace for the support operation</small></div></article><article class="cx-module"><span class="cx-icon"><svg viewBox="0 0 32 32"><path d="M5 26V16M12 26V9M19 26V13M26 26V5"/><path d="M4 10l7-4 7 3 9-6"/></svg></span><div><strong>CX Management</strong><small>Quality, reporting and continuous improvement</small></div></article></div><div class="mvp-compare"><table><thead><tr><th>Capability</th><th>AI Support</th><th>Managed CX</th></tr></thead><tbody><tr><td>AI chatbot</td><td class="mvp-check">✓</td><td class="mvp-check">✓</td></tr><tr><td>Continuous AI training</td><td class="mvp-check">✓</td><td class="mvp-check">✓</td></tr><tr><td>Conversation analytics</td><td class="mvp-check">✓</td><td class="mvp-check">✓</td></tr><tr><td>Human escalation workflow</td><td class="mvp-check">✓</td><td class="mvp-check">✓</td></tr><tr><td>NovaraDesk</td><td>—</td><td class="mvp-check">✓</td></tr><tr><td>Dedicated human support</td><td>—</td><td class="mvp-check">✓</td></tr><tr><td>CX management and QA</td><td>—</td><td class="mvp-check">✓</td></tr><tr><td>Ticket ownership</td><td>Your team</td><td>Novara</td></tr></tbody></table></div></div>
 <div class="console-desk-section console-desk-inline" id="console-vs-desk">
@@ -10268,11 +10263,10 @@ body{letter-spacing:-.005em!important}
     const wrap=section?.querySelector('.conversation-tier-wrap');
     const group=wrap?.querySelector('.conversation-tier-group');
     if(!section||!wrap||!group)return false;
-    if(section.querySelector('#novara-plan-switcher'))return true;
     if(wrap.querySelector('.daily-volume-control'))return true;
     const control=document.createElement('div');
     control.className='daily-volume-control';
-    control.innerHTML='<label for="novara-daily-conversations">Daily conversations</label><div class="daily-volume-input-wrap"><input id="novara-daily-conversations" type="number" min="0" step="1" inputmode="numeric" autocomplete="off" placeholder="e.g. 50"><button class="daily-volume-submit" type="button" aria-label="Estimate plan and staffing"><span aria-hidden="true"></span></button></div><span class="daily-volume-calculation" aria-live="polite"></span>';
+    control.innerHTML='<label for="novara-daily-conversations">Find your plan &amp; estimated human agent need</label><div class="daily-volume-input-wrap"><input id="novara-daily-conversations" type="number" min="0" step="1" inputmode="numeric" autocomplete="off" placeholder="e.g. 50"><button class="daily-volume-submit" type="button" aria-label="Estimate plan and staffing"><span aria-hidden="true"></span></button></div><span class="daily-volume-calculation" aria-live="polite"></span>';
     group.insertAdjacentElement('beforebegin',control);
     const input=control.querySelector('input');
     const submit=control.querySelector('.daily-volume-submit');
@@ -12269,12 +12263,13 @@ window.NOVARA_CURRENT_PRICING={
   gap:3px;padding:4px;border-color:#3c5a49;border-radius:999px;background:#143225;
 }
 #novara-plan-switcher .npl-switcher button{
-  display:flex;align-items:center;justify-content:center;gap:clamp(6px,1vw,12px);
+  display:flex;align-items:center;justify-content:center;gap:clamp(8px,1.5vw,20px);
   min-height:44px;padding:6px clamp(6px,1.3vw,18px);border-radius:999px;text-align:center;
 }
 #novara-plan-switcher .npl-switcher strong{font-size:clamp(.72rem,1.1vw,.89rem)}
 #novara-plan-switcher .npl-switcher small{display:none}
 #novara-plan-switcher .npl-switcher svg{width:16px;height:16px;flex:none}
+#novara-plan-switcher .npl-icon-pair{display:inline-flex;align-items:center;gap:4px;flex:none;font-size:.72rem}
 @media(max-width:400px){#novara-plan-switcher .npl-switcher svg{width:13px;height:13px}}
 #novara-plan-switcher .npl-switcher button:focus-visible{outline:2px solid #b4dec2;outline-offset:2px}
 #novara-plan-switcher .npl-switcher button[aria-selected=true]{background:#f2f6ed;border-color:#e2eddf;box-shadow:0 2px 8px #061b1250}
@@ -12303,15 +12298,15 @@ window.NOVARA_CURRENT_PRICING={
 #mvp-pricing #novara-plan-switcher .conversation-tier-group [data-tier]:not(.active){color:#e2efe5!important}
 #mvp-pricing #novara-plan-switcher .conversation-tier-group [data-tier]:not(.active) .conversation-tier-volume{color:#c4dbce!important}
 #mvp-pricing #novara-plan-switcher .pricing-summary-grid{margin:0!important;padding:0!important;gap:12px!important}
-#mvp-pricing #novara-plan-switcher .pricing-summary{
+#mvp-pricing #novara-plan-switcher[data-plan=ai] .pricing-summary{
   border-radius:18px!important;background:#fbfcf8!important;
   padding:clamp(20px,2.5vw,32px)!important;
 }
-#mvp-pricing #novara-plan-switcher .pricing-summary .plan-inclusions li{
+#mvp-pricing #novara-plan-switcher[data-plan=ai] .pricing-summary .plan-inclusions li{
   font-size:.82rem!important;color:#34513f!important;
 }
-#mvp-pricing #novara-plan-switcher .pricing-summary .pricing-price{color:#163b28!important}
-#mvp-pricing #novara-plan-switcher .pricing-summary .plan-positioning{color:#365544!important}
+#mvp-pricing #novara-plan-switcher[data-plan=ai] .pricing-summary .pricing-price{color:#163b28!important}
+#mvp-pricing #novara-plan-switcher[data-plan=ai] .pricing-summary .plan-positioning{color:#365544!important}
 @media(min-width:901px){
   #mvp-pricing #novara-plan-switcher[data-plan=ai] .pricing-summary[data-coverage=ai]{
     grid-template-columns:minmax(0,1fr) minmax(0,.95fr)!important;
@@ -12347,12 +12342,6 @@ window.NOVARA_CURRENT_PRICING={
   #mvp-pricing #novara-plan-switcher .daily-volume-control{flex:0 1 255px}
 }
 #mvp-pricing #novara-plan-switcher .conversation-tier-group [data-tier]{min-height:48px!important}
-#mvp-pricing #novara-plan-switcher .pricing-summary[data-coverage=human] .pricing-title-row{align-items:center!important}
-#mvp-pricing #novara-plan-switcher .pricing-summary[data-coverage=human] .plan-positioning{color:#375344!important}
-#mvp-pricing #novara-plan-switcher .pricing-summary[data-coverage=human] .plan-inclusions{background:#eef4eb;padding:12px 14px!important;border-radius:10px}
-@media(min-width:901px){
-  #mvp-pricing #novara-plan-switcher[data-plan=human] .pricing-summary{grid-template-rows:44px 40px 48px 0 54px 20px minmax(124px,1fr) 48px!important}
-}
 @media(max-width:760px){
   #mvp-pricing #novara-plan-switcher .conversation-tier-wrap{padding:9px!important}
 }
@@ -12395,54 +12384,31 @@ window.NOVARA_CURRENT_PRICING={
 }
 </style>
 <style>
-/* The existing pricing engine retains its default INR state. */
 #mvp-pricing #npl-managed .currency-switcher,
-#mvp-pricing #npl-managed .daily-volume-control,
-#novara-plan-switcher[data-plan=ai] .npl-coverage,
-#mvp-pricing #novara-plan-switcher[data-hours=lite] [data-npl-option=full],
-#mvp-pricing #novara-plan-switcher[data-hours=full] [data-npl-option=lite]{display:none!important}
-#novara-plan-switcher .npl-coverage{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin-bottom:10px}
-#npl-coverage-label{margin-right:6px;font-size:.82rem;font-weight:700;color:#cfe1d5}
-@media(min-width:901px){#npl-coverage-label{color:#365544}}
-#novara-plan-switcher .npl-coverage button{min-height:40px;padding:7px 15px;border:1px solid #759382;border-radius:8px;background:#fff;color:#234938;font-weight:700;cursor:pointer}
-#novara-plan-switcher .npl-coverage button[aria-pressed=true]{background:#234938;border-color:#234938;color:#fff}
-#mvp-pricing #novara-plan-switcher #npl-managed .pricing-summary-grid{grid-template-columns:minmax(0,1fr)!important}
+#mvp-pricing #novara-plan-switcher[data-plan=ai] .daily-volume-control{display:none!important}
 #mvp-pricing #novara-plan-switcher #npl-managed .conversation-tier-wrap{min-height:0!important}
 @media(max-width:900px){
-  #mvp-pricing #novara-plan-switcher #npl-managed .conversation-tier-wrap{display:block!important}
+  #mvp-pricing #novara-plan-switcher[data-plan=ai] #npl-managed .conversation-tier-wrap{display:block!important}
   #mvp-pricing #novara-plan-switcher #npl-managed .conversation-tier-group{width:100%!important}
 }
 @media(min-width:901px){
   #mvp-pricing #npl-managed{grid-template-columns:minmax(205px,26.3%) minmax(0,1fr);column-gap:2.3%;row-gap:0}
-  #mvp-pricing #npl-managed .npl-managed-intro{grid-row:1;padding:20px 24px 10px;margin:0;background:#fbfcf8;color:#234938;border-radius:18px 18px 0 0}
-  #mvp-pricing #npl-managed .npl-coverage{grid-row:2;margin:0;padding:2px 24px 12px;background:#fbfcf8}
-  #mvp-pricing #novara-plan-switcher #npl-managed .pricing-summary{border-radius:0 0 18px 18px!important;border-top:0!important;box-shadow:none!important}
-  #mvp-pricing #novara-plan-switcher[data-plan=human] #npl-managed .pricing-summary{
-    grid-template-columns:minmax(0,1.08fr) minmax(0,1fr)!important;
-    grid-template-rows:repeat(5,auto)!important;gap:12px 24px!important;align-items:start;
-  }
-  #mvp-pricing #novara-plan-switcher[data-plan=human] #npl-managed .pricing-title-row{grid-column:1;grid-row:1!important;flex-wrap:wrap}
-  #mvp-pricing #novara-plan-switcher[data-plan=human] #npl-managed .plan-positioning{grid-column:1;grid-row:2!important;min-height:0!important}
-  #mvp-pricing #novara-plan-switcher[data-plan=human] #npl-managed .pricing-price{grid-column:1;grid-row:3!important}
-  #mvp-pricing #novara-plan-switcher[data-plan=human] #npl-managed .minimum-agent-note{grid-column:1;grid-row:4!important}
-  #mvp-pricing #novara-plan-switcher[data-plan=human] #npl-managed .pricing-summary > .mvp-btn{grid-column:1;grid-row:5!important}
-  #mvp-pricing #novara-plan-switcher[data-plan=human] #npl-managed .value-tier-label{grid-column:2;grid-row:1!important}
-  #mvp-pricing #novara-plan-switcher[data-plan=human] #npl-managed .plan-inclusions{grid-column:2;grid-row:2 / span 4!important;margin:0!important}
-
+  #mvp-pricing #novara-plan-switcher[data-plan=ai] #npl-managed .npl-managed-intro{grid-row:1;padding:20px 24px 10px;margin:0;background:#fbfcf8;color:#234938;border-radius:18px 18px 0 0}
+  #mvp-pricing #novara-plan-switcher[data-plan=ai] #npl-managed .pricing-summary{border-radius:0 0 18px 18px!important;border-top:0!important;box-shadow:none!important}
 }
+#mvp-pricing #novara-plan-switcher[data-plan=human] #npl-managed:not([hidden]){display:block}
+#mvp-pricing #novara-plan-switcher[data-plan=human] #npl-managed .conversation-tier-wrap{
+  display:flex!important;flex-wrap:wrap!important;gap:12px!important;
+}
+#mvp-pricing #novara-plan-switcher[data-plan=human] #npl-managed .daily-volume-control{
+  order:0!important;flex:1 1 285px;width:auto!important;max-width:none!important;
+}
+#mvp-pricing #novara-plan-switcher[data-plan=human] #npl-managed .conversation-tier-group{
+  order:1!important;flex:1 1 340px;width:auto!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  padding:0!important;border:0!important;background:transparent!important;
+}
+#mvp-pricing #novara-plan-switcher[data-plan=human] #npl-managed .conversation-tier-group::before{display:none}
 </style>
-<script>
-(() => {
-  const switcher=document.getElementById('novara-plan-switcher');
-  const coverage=switcher.querySelector('.npl-coverage');
-  coverage.addEventListener('click',event=>{
-    const button=event.target.closest('[data-npl-hours]');
-    if(!button)return;
-    switcher.dataset.hours=button.dataset.nplHours;
-    coverage.querySelectorAll('button').forEach(item=>item.setAttribute('aria-pressed',String(item===button)));
-  });
-})();
-</script>
 <script id="novara-pricing-entry-scroll-script-v73">
 (function(){
   function isPricingEntryLink(link){
