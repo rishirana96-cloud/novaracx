@@ -1913,13 +1913,13 @@ body>header .nav-links a{color:#53655b}body>header .nav-links a:hover,body>heade
 <div id="novara-plan-switcher" data-plan="desk">
   <div class="npl-switcher" role="tablist" aria-label="Support plans">
     <button id="npl-tab-desk" type="button" role="tab" data-npl-plan="desk" aria-selected="true" aria-controls="npl-desk">
-      <strong>NovaraDesk Only</strong><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8m-4-4v4"/></svg><small>Support workspace</small>
+      <strong>NovaraDesk Only</strong><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8m-4-4v4"/></svg><small>Your team runs support</small>
     </button>
     <button id="npl-tab-ai" type="button" role="tab" data-npl-plan="ai" aria-selected="false" aria-controls="npl-managed" tabindex="-1">
-      <strong>Managed AI</strong><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 2l2.5 7.5L22 12l-7.5 2.5L12 22l-2.5-7.5L2 12l7.5-2.5L12 2Z"/></svg><small>Workspace + 24/7 AI</small>
+      <strong>Managed AI</strong><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 2l2.5 7.5L22 12l-7.5 2.5L12 22l-2.5-7.5L2 12l7.5-2.5L12 2Z"/></svg><small>Novara runs the AI</small>
     </button>
     <button id="npl-tab-human" type="button" role="tab" data-npl-plan="human" aria-selected="false" aria-controls="npl-managed" tabindex="-1">
-      <strong>Managed AI + Human</strong><span class="npl-icon-pair" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" focusable="false"><path d="M12 2l2.5 7.5L22 12l-7.5 2.5L12 22l-2.5-7.5L2 12l7.5-2.5L12 2Z"/></svg><span>+</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 13v-2a9 9 0 0 1 18 0v2m0 4v1a3 3 0 0 1-3 3h-4"/><rect x="3" y="11" width="4" height="7" rx="2"/><rect x="17" y="11" width="4" height="7" rx="2"/></svg></span><small>Workspace + AI + agents</small>
+      <strong>Managed AI + Human</strong><span class="npl-icon-pair" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" focusable="false"><path d="M12 2l2.5 7.5L22 12l-7.5 2.5L12 22l-2.5-7.5L2 12l7.5-2.5L12 2Z"/></svg><span>+</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 13v-2a9 9 0 0 1 18 0v2m0 4v1a3 3 0 0 1-3 3h-4"/><rect x="3" y="11" width="4" height="7" rx="2"/><rect x="17" y="11" width="4" height="7" rx="2"/></svg></span><small>Novara runs AI and agent coverage</small>
     </button>
   </div>
   <div class="npl-desk" id="npl-desk" role="tabpanel" aria-labelledby="npl-tab-desk" tabindex="0">
@@ -1966,6 +1966,108 @@ body>header .nav-links a{color:#53655b}body>header .nav-links a:hover,body>heade
     <p class="npl-managed-intro" id="npl-ai-intro">Includes NovaraDesk and 24/7 managed AI. Your team handles escalations.</p>
     <p class="npl-managed-intro" id="npl-human-intro" hidden>Includes NovaraDesk and 24/7 managed AI, with Novara agents to handle escalations.</p>
 
+    <div class="npl-desk-plans npl-managed-tiers" data-managed-plan="ai">
+      <article class="npl-desk-plan">
+        <h4>Starter</h4>
+        <p class="npl-desk-price">₹29,999 <small>/month + GST</small></p>
+        
+        <ul aria-label="Plan inclusions">
+          <li>Up to 1,500 monthly conversations</li>
+          <li>NovaraDesk workspace</li>
+          <li>24/7 managed AI</li>
+          <li>Website chatbot setup and ongoing AI training</li>
+          <li>Your team handles escalations</li>
+        </ul>
+        <a href="#mvp-contact">Start a 14-day free trial</a>
+      </article>
+      <article class="npl-desk-plan">
+        <h4>Growth</h4>
+        <p class="npl-desk-price">₹49,999 <small>/month + GST</small></p>
+        
+        <ul aria-label="Plan inclusions">
+          <li>Up to 3,000 monthly conversations</li>
+          <li>NovaraDesk workspace</li>
+          <li>24/7 managed AI</li>
+          <li>Website chatbot setup and ongoing AI training</li>
+          <li>Your team handles escalations</li>
+        </ul>
+        <a href="#mvp-contact">Book a discovery call</a>
+      </article>
+      <article class="npl-desk-plan">
+        <h4>Scale</h4>
+        <p class="npl-desk-price">Custom pricing</p>
+        
+        <ul aria-label="Plan inclusions">
+          <li>Higher conversation volumes</li>
+          <li>NovaraDesk workspace</li>
+          <li>24/7 managed AI</li>
+          <li>Website chatbot setup and ongoing AI training</li>
+          <li>Your team handles escalations</li>
+        </ul>
+        <a href="#mvp-contact">Discuss Scale pricing</a>
+      </article>
+    </div>
+    <div class="npl-desk-plans npl-managed-tiers" data-managed-plan="human" hidden>
+      <article class="npl-desk-plan">
+        <h4>Starter</h4>
+        <p class="npl-desk-price">₹1,29,999 <small>/month + GST</small></p>
+        <p class="npl-managed-agents">Includes 2 human agents</p>
+        <ul aria-label="Plan inclusions">
+          <li>Up to 1,500 monthly conversations</li>
+          <li>NovaraDesk workspace</li>
+          <li>24/7 managed AI</li>
+          <li>9 hours of human support per working day</li>
+          <li>Voice and call support</li>
+        </ul>
+        <a href="#mvp-contact">Book a discovery call</a>
+      </article>
+      <article class="npl-desk-plan">
+        <h4>Growth</h4>
+        <p class="npl-desk-price">₹1,49,999 <small>/month + GST</small></p>
+        <p class="npl-managed-agents">Includes 2 human agents</p>
+        <ul aria-label="Plan inclusions">
+          <li>Up to 3,000 monthly conversations</li>
+          <li>NovaraDesk workspace</li>
+          <li>24/7 managed AI</li>
+          <li>9 hours of human support per working day</li>
+          <li>Voice and call support</li>
+        </ul>
+        <a href="#mvp-contact">Book a discovery call</a>
+      </article>
+      <article class="npl-desk-plan">
+        <h4>Scale</h4>
+        <p class="npl-desk-price">Custom pricing</p>
+        
+        <ul aria-label="Plan inclusions">
+          <li>Higher conversation volumes</li>
+          <li>NovaraDesk workspace</li>
+          <li>24/7 managed AI</li>
+          <li>9 hours of human support per working day</li>
+          <li>Voice and call support</li>
+        </ul>
+        <a href="#mvp-contact">Discuss Scale pricing</a>
+      </article>
+    </div>
+    <form class="npl-managed-estimator" hidden>
+      <label>Daily conversations <input name="daily" type="number" min="0" step="1" placeholder="e.g. 50" required></label>
+      <button type="submit">Estimate staffing</button>
+      <output aria-live="polite"></output>
+    </form>
+    <script>
+      (() => {
+        const form = document.querySelector('.npl-managed-estimator');
+        const output = form.querySelector('output');
+        form.addEventListener('submit', event => {
+          event.preventDefault();
+          const monthly = form.elements.daily.valueAsNumber * 30;
+          const tier = monthly <= 1500 ? 'Starter' : monthly <= 3000 ? 'Growth' : 'Scale';
+          const agents = Math.max(2, Math.ceil(monthly * .5 / 750));
+          output.textContent = tier + ' · ' + monthly.toLocaleString('en-IN') +
+            ' monthly conversations · ' + agents.toLocaleString('en-IN') + ' estimated agents';
+        });
+        form.addEventListener('input', () => { output.textContent = ''; });
+      })();
+    </script>
 <div class="mvp-pricing-head"><div><span class="mvp-kicker">Simple MVP plans</span><h2 class="mvp-heading">Start with AI. Add complete human coverage when you need it.</h2></div><p>Both plans include ongoing training and optimisation. Choose based on who should own human escalations—your team or Novara.</p></div><div class="mvp-plans"><article class="mvp-plan"><h3>AI Support</h3><p class="mvp-plan-for">For companies managing human escalations internally</p><div class="mvp-plan-price">₹29,999 <small>/month</small></div><p class="mvp-plan-desc">A continuously managed AI support layer that handles repetitive customer conversations.</p><ul class="mvp-features"><li>AI chatbot for customer support</li><li>Support console</li><li>Knowledge-base setup and maintenance</li><li>Continuous AI training and tuning</li><li>Conversation analytics</li><li>Human escalation readiness</li><li>Monthly performance review</li></ul><a class="mvp-btn secondary" href="#mvp-contact">Book a discovery call</a></article><article class="mvp-plan managed"><span class="mvp-plan-badge">Complete service</span><h3>Managed CX</h3><p class="mvp-plan-for">For companies that want Novara to operate support</p><div class="mvp-plan-price">₹89,999 <small>/month</small></div><p class="mvp-plan-desc">AI automation, dedicated human support and CX oversight in one managed service.</p><ul class="mvp-features"><li>Everything in AI Support</li><li>NovaraDesk customer support workspace</li><li>Dedicated human support agent</li><li>Seamless AI-to-human takeover</li><li>Ticket and escalation ownership</li><li>CX management and quality oversight</li><li>Reporting, coaching and optimisation</li></ul><a class="mvp-btn primary" href="#mvp-contact">Book a discovery call</a></article></div><p class="mvp-plan-note">Implementation scope and channel integrations are confirmed during discovery.</p><div class="nv-code-visual cx-model" role="img" aria-label="Managed CX operating model connecting the customer with AI support, human experts, NovaraDesk and CX management"><svg class="cx-lines" viewBox="0 0 1000 520" aria-hidden="true"><path id="cxp1" d="M500 260 C390 170 300 135 190 110"/><path id="cxp2" d="M500 260 C610 170 700 135 810 110"/><path id="cxp3" d="M500 260 C390 350 300 385 190 410"/><path id="cxp4" d="M500 260 C610 350 700 385 810 410"/><circle r="5"><animateMotion dur="3.4s" repeatCount="indefinite"><mpath href="#cxp1"/></animateMotion></circle><circle r="5"><animateMotion dur="3.7s" repeatCount="indefinite"><mpath href="#cxp2"/></animateMotion></circle><circle r="5"><animateMotion dur="4s" repeatCount="indefinite"><mpath href="#cxp3"/></animateMotion></circle><circle r="5"><animateMotion dur="4.3s" repeatCount="indefinite"><mpath href="#cxp4"/></animateMotion></circle></svg><div class="cx-core-ring" aria-hidden="true"></div><div class="cx-hub"><div><svg viewBox="0 0 48 48"><circle cx="24" cy="15" r="7"/><path d="M11 40c1-10 6-15 13-15s12 5 13 15"/></svg><strong>Customer</strong></div></div><article class="cx-module"><span class="cx-icon"><svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="4"/><circle cx="6" cy="9" r="2"/><circle cx="26" cy="9" r="2"/><path d="M8 10l5 4M24 10l-5 4M8 24l5-5M24 24l-5-5"/></svg></span><div><strong>AI Support</strong><small>Instant answers for routine conversations</small></div></article><article class="cx-module"><span class="cx-icon"><svg viewBox="0 0 32 32"><circle cx="12" cy="11" r="5"/><circle cx="23" cy="12" r="4"/><path d="M3 28c1-8 4-12 9-12s8 4 9 12M19 18c5 0 8 3 9 10"/></svg></span><div><strong>Human Experts</strong><small>Judgement and empathy when required</small></div></article><article class="cx-module"><span class="cx-icon"><svg viewBox="0 0 32 32"><rect x="3" y="5" width="26" height="21" rx="4"/><path d="M3 11h26M9 16h6M9 21h11"/></svg></span><div><strong>NovaraDesk</strong><small>One workspace for the support operation</small></div></article><article class="cx-module"><span class="cx-icon"><svg viewBox="0 0 32 32"><path d="M5 26V16M12 26V9M19 26V13M26 26V5"/><path d="M4 10l7-4 7 3 9-6"/></svg></span><div><strong>CX Management</strong><small>Quality, reporting and continuous improvement</small></div></article></div><div class="mvp-compare"><table><thead><tr><th>Capability</th><th>AI Support</th><th>Managed CX</th></tr></thead><tbody><tr><td>AI chatbot</td><td class="mvp-check">✓</td><td class="mvp-check">✓</td></tr><tr><td>Continuous AI training</td><td class="mvp-check">✓</td><td class="mvp-check">✓</td></tr><tr><td>Conversation analytics</td><td class="mvp-check">✓</td><td class="mvp-check">✓</td></tr><tr><td>Human escalation workflow</td><td class="mvp-check">✓</td><td class="mvp-check">✓</td></tr><tr><td>NovaraDesk</td><td>—</td><td class="mvp-check">✓</td></tr><tr><td>Dedicated human support</td><td>—</td><td class="mvp-check">✓</td></tr><tr><td>CX management and QA</td><td>—</td><td class="mvp-check">✓</td></tr><tr><td>Ticket ownership</td><td>Your team</td><td>Novara</td></tr></tbody></table></div></div>
 <div class="console-desk-section console-desk-inline" id="console-vs-desk">
  <div class="console-desk-section-head">
@@ -12256,6 +12358,10 @@ window.NOVARA_CURRENT_PRICING={
     managed.hidden=plan==='desk';
     aiIntro.hidden=plan!=='ai';
     humanIntro.hidden=plan!=='human';
+    managed.querySelectorAll('[data-managed-plan]').forEach(grid=>{
+      grid.hidden=grid.dataset.managedPlan!==plan;
+    });
+    managed.querySelector('.npl-managed-estimator').hidden=plan!=='human';
     if(plan!=='desk')managed.setAttribute('aria-labelledby',tab.id);
   }
 
@@ -12645,40 +12751,30 @@ window.NOVARA_CURRENT_PRICING={
   #novara-plan-switcher .npl-desk-plans{grid-template-columns:1fr}
   #novara-plan-switcher .npl-desk-plan{padding:24px 20px}
 }
-/* Make the three service options easy to scan at a glance. */
-#novara-plan-switcher .npl-switcher{
-  width:min(100%,810px);grid-template-columns:repeat(3,minmax(0,1fr));
-  gap:7px;padding:7px;border-radius:20px;background:#102a20;
+/* Show each managed tier directly, as with NovaraDesk. */
+#mvp-pricing #novara-plan-switcher #npl-managed:not([hidden]){display:block}
+#mvp-pricing #novara-plan-switcher #npl-managed > :not(.npl-managed-tiers,.npl-managed-intro,.npl-managed-estimator),
+#mvp-pricing #novara-plan-switcher #npl-managed [hidden]{display:none!important}
+#mvp-pricing #novara-plan-switcher .npl-managed-tiers .npl-desk-plan{min-height:360px}
+#mvp-pricing #novara-plan-switcher .npl-managed-tiers p{margin:0;color:#385948}
+#mvp-pricing #novara-plan-switcher .npl-managed-agents{font-size:.8rem}
+#mvp-pricing #novara-plan-switcher .npl-managed-estimator{
+  display:flex;align-items:end;gap:12px;flex-wrap:wrap;
+  margin-top:16px;padding:12px 14px;border:1px solid #496d58;border-radius:12px;color:#e9f4ec;
 }
-#novara-plan-switcher .npl-switcher button{
-  display:grid;grid-template-columns:minmax(0,1fr) auto;grid-template-rows:auto auto;
-  gap:3px 9px;min-height:76px;align-content:center;justify-items:start;
-  padding:10px clamp(9px,1.5vw,17px);border-radius:13px;text-align:left;
-  border-color:#365747;background:#1a382b;
+#mvp-pricing #novara-plan-switcher .npl-managed-estimator label{display:grid;gap:4px;font-size:.79rem}
+#mvp-pricing #novara-plan-switcher .npl-managed-estimator input,
+#mvp-pricing #novara-plan-switcher .npl-managed-estimator button{
+  border:1px solid #91af9d;border-radius:8px;padding:8px;min-height:40px;
 }
-#novara-plan-switcher .npl-switcher button[aria-selected=true]{
-  background:#eef6ec;border-color:#a8c7ae;box-shadow:0 3px 10px #061b1266;
+#mvp-pricing #novara-plan-switcher .npl-managed-estimator input{width:112px}
+#mvp-pricing #novara-plan-switcher .npl-managed-estimator button{cursor:pointer;background:#eaf4ec;color:#173b29}
+#mvp-pricing #novara-plan-switcher .npl-managed-estimator output{align-self:center;font-size:.85rem}
+@media(min-width:901px){
+  #mvp-pricing > .mvp-shell:has(#novara-plan-switcher){width:min(100% - 48px,1320px)}
 }
-#novara-plan-switcher .npl-switcher strong{font-size:clamp(.83rem,1.2vw,1rem);line-height:1.2}
-#novara-plan-switcher .npl-switcher small{
-  display:block;grid-row:2;grid-column:1;margin:0;font-size:.73rem;line-height:1.35;
-}
-#novara-plan-switcher .npl-switcher button > :is(svg,.npl-icon-pair){
-  grid-column:2;grid-row:1/3;align-self:center;
-  background:#294e3b;color:#d5eedb;border-radius:9px;padding:7px;
-}
-#novara-plan-switcher .npl-switcher button > svg{width:34px;height:34px}
-#novara-plan-switcher .npl-icon-pair svg{width:15px;height:15px}
-#novara-plan-switcher .npl-switcher button[aria-selected=true] > :is(svg,.npl-icon-pair){background:#d5e9d8;color:#235339}
-@media(max-width:640px){
-  #novara-plan-switcher .npl-switcher{gap:4px;padding:4px;border-radius:16px}
-  #novara-plan-switcher .npl-switcher button{
-    grid-template-columns:minmax(0,1fr);grid-template-rows:auto auto auto;
-    justify-items:center;align-content:start;gap:5px;padding:8px 4px;text-align:center;
-  }
-  #novara-plan-switcher .npl-switcher button > :is(svg,.npl-icon-pair){grid-area:1/1}
-  #novara-plan-switcher .npl-switcher strong{grid-row:2;font-size:.77rem}
-  #novara-plan-switcher .npl-switcher small{grid-row:3;font-size:.65rem}
+@media(max-width:900px){
+  #mvp-pricing #novara-plan-switcher .npl-managed-tiers .npl-desk-plan{min-height:0}
 }
 </style>
 <script id="novara-pricing-entry-scroll-script-v73">
