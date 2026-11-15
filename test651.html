@@ -1928,7 +1928,7 @@ body>header .nav-links a{color:#53655b}body>header .nav-links a:hover,body>heade
       <p>Draft monthly pricing for teams that run their own support.</p>
     </div>
     <div class="npl-desk-plans">
-      <article class="npl-desk-plan" data-price="2999" data-seats="3" data-conversations="1500">
+      <article class="npl-desk-plan">
         <h4>Starter</h4>
         <p class="npl-desk-price">₹2,999 <small>/month + GST</small></p>
         <ul aria-label="Plan inclusions">
@@ -1940,7 +1940,7 @@ body>header .nav-links a{color:#53655b}body>header .nav-links a:hover,body>heade
         </ul>
         <a href="#mvp-contact">Ask about NovaraDesk</a>
       </article>
-      <article class="npl-desk-plan" data-price="6999" data-seats="10" data-conversations="3000">
+      <article class="npl-desk-plan">
         <h4>Growth</h4>
         <p class="npl-desk-price">₹6,999 <small>/month + GST</small></p>
         <ul aria-label="Plan inclusions">
@@ -1952,7 +1952,7 @@ body>header .nav-links a{color:#53655b}body>header .nav-links a:hover,body>heade
         </ul>
         <a href="#mvp-contact">Ask about NovaraDesk</a>
       </article>
-      <article class="npl-desk-plan" data-price="14999" data-seats="25" data-conversations="6000">
+      <article class="npl-desk-plan">
         <h4>Scale</h4>
         <p class="npl-desk-price">₹14,999 <small>/month + GST</small></p>
         <ul aria-label="Plan inclusions">
@@ -1965,56 +1965,7 @@ body>header .nav-links a{color:#53655b}body>header .nav-links a:hover,body>heade
         <a href="#mvp-contact">Ask about NovaraDesk</a>
       </article>
     </div>
-    <form class="npl-desk-calculator">
-      <h4>Estimate your monthly cost</h4>
-      <div class="npl-desk-inputs">
-        <label>Agent seats <input name="seats" type="number" min="1" step="1" value="3" required></label>
-        <label>Monthly conversations <input name="conversations" type="number" min="0" step="1" value="1500" required></label>
-      </div>
-      <p>Extra seats cost ₹699 each per month. Extra conversations cost ₹1 each. A support thread counts as one conversation.</p>
-      <output class="npl-desk-estimate" aria-live="polite"></output>
-    </form>
   </div>
-  <script>
-    (() => {
-      const desk = document.getElementById('npl-desk');
-      const form = desk.querySelector('.npl-desk-calculator');
-      const output = form.querySelector('output');
-      const currency = value => '₹' + value.toLocaleString('en-IN');
-      const plans = Array.from(desk.querySelectorAll('.npl-desk-plan'), card => ({
-        card, name: card.querySelector('h4').textContent,
-        base: Number(card.dataset.price), seats: Number(card.dataset.seats),
-        conversations: Number(card.dataset.conversations)
-      }));
-
-      function estimate() {
-        if (!form.checkValidity()) {
-          plans.forEach(plan => plan.card.classList.remove('is-best'));
-          output.textContent = 'Enter whole numbers for both fields to see an estimate.';
-          return;
-        }
-        const seats = form.elements.seats.valueAsNumber;
-        const conversations = form.elements.conversations.valueAsNumber;
-        const estimates = plans.map(plan => {
-          const seatCost = Math.max(0, seats - plan.seats) * 699;
-          const conversationCost = Math.max(0, conversations - plan.conversations);
-          return {plan, seatCost, conversationCost, total: plan.base + seatCost + conversationCost};
-        });
-        const best = estimates.reduce((lowest, estimate) => estimate.total < lowest.total ? estimate : lowest);
-        plans.forEach(plan => plan.card.classList.toggle('is-best', plan === best.plan));
-        const total = document.createElement('strong');
-        total.textContent = best.plan.name + ' · ' + currency(best.total) + ' / month + GST';
-        output.replaceChildren(total, document.createTextNode(
-          currency(best.plan.base) + ' base + ' + currency(best.seatCost) + ' extra seats + ' +
-          currency(best.conversationCost) + ' extra conversations'
-        ));
-      }
-
-      form.addEventListener('input', estimate);
-      form.addEventListener('submit', event => event.preventDefault());
-      estimate();
-    })();
-  </script>
   <div id="npl-managed" role="tabpanel" aria-labelledby="npl-tab-ai" tabindex="0" hidden>
     <p class="npl-managed-intro" id="npl-ai-intro">Novara sets up and trains your 24/7 AI. Your team handles escalations.</p>
     <p class="npl-managed-intro" id="npl-human-intro" hidden>Novara runs your 24/7 AI and provides agents to handle escalations.</p>
@@ -12663,15 +12614,8 @@ window.NOVARA_CURRENT_PRICING={
 #novara-plan-switcher .npl-desk-heading,#novara-plan-switcher .npl-desk-plans{grid-column:1/-1}
 #novara-plan-switcher .npl-desk-plans{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
 #novara-plan-switcher .npl-desk-plan{border:1px solid #c8dace;border-radius:12px;padding:14px;background:#fff}
-#novara-plan-switcher .npl-desk-plan.is-best{border-color:#6a9e7d;background:#edf5ee}
 #novara-plan-switcher .npl-desk-price{font-size:clamp(1.25rem,2.2vw,1.75rem);font-weight:750;color:#163e29}
 #novara-plan-switcher .npl-desk-price small{font-size:.74rem}
-#novara-plan-switcher .npl-desk-calculator{min-width:0;border:1px solid #dbe7dc;border-radius:14px;padding:16px}
-#novara-plan-switcher .npl-desk-inputs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:10px}
-#novara-plan-switcher .npl-desk-inputs label{display:grid;gap:4px;font-size:.84rem;font-weight:650}
-#novara-plan-switcher .npl-desk-inputs input{min-width:0;width:100%;min-height:42px;border:1px solid #a9c7b3;border-radius:8px;padding:8px;background:#fff;color:#153826;font:inherit}
-#novara-plan-switcher .npl-desk-estimate{display:block;border-top:1px solid #dbe7dc;margin-top:12px;padding-top:10px;font-size:.81rem}
-#novara-plan-switcher .npl-desk-estimate strong{margin:0 0 4px;color:#163e29;font-size:1.06rem}
 @media(max-width:680px){
   #novara-plan-switcher .npl-desk,#novara-plan-switcher .npl-desk-plans{grid-template-columns:1fr}
 }
@@ -12683,9 +12627,6 @@ window.NOVARA_CURRENT_PRICING={
 #novara-plan-switcher .npl-desk-plan{
   display:flex;flex-direction:column;min-width:0;padding:30px 30px 26px;
   border-radius:25px;background:#e6e9e5;color:#163828;border-color:#d9e5dc;
-}
-#novara-plan-switcher .npl-desk-plan.is-best{
-  background:linear-gradient(155deg,#f3faf5,#fff 75%);border-color:#a9cbb5;
 }
 #novara-plan-switcher .npl-desk-plan h4{
   font-family:"Cabinet Grotesk",sans-serif;font-size:1.65rem;letter-spacing:-.035em;margin:0;
@@ -12702,11 +12643,7 @@ window.NOVARA_CURRENT_PRICING={
   display:flex;justify-content:center;margin-top:auto;min-height:48px;border-radius:13px;
   border-color:#142e22;background:transparent;color:#142e22;text-align:center;
 }
-#novara-plan-switcher .npl-desk-plan.is-best a{background:#142e22;color:#fff}
 #novara-plan-switcher .npl-desk-plan a:hover{background:#315b44;color:#fff}
-#novara-plan-switcher .npl-desk-calculator{
-  margin-top:16px;background:#f5f9f2;color:#153826;
-}
 @media(min-width:901px){
   #mvp-pricing:has(#novara-plan-switcher[data-plan=desk]) > .mvp-shell{width:min(100% - 48px,1320px)}
 }
