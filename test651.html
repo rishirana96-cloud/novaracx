@@ -12411,10 +12411,13 @@ window.NOVARA_CURRENT_PRICING={
 }
 #mvp-pricing #novara-plan-switcher[data-plan=human] #npl-managed .conversation-tier-group::before{display:none}
 #mvp-pricing #novara-plan-switcher[data-plan=human] #npl-managed .pricing-summary{
-  min-width:0;min-height:0!important;padding:clamp(16px,1.75vw,26px)!important;
-  grid-template-rows:auto auto auto 0 auto auto 1fr auto!important;gap:10px!important;
+  min-width:0;min-height:0!important;padding:clamp(16px,1.4vw,22px)!important;
+  grid-template-rows:auto auto auto 0 auto auto 1fr auto!important;gap:7px!important;
 }
 #mvp-pricing #novara-plan-switcher[data-plan=human] #npl-managed .pricing-title-row{flex-wrap:wrap}
+#mvp-pricing #novara-plan-switcher[data-plan=human] #npl-managed .pricing-summary .value-tier-label{margin-bottom:0!important}
+#mvp-pricing #novara-plan-switcher[data-plan=human] #npl-managed .pricing-summary .plan-inclusions{margin-bottom:8px!important}
+#mvp-pricing #novara-plan-switcher[data-plan=human] #npl-managed .pricing-summary > .mvp-btn{min-height:44px!important}
 @media(min-width:901px){
   #mvp-pricing #novara-plan-switcher[data-plan=human] #npl-managed{
     grid-template-columns:minmax(200px,21%) minmax(0,1fr);gap:12px 18px;
