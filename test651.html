@@ -12255,7 +12255,7 @@ window.NOVARA_CURRENT_PRICING={
 #mvp-pricing #novara-plan-ladder,
 #mvp-pricing #novara-plan-switcher{margin-inline:auto}
 @media(min-width:901px){
-  #mvp-pricing:not(:has(#novara-plan-switcher[data-plan=human])) > .mvp-shell{width:92%}
+  #mvp-pricing > .mvp-shell{width:min(92%,1121.33px)}
 }
 #mvp-pricing #novara-plan-ladder{margin-bottom:22px}
 #novara-plan-ladder h2{font-size:clamp(2rem,3.3vw,3rem);max-width:25ch;text-wrap:balance}
@@ -12545,13 +12545,14 @@ window.NOVARA_CURRENT_PRICING={
   #novara-plan-switcher .npl-switcher strong{font-size:.74rem}
   #novara-plan-switcher .npl-switcher button{padding-inline:6px}
 }
-/* The controls occupy the homepage grid's first track. Lite and Full occupy the other two. */
+/* Share the same tier rail on both managed plans. */
+#mvp-pricing #novara-plan-switcher #npl-managed .daily-volume-control{
+  order:2!important;border-bottom:0!important;border-top:1px solid #426351!important;
+  padding:10px 4px 2px!important;
+}
 @media(min-width:901px){
-  #mvp-pricing #novara-plan-switcher[data-plan=human] #npl-managed{
-    grid-template-columns:repeat(3,minmax(0,1fr));column-gap:14px;
-  }
-  #mvp-pricing #novara-plan-switcher[data-plan=human] #npl-managed .conversation-tier-wrap{
-    width:100%;max-width:248px;
+  #mvp-pricing #novara-plan-switcher #npl-managed{
+    grid-template-columns:232px minmax(0,1fr);column-gap:14px;
   }
 }
 </style>
