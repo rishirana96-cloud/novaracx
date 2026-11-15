@@ -12530,6 +12530,37 @@ window.NOVARA_CURRENT_PRICING={
   #novara-plan-switcher .npl-switcher svg{width:12px;height:12px}
   #novara-plan-switcher .npl-icon-pair{gap:2px}
 }
+/* Pricing typography and sizing. */
+#mvp-pricing #novara-plan-ladder h2{font-size:clamp(2.2rem,4.2vw,3.9rem);line-height:1;max-width:26ch}
+#mvp-pricing #novara-plan-ladder p{font-size:clamp(.94rem,1.25vw,1.06rem);margin-top:14px}
+#novara-plan-switcher .npl-switcher strong{font-size:.92rem}
+#novara-plan-switcher .npl-switcher button{min-height:46px;padding-inline:clamp(9px,1.6vw,24px)}
+#mvp-pricing #novara-plan-switcher #npl-managed .pricing-title-row h3{
+  font-size:clamp(1.45rem,2.1vw,2rem)!important;line-height:1.06!important;letter-spacing:-.035em;
+}
+#mvp-pricing #novara-plan-switcher #npl-managed .pricing-summary .pricing-price{
+  font-size:clamp(2rem,3.2vw,3.25rem)!important;line-height:1.02!important;
+}
+#mvp-pricing #novara-plan-switcher #npl-managed .pricing-price small{font-size:.77rem!important}
+#mvp-pricing #novara-plan-switcher #npl-managed .pricing-summary .plan-positioning,
+#mvp-pricing #novara-plan-switcher #npl-managed .pricing-summary .plan-inclusions li{font-size:.91rem!important}
+#mvp-pricing #novara-plan-switcher #npl-managed .pricing-summary .value-tier-label{font-size:.68rem!important}
+#mvp-pricing #novara-plan-switcher #npl-managed .pricing-summary .mvp-btn{font-size:.84rem!important}
+#mvp-pricing #novara-plan-switcher #npl-managed .daily-volume-input-wrap{max-width:139px}
+#mvp-pricing #novara-plan-switcher #npl-managed .conversation-tier-group [data-tier]{min-height:52px!important}
+@media(min-width:901px){
+  #mvp-pricing #novara-plan-switcher #npl-managed{
+    grid-template-columns:clamp(190px,19%,248px) minmax(0,1fr);
+  }
+  #mvp-pricing #novara-plan-switcher[data-plan=human] #npl-managed .pricing-summary{
+    padding:clamp(18px,1.7vw,26px)!important;
+    grid-template-rows:minmax(45px,auto) minmax(43px,auto) auto 0 auto auto 1fr auto!important;
+  }
+}
+@media(max-width:480px){
+  #novara-plan-switcher .npl-switcher strong{font-size:.74rem}
+  #novara-plan-switcher .npl-switcher button{padding-inline:6px}
+}
 </style>
 <script id="novara-pricing-entry-scroll-script-v73">
 (function(){
