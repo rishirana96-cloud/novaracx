@@ -12837,6 +12837,40 @@ window.NOVARA_CURRENT_PRICING={
   #novara-plan-switcher .npl-plan-icons .npl-app-icon{width:24px;height:24px}
   #novara-plan-switcher .npl-plan-icons svg{width:14px;height:14px}
 }
+/* Unified plan switcher. */
+#novara-plan-switcher .npl-switcher{
+  width:min(100%,930px);max-width:none;
+  grid-template-columns:repeat(3,minmax(0,1fr));gap:4px;padding:5px;
+  border-radius:16px;border-color:#547363;background:#153126;
+  box-shadow:0 8px 22px #091a1350;
+}
+#novara-plan-switcher .npl-switcher button{
+  gap:10px;justify-content:space-between;min-height:61px;padding:8px 12px;
+  border-radius:11px;text-align:left;
+}
+#novara-plan-switcher .npl-plan-caption{flex:1 1 auto;gap:3px}
+#novara-plan-switcher .npl-plan-caption strong{font-size:.96rem;line-height:1.18}
+#novara-plan-switcher .npl-switcher .npl-plan-caption small{
+  font-size:.73rem;color:#c6dbce;
+}
+#novara-plan-switcher .npl-switcher button[aria-selected=true]{
+  background:#edf5eb;color:#153d2a;border-color:#c8e0cb;box-shadow:0 2px 8px #0a20174d;
+}
+#novara-plan-switcher .npl-switcher button[aria-selected=true] small{color:#3f6050}
+#novara-plan-switcher .npl-plan-icons{
+  gap:4px;padding:3px 5px;border:1px solid #527562;border-radius:8px;background:#1d4031;
+}
+#novara-plan-switcher .npl-switcher button[aria-selected=true] .npl-plan-icons{
+  border-color:#c5dacb;background:#e1eee2;
+}
+#novara-plan-switcher .npl-plan-icons .npl-app-icon{width:27px;height:27px}
+#novara-plan-switcher .npl-plan-icons svg{width:15px;height:15px}
+#novara-plan-switcher .npl-plan-icons .npl-icon-plus{font-size:.7rem}
+@media(max-width:760px){
+  #novara-plan-switcher .npl-switcher{width:min(100%,440px);grid-template-columns:1fr}
+  #novara-plan-switcher .npl-switcher button{flex-direction:row;min-height:54px;padding:6px 10px}
+  #novara-plan-switcher .npl-plan-caption{text-align:left}
+}
 </style>
 <script>
   document.getElementById('npl-managed').addEventListener('click', event => {
