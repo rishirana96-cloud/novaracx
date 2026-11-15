@@ -12264,8 +12264,16 @@ window.NOVARA_CURRENT_PRICING={
 #mvp-pricing #novara-plan-ladder{margin-bottom:22px}
 #novara-plan-ladder h2{font-size:clamp(2rem,3.3vw,3rem);max-width:25ch;text-wrap:balance}
 #novara-plan-ladder p{line-height:1.55}
-#novara-plan-switcher .npl-switcher{gap:5px;padding:5px;border-color:#3c5a49;border-radius:15px;background:#143225}
-#novara-plan-switcher .npl-switcher button{min-height:57px;border-radius:10px}
+#novara-plan-switcher .npl-switcher{
+  display:inline-grid;grid-template-columns:repeat(3,auto);max-width:100%;
+  gap:3px;padding:4px;border-color:#3c5a49;border-radius:999px;background:#143225;
+}
+#novara-plan-switcher .npl-switcher button{
+  min-height:44px;padding:6px clamp(8px,1.4vw,20px);border-radius:999px;text-align:center;
+}
+#novara-plan-switcher .npl-switcher strong{font-size:clamp(.72rem,1.1vw,.89rem)}
+#novara-plan-switcher .npl-switcher small{display:none}
+#novara-plan-switcher .npl-switcher button:focus-visible{outline:2px solid #b4dec2;outline-offset:2px}
 #novara-plan-switcher .npl-switcher button[aria-selected=true]{background:#f2f6ed;border-color:#e2eddf;box-shadow:0 2px 8px #061b1250}
 #novara-plan-switcher .npl-managed-intro{margin:0 0 12px;padding:0;border:0;background:none;color:#dce9df;font-size:.9rem;line-height:1.55}
 #novara-plan-switcher .npl-desk{padding:clamp(22px,3.5vw,42px);background:#f8faf4;border-color:#d5e2d5}
