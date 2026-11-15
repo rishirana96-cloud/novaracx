@@ -12257,7 +12257,10 @@ window.NOVARA_CURRENT_PRICING={
 </script>
 <style>
 #mvp-pricing #novara-plan-ladder,
-#mvp-pricing #novara-plan-switcher{max-width:1120px;margin-inline:auto}
+#mvp-pricing #novara-plan-switcher{margin-inline:auto}
+@media(min-width:901px){
+  #mvp-pricing > .mvp-shell{width:92%}
+}
 #mvp-pricing #novara-plan-ladder{margin-bottom:22px}
 #novara-plan-ladder h2{font-size:clamp(2rem,3.3vw,3rem);max-width:25ch;text-wrap:balance}
 #novara-plan-ladder p{line-height:1.55}
@@ -12399,7 +12402,7 @@ window.NOVARA_CURRENT_PRICING={
   #mvp-pricing #novara-plan-switcher #npl-managed .conversation-tier-group{width:100%!important}
 }
 @media(min-width:901px){
-  #mvp-pricing #npl-managed{grid-template-columns:clamp(205px,23%,260px) minmax(0,1fr);column-gap:18px;row-gap:0}
+  #mvp-pricing #npl-managed{grid-template-columns:minmax(205px,26.3%) minmax(0,1fr);column-gap:2.3%;row-gap:0}
   #mvp-pricing #npl-managed .npl-managed-intro{grid-row:1;padding:20px 24px 10px;margin:0;background:#fbfcf8;color:#234938;border-radius:18px 18px 0 0}
   #mvp-pricing #npl-managed .npl-coverage{grid-row:2;margin:0;padding:2px 24px 12px;background:#fbfcf8}
   #mvp-pricing #novara-plan-switcher #npl-managed .pricing-summary{border-radius:0 0 18px 18px!important;border-top:0!important;box-shadow:none!important}
