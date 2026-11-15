@@ -10266,7 +10266,7 @@ body{letter-spacing:-.005em!important}
     if(wrap.querySelector('.daily-volume-control'))return true;
     const control=document.createElement('div');
     control.className='daily-volume-control';
-    control.innerHTML='<label for="novara-daily-conversations">Find your plan &amp; estimated human agent need</label><div class="daily-volume-input-wrap"><input id="novara-daily-conversations" type="number" min="0" step="1" inputmode="numeric" autocomplete="off" placeholder="e.g. 50"><button class="daily-volume-submit" type="button" aria-label="Estimate plan and staffing"><span aria-hidden="true"></span></button></div><span class="daily-volume-calculation" aria-live="polite"></span>';
+    control.innerHTML='<label for="novara-daily-conversations">Find your plan &amp; estimated human agent need</label><div class="daily-volume-input-wrap"><input id="novara-daily-conversations" type="number" min="0" step="1" inputmode="numeric" autocomplete="off" aria-label="Daily conversations" placeholder="e.g. 50"><button class="daily-volume-submit" type="button" aria-label="Estimate plan and staffing"><span aria-hidden="true"></span></button></div><span class="daily-volume-calculation" aria-live="polite"></span>';
     group.insertAdjacentElement('beforebegin',control);
     const input=control.querySelector('input');
     const submit=control.querySelector('.daily-volume-submit');
@@ -12396,18 +12396,37 @@ window.NOVARA_CURRENT_PRICING={
   #mvp-pricing #novara-plan-switcher[data-plan=ai] #npl-managed .npl-managed-intro{grid-row:1;padding:20px 24px 10px;margin:0;background:#fbfcf8;color:#234938;border-radius:18px 18px 0 0}
   #mvp-pricing #novara-plan-switcher[data-plan=ai] #npl-managed .pricing-summary{border-radius:0 0 18px 18px!important;border-top:0!important;box-shadow:none!important}
 }
-#mvp-pricing #novara-plan-switcher[data-plan=human] #npl-managed:not([hidden]){display:block}
 #mvp-pricing #novara-plan-switcher[data-plan=human] #npl-managed .conversation-tier-wrap{
-  display:flex!important;flex-wrap:wrap!important;gap:12px!important;
+  display:flex!important;flex-direction:column!important;align-items:stretch!important;gap:12px!important;
 }
 #mvp-pricing #novara-plan-switcher[data-plan=human] #npl-managed .daily-volume-control{
-  order:0!important;flex:1 1 285px;width:auto!important;max-width:none!important;
+  order:0!important;flex:none;width:100%!important;max-width:none!important;align-self:stretch!important;
+}
+#mvp-pricing #novara-plan-switcher[data-plan=human] #npl-managed .daily-volume-control input{
+  height:36px!important;min-height:36px!important;padding-block:4px!important;
 }
 #mvp-pricing #novara-plan-switcher[data-plan=human] #npl-managed .conversation-tier-group{
-  order:1!important;flex:1 1 340px;width:auto!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  order:1!important;flex:none;grid-template-columns:repeat(3,minmax(0,1fr))!important;
   padding:0!important;border:0!important;background:transparent!important;
 }
 #mvp-pricing #novara-plan-switcher[data-plan=human] #npl-managed .conversation-tier-group::before{display:none}
+#mvp-pricing #novara-plan-switcher[data-plan=human] #npl-managed .pricing-summary{
+  min-width:0;min-height:0!important;padding:clamp(16px,1.75vw,26px)!important;
+  grid-template-rows:auto auto auto 0 auto auto 1fr auto!important;gap:10px!important;
+}
+#mvp-pricing #novara-plan-switcher[data-plan=human] #npl-managed .pricing-title-row{flex-wrap:wrap}
+@media(min-width:901px){
+  #mvp-pricing #novara-plan-switcher[data-plan=human] #npl-managed{
+    grid-template-columns:minmax(200px,21%) minmax(0,1fr);gap:12px 18px;
+  }
+  #mvp-pricing #novara-plan-switcher[data-plan=human] #npl-managed .conversation-tier-wrap{
+    grid-column:1;grid-row:1/4;margin:0!important;
+  }
+  #mvp-pricing #novara-plan-switcher[data-plan=human] #npl-managed .conversation-tier-group{
+    grid-template-columns:minmax(0,1fr)!important;
+  }
+  #mvp-pricing #novara-plan-switcher[data-plan=human] #npl-managed .pricing-summary-grid{grid-row:2}
+}
 </style>
 <script id="novara-pricing-entry-scroll-script-v73">
 (function(){
