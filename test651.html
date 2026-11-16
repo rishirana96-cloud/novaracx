@@ -12871,13 +12871,22 @@ window.NOVARA_CURRENT_PRICING={
   #novara-plan-switcher .npl-switcher button{flex-direction:row;min-height:54px;padding:6px 10px}
   #novara-plan-switcher .npl-plan-caption{text-align:left}
 }
-/* The service badges are attached to the Novara CX mark. */
-#novara-plan-switcher .npl-plan-icons:has(.npl-provider-mark){padding:7px 6px 3px}
-#novara-plan-switcher .npl-provider-mark{position:relative;display:flex;flex:none;align-items:center;padding-right:5px}
-#novara-plan-switcher .npl-provider-mark:has(.npl-provider-badges > :nth-child(2)){padding-right:16px}
-#novara-plan-switcher .npl-provider-mark img{display:block;width:28px;height:28px;object-fit:contain}
+/* Keep the raised service badges clear of the Novara CX mark. */
+#novara-plan-switcher .npl-switcher{width:min(100%,960px)}
+#novara-plan-switcher .npl-plan-icons{min-height:42px;padding:3px 7px;gap:6px}
+#novara-plan-switcher .npl-provider-mark{
+  display:flex;flex:none;align-items:center;gap:5px;
+}
+#novara-plan-switcher .npl-provider-mark img{
+  display:block;width:27px;height:27px;object-fit:contain;
+}
 #novara-plan-switcher .npl-provider-badges{
-  position:absolute;top:-8px;right:0;display:flex;gap:2px;
+  display:flex;align-self:flex-start;gap:4px;margin-top:-3px;
+}
+@media(max-width:840px){
+  #novara-plan-switcher .npl-switcher{width:min(100%,440px);grid-template-columns:1fr}
+  #novara-plan-switcher .npl-switcher button{flex-direction:row;min-height:56px;padding:6px 10px}
+  #novara-plan-switcher .npl-plan-caption{text-align:left}
 }
 #novara-plan-switcher .npl-provider-badges > span{
   display:grid;place-items:center;width:19px;height:19px;border-radius:50%;
